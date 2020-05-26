@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!-- Please don’t look to closely at this side or any of the javascript files. It’s a total mess. Normaly I work much cleaner. I promise! -->
+<head>
+	<title>Pixel</title>
+	<meta name = "viewport" content = "width=device-width, user-scalable = no, initial-scale = 1, maximum-scale = 1"/>
+	<link rel="stylesheet" type="text/css" media="screen" href="style/style.css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	<script src="renderengine/init.js?ver=0.9" type="text/javascript"></script>
+	<script src="renderengine/info.js?ver=0.9" type="text/javascript"></script>
+	<script src="renderengine/helper.js?ver=0.9" type="text/javascript"></script>
+	<script src="renderengine/pixel.js?ver=0.9" type="text/javascript"></script>
+	<script src="renderengine/creator.js?ver=0.9" type="text/javascript"></script>
+	<script src="renderengine/renderer.js?ver=0.9" type="text/javascript"></script>
+	<script src="renderengine/admin.js?ver=0.9" type="text/javascript"></script>
+	
+</head>
+<body>
+	<div id="main"></div>
+
+	<script>
+	"use strict";
+
+	( function() {
+		new window.InitPixel({
+			div: document.getElementById("main"),
+			// imageName: window.location.hash.substr(1)
+		});
+	} )();
+
+	// That’s right, I am tracking this side. I am just to curious about how many people look at this for how long.
+	var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-7448093-1']); _gaq.push(['_trackPageview']); (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })();
+
+	</script>
+</body>

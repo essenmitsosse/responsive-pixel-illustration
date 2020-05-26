@@ -1,0 +1,151 @@
+// Dimension
+'Dimension' : 
+	Number : "absolute Value",
+	String : "Link to precalculated Variable",
+	Array : "Containing 'Dimensions', converts to 'add'",
+	Object : {
+		// Size — Object
+		r : "relative Size", // default: 1 (or 0 if "a" is given)
+		a : "absolute Size, Number or String", // default : 0
+		min : "minimum Size", // default: 0
+		max : "maximum Size", // default: Infinity
+		otherDim : "relative Size relatives to other Dimension" // default: false
+		height : "used if dimension is not clear ( e.g. for Variables )",
+		add : "Array with 'Dimension' Objects, that are added to the relative and absolute Size",
+		useSize : 'Dimension', "(No Objects or Array, needs Number(absolute Value) or String(Link to Variable) )",
+		random : 'Dimension', "only used by RandomFill, to randomly Change the width/height/size of the Shapes",
+	};
+
+// Stripes Object
+'Stripes' : {
+	horizontal : 		boolean; 				// turns vertical Stripes into horizontal Stripes, Switches all specail Widths/Heights (e.g. StripWidth becomes the Height of a Strip), defaults: false
+	strip : 			'Dimension'; 			// Width of a single Strip
+	gap : 				'Dimension'; 			// Width of the gap between Stripes
+	random : 			'Dimension'; 			// Maximum random Length Change, gets added to height, default:0
+	change : 			'Dimension'; 			// Change of Height over the Width of the Stripes, creates a Slope, default:0
+	cut : 				boolean;				// Cuts of last Stripe if it wont fit
+	overflow : 			boolean;				// Lets last Stripe overflow
+};
+
+// Arm
+'Arm' : {
+	weight, 
+	upperArmWeight, 
+	lowerArmWeight : 	'Dimension';
+
+	upperArmColor,
+	lowerArmColor : 	Array;
+
+	length : 			'Dimension';
+
+	targetX : 			'Dimension';
+	targetY : 			'Dimension';
+
+	endX : 				empty Object;			// Empty Objects for End and Ellbow Position
+	endY : 				empty Object;
+	jointX : 			empty Object;
+	jointY : 			empty Object;
+
+	flip : 				boolean;
+	maxStraight : 		Number;					// Maximum straightness of arm
+
+	ratio : 			Number;					// Ratio of upper Arm to lower Arm
+}
+
+'Panels' : {
+	panels : 			Array;					// List of all panels
+	mask : 				boolean;				// Determindes if panels will be masked
+	imgRatio : 			Number;					// Target Image Ratio of the panels
+}
+
+'panels' : [
+	{
+		list : 			Array;					// Renderlist for this panel
+		sX, sY :		empty Object;			// Pass Empty Object, will be filled with calculated panel size and can later be reused for calculation
+	}
+]
+
+// Basic Values
+'size'		sX, sY, s :	'Dimension';			// Width and Height of an Object, Size sets Width and Height to the same Value, default: {r:1}
+'pos'	 	x, y  :		'Position';				// Position of the Object, relative to the Parent Object, default: 0;
+'margin'	mX, mY, m : 'Dimension';			// Width of the Margin that will be added to the Left and Right, margin sets mX and mY to the same Value, default: 0
+'center'	cX, cY, c : boolean;			// Centers the Object in the given Dimension, relative to Parent Object
+'reflect'	rX, rY : 	boolean, inheritable; 	// change the position of all Child objects to the other side, default: false/inherited
+'flip'	 	fX, fY : 	boolean; 				// position the object from the Right or Bottom instead of Left or Top, so that its right/bottom corner has the given position, default: false
+'to other'	tX, tY : 	boolean; 				// Objects are positioned with their other, default: false
+'min'		minX, minY :'Dimension'; 			// If objects has a calculated Size smaller than this, it won’t be displayed, default: 0
+color : 				Array, inheritable; 	// Color of this object, must be defined for all Objects, that get drawn, default: undefined/inherited
+clear : 				boolean, inheritable; 	// If true the Object will remove any pieces that belong to the parents object in its place, default: false/inherited
+id : 					String, inheritable; 	// only objects with the same id can clear each other, default: undefined/inherited
+z : 					Number, inheritable; 	// changes the z-index of an object and its children, default: 0/inherited
+save : 					String; 				// Saves Pixels, insteadt of Drawing them, for use with a Fill Method, color will be discarted, default: undefined/inherited
+
+// OBJECTS 
+list : 					Array; 					// List of objects to draw relative to the size of this object, converts to "Obj", no default
+mask : 					boolean; 				// Uses the size of the Object as a mask and cuts of everything, outside of it. Needs a list.
+
+// POLYGONS
+points : 				Array; 					// List of Points to draw for a Polygon, converts to "Polygon", no default
+
+// FILL METHODS
+use : 					String; 				// Uses Pixels that have been saved before as a Shape, converts to "Fill", default: undefined
+mask : 					String;					// Uses Pixels that have been save before as a Shape, to cut of Random Pixels, sticking out
+chance : 				Number; 				// Percentage of Pixels of the used Shaped that should be randomly filled, needs "use", converts to "FillRandom", default: .5
+
+// STRIPES
+stripes : 				'Stripes';				// Values for Stripes, converts to "Stripes"
+
+
+
+// Objects
+Primitive
+	PointBased
+		Dot
+		Polygon // if has "points"
+		Line // if has "points" and "weight"
+
+	Fill // if has "use"
+		FillRandom // if has "use" && "chance"
+	
+	ShapeBased
+		Rect // default
+		Stripes // if has "gapWidth" || "stripWidth"
+		Obj // if has "list"
+			RoundRect
+
+// Helper Functions
+
+// GET SMALLER OF TWO DIMENSIONS, gets two values, relative to width/height (or given Sizes), returns smallest
+getSmallerDim = ({
+		r : 		Number, 	// relative Value, default: 1
+		useSize: 	Array,		// Two Dimensions, that should be used for Comparsion, default:current Width/Height
+		a : 		Number,		// Absolute Value gets added to Both Dimensions
+		getBiggerDim:boolean,	// Gets the smaller Dimension instead
+	});
+
+// GET BIGGER OF TWO DIMENSIONS, like get Smaller Dimension, but the other way around
+getBiggerDim = ({});
+
+// MULTIPLY DIMENSION, Multiplies a given Dimension with a Number
+mult(
+		Number, 	// relative Value, amount by which will be multiplyed
+		String, 	// Size by which should be multiplied
+		Number, 	// absolute Value, will be added, default: 0
+	);
+
+// SUBTRACT DIMENSION, return negative Version of a given Size
+sub(
+		String, 	// Size which will be subtracted
+	);
+
+// DARKEN COLOR, Takes a ShadowColor and a Strength and returns a function to darken Colors with this
+darken(
+		Array, 		// Color Value for Shadow
+		Number		// Strength of Shadow
+	) {
+		return (
+			Array 	// Color Value that should be darkened
+		)
+	}
+
+				

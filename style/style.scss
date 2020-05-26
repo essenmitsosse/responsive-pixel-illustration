@@ -1,0 +1,512 @@
+$pixel : 10px;
+
+$showcaseSidebarWidth : 200px;
+$adminSidebarWidth : 20%;
+$adminInfobarHeight : 200px;
+
+$iphoneQuery : "max-device-width: 600px";
+
+$menuColor : #333;
+$menuLightColor : #555;
+$buttonTextColor : #333;
+$buttonTextColorLight : #666;
+
+@mixin scrollbar {
+	overflow-x: hidden;
+
+	&::-webkit-scrollbar {
+		// -webkit-appearance: none;
+		background-color: #222;
+		width: 7px;
+		// visibility: hidden;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: #444; 
+	} /* this will style the thumb, ignoring the track */
+
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center, hr
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	text-decoration: none;
+	list-style: none;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+    background-color: $menuColor;
+    width: 100%;
+    height: 100%;
+    @include scrollbar;
+
+}
+
+canvas {
+	display: block;
+	position: relative;
+	image-rendering: optimizeSpeed;
+	image-rendering: -moz-crisp-edges;
+	image-rendering: -webkit-optimize-contrast;
+	image-rendering: -o-crisp-edges;
+	image-rendering: optimize-contrast;
+	-ms-interpolation-mode: nearest-neighbor;
+	width: 100%;
+	height: 100%;
+    background-color: #ccc;
+    position: relative;
+    z-index: 10000;
+	
+}
+
+div#main {
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	position: fixed;
+
+	.showcase & {
+		padding-right: $showcaseSidebarWidth;
+
+		@media ( $iphoneQuery ) {
+			padding-right: 0;
+		}
+	}
+	
+	.admin & {
+		padding-right: $adminSidebarWidth;
+		padding-bottom: $adminInfobarHeight;
+
+		@media ( $iphoneQuery ) {
+			display: none;
+		}
+	}
+
+	&.screenshot {
+		background-color: #fff;
+	}
+}
+
+#mainAdmin {
+	color: #ddd;
+	height: 100%;
+    font-family: Helvetica;
+	font-size: 14px;
+	line-height: 1.4em;
+
+	@media ( $iphoneQuery ) {
+		font-size: 18px;
+		height: auto;
+	}
+
+	div#sidebar {
+		background-color: $menuColor;
+		width: $showcaseSidebarWidth;
+		right: 0;
+		border-left: 1px solid #000;
+		box-sizing: border-box;
+		padding-top: 20px;
+		position: absolute;
+		z-index: 10;
+		min-height: 100%;
+
+		-webkit-touch-callout: none;
+	    -webkit-user-select: none;
+	    -khtml-user-select: none;
+	    -moz-user-select: none;
+	    -ms-user-select: none;
+	    user-select: none;
+
+	    @media ( $iphoneQuery ) {
+			display: none;
+			position: relative;
+		}
+
+		div.inner {
+			float: left;
+			width: 100%;
+		}
+
+		.admin & {
+			width: $adminSidebarWidth;
+
+			@media ( $iphoneQuery ) {
+				width: 100%;
+				display: block;
+				padding-bottom: 100px;
+				position: relative;
+				float: left;
+			}
+		}
+
+		ul {
+			padding-bottom: 20px;
+			clear: both;
+			float: left;
+			width: 100%;
+		}
+	}
+
+	div#infobar {
+		background-color: $menuColor;
+		position: fixed;
+		bottom: 0;
+		height: $adminInfobarHeight;
+		width: 100%;
+		padding-right: $adminSidebarWidth;
+		box-sizing: border-box;
+		border-top: 1px solid #000;
+
+		@media ( $iphoneQuery ) {
+			bottom: 0;
+			width: 100%;
+			height: auto;
+			position: fixed;
+			z-index: 20;	
+		}
+
+		#serverLog {
+			float: left;
+			width: 70%;
+			height: 100%;
+			@include scrollbar;
+			padding: 20px;
+			box-sizing: border-box;
+			border-right: 1px solid #000;
+
+			@media ( $iphoneQuery ) {
+				display: none;
+			}
+		}
+
+		#connectionLog {
+			float: right;
+			width: 30%;
+			height: 100%;
+			@include scrollbar;
+			box-sizing: border-box;
+			border-left: 1px solid #000;
+			
+			h1, div {
+				padding-left: 20px;
+				padding-right: 20px;
+			}
+
+			h1 {
+				padding-top: 20px; 
+			}
+
+			@media ( $iphoneQuery ) {
+				width: 100%;
+				height: auto;
+				bottom: 0;
+				z-index: 10000;
+				position: fixed;
+				background-color: $menuLightColor;
+
+
+				div {
+					display: none;
+				}
+			}
+		}	
+	}
+}
+
+.red { color:#f00; }
+.blue { color:#0ff; }
+.green { color:#0f0; }
+.yellow { color:#ff0; }
+.grey { color:#aaa; }
+.bold, strong { font-weight: bold; }
+.time, .screensize {
+	display: inline-block;
+	width: 100px;
+	font-weight: normal;
+}
+.warning {
+	color: #fff;
+	background-color: #f00;
+	font-weight: bold;
+}
+
+h1 {
+	padding-bottom: 20px; 
+}
+
+.client {
+	border-bottom: 1px solid #ddd;
+	padding: 10px 0;
+}
+
+.button  {
+	display: block;
+	background-color: #888;
+	color: $buttonTextColor;
+	position: relative;
+	border-radius: 3px;
+	padding: 5px 10px;
+	margin-bottom: 10px;
+	cursor: pointer;
+	box-sizing: border-box;
+	width: 90%;
+	margin-left: 5%;
+	float: left;
+
+	&:hover {
+		background-color: #bbb;
+	}
+
+	&:active {
+		background-color: #ddd;
+		color: #999;
+	}
+
+	&.less {
+		opacity: 0.6;
+	}
+
+	@media ( $iphoneQuery ) {
+		display: none;
+	}
+
+	&.important {
+		@media ( $iphoneQuery ) {
+			display: block;
+		}
+	}
+
+	&.newrow {
+		clear: both;
+	}
+
+	&.slideControl {
+		text-align: center;
+	}
+
+	&.narrow {
+		width: 42.5%;
+	}
+
+	.shortcut {
+		color: $buttonTextColorLight;
+		float: right;
+		float: right;
+		font-size: 12px;
+		font-family: Courier;
+	}
+}
+
+#slides {
+	color: #777;
+	font-weight: bold;
+
+	li {
+		clear: both;
+		padding: 0 5%;
+
+		cursor: pointer;
+
+		&:hover, &.current {
+			color: #fff;
+			strong {
+				color: #fff;
+				text-decoration: underline;
+			}
+		}
+	}
+
+	strong {
+		display: inline-block;
+		float: right;
+		width: 80%;
+		font-weight: normal;
+		color: #bbb;
+	}
+}
+
+#sliders {
+	width: 100%;
+	overflow: hidden;
+	background-color: #222; 
+
+	h2 {
+		color: #aaa;
+		// font-weight: bold;
+		text-transform: uppercase;
+		padding-bottom: 0.7em;
+		padding-top: 0.7em;
+		margin-top: 1.4em;
+		letter-spacing: 0.2em;
+		font-size: 13px;
+		background-color: #444;
+		text-align: center;
+		margin: 1.4em 2.5% 0;
+		box-sizing: border-box;
+		font-weight: bold;
+
+		border-top: 1px solid #555;
+		border-left: 1px solid #555;
+		border-bottom: 1px solid #222;
+		border-top-left-radius: 3px;
+		border-top-right-radius: 3px;
+		// border-right: 1px solid #222;
+	}
+
+	label {
+		font-size: 13px;
+		padding-left: 0.5em;
+	}
+}
+
+.slider {
+	margin: 0 2.5%;
+	box-sizing: border-box;
+	width: 95%;
+	padding-left: 5%;
+	padding-right: 5%;
+	padding-top: 0.7em;
+	padding-bottom: 1.8em;
+	color: #888;
+	background-color: #282828;
+
+	border-top: 1px solid #444;
+	border-left: 1px solid #444;
+
+	.sliderWrap {
+		position: relative;
+	}
+
+	// div {
+	// 	background-color: #fff;
+	// 	width: 20px;
+	// 	height: 20px;
+	// 	position: relative;
+	// }
+
+	span {
+		width: 20%;
+		margin-left: 2px;
+		position: absolute;
+		top: 20px;
+		text-align: center;
+			color: #999;
+		display: none;
+	}
+
+	&:hover {
+		color: #fff;
+
+		input[type=range]::-webkit-slider-runnable-track {
+		    // outline: none;
+		    background: #888;
+		}
+
+		span {
+			display: block;
+		}
+	}
+}
+
+input {
+	-webkit-appearance: none;
+    border-radius: 0;
+    border: none;
+
+    &[type=text] {
+		background-color: #f00;
+	}
+
+	&[type=number] {
+		font-size: 16px;
+		color:#222;
+		text-align: center;
+	    position: relative;
+	    background-color: #777;
+	    width: 100%;
+		margin: auto;
+		display: block;
+		position: static;
+	}
+
+	&[type=range]{
+		
+		width: 100%;
+		cursor: col-resize;
+
+		&::-webkit-slider-runnable-track {
+			height: 5px;
+			background: #555;
+		}
+
+		&::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			height: 12px;
+			width: 10%;
+			margin-top: -3px;
+			background-color: #aaa;
+			z-index: 100;
+			position: relative;
+
+			@media ( $iphoneQuery ) {
+				height: 20px;
+				margin-top: -10px;
+			}
+
+			&:hover {
+				background-color: #fff;
+			}
+		}
+
+	}
+}
+
+
+
+
+img.screenshot {
+	width: 100%;
+	display: block;
+    position: relative;
+	top: 0;
+	left: 0;
+
+	&.fit {
+		width: auto;
+    	margin: auto;
+		max-width: 100%;
+		max-height: 100%; 
+	}
+
+	&.stretch {
+		height: 100%;
+	}
+}
+
+div.screenshot {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background-color: #000;
+}

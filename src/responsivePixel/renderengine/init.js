@@ -15,16 +15,14 @@ var InitPixel = function( args ) {
 
 		div = args.div,
 		canvasDataList = false, // change for multiple Canvases
-		canvasRenderer = !currentSlide.staticImage && this.createSingleCanvas( canvasDataList, div ),
-
-		callback;
+		canvasRenderer = !currentSlide.staticImage && this.createSingleCanvas( canvasDataList, div );
 
 	queryString.resizeable = true;
 	this.defaultValues = { isServer: true };
 	this.parent = queryString.admin || queryString.parent;
 
 
-	callback = this.getCallback( 
+	this.getCallback( 
 		canvasRenderer,
 		queryString,
 		args.imageFunction,
@@ -32,8 +30,6 @@ var InitPixel = function( args ) {
 		this.info( queryString )
 	);
 	
-	callback();
-
 	this.getDocumentTitle( imageName, queryString );
 	window.onkeydown = this.getShortcuts( queryString );
 
@@ -66,46 +62,43 @@ InitPixel.prototype.createSingleCanvas = function( canvasData, div ) {
 
 // Create the Callback Function, when the script is loaded
 InitPixel.prototype.getCallback = function( rendererInit, queryString, ImageFunction, currentSlide, info ) {
-	var that = this;
-	return function callback () {
-		var imageFunction,
-		renderObject;
-		
-		if( ImageFunction ) {
+	var imageFunction,
+	renderObject;
+	
+	if( ImageFunction ) {
 
-			if( that.createSlider ) {
-				// that.createSlider.title( { title: "Image Size" } );
-				// that.createSlider.slider( { niceName: "Width", valueName: "width", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
-				// that.createSlider.slider( { niceName: "Height", 	 valueName: "height", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
-			}
-
-			imageFunction = new ImageFunction( queryString, currentSlide, that.createSlider );	
-
-			that.hover = imageFunction.hover;		
-
-			renderObject = {
-				showInfos : false,
-				slide: currentSlide,
-				imageFunction : imageFunction,
-				queryString: queryString,
-				pixelSize: ( queryString.p || currentSlide.p || imageFunction.recommendedPixelSize || 5 ) * 1 + ( queryString.pAdd || 0 ) * 1,
-				sliderObject: that.sliderObject,
-				sliderValues: that.sliderValues,
-				info: info,
-				defaultValues: that.defaultValues,
-				init: that
-			};
-
-			that.renderer = rendererInit( renderObject );
-
-			if( that.timerAnimation ) {
-				that.timerAnimation();
-			}
-
-		} else {
-			throw imageName + " was loaded but is not a function!";
+		if( this.createSlider ) {
+			// this.createSlider.title( { title: "Image Size" } );
+			// this.createSlider.slider( { niceName: "Width", valueName: "width", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
+			// this.createSlider.slider( { niceName: "Height", 	 valueName: "height", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
 		}
-	};
+
+		imageFunction = new ImageFunction( queryString, currentSlide, this.createSlider );	
+
+		this.hover = imageFunction.hover;		
+
+		renderObject = {
+			showInfos : false,
+			slide: currentSlide,
+			imageFunction : imageFunction,
+			queryString: queryString,
+			pixelSize: ( queryString.p || currentSlide.p || imageFunction.recommendedPixelSize || 5 ) * 1 + ( queryString.pAdd || 0 ) * 1,
+			sliderObject: this.sliderObject,
+			sliderValues: this.sliderValues,
+			info: info,
+			defaultValues: this.defaultValues,
+			init: this
+		};
+
+		this.renderer = rendererInit( renderObject );
+
+		if( this.timerAnimation ) {
+			this.timerAnimation();
+		}
+
+	} else {
+		throw imageName + " was loaded but is not a function!";
+	}
 };
 
 InitPixel.prototype.info = function( options ) {

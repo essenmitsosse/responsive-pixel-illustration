@@ -1,5 +1,7 @@
 <template>
 	<div class="home">
+		<input type="range" min="0" max="1" step="0.0001" v-model="width">
+		<input type="range" min="0" max="1" step="0.0001" v-model="height">
 		<div id="main"></div>
 	</div>
 </template>
@@ -11,11 +13,29 @@ import graien from '@/responsivePixel/scripts/graien';
 export default {
 	name: 'Home',
 	components: {},
+	data() {
+		return {
+			width: 1,
+			height: 1,
+			pixel: undefined,
+		};
+	},
+	watch: {
+		width() { this.redraw(); },
+		height() { this.redraw(); },		
+	},
 	mounted() {
-		new InitPixel({
+		this.pixel = new InitPixel({
 			div: document.getElementById("main"),
 			imageFunction: graien,
 		});
+
+		
+	},
+	methods: {
+		redraw() {
+			this.pixel.renderer.redraw({width: this.width, height: this.height});
+		}
 	}
 }
 </script>

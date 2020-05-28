@@ -13,9 +13,7 @@ var InitPixel = function( args ) {
 		currentSlide = !forceName && slides[ queryString.slide || 0 ],
 		imageName = forceName || currentSlide.name || "tantalos",
 
-		admin,
 		sliders = queryString.sliders || currentSlide.sliders,
-		socket = !showcase && window.io ? this.connectToIo() : false,
 
 		div = args.div,
 		canvasDataList = false, // change for multiple Canvases
@@ -35,7 +33,6 @@ var InitPixel = function( args ) {
 		canvasRenderer,
 		queryString,
 		args.imageFunction,
-		socket,
 		currentSlide,
 		this.info( queryString )
 	);
@@ -48,38 +45,6 @@ var InitPixel = function( args ) {
 	if( currentSlide.timer || queryString.timer ) {
 		this.timerAnimation = this.getTimerAnimation( currentSlide.timer );
 	}
-};
-
-InitPixel.prototype.connectToIo = function () {
-	var socket = this.socket = window.io( window.location.protocol + "//" + ( window.location.host.split( ":" )[0] ) ),
-		that = this;
-
-	if( socket ) { 
-		// get a unique Id for this socket
-		socket.on( "newId", function( data ) {
-			that.getNewId( data * 1, true );
-		} );
-
-		socket.on( "newValues", function ( data, imageData ) {
-			that.addToQueryString( JSON.parse( data ) );
-			that.receiveImageData( JSON.parse( imageData ) );
-		} );
-
-		socket.on( "redrawImage", function( imageData ) {
-			that.receiveImageData( JSON.parse( imageData ) );
-		} );
-
-		socket.emit( "connected", 
-			JSON.stringify({ 
-				name: "<span class='screensize'>" + window.screen.width + "/" + window.screen.height + "</span> " + navigator.platform, 
-				admin: that.queryString.admin 
-			})
-		);
-
-		return socket;
-	} else {
-		return false;
-	}	
 };
 
 InitPixel.prototype.getQueryString = function () {
@@ -154,56 +119,8 @@ InitPixel.prototype.createSingleCanvas = function( canvasData, div ) {
 	};
 };
 
-InitPixel.prototype.loadScript = function( callback, imageName ) {
-	var script = document.createElement( "script" ),
-		head = document.getElementsByTagName( "head" )[0];
-
-	script.type = "text/javascript";
-	script.src = "src/responsivePixel/scripts/" + imageName + ".js";
-
-	script.onreadystatechange = callback;
-	script.onload = callback;
-	script.onerror = function () { throw imageName + " can not be loaded."; };
-
-	head.appendChild( script );
-
-};
-
-InitPixel.prototype.loadMultipleScripts = function ( callback, imageName, require ) {
-	var l = require.length,
-		count = 0,
-		loadFile = this.loadFile,
-		head = document.getElementsByTagName( "head" )[0],
-		loadNext = function () {
-
-			if( count === l ) {
-				callback();
-			} else {
-				loadFile( require[ count ], head, loadNext );
-				count += 1;
-			}
-		};
-
-	loadNext();
-};
-
-InitPixel.prototype.loadFile = function ( filePath, head, onLoadFunction ) {
-	var script = document.createElement( "script" );
-
-	script.type = "text/javascript";
-	script.src = filePath;
-
-	script.onreadystatechange = onLoadFunction;
-	script.onload = onLoadFunction;
-	script.onerror = function () {
-		throw filePath + " can not be loaded.";
-	};
-
-	head.appendChild( script );
-};
-
 // Create the Callback Function, when the script is loaded
-InitPixel.prototype.getCallback = function( rendererInit, queryString, ImageFunction, socket, currentSlide, info ) {
+InitPixel.prototype.getCallback = function( rendererInit, queryString, ImageFunction, currentSlide, info ) {
 	var that = this;
 	return function callback () {
 		var imageFunction,
@@ -227,7 +144,6 @@ InitPixel.prototype.getCallback = function( rendererInit, queryString, ImageFunc
 				imageFunction : imageFunction,
 				queryString: queryString,
 				pixelSize: ( queryString.p || currentSlide.p || imageFunction.recommendedPixelSize || 5 ) * 1 + ( queryString.pAdd || 0 ) * 1,
-				socket: socket,
 				sliderObject: that.sliderObject,
 				sliderValues: that.sliderValues,
 				info: info,
@@ -361,10 +277,6 @@ InitPixel.prototype.refresh = function ( event ) {
 		}
 	}
 
-	if( this.socket ) {
-		this.socket.disconnect();
-	}
-
 	location.search = newString.join("&");
 };
 
@@ -383,16 +295,6 @@ InitPixel.prototype.nextSlide = function ( next ) {
 	this.changeForceRedraw({ slide: slide });
 };
 
-InitPixel.prototype.getNewId = function ( id, isServer ) {
-	this.changeForceRedraw( { id: id || Math.floor( Math.random() * Math.pow( 2, 32 ) ) }, isServer );
-};
-
-InitPixel.prototype.seedNewId = function () {
-	if( this.socket ) { 
-		this.socket.emit( "seedId" );
-	}
-};
-
 InitPixel.prototype.sliderChange = function ( obj ) {
 
 	if( this.renderer ) {
@@ -408,23 +310,6 @@ InitPixel.prototype.sliderChange = function ( obj ) {
 	}	
 };
 
-InitPixel.prototype.changeForceRedraw = function ( obj, isServer ) {
-	if( !isServer && this.socket ) {
-		if( this.parent ) {
-			this.socket.emit( "updateValue", JSON.stringify( obj ) );
-		} else {
-			window.alert( "Du bist Client, du kannst das nicht ändern." );
-		}
-		
-	} else {
-		if( !this.socket && obj.slide && obj.slide !== this.queryString.slide && this.showcase ) {
-			this.queryString = { showcase: true, id: this.queryString.id, slide: obj.slide };
-			this.refresh();
-		} else {
-			this.addToQueryString( obj );
-		}		
-	}
-};
 
 InitPixel.prototype.makeFullScreen = function () {
 	this.toggleResizability( false ); 
@@ -467,11 +352,7 @@ InitPixel.prototype.getShortcuts = function ( q ) {
 		var	keyCode = event.keyCode;
 
 		if ( event.ctrlKey ) {
-			if ( keyCode === 82 ) { // CTRL + R // new id
-				that.getNewId();
-			} else if ( keyCode === 81 ) { // CTRL + Q // seed new id
-				that.seedNewId();
-			} else if ( keyCode === 83 ) { // CTRL + S // toggle scalability
+			if ( keyCode === 83 ) { // CTRL + S // toggle scalability
 				that.toggleResizability();
 
 			} else if ( keyCode === 70 ) { // CTRL + F // make Fullscreen

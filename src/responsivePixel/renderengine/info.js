@@ -6,7 +6,6 @@ var startTime = Date.now(),
 			pU = this.getPixelUnits(); // Initialize PixelUnits with Variables
 
 		this.pixelUnits = pU;
-		this.socket = options.socket;
 
 		this.createVariableList( options.imageFunction.variableList || [] );
 		if ( options.imageFunction.linkList ) { this.prepareVariableList( options.imageFunction.linkList ); }
@@ -97,9 +96,8 @@ PixelGraphics.prototype.getResize = function ( options, info, render ) {
 	};
 };
 
-PixelGraphics.prototype.getRedraw = function redraw ( options, resize, isParent ) {
-	var socket = options.socket,
-		hoverEvent = options.imageFunction.hover,
+PixelGraphics.prototype.getRedraw = function redraw ( options, resize ) {
+	var hoverEvent = options.imageFunction.hover,
 		sliderObject = options.sliderObject;
 
 
@@ -117,11 +115,7 @@ PixelGraphics.prototype.getRedraw = function redraw ( options, resize, isParent 
 		}
 
 		// Send to other clients
-		if( socket && isParent && !args.isServer ) {
-			socket.emit( "redraw", JSON.stringify( args ) );	
-		} else if( !socket ) {
-			options.init.addToQueryString( args, true );
-		}
+		options.init.addToQueryString( args, true );
 
 		if ( hoverEvent ) { hoverEvent( args ); }
 		resize( args.width, args.height );

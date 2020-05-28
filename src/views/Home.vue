@@ -17,3 +17,19 @@ export default {
 	}
 }
 </script>
+
+<style lang="scss">
+	#main {
+		width: 100vw;
+		height: 75vh;
+		position: relative;
+
+		& > * {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+		}
+	}
+</style>

@@ -6,6 +6,7 @@
 
 <script>
 import { InitPixel } from "@/responsivePixel/renderengine/init";
+import graien from '@/responsivePixel/scripts/graien';
 
 export default {
 	name: 'Home',
@@ -13,6 +14,7 @@ export default {
 	mounted() {
 		new InitPixel({
 			div: document.getElementById("main"),
+			imageFunction: graien,
 		});
 	}
 }

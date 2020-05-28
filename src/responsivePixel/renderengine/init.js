@@ -3,7 +3,6 @@
 import { PixelGraphics } from './info';
 import './pixel';
 import './creator';
-import graien from '../scripts/graien';
 
 var InitPixel = function( args ) {
 	var queryString = this.getQueryString(),
@@ -35,7 +34,7 @@ var InitPixel = function( args ) {
 	callback = this.getCallback( 
 		canvasRenderer,
 		queryString,
-		graien,
+		args.imageFunction,
 		socket,
 		currentSlide,
 		this.info( queryString )

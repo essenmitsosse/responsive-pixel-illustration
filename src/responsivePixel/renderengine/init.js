@@ -5,24 +5,19 @@ import './pixel';
 import './creator';
 
 var InitPixel = function( args ) {
-	var queryString = this.getQueryString(),
-		showcase = this.showcase = queryString.showcase || true,
+	this.queryString = {};
+	var queryString = this.queryString,
 
 		forceName = args.imageName || window.location.hash.substr(1),
 		slides = this.slides,
 		currentSlide = !forceName && slides[ queryString.slide || 0 ],
 		imageName = forceName || currentSlide.name || "tantalos",
 
-		sliders = queryString.sliders || currentSlide.sliders,
-
 		div = args.div,
 		canvasDataList = false, // change for multiple Canvases
 		canvasRenderer = !currentSlide.staticImage && this.createSingleCanvas( canvasDataList, div ),
 
-		callback,
-		require = this.require[ imageName ],
-		body = document.getElementsByTagName("body")[0],
-		main = document.getElementById( "main" );
+		callback;
 
 	queryString.resizeable = true;
 	this.defaultValues = { isServer: true };
@@ -46,56 +41,6 @@ var InitPixel = function( args ) {
 		this.timerAnimation = this.getTimerAnimation( currentSlide.timer );
 	}
 };
-
-InitPixel.prototype.getQueryString = function () {
-	var list = {},
-		vars = location.search.substr(1).split("&"),
-		i = 0,
-		l = vars.length,
-		pair,
-		convert = function ( value ) {
-			if ( value === "true" ) { value = true; }
-			else if ( value === "false" ) { value = false; }
-			else { value = value * 1; }
-			return value;
-		};
-
-	while( i < l ) {
-		pair = vars[ i ].split("=");
-		if( pair[ 0 ] ) {
-			list[ pair[ 0 ] ] = convert( pair[ 1 ] );
-		}
-		i += 1;
-	}
-
-	// if( !list.slide ) { list.slide = "0"; }
-	// else { list.slide = list.slide.toString(); }
-	// if( !list.id ) { list.id = 666; }
-	
-	return ( this.queryString = list );
-};
-
-// // If there is a List of Canvases, cycle through the list
-// InitPixel.prototype.createMultipleCanvases = function ( canvasDataList, div ) {
-// 	var canvasList = [],
-// 		length = canvasDataList.length,
-// 		i = length;
-
-// 	while ( i -- ) {
-// 		canvasList.push( this.createSingleCanvas( canvasDataList[ i ], div ) );
-// 	}
-
-// 	return function ( renderer ) {
-// 		var i;
-
-// 		i = length;
-
-// 		while ( i -- ) {
-// 			renderer.debug = i === 0;
-// 			canvasList[ i ]( renderer );
-// 		}
-// 	};
-// };
 
 // Create a new Canvas, add it to the div and return it
 InitPixel.prototype.createSingleCanvas = function( canvasData, div ) {
@@ -400,31 +345,31 @@ InitPixel.prototype.getShortcuts = function ( q ) {
 				that.nextSlide( false );
 			}
 		} 
-		// else if ( event.shiftKey ) {
-		// 	if ( keyCode === 49 ) { q.p = 11; that.refresh(); } // Number Keys 1 — 9 // Set resolution
-		// 	else if ( keyCode === 222 ) { q.p = 12; that.refresh(); }
-		// 	else if ( keyCode === 51 ) { q.p = 13; that.refresh(); }
-		// 	else if ( keyCode === 52 ) { q.p = 14; that.refresh(); }
-		// 	else if ( keyCode === 53 ) { q.p = 15; that.refresh(); }
-		// 	else if ( keyCode === 54 ) { q.p = 16; that.refresh(); }
-		// 	else if ( keyCode === 191 ) { q.p = 17; that.refresh(); }
-		// 	else if ( keyCode === 56 ) { q.p = 18; that.refresh(); }
-		// 	else if ( keyCode === 57 ) { q.p = 19; that.refresh(); }
-		// 	else if ( keyCode === 187 ) { q.p = 20; that.refresh(); }
-		// }
+		else if ( event.shiftKey ) {
+			if ( keyCode === 49 ) { q.p = 11; that.refresh(); } // Number Keys 1 — 9 // Set resolution
+			else if ( keyCode === 222 ) { q.p = 12; that.refresh(); }
+			else if ( keyCode === 51 ) { q.p = 13; that.refresh(); }
+			else if ( keyCode === 52 ) { q.p = 14; that.refresh(); }
+			else if ( keyCode === 53 ) { q.p = 15; that.refresh(); }
+			else if ( keyCode === 54 ) { q.p = 16; that.refresh(); }
+			else if ( keyCode === 191 ) { q.p = 17; that.refresh(); }
+			else if ( keyCode === 56 ) { q.p = 18; that.refresh(); }
+			else if ( keyCode === 57 ) { q.p = 19; that.refresh(); }
+			else if ( keyCode === 187 ) { q.p = 20; that.refresh(); }
+		}
 
-		// else if( !event.metaKey ) {
-		// 	if ( keyCode === 49 ) { q.p = 1; that.refresh(); } // Number Keys 1 — 9 // Set resolution
-		// 	else if ( keyCode === 50 ) { q.p = 2; that.refresh(); }
-		// 	else if ( keyCode === 51 ) { q.p = 3; that.refresh(); }
-		// 	else if ( keyCode === 52 ) { q.p = 4; that.refresh(); }
-		// 	else if ( keyCode === 53 ) { q.p = 5; that.refresh(); }
-		// 	else if ( keyCode === 54 ) { q.p = 6; that.refresh(); }
-		// 	else if ( keyCode === 55 ) { q.p = 7; that.refresh(); }
-		// 	else if ( keyCode === 56 ) { q.p = 8; that.refresh(); }
-		// 	else if ( keyCode === 57 ) { q.p = 9; that.refresh(); }
-		// 	else if ( keyCode === 48 ) { q.p = 10; that.refresh(); }
-		// }
+		else if( !event.metaKey ) {
+			if ( keyCode === 49 ) { q.p = 1; that.refresh(); } // Number Keys 1 — 9 // Set resolution
+			else if ( keyCode === 50 ) { q.p = 2; that.refresh(); }
+			else if ( keyCode === 51 ) { q.p = 3; that.refresh(); }
+			else if ( keyCode === 52 ) { q.p = 4; that.refresh(); }
+			else if ( keyCode === 53 ) { q.p = 5; that.refresh(); }
+			else if ( keyCode === 54 ) { q.p = 6; that.refresh(); }
+			else if ( keyCode === 55 ) { q.p = 7; that.refresh(); }
+			else if ( keyCode === 56 ) { q.p = 8; that.refresh(); }
+			else if ( keyCode === 57 ) { q.p = 9; that.refresh(); }
+			else if ( keyCode === 48 ) { q.p = 10; that.refresh(); }
+		}
 	};
 };
 

@@ -1,4 +1,4 @@
-"use strict";
+import { Renderer } from './renderer';
 
 var startTime = Date.now(),
 	PixelGraphics = function ( options )  {
@@ -16,7 +16,7 @@ var startTime = Date.now(),
 		return function ( canvas ) {
 			var info = options.info,
 				isParent = options.queryString.parent,
-				finalRenderer = new window.Renderer(
+				finalRenderer = new Renderer(
 					canvas,
 					info,
 					options,
@@ -494,3 +494,5 @@ PixelGraphics.prototype.joinObjects = function () {
 
 	return newObj;
 };
+
+export { PixelGraphics };

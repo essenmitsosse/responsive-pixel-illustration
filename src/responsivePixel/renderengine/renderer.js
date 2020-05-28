@@ -361,3 +361,5 @@ Renderer.prototype.getDrawer = function( pixelStarter, renderList ) { // Initial
 		return pixelArray;
 	};
 };
+
+export { Renderer };

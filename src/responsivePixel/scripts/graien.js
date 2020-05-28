@@ -1,7 +1,7 @@
-"use strict";
-var renderer = function( args, slide, createSlider ){
-	var helper = window.helper,
-		getSmallerDim = helper.getSmallerDim,
+import { helper } from '../renderengine/helper';
+
+var graien = function( args, slide, createSlider ){
+	var getSmallerDim = helper.getSmallerDim,
 		getBiggerDim = helper.getBiggerDim,
 		mult = helper.mult,
 		sub = helper.sub,
@@ -1010,3 +1010,5 @@ var renderer = function( args, slide, createSlider ){
 		// }
 	};
 };
+
+export default graien;

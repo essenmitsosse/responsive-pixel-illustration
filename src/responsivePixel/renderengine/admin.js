@@ -376,3 +376,5 @@ Admin.prototype.List.prototype.addMessage = function ( message, className, click
 
 	return newMessage;
 };
+
+export { Admin };

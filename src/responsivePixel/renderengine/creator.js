@@ -1,4 +1,6 @@
 "use strict";
+import { PixelGraphics } from './info';
+
 PixelGraphics.prototype.DrawingTools = function( pixelUnit, getRandom ) {
 	var drawingTool = this;
 

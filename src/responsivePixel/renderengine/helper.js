@@ -323,3 +323,5 @@ var helper = new ( function () {
 		};
 	};
 } )();
+
+export { helper };

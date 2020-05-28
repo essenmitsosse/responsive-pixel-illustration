@@ -1,4 +1,11 @@
 "use strict";
+
+import { PixelGraphics } from './info';
+import './pixel';
+import './creator';
+import { Admin } from './admin';
+import graien from '../scripts/graien';
+
 var InitPixel = function( args ) {
 	var queryString = this.getQueryString(),
 		showcase = this.showcase = queryString.showcase || true,
@@ -26,7 +33,7 @@ var InitPixel = function( args ) {
 	this.parent = queryString.admin || queryString.parent;
 	// Admin
 	if( queryString.admin || showcase || sliders ) {
-		admin = new window.Admin( {
+		admin = new Admin( {
 			body: body,
 			showcase: showcase,
 			admin: queryString.admin,
@@ -40,19 +47,13 @@ var InitPixel = function( args ) {
 	callback = this.getCallback( 
 		canvasRenderer,
 		queryString,
-		imageName,
+		graien,
 		socket,
 		currentSlide,
 		this.info( queryString )
 	);
-
-	if ( currentSlide.staticImage ) {
-		this.getStaticImage( currentSlide, main );
-	} else if( require ) {
-		this.loadMultipleScripts( callback, imageName, require );
-	} else {
-		this.loadScript( callback, imageName );
-	}
+	
+	callback();
 
 	this.getDocumentTitle( imageName, queryString );
 	window.onkeydown = this.getShortcuts( queryString );
@@ -162,7 +163,7 @@ InitPixel.prototype.createSingleCanvas = function( canvasData, div ) {
 	div.appendChild( canvas );
 
 	return function ( renderer ) {
-		return new window.PixelGraphics( renderer )( canvas );
+		return new PixelGraphics( renderer )( canvas );
 	};
 };
 
@@ -171,7 +172,7 @@ InitPixel.prototype.loadScript = function( callback, imageName ) {
 		head = document.getElementsByTagName( "head" )[0];
 
 	script.type = "text/javascript";
-	script.src = "scripts/" + imageName + ".px";
+	script.src = "src/responsivePixel/scripts/" + imageName + ".js";
 
 	script.onreadystatechange = callback;
 	script.onload = callback;
@@ -215,13 +216,12 @@ InitPixel.prototype.loadFile = function ( filePath, head, onLoadFunction ) {
 };
 
 // Create the Callback Function, when the script is loaded
-InitPixel.prototype.getCallback = function( rendererInit, queryString, imageName, socket, currentSlide, info ) {
+InitPixel.prototype.getCallback = function( rendererInit, queryString, ImageFunction, socket, currentSlide, info ) {
 	var that = this;
 	return function callback () {
-		var ImageFunction = window[ imageName ] || window.renderer, // use Function of the given imageName if it exists, else use the standard renderer
-			imageFunction,
-			renderObject;
-
+		var imageFunction,
+		renderObject;
+		
 		if( ImageFunction ) {
 
 			if( that.createSlider ) {
@@ -703,3 +703,5 @@ InitPixel.prototype.slides = [
 	{ name: "argos", niceName: "The Argos" },
 	{ name: "sphinx", niceName: "The Sphinx" }
 ];
+
+export { InitPixel };

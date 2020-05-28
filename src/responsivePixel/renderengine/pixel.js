@@ -1,4 +1,6 @@
 "use strict";
+import { PixelGraphics } from './info';
+
 PixelGraphics.prototype.getPixelUnits = function () {
 	var old = [],
 		variableListLink,

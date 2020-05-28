@@ -135,9 +135,18 @@ PixelGraphics.prototype.initUserInput = function ( options, redraw, canvas, unch
 		that = this,
 
 		changeImage = function changeImage ( event, size )  {
-			var x = ( event.x || event.clientX ),
-				y = ( event.y || event.clientY ),
-				alt = event.altKey;
+			var x, y;
+
+			if ( event.target ) {
+				var domRect = event.target.getBoundingClientRect();
+				x = ( event.x || event.clientX ) - domRect.x;
+				y= ( event.y || event.clientY ) - domRect.y;
+			} else {
+				x = event.x || event.clientX;
+				y = event.y || event.clientY;
+			}
+
+			var alt = event.altKey;
 
 			x /= that.canvasSize[ 0 ];
 			y /= that.canvasSize[ 1 ];

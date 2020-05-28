@@ -3,7 +3,6 @@
 import { PixelGraphics } from './info';
 import './pixel';
 import './creator';
-import { Admin } from './admin';
 import graien from '../scripts/graien';
 
 var InitPixel = function( args ) {
@@ -31,18 +30,7 @@ var InitPixel = function( args ) {
 	queryString.resizeable = true;
 	this.defaultValues = { isServer: true };
 	this.parent = queryString.admin || queryString.parent;
-	// Admin
-	if( queryString.admin || showcase || sliders ) {
-		admin = new Admin( {
-			body: body,
-			showcase: showcase,
-			admin: queryString.admin,
-			sliders: sliders,
-			slides: slides,
-			pixel: this,
-			socket: socket
-		} );
-	}
+
 
 	callback = this.getCallback( 
 		canvasRenderer,

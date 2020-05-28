@@ -266,7 +266,7 @@ h1 {
         color: #fff;
         text-decoration: underline; }
   #slides strong {
-    display: inline-block;
+    display: block;
     float: right;
     width: 80%;
     font-weight: normal;

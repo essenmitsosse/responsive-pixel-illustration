@@ -1,4 +1,7 @@
-import { Renderer } from './renderer';
+import { Renderer } from '../renderer';
+import { getPixelUnits } from './getPixelUnits';
+import { DrawingTools } from  './DrawingTools';
+
 
 var startTime = Date.now(),
 	PixelGraphics = function ( options )  {
@@ -156,7 +159,7 @@ PixelGraphics.prototype.initUserInput = function ( options, redraw, canvas, unch
 
 		mouseMove = function ( event, size ) {
 			if( queryString.resizeable || ( !unchangeable && ( size || hasSomethingToHover ) ) ) {
-				changeImage( event, size || queryString.resizeable );
+				changeImage( event, false && size || queryString.resizeable );
 			}
 		},
 		
@@ -497,5 +500,8 @@ PixelGraphics.prototype.joinObjects = function () {
 
 	return newObj;
 };
+
+PixelGraphics.prototype.getPixelUnits = getPixelUnits;
+PixelGraphics.prototype.DrawingTools = DrawingTools;
 
 export { PixelGraphics };

@@ -1,7 +1,5 @@
 "use strict";
-import { PixelGraphics } from './info';
-
-PixelGraphics.prototype.DrawingTools = function( pixelUnit, getRandom ) {
+function DrawingTools ( pixelUnit, getRandom ) {
 	var drawingTool = this;
 
 	this.seed = ( function ( getRandom ) {
@@ -1512,3 +1510,5 @@ PixelGraphics.prototype.DrawingTools = function( pixelUnit, getRandom ) {
 		drawingTool.seed.reset();
 	};
 };
+
+export { DrawingTools };

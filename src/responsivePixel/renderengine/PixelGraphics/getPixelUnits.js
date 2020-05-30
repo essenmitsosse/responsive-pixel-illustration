@@ -1,7 +1,7 @@
 "use strict";
-import { PixelGraphics } from './info';
+import { PixelGraphics } from '.';
 
-PixelGraphics.prototype.getPixelUnits = function () {
+function getPixelUnits () {
 	var old = [],
 		variableListLink,
 		variableListCreate,
@@ -583,3 +583,5 @@ PixelGraphics.prototype.getPixelUnits = function () {
 		}
 	};
 };
+
+export { getPixelUnits };

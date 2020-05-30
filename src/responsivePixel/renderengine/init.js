@@ -1,8 +1,6 @@
 "use strict";
 
-import { PixelGraphics } from './info';
-import './pixel';
-import './creator';
+import { PixelGraphics } from './PixelGraphics';
 
 var InitPixel = function( args ) {
 	this.queryString = {};

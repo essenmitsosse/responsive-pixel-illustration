@@ -1,4 +1,4 @@
-import { Renderer } from '../renderer';
+import { Renderer } from './Renderer';
 import { getPixelUnits } from './getPixelUnits';
 import { DrawingTools } from  './DrawingTools';
 

@@ -75,11 +75,6 @@ var Renderer = function ( canvas, info, options, pixelStarter ) { // Render Engi
 					( countW ) * pixelSize,
 					( countH ) * pixelSize
 				);
-				
-				// // Log some general Infos for debugging
-				// info.change( "Dimensions", w + "px &times; " + h + "px (" + countW + "px &times; " + countH + "px)" );
-				// info.change( "Pixel Count", Math.floor ( ( w * h ) / 1000 ) + "kpx ("+ Math.floor( ( countW * countH ) / 1000 ) + "kpx)" );
-				// info.change( "Pixel-Size", realPixelSize + " px" );	
 			}
 
 			return [ w, h, time ];

@@ -64,14 +64,7 @@ InitPixel.prototype.getCallback = function( rendererInit, queryString, ImageFunc
 	renderObject;
 	
 	if( ImageFunction ) {
-
-		if( this.createSlider ) {
-			// this.createSlider.title( { title: "Image Size" } );
-			// this.createSlider.slider( { niceName: "Width", valueName: "width", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
-			// this.createSlider.slider( { niceName: "Height", 	 valueName: "height", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
-		}
-
-		imageFunction = new ImageFunction( queryString, currentSlide, this.createSlider );	
+		imageFunction = new ImageFunction( queryString, currentSlide );	
 
 		this.hover = imageFunction.hover;		
 

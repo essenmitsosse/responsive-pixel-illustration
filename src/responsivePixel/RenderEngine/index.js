@@ -13,61 +13,20 @@ var RenderEngine = function( args ) {
 
 		div = args.div,
 		canvasDataList = false, // change for multiple Canvases
-		canvasRenderer = !currentSlide.staticImage && this.createSingleCanvas( canvasDataList, div );
+		canvasRenderer = !currentSlide.staticImage && createSingleCanvas( canvasDataList, div ),
+		info = this.info( queryString );
 
 	queryString.resizeable = true;
 	this.defaultValues = { isServer: true };
 	this.parent = queryString.admin || queryString.parent;
 
-
-	this.callback( 
-		canvasRenderer,
-		queryString,
-		args.imageFunction,
-		currentSlide,
-		this.info( queryString )
-	);
-	
-	this.getDocumentTitle( imageName, queryString );
-	window.onkeydown = this.getShortcuts( queryString );
-
-	if( currentSlide.timer || queryString.timer ) {
-		this.timerAnimation = this.getTimerAnimation( currentSlide.timer );
-	}
-};
-
-// Create a new Canvas, add it to the div and return it
-RenderEngine.prototype.createSingleCanvas = function( canvasData, div ) {
-	var canvas = document.createElement( "canvas" ),
-		key;
-	
-	canvas.resize = true;
-	canvas.keepalive = true;
-	// canvas.style.position = "absolute";
-
-	if( canvasData ) {
-		for( key in canvasData ) {
-			canvas.style[ key ] = canvasData[ key ];
-		}
-	}
-
-	div.appendChild( canvas );
-
-	return function ( renderer ) {
-		return new PixelGraphics( renderer )( canvas );
-	};
-};
-
-// Create the Callback Function, when the script is loaded
-RenderEngine.prototype.callback = function( rendererInit, queryString, ImageFunction, currentSlide, info ) {
-	var imageFunction;
-		
-	if( ImageFunction ) {
-		imageFunction = new ImageFunction( queryString, currentSlide );	
+	if( args.ImageFunction ) {
+		var imageFunction;
+		imageFunction = new args.ImageFunction( queryString, currentSlide );	
 
 		this.hover = imageFunction.hover;		
 
-		this.renderer = rendererInit( {
+		this.renderer = canvasRenderer( {
 			showInfos : false,
 			slide: currentSlide,
 			imageFunction : imageFunction,
@@ -86,6 +45,35 @@ RenderEngine.prototype.callback = function( rendererInit, queryString, ImageFunc
 	} else {
 		throw imageName + " was loaded but is not a function!";
 	}
+	
+	this.getDocumentTitle( imageName, queryString );
+	window.onkeydown = this.getShortcuts( queryString );
+
+	if( currentSlide.timer || queryString.timer ) {
+		this.timerAnimation = this.getTimerAnimation( currentSlide.timer );
+	}
+};
+
+// Create a new Canvas, add it to the div and return it
+function createSingleCanvas ( canvasData, div ) {
+	var canvas = document.createElement( "canvas" ),
+		key;
+	
+	canvas.resize = true;
+	canvas.keepalive = true;
+	// canvas.style.position = "absolute";
+
+	if( canvasData ) {
+		for( key in canvasData ) {
+			canvas.style[ key ] = canvasData[ key ];
+		}
+	}
+
+	div.appendChild( canvas );
+
+	return function ( renderer ) {
+		return new PixelGraphics( renderer )( canvas );
+	};
 };
 
 RenderEngine.prototype.info = function( options ) {

@@ -27,7 +27,7 @@ export default {
 	mounted() {
 		this.renderEngine = new RenderEngine({
 			div: document.getElementById("main"),
-			imageFunction: graien,
+			ImageFunction: graien,
 		});
 
 		

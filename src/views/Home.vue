@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { RenderEngine } from "@/responsivePixel/RenderEngine";
+import { RenderEngine } from '@/responsivePixel/RenderEngine';
 import graien from '@/responsivePixel/scripts/graien';
 
 export default {
@@ -22,22 +22,20 @@ export default {
 	},
 	watch: {
 		width() { this.redraw(); },
-		height() { this.redraw(); },		
+		height() { this.redraw(); },
 	},
 	mounted() {
 		this.renderEngine = new RenderEngine({
-			div: document.getElementById("main"),
+			div: document.getElementById('main'),
 			ImageFunction: graien,
 		});
-
-		
 	},
 	methods: {
 		redraw() {
-			this.renderEngine.renderer.redraw({width: this.width, height: this.height});
-		}
-	}
-}
+			this.renderEngine.renderer.redraw({ width: this.width, height: this.height });
+		},
+	},
+};
 </script>
 
 <style lang="scss">

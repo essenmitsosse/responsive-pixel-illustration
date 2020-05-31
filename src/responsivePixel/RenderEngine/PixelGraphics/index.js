@@ -1,81 +1,81 @@
 import { Renderer } from './Renderer';
 import { getPixelUnits } from './getPixelUnits';
-import { DrawingTools } from  './DrawingTools';
+import { DrawingTools } from './DrawingTools';
 
 
-var startTime = Date.now(),
-	PixelGraphics = function ( options )  {
-		var that = this,
-			pU = this.getPixelUnits(); // Initialize PixelUnits with Variables
+const startTime = Date.now();
+const PixelGraphics = function (options) {
+	const that = this;
+	const pU = this.getPixelUnits(); // Initialize PixelUnits with Variables
 
-		this.pixelUnits = pU;
+	this.pixelUnits = pU;
 
-		this.createVariableList( options.imageFunction.variableList || [] );
-		if ( options.imageFunction.linkList ) { this.prepareVariableList( options.imageFunction.linkList ); }
+	this.createVariableList(options.imageFunction.variableList || []);
+	if (options.imageFunction.linkList) { this.prepareVariableList(options.imageFunction.linkList); }
 
-		if( options.imageFunction.changeValueSetter ) { options.imageFunction.changeValueSetter(); }
+	if (options.imageFunction.changeValueSetter) { options.imageFunction.changeValueSetter(); }
 
-		return function ( canvas ) {
-			var isParent = options.queryString.parent,
-				finalRenderer = new Renderer(
-					canvas,
-					options,
-					that
-				),
-				rescaleWindow = finalRenderer.rescaleWindow,
-				resize = that.getResize(finalRenderer.resize),
-				redraw = that.getRedraw( options, resize, isParent );
+	return function (canvas) {
+		const isParent = options.queryString.parent;
+		const finalRenderer = new Renderer(
+			canvas,
+			options,
+			that,
+		);
+		const { rescaleWindow } = finalRenderer;
+		const resize = that.getResize(finalRenderer.resize);
+		const redraw = that.getRedraw(options, resize, isParent);
 
 
+		rescaleWindow();
+
+		redraw(that.joinObjects(options.sliderValues, options.queryString, options.defaultValues));
+
+		window.onresize = function () {
 			rescaleWindow();
+			resize();
+		};
 
-			redraw( that.joinObjects( options.sliderValues, options.queryString, options.defaultValues ) );
+		// Make Canvas resizeable by mouse
+		that.initUserInput(options, redraw, canvas, options.slide.unchangeable);
 
-			window.onresize = function () {
-				rescaleWindow();
-				resize();
-			};
-
-			// Make Canvas resizeable by mouse
-			that.initUserInput( options, redraw, canvas, options.slide.unchangeable );
-
-			return {
-				resize: resize,
-				redraw: redraw
-			};
+		return {
+			resize,
+			redraw,
 		};
 	};
+};
 
-PixelGraphics.prototype.getResize = function ( render ) {
-	var that = this,
-		currentW, currentH,
-		needsToResize = false,
-		resizeBlock = false,
+PixelGraphics.prototype.getResize = function (render) {
+	const that = this;
+	let currentW; let currentH;
+	let needsToResize = false;
+	let resizeBlock = false;
 
-		resetResizeBlock = function () {
-			resizeBlock = false;
-			if( needsToResize ) { resize( currentW, currentH ); }
-		},
+	const resetResizeBlock = function () {
+		resizeBlock = false;
+		if (needsToResize) { resize(currentW, currentH); }
+	};
 
-		resize = function ( w, h ) {
-			// var time = Date.now();
+	var resize = function (w, h) {
+		// var time = Date.now();
 
-			// Render the actual image. This takes very long!
-			that.canvasSize = render( 
-				w || currentW, 
-				h || currentH
-			);
+		// Render the actual image. This takes very long!
+		that.canvasSize = render(
+			w || currentW,
+			h || currentH,
+		);
 
-			needsToResize = false;
-		};
+		needsToResize = false;
+	};
 
-	return function checkIfResizeShouldBeDone ( w, h ) {
+	return function checkIfResizeShouldBeDone(w, h) {
 		needsToResize = true;
 
-		if( !resizeBlock ) {
+		if (!resizeBlock) {
 			resizeBlock = true;
-			setTimeout( resetResizeBlock, 20 );
-			resize( w, h );
+			setTimeout(resetResizeBlock, 20);
+			resize(w, h);
 		}
 
 		currentW = w || currentW;
@@ -83,385 +83,376 @@ PixelGraphics.prototype.getResize = function ( render ) {
 	};
 };
 
-PixelGraphics.prototype.getRedraw = function redraw ( options, resize ) {
-	var hoverEvent = options.imageFunction.hover;
+PixelGraphics.prototype.getRedraw = function redraw(options, resize) {
+	const hoverEvent = options.imageFunction.hover;
 
-	return function redraw ( args ) {
-		options.init.addToQueryString( args, true );
+	return function redraw(args) {
+		options.init.addToQueryString(args, true);
 
-		if ( hoverEvent ) { hoverEvent( args ); }
-		resize( args.width, args.height );
-		
+		if (hoverEvent) { hoverEvent(args); }
+		resize(args.width, args.height);
 	};
 };
 
-PixelGraphics.prototype.initUserInput = function ( options, redraw, canvas, unchangeable ) { 
-	var queryString = options.queryString,
-		hasSomethingToHover = options.imageFunction.hover,
-		that = this,
+PixelGraphics.prototype.initUserInput = function (options, redraw, canvas, unchangeable) {
+	const { queryString } = options;
+	const hasSomethingToHover = options.imageFunction.hover;
+	const that = this;
 
-		changeImage = function changeImage ( event, size )  {
-			var x, y;
+	const changeImage = function changeImage(event, size) {
+		let x; let
+			y;
 
-			if ( event.target ) {
-				var domRect = event.target.getBoundingClientRect();
-				x = ( event.x || event.clientX ) - domRect.x;
-				y= ( event.y || event.clientY ) - domRect.y;
-			} else {
-				x = event.x || event.clientX;
-				y = event.y || event.clientY;
-			}
+		if (event.target) {
+			const domRect = event.target.getBoundingClientRect();
+			x = (event.x || event.clientX) - domRect.x;
+			y = (event.y || event.clientY) - domRect.y;
+		} else {
+			x = event.x || event.clientX;
+			y = event.y || event.clientY;
+		}
 
-			var alt = event.altKey;
+		const alt = event.altKey;
 
-			x /= that.canvasSize[ 0 ];
-			y /= that.canvasSize[ 1 ];
-			
-			redraw( 
-				size ? 
-					{ width: x, height: y, forceSliders: true }
-					: alt ? 
-						{ c: x, d: y, forceSliders: true } 
-						: { a: x, b: y, forceSliders: true } 
-			);
-		},
+		x /= that.canvasSize[0];
+		y /= that.canvasSize[1];
 
-		mouseMove = function ( event, size ) {
-			if( queryString.resizeable || ( !unchangeable && ( size || hasSomethingToHover ) ) ) {
-				changeImage( event, false && size || queryString.resizeable );
-			}
-		},
-		
-		touchMove = function ( event ) {
-			event.preventDefault();
-			mouseMove( event.changedTouches[0], true );
-		};
+		redraw(
+			size
+				? { width: x, height: y, forceSliders: true }
+				: alt
+					? { c: x, d: y, forceSliders: true }
+					: { a: x, b: y, forceSliders: true },
+		);
+	};
 
-	canvas.addEventListener("mousemove", mouseMove, false );
-	canvas.addEventListener("touchmove", touchMove, false);
+	const mouseMove = function (event, size) {
+		if (queryString.resizeable || (!unchangeable && (size || hasSomethingToHover))) {
+			changeImage(event, false && size || queryString.resizeable);
+		}
+	};
 
-	if ( !queryString.admin && queryString.tilt && window.DeviceOrientationEvent ) {
-		this.getOrientation( changeImage, redraw, options );
+	const touchMove = function (event) {
+		event.preventDefault();
+		mouseMove(event.changedTouches[0], true);
+	};
+
+	canvas.addEventListener('mousemove', mouseMove, false);
+	canvas.addEventListener('touchmove', touchMove, false);
+
+	if (!queryString.admin && queryString.tilt && window.DeviceOrientationEvent) {
+		this.getOrientation(changeImage, redraw, options);
 	}
 };
 
-PixelGraphics.prototype.getOrientation = function ( changeImage, redraw, options ) {
-	var pause = function () {},
-		lastX = 0,
-		lastY = 0,
-		lastZ = 0,
+PixelGraphics.prototype.getOrientation = function (changeImage, redraw, options) {
+	const pause = function () {};
+	let lastX = 0;
+	let lastY = 0;
+	let lastZ = 0;
 
-		// debug = this.getDebug(),
+	// debug = this.getDebug(),
 
-		tilt = function ( event ) {
-			var changed = false,
-				x = event.alpha,
-				y = event.beta,
-				z = event.gamma,
-				obj = {
-					forceSliders: true
-				};
+	const tilt = function (event) {
+		let changed = false;
+		let x = event.alpha;
+		let y = event.beta;
+		let z = event.gamma;
+		const obj = {
+			forceSliders: true,
+		};
 
-			if( ( x = Math.floor( x ) ) !== lastX ) {
-				lastX = x;
-				changed = true;
-			}
-			if( ( y = Math.floor( y ) ) !== lastY ) {
-				lastY = y;
-				changed = true;
-			}
-			if( ( z = Math.floor( z ) ) !== lastZ ) {
-				lastZ = z;
-				changed = true;
-			}
+		if ((x = Math.floor(x)) !== lastX) {
+			lastX = x;
+			changed = true;
+		}
+		if ((y = Math.floor(y)) !== lastY) {
+			lastY = y;
+			changed = true;
+		}
+		if ((z = Math.floor(z)) !== lastZ) {
+			lastZ = z;
+			changed = true;
+		}
 
-			if( changed ) {
-				if( x > 180 ) {
-					x = ( 180 - x ) + 360;
-				} else {
-					x = 180 - x;
-				}
-
-				x = x / 360;
-				y = ( y + 90 ) / 180;
-				z = ( z + 180 ) / 360;
-
-				x = x + 0.25;
-				if ( x > 1 ) { x = x - 1; }
-				if( x > 0.5 ) {
-					x = ( x - 0.5 ) * 2;
-				} else {
-					x = ( 0.5 - x ) * 2;
-				}
-
-				z = z + 0.25;
-				if ( z > 1 ) { z = z - 1; }
-				if( z > 0.5 ) {
-					z = ( z - 0.5 ) * 2;
-				} else {
-					z = ( 0.5 - z ) * 2;
-				}
-
-				if( names[ 0 ] ) { obj[ names[ 0 ] ] = z; }
-				if( names[ 1 ] ) { obj[ names[ 1 ] ] = y; }
-				if( names[ 2 ] ) { obj[ names[ 2 ] ] = x; }
-
-				redraw( obj );
-				// debug( x, y, z, soften );
+		if (changed) {
+			if (x > 180) {
+				x = (180 - x) + 360;
+			} else {
+				x = 180 - x;
 			}
 
-			realTilt = pause;
+			x /= 360;
+			y = (y + 90) / 180;
+			z = (z + 180) / 360;
 
-			setTimeout( resetTilt, 100 );
-		},
-		resetTilt = function () { realTilt = tilt; },
-		realTilt = tilt,
+			x += 0.25;
+			if (x > 1) { x -= 1; }
+			if (x > 0.5) {
+				x = (x - 0.5) * 2;
+			} else {
+				x = (0.5 - x) * 2;
+			}
 
-		sliderValues = options.sliderValues,
-		key,
-		names = [];
+			z += 0.25;
+			if (z > 1) { z -= 1; }
+			if (z > 0.5) {
+				z = (z - 0.5) * 2;
+			} else {
+				z = (0.5 - z) * 2;
+			}
 
-	for ( key in sliderValues ) {
-		if( names.length < 4 ) {
-			if ( key !== "width" && key !== "height" && key !== "panels" ) {
-				names.push( key );
+			if (names[0]) { obj[names[0]] = z; }
+			if (names[1]) { obj[names[1]] = y; }
+			if (names[2]) { obj[names[2]] = x; }
+
+			redraw(obj);
+			// debug( x, y, z, soften );
+		}
+
+		realTilt = pause;
+
+		setTimeout(resetTilt, 100);
+	};
+	var resetTilt = function () { realTilt = tilt; };
+	var realTilt = tilt;
+
+	const { sliderValues } = options;
+	let key;
+	var names = [];
+
+	for (key in sliderValues) {
+		if (names.length < 4) {
+			if (key !== 'width' && key !== 'height' && key !== 'panels') {
+				names.push(key);
 			}
 		}
 	}
 
-	if ( names.length > 0 ) {
-		window.addEventListener("deviceorientation", realTilt, true);
+	if (names.length > 0) {
+		window.addEventListener('deviceorientation', realTilt, true);
 	}
 };
 
 PixelGraphics.prototype.getDebug = function () {
-	var info = document.createElement( "div" ),
-		text = document.createElement( "div" ),
-		center = document.createElement( "div" ),
-		oriX = document.createElement( "div" ),
-		oriY = document.createElement( "div" ),
-		oriZ = document.createElement( "div" ),
-		bonus = document.createElement( "div" );
+	const info = document.createElement('div');
+	const text = document.createElement('div');
+	const center = document.createElement('div');
+	const oriX = document.createElement('div');
+	const oriY = document.createElement('div');
+	const oriZ = document.createElement('div');
+	const bonus = document.createElement('div');
 
-	info.setAttribute( "id", "infoField" );
+	info.setAttribute('id', 'infoField');
 
-	center.setAttribute( "id", "marker" );
-	center.setAttribute( "class", "center" );
-	info.appendChild( center );
+	center.setAttribute('id', 'marker');
+	center.setAttribute('class', 'center');
+	info.appendChild(center);
 
-	oriX.setAttribute( "class", "marker acc" );
-	oriX.innerHTML = "x: rotation";
-	info.appendChild( oriX );
+	oriX.setAttribute('class', 'marker acc');
+	oriX.innerHTML = 'x: rotation';
+	info.appendChild(oriX);
 
-	oriY.setAttribute( "class", "marker speed" );
-	oriY.innerHTML = "y: back/forth";
-	info.appendChild( oriY );
+	oriY.setAttribute('class', 'marker speed');
+	oriY.innerHTML = 'y: back/forth';
+	info.appendChild(oriY);
 
-	oriZ.setAttribute( "class", "marker pos" );
-	oriZ.innerHTML = "z: kippen";
-	info.appendChild( oriZ );
+	oriZ.setAttribute('class', 'marker pos');
+	oriZ.innerHTML = 'z: kippen';
+	info.appendChild(oriZ);
 
-	bonus.setAttribute( "class", "marker bonus" );
-	bonus.innerHTML = ".";
-	info.appendChild( bonus );
+	bonus.setAttribute('class', 'marker bonus');
+	bonus.innerHTML = '.';
+	info.appendChild(bonus);
 
-	info.appendChild( text );
-	text.innerHTML = "init done.";
+	info.appendChild(text);
+	text.innerHTML = 'init done.';
 
-	document.getElementsByTagName("body")[0].appendChild( info );
+	document.getElementsByTagName('body')[0].appendChild(info);
 
-	return function ( x, y, z, a ) {
-
-
-		oriX.setAttribute( "style", "left:" + ( x * 100 ) + "%;" );
-		oriY.setAttribute( "style", "top:" + ( y * 100 ) + "%;" );
-		oriZ.setAttribute( "style", "left:" + ( z * 100 ) + "%; top:" + ( z * 100 ) + "%;" );
+	return function (x, y, z, a) {
+		oriX.setAttribute('style', `left:${x * 100}%;`);
+		oriY.setAttribute('style', `top:${y * 100}%;`);
+		oriZ.setAttribute('style', `left:${z * 100}%; top:${z * 100}%;`);
 		// bonus.setAttribute( "style", "left:" + Math.floor( test * 100 ) + "%;" );
 
-		text.innerHTML = 
-			"X: " + x + ";</br>" + 
-			"Y: " + y + ";</br>" +
-			"Z: " + z + ";</br>" +
-			"soften " + a;
+		text.innerHTML = 			`X: ${x};</br>`
+			+ `Y: ${y};</br>`
+			+ `Z: ${z};</br>`
+			+ `soften ${a}`;
 	};
 };
 
-PixelGraphics.prototype.prepareVariableList = function( vl ) {
-	var pixelUnits = this.pixelUnits,
-		vlLength = vl.length,
-		calculate = function ( dimensions ) {
-			var i = 0,
-				vll = vlLength,
-				current;
+PixelGraphics.prototype.prepareVariableList = function (vl) {
+	const { pixelUnits } = this;
+	const vlLength = vl.length;
+	const calculate = function (dimensions) {
+		let i = 0;
+		const vll = vlLength;
+		let current;
 
-			do {
-				current = vl[ i ];
-				if( current.main ) {
-					current.calculated = true;
-					current.real = dimensions[ current.height ? "height" : "width" ];
-				} else {
-					current.calculated = current.autoUpdate;
-				}
-			} while( ( i += 1 ) < vll );
-		};
+		do {
+			current = vl[i];
+			if (current.main) {
+				current.calculated = true;
+				current.real = dimensions[current.height ? 'height' : 'width'];
+			} else {
+				current.calculated = current.autoUpdate;
+			}
+		} while ((i += 1) < vll);
+	};
 
-	if( vlLength > 0 ) {
+	if (vlLength > 0) {
 		// Prepare
-		( function ( vl, vll ) {
-			var i = 0,
-				current,
-				getLinkedVariable = function( args ) {
-					return function () {
-						if ( !args.calculated ) {
-							args.calculated = true;
-							return ( args.real = args.s.getReal() );
-						} else {
-							return args.real;
-						}
-						
-					};
+		(function (vl, vll) {
+			let i = 0;
+			let current;
+			const getLinkedVariable = function (args) {
+				return function () {
+					if (!args.calculated) {
+						args.calculated = true;
+						return (args.real = args.s.getReal());
+					}
+					return args.real;
 				};
+			};
 
 			do {
-				current = vl[ i ];
-				if( !current.s ) {
-					if( !current.autoUpdate ) {
+				current = vl[i];
+				if (!current.s) {
+					if (!current.autoUpdate) {
 						current.autoUpdate = false;
-						current.s = pixelUnits.createSize( current );
+						current.s = pixelUnits.createSize(current);
 					} else {
 						current.calculated = true;
 					}
-					current.getLinkedVariable = getLinkedVariable( current );
+					current.getLinkedVariable = getLinkedVariable(current);
 				}
-			} while( ( i += 1 ) < vll );
+			} while ((i += 1) < vll);
+		}(vl, vlLength));
 
-		} )( vl, vlLength );
-
-		pixelUnits.linkList( calculate );
-
+		pixelUnits.linkList(calculate);
 	}
 };
 
-PixelGraphics.prototype.createVariableList = function( vl ) {
-	var pixelUnits = this.pixelUnits,
-		newVL = {},
-		key,
-		updater = function() {
-			var key;
+PixelGraphics.prototype.createVariableList = function (vl) {
+	const { pixelUnits } = this;
+	const newVL = {};
+	let key;
+	const updater = function () {
+		let key;
 
-			for( key in vl ) {
-				newVL[ key ].set();
-			}
-		},
-		link = function ( name, vari ) {
-			if( newVL[ name ] ) {
-				newVL[ name ].link( vari );
-			} else {
-				newVL[ name ] = new DynamicVariable( name );
-				newVL[ name ].link( vari );
-			}
-		},
-		creator = function ( name ) {
-			if( newVL[ name ] ) {
+		for (key in vl) {
+			newVL[key].set();
+		}
+	};
+	const link = function (name, vari) {
+		if (newVL[name]) {
+			newVL[name].link(vari);
+		} else {
+			newVL[name] = new DynamicVariable(name);
+			newVL[name].link(vari);
+		}
+	};
+	const creator = function (name) {
+		if (newVL[name]) {
 
-			} else {
-				newVL[ name ] = new DynamicVariable( name );
-			}
+		} else {
+			newVL[name] = new DynamicVariable(name);
+		}
 
-			return newVL[ name ];
-		},
-		Variable = function( args, name ) {
-			if( args ){
-				this.name = name;
-				this.vari = pixelUnits.createSize( args );
-				this.linkedP = [];
-				this.l = 0;
-			}
-		},
-		DynamicVariable = function( name ) {
+		return newVL[name];
+	};
+	const Variable = function (args, name) {
+		if (args) {
 			this.name = name;
+			this.vari = pixelUnits.createSize(args);
 			this.linkedP = [];
 			this.l = 0;
-		};
+		}
+	};
+	var DynamicVariable = function (name) {
+		this.name = name;
+		this.linkedP = [];
+		this.l = 0;
+	};
 
-	Variable.prototype.set = function() {
-		var value,
-			l = this.l;
+	Variable.prototype.set = function () {
+		let value;
+		let { l } = this;
 
 		value = this.vari.getReal();
 
-		while ( l -- ) { this.linkedP[l].abs = value; }
-
+		while (l--) { this.linkedP[l].abs = value; }
 	};
 
-	Variable.prototype.link = function( p ) {
-		this.linkedP.push( p );
+	Variable.prototype.link = function (p) {
+		this.linkedP.push(p);
 		this.l += 1;
 	};
 
 	DynamicVariable.prototype = new Variable();
 
-	DynamicVariable.prototype.set = function ( value ) {
-		var l = this.l;
+	DynamicVariable.prototype.set = function (value) {
+		let { l } = this;
 
-		while ( l -- ) { this.linkedP[l].abs = value; }
+		while (l--) { this.linkedP[l].abs = value; }
 	};
 
-	pixelUnits.setList( link, creator, updater );
+	pixelUnits.setList(link, creator, updater);
 
-	for( key in vl ) {
-		newVL[ key ] = new Variable( vl[ key ], key );
+	for (key in vl) {
+		newVL[key] = new Variable(vl[key], key);
 	}
 };
 
-PixelGraphics.prototype.globalResizer = ( function () {
-	var allCanvases = [],
-		resize = function() {
-			var l = allCanvases.length;
+PixelGraphics.prototype.globalResizer = (function () {
+	const allCanvases = [];
+	const resize = function () {
+		let l = allCanvases.length;
 
-			while( l -- ) {
-				allCanvases[ l ]();
-			}
-		};
+		while (l--) {
+			allCanvases[l]();
+		}
+	};
 
 	window.onresize = resize;
 
-	return function ( pixelGraphicResizer ) {
-		allCanvases.push( pixelGraphicResizer );
+	return function (pixelGraphicResizer) {
+		allCanvases.push(pixelGraphicResizer);
 	};
-} )();
+}());
 
-PixelGraphics.prototype.getRandom = ( function () {
-	var m = 2147483647,
-		a = 16807,
-		c = 17,
-		z = 3,
-		i = 0;
+PixelGraphics.prototype.getRandom = (function () {
+	const m = 2147483647;
+	const a = 16807;
+	const c = 17;
+	const z = 3;
+	let i = 0;
 
-	return function ( seed ) {
-		var thisZ = seed || z;
+	return function (seed) {
+		let thisZ = seed || z;
 
 		return {
-			one : function () { return ( thisZ = ( a * thisZ + c ) % m ) / m; },
-			count : function ( c ) { return Math.floor( ( thisZ = ( a * thisZ + c ) % m ) / m * c ); },
-			seed : function () { return ( thisZ = ( a * thisZ + c ) % m ) + ( i +=1 ); }
+			one() { return (thisZ = (a * thisZ + c) % m) / m; },
+			count(c) { return Math.floor((thisZ = (a * thisZ + c) % m) / m * c); },
+			seed() { return (thisZ = (a * thisZ + c) % m) + (i += 1); },
 		};
 	};
-} )();
+}());
 
 PixelGraphics.prototype.joinObjects = function () {
-	var l = arguments.length,
-		count = 0,
-		newObj = {},
-		key,
-		currentObj;
+	const l = arguments.length;
+	let count = 0;
+	const newObj = {};
+	let key;
+	let currentObj;
 
-	while ( count < l ) {
+	while (count < l) {
+		currentObj = arguments[count];
 
-		currentObj =  arguments[ count ];
-
-		for ( key in currentObj ) {
-			newObj[ key ] = currentObj[ key ];
+		for (key in currentObj) {
+			newObj[key] = currentObj[key];
 		}
 
 		count += 1;

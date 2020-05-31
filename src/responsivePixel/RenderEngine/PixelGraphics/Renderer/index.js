@@ -1,39 +1,37 @@
-"use strict";
 
-import { getRenderPixelToImage } from "./getRenderPixelToImage";
+import { getRenderPixelToImage } from './getRenderPixelToImage';
 
-var Renderer = function ( canvas, options, pixelStarter ) { // Render Engine to convert basic image into absolute Pixels
-	var context = canvas.getContext("2d"),
-		virtualCanvas = document.createElement("canvas"),
-		virtaulContext = virtualCanvas.getContext("2d"),
-		pixelSize = options.pixelSize,
+const Renderer = function (canvas, options, pixelStarter) { // Render Engine to convert basic image into absolute Pixels
+	const context = canvas.getContext('2d');
+	const virtualCanvas = document.createElement('canvas');
+	const virtaulContext = virtualCanvas.getContext('2d');
+	const { pixelSize } = options;
 
-		w,h,
+	let w; let h;
 
-		drawer = this.getDrawer( 
-			pixelStarter, 
-			options.imageFunction.renderList
-		),
+	const drawer = this.getDrawer(
+		pixelStarter,
+		options.imageFunction.renderList,
+	);
 
-		renderPixelToImage = getRenderPixelToImage( options.imageFunction.background );
+	const renderPixelToImage = getRenderPixelToImage(options.imageFunction.background);
 
 	return {
-		rescaleWindow: function(){
+		rescaleWindow() {
 			w = canvas.offsetWidth;
 			h = canvas.offsetHeight;
 		},
 
-		resize: function resize ( widthFactor, heightFactor ) {
-			var	countW = ( Math.round( ( widthFactor || 1 ) * w / pixelSize ) ),
-				countH = ( Math.round( ( heightFactor || 1 ) * h / pixelSize ) ),
-				image = countW && countH && virtaulContext.createImageData( countW, countH ),
-				drawing,
-				time = -1;
+		resize: function resize(widthFactor, heightFactor) {
+			const	countW = (Math.round((widthFactor || 1) * w / pixelSize));
+			const countH = (Math.round((heightFactor || 1) * h / pixelSize));
+			const image = countW && countH && virtaulContext.createImageData(countW, countH);
+			let drawing;
+			let time = -1;
 
-			if( image && countW > 0 && countH > 0 ) {
-
+			if (image && countW > 0 && countH > 0) {
 				// Resize Canvas to new Windows-Size
-				virtualCanvas.width  = countW;
+				virtualCanvas.width = countW;
 				virtualCanvas.height = countH;
 
 
@@ -51,23 +49,23 @@ var Renderer = function ( canvas, options, pixelStarter ) { // Render Engine to 
 				time = Date.now();
 
 				drawing = drawer(
-					countW, 
-					countH
+					countW,
+					countH,
 				).get;
 
 				time = Date.now() - time;
-				
+
 				// Render the Pixel Array to the Image
-				renderPixelToImage( 
-					countW, 
+				renderPixelToImage(
+					countW,
 					countH,
 					drawing,
-					image.data
+					image.data,
 				);
 
 				// Place Image on the Context
 				virtaulContext.putImageData(
-					image, 0, 0
+					image, 0, 0,
 				);
 
 				// Draw and upscale Context on Canvas
@@ -75,239 +73,228 @@ var Renderer = function ( canvas, options, pixelStarter ) { // Render Engine to 
 					virtualCanvas,
 					0,
 					0,
-					( countW ) * pixelSize,
-					( countH ) * pixelSize
+					(countW) * pixelSize,
+					(countH) * pixelSize,
 				);
 			}
 
-			return [ w, h, time ];
-		}
+			return [w, h, time];
+		},
 	};
 };
 
-Renderer.prototype.Color = function() {
+Renderer.prototype.Color = function () {
 	this.s = [];
 };
 
-Renderer.prototype.Color.prototype.draw = function ( c, zInd, id ) {
-	var i = this.s.length - 1,
-		s = this.s,
-		oldZInd;
+Renderer.prototype.Color.prototype.draw = function (c, zInd, id) {
+	let i = this.s.length - 1;
+	const { s } = this;
+	let oldZInd;
 
-	if( 
-		i === -1 || 
-		( oldZInd = s[i].zInd ) < zInd 
+	if (
+		i === -1
+		|| (oldZInd = s[i].zInd) < zInd
 	) {
+		s.push({ id, c, zInd });
+	} else if (oldZInd !== zInd) {
+		do {
+			if (s[i].zInd < zInd) {
+				break;
+			}
+		} while (i--);
 
-		s.push( { id:id, c:c, zInd:zInd } );
-
-	} else {
-
-		if( oldZInd !== zInd ) {
-
-			do {
-				if( s[i].zInd < zInd ) { 
-					break; 
-				}
-			} while( i -- );
-
-			s.splice( i+1, 0, { id:id, c:c, zInd:zInd } );
-
-		}
-
+		s.splice(i + 1, 0, { id, c, zInd });
 	}
-	
 };
 
-Renderer.prototype.Color.prototype.clear = function ( id ) {
-	var s = this.s;
+Renderer.prototype.Color.prototype.clear = function (id) {
+	const { s } = this;
 
-	while( s.length > 0 && s[ s.length - 1 ].id === id ) {
+	while (s.length > 0 && s[s.length - 1].id === id) {
 		this.s.pop();
 	}
 };
 
-Renderer.prototype.getPixelArray = function( width, height ) {
-	var countH,
-		colorArray = [],
-		Color = this.Color;
+Renderer.prototype.getPixelArray = function (width, height) {
+	let countH;
+	const colorArray = [];
+	const { Color } = this;
 
-	while( width -- ) {
+	while (width--) {
 		countH = height;
-		colorArray[ width ] = [];
-		while( countH -- ) {
-			colorArray[ width ][ countH ] = new Color();
+		colorArray[width] = [];
+		while (countH--) {
+			colorArray[width][countH] = new Color();
 		}
 	}
 
 	return colorArray;
 };
 
-Renderer.prototype.createPixelArray = function ( canvasWidth, canvasHeight ) { // Create PixelArray
-	var pixelArray = this.getPixelArray( canvasWidth, canvasHeight ),
-		minX = 0,
-		minY = 0,
-		maxX = canvasWidth,
-		maxY = canvasHeight;
+Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) { // Create PixelArray
+	const pixelArray = this.getPixelArray(canvasWidth, canvasHeight);
+	let minX = 0;
+	let minY = 0;
+	let maxX = canvasWidth;
+	let maxY = canvasHeight;
 
 	return {
-		setMask : function ( dimensions, push ) {
-			var old = {
-					posX: minX,
-					width: maxX - minX,
-					posY: minY,
-					height: maxY - minY	
-				};
+		setMask(dimensions, push) {
+			const old = {
+				posX: minX,
+				width: maxX - minX,
+				posY: minY,
+				height: maxY - minY,
+			};
 
 			// TODO: Dont check if its the old values;
 
-			maxX = ( minX = dimensions.posX ) + dimensions.width;
-			maxY = ( minY = dimensions.posY ) + dimensions.height;
+			maxX = (minX = dimensions.posX) + dimensions.width;
+			maxY = (minY = dimensions.posY) + dimensions.height;
 
-			if( !maxX || maxX > canvasWidth ) { maxX = canvasWidth; }
-			if( !maxY || maxY > canvasHeight ) { maxY = canvasHeight; }
-			if( !minX || minX < 0 ) { minX = 0; }
-			if( !minY || minY < 0 ) { minY = 0; }
+			if (!maxX || maxX > canvasWidth) { maxX = canvasWidth; }
+			if (!maxY || maxY > canvasHeight) { maxY = canvasHeight; }
+			if (!minX || minX < 0) { minX = 0; }
+			if (!minY || minY < 0) { minY = 0; }
 
-			if( push ) {
-				if( maxX > old.posX + old.width ) { maxX = old.posX + old.width; }
-				if( maxY > old.posY + old.height ) { maxY = old.posY + old.height; }
-				if( minX < old.posX ) { minX = old.posX; }
-				if( minY < old.posY ) { minY = old.posY; }
+			if (push) {
+				if (maxX > old.posX + old.width) { maxX = old.posX + old.width; }
+				if (maxY > old.posY + old.height) { maxY = old.posY + old.height; }
+				if (minX < old.posX) { minX = old.posX; }
+				if (minY < old.posY) { minY = old.posY; }
 			}
 
 			return old;
 		},
 
-		getSet : function( color, zInd, id ) {
-			return function ( x, y ) {
-				if( x >= minX && x < maxX && y >= minY && y < maxY ) {
-					pixelArray[ x ][ y ].draw( color, zInd, id );
+		getSet(color, zInd, id) {
+			return function (x, y) {
+				if (x >= minX && x < maxX && y >= minY && y < maxY) {
+					pixelArray[x][y].draw(color, zInd, id);
 				}
 			};
 		},
 
-		getClear : function( id ) {
-			return function ( x, y ) {
-				if( x >= minX && x < maxX && y >= minY && y < maxY ) {
-					pixelArray[ x ][ y ].clear( id );
+		getClear(id) {
+			return function (x, y) {
+				if (x >= minX && x < maxX && y >= minY && y < maxY) {
+					pixelArray[x][y].clear(id);
 				}
 			};
 		},
 
-		getSetForRect : function( color, zInd, id ) { // Set Color for Rectangle for better Performance
-			var pA = pixelArray;
-			return function ( args ) { 
-				var posX = args.posX,
-					posY = args.posY,
-					endX = args.width + posX,
-					endY = args.height + posY,
-					sizeX = endX > maxX ? maxX : endX,
-					sizeY,
-					sizeY_start = endY > maxY ? maxY : endY,
-					startX = posX < minX ? minX : posX,
-					startY = posY < minY ? minY : posY,
-					row;
+		getSetForRect(color, zInd, id) { // Set Color for Rectangle for better Performance
+			const pA = pixelArray;
+			return function (args) {
+				const { posX } = args;
+				const { posY } = args;
+				const endX = args.width + posX;
+				const endY = args.height + posY;
+				let sizeX = endX > maxX ? maxX : endX;
+				let sizeY;
+				const sizeY_start = endY > maxY ? maxY : endY;
+				const startX = posX < minX ? minX : posX;
+				const startY = posY < minY ? minY : posY;
+				let row;
 
-				while( ( sizeX -= 1 ) >= startX ) {
+				while ((sizeX -= 1) >= startX) {
 					sizeY = sizeY_start;
-					row = pA[ sizeX ];
+					row = pA[sizeX];
 
-					while( ( sizeY -= 1 ) >= startY ) {
-						row[ sizeY ].draw( color, zInd, id );
+					while ((sizeY -= 1) >= startY) {
+						row[sizeY].draw(color, zInd, id);
 					}
 				}
 			};
 		},
 
-		getClearForRect : function( id ) {
-			var pA = pixelArray;
-			return function ( args ) { 
-				var endX = args.width + args.posX,
-					endY = args.height + args.posY,
-					sizeX = endX > maxX ? maxX : endX,
-					sizeY,
-					initSizeY = endY > maxY ? maxY : endY,
-					startX = args.posX < minX ? minX : args.posX,
-					startY = args.posY < minY ? minY : args.posY,
-					row;
+		getClearForRect(id) {
+			const pA = pixelArray;
+			return function (args) {
+				const endX = args.width + args.posX;
+				const endY = args.height + args.posY;
+				let sizeX = endX > maxX ? maxX : endX;
+				let sizeY;
+				const initSizeY = endY > maxY ? maxY : endY;
+				const startX = args.posX < minX ? minX : args.posX;
+				const startY = args.posY < minY ? minY : args.posY;
+				let row;
 
-				while( ( sizeX -= 1 ) >= startX ) {
+				while ((sizeX -= 1) >= startX) {
 					sizeY = initSizeY;
-					row = pA[ sizeX ];
-					while( ( sizeY -= 1 ) >= startY ) {
-						row[ sizeY ].clear( id );
-					}
-				}
-			};
-		},
-		
-		getSaveForRect : function ( save, mask ) {
-			return function ( args ) { 
-				var endX = args.width + args.posX,
-					endY = args.height + args.posY,
-					sizeX = endX > canvasWidth ? canvasWidth : endX,
-					sizeY,
-					initSizeY = endY > canvasHeight ? canvasHeight : endY,
-					startX = args.posX < 0 ? 0 : args.posX,
-					startY = args.posY < 0 ? 0 : args.posY,
-					s = save,
-					col;
-
-				while( ( sizeX -= 1 ) >= startX ) {
-					sizeY = initSizeY;
-
-					col = mask[ sizeX ] || ( mask[ sizeX ] = [] );
-
-					while( ( sizeY -= 1 ) >= startY ) {
-						s.push([ sizeX, sizeY ]);
-						col[ sizeY ] = true;
+					row = pA[sizeX];
+					while ((sizeY -= 1) >= startY) {
+						row[sizeY].clear(id);
 					}
 				}
 			};
 		},
 
-		getClearSaveForRect : function ( save, mask ) {
-			return function ( args ) { 
-				var endX = args.width + args.posX,
-					endY = args.height + args.posY,
-					sizeX = endX > canvasWidth ? canvasWidth : endX,
-					sizeY,
-					initSizeY = endY > canvasHeight ? canvasHeight : endY,
-					startX = args.posX < 0 ? 0 : args.posX,
-					startY = args.posY < 0 ? 0 : args.posY,
-					col;
+		getSaveForRect(save, mask) {
+			return function (args) {
+				const endX = args.width + args.posX;
+				const endY = args.height + args.posY;
+				let sizeX = endX > canvasWidth ? canvasWidth : endX;
+				let sizeY;
+				const initSizeY = endY > canvasHeight ? canvasHeight : endY;
+				const startX = args.posX < 0 ? 0 : args.posX;
+				const startY = args.posY < 0 ? 0 : args.posY;
+				const s = save;
+				let col;
 
-				while( ( sizeX -= 1 ) >= startX ) {
+				while ((sizeX -= 1) >= startX) {
 					sizeY = initSizeY;
 
-					if( ( col = mask[ sizeX ] ) ) {
+					col = mask[sizeX] || (mask[sizeX] = []);
 
-						while( ( sizeY -= 1 ) >= startY ) {
-							if( col[ sizeY ] ) {
-								col[ sizeY ] = false;
+					while ((sizeY -= 1) >= startY) {
+						s.push([sizeX, sizeY]);
+						col[sizeY] = true;
+					}
+				}
+			};
+		},
+
+		getClearSaveForRect(save, mask) {
+			return function (args) {
+				const endX = args.width + args.posX;
+				const endY = args.height + args.posY;
+				let sizeX = endX > canvasWidth ? canvasWidth : endX;
+				let sizeY;
+				const initSizeY = endY > canvasHeight ? canvasHeight : endY;
+				const startX = args.posX < 0 ? 0 : args.posX;
+				const startY = args.posY < 0 ? 0 : args.posY;
+				let col;
+
+				while ((sizeX -= 1) >= startX) {
+					sizeY = initSizeY;
+
+					if ((col = mask[sizeX])) {
+						while ((sizeY -= 1) >= startY) {
+							if (col[sizeY]) {
+								col[sizeY] = false;
 							}
 						}
-
 					}
 				}
 			};
 		},
-		
-		get : pixelArray
+
+		get: pixelArray,
 	}; // Return prepared Color-Array, with default Color;
 };
 
-Renderer.prototype.getDrawer = function( pixelStarter, renderList ) { // Initialize the drawingTool
-	var that = this,
-		pixelUnit = pixelStarter.pixelUnits,
-		drawingTool = new pixelStarter.DrawingTools( pixelUnit, pixelStarter.getRandom ),
-		canvasTool = new drawingTool.Obj().create( { list: renderList } );
+Renderer.prototype.getDrawer = function (pixelStarter, renderList) { // Initialize the drawingTool
+	const that = this;
+	const pixelUnit = pixelStarter.pixelUnits;
+	const drawingTool = new pixelStarter.DrawingTools(pixelUnit, pixelStarter.getRandom);
+	const canvasTool = new drawingTool.Obj().create({ list: renderList });
 
-	return function drawer ( countW, countH ) {
-		var pixelArray = that.createPixelArray( countW, countH );
+	return function drawer(countW, countH) {
+		const pixelArray = that.createPixelArray(countW, countH);
 
-		drawingTool.init( countW, countH, pixelArray );
+		drawingTool.init(countW, countH, pixelArray);
 		canvasTool.draw();
 
 		return pixelArray;

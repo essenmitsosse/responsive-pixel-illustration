@@ -1,111 +1,115 @@
-"use strict";
 
 // HEAD --------------------------------------------------------------------------------
-Builder.prototype.Head = function ( args ) {
+Builder.prototype.Head = function (args) {
 	// Form & Sizes
-	this.neckSY = this.R( .05, .2 );
-	this.neckSX = this.R( .4, .9 );
+	this.neckSY = this.R(0.05, 0.2);
+	this.neckSX = this.R(0.4, 0.9);
 
-	this.headSX = this.R( .2, .7 );
-	this.headSideSYFak = this.R( 1.6, 2.4 );
+	this.headSX = this.R(0.2, 0.7);
+	this.headSideSYFak = this.R(1.6, 2.4);
 
-	this.skullRatio = this.IF(.5) && this.R(.8,1.2);
-	this.skullTopSY = this.skullRatio && this.R(.5,.7);
+	this.skullRatio = this.IF(0.5) && this.R(0.8, 1.2);
+	this.skullTopSY = this.skullRatio && this.R(0.5, 0.7);
 
-	this.foreHeadSY = this.R(.1,.5);
+	this.foreHeadSY = this.R(0.1, 0.5);
 
 	// Colors
 	this.skinColor = args.skinColor;
 	this.skinShadowColor = args.skinShadowColor;
 	this.skinDetailColor = args.skinDetailColor;
 
-	this.hairColor = args.hairColor = args.skinColor.copy({ nextColor:true, brContrast:-2 })
+	this.hairColor = args.hairColor = args.skinColor.copy({ nextColor: true, brContrast: -2 });
 
 	// Assets
-	this.hair = new this.basic.Hair( args );
-	this.eye = new this.basic.Eye( args );
-	this.mouth = new this.basic.Mouth( args );
-	this.beard = this.IF() && new this.basic.Beard( args );
-
-} // END Head
+	this.hair = new this.basic.Hair(args);
+	this.eye = new this.basic.Eye(args);
+	this.mouth = new this.basic.Mouth(args);
+	this.beard = this.IF() && new this.basic.Beard(args);
+}; // END Head
 Builder.prototype.Head.prototype = new Builder.prototype.Object();
-Builder.prototype.Head.prototype.draw = function ( args, z ) {
-	var nr = args.nr,
-		sideView = args.sideView,
-		list;
+Builder.prototype.Head.prototype.draw = function (args, z) {
+	const { nr } = args;
+	const { sideView } = args;
+	let list;
 
-	this.vL[ "headMinSX"+nr ] = { r: this.headSX * ( sideView ? this.headSideSYFak : 1 ), a:.7, min:2, useSize:"headNeckSY"+nr };
-	this.vL[ "neckSX"+nr ] = sideView ? 
-		{ add:[{ r: ( -1 + this.neckSX ), useSize:"headMinSX"+nr }, "headMinSX"+nr], max:"chestSX"+nr, min:1 } 
-		: { r:this.neckSX, useSize:"headMinSX"+nr, max:"torsoSX"+nr, min:1 };
-	this.vL[ "neckSY"+nr ] = { r:this.neckSY, useSize:"headNeckSY"+nr };
-	this.vL[ "headMinSY"+nr ] = { add:[ "headNeckSY"+nr, this.sub("neckSY"+nr) ], min:2};
+	this.vL[`headMinSX${nr}`] = {
+		r: this.headSX * (sideView ? this.headSideSYFak : 1), a: 0.7, min: 2, useSize: `headNeckSY${nr}`,
+	};
+	this.vL[`neckSX${nr}`] = sideView
+		? { add: [{ r: (-1 + this.neckSX), useSize: `headMinSX${nr}` }, `headMinSX${nr}`], max: `chestSX${nr}`, min: 1 }
+		: {
+			r: this.neckSX, useSize: `headMinSX${nr}`, max: `torsoSX${nr}`, min: 1,
+		};
+	this.vL[`neckSY${nr}`] = { r: this.neckSY, useSize: `headNeckSY${nr}` };
+	this.vL[`headMinSY${nr}`] = { add: [`headNeckSY${nr}`, this.sub(`neckSY${nr}`)], min: 2 };
 
-	this.vL[ "foreHeadSY"+nr ] = { r:this.foreHeadSY, useSize:"headMinSX"+nr, min:1 };
+	this.vL[`foreHeadSY${nr}`] = { r: this.foreHeadSY, useSize: `headMinSX${nr}`, min: 1 };
 
-	list = {	
-		sY:"headNeckSY"+nr,
-		y:["lowerBodySY"+nr,"torsoSY"+nr],
-		fY:true,
-		color:this.skinColor.get(),
+	list = {
+		sY: `headNeckSY${nr}`,
+		y: [`lowerBodySY${nr}`, `torsoSY${nr}`],
+		fY: true,
+		color: this.skinColor.get(),
 		list: [
 			{
-				cX:sideView,
-				z:z,
-				list:[
+				cX: sideView,
+				z,
+				list: [
 					// Neck
-					{	sY:["neckSY"+nr,1],
-						sX:"neckSX"+nr,
-						cX:sideView, 
-						fY:true,
-						z:z + ( args.backView ? 50 : 0 )
+					{
+						sY: [`neckSY${nr}`, 1],
+						sX: `neckSX${nr}`,
+						cX: sideView,
+						fY: true,
+						z: z + (args.backView ? 50 : 0),
 					},
 
 					// Head
-					{	sX:"headSX"+nr,
-						sY:"headSY"+nr,
-						fY:true,
-						y:"neckSY"+nr,
-						cX:sideView,
-						id:"head"+nr,
-						list:[						
-						
-							{ color:[255,0,0]},
-							// Face
-								// Mouth
-								this.mouth.draw( args, z ),
+					{
+						sX: `headSX${nr}`,
+						sY: `headSY${nr}`,
+						fY: true,
+						y: `neckSY${nr}`,
+						cX: sideView,
+						id: `head${nr}`,
+						list: [
 
-								// Eye Area
-								this.eye.draw( args, z ),
-						]
-						
+							{ color: [255, 0, 0] },
+							// Face
+							// Mouth
+							this.mouth.draw(args, z),
+
+							// Eye Area
+							this.eye.draw(args, z),
+						],
+
 					},
-				]
+				],
 			},
-		]
+		],
 	};
 
-	this.vL[ "headSX"+nr ] = "headMinSX"+nr;
-	this.vL[ "headSY"+nr ] = [ "mouthTopY"+nr, "eyeY"+nr, "eyeSY"+nr, "foreHeadSY"+nr ];
+	this.vL[`headSX${nr}`] = `headMinSX${nr}`;
+	this.vL[`headSY${nr}`] = [`mouthTopY${nr}`, `eyeY${nr}`, `eyeSY${nr}`, `foreHeadSY${nr}`];
 
 	return list;
-}
+};
 
 // EYE --------------------------------------------------------------------------------
-Builder.prototype.Eye = function ( args ) {
+Builder.prototype.Eye = function (args) {
 	// Form & Sizes
-	this.eyeBrow = this.IF(.3);
-	this.eyeLids = this.IF(.7);
-	this.eyeLidsTop = !this.eyeBrow && this.IF(.3);
+	this.eyeBrow = this.IF(0.3);
+	this.eyeLids = this.IF(0.7);
+	this.eyeLidsTop = !this.eyeBrow && this.IF(0.3);
 
-	this.eyeRoundTop = !this.eyeBrow && this.IF(.5);
-	this.eyeRoundBottom = this.IF(.5);
+	this.eyeRoundTop = !this.eyeBrow && this.IF(0.5);
+	this.eyeRoundBottom = this.IF(0.5);
 
-	this.eyeSX = this.R( .2, .5 );
-	this.eyeSY = this.R( .15, .5 );
+	this.eyeSX = this.R(0.2, 0.5);
+	this.eyeSY = this.R(0.15, 0.5);
 
-	this.eyeX = this.R( .3, .7 ) - this.eyeSX;
-	this.eyeY = this.R( .05, .15 );
+	this.eyeX = this.R(0.3, 0.7) - this.eyeSX;
+	this.eyeY = this.R(0.05, 0.15);
 
 	// Colors
 	this.skinColor = args.skinColor;
@@ -113,47 +117,52 @@ Builder.prototype.Eye = function ( args ) {
 	this.skinDetailColor = args.skinDetailColor;
 	this.hairColor = args.hairColor;
 
-	this.eyeColor = args.skinColor.copy({brAdd:2});
-	this.pupilColor = args.skinColor.copy({brAdd:-3});
+	this.eyeColor = args.skinColor.copy({ brAdd: 2 });
+	this.pupilColor = args.skinColor.copy({ brAdd: -3 });
 
 	// Assets
-
-} // END Eye
+}; // END Eye
 Builder.prototype.Eye.prototype = new Builder.prototype.Object();
-Builder.prototype.Eye.prototype.draw = function ( args, z ) {
-	var nr = args.nr,
-		sideView = args.sideView,
-		eyeRounder = ( this.eyeRoundTop ||this.eyeRoundBottom ) && { minX:4, minY:this.eyeRoundTop && this.eyeRoundBottom ? 3 : 2, list:[
-			this.eyeRoundTop && { name:"Dot", clear:true },
-			this.eyeRoundTop && { name:"Dot", fX:true, clear:true },
-			this.eyeRoundBottom && { name:"Dot", fY:true, clear:true },
-			this.eyeRoundBottom && { name:"Dot", fX:true, fY:true, clear:true }
-		] },
+Builder.prototype.Eye.prototype.draw = function (args, z) {
+	const { nr } = args;
+	const { sideView } = args;
+	const eyeRounder = (this.eyeRoundTop || this.eyeRoundBottom) && {
+		minX: 4,
+		minY: this.eyeRoundTop && this.eyeRoundBottom ? 3 : 2,
+		list: [
+			this.eyeRoundTop && { name: 'Dot', clear: true },
+			this.eyeRoundTop && { name: 'Dot', fX: true, clear: true },
+			this.eyeRoundBottom && { name: 'Dot', fY: true, clear: true },
+			this.eyeRoundBottom && {
+				name: 'Dot', fX: true, fY: true, clear: true,
+			},
+		],
+	};
 
-		thisEye = args.eye,
+	const thisEye = args.eye;
 
-		eyeClosed = thisEye.lids === "closed" || args.right && thisEye.lids === "wink",
-		eyeHalfClosed = !eyeClosed && thisEye.lids === "halfClosed",
+	const eyeClosed = thisEye.lids === 'closed' || args.right && thisEye.lids === 'wink';
+	const eyeHalfClosed = !eyeClosed && thisEye.lids === 'halfClosed';
 
-		lookUp = thisEye.up,
-		lookSide = thisEye.look,
-		lookRight = thisEye.look === "right";
+	const lookUp = thisEye.up;
+	const lookSide = thisEye.look;
+	const lookRight = thisEye.look === 'right';
 
-	this.vL[ "eyeSX"+nr ] = { r:this.eyeSX, useSize:"headMinSX"+nr, a:1 };
-	this.vL[ "eyeSY"+nr ] = { r:this.eyeSY, useSize:"headMinSY"+nr, a:1 };
+	this.vL[`eyeSX${nr}`] = { r: this.eyeSX, useSize: `headMinSX${nr}`, a: 1 };
+	this.vL[`eyeSY${nr}`] = { r: this.eyeSY, useSize: `headMinSY${nr}`, a: 1 };
 
-	this.vL[ "eyeX"+nr ] = { r:this.eyeX, useSize:"headMinSX"+nr, min:1 };
-	this.vL[ "eyeY"+nr ] = { r:this.eyeY, useSize:"headMinSY"+nr, a:"mouthTopY"+nr };
+	this.vL[`eyeX${nr}`] = { r: this.eyeX, useSize: `headMinSX${nr}`, min: 1 };
+	this.vL[`eyeY${nr}`] = { r: this.eyeY, useSize: `headMinSY${nr}`, a: `mouthTopY${nr}` };
 
-	return { 
-		sX:"eyeSX"+nr, 
-		sY:"eyeSY"+nr,
-		x:"eyeX"+nr, 
-		y:"eyeY"+nr,
-		fY:true,
-		color:this.eyeColor.get(),
-		list:[
-			{}
+	return {
+		sX: `eyeSX${nr}`,
+		sY: `eyeSY${nr}`,
+		x: `eyeX${nr}`,
+		y: `eyeY${nr}`,
+		fY: true,
+		color: this.eyeColor.get(),
+		list: [
+			{},
 			// { color:this.skinShadowColor.get() },
 			// {
 			// 	sY: {r:eyeHalfClosed ?.5 : 1, useSize:"eyeSY"+nr, save:"finalEyeSY"+nr },
@@ -163,7 +172,7 @@ Builder.prototype.Eye.prototype.draw = function ( args, z ) {
 			// 		!eyeClosed && { color:this.skinShadowColor.get(), list:[
 			// 			eyeRounder,
 
-			// 			{},	
+			// 			{},
 			// 		] },
 
 			// 		// Eye
@@ -193,10 +202,10 @@ Builder.prototype.Eye.prototype.draw = function ( args, z ) {
 			// 							{ name:"Dot", clear:true, fX:true },
 			// 							// { name:"Dot", clear:true, fX:true, fY:true },
 			// 						]},
-									
+
 			// 						{}
 			// 					]
-			// 				}												
+			// 				}
 			// 			]
 			// 		},
 
@@ -208,40 +217,43 @@ Builder.prototype.Eye.prototype.draw = function ( args, z ) {
 			// this.eyeBrow && { tY:true, sY:{ r:.3, max:1 },
 			// 	color:this.hairColor.get()
 			// }
-		]
+		],
 	};
-} // END Eye draw
+}; // END Eye draw
 
 // MOUTH --------------------------------------------------------------------------------
-Builder.prototype.Mouth = function ( args ) {
+Builder.prototype.Mouth = function (args) {
 	// Form & Sizes
-	this.mouthSX = this.R(.4,.8);
-	this.mouthSY = this.R(.2,.4);
-	this.mouthY = this.R(.05,.15);
+	this.mouthSX = this.R(0.4, 0.8);
+	this.mouthSY = this.R(0.2, 0.4);
+	this.mouthY = this.R(0.05, 0.15);
 
 	// Colors
 	this.skinDetailColor = args.skinDetailColor;
 
 	// Assets
-
-} // END Mouth
+}; // END Mouth
 Builder.prototype.Mouth.prototype = new Builder.prototype.Object();
-Builder.prototype.Mouth.prototype.draw = function ( args, z ) {
-	var nr = args.nr,
-		sideView = args.sideView;
+Builder.prototype.Mouth.prototype.draw = function (args, z) {
+	const { nr } = args;
+	const { sideView } = args;
 
-	this.vL[ "mouthSX"+nr ] = { r:this.mouthSX, useSize:"headMinSX"+nr, a:1, min:1, max:"headMinSX"+nr };
-	this.vL[ "mouthSY"+nr ] = { r:this.mouthSY, useSize:"headMinSY"+nr, a:.7, min:1 };
-	this.vL[ "mouthY"+nr ] = { r:this.mouthY, useSize:"headMinSY"+nr, a:.4 };
-	this.vL[ "mouthTopY"+nr ] = [ "mouthSY"+nr, "mouthY"+nr ];
+	this.vL[`mouthSX${nr}`] = {
+		r: this.mouthSX, useSize: `headMinSX${nr}`, a: 1, min: 1, max: `headMinSX${nr}`,
+	};
+	this.vL[`mouthSY${nr}`] = {
+		r: this.mouthSY, useSize: `headMinSY${nr}`, a: 0.7, min: 1,
+	};
+	this.vL[`mouthY${nr}`] = { r: this.mouthY, useSize: `headMinSY${nr}`, a: 0.4 };
+	this.vL[`mouthTopY${nr}`] = [`mouthSY${nr}`, `mouthY${nr}`];
 
-	return { 
-		sX:"mouthSX"+nr, 
-		sY:"mouthSY"+nr,
-		y:"mouthY"+nr, 
-		fY:true, 
-		color:this.skinDetailColor.get(),
-		list:[
+	return {
+		sX: `mouthSX${nr}`,
+		sY: `mouthSY${nr}`,
+		y: `mouthY${nr}`,
+		fY: true,
+		color: this.skinDetailColor.get(),
+		list: [
 			// Mouth Area
 			// { color:this.skinColor.copy({brContrast:-1}).get() },
 
@@ -250,37 +262,38 @@ Builder.prototype.Mouth.prototype.draw = function ( args, z ) {
 				// sX:{r:.5,min:1},
 				// cY:true,
 				// fY:true
-			}
-		]
+			},
+		],
 	};
-} // END Mouth draw
+}; // END Mouth draw
 
 // HAIR --------------------------------------------------------------------------------
-Builder.prototype.Hair = function ( args ) {
+Builder.prototype.Hair = function (args) {
 	// Form & Sizes
-	this.hairSY = this.R(.5,.9);
+	this.hairSY = this.R(0.5, 0.9);
 
 	// Colors
 	this.hairColor = args.hairColor;
 
 	// Assets
-
-} // END Hair
+}; // END Hair
 Builder.prototype.Hair.prototype = new Builder.prototype.Object();
-Builder.prototype.Hair.prototype.draw = function ( args, z ) {
-	var nr = args.nr,
-		sideView = args.sideView;
+Builder.prototype.Hair.prototype.draw = function (args, z) {
+	const { nr } = args;
+	const { sideView } = args;
 
-	this.vL[ "hairSideSY"+nr ] = { r:.5, useSize:"skullTopSY"+nr };
+	this.vL[`hairSideSY${nr}`] = { r: 0.5, useSize: `skullTopSY${nr}` };
 
 	return {
 		color: this.hairColor.get(),
-		list:[
+		list: [
 			{
-				sY: { r:this.hairSY, useSize:"eyeYTop"+nr, min:{r:.2, useSize:"headSY"+nr, max:1 }, max:"eyeYTop"+nr  }, 
-				list:[
-					{ stripes:{ random:{ r:-.5 }, seed:nr } }
-				]
+				sY: {
+					r: this.hairSY, useSize: `eyeYTop${nr}`, min: { r: 0.2, useSize: `headSY${nr}`, max: 1 }, max: `eyeYTop${nr}`,
+				},
+				list: [
+					{ stripes: { random: { r: -0.5 }, seed: nr } },
+				],
 			},
 
 			// {
@@ -289,30 +302,29 @@ Builder.prototype.Hair.prototype.draw = function ( args, z ) {
 			// 	sY: "hairSideSY"+nr,
 			// 	fX:true
 			// }
-		]
-		
+		],
+
 	};
-} // END Hair draw
+}; // END Hair draw
 
 
 // BEARD --------------------------------------------------------------------------------
-Builder.prototype.Beard = function ( args ) {
+Builder.prototype.Beard = function (args) {
 	// Form & Sizes
 	this.beardColor = args.hairColor;
 
 	// Assets
-
-} // END Beard
+}; // END Beard
 Builder.prototype.Beard.prototype = new Builder.prototype.Object();
-Builder.prototype.Beard.prototype.draw = function ( args, z ) {
-	var nr = args.nr,
-		sideView = args.sideView;
+Builder.prototype.Beard.prototype.draw = function (args, z) {
+	const { nr } = args;
+	const { sideView } = args;
 
-	// return { 
+	// return {
 	// 	z:z,
-	// 	fY:true, 
-	// 	tY:true, 
+	// 	fY:true,
+	// 	tY:true,
 	// 	sY:{r:.5},
 	// 	color: this.beardColor.get()
 	// };
-} // END Beard draw
+}; // END Beard draw

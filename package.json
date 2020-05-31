@@ -3,21 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "description": "",
-  "main": "index.js",
+  "author": "Marcus Blättermann <marcus@essenmitsosse.de>",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/essenmitsosse/responsive-pixel-illustration.git"
-  },
-  "author": "Marcus Blättermann <marcus@essenmitsosse.de>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/essenmitsosse/responsive-pixel-illustration/issues"
-  },
-  "homepage": "https://github.com/essenmitsosse/responsive-pixel-illustration#readme",
+  "main": "index.js",
   "dependencies": {
     "core-js": "^3.6.5",
     "register-service-worker": "^1.7.1",
@@ -26,10 +18,25 @@
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.4.0",
+    "@vue/cli-plugin-eslint": "^4.4.1",
     "@vue/cli-plugin-router": "~4.4.0",
     "@vue/cli-service": "~4.4.0",
+    "@vue/eslint-config-airbnb": "^5.0.2",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-vue": "^6.2.2",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11"
+  },
+  "bugs": {
+    "url": "https://github.com/essenmitsosse/responsive-pixel-illustration/issues"
+  },
+  "homepage": "https://github.com/essenmitsosse/responsive-pixel-illustration#readme",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/essenmitsosse/responsive-pixel-illustration.git"
   }
 }

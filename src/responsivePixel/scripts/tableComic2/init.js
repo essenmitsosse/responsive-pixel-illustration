@@ -1,9 +1,6 @@
-"use strict";
 
-( function( tablePrototype ) {
-
-	for ( var key in tablePrototype ) {
-		tablePrototype[ key ].prototype.basic = tablePrototype;
+(function (tablePrototype) {
+	for (const key in tablePrototype) {
+		tablePrototype[key].prototype.basic = tablePrototype;
 	}
-
-} )( window.TableComic.prototype );
+}(window.TableComic.prototype));

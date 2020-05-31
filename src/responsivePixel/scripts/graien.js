@@ -1,6 +1,7 @@
+/* eslint-disable max-len */
 import { helper } from '../RenderEngine/helper';
 
-const graien = function (args, slide, createSlider) {
+function Graien(args, slide, createSlider) {
 	const { getSmallerDim } = helper;
 	const { getBiggerDim } = helper;
 	const { mult } = helper;
@@ -9,7 +10,11 @@ const graien = function (args, slide, createSlider) {
 	const background = [60, 120, 110];
 	const bSS = 0.5;
 	const shadowAdd = 195;
-	const shadowColor = [background[0] * bSS + shadowAdd, background[1] * bSS + shadowAdd, background[2] * bSS + shadowAdd];
+	const shadowColor = [
+		background[0] * bSS + shadowAdd,
+		background[1] * bSS + shadowAdd,
+		background[2] * bSS + shadowAdd,
+	];
 	const shadow = helper.darken(shadowColor, 0.7);
 	const detail = helper.darken(shadowColor, 0.4);
 
@@ -37,9 +42,8 @@ const graien = function (args, slide, createSlider) {
 
 	const linkList = [];
 
-	const linkListPush = function (obj) {
+	const linkListPush = (obj) => {
 		linkList.push(obj);
-
 		return obj;
 	};
 
@@ -214,64 +218,67 @@ const graien = function (args, slide, createSlider) {
 	const graie3EarSize = linkListPush(mult(0.3, graie3FaceHeight));
 	const graie3EarPos = linkListPush(mult(0.1, graie3FaceHeight));
 
-	const { setValue } = helper;
+	// const { setValue } = helper;
 
-	const graienValues = function (what, faktor, value) {
-		setValue(what, faktor * value * 2 + value * 0.2);
-	};
+	// const graienValues = (what, faktor, value) => {
+	// 	setValue(what, faktor * value * 2 + value * 0.2);
+	// };
 
-	const hover = function (args) {
-		const { a } = args;
-		const { b } = args;
-		const { c } = args;
-		const { d } = args;
+	// const hover = (args) => {
+	// const { a } = args;
+	// const { b } = args;
+	// const { c } = args;
+	// const { d } = args;
 
-		if (a) {
-			graienValues(handWidth, a, 0.07);
-			graienValues(armWidth, a, 0.05);
-			graienValues(legWidth, a, 0.15);
-			graienValues(legLowerWidth, a, 0.07);
-		}
+	// if (a) {
+	// 	graienValues(handWidth, a, 0.07);
+	// 	graienValues(armWidth, a, 0.05);
+	// 	graienValues(legWidth, a, 0.15);
+	// 	graienValues(legLowerWidth, a, 0.07);
+	// }
 
-		if (b) {
-			graienValues(graie1HeadSize, b, 0.18);
-			graienValues(graie2HeadHeight, b, 0.8);
-		}
+	// if (b) {
+	// 	graienValues(graie1HeadSize, b, 0.18);
+	// 	graienValues(graie2HeadHeight, b, 0.8);
+	// }
 
-		// if( c || d ) {
+	// if( c || d ) {
 
-		// 	if ( c ) {
-		// 		graie1[ 0 ] = c * 227;
-		// 		graie2[ 0 ] = c * 192;
-		// 		graie3[ 0 ] = c * 232;
-		// 	}
+	// 	if ( c ) {
+	// 		graie1[ 0 ] = c * 227;
+	// 		graie2[ 0 ] = c * 192;
+	// 		graie3[ 0 ] = c * 232;
+	// 	}
 
-		// 	if ( d ) {
-		// 		graie1[ 1 ] = d * 200;
-		// 		graie2[ 1 ] = d * 176;
-		// 		graie3[ 1 ] = d * 204;
-		// 	}
+	// 	if ( d ) {
+	// 		graie1[ 1 ] = d * 200;
+	// 		graie2[ 1 ] = d * 176;
+	// 		graie3[ 1 ] = d * 204;
+	// 	}
 
-		// 	if ( c && d ) {
-		// 		graie1[ 2 ] = ( 0.5 + ( c * d ) * 0.5 ) * 190;
-		// 		graie2[ 2 ] = ( 0.5 + ( c * d ) * 0.5 ) * 133;
-		// 		graie3[ 2 ] = ( 0.5 + ( c * d ) * 0.5 ) * 152;
-		// 	}
+	// 	if ( c && d ) {
+	// 		graie1[ 2 ] = ( 0.5 + ( c * d ) * 0.5 ) * 190;
+	// 		graie2[ 2 ] = ( 0.5 + ( c * d ) * 0.5 ) * 133;
+	// 		graie3[ 2 ] = ( 0.5 + ( c * d ) * 0.5 ) * 152;
+	// 	}
 
-		// 	graie1Shadow = shadow( graie1, graie1Shadow );
-		// 	graie1Detail = detail( graie1, graie1Detail );
+	// 	graie1Shadow = shadow( graie1, graie1Shadow );
+	// 	graie1Detail = detail( graie1, graie1Detail );
 
-		// 	graie2Shadow = shadow( graie2, graie2Shadow );
-		// 	graie2Detail = detail( graie2, graie2Detail );
+	// 	graie2Shadow = shadow( graie2, graie2Shadow );
+	// 	graie2Detail = detail( graie2, graie2Detail );
 
-		// 	graie3Shadow = shadow( graie3, graie3Shadow );
-		// 	graie3Detail = detail( graie3, graie3Detail );
+	// 	graie3Shadow = shadow( graie3, graie3Shadow );
+	// 	graie3Detail = detail( graie3, graie3Detail );
 
-		// }
-	};
+	// }
+	// };
 
-	const getShadow = function (nr) { return nr === 1 ? graie1Shadow : nr === 2 ? graie2Shadow : graie3Shadow; };
-	const getSkin = function (nr) { return nr === 1 ? graie1 : nr === 2 ? graie2 : graie3; };
+	const listGraieShadow = [graie1Shadow, graie2Shadow, graie3Shadow];
+	const listGraie = [graie1, graie2, graie3];
+
+	const getShadow = (nr) => listGraieShadow[nr - 1];
+	const getSkin = (nr) => listGraie[nr - 1];
 
 	const graie1Eye = [
 		{
@@ -284,27 +291,25 @@ const graien = function (args, slide, createSlider) {
 		{ fX: true, sY: { a: -2, r: 1 }, sX: { r: 0.4 } },
 	];
 
-	const breast = function (left) {
-		return [
-			{},
-			{
-				color: graie1Shadow, sY: { r: 0.3, max: 1, otherDim: true }, tY: true, x: 1, sX: { r: 1, a: -2 }, fY: true,
-			}, // shadow
-			{ color: graie1Shadow, sX: graie1BreastShadow }, // shadow
-			{
-				color: graie1Detail, sX: { r: 0.4, min: 1 }, sY: graie1NippleHeight, fY: true, fX: true, y: -1, cX: true,
-			}, // Nipples
-			{
-				fX: true, fY: true, color: graie1Shadow, sX: { r: 0.2, max: 1 }, sY: left ? undefined : 1,
-			},
-			left ? undefined : {
-				tX: true, sY: armShadow, color: graie1Shadow, sX: graie1BreastMargin,
-			},
-		];
-	};
+	const breast = (left) => [
+		{},
+		{
+			color: graie1Shadow, sY: { r: 0.3, max: 1, otherDim: true }, tY: true, x: 1, sX: { r: 1, a: -2 }, fY: true,
+		}, // shadow
+		{ color: graie1Shadow, sX: graie1BreastShadow }, // shadow
+		{
+			color: graie1Detail, sX: { r: 0.4, min: 1 }, sY: graie1NippleHeight, fY: true, fX: true, y: -1, cX: true,
+		}, // Nipples
+		{
+			fX: true, fY: true, color: graie1Shadow, sX: { r: 0.2, max: 1 }, sY: left ? undefined : 1,
+		},
+		left ? undefined : {
+			tX: true, sY: armShadow, color: graie1Shadow, sX: graie1BreastMargin,
+		},
+	];
 
-	const foot = function (hor, down, fX, nr) {
-		const shadow = getShadow(nr);
+	const foot = (hor, down, fX, nr) => {
+		const shadowFoot = getShadow(nr);
 		const withoutToes = { r: 1, add: [sub(toeSize)] };
 		const anklePos = { r: 0.5, useSize: legLowerWidth };
 		const ankleSize = { r: 0.6, useSize: legLowerWidth };
@@ -313,22 +318,22 @@ const graien = function (args, slide, createSlider) {
 
 		return [
 			{ sX: !hor ? withoutToes : undefined, sY: hor ? withoutToes : undefined, fY: !down },
-			!down ? { sY: armShadow, color: shadow, fY: true } : undefined,
+			!down ? { sY: armShadow, color: shadowFoot, fY: true } : undefined,
 			{
 				stripes: { gap: 1, horizontal: !hor, strip: toeSize }, sX: !hor ? toeSize : undefined, sY: hor ? toeSize : undefined, fX: true, fY: down,
 			},
 			(hor && down) ? {
-				stripes: { gap: 1, horizontal: !hor, strip: toeSize }, color: shadow, sY: 1, fX: true, fY: down,
+				stripes: { gap: 1, horizontal: !hor, strip: toeSize }, color: shadowFoot, sY: 1, fX: true, fY: down,
 			} : undefined,
 			{
-				sX: armShadow, color: shadow, fY: true, sY: (down && !fX ? [footFrontLength, 1] : undefined),
+				sX: armShadow, color: shadowFoot, fY: true, sY: (down && !fX ? [footFrontLength, 1] : undefined),
 			},
 			!hor ? {
-				sY: armShadow, color: shadow, fY: true, fX: true, sX: [footFrontLength, sub(toeSize)], x: toeSize,
+				sY: armShadow, color: shadowFoot, fY: true, fX: true, sX: [footFrontLength, sub(toeSize)], x: toeSize,
 			} : undefined,
 			!hor
 				? {
-					stripes: { horizontal: true, strip: 1, gap: toeSize }, color: shadow, sX: toeSize, fX: true, y: [toeSize, -1],
+					stripes: { horizontal: true, strip: 1, gap: toeSize }, color: shadowFoot, sX: toeSize, fX: true, y: [toeSize, -1],
 				}
 				: undefined,
 			{
@@ -341,7 +346,7 @@ const graien = function (args, slide, createSlider) {
 				x: (!hor ? anklePos : undefined),
 				fY: !down,
 				list: [
-					{ color: shadow },
+					{ color: shadowFoot },
 					{
 						sX: hor ? ankleWidth : ankleHeight, cY: hor, cX: !hor, sY: !hor ? ankleWidth : ankleHeight, fY: !hor, fX: hor && fX,
 					},
@@ -350,31 +355,40 @@ const graien = function (args, slide, createSlider) {
 		];
 	};
 
-	const legStructure = (function () {
+	const legStructure = (() => {
 		let i = 0;
 		const s = { a: 0, random: legDetailWidth };
 		const armSize = { a: 0, random: armDetailLength };
-		return function (nr, hor, arm) {
-			const shadow = getShadow(nr);
+		return (nr, hor, isArm) => {
+			const shadowLeg = getShadow(nr);
 
-			hor = arm ? !hor : hor;
+			const horFinal = isArm ? !hor : hor;
+			i += 1;
+			const iLeg = i;
+			const armSizeFinal = isArm ? armSize : s;
+
 			return {
 				list: [
 					{},
 					{
-						use: `graieLeg${i}`, chance: 0.1, mask: true, color: shadow, sX: hor ? arm ? armSize : s : undefined, sY: !hor ? arm ? armSize : s : undefined,
+						use: `graieLeg${i}`,
+						chance: 0.1,
+						mask: true,
+						color: shadowLeg,
+						sX: horFinal ? armSizeFinal : undefined,
+						sY: !horFinal ? armSizeFinal : undefined,
 					},
-					{ save: `graieLeg${i++}`, minHeight: hor ? 3 : 0, minX: hor ? 0 : 3 },
+					{ save: `graieLeg${iLeg}`, minHeight: horFinal ? 3 : 0, minX: horFinal ? 0 : 3 },
 				],
 			};
 		};
-	}());
+	})();
 
-	const armToLeft = function (nr, down) {
-		const shadow = getShadow(nr);
+	const armToLeft = (nr, down) => {
+		const shadowArm = getShadow(nr);
 		return [
 			legStructure(nr, false, true),
-			{ sY: armShadow, color: shadow, fY: true },
+			{ sY: armShadow, color: shadowArm, fY: true },
 			{
 				sX: handWidth,
 				sY: handWidth,
@@ -383,7 +397,7 @@ const graien = function (args, slide, createSlider) {
 				list: [
 					{},
 					{
-						stripes: { strip: fingerSize, gap: 1, horizontal: true }, x: 1, fX: true, sX: 1, color: shadow, minHeight: 4,
+						stripes: { strip: fingerSize, gap: 1, horizontal: true }, x: 1, fX: true, sX: 1, color: shadowArm, minHeight: 4,
 					},
 					{
 						stripes: { strip: fingerSize, gap: 1, horizontal: true }, tX: true, fX: true, sX: fingerLength,
@@ -407,39 +421,37 @@ const graien = function (args, slide, createSlider) {
 						],
 					},
 					{
-						sY: armShadow, color: shadow, fY: true, sX: down ? [handToBreadSub, { r: 1 }] : undefined, fX: true,
+						sY: armShadow, color: shadowArm, fY: true, sX: down ? [handToBreadSub, { r: 1 }] : undefined, fX: true,
 					},
 				],
 			},
 		];
 	};
 
-	const skinPoint = function (nr, big, obj) {
-		const shadow = getShadow(nr);
+	const skinPoint = (nr, big, obj) => {
+		const shadowSkin = getShadow(nr);
 		const skin = getSkin(nr);
 
-		if (!obj) obj = {};
+		const objFinal = obj || {};
 
-		obj.list = [
-			{ color: shadow },
+		objFinal.list = [
+			{ color: shadowSkin },
 			{ s: { r: 1, a: -2 }, color: skin, c: true },
 		];
-		obj.sY = big ? { r: 0.1, a: -1, max: 4 } : { r: 0.02, max: 1 };
-		obj.sX = big ? {
+		objFinal.sY = big ? { r: 0.1, a: -1, max: 4 } : { r: 0.02, max: 1 };
+		objFinal.sX = big ? {
 			r: 0.1, a: -1, otherDim: true, max: 4,
 		} : 1;
 
-		return obj;
+		return objFinal;
 	};
 
-	const graieEyes = function () {
-		return [
-			{ sY: { r: 1, a: -1, min: 1 }, sX: { r: 1, a: -1, min: 1 } },
-			{
-				sY: { r: 1, a: -1 }, sX: { r: 1, a: -1 }, fY: true, fX: true,
-			},
-		];
-	};
+	const graieEyes = () => [
+		{ sY: { r: 1, a: -1, min: 1 }, sX: { r: 1, a: -1, min: 1 } },
+		{
+			sY: { r: 1, a: -1 }, sX: { r: 1, a: -1 }, fY: true, fX: true,
+		},
+	];
 
 	const graie3butt = [
 		{},
@@ -1738,6 +1750,6 @@ const graien = function (args, slide, createSlider) {
 		// 	setValue = helper.setValueNew;
 		// }
 	};
-};
+}
 
-export default graien;
+export default Graien;

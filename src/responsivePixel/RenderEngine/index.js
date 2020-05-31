@@ -1,18 +1,16 @@
 
-import { PixelGraphics } from './PixelGraphics';
+import { createSingleCanvas } from './createSingleCanvas';
 
-const RenderEngine = function (args) {
+function RenderEngine(args) {
 	this.queryString = {};
 	const { queryString } = this;
 
 	const forceName = args.imageName || window.location.hash.substr(1);
-	const { slides } = this;
-	const currentSlide = !forceName && slides[queryString.slide || 0];
+	const currentSlide = !forceName && this.slides[queryString.slide || 0];
 	const imageName = forceName || currentSlide.name || 'tantalos';
 
-	const { div } = args;
 	const canvasDataList = false; // change for multiple Canvases
-	const canvasRenderer = !currentSlide.staticImage && createSingleCanvas(canvasDataList, div);
+	const canvasRenderer = !currentSlide.staticImage && createSingleCanvas(canvasDataList, args.div);
 	const info = this.info(queryString);
 
 	queryString.resizeable = true;
@@ -20,8 +18,7 @@ const RenderEngine = function (args) {
 	this.parent = queryString.admin || queryString.parent;
 
 	if (args.ImageFunction) {
-		let imageFunction;
-		imageFunction = new args.ImageFunction(queryString, currentSlide);
+		const imageFunction = new args.ImageFunction(queryString, currentSlide);
 
 		this.hover = imageFunction.hover;
 
@@ -30,7 +27,9 @@ const RenderEngine = function (args) {
 			slide: currentSlide,
 			imageFunction,
 			queryString,
-			pixelSize: (queryString.p || currentSlide.p || imageFunction.recommendedPixelSize || 5) * 1 + (queryString.pAdd || 0) * 1,
+			pixelSize:
+				(queryString.p || currentSlide.p || imageFunction.recommendedPixelSize || 5)
+				+ (queryString.pAdd || 0),
 			sliderValues: this.sliderValues,
 			info,
 			defaultValues: this.defaultValues,
@@ -41,7 +40,7 @@ const RenderEngine = function (args) {
 			this.timerAnimation();
 		}
 	} else {
-		throw `${imageName} was loaded but is not a function!`;
+		throw new Error(`${imageName} was loaded but is not a function!`);
 	}
 
 	this.getDocumentTitle(imageName, queryString);
@@ -50,28 +49,6 @@ const RenderEngine = function (args) {
 	if (currentSlide.timer || queryString.timer) {
 		this.timerAnimation = this.getTimerAnimation(currentSlide.timer);
 	}
-};
-
-// Create a new Canvas, add it to the div and return it
-function createSingleCanvas(canvasData, div) {
-	const canvas = document.createElement('canvas');
-	let key;
-
-	canvas.resize = true;
-	canvas.keepalive = true;
-	// canvas.style.position = "absolute";
-
-	if (canvasData) {
-		for (key in canvasData) {
-			canvas.style[key] = canvasData[key];
-		}
-	}
-
-	div.appendChild(canvas);
-
-	return function (renderer) {
-		return new PixelGraphics(renderer)(canvas);
-	};
 }
 
 RenderEngine.prototype.info = function (options) {
@@ -81,17 +58,17 @@ RenderEngine.prototype.info = function (options) {
 	const body = d.getElementsByTagName('body')[0];
 	const info = d.createElement('div');
 	let show = options.showInfos;
-	const swap = function () {
+	const swap = () => {
 		if ((show = !show)) { body.appendChild(info); } else { body.removeChild(info); }
 	};
-	const change = function (name, value) {
+	const change = (name, value) => {
 		logs[name] = value;
 	};
 
 	info.setAttribute('id', 'infos');
 	if (show) { body.appendChild(info); }
 
-	document.onkeydown = function () {
+	document.onkeydown = () => {
 		const k = event.keyCode;
 
 		if (event.ctrlKey) {

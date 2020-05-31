@@ -16,24 +16,16 @@ var startTime = Date.now(),
 		if( options.imageFunction.changeValueSetter ) { options.imageFunction.changeValueSetter(); }
 
 		return function ( canvas ) {
-			var info = options.info,
-				isParent = options.queryString.parent,
+			var isParent = options.queryString.parent,
 				finalRenderer = new Renderer(
 					canvas,
-					info,
 					options,
 					that
 				),
 				rescaleWindow = finalRenderer.rescaleWindow,
-				resize = that.getResize( 
-					options,
-					info,
-					finalRenderer.resize
-				),
+				resize = that.getResize(finalRenderer.resize),
 				redraw = that.getRedraw( options, resize, isParent );
 
-
-			info.logInitTime( Date.now() - startTime );
 
 			rescaleWindow();
 
@@ -54,7 +46,7 @@ var startTime = Date.now(),
 		};
 	};
 
-PixelGraphics.prototype.getResize = function ( options, info, render ) {
+PixelGraphics.prototype.getResize = function ( render ) {
 	var that = this,
 		currentW, currentH,
 		needsToResize = false,

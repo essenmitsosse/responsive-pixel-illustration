@@ -18,16 +18,23 @@ export const getRenderer = (options, pixelStarter) => {
 		},
 
 		resize(args) {
-			const pixelSize = args.pixelSize || options.pixelSize;
-			const countW = (Math.round((args.widthFactor || 1) * (w / pixelSize)));
-			const countH = (Math.round((args.heightFactor || 1) * (h / pixelSize)));
-			const image = countW && countH && virtaulContext.createImageData(countW, countH);
+			if (args.pixelSize !== undefined) {
+				/* eslint-disable-next-line no-param-reassign */
+				options.pixelSize = args.pixelSize;
+			}
+			const countXFull = w / options.pixelSize;
+			const countYFull = h / options.pixelSize;
+			const countX = (Math.round((args.widthFactor || 1) * countXFull));
+			const countY = (Math.round((args.heightFactor || 1) * countYFull));
+			const image = countX && countY && virtaulContext.createImageData(countX, countY);
 			let drawing;
+			const missingX = countXFull - countX;
+			const missingY = countYFull - countY;
 
-			if (image && countW > 0 && countH > 0) {
+			if (image && countX > 0 && countY > 0) {
 				// Resize Canvas to new Windows-Size
-				virtualCanvas.width = countW;
-				virtualCanvas.height = countH;
+				virtualCanvas.width = countX;
+				virtualCanvas.height = countY;
 
 				/* eslint-disable-next-line no-param-reassign */
 				options.divCanvas.width = w;
@@ -43,14 +50,14 @@ export const getRenderer = (options, pixelStarter) => {
 
 				// Render the Image Data to the Pixel Array
 				drawing = drawer(
-					countW,
-					countH,
+					countX,
+					countY,
 				).get;
 
 				// Render the Pixel Array to the Image
 				renderPixelToImage(
-					countW,
-					countH,
+					countX,
+					countY,
 					drawing,
 					image.data,
 				);
@@ -63,10 +70,10 @@ export const getRenderer = (options, pixelStarter) => {
 				// Draw and upscale Context on Canvas
 				context.drawImage(
 					virtualCanvas,
-					0,
-					0,
-					(countW) * pixelSize,
-					(countH) * pixelSize,
+					Math.round(missingX / 2) * options.pixelSize,
+					Math.round(missingY / 2) * options.pixelSize,
+					(countX) * options.pixelSize,
+					(countY) * options.pixelSize,
 				);
 			}
 

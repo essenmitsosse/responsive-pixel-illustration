@@ -49,7 +49,7 @@ export default {
 
 <style lang="scss">
 	.wrapper-canvas {
-		width: 100vw;
+		width: 100%;
 		height: 75vh;
 		position: relative;
 	}

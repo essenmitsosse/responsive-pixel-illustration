@@ -10,7 +10,7 @@ export class PixelGraphics {
 	getRandom = getGetRandom()
 
 	constructor(options) {
-		this.pixelUnits = this.getPixelUnits(); // Initialize PixelUnits with Variables
+		this.pixelUnits = getPixelUnits(); // Initialize PixelUnits with Variables
 		this.pixelUnits.setList(createVariableList(options.imageFunction.variableList || []));
 		if (options.imageFunction.linkList) {
 			this.prepareVariableList(options.imageFunction.linkList);
@@ -175,8 +175,6 @@ export class PixelGraphics {
 			});
 		});
 	}
-
-	getPixelUnits = getPixelUnits;
 
 	DrawingTools = DrawingTools;
 }

@@ -1,6 +1,5 @@
-
-import { createSingleCanvas } from './createSingleCanvas';
 import { updateDocumentTitle } from './updateDocumentTitle';
+import { PixelGraphics } from './PixelGraphics';
 
 class RenderEngine {
 	queryString = {};
@@ -12,9 +11,6 @@ class RenderEngine {
 		const currentSlide = !forceName && this.slides[queryString.slide || 0];
 		const imageName = forceName || currentSlide.name || 'tantalos';
 
-		const canvasRenderer = !currentSlide.staticImage
-			&& createSingleCanvas(args.div);
-
 		queryString.resizeable = true;
 		this.defaultValues = { isServer: true };
 		this.parent = queryString.admin || queryString.parent;
@@ -24,7 +20,7 @@ class RenderEngine {
 
 			this.hover = imageFunction.hover;
 
-			this.renderer = canvasRenderer({
+			this.renderer = new PixelGraphics({
 				showInfos: false,
 				slide: currentSlide,
 				imageFunction,
@@ -40,6 +36,7 @@ class RenderEngine {
 				sliderValues: this.sliderValues,
 				defaultValues: this.defaultValues,
 				init: this,
+				divCanvas: args.divCanvas,
 			});
 
 			if (this.timerAnimation) {

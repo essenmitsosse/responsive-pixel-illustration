@@ -1,8 +1,8 @@
 import { getRenderPixelToImage } from './getRenderPixelToImage';
 import { getDrawer } from './getDrawer';
 
-export const getRenderer = (canvas, options, pixelStarter) => {
-	const context = canvas.getContext('2d');
+export const getRenderer = (options, pixelStarter) => {
+	const context = options.divCanvas.getContext('2d');
 	const virtualCanvas = document.createElement('canvas');
 	const virtaulContext = virtualCanvas.getContext('2d');
 	const { pixelSize } = options;
@@ -14,8 +14,8 @@ export const getRenderer = (canvas, options, pixelStarter) => {
 
 	return {
 		rescaleWindow() {
-			w = canvas.offsetWidth;
-			h = canvas.offsetHeight;
+			w = options.divCanvas.offsetWidth;
+			h = options.divCanvas.offsetHeight;
 		},
 
 		resize: function resize(widthFactor, heightFactor) {
@@ -31,9 +31,9 @@ export const getRenderer = (canvas, options, pixelStarter) => {
 				virtualCanvas.height = countH;
 
 				/* eslint-disable-next-line no-param-reassign */
-				canvas.width = w;
+				options.divCanvas.width = w;
 				/* eslint-disable-next-line no-param-reassign */
-				canvas.height = h;
+				options.divCanvas.height = h;
 
 				// Disable Anti-Alaising
 				context.mozImageSmoothingEnabled = false;

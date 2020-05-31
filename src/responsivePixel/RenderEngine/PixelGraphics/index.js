@@ -18,34 +18,31 @@ export class PixelGraphics {
 
 		if (options.imageFunction.changeValueSetter) { options.imageFunction.changeValueSetter(); }
 
-		return (canvas) => {
-			const isParent = options.queryString.parent;
-			const finalRenderer = getRenderer(
-				canvas,
-				options,
-				this,
-			);
-			const { rescaleWindow } = finalRenderer;
-			const resize = this.getResize(finalRenderer.resize);
-			const redraw = getRedraw(options, resize, isParent);
+		const isParent = options.queryString.parent;
+		const finalRenderer = getRenderer(
+			options,
+			this,
+		);
+		const { rescaleWindow } = finalRenderer;
+		const resize = this.getResize(finalRenderer.resize);
+		const redraw = getRedraw(options, resize, isParent);
 
 
+		rescaleWindow();
+
+		redraw(joinObjects(options.sliderValues, options.queryString, options.defaultValues));
+
+		window.onresize = () => {
 			rescaleWindow();
+			resize();
+		};
 
-			redraw(joinObjects(options.sliderValues, options.queryString, options.defaultValues));
+		// Make Canvas resizeable by mouse
+		this.initUserInput(options, redraw, options.divCanvas, options.slide.unchangeable);
 
-			window.onresize = () => {
-				rescaleWindow();
-				resize();
-			};
-
-			// Make Canvas resizeable by mouse
-			this.initUserInput(options, redraw, canvas, options.slide.unchangeable);
-
-			return {
-				resize,
-				redraw,
-			};
+		return {
+			resize,
+			redraw,
 		};
 	}
 

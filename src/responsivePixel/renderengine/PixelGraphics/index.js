@@ -37,7 +37,7 @@ var startTime = Date.now(),
 
 			rescaleWindow();
 
-			redraw( that.joinObjects( options.sliderValues, options.queryString, options.defaultValues, { dontHighlight: true, forceSliders: true } ) );
+			redraw( that.joinObjects( options.sliderValues, options.queryString, options.defaultValues ) );
 
 			window.onresize = function () {
 				rescaleWindow();
@@ -92,24 +92,9 @@ PixelGraphics.prototype.getResize = function ( options, info, render ) {
 };
 
 PixelGraphics.prototype.getRedraw = function redraw ( options, resize ) {
-	var hoverEvent = options.imageFunction.hover,
-		sliderObject = options.sliderObject;
-
+	var hoverEvent = options.imageFunction.hover;
 
 	return function redraw ( args ) {
-		var key,
-			first = !args.dontHighlight;
-
-		if( ( args.forceSliders ) && sliderObject ) {
-			for( key in args ) {
-				if( sliderObject[ key ] ) {
-					sliderObject[ key ]( args[ key ], first );
-					first = false;
-				}
-			}
-		}
-
-		// Send to other clients
 		options.init.addToQueryString( args, true );
 
 		if ( hoverEvent ) { hoverEvent( args ); }

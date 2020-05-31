@@ -20,7 +20,7 @@ var InitPixel = function( args ) {
 	this.parent = queryString.admin || queryString.parent;
 
 
-	this.getCallback( 
+	this.callback( 
 		canvasRenderer,
 		queryString,
 		args.imageFunction,
@@ -59,29 +59,25 @@ InitPixel.prototype.createSingleCanvas = function( canvasData, div ) {
 };
 
 // Create the Callback Function, when the script is loaded
-InitPixel.prototype.getCallback = function( rendererInit, queryString, ImageFunction, currentSlide, info ) {
-	var imageFunction,
-	renderObject;
-	
+InitPixel.prototype.callback = function( rendererInit, queryString, ImageFunction, currentSlide, info ) {
+	var imageFunction;
+		
 	if( ImageFunction ) {
 		imageFunction = new ImageFunction( queryString, currentSlide );	
 
 		this.hover = imageFunction.hover;		
 
-		renderObject = {
+		this.renderer = rendererInit( {
 			showInfos : false,
 			slide: currentSlide,
 			imageFunction : imageFunction,
 			queryString: queryString,
 			pixelSize: ( queryString.p || currentSlide.p || imageFunction.recommendedPixelSize || 5 ) * 1 + ( queryString.pAdd || 0 ) * 1,
-			sliderObject: this.sliderObject,
 			sliderValues: this.sliderValues,
 			info: info,
 			defaultValues: this.defaultValues,
 			init: this
-		};
-
-		this.renderer = rendererInit( renderObject );
+		} );
 
 		if( this.timerAnimation ) {
 			this.timerAnimation();

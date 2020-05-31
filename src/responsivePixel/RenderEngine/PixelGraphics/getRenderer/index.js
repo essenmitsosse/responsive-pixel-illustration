@@ -24,7 +24,6 @@ export const getRenderer = (options, pixelStarter) => {
 			const countH = (Math.round((args.heightFactor || 1) * (h / pixelSize)));
 			const image = countW && countH && virtaulContext.createImageData(countW, countH);
 			let drawing;
-			let time = -1;
 
 			if (image && countW > 0 && countH > 0) {
 				// Resize Canvas to new Windows-Size
@@ -44,14 +43,10 @@ export const getRenderer = (options, pixelStarter) => {
 				context.imageSmoothingEnabled = false;
 
 				// Render the Image Data to the Pixel Array
-				time = Date.now();
-
 				drawing = drawer(
 					countW,
 					countH,
 				).get;
-
-				time = Date.now() - time;
 
 				// Render the Pixel Array to the Image
 				renderPixelToImage(
@@ -76,7 +71,7 @@ export const getRenderer = (options, pixelStarter) => {
 				);
 			}
 
-			return [w, h, time];
+			return [w, h];
 		},
 	};
 };

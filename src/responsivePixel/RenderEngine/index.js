@@ -12,9 +12,8 @@ class RenderEngine {
 		const currentSlide = !forceName && this.slides[queryString.slide || 0];
 		const imageName = forceName || currentSlide.name || 'tantalos';
 
-		const canvasDataList = false; // change for multiple Canvases
 		const canvasRenderer = !currentSlide.staticImage
-			&& createSingleCanvas(canvasDataList, args.div);
+			&& createSingleCanvas(args.div);
 
 		queryString.resizeable = true;
 		this.defaultValues = { isServer: true };

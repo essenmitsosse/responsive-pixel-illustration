@@ -1,6 +1,6 @@
 import { getGetRealDistanceWithMaxMin } from './getGetRealDistanceWithMaxMin';
 
-export const getPixelUnits = () => {
+export const PixelUnits = () => {
 	const old = [];
 	let variableListLink;
 	let variableListCreate;
@@ -217,10 +217,13 @@ export const getPixelUnits = () => {
 					const height = h;
 					return add
 						? function fromOtherSideAdd(size) {
-							return (this.axis ? width : height) + add - round(this.realPartCalculation() + size);
+							return (this.axis ? width : height)
+									+ add
+									- round(this.realPartCalculation() + size);
 						}
 						: function fromOtherSide(size) {
-							return (this.axis ? width : height) - round(this.realPartCalculation() + size);
+							return (this.axis ? width : height)
+									- round(this.realPartCalculation() + size);
 						};
 				};
 				DistanceX.prototype.getReal = getRealPos(x);

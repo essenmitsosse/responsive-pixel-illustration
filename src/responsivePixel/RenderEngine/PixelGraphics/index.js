@@ -1,5 +1,5 @@
 import { getRenderer } from './getRenderer';
-import { getPixelUnits } from './getPixelUnit';
+import { PixelUnits } from './PixelUnits';
 import { DrawingTools } from './DrawingTools';
 import { getGetRandom } from './getGetRandom';
 import { joinObjects } from './joinObjects';
@@ -10,7 +10,7 @@ export class PixelGraphics {
 	getRandom = getGetRandom()
 
 	constructor(options) {
-		this.pixelUnits = getPixelUnits(); // Initialize PixelUnits with Variables
+		this.pixelUnits = new PixelUnits(); // Initialize PixelUnits with Variables
 		this.pixelUnits.setList(createVariableList(options.imageFunction.variableList || []));
 		if (options.imageFunction.linkList) {
 			this.prepareVariableList(options.imageFunction.linkList);

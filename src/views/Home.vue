@@ -2,6 +2,7 @@
 	<div class="home">
 		<input type="range" min="0" max="1" step="0.0001" v-model="width">
 		<input type="range" min="0" max="1" step="0.0001" v-model="height">
+		<input type="range" min="1" max="12" step="1" v-model="pixelSize">
 		<div class="wrapper-canvas">
 			<canvas class="canvas"/>
 		</div>
@@ -19,12 +20,14 @@ export default {
 		return {
 			width: 1,
 			height: 1,
+			pixelSize: 5,
 			renderEngine: undefined,
 		};
 	},
 	watch: {
 		width() { this.redraw(); },
 		height() { this.redraw(); },
+		pixelSize() { this.redraw(); },
 	},
 	mounted() {
 		this.renderEngine = new RenderEngine({
@@ -37,7 +40,7 @@ export default {
 			this.renderEngine.renderer.redraw({
 				widthFactor: this.width,
 				heightFactor: this.height,
-				pixelSize: 2,
+				pixelSize: this.pixelSize,
 			});
 		},
 	},

@@ -18,8 +18,10 @@ export const getRenderer = (options, pixelStarter) => {
 		},
 
 		resize(args) {
-			const countW = (Math.round((args.widthFactor || 1) * (w / options.pixelSize)));
-			const countH = (Math.round((args.heightFactor || 1) * (h / options.pixelSize)));
+			console.log(args);
+			const pixelSize = args.pixelSize || options.pixelSize;
+			const countW = (Math.round((args.widthFactor || 1) * (w / pixelSize)));
+			const countH = (Math.round((args.heightFactor || 1) * (h / pixelSize)));
 			const image = countW && countH && virtaulContext.createImageData(countW, countH);
 			let drawing;
 			let time = -1;
@@ -69,8 +71,8 @@ export const getRenderer = (options, pixelStarter) => {
 					virtualCanvas,
 					0,
 					0,
-					(countW) * options.pixelSize,
-					(countH) * options.pixelSize,
+					(countW) * pixelSize,
+					(countH) * pixelSize,
 				);
 			}
 

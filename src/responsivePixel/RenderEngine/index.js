@@ -30,8 +30,13 @@ class RenderEngine {
 				slide: currentSlide,
 				imageFunction,
 				queryString,
-				pixelSize:
-				(queryString.p || currentSlide.p || imageFunction.recommendedPixelSize || 5)
+				pixelSize: (
+					args.pixelSize
+					|| queryString.p
+					|| currentSlide.p
+					|| imageFunction.recommendedPixelSize
+					|| 5
+				)
 				+ (queryString.pAdd || 0),
 				sliderValues: this.sliderValues,
 				defaultValues: this.defaultValues,

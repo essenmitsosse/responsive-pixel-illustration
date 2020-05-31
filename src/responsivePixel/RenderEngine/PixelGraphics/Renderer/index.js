@@ -1,6 +1,6 @@
 
 import { getRenderPixelToImage } from './getRenderPixelToImage';
-import { Color } from './Color';
+import { getPixelArray } from './getPixelArray';
 
 export class Renderer {
 	// Render Engine to convert basic image into absolute Pixels
@@ -37,8 +37,9 @@ export class Renderer {
 					virtualCanvas.width = countW;
 					virtualCanvas.height = countH;
 
-
+					/* eslint-disable-next-line no-param-reassign */
 					canvas.width = w;
+					/* eslint-disable-next-line no-param-reassign */
 					canvas.height = h;
 
 					// Disable Anti-Alaising
@@ -86,23 +87,8 @@ export class Renderer {
 		};
 	}
 
-	getPixelArray = function (width, height) {
-		let countH;
-		const colorArray = [];
-
-		while (width--) {
-			countH = height;
-			colorArray[width] = [];
-			while (countH--) {
-				colorArray[width][countH] = new Color();
-			}
-		}
-
-		return colorArray;
-	};
-
 	createPixelArray = function (canvasWidth, canvasHeight) { // Create PixelArray
-		const pixelArray = this.getPixelArray(canvasWidth, canvasHeight);
+		const pixelArray = getPixelArray(canvasWidth, canvasHeight);
 		let minX = 0;
 		let minY = 0;
 		let maxX = canvasWidth;
@@ -138,7 +124,7 @@ export class Renderer {
 			},
 
 			getSet(color, zInd, id) {
-				return function (x, y) {
+				return (x, y) => {
 					if (x >= minX && x < maxX && y >= minY && y < maxY) {
 						pixelArray[x][y].draw(color, zInd, id);
 					}
@@ -146,7 +132,7 @@ export class Renderer {
 			},
 
 			getClear(id) {
-				return function (x, y) {
+				return (x, y) => {
 					if (x >= minX && x < maxX && y >= minY && y < maxY) {
 						pixelArray[x][y].clear(id);
 					}
@@ -155,20 +141,20 @@ export class Renderer {
 
 			getSetForRect(color, zInd, id) { // Set Color for Rectangle for better Performance
 				const pA = pixelArray;
-				return function (args) {
+				return (args) => {
 					const { posX } = args;
 					const { posY } = args;
 					const endX = args.width + posX;
 					const endY = args.height + posY;
 					let sizeX = endX > maxX ? maxX : endX;
 					let sizeY;
-					const sizeY_start = endY > maxY ? maxY : endY;
+					const sizeYStart = endY > maxY ? maxY : endY;
 					const startX = posX < minX ? minX : posX;
 					const startY = posY < minY ? minY : posY;
 					let row;
 
 					while ((sizeX -= 1) >= startX) {
-						sizeY = sizeY_start;
+						sizeY = sizeYStart;
 						row = pA[sizeX];
 
 						while ((sizeY -= 1) >= startY) {
@@ -254,7 +240,7 @@ export class Renderer {
 		}; // Return prepared Color-Array, with default Color;
 	};
 
-	getDrawer = function (pixelStarter, renderList) { // Initialize the drawingTool
+	getDrawer(pixelStarter, renderList) { // Initialize the drawingTool
 		const that = this;
 		const pixelUnit = pixelStarter.pixelUnits;
 		const drawingTool = new pixelStarter.DrawingTools(pixelUnit, pixelStarter.getRandom);
@@ -268,5 +254,5 @@ export class Renderer {
 
 			return pixelArray;
 		};
-	};
+	}
 }

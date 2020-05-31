@@ -1,6 +1,3 @@
-
-import { PixelGraphics } from '.';
-
 function getPixelUnits() {
 	const old = [];
 	let variableListLink;

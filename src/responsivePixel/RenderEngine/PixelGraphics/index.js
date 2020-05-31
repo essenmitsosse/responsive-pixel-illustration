@@ -2,8 +2,6 @@ import { Renderer } from './Renderer';
 import { getPixelUnits } from './getPixelUnits';
 import { DrawingTools } from './DrawingTools';
 
-
-const startTime = Date.now();
 const PixelGraphics = function (options) {
 	const that = this;
 	const pU = this.getPixelUnits(); // Initialize PixelUnits with Variables

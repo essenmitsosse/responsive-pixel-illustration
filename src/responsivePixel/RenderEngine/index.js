@@ -1,355 +1,325 @@
 
 import { createSingleCanvas } from './createSingleCanvas';
+import { updateDocumentTitle } from './updateDocumentTitle';
 
-function RenderEngine(args) {
-	this.queryString = {};
-	const { queryString } = this;
+class RenderEngine {
+	queryString = {};
 
-	const forceName = args.imageName || window.location.hash.substr(1);
-	const currentSlide = !forceName && this.slides[queryString.slide || 0];
-	const imageName = forceName || currentSlide.name || 'tantalos';
+	constructor(args) {
+		const { queryString } = this;
 
-	const canvasDataList = false; // change for multiple Canvases
-	const canvasRenderer = !currentSlide.staticImage && createSingleCanvas(canvasDataList, args.div);
+		const forceName = args.imageName || window.location.hash.substr(1);
+		const currentSlide = !forceName && this.slides[queryString.slide || 0];
+		const imageName = forceName || currentSlide.name || 'tantalos';
 
-	queryString.resizeable = true;
-	this.defaultValues = { isServer: true };
-	this.parent = queryString.admin || queryString.parent;
+		const canvasDataList = false; // change for multiple Canvases
+		const canvasRenderer = !currentSlide.staticImage
+			&& createSingleCanvas(canvasDataList, args.div);
 
-	if (args.ImageFunction) {
-		const imageFunction = new args.ImageFunction(queryString, currentSlide);
+		queryString.resizeable = true;
+		this.defaultValues = { isServer: true };
+		this.parent = queryString.admin || queryString.parent;
 
-		this.hover = imageFunction.hover;
+		if (args.ImageFunction) {
+			const imageFunction = new args.ImageFunction(queryString, currentSlide);
 
-		this.renderer = canvasRenderer({
-			showInfos: false,
-			slide: currentSlide,
-			imageFunction,
-			queryString,
-			pixelSize:
+			this.hover = imageFunction.hover;
+
+			this.renderer = canvasRenderer({
+				showInfos: false,
+				slide: currentSlide,
+				imageFunction,
+				queryString,
+				pixelSize:
 				(queryString.p || currentSlide.p || imageFunction.recommendedPixelSize || 5)
 				+ (queryString.pAdd || 0),
-			sliderValues: this.sliderValues,
-			defaultValues: this.defaultValues,
-			init: this,
+				sliderValues: this.sliderValues,
+				defaultValues: this.defaultValues,
+				init: this,
+			});
+
+			if (this.timerAnimation) {
+				this.timerAnimation();
+			}
+		} else {
+			throw new Error(`${imageName} was loaded but is not a function!`);
+		}
+
+		updateDocumentTitle(imageName, queryString);
+		window.onkeydown = this.getShortcuts();
+
+		if (currentSlide.timer || queryString.timer) {
+			this.timerAnimation = this.getTimerAnimation(currentSlide.timer);
+		}
+	}
+
+	addToQueryString(newObj, dontRefresh) {
+		const q = this.queryString;
+		let somethingChanged = false;
+
+		Object.keys(newObj).forEach((key) => {
+			if (q[key] !== newObj[key]) {
+				somethingChanged = true;
+			}
+
+			q[key] = newObj[key];
 		});
 
-		if (this.timerAnimation) {
-			this.timerAnimation();
-		}
-	} else {
-		throw new Error(`${imageName} was loaded but is not a function!`);
-	}
-
-	this.getDocumentTitle(imageName, queryString);
-	window.onkeydown = this.getShortcuts(queryString);
-
-	if (currentSlide.timer || queryString.timer) {
-		this.timerAnimation = this.getTimerAnimation(currentSlide.timer);
-	}
-}
-
-RenderEngine.prototype.receiveImageData = function (imageData) {
-	const d = this.defaultValues;
-	let key;
-
-	if (this.renderer && this.renderer.redraw) {
-		imageData.forceSliders = true;
-		imageData.isServer = true;
-
-		this.renderer.redraw(imageData);
-	} else {
-		for (key in imageData) {
-			d[key] = imageData[key];
-		}
-	}
-};
-
-RenderEngine.prototype.addToQueryString = function (newObj, dontRefresh) {
-	let key;
-	const q = this.queryString;
-	let somethingChanged = false;
-
-	for (key in newObj) {
-		if (q[key] !== newObj[key]) {
-			somethingChanged = true;
-		}
-
-		q[key] = newObj[key];
-	}
-
-	if (!dontRefresh && somethingChanged) {
-		this.refresh();
-	}
-};
-
-RenderEngine.prototype.refresh = function (event) {
-	const newString = [];
-	let key;
-	const q = this.queryString;
-
-	if (event) { event.preventDefault(); }
-
-	for (key in q) {
-		if (q[key] !== undefined) {
-			newString.push(`${key}=${q[key]}`);
+		if (!dontRefresh && somethingChanged) {
+			this.refresh();
 		}
 	}
 
-	location.search = newString.join('&');
-};
+	refresh(event) {
+		const newString = [];
+		const q = this.queryString;
 
-RenderEngine.prototype.nextSlide = function (next) {
-	let { slide } = this.queryString;
+		if (event) { event.preventDefault(); }
 
-	if (!slide) { slide = 0; }
-	slide = slide * 1 + (next ? 1 : -1);
-
-	if (slide > this.slides.length - 1) {
-		slide = this.slides.length - 1;
-	} else if (slide < 0) {
-		slide = 0;
-	}
-
-	this.changeForceRedraw({ slide });
-};
-
-RenderEngine.prototype.sliderChange = function (obj) {
-	if (this.renderer) {
-		this.renderer.redraw(obj);
-	} else {
-		for (const key in obj) {
-			this.defaultValues[key] = obj[key];
-		}
-	}
-};
-
-
-RenderEngine.prototype.makeFullScreen = function () {
-	this.toggleResizability(false);
-	this.renderer.redraw({ width: 1, height: 1, forceSliders: true });
-};
-
-RenderEngine.prototype.setupToggleResizabilityLinkButton = function (button) {
-	this.toggleResizabilityButton = button;
-	this.toggleResizability(!!this.queryString.resizeable);
-};
-
-RenderEngine.prototype.toggleResizability = function (value) {
-	const resizeable = this.queryString.resizeable = value === undefined
-		? !this.queryString.resizeable
-		: value;
-
-	if (this.toggleResizabilityButton) {
-		this.toggleResizabilityButton.innerHTML = `${resizeable ? 'scaleable' : 'not scaleable'}<span class='shortcut'>CTRL+S</span>`;
-	}
-};
-
-RenderEngine.prototype.getDocumentTitle = function (imageName, queryString) {
-	let name = imageName;
-
-	// add resizeable to the title
-	if (queryString.resizeable) { name += ' resizeable'; }
-
-	// Display the id for the Seedable Random Number Generator in the title;
-	if (queryString.id) { name += ` (${queryString.id})`; }
-
-	// Display the imageName as the title
-	document.title = name;
-};
-
-RenderEngine.prototype.getShortcuts = function (q) {
-	const that = this;
-
-	return function (event) {
-		const	{ keyCode } = event;
-
-		if (event.ctrlKey) {
-			if (keyCode === 83) { // CTRL + S // toggle scalability
-				that.toggleResizability();
-			} else if (keyCode === 70) { // CTRL + F // make Fullscreen
-				that.makeFullScreen();
-			} else if (keyCode === 67) { // CTRL + C // toggle Color sheme
-				q.cs = (q.cs !== true) ? true : undefined;
-				that.refresh();
-			} else if (keyCode === 68) { // CTRL + D // toggle debugging
-				q.debug = (q.debug !== true) ? true : undefined;
-				that.refresh();
-			} else if (keyCode === 187) { // CTRL + "+" // zoom In
-				if (!q.p) { q.p = 5; }
-				q.p = q.p * 1 + 1;
-				that.refresh();
-			} else if (keyCode === 189) { // CTRL + "-" // zoom Out
-				if (!q.p) { q.p = 5; }
-				q.p = q.p * 1 - 1;
-				if (q.p < 1) { q.p = 1; }
-				that.refresh();
+		Object.keys(q).forEach((key) => {
+			if (q[key] !== undefined) {
+				newString.push(`${key}=${q[key]}`);
 			}
-		} else if (event.altKey) {
-			if (keyCode === 38) { // Arrow Keys Up/Down // Add Rows
-				if (!q.panels) { q.panels = 1; }
-				q.panels = q.panels * 1 + 1;
-				that.refresh();
-			} else if (keyCode === 40) {
-				if (!q.panels) { q.panels = 1; }
-				q.panels = q.panels * 1 - 1;
-				if (q.panels < 1) { q.panels = 1; }
-				that.refresh();
-			} else if (keyCode === 39) { // Arrow Keys Left/Right // Next / Prev Image
-				that.nextSlide(true);
-			} else if (keyCode === 37) {
-				that.nextSlide(false);
-			}
-		} else if (event.shiftKey) {
-			if (keyCode === 49) { q.p = 11; that.refresh(); } // Number Keys 1 — 9 // Set resolution
-			else if (keyCode === 222) { q.p = 12; that.refresh(); } else if (keyCode === 51) { q.p = 13; that.refresh(); } else if (keyCode === 52) { q.p = 14; that.refresh(); } else if (keyCode === 53) { q.p = 15; that.refresh(); } else if (keyCode === 54) { q.p = 16; that.refresh(); } else if (keyCode === 191) { q.p = 17; that.refresh(); } else if (keyCode === 56) { q.p = 18; that.refresh(); } else if (keyCode === 57) { q.p = 19; that.refresh(); } else if (keyCode === 187) { q.p = 20; that.refresh(); }
-		} else if (!event.metaKey) {
-			if (keyCode === 49) { q.p = 1; that.refresh(); } // Number Keys 1 — 9 // Set resolution
-			else if (keyCode === 50) { q.p = 2; that.refresh(); } else if (keyCode === 51) { q.p = 3; that.refresh(); } else if (keyCode === 52) { q.p = 4; that.refresh(); } else if (keyCode === 53) { q.p = 5; that.refresh(); } else if (keyCode === 54) { q.p = 6; that.refresh(); } else if (keyCode === 55) { q.p = 7; that.refresh(); } else if (keyCode === 56) { q.p = 8; that.refresh(); } else if (keyCode === 57) { q.p = 9; that.refresh(); } else if (keyCode === 48) { q.p = 10; that.refresh(); }
+		});
+
+		window.location.search = newString.join('&');
+	}
+
+	nextSlide(next) {
+		let { slide } = this.queryString;
+
+		if (!slide) { slide = 0; }
+		slide = slide * 1 + (next ? 1 : -1);
+
+		if (slide > this.slides.length - 1) {
+			slide = this.slides.length - 1;
+		} else if (slide < 0) {
+			slide = 0;
 		}
-	};
-};
 
-// Displays
-RenderEngine.prototype.getStaticImage = function (args, main) {
-	const imageList = args.staticImage;
-	const img = document.createElement('img');
-	const width = window.innerWidth;
-	const l = imageList.length;
-	let count = 0;
-	let found = false;
+		this.changeForceRedraw({ slide });
+	}
 
-	if (main) {
-		main.setAttribute('class', `${main.getAttribute('class') || ''} screenshot`);
+	sliderChange(obj) {
+		if (this.renderer) {
+			this.renderer.redraw(obj);
+		} else {
+			Object.keys(obj).forEach((key) => {
+				this.defaultValues[key] = obj[key];
+			});
+		}
+	}
 
 
-		while (count < l) {
-			if (imageList[count].width <= width) {
-				if (imageList[count].max && imageList[count].max <= width) {
-					found = false;
-				} else {
-					found = count;
+	makeFullScreen() {
+		this.toggleResizability(false);
+		this.renderer.redraw({ width: 1, height: 1, forceSliders: true });
+	}
+
+	setupToggleResizabilityLinkButton(button) {
+		this.toggleResizabilityButton = button;
+		this.toggleResizability(!!this.queryString.resizeable);
+	}
+
+	toggleResizability(value) {
+		this.queryString.resizeable = value === undefined
+			? !this.queryString.resizeable
+			: value;
+
+		if (this.toggleResizabilityButton) {
+			this.toggleResizabilityButton.innerHTML = `${this.queryString.resizeable ? 'scaleable' : 'not scaleable'}<span class='shortcut'>CTRL+S</span>`;
+		}
+	}
+
+	getShortcuts() {
+		return (event) => {
+			const { keyCode } = event;
+
+			if (event.ctrlKey) {
+				console.log(1);
+				if (keyCode === 83) { // CTRL + S // toggle scalability
+					console.log(2);
+					this.toggleResizability();
+				} else if (keyCode === 70) { // CTRL + F // make Fullscreen
+					this.makeFullScreen();
+				} else if (keyCode === 67) { // CTRL + C // toggle Color sheme
+					this.queryString.cs = (this.queryString.cs !== true) ? true : undefined;
+					this.refresh();
+				} else if (keyCode === 68) { // CTRL + D // toggle debugging
+					this.queryString.debug = (this.queryString.debug !== true) ? true : undefined;
+					this.refresh();
+				} else if (keyCode === 187) { // CTRL + "+" // zoom In
+					if (!this.queryString.p) { this.queryString.p = 5; }
+					this.queryString.p = this.queryString.p * 1 + 1;
+					this.refresh();
+				} else if (keyCode === 189) { // CTRL + "-" // zoom Out
+					if (!this.queryString.p) { this.queryString.p = 5; }
+					this.queryString.p = this.queryString.p * 1 - 1;
+					if (this.queryString.p < 1) { this.queryString.p = 1; }
+					this.refresh();
+				}
+			} else if (event.altKey) {
+				if (keyCode === 38) { // Arrow Keys Up/Down // Add Rows
+					if (!this.queryString.panels) { this.queryString.panels = 1; }
+					this.queryString.panels = this.queryString.panels * 1 + 1;
+					this.refresh();
+				} else if (keyCode === 40) {
+					if (!this.queryString.panels) { this.queryString.panels = 1; }
+					this.queryString.panels = this.queryString.panels * 1 - 1;
+					if (this.queryString.panels < 1) { this.queryString.panels = 1; }
+					this.refresh();
+				} else if (keyCode === 39) { // Arrow Keys Left/Right // Next / Prev Image
+					this.nextSlide(true);
+				} else if (keyCode === 37) {
+					this.nextSlide(false);
+				}
+			} else if (event.shiftKey) {
+				if (keyCode === 49) {
+					this.queryString.p = 11; this.refresh();
+				} else if (keyCode === 222) { // Number Keys 1 — 9 // Set resolution
+					this.queryString.p = 12; this.refresh();
+				} else if (keyCode === 51) {
+					this.queryString.p = 13; this.refresh();
+				} else if (keyCode === 52) {
+					this.queryString.p = 14; this.refresh();
+				} else if (keyCode === 53) {
+					this.queryString.p = 15; this.refresh();
+				} else if (keyCode === 54) {
+					this.queryString.p = 16; this.refresh();
+				} else if (keyCode === 191) {
+					this.queryString.p = 17; this.refresh();
+				} else if (keyCode === 56) {
+					this.queryString.p = 18; this.refresh();
+				} else if (keyCode === 57) {
+					this.queryString.p = 19; this.refresh();
+				} else if (keyCode === 187) {
+					this.queryString.p = 20; this.refresh();
+				}
+			} else if (!event.metaKey) {
+				if (keyCode === 49) {
+					this.queryString.p = 1; this.refresh();
+				} else if (keyCode === 50) { // Number Keys 1 — 9 // Set resolution
+					this.queryString.p = 2; this.refresh();
+				} else if (keyCode === 51) {
+					this.queryString.p = 3; this.refresh();
+				} else if (keyCode === 52) {
+					this.queryString.p = 4; this.refresh();
+				} else if (keyCode === 53) {
+					this.queryString.p = 5; this.refresh();
+				} else if (keyCode === 54) {
+					this.queryString.p = 6; this.refresh();
+				} else if (keyCode === 55) {
+					this.queryString.p = 7; this.refresh();
+				} else if (keyCode === 56) {
+					this.queryString.p = 8; this.refresh();
+				} else if (keyCode === 57) {
+					this.queryString.p = 9; this.refresh();
+				} else if (keyCode === 48) {
+					this.queryString.p = 10; this.refresh();
 				}
 			}
-			count += 1;
-		}
-
-		if (found !== false && imageList[found].url) {
-			main.appendChild(img);
-			img.setAttribute('class', `screenshot ${imageList[found].className || ''}`);
-			img.setAttribute('src', imageList[found].url);
-		}
-
-		if (args.color) {
-			main.setAttribute('style', `background-color: ${args.color};`);
-		}
-	}
-	// this.list.setAttribute( "id", name );
-};
-
-RenderEngine.prototype.getTimerAnimation = function () {
-	const that = this;
-	const fps = 20;
-
-	const waitTimer = fps * 0.5; // how often per second should the chance be checked
-
-	const animations = {
-		camera: { duration: 6, chance: 0.1 },
-		side: { duration: 3, chance: 0.3 },
-		a: { duration: 2, chance: 0.3 },
-		b: { duration: 2, chance: 0.3 },
-		c: { duration: 2, chance: 0.3 },
-		d: { duration: 2, chance: 0.1 }, // eye open
-		e: { duration: 2, chance: 0.1 }, // eye open
-		f: { duration: 2, chance: 0.3 },
-		g: { duration: 2, chance: 0.3 },
-		h: { duration: 2, chance: 0.3 },
-		k: { duration: 2, chance: 0.3 },
-		l: { duration: 2, chance: 0.3 },
-		m: { duration: 2, chance: 0.3 },
-		n: { duration: 2, chance: 0.3 },
-	};
-	let key;
-	let current;
-
-	var getFrame = function () {
-		const renderObject = {
-			isServer: true,
-			forceSliders: true,
 		};
-		let current;
-		let key;
+	}
 
-		for (key in animations) {
-			current = animations[key];
-			if (current.move) {
-				current.pos += current.step * (current.forward ? 1 : -1);
-				if (current.pos > 1) {
-					current.pos = 1;
-					current.move = false;
-					current.forward = false;
-				} else if (current.pos < 0) {
-					current.pos = 0;
-					current.move = false;
-					current.forward = true;
-				}
+	getTimerAnimation() {
+		const that = this;
+		const fps = 20;
+
+		const waitTimer = fps * 0.5; // how often per second should the chance be checked
+
+		const animations = {
+			camera: { duration: 6, chance: 0.1 },
+			side: { duration: 3, chance: 0.3 },
+			a: { duration: 2, chance: 0.3 },
+			b: { duration: 2, chance: 0.3 },
+			c: { duration: 2, chance: 0.3 },
+			d: { duration: 2, chance: 0.1 }, // eye open
+			e: { duration: 2, chance: 0.1 }, // eye open
+			f: { duration: 2, chance: 0.3 },
+			g: { duration: 2, chance: 0.3 },
+			h: { duration: 2, chance: 0.3 },
+			k: { duration: 2, chance: 0.3 },
+			l: { duration: 2, chance: 0.3 },
+			m: { duration: 2, chance: 0.3 },
+			n: { duration: 2, chance: 0.3 },
+		};
+
+		const keysAnimation = Object.keys(animations);
+
+		const getFrame = () => {
+			const renderObject = {
+				isServer: true,
+				forceSliders: true,
+			};
 
 
-				// randomly stopp in the middle
-				if (current.waitTimer > 0) {
+			keysAnimation.forEach((key) => {
+				const current = animations[key];
+				if (current.move) {
+					current.pos += current.step * (current.forward ? 1 : -1);
+					if (current.pos > 1) {
+						current.pos = 1;
+						current.move = false;
+						current.forward = false;
+					} else if (current.pos < 0) {
+						current.pos = 0;
+						current.move = false;
+						current.forward = true;
+					}
+
+
+					// randomly stopp in the middle
+					if (current.waitTimer > 0) {
+						current.waitTimer -= 1;
+					} else {
+						current.waitTimer = waitTimer;
+						if (current.middleChance > Math.random()) {
+							current.forward = !current.forward;
+							current.move = false;
+						}
+					}
+
+					renderObject[key] = current.pos;
+				} else if (current.waitTimer > 0) {
 					current.waitTimer -= 1;
 				} else {
 					current.waitTimer = waitTimer;
-					if (current.middleChance > Math.random()) {
-						current.forward = !current.forward;
-						current.move = false;
+					if (current.chance > Math.random()) {
+						current.move = true;
 					}
 				}
+			});
 
-				renderObject[key] = current.pos;
-			} else if (current.waitTimer > 0) {
-				current.waitTimer -= 1;
-			} else {
-				current.waitTimer = waitTimer;
-				if (current.chance > Math.random()) {
-					current.move = true;
-				}
-			}
-		}
+			setTimeout(getFrame, 1000 / fps);
 
-		// console.log( animations.camera.pos );
+			that.renderer.redraw(renderObject);
+		};
 
-		setTimeout(getFrame, 1000 / fps);
+		keysAnimation.forEach((key) => {
+			const current = animations[key];
+			current.chance = (waitTimer * current.chance) / fps;
+			current.middleChance = waitTimer / (fps * current.duration);
 
-		that.renderer.redraw(renderObject);
-	};
+			current.step = 1 / (fps * current.duration);
 
-	for (key in animations) {
-		current = animations[key];
-		current.chance = (waitTimer * current.chance) / fps;
-		current.middleChance = waitTimer / (fps * current.duration);
+			current.pos = 0;
+			current.forward = true;
+			current.move = true;
+			current.waitTimer = 0;
+		});
 
-		current.step = 1 / (fps * current.duration);
-
-		current.pos = 0;
-		current.forward = true;
-		current.move = true;
-		current.waitTimer = 0;
+		return getFrame;
 	}
 
-	return getFrame;
-};
-
-RenderEngine.prototype.require = {};
-
-RenderEngine.prototype.slides = [
-	{ name: 'graien', niceName: 'The Three Graeae' },
-	{ name: 'tantalos', niceName: 'Tantalos' },
-	{ name: 'teiresias', niceName: 'Teiresias' },
-	{ name: 'brothers', niceName: 'Brothers' },
-	{ name: 'zeus', niceName: 'Zeus' },
-	{ name: 'argos', niceName: 'The Argos' },
-	{ name: 'sphinx', niceName: 'The Sphinx' },
-];
+	slides = [
+		{ name: 'graien', niceName: 'The Three Graeae' },
+		{ name: 'tantalos', niceName: 'Tantalos' },
+		{ name: 'teiresias', niceName: 'Teiresias' },
+		{ name: 'brothers', niceName: 'Brothers' },
+		{ name: 'zeus', niceName: 'Zeus' },
+		{ name: 'argos', niceName: 'The Argos' },
+		{ name: 'sphinx', niceName: 'The Sphinx' },
+	];
+}
 
 export { RenderEngine };

@@ -24,8 +24,8 @@ export const getRenderer = (options, pixelStarter) => {
 			}
 			const countXFull = w / options.pixelSize;
 			const countYFull = h / options.pixelSize;
-			const countX = (Math.round((args.widthFactor || 1) * countXFull));
-			const countY = (Math.round((args.heightFactor || 1) * countYFull));
+			const countX = Math.round(Math.min(1, args.widthFactor || 1) * countXFull);
+			const countY = Math.round(Math.min(1, args.heightFactor || 1) * countYFull);
 			const image = countX && countY && virtaulContext.createImageData(countX, countY);
 			let drawing;
 			const missingX = countXFull - countX;

@@ -5,7 +5,6 @@ export const getRenderer = (options, pixelStarter) => {
 	const context = options.divCanvas.getContext('2d');
 	const virtualCanvas = document.createElement('canvas');
 	const virtaulContext = virtualCanvas.getContext('2d');
-	const { pixelSize } = options;
 
 	let w; let h;
 
@@ -18,9 +17,9 @@ export const getRenderer = (options, pixelStarter) => {
 			h = options.divCanvas.offsetHeight;
 		},
 
-		resize: function resize(widthFactor, heightFactor) {
-			const countW = (Math.round((widthFactor || 1) * (w / pixelSize)));
-			const countH = (Math.round((heightFactor || 1) * (h / pixelSize)));
+		resize(widthFactor, heightFactor) {
+			const countW = (Math.round((widthFactor || 1) * (w / options.pixelSize)));
+			const countH = (Math.round((heightFactor || 1) * (h / options.pixelSize)));
 			const image = countW && countH && virtaulContext.createImageData(countW, countH);
 			let drawing;
 			let time = -1;
@@ -70,8 +69,8 @@ export const getRenderer = (options, pixelStarter) => {
 					virtualCanvas,
 					0,
 					0,
-					(countW) * pixelSize,
-					(countH) * pixelSize,
+					(countW) * options.pixelSize,
+					(countH) * options.pixelSize,
 				);
 			}
 

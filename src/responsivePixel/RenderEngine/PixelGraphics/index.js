@@ -23,17 +23,16 @@ export class PixelGraphics {
 			options,
 			this,
 		);
-		const { rescaleWindow } = finalRenderer;
 		const resize = this.getResize(finalRenderer.resize);
 		const redraw = getRedraw(options, resize, isParent);
 
 
-		rescaleWindow();
+		finalRenderer.rescaleWindow();
 
 		redraw(joinObjects(options.sliderValues, options.queryString, options.defaultValues));
 
 		window.onresize = () => {
-			rescaleWindow();
+			finalRenderer.rescaleWindow();
 			resize();
 		};
 

@@ -113,7 +113,7 @@ class RenderEngine {
 
 	makeFullScreen() {
 		this.toggleResizability(false);
-		this.renderer.redraw({ width: 1, height: 1, forceSliders: true });
+		this.renderer.redraw({ width: 1, height: 1 });
 	}
 
 	setupToggleResizabilityLinkButton(button) {
@@ -249,7 +249,6 @@ class RenderEngine {
 		const getFrame = () => {
 			const renderObject = {
 				isServer: true,
-				forceSliders: true,
 			};
 
 

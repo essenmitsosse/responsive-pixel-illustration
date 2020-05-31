@@ -212,7 +212,7 @@ const helper = new (function () {
 				let somethingToChange = false;
 
 				for (key in args) {
-					if (key !== 'width' && key !== 'height' && key !== 'forceSliders' && key !== 'isServer') {
+					if (key !== 'width' && key !== 'height' && key !== 'isServer') {
 						somethingToChange = true;
 						break;
 					}

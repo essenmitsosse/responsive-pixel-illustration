@@ -529,10 +529,10 @@ function getPixelUnits() {
 		createSize: oneD.createSize,
 		Width: oneD.Width,
 		Height: oneD.Height,
-		setList(listLink, listCreate, updater) {
-			variableListLink = listLink;
-			variableListCreate = listCreate;
-			updateList = updater;
+		setList(args) {
+			variableListLink = args.listLink;
+			variableListCreate = args.listCreate;
+			updateList = args.updater;
 		},
 		linkList(calc) {
 			calculateList = calc;

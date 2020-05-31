@@ -64,20 +64,25 @@ export class PixelGraphics {
 
 		const resetResizeBlock = () => {
 			resizeBlock = false;
-			if (needsToResize) { resize(currentW, currentH); }
+			if (needsToResize) {
+				resize({
+					widthFactor: currentW,
+					heightFactor: currentH,
+				});
+			}
 		};
 
-		return function checkIfResizeShouldBeDone(w, h) {
+		return function checkIfResizeShouldBeDone(args) {
 			needsToResize = true;
 
 			if (!resizeBlock) {
 				resizeBlock = true;
 				setTimeout(resetResizeBlock, 20);
-				resize(w, h);
+				resize(args);
 			}
 
-			currentW = w || currentW;
-			currentH = h || currentH;
+			currentW = args.widthFactor || currentW;
+			currentH = args.heightFactor || currentH;
 		};
 	}
 
@@ -106,7 +111,7 @@ export class PixelGraphics {
 
 			redraw(
 				size
-					? { width: x, height: y }
+					? { widthFactor: x, heightFactor: y }
 					: {
 						[alt ? 'c' : 'a']: x,
 						[alt ? 'd' : 'b']: y,

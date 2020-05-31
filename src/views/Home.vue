@@ -34,7 +34,11 @@ export default {
 	},
 	methods: {
 		redraw() {
-			this.renderEngine.renderer.redraw({ width: this.width, height: this.height });
+			this.renderEngine.renderer.redraw({
+				widthFactor: this.width,
+				heightFactor: this.height,
+				pixelSize: 2,
+			});
 		},
 	},
 };

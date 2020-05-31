@@ -17,9 +17,9 @@ export const getRenderer = (options, pixelStarter) => {
 			h = options.divCanvas.offsetHeight;
 		},
 
-		resize(widthFactor, heightFactor) {
-			const countW = (Math.round((widthFactor || 1) * (w / options.pixelSize)));
-			const countH = (Math.round((heightFactor || 1) * (h / options.pixelSize)));
+		resize(args) {
+			const countW = (Math.round((args.widthFactor || 1) * (w / options.pixelSize)));
+			const countH = (Math.round((args.heightFactor || 1) * (h / options.pixelSize)));
 			const image = countW && countH && virtaulContext.createImageData(countW, countH);
 			let drawing;
 			let time = -1;

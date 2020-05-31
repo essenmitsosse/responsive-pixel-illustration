@@ -5,6 +5,6 @@ export const getRedraw = (options, resize) => {
 		if (hoverEvent) {
 			hoverEvent(args);
 		}
-		resize(args.width, args.height);
+		resize(args);
 	};
 };

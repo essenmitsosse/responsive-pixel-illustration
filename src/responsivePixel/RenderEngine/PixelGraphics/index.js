@@ -1,4 +1,4 @@
-import { Renderer } from './Renderer';
+import { getRenderer } from './getRenderer';
 import { getPixelUnits } from './getPixelUnit';
 import { DrawingTools } from './DrawingTools';
 import { getGetRandom } from './getGetRandom';
@@ -20,7 +20,7 @@ export class PixelGraphics {
 
 		return (canvas) => {
 			const isParent = options.queryString.parent;
-			const finalRenderer = new Renderer(
+			const finalRenderer = getRenderer(
 				canvas,
 				options,
 				this,

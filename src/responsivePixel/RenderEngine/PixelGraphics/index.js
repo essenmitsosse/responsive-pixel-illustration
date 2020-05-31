@@ -1,5 +1,5 @@
 import { Renderer } from './Renderer';
-import { getPixelUnits } from './getPixelUnits';
+import { getPixelUnits } from './getPixelUnit';
 import { DrawingTools } from './DrawingTools';
 import { getGetRandom } from './getGetRandom';
 import { joinObjects } from './joinObjects';

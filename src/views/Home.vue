@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { InitPixel } from "@/responsivePixel/renderengine/init";
+import { RenderEngine } from "@/responsivePixel/RenderEngine";
 import graien from '@/responsivePixel/scripts/graien';
 
 export default {
@@ -17,7 +17,7 @@ export default {
 		return {
 			width: 1,
 			height: 1,
-			pixel: undefined,
+			renderEngine: undefined,
 		};
 	},
 	watch: {
@@ -25,7 +25,7 @@ export default {
 		height() { this.redraw(); },		
 	},
 	mounted() {
-		this.pixel = new InitPixel({
+		this.renderEngine = new RenderEngine({
 			div: document.getElementById("main"),
 			imageFunction: graien,
 		});
@@ -34,7 +34,7 @@ export default {
 	},
 	methods: {
 		redraw() {
-			this.pixel.renderer.redraw({width: this.width, height: this.height});
+			this.renderEngine.renderer.redraw({width: this.width, height: this.height});
 		}
 	}
 }

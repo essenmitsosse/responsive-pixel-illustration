@@ -1,4 +1,4 @@
-import { helper } from '../renderengine/helper';
+import { helper } from '../RenderEngine/helper';
 
 var graien = function( args, slide, createSlider ){
 	var getSmallerDim = helper.getSmallerDim,

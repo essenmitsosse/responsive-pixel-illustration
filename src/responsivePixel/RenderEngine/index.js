@@ -2,7 +2,7 @@
 
 import { PixelGraphics } from './PixelGraphics';
 
-var InitPixel = function( args ) {
+var RenderEngine = function( args ) {
 	this.queryString = {};
 	var queryString = this.queryString,
 
@@ -37,7 +37,7 @@ var InitPixel = function( args ) {
 };
 
 // Create a new Canvas, add it to the div and return it
-InitPixel.prototype.createSingleCanvas = function( canvasData, div ) {
+RenderEngine.prototype.createSingleCanvas = function( canvasData, div ) {
 	var canvas = document.createElement( "canvas" ),
 		key;
 	
@@ -59,7 +59,7 @@ InitPixel.prototype.createSingleCanvas = function( canvasData, div ) {
 };
 
 // Create the Callback Function, when the script is loaded
-InitPixel.prototype.callback = function( rendererInit, queryString, ImageFunction, currentSlide, info ) {
+RenderEngine.prototype.callback = function( rendererInit, queryString, ImageFunction, currentSlide, info ) {
 	var imageFunction;
 		
 	if( ImageFunction ) {
@@ -88,7 +88,7 @@ InitPixel.prototype.callback = function( rendererInit, queryString, ImageFunctio
 	}
 };
 
-InitPixel.prototype.info = function( options ) {
+RenderEngine.prototype.info = function( options ) {
 	var logs = [],
 		initString,
 		d = document,
@@ -150,7 +150,7 @@ InitPixel.prototype.info = function( options ) {
 	};
 };
 
-InitPixel.prototype.receiveImageData = function ( imageData ) {
+RenderEngine.prototype.receiveImageData = function ( imageData ) {
 	var d = this.defaultValues,
 		key;
 
@@ -170,7 +170,7 @@ InitPixel.prototype.receiveImageData = function ( imageData ) {
 	}
 };
 
-InitPixel.prototype.addToQueryString = function ( newObj, dontRefresh ) {
+RenderEngine.prototype.addToQueryString = function ( newObj, dontRefresh ) {
 	var key,
 		q = this.queryString,
 		somethingChanged = false;
@@ -189,7 +189,7 @@ InitPixel.prototype.addToQueryString = function ( newObj, dontRefresh ) {
 	
 };
 
-InitPixel.prototype.refresh = function ( event ) {
+RenderEngine.prototype.refresh = function ( event ) {
 	var newString = [],
 		key,
 		q = this.queryString;
@@ -205,7 +205,7 @@ InitPixel.prototype.refresh = function ( event ) {
 	location.search = newString.join("&");
 };
 
-InitPixel.prototype.nextSlide = function ( next ) {
+RenderEngine.prototype.nextSlide = function ( next ) {
 	var slide = this.queryString.slide;
 
 	if( !slide ) { slide = 0; }
@@ -220,7 +220,7 @@ InitPixel.prototype.nextSlide = function ( next ) {
 	this.changeForceRedraw({ slide: slide });
 };
 
-InitPixel.prototype.sliderChange = function ( obj ) {
+RenderEngine.prototype.sliderChange = function ( obj ) {
 
 	if( this.renderer ) {
 
@@ -236,17 +236,17 @@ InitPixel.prototype.sliderChange = function ( obj ) {
 };
 
 
-InitPixel.prototype.makeFullScreen = function () {
+RenderEngine.prototype.makeFullScreen = function () {
 	this.toggleResizability( false ); 
 	this.renderer.redraw( { width: 1, height: 1, forceSliders: true } );
 };
 
-InitPixel.prototype.setupToggleResizabilityLinkButton = function ( button ) {
+RenderEngine.prototype.setupToggleResizabilityLinkButton = function ( button ) {
 	this.toggleResizabilityButton = button;
 	this.toggleResizability( this.queryString.resizeable ? true : false );
 };
 
-InitPixel.prototype.toggleResizability = function ( value ) {
+RenderEngine.prototype.toggleResizability = function ( value ) {
 	var resizeable = this.queryString.resizeable = value === undefined ? 
 			!this.queryString.resizeable 
 			: value;
@@ -257,7 +257,7 @@ InitPixel.prototype.toggleResizability = function ( value ) {
 
 };
 
-InitPixel.prototype.getDocumentTitle = function ( imageName, queryString ) {
+RenderEngine.prototype.getDocumentTitle = function ( imageName, queryString ) {
 	var name = imageName;
 
 	// add resizeable to the title
@@ -270,7 +270,7 @@ InitPixel.prototype.getDocumentTitle = function ( imageName, queryString ) {
 	document.title = name;
 };
 
-InitPixel.prototype.getShortcuts = function ( q ) {
+RenderEngine.prototype.getShortcuts = function ( q ) {
 	var that = this;
 
 	return function ( event ) {
@@ -354,7 +354,7 @@ InitPixel.prototype.getShortcuts = function ( q ) {
 };
 
 // Displays 
-InitPixel.prototype.getStaticImage = function ( args, main ) {
+RenderEngine.prototype.getStaticImage = function ( args, main ) {
 	var imageList = args.staticImage,
 		img = document.createElement("img"),
 		width = window.innerWidth,
@@ -390,7 +390,7 @@ InitPixel.prototype.getStaticImage = function ( args, main ) {
 	// this.list.setAttribute( "id", name );
 };
 
-InitPixel.prototype.getTimerAnimation = function () {
+RenderEngine.prototype.getTimerAnimation = function () {
 	var that = this,
 		fps = 20,
 
@@ -485,9 +485,9 @@ InitPixel.prototype.getTimerAnimation = function () {
 	return getFrame;
 };
 
-InitPixel.prototype.require = {};
+RenderEngine.prototype.require = {};
 
-InitPixel.prototype.slides = [
+RenderEngine.prototype.slides = [
 	{ name: "graien", niceName: "The Three Graeae" },
 	{ name: "tantalos", niceName: "Tantalos" },
 	{ name: "teiresias", niceName: "Teiresias" },
@@ -497,4 +497,4 @@ InitPixel.prototype.slides = [
 	{ name: "sphinx", niceName: "The Sphinx" }
 ];
 
-export { InitPixel };
+export { RenderEngine };

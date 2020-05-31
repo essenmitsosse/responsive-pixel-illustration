@@ -36,6 +36,7 @@ export const getAxis = (oneD) => {
 				? this.getCalcPos.fromOther : this.getCalcPos.normal;
 		}
 	};
+
 	function Axis() { }
 	const AxisX = createAxis(oneD.Width, oneD.DistanceX);
 	const AxisY = createAxis(oneD.Height, oneD.DistanceY);

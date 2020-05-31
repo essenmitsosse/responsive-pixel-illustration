@@ -1,7 +1,23 @@
 import { getGetRealDistanceWithMaxMin } from './getGetRealDistanceWithMaxMin';
+import { getDistance } from './getDistance';
+import { getWidth } from './getWidth';
+import { getHeight } from './getHeight';
+import { getDistanceX } from './getDistanceX';
+import { getDistanceY } from './getDistanceY';
+
 
 export const get1D = function getOneD(context) {
+	let getGetLengthCalculation;
+	let getGetRealDistanceWithMaxMinWrapper;
+	let getSize;
+
 	class Dimension {
+		dimension = true;
+
+		constructor() {
+			this.getRealDistance = this.getRealDistanceBasic;
+		}
+
 		// DIMENSIONS --- Width & Height
 		prepare(args, con) {
 			const objType = typeof args;
@@ -15,7 +31,7 @@ export const get1D = function getOneD(context) {
 					return;
 				}
 				if (args.getLength) {
-					this.realPartCalculation = this.getGetLengthCalculation(args.getLength[0], args.getLength[1]);
+					this.realPartCalculation = getGetLengthCalculation(args.getLength[0], args.getLength[1]);
 					return;
 				}
 				this.debug = args.debug;
@@ -41,14 +57,14 @@ export const get1D = function getOneD(context) {
 					this.realPartCalculation = this.getQuick;
 				} else {
 					this.realPartCalculation = (args.min || args.max)
-						? getGetRealDistanceWithMaxMin(args.max, args.min, (this.dim ? Width : Height))
+						? getGetRealDistanceWithMaxMinWrapper(args.max, args.min, this.dim)
 						: this.getRealDistance;
 				}
 				if (args.save) {
-					this.realPartCalculation = this.saveDistance(con.variableListCreate(args.save));
+					this.realPartCalculation = this.getSaveDistance(con.variableListCreate(args.save));
 				}
 				if (args.odd || args.even) {
-					this.realPartCalculation = this.odd(args.odd || false);
+					this.realPartCalculation = this.getOdd(args.odd || false);
 				}
 			} else { // Short Hand Variables
 				if (objType === 'number') {
@@ -74,18 +90,18 @@ export const get1D = function getOneD(context) {
 			}
 		}
 
-		saveDistance(saver) {
+		getSaveDistance(saver) {
 			this.getRealForSave = this.realPartCalculation;
-			return function () {
+			return function saveDistance() {
 				const real = this.getRealForSave();
 				saver.set(real);
 				return real;
 			};
 		}
 
-		odd(isOdd) {
+		getOdd(isOdd) {
 			this.getRealForOdd = this.realPartCalculation;
-			return function () {
+			return function odd() {
 				const real = Math.round(this.getRealForOdd());
 				if (real === 0) {
 					return 0;
@@ -116,16 +132,11 @@ export const get1D = function getOneD(context) {
 		}
 
 		createAdder(add, onlyAdd) {
-			const Size = this.dim ? Height : Width;
+			const Size = getSize(this.dim);
 			this.adder = add.map((value) => new Size(value));
 			this[onlyAdd ? 'realPartCalculation' : 'getRealDistance'] = onlyAdd ? this.getRealDistanceWithCalcOnlyAdding : this.getRealDistanceWithCalc;
 		}
 
-		getGetLengthCalculation(x, y) {
-			const sizeX = new Width(x);
-			const sizeY = new Width(y);
-			return () => Math.round(Math.sqrt(sizeX.getReal() ** 2 + sizeY.getReal() ** 2));
-		}
 
 		getReal() {
 			return Math.round(this.realPartCalculation());
@@ -161,36 +172,27 @@ export const get1D = function getOneD(context) {
 			this.getReal = () => abs;
 		}
 	}
-	function Distance() { }
-	function Width(args) { this.prepare(args, context); }
-	function Height(args) { this.prepare(args, context); }
-	function DistanceX(args) { this.prepare(args, context); }
-	function DistanceY(args) { this.prepare(args, context); }
-	Dimension.prototype.getRealDistance = Dimension.prototype.getRealDistanceBasic;
-	Dimension.prototype.dimension = true;
-	Width.prototype = new Dimension();
-	Height.prototype = new Dimension();
-	Width.prototype.axis = true;
-	Height.prototype.axis = false;
-	// DISTANCES --- PosX & PosY
-	Distance.prototype = new Dimension();
-	Distance.prototype.getDefaults = function (r, a) {
-		if (r === undefined && a === undefined) {
-			this.rele = 0;
-			this.abs = 0;
-			return true;
-		}
-		this.rele = r || 0;
-		this.abs = a || 0;
-		return false;
+
+	const Distance = getDistance(Dimension);
+	const Width = getWidth(Dimension, context);
+	const Height = getHeight(Dimension, context);
+	const DistanceX = getDistanceX(Distance, context);
+	const DistanceY = getDistanceY(Distance, context);
+
+	getGetLengthCalculation = (x, y) => {
+		const sizeX = new Width(x);
+		const sizeY = new Width(y);
+		return () => Math.round(Math.sqrt(sizeX.getReal() ** 2 + sizeY.getReal() ** 2));
 	};
-	Distance.prototype.getQuick = function () {
-		return 0;
-	};
-	Distance.prototype.dimension = false;
-	DistanceX.prototype = new Distance();
-	DistanceY.prototype = new Distance();
-	DistanceX.prototype.axis = true;
+
+	getGetRealDistanceWithMaxMinWrapper = (max, min, dim) => getGetRealDistanceWithMaxMin(
+		max,
+		min,
+		dim ? Width : Height,
+	);
+
+	getSize = (dim) => (dim ? Height : Width);
+
 	return {
 		createSize: (args) => {
 			if (args === undefined) {
@@ -208,13 +210,13 @@ export const get1D = function getOneD(context) {
 			const y = dimensions.posY || 0;
 			const w = dimensions.width;
 			const h = dimensions.height;
-			const getRealPos = function (add) {
+			const getRealPos = (add) => {
 				const round = r;
 				return add
 					? function getRealPosAdd() { return round(this.realPartCalculation() + add); }
 					: function getRealPosStatic() { return round(this.realPartCalculation()); };
 			};
-			const getFromOtherSide = function (add) {
+			const getFromOtherSide = (add) => {
 				const round = r;
 				const width = w;
 				const height = h;

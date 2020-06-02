@@ -8,39 +8,34 @@ class RenderEngine {
 
 		const forceName = args.imageName || window.location.hash.substr(1);
 		const currentSlide = !forceName && this.slides[queryString.slide || 0];
-		const imageName = forceName || currentSlide.name || 'tantalos';
 
 		queryString.resizeable = true;
 		this.defaultValues = { isServer: true };
 		this.parent = queryString.admin || queryString.parent;
 
-		if (args.imageFunction) {
-			this.hover = args.imageFunction.hover;
+		this.hover = args.imageFunction.hover;
 
-			this.renderer = new PixelGraphics({
-				showInfos: false,
-				slide: currentSlide,
-				imageFunction: args.imageFunction,
-				queryString,
-				pixelSize: (
-					args.pixelSize
+		this.renderer = new PixelGraphics({
+			showInfos: false,
+			slide: currentSlide,
+			imageFunction: args.imageFunction,
+			queryString,
+			pixelSize: (
+				args.pixelSize
 					|| queryString.p
 					|| currentSlide.p
 					|| args.imageFunction.recommendedPixelSize
 					|| 5
-				)
+			)
 				+ (queryString.pAdd || 0),
-				sliderValues: this.sliderValues,
-				defaultValues: this.defaultValues,
-				init: this,
-				divCanvas: args.divCanvas,
-			});
+			sliderValues: this.sliderValues,
+			defaultValues: this.defaultValues,
+			init: this,
+			divCanvas: args.divCanvas,
+		});
 
-			if (this.timerAnimation) {
-				this.timerAnimation();
-			}
-		} else {
-			throw new Error(`${imageName} was loaded but is not a function!`);
+		if (this.timerAnimation) {
+			this.timerAnimation();
 		}
 
 		window.onkeydown = this.getShortcuts();

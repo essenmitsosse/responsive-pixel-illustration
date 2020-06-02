@@ -3,15 +3,16 @@ import { PixelUnits } from './PixelUnits';
 import { DrawingTools } from './DrawingTools';
 import { getGetRandom } from './getGetRandom';
 import { joinObjects } from './joinObjects';
-import { createVariableList } from './createVariableList';
 import { getRedraw } from './getRedraw';
+import { Variable } from './Variable';
+import { VariableDynamic } from './VariableDynamic';
 
 export class PixelGraphics {
 	getRandom = getGetRandom()
 
 	constructor(options) {
 		this.pixelUnits = new PixelUnits(); // Initialize PixelUnits with Variables
-		this.pixelUnits.setList(createVariableList(options.imageFunction.variableList || []));
+		this.pixelUnits.setList(this.createVariableList(options.imageFunction.variableList || []));
 		if (options.imageFunction.linkList) {
 			this.prepareVariableList(options.imageFunction.linkList);
 		}
@@ -175,6 +176,32 @@ export class PixelGraphics {
 				}
 			});
 		});
+	}
+
+	createVariableList(vl) {
+		const newVL = Object.fromEntries(Object.keys(vl).map((key) => [
+			key,
+			new Variable(vl[key], key, this.pixelUnits),
+		]));
+		return {
+			listLink: (name, vari) => {
+				if (newVL[name]) {
+					newVL[name].link(vari);
+				} else {
+					newVL[name] = new VariableDynamic(name);
+					newVL[name].link(vari);
+				}
+			},
+			listCreate: (name) => {
+				if (!newVL[name]) {
+					newVL[name] = new VariableDynamic(name);
+				}
+				return newVL[name];
+			},
+			updater: () => {
+				Object.values(newVL).forEach((value) => value.set());
+			},
+		};
 	}
 
 	DrawingTools = DrawingTools;

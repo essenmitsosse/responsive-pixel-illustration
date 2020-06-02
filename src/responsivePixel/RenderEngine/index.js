@@ -15,21 +15,19 @@ class RenderEngine {
 		this.defaultValues = { isServer: true };
 		this.parent = queryString.admin || queryString.parent;
 
-		if (args.ImageFunction) {
-			const imageFunction = new args.ImageFunction(queryString, currentSlide);
-
-			this.hover = imageFunction.hover;
+		if (args.imageFunction) {
+			this.hover = args.imageFunction.hover;
 
 			this.renderer = new PixelGraphics({
 				showInfos: false,
 				slide: currentSlide,
-				imageFunction,
+				imageFunction: args.imageFunction,
 				queryString,
 				pixelSize: (
 					args.pixelSize
 					|| queryString.p
 					|| currentSlide.p
-					|| imageFunction.recommendedPixelSize
+					|| args.imageFunction.recommendedPixelSize
 					|| 5
 				)
 				+ (queryString.pAdd || 0),

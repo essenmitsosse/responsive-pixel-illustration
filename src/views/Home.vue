@@ -11,7 +11,7 @@
 
 <script>
 import { RenderEngine } from '@/responsivePixel/RenderEngine';
-import graien from '@/responsivePixel/scripts/graien';
+import { graien } from '@/responsivePixel/scripts/graien';
 
 export default {
 	name: 'Home',
@@ -32,7 +32,7 @@ export default {
 	mounted() {
 		this.renderEngine = new RenderEngine({
 			divCanvas: document.getElementsByClassName('canvas')[0],
-			ImageFunction: graien,
+			imageFunction: graien,
 		});
 	},
 	methods: {

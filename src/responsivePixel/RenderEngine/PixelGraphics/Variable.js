@@ -1,8 +1,8 @@
 export class Variable {
-	constructor(args, name, pixelUnits) {
+	constructor(args, name, pixelUnit) {
 		if (args) {
 			this.name = name;
-			this.vari = pixelUnits.createSize(args);
+			this.vari = pixelUnit.createSize(args);
 			this.linkedP = [];
 		}
 	}

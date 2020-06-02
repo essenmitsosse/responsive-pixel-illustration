@@ -1,6 +1,7 @@
 
-function DrawingTools(pixelUnit, getRandom) {
+function DrawingTools(args) {
 	const drawingTool = this;
+	const { pixelUnit, getRandom } = args;
 
 	this.seed = (function (getRandom) {
 		const getSeed = getRandom().seed;
@@ -213,7 +214,6 @@ function DrawingTools(pixelUnit, getRandom) {
 
 	this.Primitive.prototype.prepareSizeAndPos = (function (Dimensions) { // Prepare Size and Position Data for Basic Objects
 		return function (args, reflectX, reflectY, rotate) {
-			console.log(args);
 			this.dimensions = new Dimensions(
 				args,
 				this.fromRight = (rotate ? ((args.fY || false) === reflectY) : ((args.fX || false) !== reflectX)),

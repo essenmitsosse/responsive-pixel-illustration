@@ -1,6 +1,5 @@
 import { getRenderer } from './getRenderer';
 import { PixelUnits } from './PixelUnits';
-import { DrawingTools } from './DrawingTools';
 import { getGetRandom } from './getGetRandom';
 import { joinObjects } from './joinObjects';
 import { getRedraw } from './getRedraw';
@@ -13,9 +12,9 @@ export class PixelGraphics {
 	variableList = {}
 
 	constructor(options) {
-		this.pixelUnits = new PixelUnits(); // Initialize PixelUnits with Variables
+		this.pixelUnit = new PixelUnits(); // Initialize PixelUnits with Variables
 
-		this.pixelUnits.setList(this.createVariableList());
+		this.pixelUnit.setList(this.createVariableList());
 		if (options.imageFunction.linkList) {
 			this.prepareVariableList(options.imageFunction.linkList);
 		}
@@ -25,7 +24,7 @@ export class PixelGraphics {
 		Object.entries(inputVariableList)
 			.map(([key, value]) => [
 				key,
-				new Variable(value, key, this.pixelUnits),
+				new Variable(value, key, this.pixelUnit),
 			])
 			.forEach(([key, value]) => {
 				this.variableList[key] = value;
@@ -167,7 +166,7 @@ export class PixelGraphics {
 					/* eslint-disable-next-line no-param-reassign */
 					current.autoUpdate = false;
 					/* eslint-disable-next-line no-param-reassign */
-					current.s = this.pixelUnits.createSize(current);
+					current.s = this.pixelUnit.createSize(current);
 				} else {
 					/* eslint-disable-next-line no-param-reassign */
 					current.calculated = true;
@@ -177,7 +176,7 @@ export class PixelGraphics {
 			}
 		});
 
-		this.pixelUnits.linkList((dimensions) => {
+		this.pixelUnit.linkList((dimensions) => {
 			vl.forEach((current) => {
 				if (current.main) {
 					/* eslint-disable-next-line no-param-reassign */
@@ -215,6 +214,4 @@ export class PixelGraphics {
 			},
 		};
 	}
-
-	DrawingTools = DrawingTools;
 }

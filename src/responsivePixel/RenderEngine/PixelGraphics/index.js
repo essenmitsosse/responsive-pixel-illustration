@@ -8,14 +8,28 @@ import { Variable } from './Variable';
 import { VariableDynamic } from './VariableDynamic';
 
 export class PixelGraphics {
-	getRandom = getGetRandom()
+	getRandom = getGetRandom();
+
+	variableList = {}
 
 	constructor(options) {
 		this.pixelUnits = new PixelUnits(); // Initialize PixelUnits with Variables
-		this.pixelUnits.setList(this.createVariableList(options.imageFunction.variableList || []));
+
+		this.pixelUnits.setList(this.createVariableList());
 		if (options.imageFunction.linkList) {
 			this.prepareVariableList(options.imageFunction.linkList);
 		}
+
+
+		const inputVariableList = options.imageFunction.variableList || [];
+		Object.entries(inputVariableList)
+			.map(([key, value]) => [
+				key,
+				new Variable(value, key, this.pixelUnits),
+			])
+			.forEach(([key, value]) => {
+				this.variableList[key] = value;
+			});
 
 		if (options.imageFunction.changeValueSetter) { options.imageFunction.changeValueSetter(); }
 
@@ -178,28 +192,26 @@ export class PixelGraphics {
 		});
 	}
 
-	createVariableList(vl) {
-		const newVL = Object.fromEntries(Object.keys(vl).map((key) => [
-			key,
-			new Variable(vl[key], key, this.pixelUnits),
-		]));
+	createVariableList() {
 		return {
 			variableListLink: (name, vari) => {
-				if (newVL[name]) {
-					newVL[name].link(vari);
+				if (this.variableList[name]) {
+					this.variableList[name].link(vari);
 				} else {
-					newVL[name] = new VariableDynamic(name);
-					newVL[name].link(vari);
+					this.variableList[name] = new VariableDynamic(name);
+					this.variableList[name].link(vari);
 				}
 			},
 			variableListCreate: (name) => {
-				if (!newVL[name]) {
-					newVL[name] = new VariableDynamic(name);
+				if (!this.variableList[name]) {
+					this.variableList[name] = new VariableDynamic(name);
 				}
-				return newVL[name];
+				return this.variableList[name];
 			},
 			updateList: () => {
-				Object.values(newVL).forEach((value) => value.set());
+				Object.values(this.variableList).forEach((value) => {
+					value.set();
+				});
 			},
 		};
 	}

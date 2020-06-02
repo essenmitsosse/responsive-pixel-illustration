@@ -146,7 +146,6 @@ function DrawingTools(pixelUnit, getRandom) {
 		return function (args, inherit) {
 			inherit = inherit || {};
 
-			let newArgs;
 			let reflectX = (inherit.reflectX || false);
 			let reflectY = (inherit.reflectY || false);
 			let rotate = (inherit.rotate || 0);
@@ -162,7 +161,7 @@ function DrawingTools(pixelUnit, getRandom) {
 			if (rotate === 180) { rotate = 0; reflectX = !reflectX; reflectY = !reflectY; }
 			if (rotate === 270) { rotate = 90; reflectX = !reflectX; reflectY = !reflectY; }
 
-			newArgs = this.prepareSizeAndPos(
+			const newArgs = this.prepareSizeAndPos(
 				args,
 				reflectX,
 				reflectY,
@@ -173,11 +172,21 @@ function DrawingTools(pixelUnit, getRandom) {
 			newArgs.reflectY = (args.rY || false) !== reflectY;
 			newArgs.rotate = rotate + (args.rotate || 0);
 
-			if (args.save || inherit.save)				{ newArgs.save = args.save || inherit.save; } else if (args.color || inherit.color)		{ newArgs.color = args.color || inherit.color; }
+			if (args.save || inherit.save) {
+				newArgs.save = args.save || inherit.save;
+			} else if (args.color || inherit.color)	{
+				newArgs.color = args.color || inherit.color;
+			}
 
-			if (args.clear || inherit.clear)			{ newArgs.clear = true; }
-			if (args.id || inherit.id || newArgs.save)	{ newArgs.id = args.id || inherit.id || newArgs.save; }
-			if (args.mask)								{ newArgs.mask = setColorMask; }
+			if (args.clear || inherit.clear) {
+				newArgs.clear = true;
+			}
+			if (args.id || inherit.id || newArgs.save) {
+				newArgs.id = args.id || inherit.id || newArgs.save;
+			}
+			if (args.mask) {
+				newArgs.mask = setColorMask;
+			}
 
 			newArgs.zInd = (inherit.zInd || 0) + (args.z || 0);
 
@@ -204,6 +213,7 @@ function DrawingTools(pixelUnit, getRandom) {
 
 	this.Primitive.prototype.prepareSizeAndPos = (function (Dimensions) { // Prepare Size and Position Data for Basic Objects
 		return function (args, reflectX, reflectY, rotate) {
+			console.log(args);
 			this.dimensions = new Dimensions(
 				args,
 				this.fromRight = (rotate ? ((args.fY || false) === reflectY) : ((args.fX || false) !== reflectX)),
@@ -287,9 +297,8 @@ function DrawingTools(pixelUnit, getRandom) {
 				let x0; let y0; let x1; let y1; let dx; let dy; let sy; let err; let
 					e2;
 
-				if (isNaN(p0.x) || isNaN(p0.y) || isNaN(p1.x) || isNaN(p1.y)) {
-					window.console.log('Line with NaN found!', p0.x, p0.y, p1.x, p1.y);
-					return p1;
+				if (Number.isNaN(p0.x) || Number.isNaN(p0.y) || Number.isNaN(p1.x) || Number.isNaN(p1.y)) {
+					throw new Error('Line with NaN found!', p0.x, p0.y, p1.x, p1.y);
 				}
 
 				if (p0.x > p1.x) {

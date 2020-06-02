@@ -1,14 +1,14 @@
 import { getRenderPixelToImage } from './getRenderPixelToImage';
 import { getDrawer } from './getDrawer';
 
-export const getRenderer = (options, pixelStarter) => {
+export const getRenderer = (options, pixelGraphics) => {
 	const context = options.divCanvas.getContext('2d');
 	const virtualCanvas = document.createElement('canvas');
 	const virtaulContext = virtualCanvas.getContext('2d');
 
 	let w; let h;
 
-	const drawer = getDrawer(pixelStarter, options.imageFunction.renderList);
+	const drawer = getDrawer(pixelGraphics, options.imageFunction.renderList);
 	const renderPixelToImage = getRenderPixelToImage(options.imageFunction.background);
 
 	return {

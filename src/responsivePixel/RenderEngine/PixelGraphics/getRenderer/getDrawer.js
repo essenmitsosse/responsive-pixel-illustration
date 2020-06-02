@@ -1,8 +1,8 @@
 import { getPixelArray } from './getPixelArray';
 
-export const getDrawer = (pixelStarter, renderList) => {
-	const pixelUnit = pixelStarter.pixelUnits;
-	const drawingTool = new pixelStarter.DrawingTools(pixelUnit, pixelStarter.getRandom);
+export const getDrawer = (pixelGraphics, renderList) => {
+	const pixelUnit = pixelGraphics.pixelUnits;
+	const drawingTool = new pixelGraphics.DrawingTools(pixelUnit, pixelGraphics.getRandom);
 	const canvasTool = new drawingTool.Obj().create({ list: renderList });
 	return function drawer(countW, countH) {
 		const pixelArray = getPixelArray(countW, countH);

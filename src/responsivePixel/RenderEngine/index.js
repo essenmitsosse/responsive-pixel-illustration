@@ -1,4 +1,3 @@
-import { updateDocumentTitle } from './updateDocumentTitle';
 import { PixelGraphics } from './PixelGraphics';
 
 class RenderEngine {
@@ -44,7 +43,6 @@ class RenderEngine {
 			throw new Error(`${imageName} was loaded but is not a function!`);
 		}
 
-		updateDocumentTitle(imageName, queryString);
 		window.onkeydown = this.getShortcuts();
 
 		if (currentSlide.timer || queryString.timer) {

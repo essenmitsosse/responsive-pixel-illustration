@@ -6,9 +6,6 @@ class RenderEngine {
 	constructor(args) {
 		const { queryString } = this;
 
-		const forceName = args.imageName || window.location.hash.substr(1);
-		const currentSlide = !forceName && this.slides[queryString.slide || 0];
-
 		queryString.resizeable = true;
 		this.defaultValues = { isServer: true };
 		this.parent = queryString.admin || queryString.parent;
@@ -17,17 +14,14 @@ class RenderEngine {
 
 		this.renderer = new PixelGraphics({
 			showInfos: false,
-			slide: currentSlide,
 			imageFunction: args.imageFunction,
 			queryString,
 			pixelSize: (
 				args.pixelSize
-					|| queryString.p
-					|| currentSlide.p
-					|| args.imageFunction.recommendedPixelSize
-					|| 5
-			)
-				+ (queryString.pAdd || 0),
+				|| queryString.p
+				|| args.imageFunction.recommendedPixelSize
+				|| 5
+			) + (queryString.pAdd || 0),
 			sliderValues: this.sliderValues,
 			defaultValues: this.defaultValues,
 			init: this,
@@ -40,8 +34,8 @@ class RenderEngine {
 
 		window.onkeydown = this.getShortcuts();
 
-		if (currentSlide.timer || queryString.timer) {
-			this.timerAnimation = this.getTimerAnimation(currentSlide.timer);
+		if (queryString.timer) {
+			this.timerAnimation = this.getTimerAnimation();
 		}
 	}
 

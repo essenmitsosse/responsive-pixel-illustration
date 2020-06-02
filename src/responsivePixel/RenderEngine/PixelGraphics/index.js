@@ -37,7 +37,7 @@ export class PixelGraphics {
 		};
 
 		// Make Canvas resizeable by mouse
-		this.initUserInput(options, redraw, options.divCanvas, options.slide.unchangeable);
+		this.initUserInput(options, redraw, options.divCanvas);
 
 		return {
 			resize,

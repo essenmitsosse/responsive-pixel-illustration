@@ -20,9 +20,9 @@ export const PixelUnits = () => {
 		Width: oneD.Width,
 		Height: oneD.Height,
 		setList(args) {
-			context.variableListLink = args.listLink;
-			context.variableListCreate = args.listCreate;
-			updateList = args.updater;
+			context.variableListLink = args.variableListLink;
+			context.variableListCreate = args.variableListCreate;
+			updateList = args.updateList;
 		},
 		linkList(calc) {
 			calculateList = calc;

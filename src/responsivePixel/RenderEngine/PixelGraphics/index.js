@@ -184,7 +184,7 @@ export class PixelGraphics {
 			new Variable(vl[key], key, this.pixelUnits),
 		]));
 		return {
-			listLink: (name, vari) => {
+			variableListLink: (name, vari) => {
 				if (newVL[name]) {
 					newVL[name].link(vari);
 				} else {
@@ -192,13 +192,13 @@ export class PixelGraphics {
 					newVL[name].link(vari);
 				}
 			},
-			listCreate: (name) => {
+			variableListCreate: (name) => {
 				if (!newVL[name]) {
 					newVL[name] = new VariableDynamic(name);
 				}
 				return newVL[name];
 			},
-			updater: () => {
+			updateList: () => {
 				Object.values(newVL).forEach((value) => value.set());
 			},
 		};

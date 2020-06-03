@@ -2,7 +2,8 @@
 	<div class="home">
 		<input type="range" min="0" max="1" step="0.0001" v-model="width">
 		<input type="range" min="0" max="1" step="0.0001" v-model="height">
-		<input type="range" min="1" max="12" step="1" v-model="pixelSize">
+		<input type="range" min="2" max="12" step="1" v-model="pixelSize">
+		<input type="checkbox" v-model="isResizeable">
 		<div class="wrapper-canvas">
 			<canvas class="canvas"/>
 		</div>
@@ -22,6 +23,7 @@ export default {
 			width: 1,
 			height: 1,
 			pixelSize: 5,
+			isResizeable: false,
 			renderEngine: undefined,
 		};
 	},
@@ -29,6 +31,7 @@ export default {
 		width() { this.redraw(); },
 		height() { this.redraw(); },
 		pixelSize() { this.redraw(); },
+		isResizeable() { this.redraw(); },
 	},
 	mounted() {
 		this.renderEngine = new RenderEngine({
@@ -42,6 +45,7 @@ export default {
 				widthFactor: this.width,
 				heightFactor: this.height,
 				pixelSize: this.pixelSize,
+				isResizeable: this.isResizeable,
 			});
 		},
 	},

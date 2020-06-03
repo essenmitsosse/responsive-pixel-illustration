@@ -39,7 +39,7 @@ export class PixelGraphics {
 
 		finalRenderer.rescaleWindow();
 
-		redraw(joinObjects(options.sliderValues, options.queryString, options.defaultValues));
+		redraw(joinObjects(options.sliderValues, options.queryString));
 
 		window.onresize = () => {
 			finalRenderer.rescaleWindow();

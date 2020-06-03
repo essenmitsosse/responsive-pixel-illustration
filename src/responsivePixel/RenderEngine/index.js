@@ -7,7 +7,6 @@ class RenderEngine {
 		const { queryString } = this;
 
 		queryString.resizeable = true;
-		this.defaultValues = { isServer: true };
 		this.parent = queryString.admin || queryString.parent;
 
 		this.hover = args.imageFunction.hover;
@@ -23,7 +22,6 @@ class RenderEngine {
 				|| 5
 			) + (queryString.pAdd || 0),
 			sliderValues: this.sliderValues,
-			defaultValues: this.defaultValues,
 			init: this,
 			divCanvas: args.divCanvas,
 		});
@@ -85,17 +83,6 @@ class RenderEngine {
 
 		this.changeForceRedraw({ slide });
 	}
-
-	sliderChange(obj) {
-		if (this.renderer) {
-			this.renderer.redraw(obj);
-		} else {
-			Object.keys(obj).forEach((key) => {
-				this.defaultValues[key] = obj[key];
-			});
-		}
-	}
-
 
 	makeFullScreen() {
 		this.toggleResizability(false);

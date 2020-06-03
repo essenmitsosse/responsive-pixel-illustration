@@ -22,12 +22,8 @@ export class PixelGraphics {
 
 		const inputVariableList = options.imageFunction.variableList || [];
 		Object.entries(inputVariableList)
-			.map(([key, value]) => [
-				key,
-				new Variable(value, key, this.pixelUnit),
-			])
 			.forEach(([key, value]) => {
-				this.variableList[key] = value;
+				this.variableList[key] = new Variable(value, key, this.pixelUnit);
 			});
 
 		if (options.imageFunction.changeValueSetter) { options.imageFunction.changeValueSetter(); }

@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { RenderEngine } from '@/responsivePixel/RenderEngine';
+import { PixelGraphics } from '@/responsivePixel/PixelGraphics';
 import { graien } from '@/responsivePixel/scripts/graien';
 import { imageFunctionTeiresias } from '@/responsivePixel/scripts/teiresias';
 
@@ -24,7 +24,7 @@ export default {
 			height: 1,
 			pixelSize: 5,
 			isResizeable: false,
-			renderEngine: undefined,
+			pixelGraphic: undefined,
 		};
 	},
 	watch: {
@@ -34,8 +34,9 @@ export default {
 		isResizeable() { this.redraw(); },
 	},
 	mounted() {
-		this.renderEngine = new RenderEngine({
+		this.pixelGraphic = new PixelGraphics({
 			divCanvas: document.getElementsByClassName('canvas')[0],
+			pixelSize: this.pixelSize,
 			imageFunction: imageFunctionTeiresias,
 		});
 
@@ -43,7 +44,7 @@ export default {
 	},
 	methods: {
 		redraw() {
-			this.renderEngine.renderer.redraw({
+			this.pixelGraphic.redraw({
 				widthFactor: this.width,
 				heightFactor: this.height,
 				pixelSize: this.pixelSize,

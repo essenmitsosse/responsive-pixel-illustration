@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { helper } from '../RenderEngine/helper';
+import { helper } from '../helperPixelGraphics';
 
 const { getSmallerDim } = helper;
 const { getBiggerDim } = helper;

@@ -27,10 +27,9 @@ export class PixelGraphics {
 
 		if (options.imageFunction.changeValueSetter) { options.imageFunction.changeValueSetter(); }
 
-		const isParent = options.queryString.parent;
 		const finalRenderer = getRenderer(options, this);
 		const resize = this.getResize(finalRenderer.resize);
-		const redraw = getRedraw(options, resize, isParent);
+		const redraw = getRedraw(options, resize);
 
 
 		finalRenderer.rescaleWindow();
@@ -91,7 +90,6 @@ export class PixelGraphics {
 	}
 
 	initUserInput(options, redraw, canvas, unchangeable) {
-		const { queryString } = options;
 		const hasSomethingToHover = options.imageFunction.hover;
 		const that = this;
 
@@ -124,8 +122,8 @@ export class PixelGraphics {
 		};
 
 		const mouseMove = (event, size) => {
-			if (queryString.resizeable || (!unchangeable && (size || hasSomethingToHover))) {
-				changeImage(event, size || queryString.resizeable);
+			if ((!unchangeable && (size || hasSomethingToHover))) {
+				changeImage(event, size);
 			}
 		};
 

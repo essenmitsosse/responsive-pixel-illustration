@@ -181,3 +181,92 @@ var renderer = function( init ) {
 		hoverAlt: hoverAlt
 	};
 };
+
+getTimerAnimation() {
+		const that = this;
+		const fps = 20;
+
+		const waitTimer = fps * 0.5; // how often per second should the chance be checked
+
+		const animations = {
+			camera: { duration: 6, chance: 0.1 },
+			side: { duration: 3, chance: 0.3 },
+			a: { duration: 2, chance: 0.3 },
+			b: { duration: 2, chance: 0.3 },
+			c: { duration: 2, chance: 0.3 },
+			d: { duration: 2, chance: 0.1 }, // eye open
+			e: { duration: 2, chance: 0.1 }, // eye open
+			f: { duration: 2, chance: 0.3 },
+			g: { duration: 2, chance: 0.3 },
+			h: { duration: 2, chance: 0.3 },
+			k: { duration: 2, chance: 0.3 },
+			l: { duration: 2, chance: 0.3 },
+			m: { duration: 2, chance: 0.3 },
+			n: { duration: 2, chance: 0.3 },
+		};
+
+		const keysAnimation = Object.keys(animations);
+
+		const getFrame = () => {
+			const renderObject = {
+				isServer: true,
+			};
+
+
+			keysAnimation.forEach((key) => {
+				const current = animations[key];
+				if (current.move) {
+					current.pos += current.step * (current.forward ? 1 : -1);
+					if (current.pos > 1) {
+						current.pos = 1;
+						current.move = false;
+						current.forward = false;
+					} else if (current.pos < 0) {
+						current.pos = 0;
+						current.move = false;
+						current.forward = true;
+					}
+
+
+					// randomly stopp in the middle
+					if (current.waitTimer > 0) {
+						current.waitTimer -= 1;
+					} else {
+						current.waitTimer = waitTimer;
+						if (current.middleChance > Math.random()) {
+							current.forward = !current.forward;
+							current.move = false;
+						}
+					}
+
+					renderObject[key] = current.pos;
+				} else if (current.waitTimer > 0) {
+					current.waitTimer -= 1;
+				} else {
+					current.waitTimer = waitTimer;
+					if (current.chance > Math.random()) {
+						current.move = true;
+					}
+				}
+			});
+
+			setTimeout(getFrame, 1000 / fps);
+
+			that.renderer.redraw(renderObject);
+		};
+
+		keysAnimation.forEach((key) => {
+			const current = animations[key];
+			current.chance = (waitTimer * current.chance) / fps;
+			current.middleChance = waitTimer / (fps * current.duration);
+
+			current.step = 1 / (fps * current.duration);
+
+			current.pos = 0;
+			current.forward = true;
+			current.move = true;
+			current.waitTimer = 0;
+		});
+
+		return getFrame;
+	}

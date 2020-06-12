@@ -38,6 +38,8 @@ export default {
 			divCanvas: document.getElementsByClassName('canvas')[0],
 			imageFunction: imageFunctionTeiresias,
 		});
+
+		this.redraw();
 	},
 	methods: {
 		redraw() {

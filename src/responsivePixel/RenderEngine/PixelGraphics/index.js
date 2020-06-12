@@ -1,7 +1,6 @@
 import { getRenderer } from './getRenderer';
 import { PixelUnits } from './PixelUnits';
 import { getGetRandom } from './getGetRandom';
-import { joinObjects } from './joinObjects';
 import { getRedraw } from './getRedraw';
 import { Variable } from './Variable';
 import { VariableDynamic } from './VariableDynamic';
@@ -29,17 +28,12 @@ export class PixelGraphics {
 		if (options.imageFunction.changeValueSetter) { options.imageFunction.changeValueSetter(); }
 
 		const isParent = options.queryString.parent;
-		const finalRenderer = getRenderer(
-			options,
-			this,
-		);
+		const finalRenderer = getRenderer(options, this);
 		const resize = this.getResize(finalRenderer.resize);
 		const redraw = getRedraw(options, resize, isParent);
 
 
 		finalRenderer.rescaleWindow();
-
-		redraw(joinObjects(options.sliderValues, options.queryString));
 
 		window.onresize = () => {
 			finalRenderer.rescaleWindow();

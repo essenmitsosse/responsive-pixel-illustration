@@ -4,7 +4,7 @@ import { getDrawer } from './getDrawer';
 export const getRenderer = (options, pixelGraphics) => {
 	const context = options.divCanvas.getContext('2d');
 	const virtualCanvas = document.createElement('canvas');
-	const virtaulContext = virtualCanvas.getContext('2d');
+	const virtualContext = virtualCanvas.getContext('2d');
 
 	let w; let h;
 
@@ -18,15 +18,11 @@ export const getRenderer = (options, pixelGraphics) => {
 		},
 
 		resize(args) {
-			if (args.pixelSize !== undefined) {
-				/* eslint-disable-next-line no-param-reassign */
-				options.pixelSize = args.pixelSize;
-			}
-			const countXFull = w / options.pixelSize;
-			const countYFull = h / options.pixelSize;
+			const countXFull = w / args.pixelSize;
+			const countYFull = h / args.pixelSize;
 			const countX = Math.round(Math.min(1, args.widthFactor || 1) * countXFull);
 			const countY = Math.round(Math.min(1, args.heightFactor || 1) * countYFull);
-			const image = countX && countY && virtaulContext.createImageData(countX, countY);
+			const image = countX && countY && virtualContext.createImageData(countX, countY);
 			let drawing;
 			const missingX = countXFull - countX;
 			const missingY = countYFull - countY;
@@ -63,7 +59,7 @@ export const getRenderer = (options, pixelGraphics) => {
 				);
 
 				// Place Image on the Context
-				virtaulContext.putImageData(
+				virtualContext.putImageData(
 					image, 0, 0,
 				);
 

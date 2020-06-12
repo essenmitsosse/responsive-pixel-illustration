@@ -5,7 +5,11 @@
 		<input type="range" min="2" max="12" step="1" v-model="pixelSize">
 		<input type="checkbox" v-model="isResizeable">
 		<div class="wrapper-canvas">
-			<canvas class="canvas"/>
+			<canvas class="canvas"
+				ref="canvas"
+				@mousemove="onDrag"
+				@touchmove="onDrag"
+			/>
 		</div>
 	</div>
 </template>
@@ -23,7 +27,7 @@ export default {
 			width: 1,
 			height: 1,
 			pixelSize: 5,
-			isResizeable: false,
+			isResizeable: true,
 			pixelGraphic: undefined,
 		};
 	},
@@ -34,6 +38,8 @@ export default {
 		isResizeable() { this.redraw(); },
 	},
 	mounted() {
+		this.boundingClientRectCanvas = this.$refs.canvas.getBoundingClientRect();
+
 		this.pixelGraphic = new PixelGraphics({
 			divCanvas: document.getElementsByClassName('canvas')[0],
 			pixelSize: this.pixelSize,
@@ -48,8 +54,39 @@ export default {
 				widthFactor: this.width,
 				heightFactor: this.height,
 				pixelSize: this.pixelSize,
-				isResizeable: this.isResizeable,
+				sizeX: this.boundingClientRectCanvas.width,
+				sizeY: this.boundingClientRectCanvas.height,
+				boundingClientRectCanvas: undefined,
 			});
+		},
+		getEventX(event) {
+			return ('clientX' in event ? event.clientX : event.touches[0].clientX) || 0;
+		},
+		getEventY(event) {
+			return ('clientY' in event ? event.clientY : event.touches[0].clientY) || 0;
+		},
+		getPosXCanvas(event) {
+			return this.getEventX(event) - this.boundingClientRectCanvas.x;
+		},
+		getPosYCanvas(event) {
+			return this.getEventY(event) - this.boundingClientRectCanvas.y;
+		},
+		onDrag(event) {
+			if (!this.isResizeable) { return; }
+			if ('touches' in event && event.touches.length > 1) { return; }
+			event.preventDefault();
+			const clientX = this.getPosXCanvas(event);
+			const clientY = this.getPosYCanvas(event);
+
+			this.width = Math.abs(
+				(clientX - this.boundingClientRectCanvas.width / 2)
+				/ (this.boundingClientRectCanvas.width / 2),
+			);
+
+			this.height = Math.abs(
+				(clientY - this.boundingClientRectCanvas.height / 2)
+				/ (this.boundingClientRectCanvas.height / 2),
+			);
 		},
 	},
 };

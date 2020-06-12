@@ -6,20 +6,13 @@ export const getRenderer = (options, pixelGraphics) => {
 	const virtualCanvas = document.createElement('canvas');
 	const virtualContext = virtualCanvas.getContext('2d');
 
-	let w; let h;
-
 	const drawer = getDrawer(pixelGraphics, options.imageFunction.renderList);
 	const renderPixelToImage = getRenderPixelToImage(options.imageFunction.background);
 
 	return {
-		rescaleWindow() {
-			w = options.divCanvas.offsetWidth;
-			h = options.divCanvas.offsetHeight;
-		},
-
 		resize(args) {
-			const countXFull = w / args.pixelSize;
-			const countYFull = h / args.pixelSize;
+			const countXFull = args.sizeX / args.pixelSize;
+			const countYFull = args.sizeY / args.pixelSize;
 			const countX = Math.round(Math.min(1, args.widthFactor || 1) * countXFull);
 			const countY = Math.round(Math.min(1, args.heightFactor || 1) * countYFull);
 			const image = countX && countY && virtualContext.createImageData(countX, countY);
@@ -33,9 +26,9 @@ export const getRenderer = (options, pixelGraphics) => {
 				virtualCanvas.height = countY;
 
 				/* eslint-disable-next-line no-param-reassign */
-				options.divCanvas.width = w;
+				options.divCanvas.width = args.sizeX;
 				/* eslint-disable-next-line no-param-reassign */
-				options.divCanvas.height = h;
+				options.divCanvas.height = args.sizeY;
 
 				// Disable Anti-Alaising
 				context.mozImageSmoothingEnabled = false;
@@ -73,7 +66,7 @@ export const getRenderer = (options, pixelGraphics) => {
 				);
 			}
 
-			return [w, h];
+			return [args.sizeX, args.sizeY];
 		},
 	};
 };

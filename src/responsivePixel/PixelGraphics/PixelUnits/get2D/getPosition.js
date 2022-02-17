@@ -1,4 +1,4 @@
-export const getPosition = (Axis) => (args, reflectX, reflectY, rotate) => {
+export const getPosition = (Axis) => function(args, reflectX, reflectY, rotate) {
 	const fromRight = (args.fX || false) !== reflectX;
 	const fromBottom = (args.fY || false) !== reflectY;
 	const x = new Axis.PosX(rotate
@@ -27,8 +27,8 @@ export const getPosition = (Axis) => (args, reflectX, reflectY, rotate) => {
 			toOtherSide: args.toTop,
 			center: args.centerY || args.center,
 		});
-	return () => ({
+	return function() { return {
 		x: x.calc(),
 		y: y.calc(),
-	});
+	}};
 };

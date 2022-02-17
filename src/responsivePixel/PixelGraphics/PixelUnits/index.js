@@ -2,7 +2,7 @@ import { get1D } from './get1D';
 import { getAxis } from './getAxis';
 import { get2D } from './get2D';
 
-export const PixelUnits = () => {
+export function PixelUnits() {
 	const old = [];
 
 	let updateList;

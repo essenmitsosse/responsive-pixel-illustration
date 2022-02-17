@@ -35,7 +35,7 @@ export const get1D = function getOneD(context) {
 	contextInner.getSize = (dim) => (dim ? Height : Width);
 
 	return {
-		createSize: (args) => {
+		createSize: function(args) {
 			if (args === undefined) {
 				return 0;
 			}

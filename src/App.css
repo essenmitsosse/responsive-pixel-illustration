@@ -1,14 +1,3 @@
-<template>
-	<div id="app">
-		<RendererPixel />
-	</div>
-</template>
-
-<script setup lang="ts">
-import RendererPixel from "./views/RendererPixel.vue";
-</script>
-
-<style scoped>
 #app {
 	font-family: Avenir, Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
@@ -34,4 +23,17 @@ body {
 	margin: 0;
 	padding: 0;
 }
-</style>
+
+.wrapper-canvas {
+	width: 100%;
+	height: 75vh;
+	position: relative;
+}
+
+.canvas {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}

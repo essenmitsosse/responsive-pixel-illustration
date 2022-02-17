@@ -1,3 +1,5 @@
+import { MouseEvent, TouchEvent } from "react";
+
 enum Axis {
 	"x" = "x",
 	"y" = "y",

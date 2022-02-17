@@ -6,18 +6,22 @@
   "author": "Marcus Blättermann <marcus@essenmitsosse.de>",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint --ext .js,.vue --fix src",
     "ts": "vue-tsc --noemit"
   },
   "main": "index.js",
   "dependencies": {
-    "vue": "^3.2.25"
+    "@types/react": "^17.0.40",
+    "@types/react-dom": "^17.0.13",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/parser": "^5.12.0",
+    "@vitejs/plugin-react": "^1.0.7",
     "@vitejs/plugin-vue": "^2.2.0",
     "@vue/eslint-config-airbnb": "^6.0.0",
     "@vue/eslint-config-prettier": "^7.0.0",
@@ -27,8 +31,7 @@
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-vue": "^8.4.1",
     "typescript": "^4.5.5",
-    "vite": "^2.8.0",
-    "vue-tsc": "^0.31.4"
+    "vite": "^2.8.0"
   },
   "bugs": {
     "url": "https://github.com/essenmitsosse/responsive-pixel-illustration/issues"

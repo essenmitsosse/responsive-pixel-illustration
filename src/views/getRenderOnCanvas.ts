@@ -1,25 +1,25 @@
-import { ref, onMounted, onUpdated, Ref } from "vue";
-import { PixelGraphics } from "../responsivePixel/PixelGraphics";
-// import { graien } from "../responsivePixel/scripts/graien";
-import { imageFunctionTeiresias } from "../responsivePixel/scripts/teiresias";
+import { useState, useRef, TouchEvent, MouseEvent, useEffect } from "react";
 import { getDimensionX, getDimensionY } from "./getDimension";
+import { PixelGraphics } from "../responsivePixel/PixelGraphics";
+import { imageFunctionTeiresias } from "../responsivePixel/scripts/teiresias";
 
-export const getRenderOnCanvas = (canvas: Ref<HTMLCanvasElement | null>) => {
-	const width = ref(1);
-	const height = ref(1);
-	const pixelSize = ref(5);
-	const isResizeable = ref(true);
-	let boundingClientRectCanvas: DOMRect | null = null;
-	let pixelGraphic: PixelGraphics | null = null;
+export const getRenderOnCanvas = () => {
+	const [width, setWidth] = useState(1);
+	const [height, setHeight] = useState(1);
+	const [pixelSize, setPixelSize] = useState(5);
+	const [isResizeable, setIsResizeable] = useState(true);
+	const [pixelGraphic, setPixelGraphic] = useState<PixelGraphics | null>(null);
+	const [boundingClientRectCanvas, setBoundingClientRectCanvas] = useState<DOMRect | null>(null);
+	const canvas = useRef<HTMLCanvasElement>(null);
 
 	const redraw = () => {
 		if (pixelGraphic === null || boundingClientRectCanvas === null) {
 			return;
 		}
 		pixelGraphic.redraw({
-			widthFactor: width.value,
-			heightFactor: height.value,
-			pixelSize: pixelSize.value,
+			widthFactor: width,
+			heightFactor: height,
+			pixelSize: pixelSize,
 			sizeX: boundingClientRectCanvas.width,
 			sizeY: boundingClientRectCanvas.height,
 		});
@@ -27,7 +27,7 @@ export const getRenderOnCanvas = (canvas: Ref<HTMLCanvasElement | null>) => {
 
 	const onDrag = (event: MouseEvent | TouchEvent) => {
 		if (
-			isResizeable.value === false ||
+			isResizeable === false ||
 			("touches" in event && event.touches.length > 1) ||
 			boundingClientRectCanvas === null
 		) {
@@ -35,31 +35,35 @@ export const getRenderOnCanvas = (canvas: Ref<HTMLCanvasElement | null>) => {
 		}
 		event.preventDefault();
 
-		width.value = getDimensionX(event, boundingClientRectCanvas);
-		height.value = getDimensionY(event, boundingClientRectCanvas);
+		setWidth(getDimensionX(event, boundingClientRectCanvas));
+		setHeight(getDimensionY(event, boundingClientRectCanvas));
 	};
 
-	onMounted(() => {
-		if (canvas.value === null) {
+	useEffect(() => {
+		if (!canvas.current) {
 			return;
 		}
-		boundingClientRectCanvas = canvas.value.getBoundingClientRect();
-		pixelGraphic = new PixelGraphics({
-			divCanvas: canvas.value,
-			pixelSize: pixelSize.value,
-			imageFunction: imageFunctionTeiresias,
-		});
-
-		redraw();
-	});
-
-	onUpdated(redraw);
+		setBoundingClientRectCanvas(canvas.current.getBoundingClientRect());
+		setPixelGraphic(
+			new PixelGraphics({
+				divCanvas: canvas.current,
+				pixelSize: pixelSize,
+				imageFunction: imageFunctionTeiresias,
+			})
+		);
+	}, [canvas]);
 
 	return {
-		onDrag,
 		width,
 		height,
 		pixelSize,
 		isResizeable,
+		canvas,
+		setWidth,
+		setHeight,
+		setPixelSize,
+		setIsResizeable,
+		onDrag,
+		redraw,
 	};
 };

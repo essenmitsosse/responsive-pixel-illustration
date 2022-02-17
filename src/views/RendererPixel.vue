@@ -20,7 +20,6 @@ import { graien } from '@/responsivePixel/scripts/graien';
 import { imageFunctionTeiresias } from '@/responsivePixel/scripts/teiresias';
 
 export default {
-	name: 'Home',
 	components: {},
 	data() {
 		return {

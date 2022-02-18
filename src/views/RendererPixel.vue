@@ -11,12 +11,13 @@
 </template>
 
 <script>
-import { PixelGraphics } from "@/responsivePixel/PixelGraphics";
+import { defineComponent } from "vue";
+import { PixelGraphics } from "../responsivePixel/PixelGraphics";
 // eslint-disable-next-line no-unused-vars
-import { graien } from "@/responsivePixel/scripts/graien";
-import { imageFunctionTeiresias } from "@/responsivePixel/scripts/teiresias";
+import { graien } from "../responsivePixel/scripts/graien";
+import { imageFunctionTeiresias } from "../responsivePixel/scripts/teiresias";
 
-export default {
+export default defineComponent({
 	components: {},
 	data() {
 		return {
@@ -97,10 +98,10 @@ export default {
 			);
 		},
 	},
-};
+});
 </script>
 
-<style lang="scss">
+<style scoped>
 .wrapper-canvas {
 	width: 100%;
 	height: 75vh;

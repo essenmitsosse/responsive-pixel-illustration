@@ -1,10 +1,10 @@
-import { getRenderPixelToImage } from './getRenderPixelToImage';
-import { getDrawer } from './getDrawer';
+import { getRenderPixelToImage } from "./getRenderPixelToImage";
+import { getDrawer } from "./getDrawer";
 
 export const getRenderer = (options, pixelGraphics) => {
-	const context = options.divCanvas.getContext('2d');
-	const virtualCanvas = document.createElement('canvas');
-	const virtualContext = virtualCanvas.getContext('2d');
+	const context = options.divCanvas.getContext("2d");
+	const virtualCanvas = document.createElement("canvas");
+	const virtualContext = virtualCanvas.getContext("2d");
 
 	const drawer = getDrawer(pixelGraphics, options.imageFunction.renderList);
 	const renderPixelToImage = getRenderPixelToImage(options.imageFunction.background);
@@ -38,31 +38,21 @@ export const getRenderer = (options, pixelGraphics) => {
 				context.imageSmoothingEnabled = false;
 
 				// Render the Image Data to the Pixel Array
-				drawing = drawer(
-					countX,
-					countY,
-				).get;
+				drawing = drawer(countX, countY).get;
 
 				// Render the Pixel Array to the Image
-				renderPixelToImage(
-					countX,
-					countY,
-					drawing,
-					image.data,
-				);
+				renderPixelToImage(countX, countY, drawing, image.data);
 
 				// Place Image on the Context
-				virtualContext.putImageData(
-					image, 0, 0,
-				);
+				virtualContext.putImageData(image, 0, 0);
 
 				// Draw and upscale Context on Canvas
 				context.drawImage(
 					virtualCanvas,
 					Math.round(missingX / 2) * options.pixelSize,
 					Math.round(missingY / 2) * options.pixelSize,
-					(countX) * options.pixelSize,
-					(countY) * options.pixelSize,
+					countX * options.pixelSize,
+					countY * options.pixelSize
 				);
 			}
 

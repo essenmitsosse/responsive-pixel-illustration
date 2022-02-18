@@ -1,4 +1,3 @@
-
 /* global TableComic */
 
 // BEGINN Legs /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
@@ -30,10 +29,7 @@ TableComic.prototype.Legs.prototype.getSize = function LegsGetSize(args) {
 
 TableComic.prototype.Legs.prototype.getBetterPosX = function (rel) {
 	return this.pushLinkList({
-		add: [
-			this.actor.x,
-			{ r: rel, useSize: this.sX },
-		],
+		add: [this.actor.x, { r: rel, useSize: this.sX }],
 	});
 };
 
@@ -52,7 +48,7 @@ TableComic.prototype.Legs.prototype.getBetterPosY = function (rel) {
 };
 
 TableComic.prototype.Legs.prototype.draw = function LegsDraw(args) {
-	const sitting = this.sitting = args.info.sitting;
+	const sitting = (this.sitting = args.info.sitting);
 	const bendLeg = sitting || args.info.bendLeg;
 	let leg;
 
@@ -63,21 +59,23 @@ TableComic.prototype.Legs.prototype.draw = function LegsDraw(args) {
 
 	this.fullLegSY = this.pushLinkList({ add: [args.sY, { r: -1, useSize: this.hipSY }] });
 	this.lowerLegSY = this.pushLinkList({ r: 1, useSize: this.fullLegSY });
-	this.topLegSY = this.pushLinkList({ add: [this.fullLegSY, { r: -1, useSize: this.lowerLegSY }] });
+	this.topLegSY = this.pushLinkList({
+		add: [this.fullLegSY, { r: -1, useSize: this.lowerLegSY }],
+	});
 
-	this.side = 		this.pushLinkList({ r: 0, useSize: this.topLegSY });
-	this.sideOther = 	this.pushLinkList({ r: -1, useSize: this.side });
+	this.side = this.pushLinkList({ r: 0, useSize: this.topLegSY });
+	this.sideOther = this.pushLinkList({ r: -1, useSize: this.side });
 
-	this.beltSY = 		this.pushLinkList({ r: 0, useSize: this.hipSY });
-	this.skirtSY = 		this.pushLinkList({ r: 0, useSize: this.lowerLegSY });
-	this.shoeSY = 		this.pushLinkList({ r: 1, useSize: this.lowerLegSY, min: 1 });
+	this.beltSY = this.pushLinkList({ r: 0, useSize: this.hipSY });
+	this.skirtSY = this.pushLinkList({ r: 0, useSize: this.lowerLegSY });
+	this.shoeSY = this.pushLinkList({ r: 1, useSize: this.lowerLegSY, min: 1 });
 
 	this.pushRelativeStandardAutomatic({
 		side: args.info.body && args.info.body.side,
-		lowerLegSY: bendLeg && { map: 'props', min: 1, max: 0.5 },
-		beltSY: this.belt && { map: 'actor-accessoirs', min: 0, max: this.beltSY_ },
-		skirtSY: this.skirt && { map: 'actor-accessoirs', min: 0, max: this.skirtSY_ },
-		shoeSY: { map: 'actor-accessoirs', min: 0, max: this.shoeSY_ },
+		lowerLegSY: bendLeg && { map: "props", min: 1, max: 0.5 },
+		beltSY: this.belt && { map: "actor-accessoirs", min: 0, max: this.beltSY_ },
+		skirtSY: this.skirt && { map: "actor-accessoirs", min: 0, max: this.skirtSY_ },
+		shoeSY: { map: "actor-accessoirs", min: 0, max: this.shoeSY_ },
 	});
 
 	leg = [
@@ -85,22 +83,22 @@ TableComic.prototype.Legs.prototype.draw = function LegsDraw(args) {
 			sX: this.legSX,
 			// sY: this.fullLegSY,
 			list: [
-				{ // leg to left
+				{
+					// leg to left
 					sX: { add: [this.side, this.legSX], min: this.legSX },
 					list: [
 						{},
-						{ // leg to right
+						{
+							// leg to right
 							sX: { add: [this.sideOther, this.legSX], min: this.legSX },
 							fX: true,
-							list: [ // lowerLeg
+							list: [
+								// lowerLeg
 								{},
 								{
 									sX: this.legSX,
 									sY: [this.lowerLegSY, this.legSX],
-									list: [
-										{},
-										{ sY: this.shoeSY, color: this.color[3], fY: true },
-									],
+									list: [{}, { sY: this.shoeSY, color: this.color[3], fY: true }],
 								},
 							],
 						},
@@ -145,7 +143,6 @@ TableComic.prototype.Legs.prototype.draw = function LegsDraw(args) {
 						fY: true,
 						list: leg,
 					},
-
 				],
 			},
 
@@ -160,7 +157,6 @@ TableComic.prototype.Legs.prototype.draw = function LegsDraw(args) {
 					},
 				],
 			},
-
 		],
 	};
 };

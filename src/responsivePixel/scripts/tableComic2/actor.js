@@ -1,9 +1,10 @@
-
 /* global TableComic */
 
 // BEGINN Actor /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 TableComic.prototype.Actor = function (args) {
-	if (!args) { args = {}; }
+	if (!args) {
+		args = {};
+	}
 
 	// Forms & Sizes
 	this.ratio = args.ratio || 0.25;
@@ -15,7 +16,7 @@ TableComic.prototype.Actor = function (args) {
 	this.headSY_ = 0.25;
 	this.headRelSY_ = this.rFl(0.6, 1.3);
 
-	this.sizeMap = { map: 'actor-size', min: this.main ? 0.5 : 1.5, max: this.main ? 1.5 : 0.5 };
+	this.sizeMap = { map: "actor-size", min: this.main ? 0.5 : 1.5, max: this.main ? 1.5 : 0.5 };
 
 	// Colors
 	this.colors = {
@@ -41,7 +42,11 @@ TableComic.prototype.Actor = function (args) {
 };
 
 TableComic.prototype.Actor.prototype.getSize = function (args) {
-	const sY = this.maxSize = this.pushLinkList({ r: 1, useSize: args.stageSY, max: args.stageSY });
+	const sY = (this.maxSize = this.pushLinkList({
+		r: 1,
+		useSize: args.stageSY,
+		max: args.stageSY,
+	}));
 
 	// calculates this.sX & this.sY
 	this.getSizeWithRatio({
@@ -67,7 +72,9 @@ TableComic.prototype.Actor.prototype.getSize = function (args) {
 
 TableComic.prototype.Actor.prototype.getSizeFromHead = function (args) {
 	const mapper = this.headScaling;
-	let map; let min; let change;
+	let map;
+	let min;
+	let change;
 	const { ratio } = this;
 	const { headSY_ } = this;
 
@@ -75,8 +82,8 @@ TableComic.prototype.Actor.prototype.getSizeFromHead = function (args) {
 	this.getSizeWithRatio({
 		sX: args.stageSX,
 		sY: args.stageSY,
-		sXName: 'sX',
-		sYName: 'headSY',
+		sXName: "sX",
+		sYName: "headSY",
 		ratio: ratio / headSY_,
 	});
 
@@ -123,34 +130,24 @@ TableComic.prototype.Actor.prototype.getBetterPosX = function (rel) {
 	const add = [];
 
 	if (!this.isRotated) {
-		add.push(
-			this.getPosX(rel),
-		);
+		add.push(this.getPosX(rel));
 	} else {
-		add.push(
-			this.x,
-			this.square,
-			{ r: -1 + rel, useSize: this.sY },
-		);
+		add.push(this.x, this.square, { r: -1 + rel, useSize: this.sY });
 	}
 
 	return this.pushLinkList({ add });
 };
 
 TableComic.prototype.Actor.prototype.getBetterPosY = function (rel) {
-	const add = [
-		{ r: -1, useSize: this.y },
-	];
+	const add = [{ r: -1, useSize: this.y }];
 
 	if (!this.isRotated) {
 		add.push(
-			{ r: -1 * rel, useSize: this.pushLinkList({ add: [this.sY, this.baseShift] }) },
-			this.baseShift,
+			{ r: -1 * rel, useSize: this.pushLinkList({ add: [this.sY, this.baseShift] }) },
+			this.baseShift
 		);
 	} else {
-		add.push(
-			this.pushLinkList({ r: -rel, useSize: this.sX }),
-		);
+		add.push(this.pushLinkList({ r: -rel, useSize: this.sX }));
 	}
 
 	return this.pushLinkList({ add });
@@ -171,25 +168,21 @@ TableComic.prototype.Actor.prototype.getFocus = function (zoomSX, zoomSY, focus)
 	});
 
 	if (this.isRotated) {
-		x.add.push(
-			{ r: -1, useSize: this.square },
-			this.sY,
-			{ r: -focus.posX, useSize: this.headSY },
-		);
+		x.add.push({ r: -1, useSize: this.square }, this.sY, {
+			r: -focus.posX,
+			useSize: this.headSY,
+		});
 
-		y.add.push(
-			{ r: -focus.posY, useSize: this.square },
-			{ r: -1, useSize: this.lean },
-		);
+		y.add.push({ r: -focus.posY, useSize: this.square }, { r: -1, useSize: this.lean });
 	} else {
 		x.add.push(
 			{ r: -focus.posX, useSize: this.sX }, // relative to Head
-			{ r: -1, useSize: this.lean },
+			{ r: -1, useSize: this.lean }
 		);
 
 		y.add.push(
 			{ r: -1, useSize: this.sY }, // size
-			{ r: 1 - focus.posY, useSize: this.headSY }, // relative to Head
+			{ r: 1 - focus.posY, useSize: this.headSY } // relative to Head
 		);
 	}
 
@@ -203,7 +196,8 @@ TableComic.prototype.Actor.prototype.draw = function (args) {
 	const { info } = args;
 
 	// Decide which size calculation method to use and use it.
-	this[(this.zoomToHead = info.zoomToHead) ? 'getSizeFromHead' : 'getSize'](args);
+	this.zoomToHead = info.zoomToHead;
+	this[this.zoomToHead ? "getSizeFromHead" : "getSize"](args);
 
 	// SX and headScaling have automatically been generated; add additional properties
 	this.sX.min = 3;
@@ -224,13 +218,13 @@ TableComic.prototype.Actor.prototype.draw = function (args) {
 	this.body.getSize({ sX: this.sX, sY: this.bodySY });
 
 	// drag the actor deeper for sitting
-	this.baseShift = this.pushLinkList(info.sitting
-		? [{ r: -1, useSize: this.body.legSY }, this.body.legs.hipSY]
-		: { a: 0 });
+	this.baseShift = this.pushLinkList(
+		info.sitting ? [{ r: -1, useSize: this.body.legSY }, this.body.legs.hipSY] : { a: 0 }
+	);
 
 	this.baseShift = this.pushLinkList({ r: 1, useSize: this.baseShift });
 	this.pushRelativeStandardAutomatic({
-		baseShift: { map: 'props', min: 0, max: 1 },
+		baseShift: { map: "props", min: 0, max: 1 },
 	});
 
 	this.y = this.pushLinkList({ add: [this.y, this.baseShift] });
@@ -250,8 +244,7 @@ TableComic.prototype.Actor.prototype.draw = function (args) {
 	// this.sideInfo = info.body.side;
 
 	return [
-		this.renderObject = this.getObject([
-
+		(this.renderObject = this.getObject([
 			this.debug && {
 				list: [
 					{ color: [0, 20, 50], sX: 1 },
@@ -276,36 +269,34 @@ TableComic.prototype.Actor.prototype.draw = function (args) {
 				x: this.lean,
 				info,
 			}),
-		]),
+		])),
 		this,
 	];
 };
 
 TableComic.prototype.Actor.prototype.finishRendering = function () {
-	this.renderObject.list[0].list.push(
-		{
-			y: this.headSY,
-			list: [
-				// Right Arm
-				this.arm.draw({
-					right: true,
-					torsoSY: this.body.torso.sY,
-					torsoSX: this.body.torso.sX,
-					x: this.lean,
-					info: this.armRightInfo,
-				}),
+	this.renderObject.list[0].list.push({
+		y: this.headSY,
+		list: [
+			// Right Arm
+			this.arm.draw({
+				right: true,
+				torsoSY: this.body.torso.sY,
+				torsoSX: this.body.torso.sX,
+				x: this.lean,
+				info: this.armRightInfo,
+			}),
 
-				// Left Arm
-				this.arm.draw({
-					right: false,
-					torsoSY: this.body.torso.sY,
-					torsoSX: this.body.torso.sX,
-					x: this.lean,
-					info: this.armLeftInfo,
-				}),
-			],
-		},
-	);
+			// Left Arm
+			this.arm.draw({
+				right: false,
+				torsoSY: this.body.torso.sY,
+				torsoSX: this.body.torso.sX,
+				x: this.lean,
+				info: this.armLeftInfo,
+			}),
+		],
+	});
 };
 // END Actor \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
@@ -315,7 +306,7 @@ TableComic.prototype.Body = function Body(args) {
 
 	// Forms & Sizes
 	this.legBaseSY_ = 0.7;
-	this.legRelSY_ = this.rFl(0.5, 1 / this.legBaseSY_ * 0.9);
+	this.legRelSY_ = this.rFl(0.5, (1 / this.legBaseSY_) * 0.9);
 
 	// Assets
 	this.torso = new this.basic.Torso({
@@ -333,7 +324,7 @@ TableComic.prototype.Body.prototype.getSize = function BodyGetSize(args) {
 		{ r: this.legBaseSY_, useSize: args.sY },
 		{ r: this.legRelSY_ },
 		{},
-		'actor-features',
+		"actor-features"
 	);
 	this.torsoSY = this.pushLinkList({ add: [args.sY, { r: -1, useSize: this.legSY }] });
 
@@ -356,7 +347,6 @@ TableComic.prototype.Body.prototype.draw = function BodyDraw(args) {
 		sY: args.sY,
 		fY: true,
 		list: [
-
 			this.torso.draw({
 				sX: args.sX,
 				sY: this.torsoSY,
@@ -402,13 +392,16 @@ TableComic.prototype.Torso.prototype.draw = function TorsoDraw(args) {
 		this.leanWay = this.pushLinkList({ r: 0.5, useSize: args.lean });
 
 		this.pushRelativeStandardAutomatic({
-			zipperY: { map: 'actor-accessoirs', min: 0, max: this.zipperSY },
-			leanWay: { map: 'actor-accessoirs', min: this.zipperSY, max: 0 },
+			zipperY: { map: "actor-accessoirs", min: 0, max: this.zipperSY },
+			leanWay: { map: "actor-accessoirs", min: this.zipperSY, max: 0 },
 		});
 	}
 
 	this.upperTorsoSY = this.pushLinkList({ r: 0.5, useSize: args.sY, min: 1 });
-	this.lowerTorsoSY = this.pushLinkList({ add: [args.sY, { r: -1, useSize: this.upperTorsoSY }, 1], min: 1 });
+	this.lowerTorsoSY = this.pushLinkList({
+		add: [args.sY, { r: -1, useSize: this.upperTorsoSY }, 1],
+		min: 1,
+	});
 
 	return {
 		color: this.color[0],
@@ -416,7 +409,6 @@ TableComic.prototype.Torso.prototype.draw = function TorsoDraw(args) {
 		sY: this.sY,
 		// fX: true,
 		list: [
-
 			{
 				fY: true,
 				stripes: { horizontal: true, change: args.lean },

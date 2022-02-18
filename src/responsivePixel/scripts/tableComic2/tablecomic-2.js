@@ -1,4 +1,3 @@
-
 /* global TableComic */
 
 // BEGINN getTableComic /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
@@ -51,9 +50,9 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 		posY: 0,
 	};
 	const mainSteps = [
-		{ // - - -  START step 0 - - - - - - - - - - - - - SITTING
+		{
+			// - - -  START step 0 - - - - - - - - - - - - - SITTING
 			list: {
-
 				table: {
 					pos: {
 						obj: stage,
@@ -77,11 +76,12 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 						z: -5000,
 					},
 				},
-				actor0: { // actor 0 — frame 0
+				actor0: {
+					// actor 0 — frame 0
 					start: {
 						pos: actor0sitting,
 						body: {
-							lean: { map: 'a', min: -0.1, max: -0.1 },
+							lean: { map: "a", min: -0.1, max: -0.1 },
 							side: 0.2,
 						},
 						eyeLeft: {
@@ -95,7 +95,7 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 						mouth: {
 							sY: 0.3,
 							sX: 0.4,
-							curveSY: { map: 'a', min: 0, max: 0 },
+							curveSY: { map: "a", min: 0, max: 0 },
 						},
 						armLeft: {
 							pos: { obj: actor0.body.legs, posX: 0.8, posY: 1 },
@@ -107,25 +107,24 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 						},
 						sitting: true,
 						z: -2000,
-
 					},
 					end: {
 						body: {
-							lean: { map: 'a', min: -0.3, max: 0.3 },
+							lean: { map: "a", min: -0.3, max: 0.3 },
 							side: 0.5,
 						},
 						eyeLeft: {
 							pupilPosXrel: 0,
-							eyeBrowMove: { relPos: 0.8, value: { map: 'a', min: -0.3, max: 0.3 } },
+							eyeBrowMove: { relPos: 0.8, value: { map: "a", min: -0.3, max: 0.3 } },
 						},
 						eyeRight: {
 							pupilPosXrel: 1,
-							eyeBrowMove: { relPos: 0.8, value: { map: 'a', min: -0.3, max: 0.3 } },
+							eyeBrowMove: { relPos: 0.8, value: { map: "a", min: -0.3, max: 0.3 } },
 						},
 						mouth: {
 							sY: 0.5,
 							sX: 0.8,
-							curveSY: { map: 'a', min: -0.2, max: 0.2 },
+							curveSY: { map: "a", min: -0.2, max: 0.2 },
 						},
 						armRight: {
 							relPos: 0.5,
@@ -136,7 +135,8 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 						},
 					},
 				},
-				actor1: { // actor 1 — frame 0
+				actor1: {
+					// actor 1 — frame 0
 					start: {
 						pos: {
 							posX: 0.5,
@@ -148,17 +148,17 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 							side: 0.1,
 						},
 						eyeLeft: {
-							eyeBrowMove: { map: 'a', min: 0, max: 0 },
+							eyeBrowMove: { map: "a", min: 0, max: 0 },
 							pupilPosXrel: 0.2,
 						},
 						eyeRight: {
-							eyeBrowMove: { map: 'a', min: 0, max: 0 },
+							eyeBrowMove: { map: "a", min: 0, max: 0 },
 							pupilPosXrel: 0.8,
 						},
 						mouth: {
 							sY: 0,
 							sX: 0.5,
-							curveSY: { map: 'a', min: 0, max: 0 },
+							curveSY: { map: "a", min: 0, max: 0 },
 						},
 						armLeft: {
 							pos: { obj: table, posY: 1, posX: 0.5 },
@@ -178,17 +178,17 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 							side: -0.4,
 						},
 						eyeLeft: {
-							eyeBrowMove: { map: 'a', min: -0.5, max: 0.5 },
+							eyeBrowMove: { map: "a", min: -0.5, max: 0.5 },
 							pupilPosXrel: 1,
 						},
 						eyeRight: {
-							eyeBrowMove: { map: 'a', min: -0.5, max: 0.5 },
+							eyeBrowMove: { map: "a", min: -0.5, max: 0.5 },
 							pupilPosXrel: 0,
 						},
 						mouth: {
-							sY: { map: 'a', min: 0.5, max: 0.25 },
+							sY: { map: "a", min: 0.5, max: 0.25 },
 							sX: 0.9,
-							curveSY: { map: 'a', min: -0.3, max: 0.3 },
+							curveSY: { map: "a", min: -0.3, max: 0.3 },
 						},
 						armRight: {
 							relPos: 0.7,
@@ -208,9 +208,8 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 							posY: 1,
 						},
 						rotate: 0,
-						level: { map: 'a', min: 0.15, max: 0.75 },
+						level: { map: "a", min: 0.15, max: 0.75 },
 					},
-
 				},
 
 				emotion0: {
@@ -256,7 +255,11 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 					pos: 0.5,
 					camera: {
 						zoom: 0.5,
-						focus: { map: 'altCamera', min: { obj: actor0, posX: 0.5, posY: 0.5 }, max: { obj: actor1, posX: 0.5, posY: 0.5 } },
+						focus: {
+							map: "altCamera",
+							min: { obj: actor0, posX: 0.5, posY: 0.5 },
+							max: { obj: actor1, posX: 0.5, posY: 0.5 },
+						},
 					},
 				},
 				{
@@ -264,20 +267,28 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 					pos: 0,
 					camera: {
 						zoom: 1,
-						focus: { map: 'altCamera', min: { obj: glass, posX: 0.5, posY: 0.6 }, max: { obj: actor1, posX: 0.5, posY: 0.5 } },
+						focus: {
+							map: "altCamera",
+							min: { obj: glass, posX: 0.5, posY: 0.6 },
+							max: { obj: actor1, posX: 0.5, posY: 0.5 },
+						},
 					},
 				},
 			],
 			lengthAbs: 3,
 			priority: 13,
 		}, // - - -  END step 0 - - - - - - - - - - - - -
-		{ // - - -  START step 1 - - - - - - - - - - - - - STANDING UP
+		{
+			// - - -  START step 1 - - - - - - - - - - - - - STANDING UP
 			list: {
 				table: {},
 				chair0: {
-					start: { pos: chair0Pos, rotate: 0 	},
+					start: { pos: chair0Pos, rotate: 0 },
 					end: {
-						pos: { posX: { relPos: actor0StandUp, value: -0.1 }, posY: { relPos: actor0StandUp, value: 0.1 } },
+						pos: {
+							posX: { relPos: actor0StandUp, value: -0.1 },
+							posY: { relPos: actor0StandUp, value: 0.1 },
+						},
 						rotate: { relPos: actor0StandUp, value: -90 },
 					},
 				},
@@ -289,25 +300,26 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 				glass: {
 					start: { rotate: -90, level: 0 },
 				},
-				actor0: { // actor 0 — frame 1
+				actor0: {
+					// actor 0 — frame 1
 					start: {
 						pos: actor0sitting,
 						body: {
 							side: 0.5,
-							lean: { map: 'a', min: -0.3, max: 0.5 },
+							lean: { map: "a", min: -0.3, max: 0.5 },
 						},
 						eyes: {
 							pupilPosXrel: 0,
-							eyeBrowMove: { map: 'a', min: -0.7, max: 0.6 },
-							pupilS: { map: 'a', min: 1, max: 1 },
+							eyeBrowMove: { map: "a", min: -0.7, max: 0.6 },
+							pupilS: { map: "a", min: 1, max: 1 },
 						},
 						mouth: {
-							sX: { map: 'a', min: 0.3, max: 1 },
-							sY: { map: 'a', min: 0.5, max: 0.5 },
-							posY: { map: 'a', min: 1, max: 0 },
-							curveSY: { map: 'a', min: -0.7, max: 0.7 },
-							teethTopSY: { map: 'a', min: 0.3, max: 1 },
-							teethBottomSY: { map: 'a', min: 0.3, max: 1 },
+							sX: { map: "a", min: 0.3, max: 1 },
+							sY: { map: "a", min: 0.5, max: 0.5 },
+							posY: { map: "a", min: 1, max: 0 },
+							curveSY: { map: "a", min: -0.7, max: 0.7 },
+							teethTopSY: { map: "a", min: 0.3, max: 1 },
+							teethBottomSY: { map: "a", min: 0.3, max: 1 },
 						},
 						armLeft: {
 							pos: { obj: actor0.body.legs, posX: 0.8, posY: 1 },
@@ -329,34 +341,41 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 							},
 						},
 						eyes: {
-							eyeBrowMove: { map: 'a', min: -1, max: 0.8 },
-							pupilS: { map: 'a', min: 0.7, max: 1 },
+							eyeBrowMove: { map: "a", min: -1, max: 0.8 },
+							pupilS: { map: "a", min: 0.7, max: 1 },
 						},
 						mouth: {
-							sX: { map: 'a', min: 1, max: 0.3 },
-							sY: { map: 'a', min: 1, max: 0 },
+							sX: { map: "a", min: 1, max: 0.3 },
+							sY: { map: "a", min: 1, max: 0 },
 						},
 						body: { side: 0.7 },
 						armLeft: {
 							relPos: actor0StandUp,
 							value: {
-								pos: { map: 'a', min: { obj: actor1.head, posX: 0.5, posY: -0.2 }, max: { obj: actor0.head, posX: -1, posY: 0.5 } },
-								hand: { map: 'a', min: { target: { obj: actor1.head, posX: 0.5, posY: 0.5 } }, max: { angle: 1 } },
+								pos: {
+									map: "a",
+									min: { obj: actor1.head, posX: 0.5, posY: -0.2 },
+									max: { obj: actor0.head, posX: -1, posY: 0.5 },
+								},
+								hand: {
+									map: "a",
+									min: { target: { obj: actor1.head, posX: 0.5, posY: 0.5 } },
+									max: { angle: 1 },
+								},
 								flip: true,
 							},
 						},
-
 
 						armRight: {
 							relPos: actor0StandUp,
 							value: {
 								pos: {
-									map: 'a',
+									map: "a",
 									min: { obj: actor1.head, posX: 0.5, posY: 0.5 },
 									max: { obj: actor0.head, posX: 1.5, posY: 0.8 },
 								},
 								hand: {
-									map: 'a',
+									map: "a",
 									min: { target: { obj: actor1.head, posX: 0.5, posY: 0.5 } },
 									max: { angle: 0.55 },
 								},
@@ -366,18 +385,27 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 						sitting: { value: false, relPos: actor0StandUp },
 					},
 				},
-				actor1: { // actor 1 — frame 1
+				actor1: {
+					// actor 1 — frame 1
 					start: {
 						pos: { posX: 0.8, posY: 0, obj: stage },
-						body: { side: -0.7, lean: { map: 'a', min: -0.4, max: 0.3 } },
+						body: { side: -0.7, lean: { map: "a", min: -0.4, max: 0.3 } },
 						armRight: {
 							pos: { obj: table, posY: 1, posX: 0.9 },
 							hand: { angle: -0.5 },
 							maxStraight: 0.95,
 						},
 						armLeft: {
-							pos: { map: 'a', min: { obj: actor0, posY: 0.5, posX: -0.2 }, max: { obj: actor0, posY: 0.5, posX: -0.2 } },
-							hand: { map: 'a', min: { target: { obj: actor0, posX: 1, posY: 0.5 } }, max: { angle: 1 } },
+							pos: {
+								map: "a",
+								min: { obj: actor0, posY: 0.5, posX: -0.2 },
+								max: { obj: actor0, posY: 0.5, posX: -0.2 },
+							},
+							hand: {
+								map: "a",
+								min: { target: { obj: actor0, posX: 1, posY: 0.5 } },
+								max: { angle: 1 },
+							},
 							flip: true,
 							z: -1000,
 							maxStraight: 0.95,
@@ -388,12 +416,30 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 						armRight: {
 							relPos: 0.5,
 							value: {
-								pos: { map: 'a', min: { obj: actor0.head, posY: 0.5, posX: 0.5 }, max: { obj: actor1, posY: 1, posX: 0.9 } },
-								hand: { map: 'a', min: { target: { obj: actorsList.actor0.renderObject, posX: 0, posY: 0.8 } }, max: { angle: 0.55 } },
+								pos: {
+									map: "a",
+									min: { obj: actor0.head, posY: 0.5, posX: 0.5 },
+									max: { obj: actor1, posY: 1, posX: 0.9 },
+								},
+								hand: {
+									map: "a",
+									min: {
+										target: {
+											obj: actorsList.actor0.renderObject,
+											posX: 0,
+											posY: 0.8,
+										},
+									},
+									max: { angle: 0.55 },
+								},
 							},
 						},
 						armLeft: {
-							pos: { map: 'a', min: { obj: actor1, posY: 0.6, posX: -1.5 }, max: { obj: actor1, posY: 1, posX: -1.2 } },
+							pos: {
+								map: "a",
+								min: { obj: actor1, posY: 0.6, posX: -1.5 },
+								max: { obj: actor1, posY: 1, posX: -1.2 },
+							},
 						},
 					},
 				},
@@ -407,7 +453,6 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 					end: {
 						pos: { relPos: 0.5, value: { obj: actor0, posY: 1.1 } },
 						size: 1,
-
 					},
 				},
 
@@ -431,46 +476,60 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 					pos: 0.3,
 					camera: {
 						zoom: 1,
-						focus: { map: 'altCamera', min: { obj: glass, posX: 0.5, posY: 0.6 }, max: { obj: actor1, posX: 0.5, posY: 0.5 } },
+						focus: {
+							map: "altCamera",
+							min: { obj: glass, posX: 0.5, posY: 0.6 },
+							max: { obj: actor1, posX: 0.5, posY: 0.5 },
+						},
 					},
 				},
 			],
 			lengthAbs: 2,
 			priority: 9,
 		}, // - - -  START step 1 - - - - - - - - - - - - -
-		{ // - - -  START step 2 - - - - - - - - - - - - - ON THE TABLE
+		{
+			// - - -  START step 2 - - - - - - - - - - - - - ON THE TABLE
 			list: {
 				table: {},
 				chair0: {},
 				chair1: {},
 				glass: { pos: { obj: stage, posY: 0, posX: 0.8 }, rotate: 90 },
-				actor0: { // actor 0 — frame 2
+				actor0: {
+					// actor 0 — frame 2
 					start: {
 						body: { lean: -0.1, side: 1 },
 						pos: { obj: table, posX: 1, posY: 1 },
 						eyes: {
-							eyeBrowMove: { map: 'a', min: 0.5, max: 0.8 },
-							pupilPosXrel: { map: 'a', min: 0.5, max: 0 },
-							pupilPosYrel: { map: 'a', min: 0.5, max: 0 },
-							pupilS: { map: 'a', min: 0.1, max: 1 },
-							openSY: { map: 'a', min: 2, max: 1 },
+							eyeBrowMove: { map: "a", min: 0.5, max: 0.8 },
+							pupilPosXrel: { map: "a", min: 0.5, max: 0 },
+							pupilPosYrel: { map: "a", min: 0.5, max: 0 },
+							pupilS: { map: "a", min: 0.1, max: 1 },
+							openSY: { map: "a", min: 2, max: 1 },
 							a: true,
 						},
 						mouth: {
-							sY: { map: 'a', min: 1, max: 0 },
-							posY: { map: 'a', min: 1, max: 0 },
-							curveSY: { map: 'a', min: -1, max: 0.7 },
-							sX: { map: 'a', min: 1, max: 0.1 },
-							teethBottomSY: { map: 'a', min: 1, max: 0 },
+							sY: { map: "a", min: 1, max: 0 },
+							posY: { map: "a", min: 1, max: 0 },
+							curveSY: { map: "a", min: -1, max: 0.7 },
+							sX: { map: "a", min: 1, max: 0.1 },
+							teethBottomSY: { map: "a", min: 1, max: 0 },
 						},
 						armLeft: {
-							pos: { map: 'a', min: { obj: actor1, posX: 0.5, posY: 0.5 }, max: { obj: stage, posX: -0.6, posY: 0.3 } },
-							hand: { map: 'a', min: { angle: -0.8 }, max: { angle: -0.3 } },
+							pos: {
+								map: "a",
+								min: { obj: actor1, posX: 0.5, posY: 0.5 },
+								max: { obj: stage, posX: -0.6, posY: 0.3 },
+							},
+							hand: { map: "a", min: { angle: -0.8 }, max: { angle: -0.3 } },
 							z: 100000,
 						},
 						armRight: {
-							pos: { map: 'a', min: { obj: actor1, posX: 0.5, posY: 0.5 }, max: { obj: stage, posX: -0.5, posY: 0.5 } },
-							hand: { map: 'a', min: { angle: -0.5 }, max: { angle: -0.3 } },
+							pos: {
+								map: "a",
+								min: { obj: actor1, posX: 0.5, posY: 0.5 },
+								max: { obj: stage, posX: -0.5, posY: 0.5 },
+							},
+							hand: { map: "a", min: { angle: -0.5 }, max: { angle: -0.3 } },
 							flip: true,
 							z: -500,
 						},
@@ -478,21 +537,22 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 						rotate: -90,
 					},
 				},
-				actor1: { // actor 1 — frame 2
+				actor1: {
+					// actor 1 — frame 2
 					start: {
 						pos: { obj: actor0, posX: 0, posY: 1 },
-						body: { side: -1, lean: { map: 'a', min: -1, max: -0.3 } },
+						body: { side: -1, lean: { map: "a", min: -1, max: -0.3 } },
 						eyes: {
-							eyeBrowMove: { map: 'a', min: -1, max: 0.8 },
+							eyeBrowMove: { map: "a", min: -1, max: 0.8 },
 							pupilS: 1,
 							a: true,
 						},
 						mouth: {
-							sY: { map: 'a', min: 1, max: 0 },
-							curveSY: { map: 'a', min: -0.7, max: 0.7 },
-							sX: { map: 'a', min: 1, max: 0.3 },
-							teethTopSY: { map: 'a', min: 1, max: 0 },
-							teethBottomSY: { map: 'a', min: 1, max: 0.2 },
+							sY: { map: "a", min: 1, max: 0 },
+							curveSY: { map: "a", min: -0.7, max: 0.7 },
+							sX: { map: "a", min: 1, max: 0.3 },
+							teethTopSY: { map: "a", min: 1, max: 0 },
+							teethBottomSY: { map: "a", min: 1, max: 0.2 },
 						},
 						armLeft: {
 							pos: { obj: actor0.head, posX: 1, posY: 0.8 },
@@ -502,15 +562,23 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 							hand: { target: { obj: actor0.head, posX: 1, posY: 1 } },
 						},
 						armRight: {
-							pos: { map: 'a', min: { obj: actor0.head, posX: 0.8, posY: 0.5 }, max: { obj: actor0.head, posX: 1.1, posY: 1 } },
+							pos: {
+								map: "a",
+								min: { obj: actor0.head, posX: 0.8, posY: 0.5 },
+								max: { obj: actor0.head, posX: 1.1, posY: 1 },
+							},
 							x: 0.7,
-							hand: { map: 'a', min: { target: { obj: actor0.head, posX: 0, posY: 0 } }, max: { angle: 0 } },
+							hand: {
+								map: "a",
+								min: { target: { obj: actor0.head, posX: 0, posY: 0 } },
+								max: { angle: 0 },
+							},
 						},
 						rotate: -90,
 						z: 3000,
 					},
 					end: {
-						body: { lean: { map: 'a', min: -0.5, max: 0 } },
+						body: { lean: { map: "a", min: -0.5, max: 0 } },
 					},
 				},
 			},
@@ -520,7 +588,7 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 					minPanels: 1,
 					pos: 0,
 					camera: {
-						zoom: { map: 'altCamera', min: 0.3, max: 0.6 },
+						zoom: { map: "altCamera", min: 0.3, max: 0.6 },
 						focus: { obj: actor1, posX: 0.5, posY: -0.2 },
 					},
 				},
@@ -528,7 +596,7 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 					minPanels: 2,
 					pos: 0.5,
 					camera: {
-						zoom: { map: 'altCamera', min: 0.3, max: 0.6 },
+						zoom: { map: "altCamera", min: 0.3, max: 0.6 },
 						focus: { obj: glass, posX: 0.5, posY: 0.5 },
 					},
 				},
@@ -536,34 +604,34 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 			lengthAbs: 1,
 			priority: 7,
 		}, // - - -  END step 2 - - - - - - - - - - - - -
-		{ // - - -  START step 3 - - - - - - - - - - - - - REACTION
+		{
+			// - - -  START step 3 - - - - - - - - - - - - - REACTION
 			list: {
 				table: { z: 10000 },
 				chair0: {},
 				chair1: {},
-				glass: {
-
-				},
-				actor0: { // actor 0 — frame 2
+				glass: {},
+				actor0: {
+					// actor 0 — frame 2
 					start: {
-						body: { lean: -0.1, side: { map: 'b', min: 0.2, max: 1 } },
+						body: { lean: -0.1, side: { map: "b", min: 0.2, max: 1 } },
 						eyes: false,
 						eyeLeft: {
-							openSY: { map: 'b', max: 0.2, min: 0.1 },
-							sY: { map: 'b', max: 1, min: 0.8 },
-							pupilPosXrel: { map: 'b', max: 0, min: 1 },
-							pupilPosY: { map: 'b', max: 0, min: -0.65 },
+							openSY: { map: "b", max: 0.2, min: 0.1 },
+							sY: { map: "b", max: 1, min: 0.8 },
+							pupilPosXrel: { map: "b", max: 0, min: 1 },
+							pupilPosY: { map: "b", max: 0, min: -0.65 },
 						},
 						eyeRight: {
-							openSY: { map: 'b', max: 0.2, min: 0.5 },
-							sY: { map: 'b', max: 1, min: 0.8 },
-							pupilPosXrel: { map: 'b', max: 0, min: 0.6 },
-							pupilPosYrel: { map: 'b', max: 0, min: 0.5 },
-							pupilPosY: { map: 'b', max: 0, min: 0.5 },
+							openSY: { map: "b", max: 0.2, min: 0.5 },
+							sY: { map: "b", max: 1, min: 0.8 },
+							pupilPosXrel: { map: "b", max: 0, min: 0.6 },
+							pupilPosYrel: { map: "b", max: 0, min: 0.5 },
+							pupilPosY: { map: "b", max: 0, min: 0.5 },
 						},
 						mouth: {
-							sY: { map: 'b', max: 0, min: 0.3 },
-							curveSY: { map: 'b', max: 1, min: -0.75 },
+							sY: { map: "b", max: 0, min: 0.3 },
+							curveSY: { map: "b", max: 1, min: -0.75 },
 						},
 						armRight: {
 							pos: { obj: table, posY: 1, ellbow: true },
@@ -584,61 +652,78 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 						rotate: -90,
 					},
 				},
-				actor1: { // actor 1 — frame 2
+				actor1: {
+					// actor 1 — frame 2
 					start: {
 						rotate: 0,
 						pos: { obj: stage, posX: 1, posY: 0 },
 						body: { lean: { relPos: 0.3, value: 0 } },
 						eyeLeft: {
-							eyeBrowMove: { map: 'b', max: 0.5, min: 0.3 },
-							pupilPosX: { map: 'b', max: -0.2, min: 0 },
-							pupilPosY: { map: 'b', max: -0.2, min: 0 },
-							pupilPosXrel: { map: 'b', max: 0, min: 0.4 },
-							pupilPosYrel: { map: 'b', max: 0, min: 0.5 },
-							pupilS: { map: 'b', max: 1, min: 0.25 },
-							openSY: { map: 'b', max: 1, min: 0.8 },
-							sY: { map: 'b', max: 1, min: 2 },
+							eyeBrowMove: { map: "b", max: 0.5, min: 0.3 },
+							pupilPosX: { map: "b", max: -0.2, min: 0 },
+							pupilPosY: { map: "b", max: -0.2, min: 0 },
+							pupilPosXrel: { map: "b", max: 0, min: 0.4 },
+							pupilPosYrel: { map: "b", max: 0, min: 0.5 },
+							pupilS: { map: "b", max: 1, min: 0.25 },
+							openSY: { map: "b", max: 1, min: 0.8 },
+							sY: { map: "b", max: 1, min: 2 },
 						},
 						eyeRight: {
-							eyeBrowMove: { map: 'b', max: -0, min: 0.3 },
-							pupilPosX: { map: 'b', max: -0.2, min: 0 },
-							pupilPosY: { map: 'b', max: -0.2, min: 0 },
-							pupilPosXrel: { map: 'b', max: 0, min: 0.4 },
-							pupilPosYrel: { map: 'b', max: 0, min: 0.5 },
-							pupilS: { map: 'b', max: 1, min: 0.25 },
-							openSY: { map: 'b', max: 0.9, min: 1 },
-							sY: { map: 'b', max: 0.5, min: 2 },
+							eyeBrowMove: { map: "b", max: -0, min: 0.3 },
+							pupilPosX: { map: "b", max: -0.2, min: 0 },
+							pupilPosY: { map: "b", max: -0.2, min: 0 },
+							pupilPosXrel: { map: "b", max: 0, min: 0.4 },
+							pupilPosYrel: { map: "b", max: 0, min: 0.5 },
+							pupilS: { map: "b", max: 1, min: 0.25 },
+							openSY: { map: "b", max: 0.9, min: 1 },
+							sY: { map: "b", max: 0.5, min: 2 },
 						},
 						mouth: {
-							posY: { map: 'b', max: 0.2, min: 0.5 },
-							sY: { map: 'b', max: 0.4, min: 0.5 },
-							curveSY: { map: 'b', max: 0.5, min: -1 },
-							teethTopSY: { map: 'b', max: 1, min: 0 },
-							teethBottomSY: { map: 'b', max: 1, min: 0.2 },
+							posY: { map: "b", max: 0.2, min: 0.5 },
+							sY: { map: "b", max: 0.4, min: 0.5 },
+							curveSY: { map: "b", max: 0.5, min: -1 },
+							teethTopSY: { map: "b", max: 1, min: 0 },
+							teethBottomSY: { map: "b", max: 1, min: 0.2 },
 						},
 						armRight: {
-							pos: { map: 'b', min: { obj: actor1, posX: 1.5, posY: 0.5 }, max: { obj: actor1.head, posX: 1.2, posY: 1.2 } },
-							hand: { map: 'b', min: { angle: 0.8 }, max: { angle: -0.9 } },
+							pos: {
+								map: "b",
+								min: { obj: actor1, posX: 1.5, posY: 0.5 },
+								max: { obj: actor1.head, posX: 1.2, posY: 1.2 },
+							},
+							hand: { map: "b", min: { angle: 0.8 }, max: { angle: -0.9 } },
 							maxStraight: 0.9,
 							flip: true,
 						},
 						armLeft: {
-							pos: { map: 'b', min: { obj: actor1, posX: -0.2, posY: 0 }, max: { obj: actor1.head, posX: -0.3, posY: 0.3 } },
-							hand: { map: 'b', min: { angle: -0.9 }, max: { angle: 0.6 } },
+							pos: {
+								map: "b",
+								min: { obj: actor1, posX: -0.2, posY: 0 },
+								max: { obj: actor1.head, posX: -0.3, posY: 0.3 },
+							},
+							hand: { map: "b", min: { angle: -0.9 }, max: { angle: 0.6 } },
 							maxStraight: 1,
 							flip: true,
 						},
 					},
 					end: {
 						armRight: {
-							pos: { map: 'b', min: { obj: actor1, posX: 1.5, posY: 0 }, max: { obj: actor1.head, posX: 1.2, posY: 1.2 } },
-							hand: { map: 'b', min: { angle: 0.8 }, max: { angle: -0.9 } },
+							pos: {
+								map: "b",
+								min: { obj: actor1, posX: 1.5, posY: 0 },
+								max: { obj: actor1.head, posX: 1.2, posY: 1.2 },
+							},
+							hand: { map: "b", min: { angle: 0.8 }, max: { angle: -0.9 } },
 							maxStraight: 1,
 							flip: true,
 						},
 						armLeft: {
-							pos: { map: 'b', min: { obj: actor1, posX: -0.5, posY: 0.5 }, max: { obj: actor1.head, posX: 0.1, posY: 1 } },
-							hand: { map: 'b', min: { angle: -0.9 }, max: { angle: 0.6 } },
+							pos: {
+								map: "b",
+								min: { obj: actor1, posX: -0.5, posY: 0.5 },
+								max: { obj: actor1.head, posX: 0.1, posY: 1 },
+							},
+							hand: { map: "b", min: { angle: -0.9 }, max: { angle: 0.6 } },
 							maxStraight: 0.95,
 							flip: true,
 						},
@@ -650,33 +735,42 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 					minPanels: 1,
 					pos: 0,
 					camera: {
-						zoom: { map: 'altCamera', min: 1, max: 0.8 },
-						focus: { map: 'altCamera', min: { obj: actor1, posX: 0.5, posY: 0.5 }, max: { obj: actor0, posX: 0.5, posY: 0.5 } },
+						zoom: { map: "altCamera", min: 1, max: 0.8 },
+						focus: {
+							map: "altCamera",
+							min: { obj: actor1, posX: 0.5, posY: 0.5 },
+							max: { obj: actor0, posX: 0.5, posY: 0.5 },
+						},
 					},
 				},
 				{
 					minPanels: 2,
 					pos: 0.5,
 					camera: {
-						zoom: { map: 'altCamera', min: 0.8, max: 1 },
-						focus: { map: 'altCamera', min: { obj: actor0, posX: 0.5, posY: 0.5 }, max: { obj: actor1, posX: 0.5, posY: 0.5 } },
+						zoom: { map: "altCamera", min: 0.8, max: 1 },
+						focus: {
+							map: "altCamera",
+							min: { obj: actor0, posX: 0.5, posY: 0.5 },
+							max: { obj: actor1, posX: 0.5, posY: 0.5 },
+						},
 					},
 				},
 			],
 			lengthAbs: 2,
 			priority: 6,
 		}, // - - -  END step 3 - - - - - - - - - - - - -
-		{ // - - -  START step 4 - - - - - - - - - - - - - LEAVING
+		{
+			// - - -  START step 4 - - - - - - - - - - - - - LEAVING
 			list: {
 				table: {},
 				chair0: {},
 				chair1: {},
-				glass: {
-
+				glass: {},
+				actor0: {
+					// actor 0 — frame 4
 				},
-				actor0: { // actor 0 — frame 4
-				},
-				actor1: { // actor 1 — frame 4
+				actor1: {
+					// actor 1 — frame 4
 					start: {
 						eyeLeft: {
 							openSY: 1,
@@ -705,7 +799,6 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 							hand: { angle: -0.3 },
 							maxStraight: 0.9,
 						},
-
 					},
 					end: {
 						pos: {
@@ -730,7 +823,11 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 					pos: 0.3,
 					camera: {
 						zoom: 0.8,
-						focus: { map: 'altCamera', min: { obj: actor1, posX: 0.5, posY: 0.5 }, max: { obj: glass, posX: 0.5, posY: 0.5 } },
+						focus: {
+							map: "altCamera",
+							min: { obj: actor1, posX: 0.5, posY: 0.5 },
+							max: { obj: glass, posX: 0.5, posY: 0.5 },
+						},
 					},
 				},
 				{
@@ -738,7 +835,11 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 					pos: 0.8,
 					camera: {
 						zoom: 0.8,
-						focus: { map: 'altCamera', min: { obj: glass, posX: 0.5, posY: 0.5 }, max: { obj: actor1, posX: 0.5, posY: 0.5 } },
+						focus: {
+							map: "altCamera",
+							min: { obj: glass, posX: 0.5, posY: 0.5 },
+							max: { obj: actor1, posX: 0.5, posY: 0.5 },
+						},
 					},
 				},
 			],
@@ -769,7 +870,6 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 	// get the relative Length for each Arc
 	count = 0;
 
-
 	count = 0;
 	while (count < arcLength) {
 		mainSteps[count].relLength = mainSteps[count].lengthAbs / totalArcLength;
@@ -778,11 +878,12 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 
 		mainSteps[count].absFloatLength = totalPanelCount * mainSteps[count].relLength;
 		mainSteps[count].absLength = Math.round(mainSteps[count].absFloatLength);
-		if (mainSteps[count].absLength <= 0) { mainSteps[count].absLength = 1; }
+		if (mainSteps[count].absLength <= 0) {
+			mainSteps[count].absLength = 1;
+		}
 		panelsLeft -= mainSteps[count].absLength;
 		count += 1;
 	}
-
 
 	removePanels = panelsLeft > 0 ? 1 : -1;
 
@@ -808,8 +909,10 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 			current = mainSteps[currentNr];
 
 			if (
-				current.absLength > 0
-				&& (panelsLeft > 0 ? (current.priority >= lowestPriority) : (current.priority <= lowestPriority))
+				current.absLength > 0 &&
+				(panelsLeft > 0
+					? current.priority >= lowestPriority
+					: current.priority <= lowestPriority)
 			) {
 				lowestPriority = current.priority;
 				biggestArc = currentNr;
@@ -867,7 +970,8 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 			currentCam = cameras[cameraCount];
 
 			if (innerCount >= currentCam.minPanels) {
-				panels[Math.round(currentStart + currentCam.pos * totalCount)].camera = currentCam.camera;
+				panels[Math.round(currentStart + currentCam.pos * totalCount)].camera =
+					currentCam.camera;
 			}
 
 			cameraCount += 1;
@@ -879,7 +983,9 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 	panels[0].relPosition = 0;
 
 	// Check if last displays the very end
-	if (current.relPosition < 1) { current.relPosition = 1; }
+	if (current.relPosition < 1) {
+		current.relPosition = 1;
+	}
 
 	return panels;
 };
@@ -887,16 +993,15 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (totalPanel
 TableComic.prototype.getStory.prototype.getPanels = function getStoryPanels(totalPanelCount) {
 	const panels = [];
 	let currentPanelNumber = 0;
-	let lastPanelNumber;
 	let currentFrame;
 
 	this.storyFramework = this.getStoryFrameWork(totalPanelCount);
 
 	totalPanelCount = this.storyFramework.length;
 
-	if (totalPanelCount < 1) { totalPanelCount = 1; }
-
-	lastPanelNumber = totalPanelCount - 1;
+	if (totalPanelCount < 1) {
+		totalPanelCount = 1;
+	}
 
 	while (currentPanelNumber < totalPanelCount) {
 		currentFrame = this.storyFramework[currentPanelNumber];
@@ -904,20 +1009,16 @@ TableComic.prototype.getStory.prototype.getPanels = function getStoryPanels(tota
 		if (currentFrame.dontRender) {
 			this.getPanel(currentFrame, 1);
 		} else {
-			panels.push(
-				{
-					camera: currentFrame.camera,
-					list: this.getPanel(currentFrame),
-				},
-			);
+			panels.push({
+				camera: currentFrame.camera,
+				list: this.getPanel(currentFrame),
+			});
 
 			this.getPanel(currentFrame, 1);
 		}
 
-
 		currentPanelNumber += 1;
 	}
-
 
 	return panels;
 };
@@ -928,38 +1029,40 @@ TableComic.prototype.getStory.prototype.getPanel = function (frame, rel) {
 	const list = [{ what: this.stage }];
 	let key;
 
-
 	for (key in main) {
 		list.push(
 			actorsList[key].getAction({
 				what: actorsList[key].renderObject,
 				info: main[key],
 				relPosition: rel || frame.relPosition,
-			}),
+			})
 		);
 	}
 
 	return list;
 };
 
-
 // END getStory \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN getAnimation /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 TableComic.prototype.getAnimation = function getAnimation(args) {
-	const steps = (args.endPanelNumber - args.startPanelNumber) || 1;
+	const steps = args.endPanelNumber - args.startPanelNumber || 1;
 	let process = (args.currentPanelNumber - args.startPanelNumber) / steps;
 
-	if (process < 0) { process = 0; }
-	if (process > 1) { process = 1; }
+	if (process < 0) {
+		process = 0;
+	}
+	if (process > 1) {
+		process = 1;
+	}
 
-	return typeof args.start === 'number'
+	return typeof args.start === "number"
 		? args.start + process * (args.end - args.start)
 		: {
-			map: args.map,
-			min: args.start.min + process * (args.end.min - args.start.min),
-			max: args.start.max + process * (args.end.max - args.start.max),
-		};
+				map: args.map,
+				min: args.start.min + process * (args.end.min - args.start.min),
+				max: args.start.max + process * (args.end.max - args.start.max),
+		  };
 };
 // END getAnimation \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
@@ -991,13 +1094,17 @@ TableComic.prototype.getActors = function (story) {
 	this.actor1 = this.getNewActor({});
 
 	this.chair0 = new this.basic.RenderObjectContainer(
-		new this.basic.Chair({ color: this.furnitureColor, colorDetail: this.furnitureDetailColor }),
+		new this.basic.Chair({ color: this.furnitureColor, colorDetail: this.furnitureDetailColor })
 	);
 	this.chair1 = new this.basic.RenderObjectContainer(
-		new this.basic.Chair({ toLeft: true, color: this.furnitureColor, colorDetail: this.furnitureDetailColor }),
+		new this.basic.Chair({
+			toLeft: true,
+			color: this.furnitureColor,
+			colorDetail: this.furnitureDetailColor,
+		})
 	);
 	this.table = new this.basic.RenderObjectContainer(
-		new this.basic.Table({ color: this.furnitureColor, colorDetail: this.furnitureDetailColor }),
+		new this.basic.Table({ color: this.furnitureColor, colorDetail: this.furnitureDetailColor })
 	);
 
 	this.glass = new this.basic.RenderObjectContainer(new this.basic.Glass());
@@ -1009,15 +1116,26 @@ TableComic.prototype.getActors = function (story) {
 TableComic.prototype.getActors.prototype.getNewActor = function (args) {
 	return new this.basic.RenderObjectContainer(
 		new this.basic.Actor({
-			color: this.colors.getColorMap({ main: args.main, min: this.baseSkinColor, max: this.baseSkinColorAlt }),
-			firstColor: this.colors.getColorMap({ main: args.main, min: this.baseColor1, max: this.baseColor1Alt }),
-			secondColor: this.colors.getColorMap({ main: args.main, min: this.baseColor2, max: this.baseColor2Alt }),
+			color: this.colors.getColorMap({
+				main: args.main,
+				min: this.baseSkinColor,
+				max: this.baseSkinColorAlt,
+			}),
+			firstColor: this.colors.getColorMap({
+				main: args.main,
+				min: this.baseColor1,
+				max: this.baseColor1Alt,
+			}),
+			secondColor: this.colors.getColorMap({
+				main: args.main,
+				min: this.baseColor2,
+				max: this.baseColor2Alt,
+			}),
 			main: args.main,
-		}),
+		})
 	);
 };
 // END getActors \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
-
 
 // BEGINN RenderObjectConteiner /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 TableComic.prototype.RenderObjectContainer = function (renderObject) {
@@ -1059,37 +1177,39 @@ TableComic.prototype.RenderObjectContainer.prototype.getActionProcessor = functi
 	this.rel = rel;
 };
 
-TableComic.prototype.RenderObjectContainer.prototype.getActionProcessor.prototype.processObject = function (obj, start, end) {
-	let key;
+TableComic.prototype.RenderObjectContainer.prototype.getActionProcessor.prototype.processObject =
+	function (obj, start, end) {
+		let key;
 
-	for (key in start) {
-		obj[key] = this.checkIfObject(obj[key] || {}, start[key], end && end[key]);
-	}
-
-	return obj;
-};
-TableComic.prototype.RenderObjectContainer.prototype.getActionProcessor.prototype.processValue = function (obj, start, end) {
-	if (end !== undefined) {
-		if (typeof start === 'number' && typeof end === 'number') {
-			return start + (end - start) * this.rel;
+		for (key in start) {
+			obj[key] = this.checkIfObject(obj[key] || {}, start[key], end && end[key]);
 		}
-		if (end.relPos) {
-			return this.rel > end.relPos ? end.value : start;
-		}
-		return this.rel === 1 ? end : start;
-	}
-	return start;
-};
-TableComic.prototype.RenderObjectContainer.prototype.getActionProcessor.prototype.checkIfObject = function (obj, start, end) {
-	// console.log( "check", ( ( end && end.relPos ) ), end );
 
-	if ((end && end.relPos) || start.basic || typeof start !== 'object') {
-		return this.processValue(obj, start, end);
-	}
-	return this.processObject(obj, start, end);
-};
+		return obj;
+	};
+TableComic.prototype.RenderObjectContainer.prototype.getActionProcessor.prototype.processValue =
+	function (obj, start, end) {
+		if (end !== undefined) {
+			if (typeof start === "number" && typeof end === "number") {
+				return start + (end - start) * this.rel;
+			}
+			if (end.relPos) {
+				return this.rel > end.relPos ? end.value : start;
+			}
+			return this.rel === 1 ? end : start;
+		}
+		return start;
+	};
+TableComic.prototype.RenderObjectContainer.prototype.getActionProcessor.prototype.checkIfObject =
+	function (obj, start, end) {
+		// console.log( "check", ( ( end && end.relPos ) ), end );
+
+		if ((end && end.relPos) || start.basic || typeof start !== "object") {
+			return this.processValue(obj, start, end);
+		}
+		return this.processObject(obj, start, end);
+	};
 // END RenderObjectConteiner \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
-
 
 // BEGINN getColorScheme /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 TableComic.prototype.getColorScheme = function getColorScheme() {
@@ -1110,22 +1230,21 @@ TableComic.prototype.getColorScheme = function getColorScheme() {
 TableComic.prototype.getColorScheme.prototype.getColor = function (args) {
 	const shade = args.maxShade ? this.rFl(args.maxShade, 1) : args.shade;
 
-	const baseColor = this.colors[
-		typeof args === 'number'
-			? args
-			: args.random
+	const baseColor =
+		this.colors[
+			typeof args === "number"
+				? args
+				: args.random
 				? this.rInt(0, this.colors.length - 1)
-				: (args.nr || 0)
-	];
+				: args.nr || 0
+		];
 
-	return shade
-		? this.multiplyColor(baseColor, shade)
-		: baseColor;
+	return shade ? this.multiplyColor(baseColor, shade) : baseColor;
 };
 
 TableComic.prototype.getColorScheme.prototype.getColorMap = function (args) {
 	return args.main
 		? this.getColor(args.min)
-		: { map: 'actor-color', min: this.getColor(args.min), max: this.getColor(args.max) };
+		: { map: "actor-color", min: this.getColor(args.min), max: this.getColor(args.max) };
 };
 // END getColorScheme \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/

@@ -1,4 +1,3 @@
-
 const comicConfig = {
 	maxPanels: 15,
 };
@@ -8,27 +7,23 @@ const Comic = function Comic(init) {
 	const rFl = random.getRandomFloat;
 	const rInt = random.getRandom;
 	const rIf = random.getIf;
-	let width;
 	let height;
 	let square;
 	let margin;
-	let sX;
-	let sY;
 	// panelSquare,
 	let gutterX = rFl(0.002, 0.01);
 	let gutterY = rFl(1.5, 5) * gutterX;
-	let test;
 	const linkList = [
-		width = { main: true },
-		height = { main: true, height: true },
-		square = { r: 1, max: { r: 1 } },
-		margin = { r: rFl(0.01, 0.05), min: 1, useSize: square },
-		sX = { r: 1, add: [{ r: -2, useSize: margin }] },
-		sY = { r: 1, height: true, add: [{ r: -2, useSize: margin }] },
+		{ main: true },
+		(height = { main: true, height: true }),
+		(square = { r: 1, max: { r: 1 } }),
+		(margin = { r: rFl(0.01, 0.05), min: 1, useSize: square }),
+		{ r: 1, add: [{ r: -2, useSize: margin }] },
+		{ r: 1, height: true, add: [{ r: -2, useSize: margin }] },
 		// panelSquare = { r:1, useSize:sX, max:{ r:1, useSize:sY } },
-		gutterX = { r: gutterX, useSize: square, min: 1 },
-		gutterY = { r: gutterY, useSize: square, min: [gutterX, 1] },
-		test = { r: 0.5, useSize: height },
+		(gutterX = { r: gutterX, useSize: square, min: 1 }),
+		(gutterY = { r: gutterY, useSize: square, min: [gutterX, 1] }),
+		{ r: 0.5, useSize: height },
 	];
 	let comic;
 	const backgroundColor = [rInt(150, 255), rInt(150, 255), rInt(150, 255)];
@@ -47,7 +42,7 @@ const Comic = function Comic(init) {
 			current.global = global;
 			current.copy = comicPrototype.copy;
 		}
-	}(Comic.prototype, comicConfig, {}));
+	})(Comic.prototype, comicConfig, {});
 
 	comic = {
 		renderList: [
@@ -82,7 +77,9 @@ const Comic = function Comic(init) {
 		background: backgroundColor,
 	};
 
-	if (init.debug === 'true') { window.track(); }
+	if (init.debug === "true") {
+		window.track();
+	}
 
 	return comic;
 };
@@ -140,20 +137,26 @@ Comic.prototype.Strip = function Strip(args) {
 	this.linkList.push(
 		smallesPanelSX,
 		smallesPanelSY,
-		smallesPanelSquare = { add: [smallesPanelSX], max: smallesPanelSY },
-		borderS = { r: 0.03, useSize: smallesPanelSquare },
-		subBorderS = { r: -2, useSize: borderS },
-
+		(smallesPanelSquare = { add: [smallesPanelSX], max: smallesPanelSY }),
+		(borderS = { r: 0.03, useSize: smallesPanelSquare }),
+		(subBorderS = { r: -2, useSize: borderS }),
 		// Find smalles Stage
-		stageSmallestMaxSX = [smallesPanelSX, subBorderS],
-		stageSmallestMaxFullSY = [smallesPanelSY, subBorderS],
-		stageSmallestMaxSY = { r: this.rFl(0.8, 1) && 1, useSize: stageSmallestMaxFullSY, a: -2 },
-		stageSmallestMaxSquare = { add: [stageSmallestMaxSX], max: stageSmallestMaxSY },
-		stageSmallestSX = { r: stageRatio, useSize: stageSmallestMaxSquare, max: stageSmallestMaxSX },
-		stageSmallestSY = { r: 1 / stageRatio, useSize: stageSmallestSX, max: stageSmallestMaxSY },
-		stageSmallestSquare = { add: [stageSmallestSX], max: stageSmallestSY },
+		(stageSmallestMaxSX = [smallesPanelSX, subBorderS]),
+		(stageSmallestMaxFullSY = [smallesPanelSY, subBorderS]),
+		(stageSmallestMaxSY = { r: this.rFl(0.8, 1) && 1, useSize: stageSmallestMaxFullSY, a: -2 }),
+		(stageSmallestMaxSquare = { add: [stageSmallestMaxSX], max: stageSmallestMaxSY }),
+		(stageSmallestSX = {
+			r: stageRatio,
+			useSize: stageSmallestMaxSquare,
+			max: stageSmallestMaxSX,
+		}),
+		(stageSmallestSY = {
+			r: 1 / stageRatio,
+			useSize: stageSmallestSX,
+			max: stageSmallestMaxSY,
+		}),
+		(stageSmallestSquare = { add: [stageSmallestSX], max: stageSmallestSY })
 	);
-
 
 	// Create Border and draw it immediately
 	border = new this.basic.Border({
@@ -173,10 +176,7 @@ Comic.prototype.Strip = function Strip(args) {
 
 		current = panels[i];
 
-		this.linkList.push(
-			sX = [current.sX, subBorderS],
-			sY = [current.sY, subBorderS],
-		);
+		this.linkList.push((sX = [current.sX, subBorderS]), (sY = [current.sY, subBorderS]));
 
 		current.list = [
 			// World
@@ -206,31 +206,32 @@ Comic.prototype.Strip = function Strip(args) {
 		panels.pop();
 	}
 
-	panels[panels.length - 1].list.push(
-		{
-			s: { r: 7, useSize: borderS, max: 25 },
-			fX: true,
-			fY: true,
-			z: 110000,
-			color: border.borderColor,
-			id: 'theEnd',
-			list: [
-				border.edgeBottomBent && border.edgeOuterBent && { name: 'Dot', clear: true },
-				border.edgeBottomBent && {
-					name: 'Dot', fX: true, fY: true, clear: true,
-				},
-				{},
-				{
-					m: borderS,
-					color: [255, 255, 255],
-					list: [
-						{ weight: 1, points: [{}, { fX: true, fY: true }] },
-						{ weight: 1, points: [{ fX: true }, { fY: true }] },
-					],
-				},
-			],
-		},
-	);
+	panels[panels.length - 1].list.push({
+		s: { r: 7, useSize: borderS, max: 25 },
+		fX: true,
+		fY: true,
+		z: 110000,
+		color: border.borderColor,
+		id: "theEnd",
+		list: [
+			border.edgeBottomBent && border.edgeOuterBent && { name: "Dot", clear: true },
+			border.edgeBottomBent && {
+				name: "Dot",
+				fX: true,
+				fY: true,
+				clear: true,
+			},
+			{},
+			{
+				m: borderS,
+				color: [255, 255, 255],
+				list: [
+					{ weight: 1, points: [{}, { fX: true, fY: true }] },
+					{ weight: 1, points: [{ fX: true }, { fY: true }] },
+				],
+			},
+		],
+	});
 
 	return panels;
 }; // END Strip \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
@@ -242,25 +243,30 @@ Comic.prototype.Border = function (args) {
 
 	// Forms & Sizes
 	this.size = args.size;
-	this.linkList.push(this.borderEdge = { r: 0.45, useSize: args.size, max: 1 });
+	this.linkList.push((this.borderEdge = { r: 0.45, useSize: args.size, max: 1 }));
 
 	const hasBent = this.rIf(0.5);
 	const allBents = hasBent && this.rIf(0.5);
-	const innerAndOutterBent = hasBent && allBents || this.rIf(0.5);
-	const topAndBottomBent = hasBent && allBents || this.rIf(0.5);
+	const innerAndOutterBent = (hasBent && allBents) || this.rIf(0.5);
+	const topAndBottomBent = (hasBent && allBents) || this.rIf(0.5);
 
 	this.edgeTop = !args.noWorldBackground;
 	this.open = this.edgeTop;
 
-	this.edgeOuterBent = !this.edgeTop || hasBent && this.rIf(0.5);
-	this.edgeInnerBent = hasBent && this.edgeTop && innerAndOutterBent || !this.edgeOuterBent;
+	this.edgeOuterBent = !this.edgeTop || (hasBent && this.rIf(0.5));
+	this.edgeInnerBent = (hasBent && this.edgeTop && innerAndOutterBent) || !this.edgeOuterBent;
 
 	this.edgeTopBent = hasBent && this.rIf(0.5);
-	this.edgeBottomBent = hasBent && topAndBottomBent || !this.edgeTopBent;
+	this.edgeBottomBent = (hasBent && topAndBottomBent) || !this.edgeTopBent;
 
 	// Colors
-	borderBaseColor = (!args.noWorldBackground && this.rIf(0.5)) ? args.worldBaseColor : args.backgroundColor;
-	this.borderColor = [borderBaseColor[0] * borderDarkess, borderBaseColor[1] * borderDarkess, borderBaseColor[2] * borderDarkess];
+	borderBaseColor =
+		!args.noWorldBackground && this.rIf(0.5) ? args.worldBaseColor : args.backgroundColor;
+	this.borderColor = [
+		borderBaseColor[0] * borderDarkess,
+		borderBaseColor[1] * borderDarkess,
+		borderBaseColor[2] * borderDarkess,
+	];
 };
 
 Comic.prototype.Border.prototype.draw = function (args) {
@@ -273,64 +279,83 @@ Comic.prototype.Border.prototype.draw = function (args) {
 				list.push(
 					{ sX: 1, sY: this.borderEdge, clear: true },
 					{
-						sX: 1, sY: this.borderEdge, fX: true, clear: true,
-					},
+						sX: 1,
+						sY: this.borderEdge,
+						fX: true,
+						clear: true,
+					}
 				);
 			}
 
 			if (this.edgeBottomBent) {
 				list.push(
 					{
-						sX: 1, sY: this.borderEdge, fY: true, clear: true,
+						sX: 1,
+						sY: this.borderEdge,
+						fY: true,
+						clear: true,
 					},
 					{
-						sX: 1, sY: this.borderEdge, fX: true, fY: true, clear: true,
-					},
+						sX: 1,
+						sY: this.borderEdge,
+						fX: true,
+						fY: true,
+						clear: true,
+					}
 				);
 			}
 		}
 
 		// Edge Top
 		if (this.edgeTop) {
-			list.push(
-				{ sY: this.size },
-			);
+			list.push({ sY: this.size });
 		}
 
-		list.push(
-			{ sX: this.size },
-			{ sX: this.size, fX: true },
-			{ sY: this.size, fY: true },
-		);
+		list.push({ sX: this.size }, { sX: this.size, fX: true }, { sY: this.size, fY: true });
 
 		// Edge inner Bent
 		if (this.edgeInnerBent) {
 			if (this.edgeTopBent) {
 				list.push(
 					{
-						x: this.size, y: this.size, sX: this.borderEdge, sY: 1,
+						x: this.size,
+						y: this.size,
+						sX: this.borderEdge,
+						sY: 1,
 					},
 					{
-						x: this.size, y: this.size, sX: this.borderEdge, sY: 1, fX: true,
-					},
+						x: this.size,
+						y: this.size,
+						sX: this.borderEdge,
+						sY: 1,
+						fX: true,
+					}
 				);
 			}
-
 
 			if (this.edgeBottomBent) {
 				list.push(
 					{
-						x: this.size, y: this.size, sX: this.borderEdge, sY: 1, fY: true,
+						x: this.size,
+						y: this.size,
+						sX: this.borderEdge,
+						sY: 1,
+						fY: true,
 					},
 					{
-						x: this.size, y: this.size, sX: this.borderEdge, sY: 1, fX: true, fY: true,
-					},
+						x: this.size,
+						y: this.size,
+						sX: this.borderEdge,
+						sY: 1,
+						fX: true,
+						fY: true,
+					}
 				);
 			}
 		}
 
 		return {
-			id: 'border',
+			id: "border",
 			color: this.borderColor,
 			list,
 			z: 100000,

@@ -1,5 +1,5 @@
-import { getPixelArray } from './getPixelArray';
-import { DrawingTools } from './DrawingTools';
+import { getPixelArray } from "./getPixelArray";
+import { DrawingTools } from "./DrawingTools";
 
 export const getDrawer = (pixelGraphics, renderList) => {
 	const drawingTool = new DrawingTools(pixelGraphics);

@@ -1,3 +1,5 @@
+import { BBObj, BBProto } from "./bb";
+
 // LOWER BODY  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 BBProto.LowerBody = function (args) {
 	this.color = args.color;

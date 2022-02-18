@@ -1,4 +1,3 @@
-
 /* global TableComic */
 
 // BEGINN Table /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
@@ -19,7 +18,6 @@ TableComic.prototype.Table.prototype.draw = function TableDraw(args) {
 	this.getPosition(args);
 
 	return this.getObject([
-
 		// Table Leg
 		{
 			sX: { r: 0.1 },
@@ -49,9 +47,7 @@ TableComic.prototype.Table.prototype.draw = function TableDraw(args) {
 
 TableComic.prototype.Table.prototype.getPosition = function TableGetPosition(id) {
 	return {
-		x: id === 0
-			? this.x
-			: this.pushLinkList([this.x, this.sX]),
+		x: id === 0 ? this.x : this.pushLinkList([this.x, this.sX]),
 		y: this.sY,
 	};
 };
@@ -78,7 +74,6 @@ TableComic.prototype.Chair.prototype.draw = function ChairDraw(args) {
 	this.backrestSX = this.pushLinkList({ r: 0.1, useSize: this.square, min: 1 });
 
 	return this.getObject([
-
 		// Seat
 		{ sY: this.backrestSX },
 
@@ -135,10 +130,7 @@ TableComic.prototype.Glass.prototype.draw = function GlassDraw(args) {
 		{
 			sY: this.level,
 			fY: true,
-			list: [
-				{ color: this.color },
-				{ color: this.mixColor, list: normalGlass },
-			],
+			list: [{ color: this.color }, { color: this.mixColor, list: normalGlass }],
 		},
 	]);
 };
@@ -152,14 +144,18 @@ TableComic.prototype.Emotion = function Emotion(args) {
 
 TableComic.prototype.Emotion.prototype.draw = function EmotionDraw(args) {
 	this.sX = this.pushLinkList({
-		r: 0.1, useSize: args.square, min: 1, odd: true,
+		r: 0.1,
+		useSize: args.square,
+		min: 1,
+		odd: true,
 	});
 	this.sY = this.sX;
 
 	this.getPosition(args);
 
-	this.colorList.push(
-		[this.heartColor, function (a, b) {
+	this.colorList.push([
+		this.heartColor,
+		function (a) {
 			const maxR = 255;
 			const maxB = 0;
 			const maxG = 0;
@@ -170,10 +166,9 @@ TableComic.prototype.Emotion.prototype.draw = function EmotionDraw(args) {
 			const changeG = maxG - minG;
 			const changeB = maxB - minB;
 
-
 			return [minR + changeR * a, minG + changeG * a, minB + changeB * a];
-		}],
-	);
+		},
+	]);
 
 	if (args.info.heart) {
 		this.cloudSX = this.pushLinkList({ r: 0, useSize: this.sX });
@@ -187,7 +182,6 @@ TableComic.prototype.Emotion.prototype.draw = function EmotionDraw(args) {
 		});
 	}
 
-
 	return this.getObject([
 		{
 			color: args.info.heart ? this.heartColor : this.color,
@@ -196,68 +190,76 @@ TableComic.prototype.Emotion.prototype.draw = function EmotionDraw(args) {
 			rX: args.info.right,
 			list: args.info.heart
 				? [
-					{
-						list: [
-							args.info.thunder && {
-								color: [255, 255, 255],
-								tY: true,
-								fY: true,
-								y: { r: 0.2 },
-								sY: this.thunderSY,
-								list: [
-									{
-										weight: 1,
-										points: [
-											{ x: { r: 0.5 } },
-											{ x: { r: 0.65 }, y: { r: 0.4 } },
-											{ x: { r: 0.35 }, y: { r: 0.6 } },
-											{ x: { r: 0.5 }, fY: true },
-										],
-									},
-								],
-							},
+						{
+							list: [
+								args.info.thunder && {
+									color: [255, 255, 255],
+									tY: true,
+									fY: true,
+									y: { r: 0.2 },
+									sY: this.thunderSY,
+									list: [
+										{
+											weight: 1,
+											points: [
+												{ x: { r: 0.5 } },
+												{ x: { r: 0.65 }, y: { r: 0.4 } },
+												{ x: { r: 0.35 }, y: { r: 0.6 } },
+												{ x: { r: 0.5 }, fY: true },
+											],
+										},
+									],
+								},
 
-							{ sY: { r: 0.8 }, mX: { r: 0.05, otherDim: true, a: 1 }, fY: true },
+								{ sY: { r: 0.8 }, mX: { r: 0.05, otherDim: true, a: 1 }, fY: true },
 
-							// Outside
-							{ sY: { r: 0.6 }, sX: { r: 0.4, min: 2 }, x: { r: 0.2, useSize: this.cloudSX, max: { a: 0 } } },
-							{
-								sY: { r: 0.6 }, sX: { r: 0.4, min: 2 }, x: { r: 0.4, useSize: this.cloudSX, max: { a: 0 } }, fX: true,
-							},
+								// Outside
+								{
+									sY: { r: 0.6 },
+									sX: { r: 0.4, min: 2 },
+									x: { r: 0.2, useSize: this.cloudSX, max: { a: 0 } },
+								},
+								{
+									sY: { r: 0.6 },
+									sX: { r: 0.4, min: 2 },
+									x: { r: 0.4, useSize: this.cloudSX, max: { a: 0 } },
+									fX: true,
+								},
 
-							// Bottom
-							{
-								mX: { r: 0.3 }, fY: true, tY: true, sY: { r: 0.1, min: 1 }, x: { r: 0.4, useSize: this.cloudSX, max: { a: 0 } },
-							},
+								// Bottom
+								{
+									mX: { r: 0.3 },
+									fY: true,
+									tY: true,
+									sY: { r: 0.1, min: 1 },
+									x: { r: 0.4, useSize: this.cloudSX, max: { a: 0 } },
+								},
 
-							// Cloud
-							{ mX: this.cloudSX, mY: { r: 0.1, min: 1 } },
-						],
-					},
-				]
+								// Cloud
+								{ mX: this.cloudSX, mY: { r: 0.1, min: 1 } },
+							],
+						},
+				  ]
 				: [
-					{
-						weight: 1,
-						points: [
-							{ fY: true },
-							{ fX: true },
-						],
-					},
-					{
-						weight: 1,
-						points: [
-							{ fY: true, y: { r: 0.2 }, x: { r: -0.6 } },
-							{ fX: true, x: { r: 1 } },
-						],
-					},
-					{
-						weight: 1,
-						points: [
-							{ fY: true, x: { r: 0.2 }, y: { r: -0.2 } },
-							{ fX: true, y: { r: 0.5 } },
-						],
-					},
-				],
+						{
+							weight: 1,
+							points: [{ fY: true }, { fX: true }],
+						},
+						{
+							weight: 1,
+							points: [
+								{ fY: true, y: { r: 0.2 }, x: { r: -0.6 } },
+								{ fX: true, x: { r: 1 } },
+							],
+						},
+						{
+							weight: 1,
+							points: [
+								{ fY: true, x: { r: 0.2 }, y: { r: -0.2 } },
+								{ fX: true, y: { r: 0.5 } },
+							],
+						},
+				  ],
 		},
 	]);
 };

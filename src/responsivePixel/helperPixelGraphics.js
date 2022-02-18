@@ -1,14 +1,16 @@
-
 const helper = new (function () {
 	const that = this;
 	this.getSmallerDim = function (x) {
 		const o = { r: x.r };
 		const max = { r: x.r2 || x.r, otherDim: true };
 
-		if (x.a) 				{ o.a = x.a; max.a = x.a; }
-		if (x.useSize) 		{
+		if (x.a) {
+			o.a = x.a;
+			max.a = x.a;
+		}
+		if (x.useSize) {
 			o.useSize = x.useSize[0];
-								  max.useSize = x.useSize[1] || x.useSize[0];
+			max.useSize = x.useSize[1] || x.useSize[0];
 		}
 
 		if (x.r >= 0 && !x.getBiggerDim) {
@@ -34,7 +36,7 @@ const helper = new (function () {
 	};
 
 	this.margin = function (full, margin, min) {
-		return { add: [full, { r: -2, useSize: margin }], min };
+		return { add: [full, { r: -2, useSize: margin }], min };
 	};
 
 	this.darken = function (darken, strength) {
@@ -104,7 +106,9 @@ const helper = new (function () {
 		let l = color.length;
 		let b = 0;
 
-		while (l--) { b += color[l]; }
+		while (l--) {
+			b += color[l];
+		}
 
 		return b / 3;
 	};
@@ -125,8 +129,12 @@ const helper = new (function () {
 		};
 	};
 
-	this.setValue 			= function (what, value) 	{ what.r = value; };
-	this.setValueNew 		= function (what, value) 	{ what.s.rele = value; };
+	this.setValue = function (what, value) {
+		what.r = value;
+	};
+	this.setValueNew = function (what, value) {
+		what.s.rele = value;
+	};
 
 	this.getHoverChangers = function () {
 		const changersRelativeStandardList = [];
@@ -177,15 +185,16 @@ const helper = new (function () {
 
 				if (info) {
 					for (key in info) {
-						if ((currentSize = this[key])) { // Assignment
+						if ((currentSize = this[key])) {
+							// Assignment
 							currentInfo = info[key];
-							if (typeof currentInfo === 'object') {
+							if (typeof currentInfo === "object") {
 								if (currentInfo.map !== undefined) {
 									pushRelativeStandard(
-										currentInfo.min, 	// max
-										currentInfo.max, 	// min
-										currentInfo.map, 				// map
-										currentSize,								// variable
+										currentInfo.min, // max
+										currentInfo.max, // min
+										currentInfo.map, // map
+										currentSize // variable
 									);
 								} else {
 									// Just assign the max or min value
@@ -212,7 +221,7 @@ const helper = new (function () {
 				let somethingToChange = false;
 
 				for (key in args) {
-					if (key !== 'width' && key !== 'height' && key !== 'isServer') {
+					if (key !== "width" && key !== "height" && key !== "isServer") {
 						somethingToChange = true;
 						break;
 					}
@@ -225,7 +234,10 @@ const helper = new (function () {
 							current = changersRelativeStandard[l];
 
 							if (args[current.map] !== undefined) {
-								setValue(current.variable, current.min + current.change * args[current.map]);
+								setValue(
+									current.variable,
+									current.min + current.change * args[current.map]
+								);
 							}
 						}
 					}
@@ -273,7 +285,7 @@ const helper = new (function () {
 	};
 
 	this.random = function (c, bonus, bonusC) {
-		return Math.random() < ((c || 0.2) + (bonus ? bonusC : 0));
+		return Math.random() < (c || 0.2) + (bonus ? bonusC : 0);
 	};
 
 	this.random = function (seed) {
@@ -287,16 +299,16 @@ const helper = new (function () {
 
 		const getFloat = function () {
 			const t = x ^ (x << a);
-			return (x = ((x ^ (x >> c)) ^ (t ^ (t >> b)))) / denom;
+			return (x = x ^ (x >> c) ^ (t ^ (t >> b))) / denom;
 		};
 
-		x = ((x ^ (x >> c)) ^ (t ^ (t >> b)));
+		x = x ^ (x >> c) ^ (t ^ (t >> b));
 
 		t = x ^ (x << a);
-		x = ((x ^ (x >> c)) ^ (t ^ (t >> b)));
+		x = x ^ (x >> c) ^ (t ^ (t >> b));
 
 		t = x ^ (x << a);
-		x = ((x ^ (x >> c)) ^ (t ^ (t >> b)));
+		x = x ^ (x >> c) ^ (t ^ (t >> b));
 
 		return {
 			getFloat,

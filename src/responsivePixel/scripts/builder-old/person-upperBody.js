@@ -1,14 +1,15 @@
-
+/* eslint-disable no-undef */
+import Builder from "./builder";
 // UPPER BODY --------------------------------------------------------------------------------
 Builder.prototype.UpperBody = function (args) {
 	const shirtColor = args.firstColor.getBr();
 
 	// Form & Sizes
-	this.thickShoulder = this.IF() && this.R(1.5, 4) || 1.5;
+	this.thickShoulder = (this.IF() && this.R(1.5, 4)) || 1.5;
 	this.chestWide = this.IF(0.05);
-	this.chestSX = this.chestWide && this.R(1, 1.3) || 1;
-	this.chestSY = this.chestWide && this.R(0.3, 0.8) || 1;
-	this.chestStartSY = this.chestWide && this.R(0.1, 0.5) || 0;
+	this.chestSX = (this.chestWide && this.R(1, 1.3)) || 1;
+	this.chestSY = (this.chestWide && this.R(0.3, 0.8)) || 1;
+	this.chestStartSY = (this.chestWide && this.R(0.1, 0.5)) || 0;
 
 	this.topless = args.topless = args.animal || this.IF(0.02);
 
@@ -21,23 +22,28 @@ Builder.prototype.UpperBody = function (args) {
 	this.clothColor = args.clothColor = args.topless ? args.skinColor : args.firstColor;
 	this.clothShadowColor = this.clothColor.copy({ brAdd: -1 });
 	this.skinColor = args.skinColor;
-	this.shirtColor = args.shirtColor = (this.IF(0.5) ? args.secondColor : args.clothColor).copy({ brSet: shirtColor === 4 ? 3 : shirtColor + 1, max: 4 });
+	this.shirtColor = args.shirtColor = (this.IF(0.5) ? args.secondColor : args.clothColor).copy({
+		brSet: shirtColor === 4 ? 3 : shirtColor + 1,
+		max: 4,
+	});
 
 	// Assets
 	this.arm = new this.basic.Arm(args);
 	this.IF(0.05) && (this.cape = new this.basic.Cape(args));
 	this.topless && this.IF(0.8) && (this.nipples = new this.basic.Nipples(args));
 
-	!args.animal && (
-		this.IF(0.07) && (this.suspenders = new this.basic.Suspenders(args)),
-		this.IF(0.02) && (this.strap = new this.basic.Strap(args))
-	);
+	!args.animal &&
+		(this.IF(0.07) && (this.suspenders = new this.basic.Suspenders(args)),
+		this.IF(0.02) && (this.strap = new this.basic.Strap(args)));
 
-	!this.topless && (
-		!this.breast && !this.chestWide && this.IF(0.05) && (this.stripes = new this.basic.Stripes(args)),
-		this.IF(0.4) && (this.collar = new (this.IF() ? this.basic.Cleavage : this.basic.Collar)(args)),
-		this.IF(0.3) && (this.buttons = new this.basic.Buttons(args, this.clothColor))
-	);
+	!this.topless &&
+		(!this.breast &&
+			!this.chestWide &&
+			this.IF(0.05) &&
+			(this.stripes = new this.basic.Stripes(args)),
+		this.IF(0.4) &&
+			(this.collar = new (this.IF() ? this.basic.Cleavage : this.basic.Collar)(args)),
+		this.IF(0.3) && (this.buttons = new this.basic.Buttons(args, this.clothColor)));
 
 	this.IF(0.1) && (this.logo = new this.basic.Logo(args));
 }; // END UpperBody
@@ -50,11 +56,14 @@ Builder.prototype.UpperBody.prototype.draw = function (args) {
 	if (args.calc) {
 		this.vL[`upperBodySX${nr}`] = `personRealSX${nr}`;
 		this.vL[`chestSX${nr}`] = {
-			r: this.chestSX, useSize: `upperBodySX${nr}`, min: 1, max: [`upperBodySX${nr}`, 1],
+			r: this.chestSX,
+			useSize: `upperBodySX${nr}`,
+			min: 1,
+			max: [`upperBodySX${nr}`, 1],
 		};
 		this.vL[`chestSY${nr}`] = { r: this.chestSY, useSize: `upperBodySY${nr}`, min: 1 };
-		this.chestWide
-			&& (this.vL[`stomachSY${nr}`] = [`upperBodySY${nr}`, this.sub(`chestSY${nr}`)]);
+		this.chestWide &&
+			(this.vL[`stomachSY${nr}`] = [`upperBodySY${nr}`, this.sub(`chestSY${nr}`)]);
 		this.vL[`trapSX${nr}`] = [`chestSX${nr}`, this.mult(sideView ? -2 : -1, `neckSX${nr}`)];
 
 		this.vL[`collarSX${nr}`] = this.shirt ? 1 : { a: 0 };
@@ -69,16 +78,15 @@ Builder.prototype.UpperBody.prototype.draw = function (args) {
 		color: this.clothColor.get(),
 		id: `upperBody${nr}`,
 		list: [
-
-
-			!sideView && this.waist && {
-				clear: true,
-				sX: { r: 0.2, max: 1 },
-				fX: true,
-				sY: { r: 0.3 },
-				y: { r: 0.5 },
-				minY: 3,
-			},
+			!sideView &&
+				this.waist && {
+					clear: true,
+					sX: { r: 0.2, max: 1 },
+					fX: true,
+					sY: { r: 0.3 },
+					y: { r: 0.5 },
+					minY: 3,
+				},
 			// Chest
 			{
 				sX: `chestSX${nr}`,
@@ -111,21 +119,24 @@ Builder.prototype.UpperBody.prototype.draw = function (args) {
 
 			this.stripes && this.stripes.draw(args),
 
-			!backView && this.breast && {
-				color: this.clothShadowColor.get(),
-				sY: 1,
-				mX: { r: 0.2 },
-				y: { r: 0.35 },
-			},
+			!backView &&
+				this.breast && {
+					color: this.clothShadowColor.get(),
+					sY: 1,
+					mX: { r: 0.2 },
+					y: { r: 0.35 },
+				},
 
-			this.hanky && !backView && (sideView || !args.right) && {
-				color: this.shirtColor.get(),
-				sX: { r: sideView ? 0.2 : 0.3 },
-				sY: { r: 0.1, max: 1 },
-				y: { r: 0.2 },
-				x: { r: 0.2, min: 1 },
-				fX: !sideView || !args.right,
-			},
+			this.hanky &&
+				!backView &&
+				(sideView || !args.right) && {
+					color: this.shirtColor.get(),
+					sX: { r: sideView ? 0.2 : 0.3 },
+					sY: { r: 0.1, max: 1 },
+					y: { r: 0.2 },
+					x: { r: 0.2, min: 1 },
+					fX: !sideView || !args.right,
+				},
 
 			!backView && this.logo && this.logo.draw(args, 3),
 			!backView && this.nipples && this.nipples.draw(args, 3),
@@ -144,13 +155,12 @@ Builder.prototype.Stripes = function (args) {
 	this.horizontal = this.IF(0.5);
 	this.randomDots = this.IF(0.05);
 	this.doted = !this.randomDots && this.IF(0.1);
-	this.doted && (
-		this.dotGap = this.R(0.05, 0.2),
-		this.dotStrip = this.R(0.05, 0.2)
-	);
+	this.doted && ((this.dotGap = this.R(0.05, 0.2)), (this.dotStrip = this.R(0.05, 0.2)));
 
 	// Colors
-	this.stripColor = (this.IF(0.5) ? args.secondColor : args.clothColor).copy({ brSet: args.clothColor.getBr() - 1 });
+	this.stripColor = (this.IF(0.5) ? args.secondColor : args.clothColor).copy({
+		brSet: args.clothColor.getBr() - 1,
+	});
 
 	// Assets
 }; // END Stripes
@@ -159,34 +169,39 @@ Builder.prototype.Stripes.prototype.draw = function (args, z) {
 	const { nr } = args;
 	const { sideView } = args;
 
-	return (sideView || !args.right) && {
-		fX: true,
-		z,
-		sX: !sideView && { r: 2, useSize: `upperBodySX${nr}`, a: -1 },
-		color: this.stripColor.get(),
-		stripes: !this.dots && {
-			gap: { r: this.gap, useSize: `upperBodySY${nr}` },
-			strip: { r: this.strip, useSize: `upperBodySY${nr}` },
-			horizontal: this.horizontal,
-		},
-		list:
-		this.randomDots
-		  ? [
-		    {
-		      use: `shirt${nr}`, chance: 0.5, sX: { r: this.gap, useSize: `upperBodySY${nr}` }, sY: { r: this.strip, useSize: `upperBodySY${nr}` }, mask: true,
-		    },
-		    { save: `shirt${nr}` },
-		  ]
-		  : this.doted && [
-		    {
-		      stripes: !this.dots && {
-		        gap: { r: this.dotGap, useSize: `upperBodySY${nr}` },
-		        strip: { r: this.dotStrip, useSize: `upperBodySY${nr}` },
-		        horizontal: !this.horizontal,
-		      },
-		    },
-		  ],
-	};
+	return (
+		(sideView || !args.right) && {
+			fX: true,
+			z,
+			sX: !sideView && { r: 2, useSize: `upperBodySX${nr}`, a: -1 },
+			color: this.stripColor.get(),
+			stripes: !this.dots && {
+				gap: { r: this.gap, useSize: `upperBodySY${nr}` },
+				strip: { r: this.strip, useSize: `upperBodySY${nr}` },
+				horizontal: this.horizontal,
+			},
+			list: this.randomDots
+				? [
+						{
+							use: `shirt${nr}`,
+							chance: 0.5,
+							sX: { r: this.gap, useSize: `upperBodySY${nr}` },
+							sY: { r: this.strip, useSize: `upperBodySY${nr}` },
+							mask: true,
+						},
+						{ save: `shirt${nr}` },
+				  ]
+				: this.doted && [
+						{
+							stripes: !this.dots && {
+								gap: { r: this.dotGap, useSize: `upperBodySY${nr}` },
+								strip: { r: this.dotStrip, useSize: `upperBodySY${nr}` },
+								horizontal: !this.horizontal,
+							},
+						},
+				  ],
+		}
+	);
 }; // END Stripes draw
 
 // BUTTONS --------------------------------------------------------------------------------
@@ -207,23 +222,25 @@ Builder.prototype.Buttons.prototype.draw = function (args, z) {
 	const { nr } = args;
 	const { sideView } = args;
 
-	return !args.backView && {
-		sX: { r: this.buttonSX, useSize: `chestSX${nr}`, min: 1 },
-		fY: true,
-		cX: sideView,
-		color: this.buttonsColor.get(),
-		z,
-		// rX:sideView && args.right,
-		list: !this.zipper && [
-			{
-				stripes: {
-					gap: { r: this.buttonGapSY, useSize: `upperBodySY${nr}`, min: 1 },
-					horizontal: true,
-					strip: { r: this.buttonSY, useSize: `upperBodySY${nr}`, min: 1 },
+	return (
+		!args.backView && {
+			sX: { r: this.buttonSX, useSize: `chestSX${nr}`, min: 1 },
+			fY: true,
+			cX: sideView,
+			color: this.buttonsColor.get(),
+			z,
+			// rX:sideView && args.right,
+			list: !this.zipper && [
+				{
+					stripes: {
+						gap: { r: this.buttonGapSY, useSize: `upperBodySY${nr}`, min: 1 },
+						horizontal: true,
+						strip: { r: this.buttonSY, useSize: `upperBodySY${nr}`, min: 1 },
+					},
 				},
-			},
-		],
-	};
+			],
+		}
+	);
 }; // END Buttons draw
 
 // SUSPENDERS --------------------------------------------------------------------------------
@@ -261,19 +278,32 @@ Builder.prototype.Suspenders.prototype.draw = function (args, z) {
 		list: [
 			{
 				sX: {
-					r: this.strapSX * (sideView ? 0.5 : 1), useSize: `trapSX${nr}`, min: 1, save: `strapSX${nr}`,
+					r: this.strapSX * (sideView ? 0.5 : 1),
+					useSize: `trapSX${nr}`,
+					min: 1,
+					save: `strapSX${nr}`,
 				},
 				x: {
-					r: this.strapX * (sideView ? 0.5 : 1), useSize: `trapSX${nr}`, max: [`trapSX${nr}`, this.sub(`strapSX${nr}`)], min: { a: 0 },
+					r: this.strapX * (sideView ? 0.5 : 1),
+					useSize: `trapSX${nr}`,
+					max: [`trapSX${nr}`, this.sub(`strapSX${nr}`)],
+					min: { a: 0 },
 				},
 				fX: true,
 				list: detail,
 			},
 			sideView && {
 				sX: {
-					r: this.strapSX * (sideView ? 0.5 : 1), useSize: `trapSX${nr}`, min: 1, save: `strapSX${nr}`,
+					r: this.strapSX * (sideView ? 0.5 : 1),
+					useSize: `trapSX${nr}`,
+					min: 1,
+					save: `strapSX${nr}`,
 				},
-				x: { r: this.strapX * (sideView ? 0.5 : 1), useSize: `trapSX${nr}`, max: [`trapSX${nr}`, this.sub(`strapSX${nr}`)] },
+				x: {
+					r: this.strapX * (sideView ? 0.5 : 1),
+					useSize: `trapSX${nr}`,
+					max: [`trapSX${nr}`, this.sub(`strapSX${nr}`)],
+				},
 				list: detail,
 			},
 		],
@@ -281,7 +311,7 @@ Builder.prototype.Suspenders.prototype.draw = function (args, z) {
 }; // END Suspenders draw
 
 // COLLAR --------------------------------------------------------------------------------
-Builder.prototype.Collar = function (args, cleavage, sleeveless) {
+Builder.prototype.Collar = function (args) {
 	// Form & Sizes
 	this.collarSY = this.R(0.1, 0.5);
 	this.open = this.IF(0.2);
@@ -304,55 +334,59 @@ Builder.prototype.Collar.prototype.draw = function (args, z) {
 	return {
 		z: 10,
 		color: this.shirtColor.get(),
-		sX: this.scarf ? { a: `headSX${nr}`, max: `chestSX${nr}` } : [`neckSX${nr}`, sideView ? 2 : 1],
+		sX: this.scarf
+			? { a: `headSX${nr}`, max: `chestSX${nr}` }
+			: [`neckSX${nr}`, sideView ? 2 : 1],
 		sY: { r: this.collarSY, max: args.backView && 1 },
 		cX: sideView,
 		fX: !this.scarf && sideView,
 		list: [
 			this.scarf && {
-				ty: true, sY: 2, y: -1, z: z + 100,
+				ty: true,
+				sY: 2,
+				y: -1,
+				z: z + 100,
 			},
 			{ sY: { r: 1, max: 2 } },
 			{
 				minY: 4,
-				points: [
-					{ y: 1 },
-					{ y: 1, fX: true },
-					{ fY: true },
-				],
+				points: [{ y: 1 }, { y: 1, fX: true }, { fY: true }],
 			},
-			!args.backView && this.open && {
-				sX: { r: 0.5, min: 1 },
-				sY: `upperBodySY${nr}`,
-			},
+			!args.backView &&
+				this.open && {
+					sX: { r: 0.5, min: 1 },
+					sY: `upperBodySY${nr}`,
+				},
 
 			this.buttons && {
 				sX: { r: 0.5, min: 1 },
 				sY: `upperBodySY${nr}`,
-				list: [
-					this.buttons.draw(args, z),
-				],
+				list: [this.buttons.draw(args, z)],
 			},
 
-			!args.backView && this.tie && {
-				sX: { r: 0.25, min: 1 },
-				sY: this.fullTie && [`upperBodySY${nr}`, -1],
-				minY: 4,
-				id: `tie${nr}`,
-				color: this.tieColor.get(),
-				list: [
-					{
-						name: 'Dot', fY: true, fX: true, clear: true,
-					},
-					{},
-				],
-			},
+			!args.backView &&
+				this.tie && {
+					sX: { r: 0.25, min: 1 },
+					sY: this.fullTie && [`upperBodySY${nr}`, -1],
+					minY: 4,
+					id: `tie${nr}`,
+					color: this.tieColor.get(),
+					list: [
+						{
+							name: "Dot",
+							fY: true,
+							fX: true,
+							clear: true,
+						},
+						{},
+					],
+				},
 		],
 	};
 }; // END Collar Shirt draw
 
 // CLEAVAGE --------------------------------------------------------------------------------
-Builder.prototype.Cleavage = function (args, cleavage, sleeveless) {
+Builder.prototype.Cleavage = function (args) {
 	// Form & Sizes
 	this.sleeveless = !args.sleeves && this.IF(0.5);
 	this.strapSX = this.sleeveless && this.R(-1, 0);
@@ -374,25 +408,36 @@ Builder.prototype.Cleavage.prototype.draw = function (args, z) {
 	const { sideView } = args;
 
 	if (args.calc) {
-		this.vL[`cleavageSX${nr}`] = { r: this.cleavageSX, useSize: `neckSX${nr}`, max: [`chestSX${nr}`, -2] };
+		this.vL[`cleavageSX${nr}`] = {
+			r: this.cleavageSX,
+			useSize: `neckSX${nr}`,
+			max: [`chestSX${nr}`, -2],
+		};
 		this.vL[`cleavageX${nr}`] = sideView
-			? [this.mult(0.5, `chestSX${nr}`), this.mult(-0.5, `cleavageSX${nr}`), this.sub(`collarSX${nr}`)]
+			? [
+					this.mult(0.5, `chestSX${nr}`),
+					this.mult(-0.5, `cleavageSX${nr}`),
+					this.sub(`collarSX${nr}`),
+			  ]
 			: [`chestSX${nr}`, this.mult(-1, `cleavageSX${nr}`)];
-		this.sleeveless && (
-			sideView && (
-				this.vL[`cleavageRightX${nr}`] = [`chestSX${nr}`, this.sub(`cleavageX${nr}`), this.sub(`cleavageSX${nr}`)]
-			),
-			(this.vL[`strapSX${nr}`] = { r: this.strapSX, useSize: `cleavageX${nr}`, max: -1 })
-		);
+		this.sleeveless &&
+			(sideView &&
+				(this.vL[`cleavageRightX${nr}`] = [
+					`chestSX${nr}`,
+					this.sub(`cleavageX${nr}`),
+					this.sub(`cleavageSX${nr}`),
+				]),
+			(this.vL[`strapSX${nr}`] = { r: this.strapSX, useSize: `cleavageX${nr}`, max: -1 }));
 	}
 
 	return {
 		list: [
-			sideView && this.sleeveless && {
-				color: this.skinColor.get(),
-				sX: [`cleavageRightX${nr}`, `strapSX${nr}`],
-				sY: `sleevelessSY${nr}`,
-			},
+			sideView &&
+				this.sleeveless && {
+					color: this.skinColor.get(),
+					sX: [`cleavageRightX${nr}`, `strapSX${nr}`],
+					sY: `sleevelessSY${nr}`,
+				},
 			this.sleeveless && {
 				color: this.skinColor.get(),
 				sX: [`cleavageX${nr}`, `strapSX${nr}`],
@@ -461,7 +506,10 @@ Builder.prototype.Cape.prototype.draw = function (args) {
 	if (args.calc) {
 		this.vL[`capeFrontSY${nr}`] = { r: this.capeFrontSY, useSize: `upperArmSY${nr}` };
 		this.vL[`capeSY${nr}`] = {
-			r: this.capeSY, useSize: `fullBodySY${nr}`, max: [`fullBodySY${nr}`, -1], min: `capeFrontSY${nr}`,
+			r: this.capeSY,
+			useSize: `fullBodySY${nr}`,
+			max: [`fullBodySY${nr}`, -1],
+			min: `capeFrontSY${nr}`,
 		};
 	}
 
@@ -493,7 +541,11 @@ Builder.prototype.Strap = function (args) {
 	this.thickness = this.R(0.01, 0.05);
 
 	// Color
-	this.strapColor = args.beltColor || (args.beltColor = (this.IF(0.5) ? args.firstColor : args.secondColor).copy({ brContrast: this.IF() ? 2 : -2 }));
+	this.strapColor =
+		args.beltColor ||
+		(args.beltColor = (this.IF(0.5) ? args.firstColor : args.secondColor).copy({
+			brContrast: this.IF() ? 2 : -2,
+		}));
 
 	// Assets
 }; // END Strap
@@ -507,22 +559,35 @@ Builder.prototype.Strap.prototype.draw = function (args, z) {
 		this.vL[`strapTickness${nr}`] = { r: this.thickness, useSize: `personSY${nr}`, min: 1 };
 	}
 
-	return (sideView || args.right) && {
-		id: `strap${nr}`,
-		rX: sideView && !args.right,
-		list: [
-			{
-				tY: true, tX: true, clear: true, sY: `strapTickness${nr}`, mX: this.sub(`strapTickness${nr}`),
-			},
-			{
-				z,
-				weight: `strapTickness${nr}`,
-				color: this.strapColor.get(),
-				points: [
-					{ fX: true, fY: true, x: this.mult(0.5, `strapTickness${nr}`) },
-					{ fX: true, x: { r: sideView ? 1 : 2, useSize: `personSX${nr}`, add: [this.mult(-0.5, `strapTickness${nr}`), -2] } },
-				],
-			},
-		],
-	};
+	return (
+		(sideView || args.right) && {
+			id: `strap${nr}`,
+			rX: sideView && !args.right,
+			list: [
+				{
+					tY: true,
+					tX: true,
+					clear: true,
+					sY: `strapTickness${nr}`,
+					mX: this.sub(`strapTickness${nr}`),
+				},
+				{
+					z,
+					weight: `strapTickness${nr}`,
+					color: this.strapColor.get(),
+					points: [
+						{ fX: true, fY: true, x: this.mult(0.5, `strapTickness${nr}`) },
+						{
+							fX: true,
+							x: {
+								r: sideView ? 1 : 2,
+								useSize: `personSX${nr}`,
+								add: [this.mult(-0.5, `strapTickness${nr}`), -2],
+							},
+						},
+					],
+				},
+			],
+		}
+	);
 }; // END Strap Back draw

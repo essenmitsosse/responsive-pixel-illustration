@@ -1,11 +1,10 @@
-
 /* global Comic */
 
 // BEGINN ACTOR /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 Comic.prototype.Actor = function Actor(args, left) {
 	this.copy(args);
 
-	this.name = `actor${left ? '1' : '2'}`;
+	this.name = `actor${left ? "1" : "2"}`;
 
 	// Forms & Sizes
 	this.left = left;
@@ -38,17 +37,9 @@ Comic.prototype.Actor = function Actor(args, left) {
 		args.foregroundBaseColor[2] * this.rFl(0, 0.8),
 	];
 
-	this.shadowColor = [
-		this.color[0] * 0.6,
-		this.color[1] * 0.6,
-		this.color[2] * 0.6,
-	];
+	this.shadowColor = [this.color[0] * 0.6, this.color[1] * 0.6, this.color[2] * 0.6];
 
-	this.lightColor = [
-		this.color[0] * 1.2,
-		this.color[1] * 1.2,
-		this.color[2] * 1.2,
-	];
+	this.lightColor = [this.color[0] * 1.2, this.color[1] * 1.2, this.color[2] * 1.2];
 
 	this.groundShadowColor = args.groundShadowColor;
 	// Assets
@@ -62,16 +53,12 @@ Comic.prototype.Actor = function Actor(args, left) {
 };
 
 Comic.prototype.Actor.prototype = {
-	act() {
+	act() {},
 
-	},
-
-	idle() {
-
-	},
+	idle() {},
 
 	startActing() {
-		this.setAction('decide', { actions: ['startWalking', 'hit'] });
+		this.setAction("decide", { actions: ["startWalking", "hit"] });
 	},
 
 	setAction(action, args) {
@@ -79,7 +66,7 @@ Comic.prototype.Actor.prototype = {
 
 		args = args || {};
 
-		this.actorControl.addComment(this.name + (!args.dontStart ? ' ' : ' will start ') + action);
+		this.actorControl.addComment(this.name + (!args.dontStart ? " " : " will start ") + action);
 
 		if (!args.dontStart) {
 			this.act(args);
@@ -92,20 +79,16 @@ Comic.prototype.Actor.prototype = {
 	},
 
 	startWalking() {
-		this.speed = ( // Walk way if to close, or randomly
-			(
-				1 - this.opponent.posX_ - this.posX_ < 0.2
-				|| this.rIf(0.2)
-			)
-				? -1
-				: 1
-		) * 0.2 * this.rFl(1, 3);
-		this.setAction('walk');
+		this.speed =
+			// Walk way if to close, or randomly
+			(1 - this.opponent.posX_ - this.posX_ < 0.2 || this.rIf(0.2) ? -1 : 1) *
+			0.2 *
+			this.rFl(1, 3);
+		this.setAction("walk");
 	},
 
 	walk() {
 		const opponentPos = 1 - this.opponent.posX_;
-
 
 		// Small Chance of randomly stopping to walk
 		if (this.rIf(1 - this.posX_)) {
@@ -113,23 +96,26 @@ Comic.prototype.Actor.prototype = {
 
 			this.walking = true;
 
-			if (this.posX_ < -2) { // Walking Away
-				if (this.rIf(0.5)) { // End Comic
+			if (this.posX_ < -2) {
+				// Walking Away
+				if (this.rIf(0.5)) {
+					// End Comic
 					this.actorControl.endComic();
-				} else { // Turn Around
+				} else {
+					// Turn Around
 					this.speed *= -1.5;
 					this.actorControl.addComment(`${this.name} turned around `);
 				}
 			} else if (opponentPos - this.posX_ < 0) {
 				this.posX_ = opponentPos;
 				this.actorControl.addComment(`${this.name} has reached ${this.opponent.name}`);
-				this.setAction('stop');
+				this.setAction("stop");
 
 				this.walking = false;
 			}
 		} else {
 			this.actorControl.addComment(`${this.name} randomly stopps`);
-			this.setAction('stop');
+			this.setAction("stop");
 		}
 	},
 
@@ -138,12 +124,12 @@ Comic.prototype.Actor.prototype = {
 
 		if (stay) {
 			this.actorControl.addComment(`${this.name} STAYS Actor`);
-			this.setAction('decide', args);
+			this.setAction("decide", args);
 			args.dontStart = true;
 		} else {
-			this.setAction('idle');
+			this.setAction("idle");
 			this.actorControl.setActor(this.opponent);
-			this.opponent.setAction('decide', args);
+			this.opponent.setAction("decide", args);
 		}
 	},
 
@@ -157,18 +143,18 @@ Comic.prototype.Actor.prototype = {
 			this.pointing = true;
 		}
 
-		this.setAction('stop', { stay: 0.5 });
+		this.setAction("stop", { stay: 0.5 });
 	},
 
 	kiss() {
 		this.kissing = true;
 
-		this.setAction('stop', { dontStart: true, stay: 0.5 });
+		this.setAction("stop", { dontStart: true, stay: 0.5 });
 	},
 
 	jump() {
 		this.posY_ = 0.5;
-		this.setAction('fall', { dontStart: true });
+		this.setAction("fall", { dontStart: true });
 	},
 
 	fall() {
@@ -176,7 +162,7 @@ Comic.prototype.Actor.prototype = {
 		if (this.posY_ <= 0) {
 			this.posY_ = 0;
 			this.hasLanded = true;
-			this.setAction('stop', { actions: ['hit', 'startWalking'], delay: 0.8, stay: 0.5 });
+			this.setAction("stop", { actions: ["hit", "startWalking"], delay: 0.8, stay: 0.5 });
 		}
 	},
 
@@ -191,11 +177,15 @@ Comic.prototype.Actor.prototype = {
 			this.stopArgs = args;
 			return;
 		}
-		this.setAction('passBall', { actions: args.actions || ['kiss', 'hit', 'jump', 'startWalking'], stay: args.stay || 0.5 });
+		this.setAction("passBall", {
+			actions: args.actions || ["kiss", "hit", "jump", "startWalking"],
+			stay: args.stay || 0.5,
+		});
 	},
 
 	draw(args, posX) {
-		let sX; let sY;
+		let sX;
+		let sY;
 		let legsSY;
 		let headSY;
 		let faceSX;
@@ -215,23 +205,28 @@ Comic.prototype.Actor.prototype = {
 
 		this.feetPos = !this.feetPos;
 
-		this.hitting = this.pointing = this.hasLanded = this.isHit = this.kissing = this.walking = false;
+		this.hitting =
+			this.pointing =
+			this.hasLanded =
+			this.isHit =
+			this.kissing =
+			this.walking =
+				false;
 
 		this.linkList.push(
-			this.sX = sX = { r: this.sX_, useSize: args.size },
-			this.sY = sY = { r: this.sY_ * (landed ? 0.6 : 1), useSize: args.size },
+			(this.sX = sX = { r: this.sX_, useSize: args.size }),
+			(this.sY = sY = { r: this.sY_ * (landed ? 0.6 : 1), useSize: args.size })
 		);
 
 		if (this.hasLegs) {
-			this.linkList.push(legsSY = { r: this.legsSY_, useSize: sY });
+			this.linkList.push((legsSY = { r: this.legsSY_, useSize: sY }));
 		}
 
 		this.linkList.push(
-			this.headSY = headSY = this.hasLegs ? [sY, { r: -1, useSize: legsSY }] : sY,
-			this.topHeadSY = topHeadSY = { r: this.topHeadSY_, useSize: headSY },
-			this.bottomHeadSY = bottomHeadSY = [headSY, { r: -1, useSize: topHeadSY }],
-
-			faceSX = { r: this.faceSX, useSize: sX },
+			(this.headSY = headSY = this.hasLegs ? [sY, { r: -1, useSize: legsSY }] : sY),
+			(this.topHeadSY = topHeadSY = { r: this.topHeadSY_, useSize: headSY }),
+			(this.bottomHeadSY = bottomHeadSY = [headSY, { r: -1, useSize: topHeadSY }]),
+			(faceSX = { r: this.faceSX, useSize: sX })
 		);
 
 		this.posX = posX;
@@ -274,7 +269,10 @@ Comic.prototype.Actor.prototype = {
 								{ mX: { r: -0.1, otherDim: true, a: -1 } },
 								{ y: -1, sX: { r: 0.4, otherDim: true, min: 2 }, tX: true },
 								{
-									y: -1, sX: { r: 0.4, otherDim: true, min: 2 }, fX: true, tX: true,
+									y: -1,
+									sX: { r: 0.4, otherDim: true, min: 2 },
+									fX: true,
+									tX: true,
 								},
 							],
 						},
@@ -283,7 +281,6 @@ Comic.prototype.Actor.prototype = {
 						{
 							sY: headSY,
 							list: [
-
 								// Top Head
 								{
 									sY: this.topHeadSY,
@@ -291,9 +288,16 @@ Comic.prototype.Actor.prototype = {
 									mX: landed && 1,
 									list: [
 										// Round Head
-										this.foreHeadRound && { sX: { r: 0.1, max: 1 }, sY: { r: 0.1, max: 1 }, clear: true },
+										this.foreHeadRound && {
+											sX: { r: 0.1, max: 1 },
+											sY: { r: 0.1, max: 1 },
+											clear: true,
+										},
 										this.backHeadRound && {
-											sX: { r: 0.1, max: 1 }, sY: { r: 0.1, max: 1 }, fX: true, clear: true,
+											sX: { r: 0.1, max: 1 },
+											sY: { r: 0.1, max: 1 },
+											fX: true,
+											clear: true,
 										},
 
 										// Main Top Head
@@ -301,9 +305,11 @@ Comic.prototype.Actor.prototype = {
 
 										// Shadow
 										{
-											sX: 1, color: this.shadowColor, fX: true, z: 10,
+											sX: 1,
+											color: this.shadowColor,
+											fX: true,
+											z: 10,
 										},
-
 
 										// Face
 										{
@@ -335,29 +341,36 @@ Comic.prototype.Actor.prototype = {
 											cX: !armForward,
 											sX: !armForward
 												? 1
-												: hits ? { r: 2, useSize: args.distance, a: 1 } : { r: 0.3, min: 2 },
+												: hits
+												? { r: 2, useSize: args.distance, a: 1 }
+												: { r: 0.3, min: 2 },
 
 											list: [
 												hits && {
 													sX: { r: 1, otherDim: true },
 													color: [200, 255, 0],
-													list: [
-														{ name: 'RoundRect', m: { r: -1.8 } },
-													],
+													list: [{ name: "RoundRect", m: { r: -1.8 } }],
 												},
 												{},
-												this.carryObject && this.carryObject.draw({
-													size: args.size,
-												}),
+												this.carryObject &&
+													this.carryObject.draw({
+														size: args.size,
+													}),
 											],
 										},
 
 										// Shadow
 										{
-											sX: 1, color: this.shadowColor, fX: true, z: 10,
+											sX: 1,
+											color: this.shadowColor,
+											fX: true,
+											z: 10,
 										},
 										{
-											sY: 1, color: this.shadowColor, fY: true, z: 10,
+											sY: 1,
+											color: this.shadowColor,
+											fY: true,
+											z: 10,
 										},
 
 										// Face
@@ -369,25 +382,22 @@ Comic.prototype.Actor.prototype = {
 												// Mouth
 												kiss
 													? {
-														sX: { r: 0.2 },
-														sY: { r: 0.1, min: 1 },
-														tX: true,
-														y: { r: this.mouthY, min: 1 },
-														fY: true,
-														color: this.shadowColor,
-														list: [
-															{},
-															{ sX: 1, mY: -1 },
-														],
-													}
+															sX: { r: 0.2 },
+															sY: { r: 0.1, min: 1 },
+															tX: true,
+															y: { r: this.mouthY, min: 1 },
+															fY: true,
+															color: this.shadowColor,
+															list: [{}, { sX: 1, mY: -1 }],
+													  }
 													: {
-														sY: 1,
-														sX: { r: this.mouthSX },
-														y: { r: this.mouthY, min: 1 },
-														color: this.shadowColor,
-														z: 100,
-														fY: true,
-													},
+															sY: 1,
+															sX: { r: this.mouthSX },
+															y: { r: this.mouthY, min: 1 },
+															color: this.shadowColor,
+															z: 100,
+															fY: true,
+													  },
 											],
 										},
 									],
@@ -401,33 +411,44 @@ Comic.prototype.Actor.prototype = {
 							sY: legsSY,
 							color: this.shadowColor,
 							list: walk
-								? [ // Walks
-									{
-										points: [
-											{ y: -1 },
-											{ fY: true, x: { r: legSpeed, otherDim: true } },
-										],
-									},
-									{
-										points: [
-											{ y: -1, fX: true },
-											{ fY: true, fX: true, x: { r: legSpeed, otherDim: true } },
-										],
-									},
-								]
-								: [ // Stands
-									{ sX: 1 },
-									{
-										sY: 1, sX: 2, fY: true, x: -1,
-									},
+								? [
+										// Walks
+										{
+											points: [
+												{ y: -1 },
+												{ fY: true, x: { r: legSpeed, otherDim: true } },
+											],
+										},
+										{
+											points: [
+												{ y: -1, fX: true },
+												{
+													fY: true,
+													fX: true,
+													x: { r: legSpeed, otherDim: true },
+												},
+											],
+										},
+								  ]
+								: [
+										// Stands
+										{ sX: 1 },
+										{
+											sY: 1,
+											sX: 2,
+											fY: true,
+											x: -1,
+										},
 
-									{ sX: 1, fX: true },
-									{
-										sY: 1, sX: 2, fY: true, fX: true,
-									},
-								],
+										{ sX: 1, fX: true },
+										{
+											sY: 1,
+											sX: 2,
+											fY: true,
+											fX: true,
+										},
+								  ],
 						},
-
 					],
 				},
 
@@ -496,11 +517,10 @@ Comic.prototype.Eye.prototype = {
 			],
 		};
 	},
-
 }; // END Eye \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN CarryObject /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-Comic.prototype.CarryObject = function CarryObject(args) {
+Comic.prototype.CarryObject = function CarryObject() {
 	// Forms & Sizes
 	this.sX_ = this.rFl(0.1, 0.3);
 	this.sY_ = this.rFl(0.1, 0.3);
@@ -526,12 +546,7 @@ Comic.prototype.CarryObject.prototype.draw = function (args) {
 	};
 }; // END CarryObject \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
-
 // BEGINN DUMMYDUMMYDUMMY /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-Comic.prototype.DUMMYDUMMYDUMMY = function DUMMYDUMMYDUMMY(args) {
+Comic.prototype.DUMMYDUMMYDUMMY = function DUMMYDUMMYDUMMY() {};
 
-};
-
-Comic.prototype.DUMMYDUMMYDUMMY.prototype.draw = function () {
-
-}; // END DUMMYDUMMYDUMMY \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
+Comic.prototype.DUMMYDUMMYDUMMY.prototype.draw = function () {}; // END DUMMYDUMMYDUMMY \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/

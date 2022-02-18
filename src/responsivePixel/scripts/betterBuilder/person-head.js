@@ -1,4 +1,3 @@
-
 /* global BBProto, BBObj */
 
 // HEAD MAIN  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -26,11 +25,11 @@ BBProto.Head.prototype = new BBObj();
 BBProto.Head.prototype.draw = function (args) {
 	const { rotate } = args;
 
-	this.ll.push(this.sX = { r: this._sX, useSize: args.sY });
+	this.ll.push((this.sX = { r: this._sX, useSize: args.sY }));
 
 	const headBottom = new this.basic.Rotater({
 		drawer: this.headBottom,
-		id: 'lowerHead',
+		id: "lowerHead",
 		rotate,
 		baseSX: this.sX,
 		sideSX: this.headSideRatio,
@@ -41,7 +40,7 @@ BBProto.Head.prototype.draw = function (args) {
 	});
 	const headTop = new this.basic.Rotater({
 		drawer: this.headTop,
-		id: 'topHead',
+		id: "topHead",
 		rotate,
 		baseSX: this.sX,
 		frontSX: this.headTopFrontSX,
@@ -54,7 +53,7 @@ BBProto.Head.prototype.draw = function (args) {
 	});
 	const nose = new this.basic.Rotater({
 		drawer: this.nose,
-		id: 'nose',
+		id: "nose",
 		rotate,
 		baseSX: this.sX,
 		frontSX: 0.1,
@@ -79,11 +78,7 @@ BBProto.Head.prototype.draw = function (args) {
 		get: {
 			color: this.color,
 			sY: args.sY,
-			list: [
-				headTop.get,
-				headBottom.get,
-				nose.get,
-			],
+			list: [headTop.get, headBottom.get, nose.get],
 		},
 		headTop,
 		headBottom,
@@ -156,7 +151,7 @@ BBProto.HeadBottom = function (args) {
 
 BBProto.HeadBottom.prototype = new BBObj();
 
-BBProto.HeadBottom.prototype.draw = function (args, front, right) {
+BBProto.HeadBottom.prototype.draw = function (args, front) {
 	return [
 		{ color: !front && this.colorDark },
 
@@ -189,7 +184,7 @@ BBProto.Nose = function (args) {
 }; // End Nose
 
 BBProto.Nose.prototype = new BBObj();
-BBProto.Nose.prototype.draw = function (args, front, right) {
+BBProto.Nose.prototype.draw = function (args, front) {
 	return [
 		{
 			color: this.colorDark,
@@ -206,7 +201,7 @@ BBProto.Neck = function (args) {
 }; // End Neck
 
 BBProto.Neck.prototype = new BBObj();
-BBProto.Neck.prototype.draw = function (args) {
+BBProto.Neck.prototype.draw = function () {
 	return [
 		{
 			color: this.colorDark,

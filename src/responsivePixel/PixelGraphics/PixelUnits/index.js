@@ -1,6 +1,6 @@
-import { get1D } from './get1D';
-import { getAxis } from './getAxis';
-import { get2D } from './get2D';
+import { get1D } from "./get1D";
+import { getAxis } from "./getAxis";
+import { get2D } from "./get2D";
 
 export function PixelUnits() {
 	const old = [];
@@ -30,8 +30,12 @@ export function PixelUnits() {
 		init(dimensions) {
 			oneD.set(dimensions);
 			Axis.set(dimensions);
-			if (calculateList) { calculateList(dimensions); }
-			if (updateList) { updateList(); }
+			if (calculateList) {
+				calculateList(dimensions);
+			}
+			if (updateList) {
+				updateList();
+			}
 		},
 		pop() {
 			const o = old[old.length - 2];
@@ -47,4 +51,4 @@ export function PixelUnits() {
 			old.push(dimensions);
 		},
 	};
-};
+}

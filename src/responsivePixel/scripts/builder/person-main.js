@@ -1,9 +1,10 @@
-
 /* global Builder */
 
 // PERSON --------------------------------------------------------------------------------
 Builder.prototype.Person = function (args) {
-	if (!args) { args = args || {}; }
+	if (!args) {
+		args = args || {};
+	}
 
 	// Assests
 	this.basicBody = new this.basic.BasicBody(args);
@@ -12,32 +13,31 @@ Builder.prototype.Person = function (args) {
 
 Builder.prototype.Person.prototype = new Builder.prototype.Object();
 Builder.prototype.Person.prototype.draw = function (args, z) {
-	const nr = args.nr = this.basic.objectCount += 1;
-	const backView = args.backView = args.view === 'backView';
-	const sideView = args.sideView = !!(!backView && args.view);
+	const backView = (args.backView = args.view === "backView");
+	const sideView = (args.sideView = !!(!backView && args.view));
 
 	args.id = this.id;
 
-	if (!z) { z = this.basic.objectCount * 10000; }
+	if (!z) {
+		z = this.basic.objectCount * 10000;
+	}
 
 	args.personHalfSX = this.pushLinkList({ r: 0.5, min: 5, useSize: args.size });
 
 	return sideView
-		? [
-			{ list: this.basicBody.draw(args, args.view === 'rightView') },
-		]
+		? [{ list: this.basicBody.draw(args, args.view === "rightView") }]
 		: [
-			{
- 	sX: args.personHalfSX,
-				rX: true,
-				list: this.basicBody.draw(args, !backView),
-			},
-			{
- 	sX: args.personHalfSX,
-				x: [args.personHalfSX, -1],
-				list: this.basicBody.draw(args, backView),
-			},
-		];
+				{
+					sX: args.personHalfSX,
+					rX: true,
+					list: this.basicBody.draw(args, !backView),
+				},
+				{
+					sX: args.personHalfSX,
+					x: [args.personHalfSX, -1],
+					list: this.basicBody.draw(args, backView),
+				},
+		  ];
 }; // END Person draw
 
 // BASICBODY --------------------------------------------------------------------------------
@@ -45,7 +45,7 @@ Builder.prototype.BasicBody = function (args) {
 	// var nextFirstColor = this.IF(0.5),
 	// 	nextSecondColor = this.IF(0.2),
 
-	const	hues = [
+	const hues = [
 		[0, 1, 2],
 		[0, 2, 2],
 		[0, 1, 1],
@@ -55,15 +55,12 @@ Builder.prototype.BasicBody = function (args) {
 
 	// Form & Sizes
 
-	this.sY = (this.IF() ? this.R(0.4, 1) : 1);
-	this.sX = (this.IF(0.1)
-		? this.R(0.3, 0.8)
-		: this.IF(0.1)
-			? this.R(0.05, 0.15)
-			: this.R(0.15, 0.3)
-	) * this.sY;
+	this.sY = this.IF() ? this.R(0.4, 1) : 1;
+	this.sX =
+		(this.IF(0.1) ? this.R(0.3, 0.8) : this.IF(0.1) ? this.R(0.05, 0.15) : this.R(0.15, 0.3)) *
+		this.sY;
 
-	this.lowerBodySY = (this.IF(0.1) ? this.R(0.5, 0.9) : 0.7);
+	this.lowerBodySY = this.IF(0.1) ? this.R(0.5, 0.9) : 0.7;
 
 	this.animal = args.animal = this.IF(0.02);
 
@@ -97,11 +94,10 @@ Builder.prototype.BasicBody = function (args) {
 }; // END BasicBody
 Builder.prototype.BasicBody.prototype = new Builder.prototype.Object();
 Builder.prototype.BasicBody.prototype.draw = function (args, right) {
-	const { nr } = args;
 	const { sideView } = args;
 
 	args.right = right;
-	args.calc = (args.backView !== right) || sideView;
+	args.calc = args.backView !== right || sideView;
 
 	if (args.calc) {
 		args.basicSX = this.pushLinkList({ r: 0, useSize: args.personHalfSX });
@@ -117,46 +113,41 @@ Builder.prototype.BasicBody.prototype.draw = function (args, right) {
 		// 	args.personSY
 		// );
 
-		this.simpleAddHoverChange(
-			0.3,
-			1.7,
-			'body-width',
-			args.basicSX,
-		);
+		this.simpleAddHoverChange(0.3, 1.7, "body-width", args.basicSX);
 
-		this.simpleAddHoverChange(
-			0.1,
-			1,
-			'body-height',
-			args.basicSY,
-		);
+		this.simpleAddHoverChange(0.1, 1, "body-height", args.basicSY);
 	}
 
 	this.head.getSizes(args);
 
 	if (args.calc) {
-		args.bodyRestSY = this.pushLinkList(
-			{ add: [args.personSY], max: [args.size, this.sub(args.headMaxSY), this.sub(args.neckSY)] },
-		);
+		args.bodyRestSY = this.pushLinkList({
+			add: [args.personSY],
+			max: [args.size, this.sub(args.headMaxSY), this.sub(args.neckSY)],
+		});
 
-		args.lowerBodySY = this.pushLinkList({ r: this.lowerBodySY, useSize: args.bodyRestSY, min: 1 });
-		args.upperBodySY = this.pushLinkList({ add: [args.bodyRestSY, this.sub(args.lowerBodySY)], min: 1 });
+		args.lowerBodySY = this.pushLinkList({
+			r: this.lowerBodySY,
+			useSize: args.bodyRestSY,
+			min: 1,
+		});
+		args.upperBodySY = this.pushLinkList({
+			add: [args.bodyRestSY, this.sub(args.lowerBodySY)],
+			min: 1,
+		});
 
 		args.fullBodySY = this.pushLinkList({ add: [args.lowerBodySY, args.upperBodySY] });
 
-
 		args.personRealSX = this.pushLinkList({ add: [args.personSX] });
-		args.personRealMaxSY = this.pushLinkList({ add: [args.fullBodySY, args.headMaxSY, args.neckSY] });
-		args.personRealMinSY = this.pushLinkList({ add: [args.fullBodySY, args.headMinSY, args.neckSY] });
+		args.personRealMaxSY = this.pushLinkList({
+			add: [args.fullBodySY, args.headMaxSY, args.neckSY],
+		});
+		args.personRealMinSY = this.pushLinkList({
+			add: [args.fullBodySY, args.headMinSY, args.neckSY],
+		});
 
-		this.simpleAddHoverChange(
-			0.1,
-			1,
-			'leg-length',
-			args.lowerBodySY,
-		);
+		this.simpleAddHoverChange(0.1, 1, "leg-length", args.lowerBodySY);
 	}
-
 
 	return [
 		{
@@ -166,7 +157,6 @@ Builder.prototype.BasicBody.prototype.draw = function (args, right) {
 			rX: sideView && args.right,
 			color: [200, 0, 0],
 			list: [
-
 				// Upper Body
 				this.upperBody.draw(args),
 
@@ -196,7 +186,7 @@ Builder.prototype.BasicBody.prototype.draw = function (args, right) {
 Builder.prototype.Logo = function (args, right, symetrical, logoColor) {
 	const color = !logoColor && this.IF(0.5);
 
-	this.name = (symetrical ? (right ? 'right' : 'left') : 'chest');
+	this.name = symetrical ? (right ? "right" : "left") : "chest";
 
 	// Form & Sizes
 	this.sX = this.R(0, 1);
@@ -204,7 +194,9 @@ Builder.prototype.Logo = function (args, right, symetrical, logoColor) {
 	this.Y = this.R(0, 0.5);
 
 	this.oneSide = !symetrical && this.IF(0.1);
-	if (this.oneSide) { (this.side = this.IF(0.5)); }
+	if (this.oneSide) {
+		this.side = this.IF(0.5);
+	}
 
 	this.roundUp = this.IF(0.3);
 	this.roundDown = this.IF(0.3);
@@ -217,10 +209,14 @@ Builder.prototype.Logo = function (args, right, symetrical, logoColor) {
 	this.edgeDown = this.IF(0.2);
 
 	// Color
-	this.logoColor = logoColor || args.clothColor.copy({
-		nextColor: color,
-		brSet: args.clothColor.getBr() + ((this.IF(0.5) ? -1 : 1) * (!color || this.IF(0.2) ? 2 : 1)),
-	});
+	this.logoColor =
+		logoColor ||
+		args.clothColor.copy({
+			nextColor: color,
+			brSet:
+				args.clothColor.getBr() +
+				(this.IF(0.5) ? -1 : 1) * (!color || this.IF(0.2) ? 2 : 1),
+		});
 	// Assets
 }; // END Logo
 Builder.prototype.Logo.prototype = new Builder.prototype.Object();
@@ -230,33 +226,52 @@ Builder.prototype.Logo.prototype.draw = function (args) {
 	const nrName = nr + this.name;
 	const { sideView } = args;
 
-	return (!this.oneSide || args.right === this.side) && {
-		sX: { r: this.sX },
-		sY: { r: this.sY, save: args[`logoSY${nrName}`], max: { r: 1, save: args[`logoMaxSY${nrName}`] } },
-		y: { r: this.Y, max: [args[`logoSY${nrName}`], this.sub(args[`logoSY${nrName}`])] },
-		cX: args.oneSide || sideView,
-		color: this.logoColor.get(),
-		id: args[`logo${nrName}`],
-		z: 50,
-		list: [
-			this.roundUp && { fX: true, name: 'Dot', clear: true },
-			this.roundDown && {
-				fX: true, name: 'Dot', fY: true, clear: true,
+	return (
+		(!this.oneSide || args.right === this.side) && {
+			sX: { r: this.sX },
+			sY: {
+				r: this.sY,
+				save: args[`logoSY${nrName}`],
+				max: { r: 1, save: args[`logoMaxSY${nrName}`] },
 			},
-			this.dentUp && { name: 'Dot', clear: true },
-			this.dentDown && { name: 'Dot', fY: true, clear: true },
-			this.stripUp && { sY: 1, y: 1, clear: true },
-			this.stripDown && {
-				sY: 1, y: 1, fY: true, clear: true,
-			},
-			this.stripSide && {
-				sX: 1, x: 1, fX: true, clear: true,
-			},
-			this.edgeUp && { sX: { r: 0.4 }, sY: { r: 0.4 }, clear: true },
-			this.edgeDown && {
-				sX: { r: 0.4 }, sY: { r: 0.4 }, fY: true, fX: true, clear: true,
-			},
-			{},
-		],
-	};
+			y: { r: this.Y, max: [args[`logoSY${nrName}`], this.sub(args[`logoSY${nrName}`])] },
+			cX: args.oneSide || sideView,
+			color: this.logoColor.get(),
+			id: args[`logo${nrName}`],
+			z: 50,
+			list: [
+				this.roundUp && { fX: true, name: "Dot", clear: true },
+				this.roundDown && {
+					fX: true,
+					name: "Dot",
+					fY: true,
+					clear: true,
+				},
+				this.dentUp && { name: "Dot", clear: true },
+				this.dentDown && { name: "Dot", fY: true, clear: true },
+				this.stripUp && { sY: 1, y: 1, clear: true },
+				this.stripDown && {
+					sY: 1,
+					y: 1,
+					fY: true,
+					clear: true,
+				},
+				this.stripSide && {
+					sX: 1,
+					x: 1,
+					fX: true,
+					clear: true,
+				},
+				this.edgeUp && { sX: { r: 0.4 }, sY: { r: 0.4 }, clear: true },
+				this.edgeDown && {
+					sX: { r: 0.4 },
+					sY: { r: 0.4 },
+					fY: true,
+					fX: true,
+					clear: true,
+				},
+				{},
+			],
+		}
+	);
 }; // END Logo Back draw

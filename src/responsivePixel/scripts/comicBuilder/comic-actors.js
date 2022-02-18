@@ -1,4 +1,3 @@
-
 /* global Comic */
 
 // BEGINN Actors /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
@@ -62,13 +61,12 @@ Comic.prototype.Actors.prototype = {
 
 				this.actor1.startActing();
 			} else {
-				this.addComment('no new Actor found');
+				this.addComment("no new Actor found");
 			}
 		}
 
 		this.actor1.act();
 		this.actor2.act();
-
 
 		// // If no one is acting, FIND NEW ACTOR
 		// if( !this.currentActor ) {
@@ -138,16 +136,19 @@ Comic.prototype.Actors.prototype = {
 
 		// Get real Positions of the actors
 		this.linkList.push(
-			actorS = { r: 1, useSize: args.stageSquare },
-			actorsMaxDistance = [args.stageSX, { r: -2, useSize: actorS }],
-			actorsCurrentDistance = {
+			(actorS = { r: 1, useSize: args.stageSquare }),
+			(actorsMaxDistance = [args.stageSX, { r: -2, useSize: actorS }]),
+			(actorsCurrentDistance = {
 				r: this.actorsCurrentDistanceRel,
 				useSize: actorsMaxDistance,
 				min: 1,
-			},
-
-			actor1PosX = { r: this.actor1.posX_, useSize: actorsMaxDistance },
-			actor2PosX = [actorsMaxDistance, { r: -1, useSize: actorsCurrentDistance }, { r: -1, useSize: actor1PosX }],
+			}),
+			(actor1PosX = { r: this.actor1.posX_, useSize: actorsMaxDistance }),
+			(actor2PosX = [
+				actorsMaxDistance,
+				{ r: -1, useSize: actorsCurrentDistance },
+				{ r: -1, useSize: actor1PosX },
+			])
 		);
 
 		actorArgs = {
@@ -158,21 +159,18 @@ Comic.prototype.Actors.prototype = {
 		return {
 			actorS,
 			list: [
-
 				// Show stage for debugging
 				args.debug && {
 					list: [
 						// Stage Grid
-						{ name: 'Grid', color: [200, 100, 0] },
+						{ name: "Grid", color: [200, 100, 0] },
 
 						// Stage Marks
 						{
 							color: [180, 80, 0],
 							stripes: { strip: { r: 0.1 } },
 							sY: { r: 2 },
-							list: [
-								{ sX: 1 },
-							],
+							list: [{ sX: 1 }],
 						},
 
 						// Outer Marks
@@ -184,22 +182,52 @@ Comic.prototype.Actors.prototype = {
 
 						// Actor Start
 						{
-							sX: actorS, color: [80, 0, 80], sY: 1, y: -1, tY: true, fY: true,
+							sX: actorS,
+							color: [80, 0, 80],
+							sY: 1,
+							y: -1,
+							tY: true,
+							fY: true,
 						},
 						{
-							sX: actorS, color: [80, 80, 0], sY: 1, y: -1, tY: true, fY: true, fX: true,
+							sX: actorS,
+							color: [80, 80, 0],
+							sY: 1,
+							y: -1,
+							tY: true,
+							fY: true,
+							fX: true,
 						},
 
 						// Actors Current
 						{
-							sX: actorS, x: actor1PosX, color: [150, 0, 150], sY: 2, y: -2, tY: true, fY: true,
+							sX: actorS,
+							x: actor1PosX,
+							color: [150, 0, 150],
+							sY: 2,
+							y: -2,
+							tY: true,
+							fY: true,
 						},
 						{
-							sX: actorS, x: actor2PosX, color: [150, 150, 0], sY: 2, y: -2, tY: true, fY: true, fX: true,
+							sX: actorS,
+							x: actor2PosX,
+							color: [150, 150, 0],
+							sY: 2,
+							y: -2,
+							tY: true,
+							fY: true,
+							fX: true,
 						},
 
 						{
-							sX: actorsCurrentDistance, x: [actor1PosX, actorS], y: -2, color: [50, 50, 50], sY: 3, fY: true, tY: true,
+							sX: actorsCurrentDistance,
+							x: [actor1PosX, actorS],
+							y: -2,
+							color: [50, 50, 50],
+							sY: 3,
+							fY: true,
+							tY: true,
 						},
 					],
 				},
@@ -213,9 +241,10 @@ Comic.prototype.Actors.prototype = {
 	track() {
 		const that = this;
 		return function () {
-			let info = that.tracker.join('\n');
+			let info = that.tracker.join("\n");
 
-			info = 	new Array(20).join('\n') + info;
+			// eslint-disable-next-line no-unused-vars
+			info = new Array(20).join("\n") + info;
 
 			// window.console.log( "%c%s", "color:#500", info );
 		};
@@ -229,37 +258,38 @@ Comic.prototype.Actors.prototype = {
 		const addActor = function (actorArray, actor) {
 			actorArray.push(
 				// actor.acting ? "ACTING" : "NOT acting",
-				`${Math.round(actor.speed * 100) / 100}`, 	// speed
-				`${Math.round(actor.posX_ * 100) / 100 		// posX_
-					 } / ${Math.round(actor.posY_ * 100) / 100}`, // posX_
+				`${Math.round(actor.speed * 100) / 100}`, // speed
+				`${
+					Math.round(actor.posX_ * 100) / 100 // posX_
+				} / ${Math.round(actor.posY_ * 100) / 100}` // posX_
 			);
 		};
 
 		name.push(
 			// "   ACTING",
-			'   SPEED',
-			'   POSX/POSY',
-			`   diff ${Math.round(this.getActorDistance() * 100) / 100}`,
+			"   SPEED",
+			"   POSX/POSY",
+			`   diff ${Math.round(this.getActorDistance() * 100) / 100}`
 		);
 
 		addActor(actor1Array, this.actor1, 1);
 		addActor(actor2Array, this.actor2, 2);
 
-		(
-			function (a1, a2, name) {
-				const l = name.length;
-				let c = 0;
-				let string;
+		(function (a1, a2, name) {
+			const l = name.length;
+			let c = 0;
+			let string;
 
-				tracker.push(`${new Array(25).join('  _')}Frame #${i}`);
+			tracker.push(`${new Array(25).join("  _")}Frame #${i}`);
 
-				do {
-					string = name[c] + new Array(20 - (`${name[c]}`).length).join(' ');
-					string += (a1[c] || '') + new Array(30 - (`${a1[c]}`).length).join(' ') + (a2[c] || '');
+			do {
+				string = name[c] + new Array(20 - `${name[c]}`.length).join(" ");
+				string +=
+					(a1[c] || "") + new Array(30 - `${a1[c]}`.length).join(" ") + (a2[c] || "");
 
-					tracker.push(string);
-				} while ((c += 1) < l);
-			}(actor1Array, actor2Array, name));
+				tracker.push(string);
+			} while ((c += 1) < l);
+		})(actor1Array, actor2Array, name);
 	},
 
 	addComment(comment) {

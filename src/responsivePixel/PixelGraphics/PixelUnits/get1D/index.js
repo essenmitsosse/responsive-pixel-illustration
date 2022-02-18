@@ -1,10 +1,10 @@
-import { getGetRealDistanceWithMaxMin } from './getGetRealDistanceWithMaxMin';
-import { getDistance } from './getDistance';
-import { getWidth } from './getWidth';
-import { getHeight } from './getHeight';
-import { getDistanceX } from './getDistanceX';
-import { getDistanceY } from './getDistanceY';
-import { getDimension } from './getDimension';
+import { getGetRealDistanceWithMaxMin } from "./getGetRealDistanceWithMaxMin";
+import { getDistance } from "./getDistance";
+import { getWidth } from "./getWidth";
+import { getHeight } from "./getHeight";
+import { getDistanceX } from "./getDistanceX";
+import { getDistanceY } from "./getDistanceY";
+import { getDimension } from "./getDimension";
 
 export const get1D = function getOneD(context) {
 	const contextInner = {};
@@ -22,20 +22,13 @@ export const get1D = function getOneD(context) {
 		return () => Math.round(Math.sqrt(sizeX.getReal() ** 2 + sizeY.getReal() ** 2));
 	};
 
-	contextInner.getGetRealDistanceWithMaxMinWrapper = (
-		max,
-		min,
-		dim,
-	) => getGetRealDistanceWithMaxMin(
-		max,
-		min,
-		dim ? Width : Height,
-	);
+	contextInner.getGetRealDistanceWithMaxMinWrapper = (max, min, dim) =>
+		getGetRealDistanceWithMaxMin(max, min, dim ? Width : Height);
 
 	contextInner.getSize = (dim) => (dim ? Height : Width);
 
 	return {
-		createSize: function(args) {
+		createSize: function (args) {
 			if (args === undefined) {
 				return 0;
 			}
@@ -54,8 +47,12 @@ export const get1D = function getOneD(context) {
 			const getRealPos = (add) => {
 				const round = r;
 				return add
-					? function getRealPosAdd() { return round(this.realPartCalculation() + add); }
-					: function getRealPosStatic() { return round(this.realPartCalculation()); };
+					? function getRealPosAdd() {
+							return round(this.realPartCalculation() + add);
+					  }
+					: function getRealPosStatic() {
+							return round(this.realPartCalculation());
+					  };
 			};
 			const getFromOtherSide = (add) => {
 				const round = r;
@@ -63,14 +60,18 @@ export const get1D = function getOneD(context) {
 				const height = h;
 				return add
 					? function fromOtherSideAdd(size) {
-						return (this.axis ? width : height)
-							+ add
-							- round(this.realPartCalculation() + size);
-					}
+							return (
+								(this.axis ? width : height) +
+								add -
+								round(this.realPartCalculation() + size)
+							);
+					  }
 					: function fromOtherSide(size) {
-						return (this.axis ? width : height)
-							- round(this.realPartCalculation() + size);
-					};
+							return (
+								(this.axis ? width : height) -
+								round(this.realPartCalculation() + size)
+							);
+					  };
 			};
 			DistanceX.prototype.getReal = getRealPos(x);
 			DistanceY.prototype.getReal = getRealPos(y);

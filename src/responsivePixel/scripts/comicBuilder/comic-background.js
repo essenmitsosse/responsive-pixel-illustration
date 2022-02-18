@@ -1,8 +1,7 @@
-
 /* global Comic */
 
 // BEGINN Mountains /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-Comic.prototype.Mountains = function Mountains(args) {
+Comic.prototype.Mountains = function Mountains() {
 	let count = this.rInt(3, 20);
 	const singleWid = 1 / count;
 	const list = [];
@@ -19,6 +18,4 @@ Comic.prototype.Mountains = function Mountains(args) {
 	return list;
 };
 
-Comic.prototype.Mountains.prototype.draw = function () {
-
-}; // END Mountains \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
+Comic.prototype.Mountains.prototype.draw = function () {}; // END Mountains \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/

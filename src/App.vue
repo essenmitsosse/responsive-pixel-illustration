@@ -1,11 +1,11 @@
 <template>
 	<div id="app">
-		<RendererPixel/>
+		<RendererPixel />
 	</div>
 </template>
 
 <script>
-import RendererPixel from './views/RendererPixel.vue';
+import RendererPixel from "./views/RendererPixel.vue";
 
 export default {
 	components: { RendererPixel },

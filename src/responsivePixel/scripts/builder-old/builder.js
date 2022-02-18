@@ -1,4 +1,5 @@
-
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 const Builder = function (init) {
 	const help = helper;
 	const { getSmallerDim } = help;
@@ -28,12 +29,11 @@ const Builder = function (init) {
 	this.R = random.getRandomFloat;
 	this.init = init;
 
-	this.colorInfo = {
+	(this.colorInfo = {
 		colors: 3,
 		steps: 6,
-	},
-
-	this.Color.prototype.colors = this.buildColors(this.colorInfo);
+	}),
+		(this.Color.prototype.colors = this.buildColors(this.colorInfo));
 	this.Color.prototype.Color = this.Color;
 
 	this.backgroundColor = new this.Color(this.IF() ? 1 : 0, 5);
@@ -74,7 +74,9 @@ Builder.prototype.buildColors = function (info) {
 		const r = R(0, 200);
 		const g = R(0, 200);
 		const b = R(0, 200);
-		const br = Math.sqrt(0.241 * Math.pow(r, 2) + 0.691 * Math.pow(g, 2) + 0.068 * Math.pow(b, 2));
+		const br = Math.sqrt(
+			0.241 * Math.pow(r, 2) + 0.691 * Math.pow(g, 2) + 0.068 * Math.pow(b, 2)
+		);
 		const rgb = [r, g, b];
 		const { steps } = info;
 		const maxBr = 255 / steps;
@@ -133,7 +135,11 @@ Builder.prototype.colorScheme = function () {
 		j = steps;
 		while (j--) {
 			list.push({
-				s, x: i * ss, y: j * ss, fY: true, color: new colors(i, j).get(),
+				s,
+				x: i * ss,
+				y: j * ss,
+				fY: true,
+				color: new colors(i, j).get(),
 			});
 		}
 	}
@@ -149,43 +155,68 @@ Builder.prototype.Color = function (nr, br) {
 Builder.prototype.Color.prototype.copy = function (args) {
 	args = args || {};
 
-	const color = new this.Color(
-		args.nr !== undefined ? args.nr : this.nr,
-		this.br,
-	);
+	const color = new this.Color(args.nr !== undefined ? args.nr : this.nr, this.br);
 
-	if (args.nextColor) { color.nextColor(); } else if (args.prevColor) { color.prevColor(); }
+	if (args.nextColor) {
+		color.nextColor();
+	} else if (args.prevColor) {
+		color.prevColor();
+	}
 
-	if (args.brSet !== undefined) { color.brightnessSet(args.brSet); } else if (args.brAdd) { color.brightnessAdd(args.brAdd); } else if (args.brContrast) { color.brightnessContrast(args.brContrast, args.min, args.max); }
+	if (args.brSet !== undefined) {
+		color.brightnessSet(args.brSet);
+	} else if (args.brAdd) {
+		color.brightnessAdd(args.brAdd);
+	} else if (args.brContrast) {
+		color.brightnessContrast(args.brContrast, args.min, args.max);
+	}
 
-	if (args.min && color.br < args.min) { color.br = args.min; }
-	if (args.max && color.br > args.max) { color.br = args.max; }
+	if (args.min && color.br < args.min) {
+		color.br = args.min;
+	}
+	if (args.max && color.br > args.max) {
+		color.br = args.max;
+	}
 
-	if (args.dontChange) { color.dontChange = true; }
+	if (args.dontChange) {
+		color.dontChange = true;
+	}
 
 	return color;
 };
 
 Builder.prototype.Color.prototype.nextColor = function () {
 	this.nr += 1;
-	if (this.nr > 2) { this.nr = 0; }
+	if (this.nr > 2) {
+		this.nr = 0;
+	}
 };
 
 Builder.prototype.Color.prototype.prevColor = function () {
 	this.nr -= 1;
-	if (this.nr < 0) { this.nr = 2; }
+	if (this.nr < 0) {
+		this.nr = 2;
+	}
 };
 
 Builder.prototype.Color.prototype.brightnessAdd = function (add) {
 	this.br += add;
 
-	if (this.br < 0) { this.br = 0; } else if (this.br > 5) { this.br = 5; }
+	if (this.br < 0) {
+		this.br = 0;
+	} else if (this.br > 5) {
+		this.br = 5;
+	}
 };
 
 Builder.prototype.Color.prototype.brightnessSet = function (set) {
 	this.br = set;
 
-	if (this.br < 0) { this.br = 0; } else if (this.br > 5) { this.br = 5; }
+	if (this.br < 0) {
+		this.br = 0;
+	} else if (this.br > 5) {
+		this.br = 5;
+	}
 };
 
 Builder.prototype.Color.prototype.brightnessContrast = function (add, min, max) {
@@ -193,12 +224,16 @@ Builder.prototype.Color.prototype.brightnessContrast = function (add, min, max) 
 	max = max || 5;
 
 	if (add < 0) {
-		this.br += (this.br + add < min) ? -add : add;
+		this.br += this.br + add < min ? -add : add;
 	} else {
-		this.br += (this.br + add > max) ? -add : add;
+		this.br += this.br + add > max ? -add : add;
 	}
 
-	if (this.br < min) { this.br = min; } else if (this.br > max) { this.br = max; }
+	if (this.br < min) {
+		this.br = min;
+	} else if (this.br > max) {
+		this.br = max;
+	}
 };
 
 Builder.prototype.Color.prototype.getNormal = function () {
@@ -234,3 +269,5 @@ Builder.prototype.getNormalColor = function () {
 };
 
 Builder.prototype.Object = function () {};
+
+export default Builder;

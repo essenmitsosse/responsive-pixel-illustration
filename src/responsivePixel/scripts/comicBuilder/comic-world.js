@@ -1,4 +1,3 @@
-
 /* global Comic */
 
 // BEGINN World /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
@@ -15,11 +14,17 @@ Comic.prototype.World = function World(args) {
 	// Colors
 	this.foregroundBaseColor = [this.rInt(200, 255), this.rInt(200, 255), this.rInt(200, 255)];
 	this.noBackground = this.rIf(0.1);
-	this.backgroundColor = this.noBackground
-		? args.backgroundColor
-		: this.foregroundBaseColor;
-	this.groundColor = [this.foregroundBaseColor[0] * 0.5, this.foregroundBaseColor[1] * 0.5, this.foregroundBaseColor[2] * 0.5];
-	this.groundShadowColor = [this.groundColor[0] * 0.5, this.groundColor[1] * 0.5, this.groundColor[2] * 0.5];
+	this.backgroundColor = this.noBackground ? args.backgroundColor : this.foregroundBaseColor;
+	this.groundColor = [
+		this.foregroundBaseColor[0] * 0.5,
+		this.foregroundBaseColor[1] * 0.5,
+		this.foregroundBaseColor[2] * 0.5,
+	];
+	this.groundShadowColor = [
+		this.groundColor[0] * 0.5,
+		this.groundColor[1] * 0.5,
+		this.groundColor[2] * 0.5,
+	];
 
 	// Assets
 	this.actors = new this.basic.Actors({
@@ -41,7 +46,9 @@ Comic.prototype.World.prototype = {
 			this.zoomed = !this.zoomed;
 
 			this.currentZoom = this.zoomed
-				? this.rIf(0.3) ? this.zoomedIn : this.zoomedOut
+				? this.rIf(0.3)
+					? this.zoomedIn
+					: this.zoomedOut
 				: this.basicZoom;
 
 			this.focusedActor = this.rIf(0.5) ? this.actors.actor1 : this.actors.actor2;
@@ -53,32 +60,38 @@ Comic.prototype.World.prototype = {
 	},
 
 	draw(args) {
-		let groundSY; let groundTopSY;
-		let skySY;
-		let stageSX; let stageSY; let stageSquare;
-		let stageDoubleX; let stageDoubleY;
-		let stageCenterX; let stageCenterY;
-		let stageX; let stageY;
+		let groundSY;
+		let groundTopSY;
+		let stageSX;
+		let stageSY;
+		let stageSquare;
+		let stageDoubleX;
+		let stageDoubleY;
+		let stageCenterX;
+		let stageCenterY;
+		let stageX;
+		let stageY;
 
 		let actorCenterX;
-		let actorCenterY;
 
 		let actors;
 
 		const cameraZoom = this.currentZoom;
 		const cameraPan = cameraZoom > 1.5 && this.focusedActor;
-		let currentActor;
 
 		this.linkList.push(
-			stageSX = cameraZoom ? { r: cameraZoom, useSize: args.stageSmallestSX } : args.stageSmallestSX,
-			stageSY = cameraZoom ? { r: cameraZoom, useSize: args.stageSmallestSY } : args.stageSmallestSY,
-			stageSquare = { add: [stageSX], max: stageSY },
+			(stageSX = cameraZoom
+				? { r: cameraZoom, useSize: args.stageSmallestSX }
+				: args.stageSmallestSX),
+			(stageSY = cameraZoom
+				? { r: cameraZoom, useSize: args.stageSmallestSY }
+				: args.stageSmallestSY),
+			(stageSquare = { add: [stageSX], max: stageSY }),
 			// Stage Position
-			stageDoubleX = { add: [args.sX, { r: -1, useSize: stageSX }] },
-			stageDoubleY = { add: [args.sY, { r: -1, useSize: stageSY }] },
-
-			stageCenterX = { r: 0.5, useSize: stageDoubleX },
-			stageCenterY = { r: 0.5, useSize: stageDoubleY },
+			(stageDoubleX = { add: [args.sX, { r: -1, useSize: stageSX }] }),
+			(stageDoubleY = { add: [args.sY, { r: -1, useSize: stageSY }] }),
+			(stageCenterX = { r: 0.5, useSize: stageDoubleX }),
+			(stageCenterY = { r: 0.5, useSize: stageDoubleY })
 		);
 
 		actors = this.actors.draw({
@@ -93,22 +106,20 @@ Comic.prototype.World.prototype = {
 
 		if (cameraPan) {
 			this.linkList.push(
-				actorCenterX = [
+				(actorCenterX = [
 					{ r: 0.5, useSize: stageSX },
 					{ r: -1, useSize: actors.actorS },
 					{ r: 0.5, useSize: this.focusedActor.sX },
 					{ r: -1, useSize: this.focusedActor.posX },
-				],
+				])
 			);
 
-			stageX.push(
-				{ r: this.focusedActor.left ? 1 : -1, useSize: actorCenterX },
-			);
+			stageX.push({ r: this.focusedActor.left ? 1 : -1, useSize: actorCenterX });
 
 			stageY.push(
 				{ r: 0.5, useSize: stageSY },
 				{ r: -1, useSize: this.focusedActor.sY },
-				{ r: 0.5, useSize: this.focusedActor.topHeadSY },
+				{ r: 0.5, useSize: this.focusedActor.topHeadSY }
 			);
 		}
 
@@ -117,9 +128,9 @@ Comic.prototype.World.prototype = {
 			stageY,
 
 			// Ground & Sky
-			groundTopSY = { r: this.groundTopSY, useSize: stageSX, min: 1 },
-			groundSY = [groundTopSY, stageY],
-			skySY = [args.stageSY, { r: -1, useSize: groundSY }],
+			(groundTopSY = { r: this.groundTopSY, useSize: stageSX, min: 1 }),
+			(groundSY = [groundTopSY, stageY]),
+			[args.stageSY, { r: -1, useSize: groundSY }]
 		);
 
 		return [
@@ -133,7 +144,12 @@ Comic.prototype.World.prototype = {
 
 					// Add Mountains
 					{
-						tY: true, sX: stageSX, sY: { r: 0.2, useSize: stageSY }, x: stageX, mX: { r: -1, useSize: stageSX }, list: this.mountains,
+						tY: true,
+						sX: stageSX,
+						sY: { r: 0.2, useSize: stageSY },
+						x: stageX,
+						mX: { r: -1, useSize: stageSX },
+						list: this.mountains,
 					},
 				],
 			},
@@ -148,12 +164,13 @@ Comic.prototype.World.prototype = {
 				list: actors.list,
 			},
 
-			args.first && new this.basic.Logo({
-				sX: args.sX,
-				sY: args.sY,
-				stageSX,
-				stageX,
-			}),
+			args.first &&
+				new this.basic.Logo({
+					sX: args.sX,
+					sY: args.sY,
+					stageSX,
+					stageX,
+				}),
 		];
 	}, // End draw - - - - - - - - - - - - - - - - - -
 }; // END World \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
@@ -170,22 +187,27 @@ Comic.prototype.Logo = function Logo(args) {
 	const list = [];
 	let totalCuts;
 	let cuts = (totalCuts = this.rInt(3, 15));
-	let cutHole; let
-		cutShadow;
+	let cutHole;
+	let cutShadow;
 
 	this.linkList.push(
-		widePanelChecker = { add: [args.sX, { r: -2, useSize: args.stageSX }], max: 1, min: { a: 0 } },
-		widePanelRest = [args.sX, { r: -1, useSize: args.stageSX }],
-		widePanelBorder = { r: -0.1, useSize: widePanelRest },
-		widePanelPan = [widePanelBorder, { r: 0.5, useSize: widePanelRest }],
-		logoRest = [widePanelRest, widePanelBorder],
+		(widePanelChecker = {
+			add: [args.sX, { r: -2, useSize: args.stageSX }],
+			max: 1,
+			min: { a: 0 },
+		}),
+		(widePanelRest = [args.sX, { r: -1, useSize: args.stageSX }]),
+		(widePanelBorder = { r: -0.1, useSize: widePanelRest }),
+		(widePanelPan = [widePanelBorder, { r: 0.5, useSize: widePanelRest }]),
+		(logoRest = [widePanelRest, widePanelBorder])
 	);
 
-	args.stageX.push(
-		{
-			r: 10000, useSize: widePanelRest, max: widePanelPan, min: { a: 0 },
-		},
-	);
+	args.stageX.push({
+		r: 10000,
+		useSize: widePanelRest,
+		max: widePanelPan,
+		min: { a: 0 },
+	});
 
 	while (cuts--) {
 		cutShadow = {};
@@ -216,11 +238,17 @@ Comic.prototype.Logo = function Logo(args) {
 	list.push(
 		{ z: 10 },
 		{
-			sX: 1, fX: true, color: shadowColor, z: 50,
+			sX: 1,
+			fX: true,
+			color: shadowColor,
+			z: 50,
 		},
 		{
-			sY: 1, fY: true, color: shadowColor, z: 50,
-		},
+			sY: 1,
+			fY: true,
+			color: shadowColor,
+			z: 50,
+		}
 	);
 
 	return {

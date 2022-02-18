@@ -1,5 +1,5 @@
-import { createAxis } from './createAxis';
-import { createPos } from './createPos';
+import { createAxis } from "./createAxis";
+import { createPos } from "./createPos";
 
 export const getAxis = (oneD) => {
 	const AxisX = createAxis(oneD.Width, oneD.DistanceX);

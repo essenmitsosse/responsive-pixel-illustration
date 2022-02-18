@@ -1,4 +1,6 @@
-
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
+import Builder from "./builder";
 // HEAD --------------------------------------------------------------------------------
 Builder.prototype.Head = function (args) {
 	// Form & Sizes
@@ -33,13 +35,23 @@ Builder.prototype.Head.prototype.draw = function (args, z) {
 	let list;
 
 	this.vL[`headMinSX${nr}`] = {
-		r: this.headSX * (sideView ? this.headSideSYFak : 1), a: 0.7, min: 2, useSize: `headNeckSY${nr}`,
+		r: this.headSX * (sideView ? this.headSideSYFak : 1),
+		a: 0.7,
+		min: 2,
+		useSize: `headNeckSY${nr}`,
 	};
 	this.vL[`neckSX${nr}`] = sideView
-		? { add: [{ r: (-1 + this.neckSX), useSize: `headMinSX${nr}` }, `headMinSX${nr}`], max: `chestSX${nr}`, min: 1 }
+		? {
+				add: [{ r: -1 + this.neckSX, useSize: `headMinSX${nr}` }, `headMinSX${nr}`],
+				max: `chestSX${nr}`,
+				min: 1,
+		  }
 		: {
-			r: this.neckSX, useSize: `headMinSX${nr}`, max: `torsoSX${nr}`, min: 1,
-		};
+				r: this.neckSX,
+				useSize: `headMinSX${nr}`,
+				max: `torsoSX${nr}`,
+				min: 1,
+		  };
 	this.vL[`neckSY${nr}`] = { r: this.neckSY, useSize: `headNeckSY${nr}` };
 	this.vL[`headMinSY${nr}`] = { add: [`headNeckSY${nr}`, this.sub(`neckSY${nr}`)], min: 2 };
 
@@ -73,7 +85,6 @@ Builder.prototype.Head.prototype.draw = function (args, z) {
 						cX: sideView,
 						id: `head${nr}`,
 						list: [
-
 							{ color: [255, 0, 0] },
 							// Face
 							// Mouth
@@ -82,7 +93,6 @@ Builder.prototype.Head.prototype.draw = function (args, z) {
 							// Eye Area
 							this.eye.draw(args, z),
 						],
-
 					},
 				],
 			},
@@ -130,23 +140,26 @@ Builder.prototype.Eye.prototype.draw = function (args, z) {
 		minX: 4,
 		minY: this.eyeRoundTop && this.eyeRoundBottom ? 3 : 2,
 		list: [
-			this.eyeRoundTop && { name: 'Dot', clear: true },
-			this.eyeRoundTop && { name: 'Dot', fX: true, clear: true },
-			this.eyeRoundBottom && { name: 'Dot', fY: true, clear: true },
+			this.eyeRoundTop && { name: "Dot", clear: true },
+			this.eyeRoundTop && { name: "Dot", fX: true, clear: true },
+			this.eyeRoundBottom && { name: "Dot", fY: true, clear: true },
 			this.eyeRoundBottom && {
-				name: 'Dot', fX: true, fY: true, clear: true,
+				name: "Dot",
+				fX: true,
+				fY: true,
+				clear: true,
 			},
 		],
 	};
 
 	const thisEye = args.eye;
 
-	const eyeClosed = thisEye.lids === 'closed' || args.right && thisEye.lids === 'wink';
-	const eyeHalfClosed = !eyeClosed && thisEye.lids === 'halfClosed';
+	const eyeClosed = thisEye.lids === "closed" || (args.right && thisEye.lids === "wink");
+	const eyeHalfClosed = !eyeClosed && thisEye.lids === "halfClosed";
 
 	const lookUp = thisEye.up;
 	const lookSide = thisEye.look;
-	const lookRight = thisEye.look === 'right';
+	const lookRight = thisEye.look === "right";
 
 	this.vL[`eyeSX${nr}`] = { r: this.eyeSX, useSize: `headMinSX${nr}`, a: 1 };
 	this.vL[`eyeSY${nr}`] = { r: this.eyeSY, useSize: `headMinSY${nr}`, a: 1 };
@@ -239,10 +252,17 @@ Builder.prototype.Mouth.prototype.draw = function (args, z) {
 	const { sideView } = args;
 
 	this.vL[`mouthSX${nr}`] = {
-		r: this.mouthSX, useSize: `headMinSX${nr}`, a: 1, min: 1, max: `headMinSX${nr}`,
+		r: this.mouthSX,
+		useSize: `headMinSX${nr}`,
+		a: 1,
+		min: 1,
+		max: `headMinSX${nr}`,
 	};
 	this.vL[`mouthSY${nr}`] = {
-		r: this.mouthSY, useSize: `headMinSY${nr}`, a: 0.7, min: 1,
+		r: this.mouthSY,
+		useSize: `headMinSY${nr}`,
+		a: 0.7,
+		min: 1,
 	};
 	this.vL[`mouthY${nr}`] = { r: this.mouthY, useSize: `headMinSY${nr}`, a: 0.4 };
 	this.vL[`mouthTopY${nr}`] = [`mouthSY${nr}`, `mouthY${nr}`];
@@ -289,11 +309,12 @@ Builder.prototype.Hair.prototype.draw = function (args, z) {
 		list: [
 			{
 				sY: {
-					r: this.hairSY, useSize: `eyeYTop${nr}`, min: { r: 0.2, useSize: `headSY${nr}`, max: 1 }, max: `eyeYTop${nr}`,
+					r: this.hairSY,
+					useSize: `eyeYTop${nr}`,
+					min: { r: 0.2, useSize: `headSY${nr}`, max: 1 },
+					max: `eyeYTop${nr}`,
 				},
-				list: [
-					{ stripes: { random: { r: -0.5 }, seed: nr } },
-				],
+				list: [{ stripes: { random: { r: -0.5 }, seed: nr } }],
 			},
 
 			// {
@@ -303,10 +324,8 @@ Builder.prototype.Hair.prototype.draw = function (args, z) {
 			// 	fX:true
 			// }
 		],
-
 	};
 }; // END Hair draw
-
 
 // BEARD --------------------------------------------------------------------------------
 Builder.prototype.Beard = function (args) {

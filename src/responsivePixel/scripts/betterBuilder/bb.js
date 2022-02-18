@@ -1,4 +1,3 @@
-
 var BB = function (init) {
 	const args = {};
 	const ObjProto = BB.prototype.Obj.prototype;
@@ -40,9 +39,8 @@ var BB = function (init) {
 
 BB.prototype.Obj = function () {};
 
-const BBProto = BB.prototype;
-const BBObj = BBProto.Obj;
-const BBObjProto = BBObj.prototype;
+export const BBProto = BB.prototype;
+export const BBObj = BBProto.Obj;
 
 // OVERVIEW
 BBProto.Overview = function (init) {
@@ -50,7 +48,7 @@ BBProto.Overview = function (init) {
 	const rotations = [];
 	const rows = init.rows || 2;
 	const vari = init.vari || 3;
-	const reps = Math.round((rows / vari) / 0.55);
+	const reps = Math.round(rows / vari / 0.55);
 	const cols = reps === 0 ? vari : vari * reps;
 	let i = 0;
 	let j = 0;
@@ -58,51 +56,55 @@ BBProto.Overview = function (init) {
 	const inner = init.inner * 1 || 0.8;
 
 	this.counter = 1;
-	this.side = 'left';
+	this.side = "left";
 
 	this.ll.push(
-		this.outerSX = { r: 1 / cols },
-		this.outerSY = { r: 1 / rows, height: true },
-		this.innerS = {
-			r: inner, useSize: this.outerSX, max: { r: inner, useSize: this.outerSY }, odd: true,
-		},
+		(this.outerSX = { r: 1 / cols }),
+		(this.outerSY = { r: 1 / rows, height: true }),
+		(this.innerS = {
+			r: inner,
+			useSize: this.outerSX,
+			max: { r: inner, useSize: this.outerSY },
+			odd: true,
+		})
 		// this.innerS = { r:2, a:-1, useSize:this.innerSHalf }
 	);
 
 	do {
-		rotations.push(new this.calcRotation((this.rotate || 0) + (180 / (vari)) * i));
+		rotations.push(new this.calcRotation((this.rotate || 0) + (180 / vari) * i));
 	} while ((i += 1) < vari);
-
 
 	do {
 		j = 0;
 		do {
 			i = 0;
 
-			this.entity = new this.basic[init.what || 'PersonMain']({});
+			this.entity = new this.basic[init.what || "PersonMain"]({});
 
 			do {
-				list.push(
-					{
-						sX: this.outerSX,
-						sY: this.outerSY,
-						x: { r: i + (k * vari), useSize: this.outerSX },
-						y: { r: j, useSize: this.outerSY },
-						fY: true,
-						list: [
-							{ color: [255 / rows * j, 255 / vari * i, 0], z: -Infinity },
-							{
-								s: this.innerS, color: this.white, cX: true, fY: true, z: -Infinity,
-							},
-							this.entity.draw({
-								sX: this.innerS,
-								sY: this.innerS,
-								rotate: rotations[i],
-								nr: this.counter += 1,
-							}),
-						],
-					},
-				);
+				list.push({
+					sX: this.outerSX,
+					sY: this.outerSY,
+					x: { r: i + k * vari, useSize: this.outerSX },
+					y: { r: j, useSize: this.outerSY },
+					fY: true,
+					list: [
+						{ color: [(255 / rows) * j, (255 / vari) * i, 0], z: -Infinity },
+						{
+							s: this.innerS,
+							color: this.white,
+							cX: true,
+							fY: true,
+							z: -Infinity,
+						},
+						this.entity.draw({
+							sX: this.innerS,
+							sY: this.innerS,
+							rotate: rotations[i],
+							nr: (this.counter += 1),
+						}),
+					],
+				});
 			} while ((i += 1) < vari);
 		} while ((j += 1) < rows);
 	} while ((k += 1) < reps);
@@ -113,3 +115,5 @@ BBProto.Overview = function (init) {
 };
 
 BBProto.Overview.prototype = new BBObj();
+
+export default BB;

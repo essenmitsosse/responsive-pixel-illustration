@@ -1,17 +1,31 @@
+import { BBObj, BBProto } from "./bb";
+
+const BBObjProto = BBObj.prototype;
+
 // GET ROTATION
 BBObjProto.calcRotation = function (rotate) {
 	let realRotation = rotate - 45;
-	let rad; let sin; let cos; let
-		front;
+	let rad;
+	let sin;
+	let cos;
+	let front;
 
-	if (realRotation > 180) { realRotation -= 360; } else if (realRotation < -180) { realRotation += 360; }
+	if (realRotation > 180) {
+		realRotation -= 360;
+	} else if (realRotation < -180) {
+		realRotation += 360;
+	}
 
-	if (rotate > 360) { rotate -= 360; } else if (rotate < -360) { rotate += 360; }
+	if (rotate > 360) {
+		rotate -= 360;
+	} else if (rotate < -360) {
+		rotate += 360;
+	}
 
-	rad = realRotation * Math.PI / 180;
+	rad = (realRotation * Math.PI) / 180;
 	sin = Math.sin(rad);
 	cos = Math.cos(rad);
-	front = (Math.abs(Math.abs(rotate - 180) - 90) / 90);
+	front = Math.abs(Math.abs(rotate - 180) - 90) / 90;
 
 	return {
 		FL: this.getRotation(realRotation),
@@ -29,13 +43,15 @@ BBObjProto.calcRotation = function (rotate) {
 };
 
 BBObjProto.calcRotation.prototype.getRotation = function (rotate) {
-	let abs;
-
-	if (rotate > 180) { rotate -= 360; } else if (rotate < -180) { rotate += 360; }
+	if (rotate > 180) {
+		rotate -= 360;
+	} else if (rotate < -180) {
+		rotate += 360;
+	}
 
 	return {
-		real: rotate /= 90,
-		abs: abs = 1 - Math.abs(rotate),
+		real: (rotate /= 90),
+		abs: 1 - Math.abs(rotate),
 	};
 };
 
@@ -47,47 +63,47 @@ BBProto.Rotater = function (args) {
 	this.list = [];
 
 	this.ll.push(
-		this.sX = {
+		(this.sX = {
 			r:
-				1 // Base Size
-				+ (args.frontSX !== undefined ? rotate.front * (args.frontSX - 1) : 0), // change for Front
+				1 + // Base Size
+				(args.frontSX !== undefined ? rotate.front * (args.frontSX - 1) : 0), // change for Front
 			// + ( args.sideSX !== undefined ? rotate.side * ( args.sideSX - 1 ) : 0 ), 	// change for Side
 			useSize: args.baseSX,
 			odd: true,
-		},
+		})
 	);
 
 	if (args.side) {
-		if (!args.side.sX) { args.side.sX = this.sX; }
+		if (!args.side.sX) {
+			args.side.sX = this.sX;
+		}
 		this.x = this.moveOut(args.side, rotate);
 	}
 
 	if (args.sY) {
-		this.ll.push(
-			this.sY = args.sY,
-		);
+		this.ll.push((this.sY = args.sY));
 	}
 
 	if (args.y) {
-		this.ll.push(
-			this.y = args.y,
-		);
+		this.ll.push((this.y = args.y));
 	}
 
-	(args.roundTop || args.roundBottom) && this.list.push(
-		{
+	(args.roundTop || args.roundBottom) &&
+		this.list.push({
 			minX: 5,
 			minY: 5,
 			list: [
-				args.roundTop && { name: 'Dot', clear: true },
-				args.roundTop && { name: 'Dot', fX: true, clear: true },
-				args.roundBottom && { name: 'Dot', fY: true, clear: true },
+				args.roundTop && { name: "Dot", clear: true },
+				args.roundTop && { name: "Dot", fX: true, clear: true },
+				args.roundBottom && { name: "Dot", fY: true, clear: true },
 				args.roundBottom && {
-					name: 'Dot', fX: true, fY: true, clear: true,
+					name: "Dot",
+					fX: true,
+					fY: true,
+					clear: true,
 				},
 			],
-		},
-	);
+		});
 
 	this.pusher(rotate.FL, drawer.draw(args, true, false));
 	this.pusher(rotate.FR, drawer.draw(args, true, true), true);
@@ -118,15 +134,13 @@ BBProto.Rotater.prototype = new BBObj();
 BBProto.Rotater.prototype.pusher = function (rotate, list, reflect) {
 	const front = rotate.abs > 0;
 
-	this.list.push(
-		{
-			sX: { r: front ? rotate.abs : -rotate.abs },
-			fX: rotate.real > 0,
-			z: front ? 50 : -50,
-			list,
-			rX: reflect,
-		},
-	);
+	this.list.push({
+		sX: { r: front ? rotate.abs : -rotate.abs },
+		fX: rotate.real > 0,
+		z: front ? 50 : -50,
+		list,
+		rX: reflect,
+	});
 };
 
 BBObjProto.moveOut = function (args, rotate) {
@@ -141,14 +155,15 @@ BBObjProto.moveOut = function (args, rotate) {
 		add,
 	};
 
-	if (args.sXBase && args.xBase) { // Move out, relative to the Base
+	if (args.sXBase && args.xBase) {
+		// Move out, relative to the Base
 		this.ll.push(
-			diff = {
+			(diff = {
 				add: [
 					{ r: 0.5, useSize: args.sXBase },
 					{ r: -0.5, useSize: args.sX },
 				],
-			},
+			})
 		);
 
 		add.push({
@@ -158,11 +173,13 @@ BBObjProto.moveOut = function (args, rotate) {
 		});
 	}
 
-	if (args.xAdd) { // Move Center Point to correct center
+	if (args.xAdd) {
+		// Move Center Point to correct center
 		add.push(args.xAdd);
 	}
 
-	if (args.xRel) { // Move relative to the size of the object
+	if (args.xRel) {
+		// Move relative to the size of the object
 		add.push({
 			r: rotate.position * args.xRel,
 			useSize: args.sX,
@@ -170,9 +187,7 @@ BBObjProto.moveOut = function (args, rotate) {
 	}
 
 	if (args.max) {
-		this.ll.push(
-			this.max = args.max,
-		);
+		this.ll.push((this.max = args.max));
 
 		X.max = this.max;
 		X.min = { r: -1, useSize: this.max };
@@ -188,20 +203,22 @@ BBObjProto.mover = function (what, move) {
 
 	move.sX = what.sX;
 
-	what.x = x = this.moveOut(
-		move,
-		what.rotate,
-	);
+	what.x = x = this.moveOut(move, what.rotate);
 
-
-	what.get = this.merge(
-		what.get,
-		{
-			x,
-			y: move.y,
-			z: (move.xRel ? (move.xRel && move.xRel < 0 ? -1 : 1) : (move.xBase && move.xBase < 0 ? -1 : 1)) * (move.z || 50) * what.rotate.turnedAway,
-		},
-	);
+	what.get = this.merge(what.get, {
+		x,
+		y: move.y,
+		z:
+			(move.xRel
+				? move.xRel && move.xRel < 0
+					? -1
+					: 1
+				: move.xBase && move.xBase < 0
+				? -1
+				: 1) *
+			(move.z || 50) *
+			what.rotate.turnedAway,
+	});
 
 	return what;
 };
@@ -232,11 +249,7 @@ BBProto.RotateInfo = function (rotate) {
 				color: [150, 150, 150],
 				c: true,
 				s,
-				list: [
-					{},
-					{ sX: 1, color: this.c1 },
-					{ sY: 1, fY: true, color: this.c1D },
-				],
+				list: [{}, { sX: 1, color: this.c1 }, { sY: 1, fY: true, color: this.c1D }],
 			},
 			{
 				s: 1,

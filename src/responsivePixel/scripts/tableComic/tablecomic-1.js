@@ -1,4 +1,3 @@
-
 /* global TableComic */
 
 // BEGINN getStrip /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
@@ -14,7 +13,7 @@ TableComic.prototype.getStrip = function getStrip() {
 	while (count < length) {
 		currentPanel = basicPanels[count];
 
-		if (currentPanel.draw === 'faceDraw') {
+		if (currentPanel.draw === "faceDraw") {
 			finalPanels.push(currentPanel);
 		} else {
 			combiner(currentPanel);
@@ -36,32 +35,39 @@ TableComic.prototype.getCombiner = function (finals, defaults, inventory) {
 		var copyDefaultObject = function (object, defaultObject) {
 			let valueKey;
 
-			if (object === undefined) { // If no Info exist about Object, that is supposed to be there
+			if (object === undefined) {
+				// If no Info exist about Object, that is supposed to be there
 				return defaultObject;
 			} // If Info already exists about that object
 			for (valueKey in defaultObject) {
-				if (object[valueKey] === undefined || valueKey === 'body') { // If no value exists, use default value
+				if (object[valueKey] === undefined || valueKey === "body") {
+					// If no value exists, use default value
 					if (defaultObject[valueKey].map !== undefined) {
 						object[valueKey] = defaultObject[valueKey];
 					} else {
-						object[valueKey] = copyDefaultObject(object[valueKey], defaultObject[valueKey]);
+						object[valueKey] = copyDefaultObject(
+							object[valueKey],
+							defaultObject[valueKey]
+						);
 					}
 				}
 			}
-
 
 			return object;
 		};
 
 		for (objectKey in defaults) {
-			if (objectKey === 'list') {
+			if (objectKey === "list") {
 				if (!panel.noDefaults) {
 					defaultsList = defaults[objectKey];
 
 					// fill the List with the defaults, needs special treatment
 					// Use Default values if current has no values or not all important values are defined
 					for (listKey in defaultsList) {
-						panelList[listKey] = copyDefaultObject(panelList[listKey], defaultsList[listKey]);
+						panelList[listKey] = copyDefaultObject(
+							panelList[listKey],
+							defaultsList[listKey]
+						);
 
 						newList.push(panelList[listKey]);
 					}
@@ -75,7 +81,6 @@ TableComic.prototype.getCombiner = function (finals, defaults, inventory) {
 				panel[objectKey] = panel[objectKey] || defaults[objectKey];
 			}
 		}
-
 
 		// Transform to finals form, so it can be used
 		for (objectKey in panelList) {
@@ -141,7 +146,6 @@ TableComic.prototype.getStripInfo = function () {
 	const getZoom = (function () {
 		let min = 1;
 		let max = min;
-		const zoomOut = -0.04;
 		const zoomIn = 0.04;
 		let i = 0;
 
@@ -160,11 +164,9 @@ TableComic.prototype.getStripInfo = function () {
 
 			i += 1;
 
-			return noCameraMovement
-				? (zoom.max + zoom.min) / 2
-				: zoom;
+			return noCameraMovement ? (zoom.max + zoom.min) / 2 : zoom;
 		};
-	}());
+	})();
 	const panY = [
 		-0.15, // 0
 		{ map: 0, min: -0.15, max: -0.18 }, // 1
@@ -255,14 +257,16 @@ TableComic.prototype.getStripInfo = function () {
 	};
 
 	const panels = [
-		{ // - - - - - - - - - - - -  0
+		{
+			// - - - - - - - - - - - -  0
 			zoom: getZoom(),
 			panY: panY[0],
 			panX: panX[0],
 			panXrel: 0.9,
 			panYrel: 0.3,
 			list: {
-				actor1: { // - - - - - - - - - - - ACTOR 1
+				actor1: {
+					// - - - - - - - - - - - ACTOR 1
 					eyeLeft: {
 						pupilPosXrel: 0.8,
 					},
@@ -287,7 +291,8 @@ TableComic.prototype.getStripInfo = function () {
 					},
 					sitting: true,
 				},
-				actor2: { // - - - - - - - - - - - ACTOR 2
+				actor2: {
+					// - - - - - - - - - - - ACTOR 2
 					eyeLeft: {
 						pupilPosXrel: 0.2,
 					},
@@ -329,13 +334,15 @@ TableComic.prototype.getStripInfo = function () {
 				},
 			},
 		},
-		{ // - - - - - - - - - - - -  1
+		{
+			// - - - - - - - - - - - -  1
 			zoom: getZoom(),
 			panY: panY[1],
 			panX: panX[1],
 			panYrel: 0.3,
 			list: {
-				actor1: { // - - - - - - - - - - - ACTOR 1
+				actor1: {
+					// - - - - - - - - - - - ACTOR 1
 					eyeLeft: {
 						pupilPosXrel: 0,
 					},
@@ -360,7 +367,8 @@ TableComic.prototype.getStripInfo = function () {
 					},
 					sitting: true,
 				},
-				actor2: { // - - - - - - - - - - - ACTOR 2
+				actor2: {
+					// - - - - - - - - - - - ACTOR 2
 					eyeLeft: {
 						pupilPosXrel: 0.8,
 						eyeBrowMove: { map: 0, min: -0.2, max: 0.2 },
@@ -393,13 +401,15 @@ TableComic.prototype.getStripInfo = function () {
 				},
 			},
 		},
-		{ // - - - - - - - - - - - -  2
+		{
+			// - - - - - - - - - - - -  2
 			zoom: getZoom(),
 			panY: panY[2],
 			panX: panX[2],
 			panYrel: 0.3,
 			list: {
-				actor1: { // - - - - - - - - - - - ACTOR 1
+				actor1: {
+					// - - - - - - - - - - - ACTOR 1
 					eyes: {
 						eyeBrowMove: { map: 0, min: -0.3, max: 0.3 },
 						a: true,
@@ -420,7 +430,8 @@ TableComic.prototype.getStripInfo = function () {
 					},
 					sitting: true,
 				},
-				actor2: { // - - - - - - - - - - - ACTOR 2
+				actor2: {
+					// - - - - - - - - - - - ACTOR 2
 					eyes: {
 						eyeBrowMove: { map: 0, min: -0.5, max: 0.5 },
 						a: true,
@@ -460,13 +471,15 @@ TableComic.prototype.getStripInfo = function () {
 				},
 			},
 		},
-		{ // - - - - - - - - - - - - - - - - - - - - - - - -  3 // standing up / in love
+		{
+			// - - - - - - - - - - - - - - - - - - - - - - - -  3 // standing up / in love
 			zoom: getZoom(),
 			panY: panY[3],
 			panX: panX[3],
 			panYrel: 0.3,
 			list: {
-				actor1: { // - - - - - - - - - - - ACTOR 1
+				actor1: {
+					// - - - - - - - - - - - ACTOR 1
 					eyes: {
 						eyeBrowMove: { map: 0, min: -0.7, max: 0.6 },
 						a: true,
@@ -493,7 +506,8 @@ TableComic.prototype.getStripInfo = function () {
 					},
 					sitting: true,
 				},
-				actor2: { // - - - - - - - - - - - ACTOR 2
+				actor2: {
+					// - - - - - - - - - - - ACTOR 2
 					eyes: {
 						eyeBrowMove: { map: 0, min: -0.3, max: 0.3 },
 						a: true,
@@ -517,7 +531,6 @@ TableComic.prototype.getStripInfo = function () {
 						handAngle: 0.2,
 					},
 					pos: actor2standing,
-
 				},
 				glass: glassFallenOver,
 				chair2: chair2FallenOver,
@@ -541,13 +554,15 @@ TableComic.prototype.getStripInfo = function () {
 				},
 			},
 		},
-		{ // - - - - - - - - - - - - - - - - - - - - - - - -  4 // ex-on the table
+		{
+			// - - - - - - - - - - - - - - - - - - - - - - - -  4 // ex-on the table
 			zoom: getZoom(),
 			panY: panY[4],
 			panX: panX[4],
 			panYrel: 0.3,
 			list: {
-				actor1: { // - - - - - - - - - - - ACTOR 1
+				actor1: {
+					// - - - - - - - - - - - ACTOR 1
 					eyes: {
 						eyeBrowMove: { map: 0, min: -1, max: 0.8 },
 						a: true,
@@ -577,7 +592,8 @@ TableComic.prototype.getStripInfo = function () {
 						posY: 0,
 					},
 				},
-				actor2: { // - - - - - - - - - - - ACTOR 2
+				actor2: {
+					// - - - - - - - - - - - ACTOR 2
 					eyes: {
 						eyeBrowMove: { map: 0, min: -1, max: 0.8 },
 						pupilS: { map: 0, min: 0.8, max: 1 },
@@ -609,13 +625,15 @@ TableComic.prototype.getStripInfo = function () {
 				glass: glassFallenOver,
 			},
 		},
-		{ // - - - - - - - - - - - - - - - - - - - - - - - -  5 // on the ground
+		{
+			// - - - - - - - - - - - - - - - - - - - - - - - -  5 // on the ground
 			zoom: getZoom(),
 			panY: panY[5],
 			panX: panX[5],
 			panYrel: 0.3,
 			list: {
-				actor1:	{ // - - - - - - - - - - - ACTOR 1
+				actor1: {
+					// - - - - - - - - - - - ACTOR 1
 					eyes: {
 						eyeBrowMove: { map: 0, min: 0.5, max: 0.8 },
 						pupilPosXrel: { map: 0, min: 0.5, max: 0 },
@@ -652,7 +670,8 @@ TableComic.prototype.getStripInfo = function () {
 					},
 					rotate: -90,
 				},
-				actor2: { // - - - - - - - - - - - ACTOR 2
+				actor2: {
+					// - - - - - - - - - - - ACTOR 2
 					eyes: {
 						eyeBrowMove: { map: 0, min: -1, max: 0.8 },
 						pupilS: 1,
@@ -695,7 +714,8 @@ TableComic.prototype.getStripInfo = function () {
 				glass: glassOnGround,
 			},
 		},
-		{ // - - - - - - - - - - - -  6 // BIG FACE
+		{
+			// - - - - - - - - - - - -  6 // BIG FACE
 			// zoomTo: actor1,
 			zoom: { map: 1, min: 0.8, max: 1.1 },
 			noDefaults: true,
@@ -753,7 +773,8 @@ TableComic.prototype.getStripInfo = function () {
 				},
 			},
 		},
-		{ // - - - - - - - - - - - -  7 // DIEING
+		{
+			// - - - - - - - - - - - -  7 // DIEING
 			// noDefaults: true,
 			zoom: { map: 1, max: 0.5, min: 1.1 },
 			noDefaults: true,
@@ -800,7 +821,8 @@ TableComic.prototype.getStripInfo = function () {
 				},
 			},
 		},
-		{ // - - - - - - - - - - - -  8
+		{
+			// - - - - - - - - - - - -  8
 			zoom: 0.6,
 			panY: 0.2,
 			list: {
@@ -917,7 +939,8 @@ TableComic.prototype.getStripInfo = function () {
 						posX: 0.5,
 					},
 				},
-				actor1: { // - - - - - - - - - - - ACTOR 1
+				actor1: {
+					// - - - - - - - - - - - ACTOR 1
 					z: 2000,
 					body: {
 						side: 0.5,
@@ -928,7 +951,8 @@ TableComic.prototype.getStripInfo = function () {
 						posY: 1,
 					},
 				},
-				actor2: { // - - - - - - - - - - - ACTOR 2
+				actor2: {
+					// - - - - - - - - - - - ACTOR 2
 					z: 3000,
 					body: {
 						side: -0.5,

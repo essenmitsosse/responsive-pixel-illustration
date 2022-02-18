@@ -1,9 +1,10 @@
-
 /* global TableComic */
 
 // BEGINN Table /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 TableComic.prototype.Table = function Table(args) {
-	if (!args) { args = {}; }
+	if (!args) {
+		args = {};
+	}
 	// Forms and Sizes
 	this.sX_ = args.sX || 0.6;
 	this.sY_ = args.sY || 0.6;
@@ -18,26 +19,30 @@ TableComic.prototype.Table.prototype.draw = function TableDraw(args) {
 	this.sY = this.pushLinkList({ r: this.sY_, useSize: args.stageSY });
 
 	this.topSY = this.pushLinkList({
-		r: 0.1 * this.sY_, useSize: args.stageSY, max: this.sY, min: 1,
+		r: 0.1 * this.sY_,
+		useSize: args.stageSY,
+		max: this.sY,
+		min: 1,
 	});
 	this.legSX = this.pushLinkList({ r: 0.1, useSize: this.sX });
 	this.footSX = this.pushLinkList({ r: 0.35, useSize: this.sX });
 
 	this.pushRelativeStandardAutomatic({
-		sY: { map: 'props', min: 0, max: this.sY_ },
+		sY: { map: "props", min: 0, max: this.sY_ },
 	});
 
 	this.getPosition(args);
 
 	return this.getObject([
-
-
 		// Table Foot
 		{
 			sX: this.footSX,
 			cX: true,
 			sY: {
-				r: 0.05 * this.sY_, useSize: args.stageSY, max: this.sY, min: 1,
+				r: 0.05 * this.sY_,
+				useSize: args.stageSY,
+				max: this.sY,
+				min: 1,
 			},
 			fY: true,
 		},
@@ -69,9 +74,7 @@ TableComic.prototype.Table.prototype.draw = function TableDraw(args) {
 
 TableComic.prototype.Table.prototype.getPosition = function TableGetPosition(id) {
 	return {
-		x: id === 0
-			? this.x
-			: this.pushLinkList([this.x, this.sX]),
+		x: id === 0 ? this.x : this.pushLinkList([this.x, this.sX]),
 		y: this.sY,
 	};
 };
@@ -79,7 +82,9 @@ TableComic.prototype.Table.prototype.getPosition = function TableGetPosition(id)
 
 // BEGINN Chair /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 TableComic.prototype.Chair = function Chair(args) {
-	if (!args) { args = {}; }
+	if (!args) {
+		args = {};
+	}
 	// Forms and Sizes
 	this.sX_ = args.sX || 0.25;
 	this.sY_ = args.sY || 0.32;
@@ -101,7 +106,7 @@ TableComic.prototype.Chair.prototype.draw = function ChairDraw(args) {
 	this.backSY = this.pushLinkList({ r: 2, useSize: this.sY });
 
 	this.pushRelativeStandardAutomatic({
-		sY: { map: 'props', min: 0, max: this.sY_ },
+		sY: { map: "props", min: 0, max: this.sY_ },
 	});
 
 	this.getPosition(args);
@@ -140,10 +145,7 @@ TableComic.prototype.Chair.prototype.draw = function ChairDraw(args) {
 		// Seat
 		{
 			sY: this.horizontalElement,
-			list: [
-				{},
-				{ color: this.colorDetail, sY: { r: 0.2, min: 1 } },
-			],
+			list: [{}, { color: this.colorDetail, sY: { r: 0.2, min: 1 } }],
 		},
 
 		// Back Leg Front
@@ -159,7 +161,9 @@ TableComic.prototype.Chair.prototype.draw = function ChairDraw(args) {
 
 // BEGINN Glass /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 TableComic.prototype.Glass = function Glass(args) {
-	if (!args) { args = {}; }
+	if (!args) {
+		args = {};
+	}
 	// Forms & Sizes
 	this.sX_ = 0.1;
 	this.sY_ = 0.15;
@@ -181,7 +185,7 @@ TableComic.prototype.Glass.prototype.draw = function GlassDraw(args) {
 	this.sY = this.pushLinkList({ r: this.sY_, useSize: args.square });
 
 	this.pushRelativeStandardAutomatic({
-		sY: { map: 'props', min: 0, max: this.sY_ },
+		sY: { map: "props", min: 0, max: this.sY_ },
 	});
 
 	this.level = this.pushLinkList({ r: 0, useSize: this.sY });
@@ -203,10 +207,7 @@ TableComic.prototype.Glass.prototype.draw = function GlassDraw(args) {
 		{
 			sY: this.level,
 			fY: true,
-			list: [
-				{ color: this.color },
-				{ color: this.mixColor, list: normalGlass },
-			],
+			list: [{ color: this.color }, { color: this.mixColor, list: normalGlass }],
 		},
 	]);
 };
@@ -214,12 +215,14 @@ TableComic.prototype.Glass.prototype.draw = function GlassDraw(args) {
 
 // BEGINN Emotion /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 TableComic.prototype.Emotion = function Emotion(args) {
-	if (!args) { args = {}; }
+	if (!args) {
+		args = {};
+	}
 	this.color = args.color || [220, 220, 220];
 	this.heartColor = [-1, -1, -1];
 
 	this.colorList.push({
-		map: 'a',
+		map: "a",
 		min: [120, 120, 120],
 		max: [200, 100, 100],
 		color: this.heartColor,
@@ -227,19 +230,25 @@ TableComic.prototype.Emotion = function Emotion(args) {
 };
 
 TableComic.prototype.Emotion.prototype.draw = function EmotionDraw(args) {
-	if (!args.info.pos) { return; }
+	if (!args.info.pos) {
+		return;
+	}
 	const actor = args.info.pos.obj;
 
-	if (!actor) { return; }
+	if (!actor) {
+		return;
+	}
 
 	this.sY = this.sX = actor.head ? actor.head.square : 0;
 
 	this.innerS = this.pushLinkList({ r: 0.3, useSize: this.sX, a: 5 });
-	if (args.info.size) { this.innerS = this.pushLinkList({ r: args.info.size, useSize: this.innerS }); }
+	if (args.info.size) {
+		this.innerS = this.pushLinkList({ r: args.info.size, useSize: this.innerS });
+	}
 	this.innerS = this.pushLinkList({ r: 1, useSize: this.innerS });
 
 	this.pushRelativeStandardAutomatic({
-		innerS: { map: 'emotions', min: 0, max: 1 },
+		innerS: { map: "emotions", min: 0, max: 1 },
 	});
 
 	this.getPosition(args);
@@ -256,7 +265,6 @@ TableComic.prototype.Emotion.prototype.draw = function EmotionDraw(args) {
 		});
 	}
 
-
 	if (args.info.heart) {
 		this.cloudBottomY = this.pushLinkList({ r: 0.6, useSize: this.innerS });
 		this.cloudLeftX = this.pushLinkList({ r: 0, useSize: this.innerS });
@@ -266,12 +274,11 @@ TableComic.prototype.Emotion.prototype.draw = function EmotionDraw(args) {
 		}
 
 		this.pushRelativeStandardAutomatic({
-			cloudBottomY: { map: 'a', min: 0.0001, max: 0.6 },
-			cloudLeftX: { map: 'a', min: -0.5, max: 0 },
-			thunderSY: { map: 'a', min: 1, max: -4 },
+			cloudBottomY: { map: "a", min: 0.0001, max: 0.6 },
+			cloudLeftX: { map: "a", min: -0.5, max: 0 },
+			thunderSY: { map: "a", min: 1, max: -4 },
 		});
 	}
-
 
 	return this.getObject([
 		{
@@ -282,102 +289,112 @@ TableComic.prototype.Emotion.prototype.draw = function EmotionDraw(args) {
 			minX: 4,
 			list: args.info.heart
 				? [
-					{
+						{
+							x: { r: -1.2, useSize: this.innerS },
+							y: { r: -0.2, useSize: actor.head.sY },
+							s: this.innerS,
+							fX: true,
+							fY: true,
+							list: [
+								args.info.thunder && {
+									color: [255, 255, 255],
+									tY: true,
+									fY: true,
+									y: { r: 0.2 },
+									sY: this.thunderSY,
+									list: [
+										{
+											weight: 1,
+											points: [
+												{ x: { r: 0.5 } },
+												{ x: { r: 0.65 }, y: { r: 0.4 } },
+												{ x: { r: 0.35 }, y: { r: 0.6 } },
+												{ x: { r: 0.5 }, fY: true },
+											],
+										},
+									],
+								},
 
-						x: { r: -1.2, useSize: this.innerS },
-						y: { r: -0.2, useSize: actor.head.sY },
-						s: this.innerS,
-						fX: true,
-						fY: true,
-						list: [
-							args.info.thunder && {
-								color: [255, 255, 255],
-								tY: true,
-								fY: true,
-								y: { r: 0.2 },
-								sY: this.thunderSY,
-								list: [
-									{
-										weight: 1,
-										points: [
-											{ x: { r: 0.5 } },
-											{ x: { r: 0.65 }, y: { r: 0.4 } },
-											{ x: { r: 0.35 }, y: { r: 0.6 } },
-											{ x: { r: 0.5 }, fY: true },
-										],
-									},
-								],
-							},
+								{
+									points: [
+										// Top
+										{ y: -1 },
+										{ x: { r: 0.1 }, y: -1 },
+										{ x: { r: 0.5 }, y: { r: 0.5, a: -1 } },
+										{ x: { r: 0.1 }, y: -1, fX: true },
+										{ y: -1, fX: true },
 
-							{
-								points: [
-									// Top
-									{ y: -1 },
-									{ x: { r: 0.1 }, y: -1 },
-									{ x: { r: 0.5 }, y: { r: 0.5, a: -1 } },
-									{ x: { r: 0.1 }, y: -1, fX: true },
-									{ y: -1, fX: true },
+										// Bottom
+										{
+											y: { add: [this.cloudBottomY], min: 2 },
+											x: this.cloudLeftX,
+											fY: true,
+											fX: true,
+										},
 
-									// Bottom
-									{
-										y: { add: [this.cloudBottomY], min: 2 }, x: this.cloudLeftX, fY: true, fX: true,
-									},
+										{ x: { r: 0.5 }, fY: true },
 
-									{ x: { r: 0.5 }, fY: true },
+										{ y: this.cloudBottomY, x: this.cloudLeftX, fY: true },
+									],
+								},
 
-									{ y: this.cloudBottomY, x: this.cloudLeftX, fY: true },
-								],
-							},
+								{ sY: { r: 0.8 }, mX: { r: 0.05, otherDim: true, a: 1 }, fY: true },
 
-							{ sY: { r: 0.8 }, mX: { r: 0.05, otherDim: true, a: 1 }, fY: true },
+								// Outside
+								{
+									sY: { r: 0.6 },
+									sX: { r: 0.4, min: 2 },
+									x: { r: 0.2, useSize: this.cloudSX, max: { a: 0 } },
+								},
+								{
+									sY: { r: 0.6 },
+									sX: { r: 0.4, min: 2 },
+									x: { r: 0.4, useSize: this.cloudSX, max: { a: 0 } },
+									fX: true,
+								},
 
-							// Outside
-							{ sY: { r: 0.6 }, sX: { r: 0.4, min: 2 }, x: { r: 0.2, useSize: this.cloudSX, max: { a: 0 } } },
-							{
-								sY: { r: 0.6 }, sX: { r: 0.4, min: 2 }, x: { r: 0.4, useSize: this.cloudSX, max: { a: 0 } }, fX: true,
-							},
+								// Bottom
+								{
+									mX: { r: 0.3 },
+									fY: true,
+									tY: true,
+									sY: { r: 0.1, min: 1 },
+									x: { r: 0.4, useSize: this.cloudSX, max: { a: 0 } },
+								},
 
-							// Bottom
-							{
-								mX: { r: 0.3 }, fY: true, tY: true, sY: { r: 0.1, min: 1 }, x: { r: 0.4, useSize: this.cloudSX, max: { a: 0 } },
-							},
-
-							// Cloud
-							{ mX: this.cloudSX, mY: { r: 0.1, min: 1 } },
-						],
-					},
-				]
+								// Cloud
+								{ mX: this.cloudSX, mY: { r: 0.1, min: 1 } },
+							],
+						},
+				  ]
 				: [
-					{
-						s: this.innerS,
-						fX: true,
-						fY: true,
-						x: { r: -1, useSize: this.innerS },
-						list: [
-							{
-								weight: 1,
-								points: [
-									{ fY: true },
-									{ fX: true },
-								],
-							},
-							{
-								weight: 1,
-								points: [
-									{ fY: true, y: { r: 0.2 }, x: { r: -0.6 } },
-									{ fX: true, x: { r: 1 } },
-								],
-							},
-							{
-								weight: 1,
-								points: [
-									{ fY: true, x: { r: 0.2 }, y: { r: -0.2 } },
-									{ fX: true, y: { r: 0.5 } },
-								],
-							},
-						],
-					},
-				],
+						{
+							s: this.innerS,
+							fX: true,
+							fY: true,
+							x: { r: -1, useSize: this.innerS },
+							list: [
+								{
+									weight: 1,
+									points: [{ fY: true }, { fX: true }],
+								},
+								{
+									weight: 1,
+									points: [
+										{ fY: true, y: { r: 0.2 }, x: { r: -0.6 } },
+										{ fX: true, x: { r: 1 } },
+									],
+								},
+								{
+									weight: 1,
+									points: [
+										{ fY: true, x: { r: 0.2 }, y: { r: -0.2 } },
+										{ fX: true, y: { r: 0.5 } },
+									],
+								},
+							],
+						},
+				  ],
 		},
 	]);
 };

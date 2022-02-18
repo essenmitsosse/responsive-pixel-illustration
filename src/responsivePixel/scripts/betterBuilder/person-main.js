@@ -1,4 +1,3 @@
-
 /* global BBProto, BBObj */
 
 // PERSON MAIN  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -20,9 +19,16 @@ BBProto.PersonMain = function (args) {
 
 BBProto.PersonMain.prototype = new BBObj();
 BBProto.PersonMain.prototype.draw = function (args) {
-	this.ll.push(this.headSY = { r: this._headSY, useSize: args.sY });
-	this.ll.push(this.neckSY = { a: 5 });
-	this.ll.push(this.bodySY = [args.sY, { r: -1, useSize: this.headSY }, { r: -1, useSize: this.neckSY }, 1]);
+	this.ll.push((this.headSY = { r: this._headSY, useSize: args.sY }));
+	this.ll.push((this.neckSY = { a: 5 }));
+	this.ll.push(
+		(this.bodySY = [
+			args.sY,
+			{ r: -1, useSize: this.headSY },
+			{ r: -1, useSize: this.neckSY },
+			1,
+		])
+	);
 
 	let head = this.head.draw({
 		sY: this.headSY,
@@ -35,31 +41,32 @@ BBProto.PersonMain.prototype.draw = function (args) {
 		fY: true,
 	});
 
-	this.ll.push(this.neckSX = { r: 0.5, useSize: head.sX, max: { r: 0.5, useSize: bodyMain.chest.sX } });
+	this.ll.push(
+		(this.neckSX = { r: 0.5, useSize: head.sX, max: { r: 0.5, useSize: bodyMain.chest.sX } })
+	);
 
-	const neck = false && new this.basic.Rotater({
-		drawer: this.neck,
-		id: 'neck',
-		rotate: args.rotate,
-		baseSX: this.neckSX,
-		sY: this.neckSY,
-		y: this.headSY,
-		zAbs: 60,
-	});
+	const neck =
+		false &&
+		new this.basic.Rotater({
+			drawer: this.neck,
+			id: "neck",
+			rotate: args.rotate,
+			baseSX: this.neckSX,
+			sY: this.neckSY,
+			y: this.headSY,
+			zAbs: 60,
+		});
 
 	this.headXSide = 1;
 
-	head = this.mover(
-		head,
-		{
-			sXBase: bodyMain.chest.sX,
-			xBase: this.headXSide,
-			xRel: this.headXSide,
-			xAdd: bodyMain.chest.x,
-			y: 5,
-			z: 100,
-		},
-	);
+	head = this.mover(head, {
+		sXBase: bodyMain.chest.sX,
+		xBase: this.headXSide,
+		xRel: this.headXSide,
+		xAdd: bodyMain.chest.x,
+		y: 5,
+		z: 100,
+	});
 
 	return {
 		color: this.color,
@@ -67,11 +74,7 @@ BBProto.PersonMain.prototype.draw = function (args) {
 		sX: args.sX,
 		cX: true,
 		fY: true,
-		list: [
-			head.get,
-			neck && neck.get,
-			bodyMain.get,
-		],
+		list: [head.get, neck && neck.get, bodyMain.get],
 	};
 }; // End PersonMain Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -96,14 +99,14 @@ BBProto.BodyMain = function (args) {
 
 BBProto.BodyMain.prototype = new BBObj();
 BBProto.BodyMain.prototype.draw = function (args) {
-	this.ll.push(this.sX = { r: this._sX, useSize: args.sY });
+	this.ll.push((this.sX = { r: this._sX, useSize: args.sY }));
 
-	this.ll.push(this.chestSY = { r: this._chestSY, useSize: args.sY });
-	this.ll.push(this.lowerBodySY = [args.sY, { r: -1, useSize: this.chestSY }]);
+	this.ll.push((this.chestSY = { r: this._chestSY, useSize: args.sY }));
+	this.ll.push((this.lowerBodySY = [args.sY, { r: -1, useSize: this.chestSY }]));
 
 	let lowerBody = new this.basic.Rotater({
 		drawer: this.lowerBody,
-		id: 'lowerBody',
+		id: "lowerBody",
 		rotate: args.rotate,
 		baseSX: this.sX,
 		sideSX: this.torsoSide,
@@ -113,7 +116,7 @@ BBProto.BodyMain.prototype.draw = function (args) {
 	});
 	const chest = new this.basic.Rotater({
 		drawer: this.chest,
-		id: 'chest',
+		id: "chest",
 		rotate: args.rotate,
 		baseSX: this.sX,
 		sideSX: this.chestSideSX,
@@ -122,23 +125,17 @@ BBProto.BodyMain.prototype.draw = function (args) {
 		z: 40,
 	});
 
-	lowerBody = this.mover(
-		lowerBody,
-		{
-			xRel: -1 && 0,
-			max: { a: 2 },
-		},
-	);
+	lowerBody = this.mover(lowerBody, {
+		xRel: -1 && 0,
+		max: { a: 2 },
+	});
 
 	return {
 		get: {
 			sY: args.sY,
 			fY: args.fY,
 			z: args.z,
-			list: [
-				chest.get,
-				lowerBody.get,
-			],
+			list: [chest.get, lowerBody.get],
 		},
 		chest,
 		lowerBody,

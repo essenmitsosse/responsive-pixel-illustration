@@ -1,4 +1,3 @@
-
 /* global TableComic */
 // BEGINN Background /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 TableComic.prototype.Background = function Background(args) {
@@ -8,8 +7,16 @@ TableComic.prototype.Background = function Background(args) {
 	this.blank = args.blank;
 
 	this.backgroundColor = args.backgroundColor || [180, 190, 200];
-	this.floorColor = [this.backgroundColor[0] * floorFactor, this.backgroundColor[1] * floorFactor, this.backgroundColor[2] * floorFactor];
-	this.borderColor = [this.backgroundColor[0] * borderFactor, this.backgroundColor[1] * borderFactor, this.backgroundColor[2] * borderFactor];
+	this.floorColor = [
+		this.backgroundColor[0] * floorFactor,
+		this.backgroundColor[1] * floorFactor,
+		this.backgroundColor[2] * floorFactor,
+	];
+	this.borderColor = [
+		this.backgroundColor[0] * borderFactor,
+		this.backgroundColor[1] * borderFactor,
+		this.backgroundColor[2] * borderFactor,
+	];
 
 	this.floor = new this.basic.Floor({
 		color: this.floorColor,
@@ -17,25 +24,28 @@ TableComic.prototype.Background = function Background(args) {
 };
 
 TableComic.prototype.Background.prototype.draw = function BackgroundDraw(args) {
-	const borderSY = 								this.pushLinkList({ r: 0.05, min: 1, useSize: args.stageSY });
-	const borderFinalSY = this.borderFinalSY = 	this.pushLinkList({ r: 1, useSize: borderSY });
+	const borderSY = this.pushLinkList({ r: 0.05, min: 1, useSize: args.stageSY });
+	const borderFinalSY = (this.borderFinalSY = this.pushLinkList({ r: 1, useSize: borderSY }));
 
-	const stripeSX = 								this.pushLinkList({ r: 0.1, useSize: args.stageSX });
-	const stripeFinalSX = this.stripeFinalSX = 	this.pushLinkList({ r: 1, useSize: stripeSX, min: 1 });
+	const stripeSX = this.pushLinkList({ r: 0.1, useSize: args.stageSX });
+	const stripeFinalSX = (this.stripeFinalSX = this.pushLinkList({
+		r: 1,
+		useSize: stripeSX,
+		min: 1,
+	}));
 
-	const floorY = 								this.pushLinkList({ add: [args.panY, { r: 0.2, useSize: args.stageSX }] });
+	const floorY = this.pushLinkList({ add: [args.panY, { r: 0.2, useSize: args.stageSX }] });
 
 	this.backgroundSY = this.pushLinkList({ r: 1, useSize: args.fullSY });
 	this.floorSY = this.pushLinkList({ r: 1, useSize: floorY });
 
 	this.pushRelativeStandardAutomatic({
-		backgroundSY: { map: 'set', min: 0, max: 1 },
-		borderFinalSY: { map: 'set', min: 0, max: 1 },
-		floorSY: { map: 'set', min: 0, max: 1 },
+		backgroundSY: { map: "set", min: 0, max: 1 },
+		borderFinalSY: { map: "set", min: 0, max: 1 },
+		floorSY: { map: "set", min: 0, max: 1 },
 	});
 
-
-	 this.borderFinalSY = this.pushLinkList({ r: 1, useSize: this.borderFinalSY, min: 1 });
+	this.borderFinalSY = this.pushLinkList({ r: 1, useSize: this.borderFinalSY, min: 1 });
 
 	if (args.info) {
 		this.pushRelativeStandardAutomatic({
@@ -51,7 +61,11 @@ TableComic.prototype.Background.prototype.draw = function BackgroundDraw(args) {
 			{},
 
 			// Wall stripes
-			{ color: this.backgroundColor, stripes: { gap: 1, strip: stripeFinalSX }, sY: this.backgroundSY },
+			{
+				color: this.backgroundColor,
+				stripes: { gap: 1, strip: stripeFinalSX },
+				sY: this.backgroundSY,
+			},
 
 			// Floor
 			{
@@ -60,7 +74,6 @@ TableComic.prototype.Background.prototype.draw = function BackgroundDraw(args) {
 				tY: true,
 				fY: true,
 				list: [
-
 					// Floor planks
 					this.floor.draw({
 						sY: borderFinalSY,
@@ -85,7 +98,11 @@ TableComic.prototype.Floor = function Floor(args) {
 	const darkFactor = 0.9;
 
 	this.color = args.color;
-	this.darkColor = [this.color[0] * darkFactor, this.color[1] * darkFactor, this.color[2] * darkFactor];
+	this.darkColor = [
+		this.color[0] * darkFactor,
+		this.color[1] * darkFactor,
+		this.color[2] * darkFactor,
+	];
 };
 
 TableComic.prototype.Floor.prototype.draw = function FloorDraw(args) {
@@ -121,24 +138,23 @@ TableComic.prototype.Floor.prototype.draw = function FloorDraw(args) {
 				list: [
 					// Center
 					{
-						sX: args.stageSX, x: args.panX, stripes, list,
+						sX: args.stageSX,
+						x: args.panX,
+						stripes,
+						list,
 					},
 
 					// Left
 					{
 						sX: args.panX,
-						list: [
-							{ stripes, fX: true, list },
-						],
+						list: [{ stripes, fX: true, list }],
 					},
 
 					// Right
 					{
 						sX: args.panX,
 						fX: true,
-						list: [
-							{ stripes, list },
-						],
+						list: [{ stripes, list }],
 					},
 				],
 			},
@@ -149,7 +165,9 @@ TableComic.prototype.Floor.prototype.draw = function FloorDraw(args) {
 
 // BEGINN Stage /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 TableComic.prototype.Stage = function Stage(args) {
-	if (!args) { args = {}; }
+	if (!args) {
+		args = {};
+	}
 
 	this.show = args.show;
 
@@ -162,41 +180,43 @@ TableComic.prototype.Stage.prototype.draw = function StageDraw(args) {
 	this.sX = args.stageSX;
 	this.sY = args.stageSY;
 
-	return this.debug && {
-		sX: this.sX,
-		sY: this.sY,
-		color: [255, 255, 255],
-		z: -100000,
-		list: [
-			// Stage
-			{ color: [150, 150, 150] },
+	return (
+		this.debug && {
+			sX: this.sX,
+			sY: this.sY,
+			color: [255, 255, 255],
+			z: -100000,
+			list: [
+				// Stage
+				{ color: [150, 150, 150] },
 
-			// Stage Square
-			{
-				s: args.square,
-				fY: true,
-				list: [
-					{ color: [120, 120, 120] },
-					{ weight: 1, points: [{}, { fX: true, fY: true }] },
-					{ weight: 1, points: [{ fX: true }, { fY: true }] },
-				],
-			},
-			{
-				s: args.square,
-				fY: true,
-				fX: true,
-				rX: true,
-				list: [
-					{ weight: 1, points: [{}, { fX: true, fY: true }] },
-					{ weight: 1, points: [{ fX: true }, { fY: true }] },
-				],
-			},
+				// Stage Square
+				{
+					s: args.square,
+					fY: true,
+					list: [
+						{ color: [120, 120, 120] },
+						{ weight: 1, points: [{}, { fX: true, fY: true }] },
+						{ weight: 1, points: [{ fX: true }, { fY: true }] },
+					],
+				},
+				{
+					s: args.square,
+					fY: true,
+					fX: true,
+					rX: true,
+					list: [
+						{ weight: 1, points: [{}, { fX: true, fY: true }] },
+						{ weight: 1, points: [{ fX: true }, { fY: true }] },
+					],
+				},
 
-			{ sY: 1 },
-			{ sY: 1, fY: true },
-			{ sX: 1 },
-			{ sX: 1, fX: true },
-		],
-	};
+				{ sY: 1 },
+				{ sY: 1, fY: true },
+				{ sX: 1 },
+				{ sX: 1, fX: true },
+			],
+		}
+	);
 };
 // END Stage \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/

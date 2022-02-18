@@ -1,13 +1,13 @@
-import { getRenderer } from './getRenderer';
-import { PixelUnits } from './PixelUnits';
-import { getGetRandom } from './getGetRandom';
-import { Variable } from './Variable';
-import { VariableDynamic } from './VariableDynamic';
+import { getRenderer } from "./getRenderer";
+import { PixelUnits } from "./PixelUnits";
+import { getGetRandom } from "./getGetRandom";
+import { Variable } from "./Variable";
+import { VariableDynamic } from "./VariableDynamic";
 
 export class PixelGraphics {
 	getRandom = getGetRandom();
 
-	variableList = {}
+	variableList = {};
 
 	constructor(args) {
 		this.pixelUnit = new PixelUnits(); // Initialize PixelUnits with Variables
@@ -20,10 +20,9 @@ export class PixelGraphics {
 		}
 
 		const inputVariableList = this.imageFunction.variableList || [];
-		Object.entries(inputVariableList)
-			.forEach(([key, value]) => {
-				this.variableList[key] = new Variable(value, key, this.pixelUnit);
-			});
+		Object.entries(inputVariableList).forEach(([key, value]) => {
+			this.variableList[key] = new Variable(value, key, this.pixelUnit);
+		});
 
 		this.finalRenderer = getRenderer(args, this);
 	}
@@ -33,7 +32,9 @@ export class PixelGraphics {
 	}
 
 	prepareVariableList(vl) {
-		if (vl.length === 0) { return; }
+		if (vl.length === 0) {
+			return;
+		}
 		const getLinkedVariable = (variable) => () => {
 			if (!variable.calculated) {
 				/* eslint-disable-next-line no-param-reassign */
@@ -66,7 +67,7 @@ export class PixelGraphics {
 					/* eslint-disable-next-line no-param-reassign */
 					current.calculated = true;
 					/* eslint-disable-next-line no-param-reassign */
-					current.real = dimensions[current.height ? 'height' : 'width'];
+					current.real = dimensions[current.height ? "height" : "width"];
 				} else {
 					/* eslint-disable-next-line no-param-reassign */
 					current.calculated = current.autoUpdate;

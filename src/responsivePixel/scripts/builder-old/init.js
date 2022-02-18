@@ -1,4 +1,6 @@
-
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
+import Builder from "./builder";
 const renderer = function (init) {
 	init = init || {};
 
@@ -20,7 +22,10 @@ const renderer = function (init) {
 		const all = [];
 
 		while (cols--) {
-			all.push({ list: getCols(builder.Person, true, cols), x: mult(fieldsCount * cols, 'personS') });
+			all.push({
+				list: getCols(builder.Person, true, cols),
+				x: mult(fieldsCount * cols, "personS"),
+			});
 		}
 
 		return all;
@@ -31,38 +36,107 @@ const renderer = function (init) {
 		const max = isCol ? rows : fields;
 		const list = [];
 		let thisWid;
-		let pos; let size;
-		const dir = isCol ? 'Y' : 'X';
+		let pos;
+		let size;
+		const dir = isCol ? "Y" : "X";
 		const args = {};
 		const { R } = builder.basic;
 		const { IF } = builder.basic;
 		const { GR } = builder.basic;
 
-		const eyeLookVert = ['', '', '', 'left', 'right'];
-		const eyeLookHor = ['', '', '', '', '', 'up', 'down', 'up', 'down', 'verDown'];
-		const eyeLids = ['', '', '', '', '', '', '', '', '', 'halfClosed', 'halfClosed', 'halfClosed', 'closed', 'closed', 'wink'];
-		const eyeBrow = ['', '', '', 'raised', 'low', 'sceptical', 'superSceptical', 'angry', 'sad'];
+		const eyeLookVert = ["", "", "", "left", "right"];
+		const eyeLookHor = ["", "", "", "", "", "up", "down", "up", "down", "verDown"];
+		const eyeLids = [
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"halfClosed",
+			"halfClosed",
+			"halfClosed",
+			"closed",
+			"closed",
+			"wink",
+		];
+		const eyeBrow = [
+			"",
+			"",
+			"",
+			"raised",
+			"low",
+			"sceptical",
+			"superSceptical",
+			"angry",
+			"sad",
+		];
 
-		const mouthHeight = ['', '', '', '', '', '', '', '', '', 'slight', 'slight', 'half', 'full'];
-		const mouthWid = ['', '', '', 'narrow'];
-		const mouthForm = ['', '', '', 'sceptical', 'grin', 'D:'];
+		const mouthHeight = [
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"slight",
+			"slight",
+			"half",
+			"full",
+		];
+		const mouthWid = ["", "", "", "narrow"];
+		const mouthForm = ["", "", "", "sceptical", "grin", "D:"];
 
-		const legPos = ['', '', '', '', '', '', '', '', '', '', '', 'legRaise',
+		const legPos = [
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"legRaise",
 			// "kneeBend", "legHigh"
 		];
 
-		const teethPos = ['', 'top', 'bottom', 'both', 'full'];
+		const teethPos = ["", "top", "bottom", "both", "full"];
 		const shoulderPos = [0, 0, 0, 0, 0, -90, -90, 180];
 		const ellbowPos = [0, 0, 0, 90, -90];
 
-		const views = ['', '', '', '', '', '', 'rightView', 'leftView', 'rightView', 'leftView', 'rightView', 'leftView', 'rightView', 'leftView', 'backView'];
+		const views = [
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"rightView",
+			"leftView",
+			"rightView",
+			"leftView",
+			"rightView",
+			"leftView",
+			"rightView",
+			"leftView",
+			"backView",
+		];
 
 		for (const attr in init) {
 			args[attr] = init[attr];
 		}
 
 		while (i < max) {
-			pos = { r: i * (!isCol ? 0.7 : 1), useSize: 'personS' };
+			pos = { r: i * (!isCol ? 0.7 : 1), useSize: "personS" };
 
 			if (!isCol) {
 				// args.view = views[ Math.floor( Math.random() * views.length ) ];
@@ -76,7 +150,7 @@ const renderer = function (init) {
 
 				args.mouth = {
 					height: mouthHeight[GR(0, mouthHeight.length)],
-					width: mouthWid[GR(0, mouthWid.length)] && 'narrowSide',
+					width: mouthWid[GR(0, mouthWid.length)] && "narrowSide",
 					form: mouthForm[GR(0, mouthForm.length)],
 					teeth: teethPos[GR(0, teethPos.length)],
 					smirk: IF(0.08),
@@ -88,8 +162,18 @@ const renderer = function (init) {
 				};
 
 				args.arm = {
-					left: args.shoulder.left > 0.55 ? R(0, 0.5) : IF(0.8) ? R(0, 1) * 1.5 - 0.75 : R(0, 1) * 0.5 - 0.25,
-					right: args.shoulder.right > 0.55 ? R(0, 0.5) : IF(0.8) ? R(0, 1) * 1.5 - 0.75 : R(0, 1) * 0.5 - 0.25,
+					left:
+						args.shoulder.left > 0.55
+							? R(0, 0.5)
+							: IF(0.8)
+							? R(0, 1) * 1.5 - 0.75
+							: R(0, 1) * 0.5 - 0.25,
+					right:
+						args.shoulder.right > 0.55
+							? R(0, 0.5)
+							: IF(0.8)
+							? R(0, 1) * 1.5 - 0.75
+							: R(0, 1) * 0.5 - 0.25,
 				};
 
 				args.finger = {
@@ -98,7 +182,7 @@ const renderer = function (init) {
 				};
 
 				args.leg = {};
-				args.leg[IF(0.5) ? 'right' : 'left'] = legPos[GR(0, legPos.length)];
+				args.leg[IF(0.5) ? "right" : "left"] = legPos[GR(0, legPos.length)];
 
 				args.hatDown = IF(0.02);
 
@@ -121,33 +205,39 @@ const renderer = function (init) {
 
 				switch (i) {
 					case 0:
-						args.view = '';
+						args.view = "";
 						break;
 					case 1:
-						args.view = 'leftView';
+						args.view = "leftView";
 						break;
 					case 2:
-						args.view = 'backView';
+						args.view = "backView";
 						break;
 					case 3:
-						args.view = 'rightView';
+						args.view = "rightView";
 						break;
 				}
 
-				args.size = 'personInnerS';
+				args.size = "personInnerS";
 			} else {
 				args.groundShadowColor = builder.backgroundColor.copy({ brAdd: -1 });
 			}
 
-			list.push(isCol
-				? {
-					y: pos,
-					s: 'personS',
-					list: [
-						{ s: 'personInnerS', c: true, list: getCols(new func(args), false, i, nr) },
-					],
-				}
-				: { x: pos, list: func.draw(args) });
+			list.push(
+				isCol
+					? {
+							y: pos,
+							s: "personS",
+							list: [
+								{
+									s: "personInnerS",
+									c: true,
+									list: getCols(new func(args), false, i, nr),
+								},
+							],
+					  }
+					: { x: pos, list: func.draw(args) }
+			);
 			i += 1;
 		}
 
@@ -166,7 +256,11 @@ const renderer = function (init) {
 			j = steps;
 			while (j--) {
 				list.push({
-					s, x: i * ss, y: j * ss, fY: true, color: new colors(i, j).get(),
+					s,
+					x: i * ss,
+					y: j * ss,
+					fY: true,
+					color: new colors(i, j).get(),
 				});
 			}
 		}
@@ -177,9 +271,8 @@ const renderer = function (init) {
 	// person = new builder.Person(),
 
 	const renderList = [
-		{ sY: mult(rows, 'personS'), cY: true, list: getRow(cols) },
-		init.cs === 'true' && builder.colorScheme(),
-
+		{ sY: mult(rows, "personS"), cY: true, list: getRow(cols) },
+		init.cs === "true" && builder.colorScheme(),
 
 		// { color:builder.backgroundColorDark },
 		// {
@@ -207,28 +300,33 @@ const renderer = function (init) {
 	const variableList = {
 		width: { r: 1 },
 		height: { r: 1, height: true },
-		squ: { a: 'width', max: 'height' },
+		squ: { a: "width", max: "height" },
 
-		borderS: { a: 1, useSize: 'squ' },
+		borderS: { a: 1, useSize: "squ" },
 
-		imgSX: ['width', mult(-2, 'borderS')],
-		imgSY: ['height', mult(-2, 'borderS')],
+		imgSX: ["width", mult(-2, "borderS")],
+		imgSY: ["height", mult(-2, "borderS")],
 
-		imgSqu: getSmallerDim({ r: 1, useSize: ['imgSX', 'imgSY'] }),
+		imgSqu: getSmallerDim({ r: 1, useSize: ["imgSX", "imgSY"] }),
 
-		personS: { r: 1 / rows, useSize: 'imgSY', max: { r: 1 / (fieldsCount * cols), useSize: 'imgSX' } },
-		personM: { r: 0.05, useSize: 'personS', min: 2 },
-		personInnerS: margin('personS', 'personM'),
+		personS: {
+			r: 1 / rows,
+			useSize: "imgSY",
+			max: { r: 1 / (fieldsCount * cols), useSize: "imgSX" },
+		},
+		personM: { r: 0.05, useSize: "personS", min: 2 },
+		personInnerS: margin("personS", "personM"),
 
-
-		personBigInnerS: mult(2.5, 'personInnerS'),
-		personSmalleInnerS: mult(0.3, 'personInnerS'),
-		third: { r: 0.3333, useSize: 'width', a: -5 },
+		personBigInnerS: mult(2.5, "personInnerS"),
+		personSmalleInnerS: mult(0.3, "personInnerS"),
+		third: { r: 0.3333, useSize: "width", a: -5 },
 	};
 
 	const { joinVariableList } = builder;
 
-	for (const attr in joinVariableList) { variableList[attr] = joinVariableList[attr]; }
+	for (const attr in joinVariableList) {
+		variableList[attr] = joinVariableList[attr];
+	}
 
 	return {
 		renderList,

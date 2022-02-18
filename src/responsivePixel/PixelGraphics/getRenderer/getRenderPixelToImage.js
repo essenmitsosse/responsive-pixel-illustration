@@ -16,17 +16,11 @@ export function getRenderPixelToImage(backgroundColor) {
 				sizeYPixel -= 1;
 				const c = row[sizeYPixel].s.pop();
 				const i = w4 + (full -= wFull);
-				const color = c !== undefined
-					? c.c
-					: backgroundColor;
+				const color = c !== undefined ? c.c : backgroundColor;
 
 				/* eslint-disable no-param-reassign */
 				if (color) {
-					[
-						imageData[i],
-						imageData[i + 1],
-						imageData[i + 2],
-					] = color;
+					[imageData[i], imageData[i + 1], imageData[i + 2]] = color;
 					imageData[i + 3] = 255;
 				} else {
 					imageData[i + 3] = 0;

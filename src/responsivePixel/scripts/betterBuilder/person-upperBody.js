@@ -1,3 +1,5 @@
+import { BBObj, BBProto } from "./bb";
+
 // CHEST  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 BBProto.Chest = function (args) {
 	this.color = args.color;

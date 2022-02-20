@@ -10,11 +10,11 @@
 	</div>
 </template>
 
-<script setup>
-import { ref } from "vue";
+<script setup lang="ts">
+import { Ref, ref } from "vue";
 import { getRenderOnCanvas } from "./getRenderOnCanvas";
 
-const canvas = ref(null);
+const canvas: Ref<HTMLCanvasElement | null> = ref(null);
 
 const { onDrag, width, height, pixelSize, isResizeable } = getRenderOnCanvas(canvas);
 </script>

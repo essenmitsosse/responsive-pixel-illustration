@@ -1,16 +1,38 @@
-const getPosClient = (nameDim, event) => {
-	const nameDimClient = `client${nameDim.toUpperCase()}`;
-	return (nameDim in event ? event[nameDimClient] : event.touches[0][nameDimClient]) || 0;
+enum Axis {
+	"x" = "x",
+	"y" = "y",
+}
+
+const recordBoundClientRectSize = {
+	[Axis.x]: "width",
+	[Axis.y]: "height",
+} as const;
+
+const recordClient = {
+	[Axis.x]: "clientX",
+	[Axis.y]: "clientY",
+} as const;
+
+const getIsMouseEvent = (event: MouseEvent | TouchEvent): event is MouseEvent => "clientX" in event;
+
+const getPosClient = (axis: Axis, event: MouseEvent | TouchEvent): number => {
+	const nameDimClient = recordClient[axis];
+	return (getIsMouseEvent(event) ? event[nameDimClient] : event.touches[0][nameDimClient]) || 0;
 };
 
-const getPosCanvas = (nameDim, event, boundingClientRectCanvas) =>
-	getPosClient(nameDim, event) - boundingClientRectCanvas[nameDim];
+const getPosCanvas = (
+	axis: Axis,
+	event: MouseEvent | TouchEvent,
+	boundingClientRectCanvas: DOMRect
+): number => getPosClient(axis, event) - boundingClientRectCanvas[axis];
 
-const getGetDimension = (nameDim) => (event, boundingClientRectCanvas) => {
-	const pos = getPosCanvas(nameDim, event, boundingClientRectCanvas);
-	const sizeHalf = boundingClientRectCanvas[nameDim === "x" ? "width" : "height"] / 2;
-	return Math.abs((pos - sizeHalf) / sizeHalf);
-};
+const getGetDimension =
+	(axis: Axis) =>
+	(event: MouseEvent | TouchEvent, boundingClientRectCanvas: DOMRect): number => {
+		const pos = getPosCanvas(axis, event, boundingClientRectCanvas);
+		const sizeHalf = boundingClientRectCanvas[recordBoundClientRectSize[axis]] / 2;
+		return Math.abs((pos - sizeHalf) / sizeHalf);
+	};
 
-export const getDimensionX = getGetDimension("x");
-export const getDimensionY = getGetDimension("y");
+export const getDimensionX = getGetDimension(Axis.x);
+export const getDimensionY = getGetDimension(Axis.y);

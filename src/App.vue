@@ -4,13 +4,8 @@
 	</div>
 </template>
 
-<script>
-import { defineComponent } from "vue";
+<script setup>
 import RendererPixel from "./views/RendererPixel.vue";
-
-export default defineComponent({
-	components: { RendererPixel },
-});
 </script>
 
 <style scoped>

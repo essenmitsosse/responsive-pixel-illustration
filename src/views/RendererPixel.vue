@@ -10,95 +10,58 @@
 	</div>
 </template>
 
-<script>
-import { defineComponent } from "vue";
+<script setup>
+import { ref, onMounted, onUpdated } from "vue";
 import { PixelGraphics } from "../responsivePixel/PixelGraphics";
 // eslint-disable-next-line no-unused-vars
 import { graien } from "../responsivePixel/scripts/graien";
 import { imageFunctionTeiresias } from "../responsivePixel/scripts/teiresias";
+import { getDimensionX, getDimensionY } from "./getDimension";
 
-export default defineComponent({
-	components: {},
-	data() {
-		return {
-			width: 1,
-			height: 1,
-			pixelSize: 5,
-			isResizeable: true,
-			pixelGraphic: undefined,
-		};
-	},
-	watch: {
-		width() {
-			this.redraw();
-		},
-		height() {
-			this.redraw();
-		},
-		pixelSize() {
-			this.redraw();
-		},
-		isResizeable() {
-			this.redraw();
-		},
-	},
-	mounted() {
-		this.boundingClientRectCanvas = this.$refs.canvas.getBoundingClientRect();
+const width = ref(1);
+const height = ref(1);
+const pixelSize = ref(5);
+const isResizeable = ref(true);
+const canvas = ref(null);
+let boundingClientRectCanvas = undefined;
+let pixelGraphic = undefined;
 
-		this.pixelGraphic = new PixelGraphics({
-			divCanvas: document.getElementsByClassName("canvas")[0],
-			pixelSize: this.pixelSize,
-			imageFunction: imageFunctionTeiresias,
-		});
+const redraw = () => {
+	if (pixelGraphic === undefined) {
+		return;
+	}
+	pixelGraphic.redraw({
+		widthFactor: width.value,
+		heightFactor: height.value,
+		pixelSize: pixelSize.value,
+		sizeX: boundingClientRectCanvas.width,
+		sizeY: boundingClientRectCanvas.height,
+		boundingClientRectCanvas: undefined,
+	});
+};
 
-		this.redraw();
-	},
-	methods: {
-		redraw() {
-			this.pixelGraphic.redraw({
-				widthFactor: this.width,
-				heightFactor: this.height,
-				pixelSize: this.pixelSize,
-				sizeX: this.boundingClientRectCanvas.width,
-				sizeY: this.boundingClientRectCanvas.height,
-				boundingClientRectCanvas: undefined,
-			});
-		},
-		getEventX(event) {
-			return ("clientX" in event ? event.clientX : event.touches[0].clientX) || 0;
-		},
-		getEventY(event) {
-			return ("clientY" in event ? event.clientY : event.touches[0].clientY) || 0;
-		},
-		getPosXCanvas(event) {
-			return this.getEventX(event) - this.boundingClientRectCanvas.x;
-		},
-		getPosYCanvas(event) {
-			return this.getEventY(event) - this.boundingClientRectCanvas.y;
-		},
-		onDrag(event) {
-			if (!this.isResizeable) {
-				return;
-			}
-			if ("touches" in event && event.touches.length > 1) {
-				return;
-			}
-			event.preventDefault();
-			const clientX = this.getPosXCanvas(event);
-			const clientY = this.getPosYCanvas(event);
+const onDrag = (event) => {
+	if (isResizeable.value === false || ("touches" in event && event.touches.length > 1)) {
+		return;
+	}
+	event.preventDefault();
 
-			this.width = Math.abs(
-				(clientX - this.boundingClientRectCanvas.width / 2) /
-					(this.boundingClientRectCanvas.width / 2)
-			);
+	width.value = getDimensionX(event, boundingClientRectCanvas);
+	height.value = getDimensionY(event, boundingClientRectCanvas);
+};
 
-			this.height = Math.abs(
-				(clientY - this.boundingClientRectCanvas.height / 2) /
-					(this.boundingClientRectCanvas.height / 2)
-			);
-		},
-	},
+onMounted(() => {
+	boundingClientRectCanvas = canvas.value.getBoundingClientRect();
+	pixelGraphic = new PixelGraphics({
+		divCanvas: canvas.value,
+		pixelSize: pixelSize.value,
+		imageFunction: imageFunctionTeiresias,
+	});
+
+	redraw();
 });
+
+onUpdated(redraw);
 </script>
 
 <style scoped>

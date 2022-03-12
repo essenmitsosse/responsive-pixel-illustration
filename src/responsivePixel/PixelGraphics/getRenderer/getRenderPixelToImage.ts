@@ -1,6 +1,13 @@
-export function getRenderPixelToImage(backgroundColor) {
-	return function renderPixelToImage(pixelW, pixelH, pixelArray, imageData) {
-		let sizeXPixel = pixelW;
+import { ColorRgb, PixelArray } from "../types";
+
+export function getRenderPixelToImage(backgroundColor: ColorRgb) {
+	return function renderPixelToImage(
+		pixelW: number,
+		pixelH: number,
+		pixelArray: PixelArray,
+		imageData: Uint8ClampedArray
+	): Uint8ClampedArray {
+		let sizeXPixel: number = pixelW;
 		let w4 = sizeXPixel * 4;
 		const wFull = w4;
 		const pHSave = pixelH;

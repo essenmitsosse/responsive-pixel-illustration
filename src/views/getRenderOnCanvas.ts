@@ -22,7 +22,6 @@ export const getRenderOnCanvas = (canvas: Ref<HTMLCanvasElement | null>) => {
 			pixelSize: pixelSize.value,
 			sizeX: boundingClientRectCanvas.width,
 			sizeY: boundingClientRectCanvas.height,
-			boundingClientRectCanvas: undefined,
 		});
 	};
 

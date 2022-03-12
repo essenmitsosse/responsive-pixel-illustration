@@ -1,7 +1,8 @@
+import { PixelArray } from "../types";
 import { getPixelArrayBase } from "./getPixelArrayBase";
 
-export const getPixelArray = (canvasWidth, canvasHeight) => {
-	const pixelArray = getPixelArrayBase(canvasWidth, canvasHeight);
+export const getPixelArray = (canvasWidth: number, canvasHeight: number) => {
+	const pixelArray: PixelArray = getPixelArrayBase(canvasWidth, canvasHeight);
 	let minX = 0;
 	let minY = 0;
 	let maxX = canvasWidth;

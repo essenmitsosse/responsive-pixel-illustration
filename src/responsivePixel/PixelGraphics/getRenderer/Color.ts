@@ -1,9 +1,17 @@
+import { ColorRgb } from "../types";
+
 export class Color {
+	public s: Array<{
+		c: ColorRgb;
+		zInd: number;
+		id: string;
+	}>;
+
 	constructor() {
 		this.s = [];
 	}
 
-	draw(c, zInd, id) {
+	draw(c: ColorRgb, zInd: number, id: string) {
 		let i = this.s.length - 1;
 
 		if (this.s.length === 0 || this.s[i].zInd < zInd) {
@@ -19,7 +27,7 @@ export class Color {
 		}
 	}
 
-	clear(id) {
+	clear(id: string) {
 		const { s } = this;
 		while (s.length > 0 && s[s.length - 1].id === id) {
 			this.s.pop();

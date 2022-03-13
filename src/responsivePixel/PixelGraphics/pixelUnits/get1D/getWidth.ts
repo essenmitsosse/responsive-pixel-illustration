@@ -1,9 +1,8 @@
-export const getWidth = (Dimension, context) =>
+export const getWidth = (Dimension) =>
 	class Width extends Dimension {
-		axis = true;
-
 		constructor(args) {
-			super();
-			this.prepare(args, context);
+			super(true, true, args);
 		}
 	};
+
+export type Width = ReturnType<typeof getWidth>;

@@ -1,15 +1,18 @@
-export const getDimension = (context) =>
+import type { ContextInner } from ".";
+
+export const getDimension = (contextInner: ContextInner, context) =>
 	class Dimension {
-		dimension = true;
-
+		dimension: boolean;
+		axis: boolean;
+		contextInner = contextInner;
 		context = context;
+		getRealDistance = this.getRealDistanceBasic;
+		realPartCalculation?: () => number;
 
-		constructor() {
-			this.getRealDistance = this.getRealDistanceBasic;
-		}
+		constructor(axis: boolean, dimension: boolean, args) {
+			this.axis = axis;
+			this.dimension = dimension;
 
-		// DIMENSIONS --- Width & Height
-		prepare(args, con) {
 			const objType = typeof args;
 			if (objType === "object") {
 				// is Object
@@ -24,7 +27,7 @@ export const getDimension = (context) =>
 					return;
 				}
 				if (args.getLength) {
-					this.realPartCalculation = this.context.getGetLengthCalculation(
+					this.realPartCalculation = this.contextInner.getGetLengthCalculation(
 						args.getLength[0],
 						args.getLength[1]
 					);
@@ -32,14 +35,14 @@ export const getDimension = (context) =>
 				}
 				this.debug = args.debug;
 				if (typeof args.a === "string") {
-					con.variableListLink(args.a, this);
+					this.context.variableListLink(args.a, this);
 				}
 				if (args.add) {
 					this.createAdder(args.add);
 				}
 				if (args.useSize) {
 					if (typeof args.useSize === "string") {
-						con.variableListLink(args.useSize, (this.useVari = {}));
+						this.context.variableListLink(args.useSize, (this.useVari = {}));
 					} else if (args.useSize.getLinkedVariable) {
 						this.useSize = args.useSize.getLinkedVariable;
 					} else {
@@ -54,7 +57,7 @@ export const getDimension = (context) =>
 				} else {
 					this.realPartCalculation =
 						args.min || args.max
-							? this.context.getGetRealDistanceWithMaxMinWrapper(
+							? this.contextInner.getGetRealDistanceWithMaxMinWrapper(
 									args.max,
 									args.min,
 									this.dim
@@ -63,7 +66,7 @@ export const getDimension = (context) =>
 				}
 				if (args.save) {
 					this.realPartCalculation = this.getSaveDistance(
-						con.variableListCreate(args.save)
+						this.context.variableListCreate(args.save)
 					);
 				}
 				if (args.odd || args.even) {
@@ -81,7 +84,7 @@ export const getDimension = (context) =>
 					this.rele = 0;
 				} else if (objType === "string") {
 					// Linked to Variable ( old style )
-					con.variableListLink(args, this);
+					this.context.variableListLink(args, this);
 					this.rele = 0;
 					this.realPartCalculation = this.getRealDistance;
 					return;
@@ -136,7 +139,7 @@ export const getDimension = (context) =>
 		}
 
 		createAdder(add, onlyAdd) {
-			const Size = this.context.getSize(this.dim);
+			const Size = this.contextInner.getSize(this.dim);
 			this.adder = add.map((value) => new Size(value));
 			this[onlyAdd ? "realPartCalculation" : "getRealDistance"] = onlyAdd
 				? this.getRealDistanceWithCalcOnlyAdding
@@ -181,3 +184,5 @@ export const getDimension = (context) =>
 			this.getReal = () => abs;
 		}
 	};
+
+export type Dimension = ReturnType<typeof getDimension>;

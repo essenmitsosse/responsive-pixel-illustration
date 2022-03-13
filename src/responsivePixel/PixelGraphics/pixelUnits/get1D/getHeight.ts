@@ -1,9 +1,10 @@
-export const getHeight = (Dimension, context) =>
+export const getHeight = (Dimension) =>
 	class Height extends Dimension {
 		axis = false;
 
 		constructor(args) {
-			super();
-			this.prepare(args, context);
+			super(false, true, args);
 		}
 	};
+
+export type Height = ReturnType<typeof getHeight>;

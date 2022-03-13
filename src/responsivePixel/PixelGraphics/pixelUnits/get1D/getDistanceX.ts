@@ -1,9 +1,8 @@
-export const getDistanceX = (Distance, context) =>
+export const getDistanceX = (Distance) =>
 	class DistanceX extends Distance {
 		axis = true;
 
 		constructor(args) {
-			super();
-			this.prepare(args, context);
+			super(true, args);
 		}
 	};

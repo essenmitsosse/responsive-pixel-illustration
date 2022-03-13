@@ -2,7 +2,9 @@ const getQuick = () => 0;
 
 export const getDistance = (Dimension) =>
 	class Distance extends Dimension {
-		dimension = false;
+		constructor(axis: boolean, args) {
+			super(axis, false, args);
+		}
 
 		getDefaults(r, a) {
 			if (r === undefined && a === undefined) {

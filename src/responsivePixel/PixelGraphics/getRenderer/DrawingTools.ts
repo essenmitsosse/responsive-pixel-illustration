@@ -28,9 +28,8 @@ class DrawingTools {
 	constructor(args) {
 		this.pixelUnit = args.pixelUnit;
 		this.seed = getSeed(args.getRandom);
-		this.Obj = getObj(this, args.pixelUnit);
 		this.pixelSetter = new PixelSetter();
-		console.log(this.pixelSetter);
+		this.Obj = getObj(this.pixelSetter, this.seed, args.pixelUnit);
 	}
 
 	public init(width, height, pixelArray) {

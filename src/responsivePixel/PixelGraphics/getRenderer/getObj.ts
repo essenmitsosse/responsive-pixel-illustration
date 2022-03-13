@@ -1,4 +1,4 @@
-export const getObj = (drawingTool, pixelUnit) => {
+export const getObj = (pixelSetter, seed, pixelUnit) => {
 	const Primitive = function Primitive() {};
 
 	const PointBased = function PointBased() {};
@@ -89,7 +89,7 @@ export const getObj = (drawingTool, pixelUnit) => {
 			newArgs.id = args.id || inherit.id || newArgs.save;
 		}
 		if (args.mask) {
-			newArgs.mask = drawingTool.pixelSetter.setColorMask;
+			newArgs.mask = pixelSetter.setColorMask;
 		}
 
 		newArgs.zInd = (inherit.zInd || 0) + (args.z || 0);
@@ -97,7 +97,7 @@ export const getObj = (drawingTool, pixelUnit) => {
 		if (args.list) {
 			newArgs.list = args.list;
 		} else {
-			this.getColorArray = drawingTool.pixelSetter.setColorArray(
+			this.getColorArray = pixelSetter.setColorArray(
 				newArgs.color,
 				newArgs.clear,
 				newArgs.zInd,
@@ -432,7 +432,7 @@ export const getObj = (drawingTool, pixelUnit) => {
 
 	Fill.prototype.draw = function () {
 		const color = this.getColorArray();
-		const array = drawingTool.pixelSetter.getSave(this.use);
+		const array = pixelSetter.getSave(this.use);
 		let l = array ? array.length - 1 : -1;
 		let current;
 
@@ -452,7 +452,7 @@ export const getObj = (drawingTool, pixelUnit) => {
 
 		this.use = args.use;
 		this.chance = args.chance || 0.5;
-		this.random = drawingTool.seed.get(args.seed);
+		this.random = seed.get(args.seed);
 		this.mask = args.mask;
 
 		if (height && height.random) {
@@ -475,7 +475,7 @@ export const getObj = (drawingTool, pixelUnit) => {
 		const widthRandom = this.widthRandom ? this.widthRandom.getReal() + 1 : false;
 
 		const color = this.getColorArray();
-		const array = drawingTool.pixelSetter.getSave(this.use);
+		const array = pixelSetter.getSave(this.use);
 		const l = array ? array.length : 0;
 		let count = Math.floor(
 			l *
@@ -484,7 +484,7 @@ export const getObj = (drawingTool, pixelUnit) => {
 						(height + (heightRandom || sizeRandom || 0) / 2)))
 		);
 
-		const mask = this.mask ? drawingTool.pixelSetter.getMask(this.use) : false;
+		const mask = this.mask ? pixelSetter.getMask(this.use) : false;
 		const dontCheck = !mask;
 		const random = this.random().one;
 
@@ -574,7 +574,7 @@ export const getObj = (drawingTool, pixelUnit) => {
 	Obj.prototype = new ShapeBased(); // Objects consist of other Objects or Primitives
 	Obj.prototype.getName = "Object";
 
-	Obj.prototype.init = (function (drawingTool) {
+	Obj.prototype.init = (function () {
 		// Initing a new Object, converting its List into real Objects.
 		const convertList = function (list, inherit) {
 			// Loops through the List of an Object
@@ -630,7 +630,7 @@ export const getObj = (drawingTool, pixelUnit) => {
 				});
 			}
 		};
-	})(drawingTool); // ------ End Object Init
+	})(); // ------ End Object Init
 
 	Obj.prototype.draw = (function (pixelUnit) {
 		// Draws Object, consisting of other Objects and Primitives.
@@ -704,7 +704,7 @@ export const getObj = (drawingTool, pixelUnit) => {
 		}
 
 		if (random) {
-			this.random = drawingTool.seed.get(stripes.seed);
+			this.random = seed.get(stripes.seed);
 		}
 
 		this.cut = stripes.cut;
@@ -935,7 +935,7 @@ export const getObj = (drawingTool, pixelUnit) => {
 				}
 
 				newPanels.push({
-					drawer: new drawingTool.Obj().create({ list: current.list }, inherit),
+					drawer: new Obj().create({ list: current.list }, inherit),
 					sX: current.sX,
 					sY: current.sY,
 				});
@@ -1257,7 +1257,7 @@ export const getObj = (drawingTool, pixelUnit) => {
 			this.jointY.autoUpdate = true;
 
 			// Upper Arm
-			this.upperArm = new drawingTool.Line().create({
+			this.upperArm = new Line().create({
 				weight: args.upperArmWeight || args.weight,
 				color: args.upperArmColor || args.color,
 				points: [{}, { x: this.jointX, y: this.jointY }],
@@ -1265,7 +1265,7 @@ export const getObj = (drawingTool, pixelUnit) => {
 			});
 
 			if (args.upperArmLightColor) {
-				this.upperArmInner = new drawingTool.Line().create({
+				this.upperArmInner = new Line().create({
 					weight: [args.upperArmWeight || args.weight, -2],
 					color: args.upperArmLightColor,
 					points: [{}, { x: this.jointX, y: this.jointY }],
@@ -1274,7 +1274,7 @@ export const getObj = (drawingTool, pixelUnit) => {
 			}
 
 			// Lower Arm
-			this.lowerArm = new drawingTool.Line().create({
+			this.lowerArm = new Line().create({
 				weight: args.lowerArmWeight || args.weight,
 				color: args.lowerArmColor || args.color,
 				points: [
@@ -1285,7 +1285,7 @@ export const getObj = (drawingTool, pixelUnit) => {
 			});
 
 			if (args.lowerArmLightColor) {
-				this.lowerArmInner = new drawingTool.Line().create({
+				this.lowerArmInner = new Line().create({
 					weight: [args.lowerArmWeight || args.weight, -2],
 					color: args.lowerArmLightColor,
 					points: [
@@ -1298,15 +1298,8 @@ export const getObj = (drawingTool, pixelUnit) => {
 
 			if (args.debug) {
 				this.showDebug = true;
-				// this.debug = new drawingTool.Rect().create({
-				// 	x: this.targetX,
-				// 	y: this.targetY,
-				// 	s:1,
-				// 	color: [255,0,0],
-				// 	z: Infinity
-				// });
 
-				this.debugLowerArm = new drawingTool.Line().create({
+				this.debugLowerArm = new Line().create({
 					weight: 1,
 					color: [80, 0, 0],
 					points: [
@@ -1316,14 +1309,14 @@ export const getObj = (drawingTool, pixelUnit) => {
 					z: Infinity,
 				});
 
-				this.debugUpperArm = new drawingTool.Line().create({
+				this.debugUpperArm = new Line().create({
 					weight: 1,
 					color: [125, 0, 0],
 					points: [{ x: this.jointX, y: this.jointY }, {}],
 					z: Infinity,
 				});
 
-				this.debugArmTarget = new drawingTool.Line().create({
+				this.debugArmTarget = new Line().create({
 					weight: 1,
 					color: [0, 255, 255],
 					points: [
@@ -1332,20 +1325,6 @@ export const getObj = (drawingTool, pixelUnit) => {
 					],
 					z: Infinity,
 				});
-
-				// this.debugEllbow = new drawingTool.Dot().create({
-				// 	color:[0,150,0],
-				// 	x: this.jointX,
-				// 	y: this.jointY,
-				// 	z: Infinity
-				// });
-
-				// this.debugEnd = new drawingTool.Dot().create({
-				// 	color:[0,255,0],
-				// 	x: this.endX,
-				// 	y: this.endY,
-				// 	z: Infinity
-				// });
 			}
 
 			if ((hand = args.hand)) {
@@ -1359,7 +1338,7 @@ export const getObj = (drawingTool, pixelUnit) => {
 				this.handRelativeToArm = hand.toArm || this.ellbow;
 				this.handRelativeToDirection = hand.toDir;
 
-				this.hand = new drawingTool.Line().create({
+				this.hand = new Line().create({
 					weight: hand.width || args.lowerArmWeight || args.weight,
 					color: hand.color || args.lowerArmColor || args.color,
 					points: [
@@ -1370,21 +1349,7 @@ export const getObj = (drawingTool, pixelUnit) => {
 				});
 
 				if (this.showDebug) {
-					// this.debugHandEnd = new drawingTool.Dot().create({
-					// 	color:[0,0,255],
-					// 	x: this.handEndX,
-					// 	y: this.handEndY,
-					// 	z: Infinity
-					// });
-
-					// this.debugHandTarget = new drawingTool.Dot().create({
-					// 	color:[0,255,0],
-					// 	x: [ this.handTargetX, this.endX ],
-					// 	y: [ this.handTargetY, this.endY ],
-					// 	z: Infinity
-					// });
-
-					this.debugHandTarget = new drawingTool.Line().create({
+					this.debugHandTarget = new Line().create({
 						weight: 1,
 						color: [255, 255, 0],
 						points: [

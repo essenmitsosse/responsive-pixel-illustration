@@ -1,3 +1,4 @@
+import "./RenderPixel.css";
 import { getRenderOnCanvas } from "./getRenderOnCanvas";
 
 export default () => {

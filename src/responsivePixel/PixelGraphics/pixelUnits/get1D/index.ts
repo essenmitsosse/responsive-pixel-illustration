@@ -91,3 +91,5 @@ export const get1D = (context) => {
 		},
 	};
 };
+
+export type OneD = ReturnType<typeof get1D>;

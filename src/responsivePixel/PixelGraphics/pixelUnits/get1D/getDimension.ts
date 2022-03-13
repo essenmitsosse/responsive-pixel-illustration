@@ -1,4 +1,5 @@
 import type { ContextInner } from ".";
+import type { InputDimension } from "../../types";
 
 export const getDimension = (contextInner: ContextInner, context) =>
 	class Dimension {
@@ -6,22 +7,24 @@ export const getDimension = (contextInner: ContextInner, context) =>
 		axis: boolean;
 		contextInner = contextInner;
 		context = context;
+		debug = false;
+		abs!: number;
+		rele!: number;
 		getRealDistance = this.getRealDistanceBasic;
 		realPartCalculation?: () => number;
 
-		constructor(axis: boolean, dimension: boolean, args) {
+		constructor(axis: boolean, dimension: boolean, args: InputDimension) {
 			this.axis = axis;
 			this.dimension = dimension;
 
-			const objType = typeof args;
-			if (objType === "object") {
+			if (typeof args === "object") {
 				// is Object
 				if (args.constructor === Array) {
 					// is Array
 					this.createAdder(args, true);
 					return;
 				}
-				if (args.getLinkedVariable) {
+				if ("getLinkedVariable" in args) {
 					// Linked to Variable ( new style )
 					this.realPartCalculation = args.getLinkedVariable;
 					return;
@@ -33,8 +36,8 @@ export const getDimension = (contextInner: ContextInner, context) =>
 					);
 					return;
 				}
-				this.debug = args.debug;
-				if (typeof args.a === "string") {
+				this.debug = !!args.debug;
+				if ("a" in args && typeof args.a === "string") {
 					this.context.variableListLink(args.a, this);
 				}
 				if (args.add) {
@@ -74,7 +77,7 @@ export const getDimension = (contextInner: ContextInner, context) =>
 				}
 			} else {
 				// Short Hand Variables
-				if (objType === "number") {
+				if (typeof args === "number") {
 					if (this.dimension) {
 						// No calculation, just return Number
 						this.simplify(args);
@@ -82,7 +85,7 @@ export const getDimension = (contextInner: ContextInner, context) =>
 					}
 					this.abs = args;
 					this.rele = 0;
-				} else if (objType === "string") {
+				} else if (typeof args === "string") {
 					// Linked to Variable ( old style )
 					this.context.variableListLink(args, this);
 					this.rele = 0;

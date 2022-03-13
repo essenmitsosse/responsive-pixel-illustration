@@ -1,7 +1,8 @@
-import { PixelSetter } from "./PixelSetter";
-import { Seed } from "./Seed";
+import type { PixelUnit } from "../pixelUnits";
+import type { PixelSetter } from "./PixelSetter";
+import type { Seed } from "./Seed";
 
-export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit) => {
+export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUnit) => {
 	const Primitive = function Primitive() {};
 
 	const PointBased = function PointBased() {};
@@ -422,16 +423,14 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit) => {
 		this.use = args.use;
 	};
 
-	Fill.prototype.prepareSizeAndPos = (function (pixelUnit) {
-		// Prepare Size and Position Data for Basic Objects
-		return function (args, reflectX, reflectY, rotate) {
-			const width = (rotate ? args.sY : args.sX) || args.s;
-			const height = (rotate ? args.sX : args.sY) || args.s;
+	// Prepare Size and Position Data for Basic Objects
+	Fill.prototype.prepareSizeAndPos = function (args, reflectX, reflectY, rotate) {
+		const width = (rotate ? args.sY : args.sX) || args.s;
+		const height = (rotate ? args.sX : args.sY) || args.s;
 
-			this.width = width ? new pixelUnit.Width(width) : false;
-			this.height = height ? new pixelUnit.Width(height) : false;
-		};
-	})(pixelUnit);
+		this.width = width ? new pixelUnit.Width(width) : false;
+		this.height = height ? new pixelUnit.Width(height) : false;
+	};
 
 	Fill.prototype.draw = function () {
 		const color = this.getColorArray();

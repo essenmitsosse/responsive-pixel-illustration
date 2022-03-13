@@ -1,8 +1,10 @@
+import { InputDimension } from "../../types";
+
 const getQuick = () => 0;
 
 export const getDistance = (Dimension) =>
 	class Distance extends Dimension {
-		constructor(axis: boolean, args) {
+		constructor(axis: boolean, args: InputDimension) {
 			super(axis, false, args);
 		}
 

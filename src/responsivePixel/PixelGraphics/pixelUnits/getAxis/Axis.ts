@@ -1,4 +1,13 @@
+import { Dimension } from "../get1D/getDimension";
+
 export class Axis {
+	// realSize!: number;
+	// size!: Dimension;
+	// margin!: Dimension;
+	// realMargin!: number;
+	// realPos!: number;
+	// calcPos!: () => number;
+
 	calc() {
 		this.realSize =
 			this.size.getReal() - (this.realMargin = this.margin ? this.margin.getReal() : 0) * 2;

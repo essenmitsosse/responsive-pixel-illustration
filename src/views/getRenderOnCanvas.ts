@@ -1,9 +1,8 @@
 import { useState, useRef, TouchEvent, MouseEvent, useEffect } from "react";
 import { getDimensionX, getDimensionY } from "./getDimension";
 import { PixelGraphics } from "../responsivePixel/PixelGraphics";
-import { imageFunctionTeiresias } from "../responsivePixel/scripts/teiresias";
 
-export const getRenderOnCanvas = () => {
+export const getRenderOnCanvas = (imageFunction) => {
 	const [width, setWidth] = useState(1);
 	const [height, setHeight] = useState(1);
 	const [pixelSize, setPixelSize] = useState(5);
@@ -48,7 +47,7 @@ export const getRenderOnCanvas = () => {
 			new PixelGraphics({
 				divCanvas: canvas.current,
 				pixelSize: pixelSize,
-				imageFunction: imageFunctionTeiresias,
+				imageFunction: imageFunction,
 			})
 		);
 	}, [canvas]);

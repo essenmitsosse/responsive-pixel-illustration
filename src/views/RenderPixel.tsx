@@ -1,5 +1,6 @@
 import "./RenderPixel.css";
 import { getRenderOnCanvas } from "./getRenderOnCanvas";
+import { imageFunctionTeiresias } from "../responsivePixel/scripts/teiresias";
 
 export default () => {
 	const {
@@ -14,7 +15,7 @@ export default () => {
 		setIsResizeable,
 		onDrag,
 		redraw,
-	} = getRenderOnCanvas();
+	} = getRenderOnCanvas(imageFunctionTeiresias);
 
 	redraw();
 

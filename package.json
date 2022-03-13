@@ -6,7 +6,7 @@
   "author": "Marcus Blättermann <marcus@essenmitsosse.de>",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint --ext .js,.vue --fix src",
     "ts": "vue-tsc --noemit"

@@ -1,19 +1,45 @@
 {
   "name": "responsive-pixel-illustration",
   "version": "1.0.0",
+  "private": true,
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/essenmitsosse/responsive-pixel-illustration.git"
-  },
   "author": "Marcus Blättermann <marcus@essenmitsosse.de>",
-  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint --ext .js,.vue --fix src",
+    "ts": "vue-tsc --noemit"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "@types/react": "^17.0.40",
+    "@types/react-dom": "^17.0.13",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "@vitejs/plugin-react": "^1.0.7",
+    "@vitejs/plugin-vue": "^2.2.0",
+    "@vue/eslint-config-airbnb": "^6.0.0",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "@vue/eslint-config-typescript": "^10.0.0",
+    "eslint": "8.9",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-vue": "^8.4.1",
+    "typescript": "^4.5.5",
+    "vite": "^2.8.0"
+  },
   "bugs": {
     "url": "https://github.com/essenmitsosse/responsive-pixel-illustration/issues"
   },
-  "homepage": "https://github.com/essenmitsosse/responsive-pixel-illustration#readme"
+  "homepage": "https://github.com/essenmitsosse/responsive-pixel-illustration#readme",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/essenmitsosse/responsive-pixel-illustration.git"
+  }
 }

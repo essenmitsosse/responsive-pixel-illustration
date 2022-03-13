@@ -1,23 +1,24 @@
 import { getObj } from "./getObj";
-import { getSeed } from "./getSeed";
+import { Seed } from "./Seed";
 import { PixelSetter } from "./PixelSetter";
+import { GetRandom } from "../getGetRandom";
 
-class DrawingTools {
-	constructor(args) {
-		this.pixelUnit = args.pixelUnit;
-		this.seed = getSeed(args.getRandom);
-		this.pixelSetter = new PixelSetter();
-		this.Obj = getObj(this.pixelSetter, this.seed, args.pixelUnit);
-	}
+const getDrawingTools = (pixelGraphics: { pixelUnit; getRandom: GetRandom }) => {
+	const pixelUnit = pixelGraphics.pixelUnit;
+	const seed = new Seed(pixelGraphics.getRandom);
+	const pixelSetter = new PixelSetter();
 
-	public init(width, height, pixelArray) {
-		this.pixelUnit.init({
-			width,
-			height,
-		});
-		this.pixelSetter.init(pixelArray);
-		this.seed.reset();
-	}
-}
+	return {
+		Obj: getObj(pixelSetter, seed, pixelGraphics.pixelUnit),
+		init(width, height, pixelArray) {
+			pixelUnit.init({
+				width,
+				height,
+			});
+			pixelSetter.init(pixelArray);
+			seed.reset();
+		},
+	};
+};
 
-export { DrawingTools };
+export { getDrawingTools };

@@ -1,17 +1,16 @@
 import { ArgsRenderer, getRenderer, Renderer } from "./getRenderer";
-import { getPixelUnits } from "./pixelUnits";
+import { getPixelUnits, PixelUnit } from "./pixelUnits";
 import { getGetRandom } from "./getGetRandom";
 import { Variable } from "./Variable";
 import { VariableDynamic } from "./VariableDynamic";
 import { ImageFunction, Link } from "./types";
 
 export class PixelGraphics {
-	getRandom = getGetRandom();
+	public getRandom = getGetRandom();
+	public pixelUnit: PixelUnit;
 
 	private variableList = {};
-
 	private imageFunction: ImageFunction;
-	private pixelUnit: ReturnType<typeof getPixelUnits>;
 	private finalRenderer: Renderer;
 
 	constructor(args: {

@@ -52,3 +52,5 @@ export const getPixelUnits = () => {
 		},
 	};
 };
+
+export type PixelUnit = ReturnType<typeof getPixelUnits>;

@@ -1,4 +1,7 @@
-export const getObj = (pixelSetter, seed, pixelUnit) => {
+import { PixelSetter } from "./PixelSetter";
+import { Seed } from "./Seed";
+
+export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit) => {
 	const Primitive = function Primitive() {};
 
 	const PointBased = function PointBased() {};

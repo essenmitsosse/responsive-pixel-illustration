@@ -1,7 +1,7 @@
 import { getPixelArray } from "./getPixelArray";
 import { getDrawingTools } from "./DrawingTools";
-import { PixelGraphics } from "..";
-import { Render } from "../types";
+import type { PixelGraphics } from "..";
+import type { Render } from "../types";
 
 export const getDrawer = (pixelGraphics: PixelGraphics, renderList: ReadonlyArray<Render>) => {
 	const drawingTool = getDrawingTools(pixelGraphics);

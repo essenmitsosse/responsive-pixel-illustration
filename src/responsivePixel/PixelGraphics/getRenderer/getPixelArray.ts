@@ -1,4 +1,4 @@
-import { PixelArray } from "../types";
+import type { PixelArray } from "../types";
 import { getPixelArrayBase } from "./getPixelArrayBase";
 
 export const getPixelArray = (canvasWidth: number, canvasHeight: number) => {

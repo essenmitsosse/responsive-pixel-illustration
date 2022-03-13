@@ -1,7 +1,7 @@
 import { getObj } from "./getObj";
 import { Seed } from "./Seed";
 import { PixelSetter } from "./PixelSetter";
-import { GetRandom } from "../getGetRandom";
+import type { GetRandom } from "../getGetRandom";
 
 const getDrawingTools = (pixelGraphics: { pixelUnit; getRandom: GetRandom }) => {
 	const pixelUnit = pixelGraphics.pixelUnit;

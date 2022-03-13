@@ -1,9 +1,10 @@
-import { ArgsRenderer, getRenderer, Renderer } from "./getRenderer";
+import { getRenderer } from "./getRenderer";
 import { getPixelUnits, PixelUnit } from "./pixelUnits";
 import { getGetRandom } from "./getGetRandom";
 import { Variable } from "./Variable";
 import { VariableDynamic } from "./VariableDynamic";
-import { ImageFunction, Link } from "./types";
+import type { ArgsRenderer, Renderer } from "./getRenderer";
+import type { ImageFunction, Link } from "./types";
 
 export class PixelGraphics {
 	public getRandom = getGetRandom();

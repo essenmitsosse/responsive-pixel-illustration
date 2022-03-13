@@ -1,7 +1,7 @@
 import { getRenderPixelToImage } from "./getRenderPixelToImage";
 import { getDrawer } from "./getDrawer";
-import { PixelGraphics } from "..";
-import { ImageFunction } from "../types";
+import type { PixelGraphics } from "..";
+import type { ImageFunction } from "../types";
 
 export interface ArgsRenderer {
 	sizeX: number;

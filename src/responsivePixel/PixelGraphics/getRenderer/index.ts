@@ -1,13 +1,41 @@
 import { getRenderPixelToImage } from "./getRenderPixelToImage";
 import { getDrawer } from "./getDrawer";
+import type { PixelGraphics } from "..";
+import type { ImageFunction } from "../types";
 
-export const getRenderer = (options, pixelGraphics) => {
+export interface ArgsRenderer {
+	sizeX: number;
+	sizeY: number;
+	pixelSize: number;
+	widthFactor: number;
+	heightFactor: number;
+}
+
+export interface Renderer {
+	resize: (args: ArgsRenderer) => [number, number];
+}
+
+export const getRenderer = (
+	options: {
+		divCanvas: HTMLCanvasElement;
+		pixelSize: number;
+		imageFunction: ImageFunction;
+	},
+	pixelGraphics: PixelGraphics
+): Renderer => {
 	const context = options.divCanvas.getContext("2d");
 	const virtualCanvas = document.createElement("canvas");
 	const virtualContext = virtualCanvas.getContext("2d");
 
 	const drawer = getDrawer(pixelGraphics, options.imageFunction.renderList);
 	const renderPixelToImage = getRenderPixelToImage(options.imageFunction.background);
+
+	if (context === null) {
+		throw new Error("Couldn`t find context is passed canvas");
+	}
+	if (virtualContext === null) {
+		throw new Error("Couldn`t find virtual context");
+	}
 
 	return {
 		resize(args) {
@@ -31,10 +59,6 @@ export const getRenderer = (options, pixelGraphics) => {
 				options.divCanvas.height = args.sizeY;
 
 				// Disable Anti-Alaising
-				context.mozImageSmoothingEnabled = false;
-				context.oImageSmoothingEnabled = false;
-				context.webkitImageSmoothingEnabled = false;
-				context.msImageSmoothingEnabled = false;
 				context.imageSmoothingEnabled = false;
 
 				// Render the Image Data to the Pixel Array

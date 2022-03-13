@@ -2,7 +2,7 @@ import { get1D } from "./get1D";
 import { getAxis } from "./getAxis";
 import { get2D } from "./get2D";
 
-export function PixelUnits() {
+export const getPixelUnits = () => {
 	const old = [];
 
 	let updateList;
@@ -51,4 +51,6 @@ export function PixelUnits() {
 			old.push(dimensions);
 		},
 	};
-}
+};
+
+export type PixelUnit = ReturnType<typeof getPixelUnits>;

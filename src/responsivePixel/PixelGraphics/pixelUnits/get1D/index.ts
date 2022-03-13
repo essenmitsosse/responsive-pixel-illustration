@@ -1,20 +1,29 @@
 import { getGetRealDistanceWithMaxMin } from "./getGetRealDistanceWithMaxMin";
 import { getDistance } from "./getDistance";
 import { getWidth } from "./getWidth";
+import type { Width } from "./getWidth";
 import { getHeight } from "./getHeight";
+import type { Height } from "./getHeight";
 import { getDistanceX } from "./getDistanceX";
 import { getDistanceY } from "./getDistanceY";
+import type { Dimension } from "./getDimension";
 import { getDimension } from "./getDimension";
 
-export const get1D = function getOneD(context) {
-	const contextInner = {};
+export interface ContextInner {
+	getGetLengthCalculation: (x: number, y: number) => () => number;
+	getGetRealDistanceWithMaxMinWrapper: (max: number, min: number, dim: Dimension) => () => number;
+	getSize: (dim: Dimension) => Height | Width;
+}
 
-	const Dimension = getDimension(contextInner);
+export const get1D = (context) => {
+	const contextInner: ContextInner = {} as ContextInner;
+
+	const Dimension = getDimension(contextInner, context);
 	const Distance = getDistance(Dimension);
-	const Width = getWidth(Dimension, context);
-	const Height = getHeight(Dimension, context);
-	const DistanceX = getDistanceX(Distance, context);
-	const DistanceY = getDistanceY(Distance, context);
+	const Width = getWidth(Dimension);
+	const Height = getHeight(Dimension);
+	const DistanceX = getDistanceX(Distance);
+	const DistanceY = getDistanceY(Distance);
 
 	contextInner.getGetLengthCalculation = (x, y) => {
 		const sizeX = new Width(x);
@@ -59,7 +68,7 @@ export const get1D = function getOneD(context) {
 				const width = w;
 				const height = h;
 				return add
-					? function fromOtherSideAdd(size) {
+					? function fromOtherSideAdd(this: Dimension, size) {
 							return (
 								(this.axis ? width : height) +
 								add -
@@ -82,3 +91,5 @@ export const get1D = function getOneD(context) {
 		},
 	};
 };
+
+export type OneD = ReturnType<typeof get1D>;

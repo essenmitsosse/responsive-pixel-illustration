@@ -1,16 +1,25 @@
 import { getRenderer } from "./getRenderer";
-import { PixelUnits } from "./pixelUnits";
+import { getPixelUnits, PixelUnit } from "./pixelUnits";
 import { getGetRandom } from "./getGetRandom";
 import { Variable } from "./Variable";
 import { VariableDynamic } from "./VariableDynamic";
+import type { ArgsRenderer, Renderer } from "./getRenderer";
+import type { ImageFunction, Link } from "./types";
 
 export class PixelGraphics {
-	getRandom = getGetRandom();
+	public getRandom = getGetRandom();
+	public pixelUnit: PixelUnit;
 
-	variableList = {};
+	private variableList = {};
+	private imageFunction: ImageFunction;
+	private finalRenderer: Renderer;
 
-	constructor(args) {
-		this.pixelUnit = new PixelUnits(); // Initialize PixelUnits with Variables
+	constructor(args: {
+		imageFunction: ImageFunction;
+		divCanvas: HTMLCanvasElement;
+		pixelSize: number;
+	}) {
+		this.pixelUnit = getPixelUnits(); // Initialize PixelUnits with Variables
 
 		this.imageFunction = args.imageFunction;
 
@@ -19,23 +28,24 @@ export class PixelGraphics {
 			this.prepareVariableList(this.imageFunction.linkList);
 		}
 
-		const inputVariableList = this.imageFunction.variableList || [];
-		Object.entries(inputVariableList).forEach(([key, value]) => {
-			this.variableList[key] = new Variable(value, key, this.pixelUnit);
-		});
+		Object.entries(this.imageFunction.variableList || ([] as ReadonlyArray<Variable>)).forEach(
+			([key, value]) => {
+				this.variableList[key] = new Variable(value, key, this.pixelUnit);
+			}
+		);
 
 		this.finalRenderer = getRenderer(args, this);
 	}
 
-	redraw(args) {
+	redraw(args: ArgsRenderer) {
 		this.finalRenderer.resize(args);
 	}
 
-	prepareVariableList(vl) {
+	prepareVariableList(vl: ReadonlyArray<Link>) {
 		if (vl.length === 0) {
 			return;
 		}
-		const getLinkedVariable = (variable) => () => {
+		const getLinkedVariable = (variable: Variable) => () => {
 			if (!variable.calculated) {
 				/* eslint-disable-next-line no-param-reassign */
 				variable.calculated = true;

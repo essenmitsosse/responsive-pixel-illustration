@@ -22,7 +22,6 @@ export const getRenderOnCanvas = (canvas: Ref<HTMLCanvasElement | null>) => {
 			pixelSize: pixelSize.value,
 			sizeX: boundingClientRectCanvas.width,
 			sizeY: boundingClientRectCanvas.height,
-			boundingClientRectCanvas: undefined,
 		});
 	};
 
@@ -41,17 +40,21 @@ export const getRenderOnCanvas = (canvas: Ref<HTMLCanvasElement | null>) => {
 	};
 
 	onMounted(() => {
-		if (canvas.value === null) {
-			return;
-		}
-		boundingClientRectCanvas = canvas.value.getBoundingClientRect();
-		pixelGraphic = new PixelGraphics({
-			divCanvas: canvas.value,
-			pixelSize: pixelSize.value,
-			imageFunction: imageFunctionTeiresias,
-		});
+		try {
+			if (canvas.value === null) {
+				return;
+			}
+			boundingClientRectCanvas = canvas.value.getBoundingClientRect();
+			pixelGraphic = new PixelGraphics({
+				divCanvas: canvas.value,
+				pixelSize: pixelSize.value,
+				imageFunction: imageFunctionTeiresias,
+			});
 
-		redraw();
+			redraw();
+		} catch (e) {
+			console.error(e);
+		}
 	});
 
 	onUpdated(redraw);

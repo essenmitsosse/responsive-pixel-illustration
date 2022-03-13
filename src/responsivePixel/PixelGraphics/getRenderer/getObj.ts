@@ -1,275 +1,161 @@
-function DrawingTools(args) {
-	const drawingTool = this;
-	const { pixelUnit, getRandom } = args;
+import type { PixelUnit } from "../pixelUnits";
+import type { PixelSetter } from "./PixelSetter";
+import type { Seed } from "./Seed";
 
-	this.seed = (function (getRandom) {
-		const getSeed = getRandom().seed;
-		let count = 0;
-		const i = [];
+export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUnit) => {
+	const Primitive = function Primitive() {};
 
-		return {
-			reset() {
-				let l = count;
-				while (l--) {
-					i[l] = 0;
-				}
-			},
-			get(j) {
-				const seed = j || getSeed();
-				const nr = (count += 1);
+	const PointBased = function PointBased() {};
+	const Dot = function Dot() {};
+	const Line = function Line() {};
+	const Polygon = function Polygon() {};
 
-				return function () {
-					return getRandom(seed + i[nr]++ || 0);
-				};
-			},
-		};
-	})(getRandom);
+	const Fill = function Fill() {};
+	const FillRandom = function FillRandom() {};
 
-	this.pixelSetter = (function () {
-		let colorArray;
-		const formSave = {};
-		const getSet = function (color, zInd, id) {
-			return function () {
-				return colorArray.getSet(color, zInd, id);
-			};
-		};
-		const getClear = function (id) {
-			return function () {
-				return colorArray.getClear(id);
-			};
-		};
-		const getSetForRect = function (color, zInd, id) {
-			return function () {
-				return colorArray.getSetForRect(color, zInd, id);
-			};
-		};
-		const getClearForRect = function (id) {
-			return function () {
-				return colorArray.getClearForRect(id);
-			};
-		};
-		const getSave = function (name, isRect) {
-			return function () {
-				const thisSave = formSave[name] ? formSave[name] : (formSave[name] = {});
-				const save = thisSave.save ? thisSave.save : (thisSave.save = []);
-				const mask = thisSave.mask ? thisSave.mask : (thisSave.mask = []);
+	const ShapeBased = function ShapeBased() {};
+	const Rect = function Rect() {};
+	const Stripes = function Stripes() {};
 
-				return isRect
-					? colorArray.getSaveForRect(save, mask)
-					: function (x, y) {
-							save.push([x, y]);
+	const Obj = function Obj() {};
+	const RoundRect = function RoundRect() {};
+	const Grid = function Grid() {};
+	const Panels = function Panels() {};
+	const Arm = function Arm() {};
 
-							if (!mask[x]) {
-								mask[x] = [];
-							}
-							mask[x][y] = true;
-					  };
-			};
-		};
-		const getClearSave = function (name, isRect) {
-			return function () {
-				const thisSave = formSave[name];
-				let save;
-				let mask;
-
-				if (thisSave) {
-					save = thisSave.save;
-					mask = thisSave.mask;
-
-					return isRect ? colorArray.getClearSaveForRect(save, mask) : function () {};
-				}
-			};
-		};
-		const getColorMask = function (dimensions, push) {
-			return colorArray.setMask(dimensions, push);
-		};
-
-		return {
-			setArray(newArray) {
-				const forms = formSave;
-				let key;
-
-				for (key in forms) {
-					forms[key] = [];
-				}
-
-				colorArray = newArray;
-			},
-
-			setColorArray(color, clear, zInd, id, isRect, save) {
-				return clear
-					? isRect
-						? save
-							? getClearSave(save, isRect)
-							: getClearForRect(id)
-						: save
-						? getClearSave(save, isRect)
-						: getClear(id)
-					: color
-					? isRect
-						? getSetForRect(color, zInd, id)
-						: getSet(color, zInd, id)
-					: save
-					? getSave(save, isRect)
-					: undefined;
-			},
-
-			setColorMask: getColorMask,
-
-			getSave(name) {
-				return formSave[name] ? formSave[name].save : false;
-			},
-
-			getMask(name) {
-				return formSave[name] ? formSave[name].mask : false;
-			},
-		};
-	})();
-
-	this.Primitive = function Primitive() {};
-
-	this.PointBased = function PointBased() {};
-	this.Dot = function Dot() {};
-	this.Line = function Line() {};
-	this.Polygon = function Polygon() {};
-
-	this.Fill = function Fill() {};
-	this.FillRandom = function FillRandom() {};
-
-	this.ShapeBased = function ShapeBased() {};
-	this.Rect = function Rect() {};
-	this.Stripes = function Stripes() {};
-
-	this.Obj = function Obj() {};
-	this.RoundRect = function RoundRect() {};
-	this.Grid = function Grid() {};
-	this.Panels = function Panels() {};
-	this.Arm = function Arm() {};
+	const recordTools = {
+		PointBased,
+		Dot,
+		Line,
+		Polygon,
+		Fill,
+		FillRandom,
+		ShapeBased,
+		Rect,
+		Stripes,
+		Obj,
+		RoundRect,
+		Grid,
+		Panels,
+		Arm,
+	};
 
 	// ------------------ PRIMITIVES ------------------
-	this.Primitive.prototype.getName = "Primitive";
+	Primitive.prototype.getName = "Primitive";
 
-	this.Primitive.prototype.create = (function () {
-		const { setColorArray } = drawingTool.pixelSetter;
-		const { setColorMask } = drawingTool.pixelSetter;
+	Primitive.prototype.create = function (args, inherit) {
+		inherit = inherit || {};
 
-		return function (args, inherit) {
-			inherit = inherit || {};
+		let reflectX = inherit.reflectX || false;
+		let reflectY = inherit.reflectY || false;
+		let rotate = inherit.rotate || 0;
 
-			let reflectX = inherit.reflectX || false;
-			let reflectY = inherit.reflectY || false;
-			let rotate = inherit.rotate || 0;
+		if (rotate >= 360) {
+			rotate -= 360;
+		} else if (rotate < 0) {
+			rotate += 360;
+		}
 
-			if (rotate >= 360) {
-				rotate -= 360;
-			} else if (rotate < 0) {
-				rotate += 360;
-			}
+		// if( rotate === 90 || rotate === 270 ) {
+		// 	rotate += ( ( reflectX ? 180 : 0 ) + ( reflectY ? 180 : 0 ) );
 
-			// if( rotate === 90 || rotate === 270 ) {
-			// 	rotate += ( ( reflectX ? 180 : 0 ) + ( reflectY ? 180 : 0 ) );
+		// 	if( rotate >= 360 ) { rotate -=360; }
+		// }
 
-			// 	if( rotate >= 360 ) { rotate -=360; }
-			// }
+		if (rotate === 180) {
+			rotate = 0;
+			reflectX = !reflectX;
+			reflectY = !reflectY;
+		}
+		if (rotate === 270) {
+			rotate = 90;
+			reflectX = !reflectX;
+			reflectY = !reflectY;
+		}
 
-			if (rotate === 180) {
-				rotate = 0;
-				reflectX = !reflectX;
-				reflectY = !reflectY;
-			}
-			if (rotate === 270) {
-				rotate = 90;
-				reflectX = !reflectX;
-				reflectY = !reflectY;
-			}
+		const newArgs =
+			this.prepareSizeAndPos(args, reflectX, reflectY, (this.rotate = rotate === 90)) || {};
 
-			const newArgs =
-				this.prepareSizeAndPos(args, reflectX, reflectY, (this.rotate = rotate === 90)) ||
-				{};
+		newArgs.reflectX = (args.rX || false) !== reflectX;
+		newArgs.reflectY = (args.rY || false) !== reflectY;
+		newArgs.rotate = rotate + (args.rotate || 0);
 
-			newArgs.reflectX = (args.rX || false) !== reflectX;
-			newArgs.reflectY = (args.rY || false) !== reflectY;
-			newArgs.rotate = rotate + (args.rotate || 0);
+		if (args.save || inherit.save) {
+			newArgs.save = args.save || inherit.save;
+		} else if (args.color || inherit.color) {
+			newArgs.color = args.color || inherit.color;
+		}
 
-			if (args.save || inherit.save) {
-				newArgs.save = args.save || inherit.save;
-			} else if (args.color || inherit.color) {
-				newArgs.color = args.color || inherit.color;
-			}
+		if (args.clear || inherit.clear) {
+			newArgs.clear = true;
+		}
+		if (args.id || inherit.id || newArgs.save) {
+			newArgs.id = args.id || inherit.id || newArgs.save;
+		}
+		if (args.mask) {
+			newArgs.mask = pixelSetter.setColorMask;
+		}
 
-			if (args.clear || inherit.clear) {
-				newArgs.clear = true;
-			}
-			if (args.id || inherit.id || newArgs.save) {
-				newArgs.id = args.id || inherit.id || newArgs.save;
-			}
-			if (args.mask) {
-				newArgs.mask = setColorMask;
-			}
+		newArgs.zInd = (inherit.zInd || 0) + (args.z || 0);
 
-			newArgs.zInd = (inherit.zInd || 0) + (args.z || 0);
-
-			if (args.list) {
-				newArgs.list = args.list;
-			} else {
-				this.getColorArray = setColorArray(
-					newArgs.color,
-					newArgs.clear,
-					newArgs.zInd,
-					newArgs.id,
-					this.isRect,
-					newArgs.save
-				);
-			}
-
-			this.args = newArgs;
-			if (this.init) {
-				this.init(args);
-			}
-			if (this.detailInit) {
-				this.detailInit(args, inherit);
-			}
-
-			return this;
-		};
-	})();
-
-	this.Primitive.prototype.prepareSizeAndPos = (function (Dimensions) {
-		// Prepare Size and Position Data for Basic Objects
-		return function (args, reflectX, reflectY, rotate) {
-			this.dimensions = new Dimensions(
-				args,
-				(this.fromRight = rotate
-					? (args.fY || false) === reflectY
-					: (args.fX || false) !== reflectX),
-				(this.fromBottom = rotate
-					? (args.fX || false) !== reflectX
-					: (args.fY || false) !== reflectY),
-				rotate
+		if (args.list) {
+			newArgs.list = args.list;
+		} else {
+			this.getColorArray = pixelSetter.setColorArray(
+				newArgs.color,
+				newArgs.clear,
+				newArgs.zInd,
+				newArgs.id,
+				this.isRect,
+				newArgs.save
 			);
-		};
-	})(pixelUnit.Dimensions);
+		}
+
+		this.args = newArgs;
+		if (this.init) {
+			this.init(args);
+		}
+		if (this.detailInit) {
+			this.detailInit(args, inherit);
+		}
+
+		return this;
+	};
+
+	// Prepare Size and Position Data for Basic Objects
+	Primitive.prototype.prepareSizeAndPos = function (args, reflectX, reflectY, rotate) {
+		this.dimensions = new pixelUnit.Dimensions(
+			args,
+			(this.fromRight = rotate
+				? (args.fY || false) === reflectY
+				: (args.fX || false) !== reflectX),
+			(this.fromBottom = rotate
+				? (args.fX || false) !== reflectX
+				: (args.fY || false) !== reflectY),
+			rotate
+		);
+	};
 
 	// ------------------ PointBased ------------------
-	this.PointBased.prototype = new this.Primitive();
-	this.PointBased.prototype.getName = "PointBased";
+	PointBased.prototype = new Primitive();
+	PointBased.prototype.getName = "PointBased";
 
 	// ------------------ Dot ------------------
-	this.Dot.prototype = new this.PointBased();
-	this.Dot.prototype.getName = "Dot";
-	this.Dot.prototype.draw = function () {
+	Dot.prototype = new PointBased();
+	Dot.prototype.getName = "Dot";
+	Dot.prototype.draw = function () {
 		const pos = this.args.getRealPosition();
 		this.getColorArray()(pos.x, pos.y);
 	};
 
-	this.Dot.prototype.prepareSizeAndPos = function (args, reflectX, reflectY, rotate) {
+	Dot.prototype.prepareSizeAndPos = function (args, reflectX, reflectY, rotate) {
 		return { getRealPosition: new pixelUnit.Position(args, reflectX, reflectY, rotate) };
 	};
 
 	// ------------------ Line ------------------
-	this.Line.prototype = new this.PointBased();
-	this.Line.prototype.getName = "Line";
-	this.Line.prototype.init = function (args) {
+	Line.prototype = new PointBased();
+	Line.prototype.getName = "Line";
+	Line.prototype.init = function (args) {
 		if (args.closed) {
 			this.args.closed = true;
 		}
@@ -277,7 +163,7 @@ function DrawingTools(args) {
 		this.lineSetter = this.getLineSetter(args.weight);
 	};
 
-	this.Line.prototype.getLineSetter = function (weight) {
+	Line.prototype.getLineSetter = function (weight) {
 		return weight
 			? (function () {
 					const w = pixelUnit.createSize(weight);
@@ -304,7 +190,7 @@ function DrawingTools(args) {
 			: this.getColorArray;
 	};
 
-	this.Line.prototype.prepareSizeAndPos = function (args, reflectX, reflectY, rotate) {
+	Line.prototype.prepareSizeAndPos = function (args, reflectX, reflectY, rotate) {
 		const newPoints = [];
 		const { points } = args;
 		let l = points.length;
@@ -321,7 +207,7 @@ function DrawingTools(args) {
 		};
 	};
 
-	this.Line.prototype.draw = (function () {
+	Line.prototype.draw = (function () {
 		const { abs } = Math;
 		const getDrawLine = function (set) {
 			return function (p0, p1) {
@@ -401,9 +287,9 @@ function DrawingTools(args) {
 	})();
 
 	// ------------------ Polygon ------------------
-	this.Polygon.prototype = new this.Line();
-	this.Polygon.prototype.getName = "Polygon";
-	this.Polygon.prototype.draw = (function () {
+	Polygon.prototype = new Line();
+	Polygon.prototype.getName = "Polygon";
+	Polygon.prototype.draw = (function () {
 		const { abs } = Math;
 		const getLineEdgeGetter = function (edgeList) {
 			let i = -1;
@@ -530,27 +416,25 @@ function DrawingTools(args) {
 	// ----- End Polygon
 
 	// ------------------ Fill ------------------
-	this.Fill.prototype = new this.Primitive();
-	this.Fill.prototype.getName = "Fill";
+	Fill.prototype = new Primitive();
+	Fill.prototype.getName = "Fill";
 
-	this.Fill.prototype.init = function (args) {
+	Fill.prototype.init = function (args) {
 		this.use = args.use;
 	};
 
-	this.Fill.prototype.prepareSizeAndPos = (function (pixelUnit) {
-		// Prepare Size and Position Data for Basic Objects
-		return function (args, reflectX, reflectY, rotate) {
-			const width = (rotate ? args.sY : args.sX) || args.s;
-			const height = (rotate ? args.sX : args.sY) || args.s;
+	// Prepare Size and Position Data for Basic Objects
+	Fill.prototype.prepareSizeAndPos = function (args, reflectX, reflectY, rotate) {
+		const width = (rotate ? args.sY : args.sX) || args.s;
+		const height = (rotate ? args.sX : args.sY) || args.s;
 
-			this.width = width ? new pixelUnit.Width(width) : false;
-			this.height = height ? new pixelUnit.Width(height) : false;
-		};
-	})(pixelUnit);
+		this.width = width ? new pixelUnit.Width(width) : false;
+		this.height = height ? new pixelUnit.Width(height) : false;
+	};
 
-	this.Fill.prototype.draw = function () {
+	Fill.prototype.draw = function () {
 		const color = this.getColorArray();
-		const array = drawingTool.pixelSetter.getSave(this.use);
+		const array = pixelSetter.getSave(this.use);
 		let l = array ? array.length - 1 : -1;
 		let current;
 
@@ -561,16 +445,16 @@ function DrawingTools(args) {
 	// ----- End Fill
 
 	// ------------------ FillRandom ------------------
-	this.FillRandom.prototype = new this.Fill();
-	this.FillRandom.prototype.getName = "Random Fill";
+	FillRandom.prototype = new Fill();
+	FillRandom.prototype.getName = "Random Fill";
 
-	this.FillRandom.prototype.init = function (args) {
+	FillRandom.prototype.init = function (args) {
 		const width = this.rotate ? args.sY : args.sX;
 		const height = this.rotate ? args.sX : args.sY;
 
 		this.use = args.use;
 		this.chance = args.chance || 0.5;
-		this.random = drawingTool.seed.get(args.seed);
+		this.random = seed.get(args.seed);
 		this.mask = args.mask;
 
 		if (height && height.random) {
@@ -584,7 +468,7 @@ function DrawingTools(args) {
 		}
 	};
 
-	this.FillRandom.prototype.draw = function () {
+	FillRandom.prototype.draw = function () {
 		const width = this.width ? this.width.getReal() : 1;
 		const height = this.height ? this.height.getReal() : 1;
 
@@ -593,7 +477,7 @@ function DrawingTools(args) {
 		const widthRandom = this.widthRandom ? this.widthRandom.getReal() + 1 : false;
 
 		const color = this.getColorArray();
-		const array = drawingTool.pixelSetter.getSave(this.use);
+		const array = pixelSetter.getSave(this.use);
 		const l = array ? array.length : 0;
 		let count = Math.floor(
 			l *
@@ -602,7 +486,7 @@ function DrawingTools(args) {
 						(height + (heightRandom || sizeRandom || 0) / 2)))
 		);
 
-		const mask = this.mask ? drawingTool.pixelSetter.getMask(this.use) : false;
+		const mask = this.mask ? pixelSetter.getMask(this.use) : false;
 		const dontCheck = !mask;
 		const random = this.random().one;
 
@@ -663,14 +547,14 @@ function DrawingTools(args) {
 	// ----- End FillRandom
 
 	// ------------------ ShapeBased ------------------
-	this.ShapeBased.prototype = new this.Primitive();
-	this.ShapeBased.prototype.getName = "ShapeBased";
+	ShapeBased.prototype = new Primitive();
+	ShapeBased.prototype.getName = "ShapeBased";
 
 	// ------------------ Rectangle ------------------
-	this.Rect.prototype = new this.ShapeBased();
-	this.Rect.prototype.getName = "Rectangle";
-	this.Rect.prototype.isRect = true;
-	this.Rect.prototype.draw = function () {
+	Rect.prototype = new ShapeBased();
+	Rect.prototype.getName = "Rectangle";
+	Rect.prototype.isRect = true;
+	Rect.prototype.draw = function () {
 		const dimensions = this.dimensions.calc();
 
 		if (dimensions.checkMin()) {
@@ -689,10 +573,10 @@ function DrawingTools(args) {
 	// ----- End Primitives
 
 	// ------------------ OBJECTS ------------------
-	this.Obj.prototype = new this.ShapeBased(); // Objects consist of other Objects or Primitives
-	this.Obj.prototype.getName = "Object";
+	Obj.prototype = new ShapeBased(); // Objects consist of other Objects or Primitives
+	Obj.prototype.getName = "Object";
 
-	this.Obj.prototype.init = (function (drawingTool) {
+	Obj.prototype.init = (function () {
 		// Initing a new Object, converting its List into real Objects.
 		const convertList = function (list, inherit) {
 			// Loops through the List of an Object
@@ -704,7 +588,7 @@ function DrawingTools(args) {
 				newTool = list[i];
 				if (newTool) {
 					newList.push(
-						new drawingTool[
+						new recordTools[
 							newTool.name ||
 								(newTool.stripes
 									? "Stripes"
@@ -748,9 +632,9 @@ function DrawingTools(args) {
 				});
 			}
 		};
-	})(drawingTool); // ------ End Object Init
+	})(); // ------ End Object Init
 
-	this.Obj.prototype.draw = (function (pixelUnit) {
+	Obj.prototype.draw = (function (pixelUnit) {
 		// Draws Object, consisting of other Objects and Primitives.
 		return function () {
 			const { args } = this;
@@ -781,11 +665,11 @@ function DrawingTools(args) {
 	})(pixelUnit);
 
 	// ------------------ Stripes ------------------
-	this.Stripes.prototype = new this.Obj();
-	this.Stripes.prototype.getName = "Stripes";
-	this.Stripes.prototype.isRect = true;
-	this.Stripes.prototype.isStripe = true;
-	this.Stripes.prototype.detailInit = function (args) {
+	Stripes.prototype = new Obj();
+	Stripes.prototype.getName = "Stripes";
+	Stripes.prototype.isRect = true;
+	Stripes.prototype.isStripe = true;
+	Stripes.prototype.detailInit = function (args) {
 		let random;
 		const { stripes } = args;
 		const horizontal = (this.horizontal =
@@ -822,7 +706,7 @@ function DrawingTools(args) {
 		}
 
 		if (random) {
-			this.random = drawingTool.seed.get(stripes.seed);
+			this.random = seed.get(stripes.seed);
 		}
 
 		this.cut = stripes.cut;
@@ -835,7 +719,7 @@ function DrawingTools(args) {
 		this.getDraw = horizontal ? this.drawers.horizontal : this.drawers.normal;
 	};
 
-	this.Stripes.prototype.drawers = {
+	Stripes.prototype.drawers = {
 		normal(drawer, fromOtherSide, stripWidth, endX, startY, endY, overflow) {
 			return function (startX, currentHeightChange, randomWidth) {
 				const end = startX + stripWidth + randomWidth;
@@ -864,7 +748,7 @@ function DrawingTools(args) {
 		},
 	};
 
-	this.Stripes.prototype.draw = function () {
+	Stripes.prototype.draw = function () {
 		const { args } = this;
 
 		const dimensions = this.dimensions.calc();
@@ -975,9 +859,9 @@ function DrawingTools(args) {
 	// ----- End Stripes
 
 	// ------------------ Round Rectangle ------------------
-	this.RoundRect.prototype = new this.Obj();
-	this.RoundRect.prototype.getName = "Rounded Rectangle";
-	this.RoundRect.prototype.list = [
+	RoundRect.prototype = new Obj();
+	RoundRect.prototype.getName = "Rounded Rectangle";
+	RoundRect.prototype.list = [
 		// { mY:1 },
 		// { mX:1, height: {a:1} },
 		// { mX:1, height: {a:1}, fromBottom:true },
@@ -1016,9 +900,9 @@ function DrawingTools(args) {
 	// ----- End Rounded Rectangle
 
 	// ------------------ Grid ------------------
-	this.Grid.prototype = new this.Obj();
-	this.Grid.prototype.getName = "Grid";
-	this.Grid.prototype.list = [
+	Grid.prototype = new Obj();
+	Grid.prototype.getName = "Grid";
+	Grid.prototype.list = [
 		{
 			stripes: { gap: 1 },
 			list: [{ stripes: { gap: 1, horizontal: true } }],
@@ -1027,9 +911,9 @@ function DrawingTools(args) {
 	// ----- End Grid
 
 	// ------------------ Panels ------------------
-	this.Panels.prototype = new this.Obj();
-	this.Panels.prototype.getName = "Panels";
-	this.Panels.prototype.init = (function (pX) {
+	Panels.prototype = new Obj();
+	Panels.prototype.getName = "Panels";
+	Panels.prototype.init = (function (pX) {
 		return function (args) {
 			const { panels } = args;
 			let l = panels.length;
@@ -1053,7 +937,7 @@ function DrawingTools(args) {
 				}
 
 				newPanels.push({
-					drawer: new drawingTool.Obj().create({ list: current.list }, inherit),
+					drawer: new Obj().create({ list: current.list }, inherit),
 					sX: current.sX,
 					sY: current.sY,
 				});
@@ -1075,7 +959,7 @@ function DrawingTools(args) {
 		};
 	})(pixelUnit);
 
-	this.Panels.prototype.draw = (function () {
+	Panels.prototype.draw = (function () {
 		// Draws Object, consisting of other Objects and Primitives.
 		return function () {
 			const { args } = this;
@@ -1108,7 +992,7 @@ function DrawingTools(args) {
 		};
 	})(pixelUnit);
 
-	this.Panels.prototype.findBestRows = function (list) {
+	Panels.prototype.findBestRows = function (list) {
 		let y = 0;
 		let x;
 		const l = list.length;
@@ -1160,7 +1044,7 @@ function DrawingTools(args) {
 		this.singleSY = last.singleSY <= 1 ? 1 : last.singleSY;
 	};
 
-	this.Panels.prototype.sortRows = function (list) {
+	Panels.prototype.sortRows = function (list) {
 		const panels = [];
 		let i;
 		let j;
@@ -1252,7 +1136,7 @@ function DrawingTools(args) {
 		return panels;
 	};
 
-	this.Panels.prototype.calcPanelsSizes = function (panels) {
+	Panels.prototype.calcPanelsSizes = function (panels) {
 		let c = 0;
 		const l = panels.length;
 		let currentPanel;
@@ -1319,7 +1203,7 @@ function DrawingTools(args) {
 		} while ((c += 1) < l);
 	};
 
-	this.Panels.prototype.drawPanels = function (panels, mask) {
+	Panels.prototype.drawPanels = function (panels, mask) {
 		let currentPanel;
 		let currentDim;
 		let oldMask;
@@ -1346,9 +1230,9 @@ function DrawingTools(args) {
 	// ----- End Panels
 
 	// ------------------ Arm ------------------
-	this.Arm.prototype = new this.Obj();
-	this.Arm.prototype.getName = "Arm";
-	this.Arm.prototype.init = (function (pX) {
+	Arm.prototype = new Obj();
+	Arm.prototype.getName = "Arm";
+	Arm.prototype.init = (function (pX) {
 		return function (args) {
 			let hand;
 
@@ -1375,7 +1259,7 @@ function DrawingTools(args) {
 			this.jointY.autoUpdate = true;
 
 			// Upper Arm
-			this.upperArm = new drawingTool.Line().create({
+			this.upperArm = new Line().create({
 				weight: args.upperArmWeight || args.weight,
 				color: args.upperArmColor || args.color,
 				points: [{}, { x: this.jointX, y: this.jointY }],
@@ -1383,7 +1267,7 @@ function DrawingTools(args) {
 			});
 
 			if (args.upperArmLightColor) {
-				this.upperArmInner = new drawingTool.Line().create({
+				this.upperArmInner = new Line().create({
 					weight: [args.upperArmWeight || args.weight, -2],
 					color: args.upperArmLightColor,
 					points: [{}, { x: this.jointX, y: this.jointY }],
@@ -1392,7 +1276,7 @@ function DrawingTools(args) {
 			}
 
 			// Lower Arm
-			this.lowerArm = new drawingTool.Line().create({
+			this.lowerArm = new Line().create({
 				weight: args.lowerArmWeight || args.weight,
 				color: args.lowerArmColor || args.color,
 				points: [
@@ -1403,7 +1287,7 @@ function DrawingTools(args) {
 			});
 
 			if (args.lowerArmLightColor) {
-				this.lowerArmInner = new drawingTool.Line().create({
+				this.lowerArmInner = new Line().create({
 					weight: [args.lowerArmWeight || args.weight, -2],
 					color: args.lowerArmLightColor,
 					points: [
@@ -1416,15 +1300,8 @@ function DrawingTools(args) {
 
 			if (args.debug) {
 				this.showDebug = true;
-				// this.debug = new drawingTool.Rect().create({
-				// 	x: this.targetX,
-				// 	y: this.targetY,
-				// 	s:1,
-				// 	color: [255,0,0],
-				// 	z: Infinity
-				// });
 
-				this.debugLowerArm = new drawingTool.Line().create({
+				this.debugLowerArm = new Line().create({
 					weight: 1,
 					color: [80, 0, 0],
 					points: [
@@ -1434,14 +1311,14 @@ function DrawingTools(args) {
 					z: Infinity,
 				});
 
-				this.debugUpperArm = new drawingTool.Line().create({
+				this.debugUpperArm = new Line().create({
 					weight: 1,
 					color: [125, 0, 0],
 					points: [{ x: this.jointX, y: this.jointY }, {}],
 					z: Infinity,
 				});
 
-				this.debugArmTarget = new drawingTool.Line().create({
+				this.debugArmTarget = new Line().create({
 					weight: 1,
 					color: [0, 255, 255],
 					points: [
@@ -1450,20 +1327,6 @@ function DrawingTools(args) {
 					],
 					z: Infinity,
 				});
-
-				// this.debugEllbow = new drawingTool.Dot().create({
-				// 	color:[0,150,0],
-				// 	x: this.jointX,
-				// 	y: this.jointY,
-				// 	z: Infinity
-				// });
-
-				// this.debugEnd = new drawingTool.Dot().create({
-				// 	color:[0,255,0],
-				// 	x: this.endX,
-				// 	y: this.endY,
-				// 	z: Infinity
-				// });
 			}
 
 			if ((hand = args.hand)) {
@@ -1477,7 +1340,7 @@ function DrawingTools(args) {
 				this.handRelativeToArm = hand.toArm || this.ellbow;
 				this.handRelativeToDirection = hand.toDir;
 
-				this.hand = new drawingTool.Line().create({
+				this.hand = new Line().create({
 					weight: hand.width || args.lowerArmWeight || args.weight,
 					color: hand.color || args.lowerArmColor || args.color,
 					points: [
@@ -1488,26 +1351,15 @@ function DrawingTools(args) {
 				});
 
 				if (this.showDebug) {
-					// this.debugHandEnd = new drawingTool.Dot().create({
-					// 	color:[0,0,255],
-					// 	x: this.handEndX,
-					// 	y: this.handEndY,
-					// 	z: Infinity
-					// });
-
-					// this.debugHandTarget = new drawingTool.Dot().create({
-					// 	color:[0,255,0],
-					// 	x: [ this.handTargetX, this.endX ],
-					// 	y: [ this.handTargetY, this.endY ],
-					// 	z: Infinity
-					// });
-
-					this.debugHandTarget = new drawingTool.Line().create({
+					this.debugHandTarget = new Line().create({
 						weight: 1,
 						color: [255, 255, 0],
 						points: [
 							{ x: this.handEndX, y: this.handEndY },
-							{ x: [this.handTargetX, this.endX], y: [this.handTargetY, this.endY] },
+							{
+								x: [this.handTargetX, this.endX],
+								y: [this.handTargetY, this.endY],
+							},
 						],
 						z: Infinity,
 					});
@@ -1516,7 +1368,7 @@ function DrawingTools(args) {
 		};
 	})(pixelUnit);
 
-	this.Arm.prototype.draw = function () {
+	Arm.prototype.draw = function () {
 		const dimensions = this.dimensions.calc();
 
 		this.fullLength = this.length.s.getReal();
@@ -1576,7 +1428,7 @@ function DrawingTools(args) {
 		pixelUnit.pop();
 	};
 
-	this.Arm.prototype.calculateFromEllbow = function () {
+	Arm.prototype.calculateFromEllbow = function () {
 		const jointY = this.targetY.s.getReal();
 
 		if (this.upperArmLength >= Math.abs(jointY)) {
@@ -1610,15 +1462,13 @@ function DrawingTools(args) {
 		this.straightAngle = 0.5;
 	};
 
-	this.Arm.prototype.calculateFromHand = function () {
+	Arm.prototype.calculateFromHand = function () {
 		let x = this.targetX.s.getReal();
 		let y = this.targetY.s.getReal();
 		let fullDistance = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
 
 		let lengthToDistanceRatio;
 		let innerAngle;
-
-		let upperArmAngle;
 
 		// - - - - Calculate End Point
 		this.fullLength *= this.maxStraight;
@@ -1666,7 +1516,7 @@ function DrawingTools(args) {
 		}
 
 		// get the angle of the upper arm triangle
-		upperArmAngle = this.straightAngle + innerAngle;
+		const upperArmAngle = this.straightAngle + innerAngle;
 
 		// get one sides of the upper arm triangle
 		this.jointX.real = Math.round(this.upperArmLength * Math.sin(upperArmAngle));
@@ -1682,7 +1532,7 @@ function DrawingTools(args) {
 		this.x = x;
 	};
 
-	this.Arm.prototype.drawHand = function () {
+	Arm.prototype.drawHand = function () {
 		const endX = this.endX.real;
 		const endY = this.endY.real;
 		const targetX = this.handTargetX.s.getReal();
@@ -1709,16 +1559,5 @@ function DrawingTools(args) {
 		}
 	};
 	// ----- End Arm
-
-	this.init = function (width, height, pixelArray) {
-		pixelUnit.init({
-			width,
-			height,
-		});
-
-		drawingTool.pixelSetter.setArray(pixelArray);
-		drawingTool.seed.reset();
-	};
-}
-
-export { DrawingTools };
+	return Obj;
+};

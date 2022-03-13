@@ -40,21 +40,17 @@ export const getRenderOnCanvas = (canvas: Ref<HTMLCanvasElement | null>) => {
 	};
 
 	onMounted(() => {
-		try {
-			if (canvas.value === null) {
-				return;
-			}
-			boundingClientRectCanvas = canvas.value.getBoundingClientRect();
-			pixelGraphic = new PixelGraphics({
-				divCanvas: canvas.value,
-				pixelSize: pixelSize.value,
-				imageFunction: imageFunctionTeiresias,
-			});
-
-			redraw();
-		} catch (e) {
-			console.error(e);
+		if (canvas.value === null) {
+			return;
 		}
+		boundingClientRectCanvas = canvas.value.getBoundingClientRect();
+		pixelGraphic = new PixelGraphics({
+			divCanvas: canvas.value,
+			pixelSize: pixelSize.value,
+			imageFunction: imageFunctionTeiresias,
+		});
+
+		redraw();
 	});
 
 	onUpdated(redraw);

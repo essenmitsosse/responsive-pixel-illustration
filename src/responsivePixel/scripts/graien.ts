@@ -1974,12 +1974,14 @@ const renderList = [
 																					r: 0.25,
 																					min: {
 																						r: 0.2,
-																						otherDim: true,
+																						otherDim:
+																							true,
 																						min: 1,
 																					},
 																					max: {
 																						r: 0.8,
-																						otherDim: true,
+																						otherDim:
+																							true,
 																					},
 																				},
 																				sX: { r: 1.5 },
@@ -1995,7 +1997,8 @@ const renderList = [
 																						sY: "graie3Breast",
 																						sX: {
 																							r: 0.7,
-																							otherDim: true,
+																							otherDim:
+																								true,
 																							save: "graie3Breast",
 																						},
 																						x: -1,

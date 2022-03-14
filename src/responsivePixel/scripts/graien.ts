@@ -1,12 +1,13 @@
 /* eslint-disable max-len */
 import { helper } from "../helperPixelGraphics";
+import type { ImageFunction } from "../PixelGraphics/types";
 
 const { getSmallerDim } = helper;
 const { getBiggerDim } = helper;
 const { mult } = helper;
 const { sub } = helper;
 
-const background = [60, 120, 110];
+const background = [60, 120, 110] as const;
 const bSS = 0.5;
 const shadowAdd = 195;
 const shadowColor = [
@@ -378,7 +379,7 @@ const graie1Eye = [
 	{ fX: true, sY: { a: -2, r: 1 }, sX: { r: 0.4 } },
 ];
 
-const breast = (left) => [
+const breast = (left?: boolean) => [
 	{},
 	{
 		color: graie1Shadow,
@@ -495,7 +496,7 @@ const legStructure = (() => {
 	let i = 0;
 	const s = { a: 0, random: legDetailWidth };
 	const armSize = { a: 0, random: armDetailLength };
-	return (nr, hor, isArm) => {
+	return (nr, hor?: boolean, isArm?: boolean) => {
 		const shadowLeg = getShadow(nr);
 
 		const horFinal = isArm ? !hor : hor;
@@ -520,7 +521,7 @@ const legStructure = (() => {
 	};
 })();
 
-const armToLeft = (nr, down) => {
+const armToLeft = (nr, down?: boolean) => {
 	const shadowArm = getShadow(nr);
 	return [
 		legStructure(nr, false, true),
@@ -1761,10 +1762,10 @@ const renderList = [
 												},
 												rY: true,
 												list: [
-													{ sX: { r: 0.4 }, list: graieEyes(2) },
+													{ sX: { r: 0.4 }, list: graieEyes() },
 													{
 														sX: { r: 0.4 },
-														list: graieEyes(2),
+														list: graieEyes(),
 														rX: true,
 														fX: true,
 													},
@@ -2191,12 +2192,12 @@ const renderList = [
 																		list: [
 																			{
 																				sX: { r: 0.25 },
-																				list: graieEyes(3),
+																				list: graieEyes(),
 																			},
 																			{
 																				sX: { r: 0.25 },
 																				fX: true,
-																				list: graieEyes(3),
+																				list: graieEyes(),
 																				rX: true,
 																			},
 																		],
@@ -2468,7 +2469,7 @@ const renderList = [
 	},
 ];
 
-export default {
+const graien: ImageFunction = {
 	renderList,
 	background,
 	linkList,
@@ -2477,3 +2478,5 @@ export default {
 	// 	setValue = helper.setValueNew;
 	// }
 };
+
+export default graien;

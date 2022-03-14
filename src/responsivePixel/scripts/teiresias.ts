@@ -1,4 +1,5 @@
 import { helper } from "../helperPixelGraphics";
+import type { ImageFunction } from "../PixelGraphics/types";
 
 const { getSmallerDim } = helper;
 const { getBiggerDim } = helper;
@@ -141,7 +142,7 @@ const hair = [255, 255, 255];
 
 let i = 0;
 
-const snake = (nr, vert) => {
+const snake = (nr, vert?: boolean) => {
 	const x = !vert ? ["snakeWeight", -1] : undefined;
 	const y = vert ? ["snakeWeight", -1] : undefined;
 	const s = { r: 1, add: [sub("snakeWeight")] };
@@ -1207,8 +1208,10 @@ const variableList = {
 	treeRandom: mult(0.1, "imgheight"),
 };
 
-export default {
+const image: ImageFunction = {
 	renderList,
 	variableList,
 	background: backgroundColor,
 };
+
+export default image;

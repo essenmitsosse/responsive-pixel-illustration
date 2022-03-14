@@ -1,4 +1,5 @@
 import { helper } from "../helperPixelGraphics";
+import type { ImageFunction } from "../PixelGraphics/types";
 
 const getSmallerDim = helper.getSmallerDim,
 	getBiggerDim = helper.getBiggerDim,
@@ -1197,8 +1198,10 @@ const getSmallerDim = helper.getSmallerDim,
 		borderSmallInline: ["borderSmall", sub("borderSmallInner"), sub("borderSmallMargin")],
 	};
 
-export default {
+const image: ImageFunction = {
 	renderList: renderList,
 	variableList: variableList,
 	background: backgroundColor,
 };
+
+export default image;

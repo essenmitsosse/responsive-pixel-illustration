@@ -1,6 +1,11 @@
 import "./RenderPixel.css";
 import { getRenderOnCanvas } from "./getRenderOnCanvas";
-import { imageFunctionTeiresias } from "../responsivePixel/scripts/teiresias";
+import { useEffect } from "react";
+import { ImageFunction } from "../responsivePixel/PixelGraphics/types";
+
+const getTeiresias = async (): Promise<ImageFunction> => {
+	return (await import("../responsivePixel/scripts/teiresias")).imageFunctionTeiresias
+};
 
 export default () => {
 	const {
@@ -15,7 +20,13 @@ export default () => {
 		setIsResizeable,
 		onDrag,
 		redraw,
-	} = getRenderOnCanvas(imageFunctionTeiresias);
+		setImageFunction,
+		isReady,
+	} = getRenderOnCanvas();
+
+	useEffect(() => {
+		getTeiresias().then(setImageFunction);
+	}, []);
 
 	redraw();
 
@@ -50,6 +61,7 @@ export default () => {
 				onChange={() => setIsResizeable(!isResizeable)}
 				type="checkbox"
 			/>
+			{isReady ? null : "Bild lädt ..."}
 			<div className="wrapper-canvas">
 				<canvas ref={canvas} className="canvas" onMouseMove={onDrag} onTouchMove={onDrag} />
 			</div>

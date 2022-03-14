@@ -1,14 +1,17 @@
 import { useState, useRef, TouchEvent, MouseEvent, useEffect } from "react";
 import { getDimensionX, getDimensionY } from "./getDimension";
 import { PixelGraphics } from "../responsivePixel/PixelGraphics";
+import { ImageFunction } from "../responsivePixel/PixelGraphics/types";
 
-export const getRenderOnCanvas = (imageFunction) => {
+export const getRenderOnCanvas = () => {
 	const [width, setWidth] = useState(1);
 	const [height, setHeight] = useState(1);
 	const [pixelSize, setPixelSize] = useState(5);
 	const [isResizeable, setIsResizeable] = useState(true);
 	const [pixelGraphic, setPixelGraphic] = useState<PixelGraphics | null>(null);
 	const [boundingClientRectCanvas, setBoundingClientRectCanvas] = useState<DOMRect | null>(null);
+	const [imageFunction, setImageFunction] = useState<ImageFunction | null>(null);
+	const [isReady, setIsReady] = useState(false);
 	const canvas = useRef<HTMLCanvasElement>(null);
 
 	const redraw = () => {
@@ -39,7 +42,7 @@ export const getRenderOnCanvas = (imageFunction) => {
 	};
 
 	useEffect(() => {
-		if (!canvas.current) {
+		if (canvas.current === null || imageFunction === null) {
 			return;
 		}
 		setBoundingClientRectCanvas(canvas.current.getBoundingClientRect());
@@ -50,18 +53,21 @@ export const getRenderOnCanvas = (imageFunction) => {
 				imageFunction: imageFunction,
 			})
 		);
-	}, [canvas]);
+		setIsReady(true);
+	}, [canvas, imageFunction]);
 
 	return {
 		width,
 		height,
 		pixelSize,
 		isResizeable,
+		isReady,
 		canvas,
 		setWidth,
 		setHeight,
 		setPixelSize,
 		setIsResizeable,
+		setImageFunction,
 		onDrag,
 		redraw,
 	};

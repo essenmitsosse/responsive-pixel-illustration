@@ -1,13 +1,10 @@
 import "./RenderPixel.css";
 import { getRenderOnCanvas } from "./getRenderOnCanvas";
-import { useEffect } from "react";
-import { ImageFunction } from "../responsivePixel/PixelGraphics/types";
-
-const getTeiresias = async (): Promise<ImageFunction> => {
-	return (await import("../responsivePixel/scripts/teiresias")).imageFunctionTeiresias
-};
+import { useEffect, useState } from "react";
+import { recordImage, listPairImage } from "./recordImage";
 
 export default () => {
+	const [idImage, setIdImage] = useState("teiresias");
 	const {
 		width,
 		height,
@@ -25,13 +22,22 @@ export default () => {
 	} = getRenderOnCanvas();
 
 	useEffect(() => {
-		getTeiresias().then(setImageFunction);
-	}, []);
+		recordImage[idImage]
+			.getImage()
+			.then((imageFunctionExport) => setImageFunction(imageFunctionExport.default));
+	}, [idImage]);
 
 	redraw();
 
 	return (
 		<div className="home">
+			<select value={idImage} onChange={(event) => setIdImage(event.currentTarget.value)}>
+				{listPairImage.map(([id, image]) => (
+					<option value={id} key={id}>
+						{image.niceName}
+					</option>
+				))}
+			</select>
 			<input
 				value={width}
 				onInput={(event) => setWidth(parseFloat(event.currentTarget.value))}

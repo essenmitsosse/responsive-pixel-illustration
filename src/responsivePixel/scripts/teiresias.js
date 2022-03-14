@@ -1207,7 +1207,7 @@ const variableList = {
 	treeRandom: mult(0.1, "imgheight"),
 };
 
-export const imageFunctionTeiresias = {
+export default {
 	renderList,
 	variableList,
 	background: backgroundColor,

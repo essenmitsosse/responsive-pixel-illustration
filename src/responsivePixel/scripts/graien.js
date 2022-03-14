@@ -2465,7 +2465,7 @@ const renderList = [
 	},
 ];
 
-export const graien = {
+export default {
 	renderList,
 	background,
 	linkList,

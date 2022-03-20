@@ -24,7 +24,7 @@ interface GetLinkedVariable {
 	debug?: true;
 }
 
-interface Link {
+export interface Link {
 	a: string;
 	debug?: true;
 }

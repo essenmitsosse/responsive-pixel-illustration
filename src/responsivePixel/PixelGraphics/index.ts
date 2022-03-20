@@ -3,7 +3,7 @@ import { getPixelUnits, PixelUnit } from "./pixelUnits";
 import { getGetRandom } from "./getGetRandom";
 import { Variable } from "./Variable";
 import { VariableDynamic } from "./VariableDynamic";
-import type { ArgsRenderer, Renderer } from "./getRenderer";
+import type { Redraw } from "./getRenderer";
 import type { ImageFunction, Link } from "./types";
 
 export class PixelGraphics {
@@ -12,7 +12,7 @@ export class PixelGraphics {
 
 	private variableList = {};
 	private imageFunction: ImageFunction;
-	private finalRenderer: Renderer;
+	public redraw: Redraw;
 
 	constructor(args: {
 		imageFunction: ImageFunction;
@@ -34,11 +34,7 @@ export class PixelGraphics {
 			}
 		);
 
-		this.finalRenderer = getRenderer(args, this);
-	}
-
-	redraw(args: ArgsRenderer) {
-		this.finalRenderer.resize(args);
+		this.redraw = getRenderer(args, this);
 	}
 
 	prepareVariableList(vl: ReadonlyArray<Link>) {

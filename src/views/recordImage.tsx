@@ -34,6 +34,12 @@ export const recordImage: Record<
 			return import("../responsivePixel/scripts/sparta");
 		},
 	},
+	tantalos: {
+		niceName: "Tantalos",
+		getImage: () => {
+			return import("../responsivePixel/scripts/tantalos");
+		},
+	},
 	teiresias: {
 		niceName: "Teiresias",
 		getImage: () => {

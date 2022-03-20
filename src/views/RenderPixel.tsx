@@ -59,7 +59,7 @@ export default () => {
 				onInput={(event) => setPixelSize(parseFloat(event.currentTarget.value))}
 				type="range"
 				min="2"
-				max="12"
+				max="30"
 				step="1"
 			/>
 			<input

@@ -4,10 +4,10 @@ export const recordImage: Record<
 	string,
 	{ niceName: string; getImage: () => Promise<{ default: ImageFunction }> }
 > = {
-	graien: {
-		niceName: "Graien",
+	argos: {
+		niceName: "Argos",
 		getImage: () => {
-			return import("../responsivePixel/scripts/graien");
+			return import("../responsivePixel/scripts/argos");
 		},
 	},
 	brothers: {
@@ -15,6 +15,13 @@ export const recordImage: Record<
 		getImage: () => {
 			return import("../responsivePixel/scripts/brothers");
 		},
+	},
+	graien: {
+		niceName: "Graien",
+		getImage: () => {
+			return import("../responsivePixel/scripts/graien");
+		}
+	},
 	},
 	teiresias: {
 		niceName: "Teiresias",

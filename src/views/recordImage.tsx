@@ -22,6 +22,12 @@ export const recordImage: Record<
 			return import("../responsivePixel/scripts/graien");
 		},
 	},
+	sphinx: {
+		niceName: "Sphinx",
+		getImage: () => {
+			return import("../responsivePixel/scripts/sphinx");
+		},
+	},
 	sparta: {
 		niceName: "Sparta",
 		getImage: () => {

@@ -68,10 +68,10 @@ export const getRenderer = (
 			// Draw and upscale Context on Canvas
 			context.drawImage(
 				virtualCanvas,
-				Math.round(missingX / 2) * options.pixelSize,
-				Math.round(missingY / 2) * options.pixelSize,
-				countX * options.pixelSize,
-				countY * options.pixelSize
+				Math.round(missingX / 2) * args.pixelSize,
+				Math.round(missingY / 2) * args.pixelSize,
+				countX * args.pixelSize,
+				countY * args.pixelSize
 			);
 		}
 

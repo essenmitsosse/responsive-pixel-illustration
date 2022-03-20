@@ -20,8 +20,13 @@ export const recordImage: Record<
 		niceName: "Graien",
 		getImage: () => {
 			return import("../responsivePixel/scripts/graien");
-		}
+		},
 	},
+	sparta: {
+		niceName: "Sparta",
+		getImage: () => {
+			return import("../responsivePixel/scripts/sparta");
+		},
 	},
 	teiresias: {
 		niceName: "Teiresias",

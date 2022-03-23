@@ -24,7 +24,9 @@ export const getRenderer = (
 	const virtualContext = virtualCanvas.getContext("2d");
 
 	const drawer = getDrawer(pixelGraphics, options.imageFunction.renderList);
-	const renderPixelToImage = getRenderPixelToImage(options.imageFunction.background);
+	const renderPixelToImage = getRenderPixelToImage(
+		options.imageFunction.background
+	);
 
 	if (context === null) {
 		throw new Error("Couldn`t find context is passed canvas");
@@ -36,9 +38,14 @@ export const getRenderer = (
 	return (args) => {
 		const countXFull = args.sizeX / args.pixelSize;
 		const countYFull = args.sizeY / args.pixelSize;
-		const countX = Math.round(Math.min(1, args.widthFactor || 1) * countXFull);
-		const countY = Math.round(Math.min(1, args.heightFactor || 1) * countYFull);
-		const image = countX && countY && virtualContext.createImageData(countX, countY);
+		const countX = Math.round(
+			Math.min(1, args.widthFactor || 1) * countXFull
+		);
+		const countY = Math.round(
+			Math.min(1, args.heightFactor || 1) * countYFull
+		);
+		const image =
+			countX && countY && virtualContext.createImageData(countX, countY);
 		let drawing;
 		const missingX = countXFull - countX;
 		const missingY = countYFull - countY;

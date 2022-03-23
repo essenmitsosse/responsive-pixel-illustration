@@ -44,7 +44,9 @@ export class PixelSetter {
 	getSetSave(name, isRect) {
 		const that = this;
 		return function () {
-			const thisSave = that.forms[name] ? that.forms[name] : (that.forms[name] = {});
+			const thisSave = that.forms[name]
+				? that.forms[name]
+				: (that.forms[name] = {});
 			const save = thisSave.save ? thisSave.save : (thisSave.save = []);
 			const mask = thisSave.mask ? thisSave.mask : (thisSave.mask = []);
 
@@ -68,7 +70,10 @@ export class PixelSetter {
 
 			if (thisSave) {
 				return isRect
-					? that.colorArray.getClearSaveForRect(thisSave.save, thisSave.mask)
+					? that.colorArray.getClearSaveForRect(
+							thisSave.save,
+							thisSave.mask
+					  )
 					: function () {};
 			}
 		};

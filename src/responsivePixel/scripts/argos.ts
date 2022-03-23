@@ -90,8 +90,18 @@ const help = helper,
 					},
 					list: [
 						{ points: [{ x: { r: 0.5 } }, { fY: true }] },
-						{ points: [{ x: { r: 0.3 }, y: { r: 0.15 } }, { fY: true }] },
-						{ points: [{ x: { r: 0.95 } }, { x: { r: 0.3 }, fY: true }] },
+						{
+							points: [
+								{ x: { r: 0.3 }, y: { r: 0.15 } },
+								{ fY: true },
+							],
+						},
+						{
+							points: [
+								{ x: { r: 0.95 } },
+								{ x: { r: 0.3 }, fY: true },
+							],
+						},
 						{
 							points: [
 								{ y: { r: 0.85 }, x: { r: 0.6 } },
@@ -131,14 +141,22 @@ const help = helper,
 			sX: { r: 0.5 },
 			sY: { a: 1 },
 			fY: true,
-			stripes: { change: { r: 0.8 }, random: { r: 0.05 }, strip: { a: 1, random: 2 } },
+			stripes: {
+				change: { r: 0.8 },
+				random: { r: 0.05 },
+				strip: { a: 1, random: 2 },
+			},
 		},
 		{
 			sX: { r: 0.5 },
 			sY: { a: 1 },
 			fY: true,
 			fX: true,
-			stripes: { change: { r: 1 }, random: { r: 0.05 }, strip: { a: 1, random: 2 } },
+			stripes: {
+				change: { r: 1 },
+				random: { r: 0.05 },
+				strip: { a: 1, random: 2 },
+			},
 		},
 	],
 	renderList = [
@@ -192,14 +210,23 @@ const help = helper,
 					list: [
 						{
 							stripes: {
-								gap: { add: ["waterGapLength", 1], save: "waterGapLength" },
+								gap: {
+									add: ["waterGapLength", 1],
+									save: "waterGapLength",
+								},
 								strip: {
-									add: ["waterLength", mult(-0.012, "motiveSX")],
+									add: [
+										"waterLength",
+										mult(-0.012, "motiveSX"),
+									],
 									save: "waterLength",
 									random: "backSX",
 								},
 							},
-							list: [{ color: water2 }, { sX: { r: 0.4 }, color: water1 }],
+							list: [
+								{ color: water2 },
+								{ sX: { r: 0.4 }, color: water1 },
+							],
 						},
 					],
 				},
@@ -228,7 +255,10 @@ const help = helper,
 			list: [
 				// BACK
 				{
-					sY: { add: [mult(2, "boatSY"), mult(-1, "deckSYreal")], save: "backSY" },
+					sY: {
+						add: [mult(2, "boatSY"), mult(-1, "deckSYreal")],
+						save: "backSY",
+					},
 					sX: "backSX",
 					fY: true,
 					list: [
@@ -236,11 +266,27 @@ const help = helper,
 							points: [
 								// Right
 								{ y: 5, fX: true },
-								{ x: { r: 0.2 }, y: [mult(0.3, "upperEnd"), 3], fX: true },
-								{ x: { r: 0.3 }, y: [mult(0.5, "upperEnd"), 3], fX: true },
-								{ x: { r: 0.2 }, y: [mult(0.7, "upperEnd"), 3], fX: true },
+								{
+									x: { r: 0.2 },
+									y: [mult(0.3, "upperEnd"), 3],
+									fX: true,
+								},
+								{
+									x: { r: 0.3 },
+									y: [mult(0.5, "upperEnd"), 3],
+									fX: true,
+								},
+								{
+									x: { r: 0.2 },
+									y: [mult(0.7, "upperEnd"), 3],
+									fX: true,
+								},
 
-								{ fY: true, fX: true, y: ["boatSY", sub("deckSYreal")] },
+								{
+									fY: true,
+									fX: true,
+									y: ["boatSY", sub("deckSYreal")],
+								},
 								{ fY: true, fX: true },
 
 								// Left
@@ -261,11 +307,27 @@ const help = helper,
 							points: [
 								// Right
 								{ y: 5, fX: true },
-								{ x: { r: 0.2 }, y: [mult(0.3, "upperEnd"), 3], fX: true },
-								{ x: { r: 0.3 }, y: [mult(0.5, "upperEnd"), 3], fX: true },
-								{ x: { r: 0.2 }, y: [mult(0.7, "upperEnd"), 3], fX: true },
+								{
+									x: { r: 0.2 },
+									y: [mult(0.3, "upperEnd"), 3],
+									fX: true,
+								},
+								{
+									x: { r: 0.3 },
+									y: [mult(0.5, "upperEnd"), 3],
+									fX: true,
+								},
+								{
+									x: { r: 0.2 },
+									y: [mult(0.7, "upperEnd"), 3],
+									fX: true,
+								},
 
-								{ fY: true, fX: true, y: ["boatSY", sub("deckSYreal")] },
+								{
+									fY: true,
+									fX: true,
+									y: ["boatSY", sub("deckSYreal")],
+								},
 							],
 						},
 						{ sX: 3, sY: 6, y: 1, fX: true, color: woodDark },
@@ -276,10 +338,16 @@ const help = helper,
 							sY: 6,
 							sX: { r: 0.5 },
 							list: [
-								{ weight: 1, points: [{}, { y: { r: -0.2 }, fX: true }] },
 								{
 									weight: 1,
-									points: [{ y: { r: 0.5 } }, { y: { r: 0.4 }, fX: true }],
+									points: [{}, { y: { r: -0.2 }, fX: true }],
+								},
+								{
+									weight: 1,
+									points: [
+										{ y: { r: 0.5 } },
+										{ y: { r: 0.4 }, fX: true },
+									],
 								},
 								{ sY: 1, fY: true },
 								{ sX: 1, x: { r: 0.5 } },
@@ -289,7 +357,10 @@ const help = helper,
 						// Calc Tail
 						{
 							sX: { a: 0 },
-							sY: { add: ["backSY", sub("boatSY"), "deckSYreal"], save: "upperEnd" },
+							sY: {
+								add: ["backSY", sub("boatSY"), "deckSYreal"],
+								save: "upperEnd",
+							},
 						},
 					],
 				},
@@ -340,7 +411,10 @@ const help = helper,
 								// FACE
 								{
 									sX: "ramFullSX",
-									sY: { add: ["lowerTrunk", sub("ramSY")], save: "faceSY" },
+									sY: {
+										add: ["lowerTrunk", sub("ramSY")],
+										save: "faceSY",
+									},
 									list: [
 										{
 											clear: true,
@@ -398,7 +472,11 @@ const help = helper,
 											y: { r: 0.4 },
 											list: [
 												{ color: sail, points: eye },
-												{ weight: 1, closed: true, points: eye },
+												{
+													weight: 1,
+													closed: true,
+													points: eye,
+												},
 												{
 													s: { r: 0.4 },
 													fX: true,
@@ -407,10 +485,28 @@ const help = helper,
 													list: [
 														{
 															points: [
-																{ x: { r: 0.5 } },
-																{ y: { r: 0.5 } },
-																{ x: { r: 0.5 }, fY: true },
-																{ y: { r: 0.5 }, fX: true },
+																{
+																	x: {
+																		r: 0.5,
+																	},
+																},
+																{
+																	y: {
+																		r: 0.5,
+																	},
+																},
+																{
+																	x: {
+																		r: 0.5,
+																	},
+																	fY: true,
+																},
+																{
+																	y: {
+																		r: 0.5,
+																	},
+																	fX: true,
+																},
 															],
 														},
 													],
@@ -424,7 +520,9 @@ const help = helper,
 												{
 													clear: true,
 													id: "ship",
-													stripes: { change: { r: -1 } },
+													stripes: {
+														change: { r: -1 },
+													},
 													fY: true,
 													fX: true,
 												},
@@ -436,16 +534,31 @@ const help = helper,
 								// RAM
 								{
 									x: sub("ramX"),
-									sX: { r: 1, add: [{ r: 0.2, save: "ramX" }] },
+									sX: {
+										r: 1,
+										add: [{ r: 0.2, save: "ramX" }],
+									},
 									sY: { r: 0.2, save: "ramSY" },
 									fY: true,
 									list: [
 										{
-											sX: { r: 1, add: [sub("ramTipSX")] },
+											sX: {
+												r: 1,
+												add: [sub("ramTipSX")],
+											},
 											list: [
 												{},
-												{ fY: true, sY: 1, color: wood1 },
-												{ fY: true, sY: 1, y: 1, color: woodDark },
+												{
+													fY: true,
+													sY: 1,
+													color: wood1,
+												},
+												{
+													fY: true,
+													sY: 1,
+													y: 1,
+													color: woodDark,
+												},
 											],
 										},
 
@@ -460,10 +573,22 @@ const help = helper,
 													points: [
 														{},
 														{ x: { r: 0.2 } },
-														{ x: { r: 0.4 }, y: { r: 0.3 } },
-														{ x: { r: 0.6 }, y: { r: 0.3 } },
-														{ x: { r: 0.8 }, y: { r: 0.2 } },
-														{ fX: true, y: { r: 0.2 } },
+														{
+															x: { r: 0.4 },
+															y: { r: 0.3 },
+														},
+														{
+															x: { r: 0.6 },
+															y: { r: 0.3 },
+														},
+														{
+															x: { r: 0.8 },
+															y: { r: 0.2 },
+														},
+														{
+															fX: true,
+															y: { r: 0.2 },
+														},
 														{ fX: true, fY: true },
 														{ fY: true },
 													],
@@ -476,7 +601,10 @@ const help = helper,
 											id: "ship",
 											list: [
 												{
-													stripes: { horizontal: true, change: -5 },
+													stripes: {
+														horizontal: true,
+														change: -5,
+													},
 													fY: true,
 													fX: true,
 												},
@@ -496,13 +624,23 @@ const help = helper,
 										{
 											points: [
 												{},
-												{ x: { r: 1.5, save: "overshot" } },
+												{
+													x: {
+														r: 1.5,
+														save: "overshot",
+													},
+												},
 												{ fX: true, fY: true },
 												{ fY: true },
 											],
 										},
 										{ sY: 1, y: 1, fY: true },
-										{ sX: { r: 1, a: 2 }, sY: 1, fY: true, color: woodDark },
+										{
+											sX: { r: 1, a: 2 },
+											sY: 1,
+											fY: true,
+											color: woodDark,
+										},
 										{
 											sX: { r: 1, a: 3 },
 											sY: 1,
@@ -513,7 +651,10 @@ const help = helper,
 									],
 								},
 
-								{ sY: { a: 0 }, sX: { a: "ramUpperSX", save: "overshot" } }, // reset
+								{
+									sY: { a: 0 },
+									sX: { a: "ramUpperSX", save: "overshot" },
+								}, // reset
 							],
 						},
 					],
@@ -528,21 +669,41 @@ const help = helper,
 						// HULK
 						{
 							fY: true,
-							sY: { add: ["boatSY", sub("deckSYreal")], save: "lowerTrunk" },
+							sY: {
+								add: ["boatSY", sub("deckSYreal")],
+								save: "lowerTrunk",
+							},
 							sX: ["innerShipSX", "ramUpperSX"],
 							list: [
 								{},
 								{
-									stripes: { horizontal: true, strip: 2, random: -20 },
+									stripes: {
+										horizontal: true,
+										strip: 2,
+										random: -20,
+									},
 									fX: true,
 									list: [
 										{
-											stripes: { strip: { a: 5, random: 60 } },
+											stripes: {
+												strip: { a: 5, random: 60 },
+											},
 											list: [
 												{},
-												{ sX: { r: 0.5 }, x: { r: 0.4 }, color: wood3 },
-												{ x: { r: 0.3 }, sX: { r: 0.3 }, color: wood1 },
-												{ sX: { r: 0.4 }, color: wood2 },
+												{
+													sX: { r: 0.5 },
+													x: { r: 0.4 },
+													color: wood3,
+												},
+												{
+													x: { r: 0.3 },
+													sX: { r: 0.3 },
+													color: wood1,
+												},
+												{
+													sX: { r: 0.4 },
+													color: wood2,
+												},
 											],
 										},
 									],
@@ -600,13 +761,19 @@ const help = helper,
 										{
 											weight: 1,
 											color: string,
-											points: [{ x: { r: 0.5 } }, { fX: true, fY: true }],
+											points: [
+												{ x: { r: 0.5 } },
+												{ fX: true, fY: true },
+											],
 										},
 										mast(true, false),
 										{
 											weight: 1,
 											color: string,
-											points: [{ x: { r: 0.5 } }, { fY: true }],
+											points: [
+												{ x: { r: 0.5 } },
+												{ fY: true },
+											],
 										},
 									],
 								},
@@ -635,7 +802,10 @@ const help = helper,
 											sX: 1,
 											minY: 14,
 											fX: true,
-											list: [{ color: spear }, { sY: 2, color: spearTip }],
+											list: [
+												{ color: spear },
+												{ sY: 2, color: spearTip },
+											],
 										},
 										{
 											sX: 2,
@@ -656,7 +826,12 @@ const help = helper,
 														},
 													],
 												},
-												{ name: "Dot", color: argoSkin, fX: true, y: 3 },
+												{
+													name: "Dot",
+													color: argoSkin,
+													fX: true,
+													y: 3,
+												},
 											],
 										},
 									],
@@ -680,7 +855,12 @@ const help = helper,
 						{
 							y: "deckSYreal",
 							sY: { r: 0.8, add: [sub("deckSYreal")] },
-							stripes: { strip: 10, horizontal: true, cut: true, change: -15 },
+							stripes: {
+								strip: 10,
+								horizontal: true,
+								cut: true,
+								change: -15,
+							},
 							fX: true,
 							list: [
 								{
@@ -722,7 +902,10 @@ const help = helper,
 									stripes: { strip: 6, overflow: true },
 									list: [
 										{ color: backgroundColor },
-										{ sX: 3, list: [{}, { sY: 1, color: wood3 }] },
+										{
+											sX: 3,
+											list: [{}, { sY: 1, color: wood3 }],
+										},
 										{
 											sX: 3,
 											fX: true,
@@ -746,11 +929,16 @@ const help = helper,
 													list: [
 														{},
 														{
-															sY: { otherDim: true },
+															sY: {
+																otherDim: true,
+															},
 															color: slaveSkin,
 														},
 														{
-															s: mult(0.5, "boatSY"),
+															s: mult(
+																0.5,
+																"boatSY"
+															),
 															fY: true,
 															tY: true,
 															tX: true,
@@ -789,10 +977,24 @@ const help = helper,
 			y: "waterSY",
 			sX: "frontSX",
 			list: [
-				{ stripes: { gap: { a: 1, random: 10 }, strip: { a: 0, random: 15 } } },
-				{ stripes: { gap: { a: 1, random: 10 }, strip: { a: 0, random: 15 } }, y: 2 },
 				{
-					stripes: { gap: { a: 1, random: 15 }, strip: { a: 0, random: 3 } },
+					stripes: {
+						gap: { a: 1, random: 10 },
+						strip: { a: 0, random: 15 },
+					},
+				},
+				{
+					stripes: {
+						gap: { a: 1, random: 10 },
+						strip: { a: 0, random: 15 },
+					},
+					y: 2,
+				},
+				{
+					stripes: {
+						gap: { a: 1, random: 15 },
+						strip: { a: 0, random: 3 },
+					},
 					sX: { r: 2 },
 					fX: true,
 					y: 4,
@@ -813,7 +1015,10 @@ const help = helper,
 		motiveSY: [{ r: 1, height: true }, mult(-2, "border")],
 
 		motiveSqu: getSmallerDim({ r: 1, useSize: ["motiveSX", "motiveSY"] }),
-		motiveSquBigger: getBiggerDim({ r: 1, useSize: ["motiveSX", "motiveSY"] }),
+		motiveSquBigger: getBiggerDim({
+			r: 1,
+			useSize: ["motiveSX", "motiveSY"],
+		}),
 
 		gridY: {
 			add: [

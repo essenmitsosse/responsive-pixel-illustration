@@ -75,7 +75,8 @@ const helper = new (function () {
 			let thisC;
 
 			while (l--) {
-				newColor[l] = (thisC = color[l] + finaleLighten[l]) > 255 ? 255 : thisC;
+				newColor[l] =
+					(thisC = color[l] + finaleLighten[l]) > 255 ? 255 : thisC;
 			}
 
 			return newColor;
@@ -89,7 +90,12 @@ const helper = new (function () {
 			let thisC;
 
 			while (l--) {
-				newColor[l] = (thisC = color[l] + add[l]) > 255 ? 255 : thisC < 0 ? 0 : thisC;
+				newColor[l] =
+					(thisC = color[l] + add[l]) > 255
+						? 255
+						: thisC < 0
+						? 0
+						: thisC;
 			}
 
 			return newColor;
@@ -99,7 +105,11 @@ const helper = new (function () {
 	this.lessSat = function (color, s) {
 		const total = ((color[0] + color[1] + color[2]) * (1 - s)) / 3;
 
-		return [color[0] * s + total, color[1] * s + total, color[2] * s + total];
+		return [
+			color[0] * s + total,
+			color[1] * s + total,
+			color[2] * s + total,
+		];
 	};
 
 	this.getBrightness = function (color) {
@@ -198,7 +208,8 @@ const helper = new (function () {
 									);
 								} else {
 									// Just assign the max or min value
-									currentSize = currentInfo.max || currentInfo.min;
+									currentSize =
+										currentInfo.max || currentInfo.min;
 								}
 							} else {
 								// Just assign the value
@@ -221,7 +232,11 @@ const helper = new (function () {
 				let somethingToChange = false;
 
 				for (key in args) {
-					if (key !== "width" && key !== "height" && key !== "isServer") {
+					if (
+						key !== "width" &&
+						key !== "height" &&
+						key !== "isServer"
+					) {
 						somethingToChange = true;
 						break;
 					}
@@ -236,7 +251,8 @@ const helper = new (function () {
 							if (args[current.map] !== undefined) {
 								setValue(
 									current.variable,
-									current.min + current.change * args[current.map]
+									current.min +
+										current.change * args[current.map]
 								);
 							}
 						}
@@ -247,7 +263,9 @@ const helper = new (function () {
 						while (l--) {
 							current = changersRelativeCustom[l];
 
-							if ((currentValue = current[1](args)) !== undefined) {
+							if (
+								(currentValue = current[1](args)) !== undefined
+							) {
 								setValue(current[0], currentValue);
 							}
 						}

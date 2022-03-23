@@ -45,7 +45,9 @@ TableComic.prototype.Table.prototype.draw = function TableDraw(args) {
 	]);
 };
 
-TableComic.prototype.Table.prototype.getPosition = function TableGetPosition(id) {
+TableComic.prototype.Table.prototype.getPosition = function TableGetPosition(
+	id
+) {
 	return {
 		x: id === 0 ? this.x : this.pushLinkList([this.x, this.sX]),
 		y: this.sY,
@@ -71,7 +73,11 @@ TableComic.prototype.Chair.prototype.draw = function ChairDraw(args) {
 
 	this.getPosition(args);
 
-	this.backrestSX = this.pushLinkList({ r: 0.1, useSize: this.square, min: 1 });
+	this.backrestSX = this.pushLinkList({
+		r: 0.1,
+		useSize: this.square,
+		min: 1,
+	});
 
 	return this.getObject([
 		// Seat
@@ -130,7 +136,10 @@ TableComic.prototype.Glass.prototype.draw = function GlassDraw(args) {
 		{
 			sY: this.level,
 			fY: true,
-			list: [{ color: this.color }, { color: this.mixColor, list: normalGlass }],
+			list: [
+				{ color: this.color },
+				{ color: this.mixColor, list: normalGlass },
+			],
 		},
 	]);
 };
@@ -203,26 +212,44 @@ TableComic.prototype.Emotion.prototype.draw = function EmotionDraw(args) {
 											weight: 1,
 											points: [
 												{ x: { r: 0.5 } },
-												{ x: { r: 0.65 }, y: { r: 0.4 } },
-												{ x: { r: 0.35 }, y: { r: 0.6 } },
+												{
+													x: { r: 0.65 },
+													y: { r: 0.4 },
+												},
+												{
+													x: { r: 0.35 },
+													y: { r: 0.6 },
+												},
 												{ x: { r: 0.5 }, fY: true },
 											],
 										},
 									],
 								},
 
-								{ sY: { r: 0.8 }, mX: { r: 0.05, otherDim: true, a: 1 }, fY: true },
+								{
+									sY: { r: 0.8 },
+									mX: { r: 0.05, otherDim: true, a: 1 },
+									fY: true,
+								},
 
 								// Outside
 								{
 									sY: { r: 0.6 },
 									sX: { r: 0.4, min: 2 },
-									x: { r: 0.2, useSize: this.cloudSX, max: { a: 0 } },
+									x: {
+										r: 0.2,
+										useSize: this.cloudSX,
+										max: { a: 0 },
+									},
 								},
 								{
 									sY: { r: 0.6 },
 									sX: { r: 0.4, min: 2 },
-									x: { r: 0.4, useSize: this.cloudSX, max: { a: 0 } },
+									x: {
+										r: 0.4,
+										useSize: this.cloudSX,
+										max: { a: 0 },
+									},
 									fX: true,
 								},
 
@@ -232,7 +259,11 @@ TableComic.prototype.Emotion.prototype.draw = function EmotionDraw(args) {
 									fY: true,
 									tY: true,
 									sY: { r: 0.1, min: 1 },
-									x: { r: 0.4, useSize: this.cloudSX, max: { a: 0 } },
+									x: {
+										r: 0.4,
+										useSize: this.cloudSX,
+										max: { a: 0 },
+									},
 								},
 
 								// Cloud

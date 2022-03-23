@@ -24,8 +24,15 @@ TableComic.prototype.Background = function Background(args) {
 };
 
 TableComic.prototype.Background.prototype.draw = function BackgroundDraw(args) {
-	const borderSY = this.pushLinkList({ r: 0.05, min: 1, useSize: args.stageSY });
-	const borderFinalSY = (this.borderFinalSY = this.pushLinkList({ r: 1, useSize: borderSY }));
+	const borderSY = this.pushLinkList({
+		r: 0.05,
+		min: 1,
+		useSize: args.stageSY,
+	});
+	const borderFinalSY = (this.borderFinalSY = this.pushLinkList({
+		r: 1,
+		useSize: borderSY,
+	}));
 
 	const stripeSX = this.pushLinkList({ r: 0.1, useSize: args.stageSX });
 	const stripeFinalSX = (this.stripeFinalSX = this.pushLinkList({
@@ -34,7 +41,9 @@ TableComic.prototype.Background.prototype.draw = function BackgroundDraw(args) {
 		min: 1,
 	}));
 
-	const floorY = this.pushLinkList({ add: [args.panY, { r: 0.2, useSize: args.stageSX }] });
+	const floorY = this.pushLinkList({
+		add: [args.panY, { r: 0.2, useSize: args.stageSX }],
+	});
 
 	this.backgroundSY = this.pushLinkList({ r: 1, useSize: args.fullSY });
 	this.floorSY = this.pushLinkList({ r: 1, useSize: floorY });
@@ -45,7 +54,11 @@ TableComic.prototype.Background.prototype.draw = function BackgroundDraw(args) {
 		floorSY: { map: "set", min: 0, max: 1 },
 	});
 
-	this.borderFinalSY = this.pushLinkList({ r: 1, useSize: this.borderFinalSY, min: 1 });
+	this.borderFinalSY = this.pushLinkList({
+		r: 1,
+		useSize: this.borderFinalSY,
+		min: 1,
+	});
 
 	if (args.info) {
 		this.pushRelativeStandardAutomatic({

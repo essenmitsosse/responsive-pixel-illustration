@@ -78,20 +78,37 @@ const imgHeight = linkListPush([sYMain, { useSize: fullBorderY, r: -2 }]);
 
 const backWidth = linkListPush([sXMain, { useSize: border, r: -2 }]);
 const backHeight = linkListPush([sYMain, { useSize: border, r: -2 }]);
-const backSquare = linkListPush(getSmallerDim({ r: 1, useSize: [backWidth, backHeight] }));
+const backSquare = linkListPush(
+	getSmallerDim({ r: 1, useSize: [backWidth, backHeight] })
+);
 
-const imgSquare = linkListPush(getSmallerDim({ r: 1, useSize: [imgWidth, imgHeight] }));
-const imgSquareBigger = linkListPush(getBiggerDim({ r: 1, useSize: [imgWidth, imgHeight] }));
+const imgSquare = linkListPush(
+	getSmallerDim({ r: 1, useSize: [imgWidth, imgHeight] })
+);
+const imgSquareBigger = linkListPush(
+	getBiggerDim({ r: 1, useSize: [imgWidth, imgHeight] })
+);
 
 // BORDER DETAILS
 const borderMargin = linkListPush({ r: 0.1, useSize: border, min: 1 });
-const frameDetailSize = linkListPush({ min: 1, add: [frameWidth, mult(-2, borderMargin), -2] });
+const frameDetailSize = linkListPush({
+	min: 1,
+	add: [frameWidth, mult(-2, borderMargin), -2],
+});
 
 // BACKGROUND
 const groundHeight = linkListPush(mult(0.2, backHeight));
-const hillHeight = linkListPush({ r: 0.05, useSize: backHeight, add: [mult(0.1, backWidth)] });
+const hillHeight = linkListPush({
+	r: 0.05,
+	useSize: backHeight,
+	add: [mult(0.1, backWidth)],
+});
 const hillDifference = linkListPush({ r: 0.4, useSize: backHeight });
-const hillWidth = linkListPush({ r: 0.1, useSize: backWidth, add: [mult(0.1, backSquare)] });
+const hillWidth = linkListPush({
+	r: 0.1,
+	useSize: backWidth,
+	add: [mult(0.1, backSquare)],
+});
 
 const treeWidth = linkListPush({ a: 2 });
 const treeMinGap = linkListPush({
@@ -106,9 +123,17 @@ const trunkWidth = linkListPush(mult(3, treeMinGap));
 
 // BREAD
 const breadAdd = linkListPush({ r: 0.05, a: 2, useSize: imgSquare }); // Adds a little bit to each side of the bread to make it more rec )t
-const breadWidth = linkListPush([breadAdd, { r: 0.08, min: 3, useSize: sXMain }]);
-const breadHeight = linkListPush([breadAdd, { r: 0.08, useSize: sYMain, min: 3 }]);
-const breadSquare = linkListPush(getSmallerDim({ r: 1, useSize: [breadWidth, breadHeight] }));
+const breadWidth = linkListPush([
+	breadAdd,
+	{ r: 0.08, min: 3, useSize: sXMain },
+]);
+const breadHeight = linkListPush([
+	breadAdd,
+	{ r: 0.08, useSize: sYMain, min: 3 },
+]);
+const breadSquare = linkListPush(
+	getSmallerDim({ r: 1, useSize: [breadWidth, breadHeight] })
+);
 const breadDetail = linkListPush({ r: 0.15, useSize: breadSquare });
 
 // FULL GRAIEN
@@ -175,8 +200,15 @@ const graie1ToLeft = linkListPush([footWidth, { r: 0.01, useSize: imgWidth }]);
 const graie1Width = linkListPush(
 	getSmallerDim({ r: 0.15, r2: 0.6, useSize: [imgWidth, imgHeight] })
 );
-const graie1LegHeight = linkListPush([legWidth, legLowerWidth, footFrontLength]);
-const graie1TorsoHeight = linkListPush([graie1ShoulderHeight, sub(graie1LegHeight)]);
+const graie1LegHeight = linkListPush([
+	legWidth,
+	legLowerWidth,
+	footFrontLength,
+]);
+const graie1TorsoHeight = linkListPush([
+	graie1ShoulderHeight,
+	sub(graie1LegHeight),
+]);
 const graie1ArmHeight = linkListPush(mult(0.3, imgHeight));
 const graie1BreadArmPos = linkListPush(graieHalfHeight);
 const graie1RightSide = linkListPush([graie1Width, graie1ToLeft]);
@@ -193,8 +225,15 @@ const graie1HeadWidth = linkListPush({
 });
 const graie1ShoulderWidth = linkListPush([graie1Width, sub(graie1HeadWidth)]);
 const graie1HeadPos = linkListPush(mult(0.3, graie1ShoulderWidth));
-const graie1HairLeftWidth = linkListPush({ r: 0.25, min: 1, useSize: graie1HeadWidth });
-const graie1FaceWidth = linkListPush([graie1HeadWidth, sub(graie1HairLeftWidth)]);
+const graie1HairLeftWidth = linkListPush({
+	r: 0.25,
+	min: 1,
+	useSize: graie1HeadWidth,
+});
+const graie1FaceWidth = linkListPush([
+	graie1HeadWidth,
+	sub(graie1HairLeftWidth),
+]);
 const graie1NosePos = linkListPush(mult(0.5, graie1HeadHeight));
 
 // Eyes
@@ -215,7 +254,11 @@ const graie1eyesWidth = linkListPush({
 	min: { r: 2, useSize: graie1eyeWidth, min: 3 },
 });
 const graie1faceRest = linkListPush([graie1FaceWidth, sub(graie1eyesWidth)]);
-const graie1eyePosLeft = linkListPush({ r: 0.5, useSize: graie1faceRest, min: 0 });
+const graie1eyePosLeft = linkListPush({
+	r: 0.5,
+	useSize: graie1faceRest,
+	min: 0,
+});
 const graie1eyeHeight = linkListPush({
 	add: [graie1NosePos, { r: -0.1, useSize: graie1HeadHeight }],
 	min: 1,
@@ -223,12 +266,28 @@ const graie1eyeHeight = linkListPush({
 const graie1eyePosTop = linkListPush([graie1NosePos, sub(graie1eyeHeight)]);
 
 const graie1NoseHeight = linkListPush(mult(0.8, armWidth));
-const graie1MouthOuterPart = linkListPush({ r: 0.1, useSize: graie1eyesWidth, min: 1 });
+const graie1MouthOuterPart = linkListPush({
+	r: 0.1,
+	useSize: graie1eyesWidth,
+	min: 1,
+});
 const graie1MouthInnerPart = linkListPush(mult(0.3, graie1eyesWidth));
 const graie1BreastWidth = linkListPush({ useSize: graie1Width, r: 0.3 });
-const graie1BreastMargin = linkListPush({ useSize: graie1Width, r: 0.2, a: -1 });
-const graie1BreastShadow = linkListPush({ useSize: graie1BreastWidth, r: 0.3, max: 1 });
-const graie1NippleHeight = linkListPush({ useSize: graie1BreastWidth, r: 0.2, min: 2 });
+const graie1BreastMargin = linkListPush({
+	useSize: graie1Width,
+	r: 0.2,
+	a: -1,
+});
+const graie1BreastShadow = linkListPush({
+	useSize: graie1BreastWidth,
+	r: 0.3,
+	max: 1,
+});
+const graie1NippleHeight = linkListPush({
+	useSize: graie1BreastWidth,
+	r: 0.2,
+	min: 2,
+});
 const graie1BreadArmLength = linkListPush([
 	graie1ShoulderHeight,
 	mult(-0.52, graieHeight),
@@ -240,7 +299,11 @@ const graie2ToLeft = linkListPush(
 	getSmallerDim({ r: 0.35, r2: 4, useSize: [imgWidth, imgHeight] })
 );
 const graie2ToRight = linkListPush(mult(0.3, imgWidth));
-const graie2Width = linkListPush([imgWidth, sub(graie2ToLeft), sub(graie2ToRight)]);
+const graie2Width = linkListPush([
+	imgWidth,
+	sub(graie2ToLeft),
+	sub(graie2ToRight),
+]);
 const graie2BodyHeight = linkListPush(mult(0.2, imgHeight));
 const graie2HeadHeight = linkListPush({ r: 0.8, useSize: graie2BodyHeight });
 const graie2HeadWidth = linkListPush({
@@ -249,11 +312,24 @@ const graie2HeadWidth = linkListPush({
 	max: { r: 0.5, useSize: graie2Width },
 });
 const graie2LegLength = linkListPush([mult(0.32, graieHalfHeight)]);
-const graie2ArmLength = linkListPush([imgHeight, sub(graie1BreadArmPos), sub(armWidth), -1]);
-const graie2LegPos = linkListPush([mult(0.05, graie2Width), mult(-0.005, imgHeight), armWidth]);
+const graie2ArmLength = linkListPush([
+	imgHeight,
+	sub(graie1BreadArmPos),
+	sub(armWidth),
+	-1,
+]);
+const graie2LegPos = linkListPush([
+	mult(0.05, graie2Width),
+	mult(-0.005, imgHeight),
+	armWidth,
+]);
 const graie2graie1Dist = linkListPush([graie2ToLeft, sub(graie1RightSide)]);
 const graie2ArmToArmWidth = linkListPush(mult(0.5, graie2graie1Dist));
-const graie2HeadShadow = linkListPush({ r: 0.15, useSize: graie2HeadHeight, max: 1 });
+const graie2HeadShadow = linkListPush({
+	r: 0.15,
+	useSize: graie2HeadHeight,
+	max: 1,
+});
 
 const graie1LegLength = linkListPush([
 	graie1Width,
@@ -279,8 +355,15 @@ const graie3ToRight = linkListPush(
 const graie3Width = linkListPush(graie1Width);
 const graie3LegLength = linkListPush([graie2LegLength, mult(0.2, imgHeight)]);
 const graie3LegHeight = linkListPush([graie3LegLength, footFrontLength]);
-const graie3TorsoHeight = linkListPush([graie3ShoulderHeight, sub(graie3LegHeight)]);
-const graie3lowerLegLength = linkListPush([graie3ToRight, graie3Width, sub(legWidth)]);
+const graie3TorsoHeight = linkListPush([
+	graie3ShoulderHeight,
+	sub(graie3LegHeight),
+]);
+const graie3lowerLegLength = linkListPush([
+	graie3ToRight,
+	graie3Width,
+	sub(legWidth),
+]);
 const graie3BehindLegLength = linkListPush([
 	graie2ToRight,
 	graie2LegPos,
@@ -288,14 +371,21 @@ const graie3BehindLegLength = linkListPush([
 	sub(graie3ToRight),
 	1,
 ]);
-const graie3HeadHeight = linkListPush({ add: [graie1HeadHeight, -1], max: [graie3ToTop, -1] });
+const graie3HeadHeight = linkListPush({
+	add: [graie1HeadHeight, -1],
+	max: [graie3ToTop, -1],
+});
 const graie3HeadWidth = linkListPush({ r: 1, useSize: graie3Width });
 const graie3NeckHeight = linkListPush({
 	r: 0.6,
 	useSize: graie3HeadHeight,
 	add: [mult(-0.1, graie3HeadWidth), 1],
 });
-const graie3FaceHeight = linkListPush([sub(graie3NeckHeight), 1, graie3HeadHeight]);
+const graie3FaceHeight = linkListPush([
+	sub(graie3NeckHeight),
+	1,
+	graie3HeadHeight,
+]);
 const graie3EarSize = linkListPush(mult(0.3, graie3FaceHeight));
 const graie3EarPos = linkListPush(mult(0.1, graie3FaceHeight));
 
@@ -425,7 +515,11 @@ const foot = (hor, down, fX, nr) => {
 	const ankleHeight = { r: 1, a: -2 };
 
 	return [
-		{ sX: !hor ? withoutToes : undefined, sY: hor ? withoutToes : undefined, fY: !down },
+		{
+			sX: !hor ? withoutToes : undefined,
+			sY: hor ? withoutToes : undefined,
+			fY: !down,
+		},
 		!down ? { sY: armShadow, color: shadowFoot, fY: true } : undefined,
 		{
 			stripes: { gap: 1, horizontal: !hor, strip: toeSize },
@@ -515,7 +609,11 @@ const legStructure = (() => {
 					sX: horFinal ? armSizeFinal : undefined,
 					sY: !horFinal ? armSizeFinal : undefined,
 				},
-				{ save: `graieLeg${iLeg}`, minHeight: horFinal ? 3 : 0, minX: horFinal ? 0 : 3 },
+				{
+					save: `graieLeg${iLeg}`,
+					minHeight: horFinal ? 3 : 0,
+					minX: horFinal ? 0 : 3,
+				},
 			],
 		};
 	};
@@ -557,7 +655,11 @@ const armToLeft = (nr, down?: boolean) => {
 					list: [
 						{
 							closed: true,
-							points: [{ fX: true }, { fY: true }, { fY: true, fX: true }],
+							points: [
+								{ fX: true },
+								{ fY: true },
+								{ fY: true, fX: true },
+							],
 						},
 					],
 				},
@@ -579,7 +681,10 @@ const skinPoint = (nr, big, obj) => {
 
 	const objFinal = obj || {};
 
-	objFinal.list = [{ color: shadowSkin }, { s: { r: 1, a: -2 }, color: skin, c: true }];
+	objFinal.list = [
+		{ color: shadowSkin },
+		{ s: { r: 1, a: -2 }, color: skin, c: true },
+	];
 	objFinal.sY = big ? { r: 0.1, a: -1, max: 4 } : { r: 0.02, max: 1 };
 	objFinal.sX = big
 		? {
@@ -727,13 +832,21 @@ const renderList = [
 							{
 								sX: 1,
 								sY: { r: 0.3 },
-								stripes: { gap: 1, random: trunkWidth, horizontal: true },
+								stripes: {
+									gap: 1,
+									random: trunkWidth,
+									horizontal: true,
+								},
 							},
 							{
 								y: -1,
 								sX: 1,
 								sY: { r: 0.3 },
-								stripes: { gap: 1, random: trunkWidth, horizontal: true },
+								stripes: {
+									gap: 1,
+									random: trunkWidth,
+									horizontal: true,
+								},
 								fX: true,
 							},
 						],
@@ -800,18 +913,33 @@ const renderList = [
 														color: graie3Shadow,
 														fY: true,
 														fX: true,
-														sX: [subLegLowerWidth, { r: 1 }],
+														sX: [
+															subLegLowerWidth,
+															{ r: 1 },
+														],
 													},
-													{ sX: armShadow, color: graie3Shadow },
+													{
+														sX: armShadow,
+														color: graie3Shadow,
+													},
 
 													{
 														sX: legLowerWidth,
-														sY: [graie3LegLength, sub(legWidth)],
+														sY: [
+															graie3LegLength,
+															sub(legWidth),
+														],
 														fY: true,
 														tY: true,
 														list: [
-															legStructure(3, true),
-															{ sX: armShadow, color: graie3Shadow },
+															legStructure(
+																3,
+																true
+															),
+															{
+																sX: armShadow,
+																color: graie3Shadow,
+															},
 														],
 													},
 												],
@@ -827,8 +955,14 @@ const renderList = [
 														sX: legWidth,
 														fX: true,
 														list: [
-															legStructure(3, true),
-															{ sX: armShadow, color: graie3Shadow },
+															legStructure(
+																3,
+																true
+															),
+															{
+																sX: armShadow,
+																color: graie3Shadow,
+															},
 														],
 													},
 
@@ -840,10 +974,17 @@ const renderList = [
 														fY: true,
 														list: [
 															{
-																sX: { r: 1, add: [legWidth] },
+																sX: {
+																	r: 1,
+																	add: [
+																		legWidth,
+																	],
+																},
 																fX: true,
 																list: [
-																	legStructure(3),
+																	legStructure(
+																		3
+																	),
 																	{
 																		sY: armShadow,
 																		color: graie3Shadow,
@@ -863,7 +1004,12 @@ const renderList = [
 																sX: footWidth,
 																fX: true,
 																y: moveFootBack,
-																list: foot(true, true, false, 3),
+																list: foot(
+																	true,
+																	true,
+																	false,
+																	3
+																),
 															},
 
 															// [
@@ -891,8 +1037,15 @@ const renderList = [
 									// Bend Leg
 									{
 										sY: {
-											add: [graie2LegLength, graie2BodyHeight],
-											min: [graie1LegHeight, legLowerWidth, 1],
+											add: [
+												graie2LegLength,
+												graie2BodyHeight,
+											],
+											min: [
+												graie1LegHeight,
+												legLowerWidth,
+												1,
+											],
 										},
 										fY: true,
 										list: [
@@ -903,7 +1056,12 @@ const renderList = [
 													legStructure(2, true),
 													{
 														sX: armShadow,
-														sY: { r: 1, add: [subLegLowerWidth] },
+														sY: {
+															r: 1,
+															add: [
+																subLegLowerWidth,
+															],
+														},
 														fY: true,
 														color: graie2Shadow,
 													},
@@ -929,7 +1087,12 @@ const renderList = [
 														y: moveFootBack,
 														sX: footWidth,
 														fY: true,
-														list: foot(true, false, true, 2),
+														list: foot(
+															true,
+															false,
+															true,
+															2
+														),
 													},
 
 													// [
@@ -955,7 +1118,10 @@ const renderList = [
 												cY: true,
 												sY: { r: 0.1 },
 												fY: true,
-												stripes: { random: { r: 0.2 }, gap: 1 },
+												stripes: {
+													random: { r: 0.2 },
+													gap: 1,
+												},
 											},
 											{
 												color: graie2Shadow,
@@ -963,7 +1129,10 @@ const renderList = [
 												x: { r: 0.1 },
 												cY: true,
 												sY: { r: 0.1 },
-												stripes: { random: { r: 0.2 }, gap: 1 },
+												stripes: {
+													random: { r: 0.2 },
+													gap: 1,
+												},
 											},
 											{
 												sX: armShadow,
@@ -971,7 +1140,11 @@ const renderList = [
 												fY: true,
 												color: graie2Shadow,
 											},
-											{ fY: true, sY: armShadow, color: graie2Shadow },
+											{
+												fY: true,
+												sY: armShadow,
+												color: graie2Shadow,
+											},
 											{
 												y: { r: 0.08 },
 												sY: { r: 0.1, max: 1 },
@@ -1001,7 +1174,10 @@ const renderList = [
 														sX: { r: 0.5 },
 														list: [
 															{},
-															{ sX: armShadow, color: graie2Shadow },
+															{
+																sX: armShadow,
+																color: graie2Shadow,
+															},
 														],
 													},
 													{
@@ -1014,7 +1190,10 @@ const renderList = [
 																x: -1,
 																mY: 1,
 															},
-															{ sY: armShadow, color: graie2Shadow },
+															{
+																sY: armShadow,
+																color: graie2Shadow,
+															},
 															{
 																sY: armShadow,
 																fY: true,
@@ -1024,7 +1203,11 @@ const renderList = [
 															{
 																color: graie2Detail,
 																sY: { r: 0.3 },
-																sX: { r: 0.25, otherDim: true },
+																sX: {
+																	r: 0.25,
+																	otherDim:
+																		true,
+																},
 																tX: true,
 																cY: true,
 															},
@@ -1057,7 +1240,10 @@ const renderList = [
 										color: breadDark,
 										list: [
 											{
-												stripes: { strip: breadDetail, gap: breadDetail },
+												stripes: {
+													strip: breadDetail,
+													gap: breadDetail,
+												},
 												m: breadDetail,
 											},
 										],
@@ -1067,7 +1253,10 @@ const renderList = [
 										color: breadDark,
 										list: [
 											{
-												stripes: { strip: breadDetail, gap: breadDetail },
+												stripes: {
+													strip: breadDetail,
+													gap: breadDetail,
+												},
 												horizontal: true,
 												m: breadDetail,
 											},
@@ -1094,7 +1283,10 @@ const renderList = [
 												list: [
 													// Chest
 													{ sX: { r: 1, a: -1 } },
-													{ sX: armShadow, color: graie1Shadow },
+													{
+														sX: armShadow,
+														color: graie1Shadow,
+													},
 
 													{
 														color: graie1Shadow,
@@ -1104,14 +1296,24 @@ const renderList = [
 															horizontal: true,
 															random: { r: -0.2 },
 														},
-														sX: mult(0.2, graie1Width),
+														sX: mult(
+															0.2,
+															graie1Width
+														),
 														sY: {
 															r: 0.8,
-															max: { r: 2, a: 5, otherDim: true },
+															max: {
+																r: 2,
+																a: 5,
+																otherDim: true,
+															},
 														},
 														minX: 3,
 														x: [
-															mult(2, graie1BreastWidth),
+															mult(
+																2,
+																graie1BreastWidth
+															),
 															graie1BreastMargin,
 														],
 														fX: true,
@@ -1120,7 +1322,10 @@ const renderList = [
 													// Left Breast
 													{
 														sX: graie1BreastWidth,
-														x: [graie1BreastWidth, graie1BreastMargin],
+														x: [
+															graie1BreastWidth,
+															graie1BreastMargin,
+														],
 														y: armWidth,
 														sY: { r: 0.8 },
 														fX: true,
@@ -1144,14 +1349,20 @@ const renderList = [
 													{
 														color: graie1Shadow,
 														x: 2,
-														y: { r: 0.65, add: [armWidth, 2] },
+														y: {
+															r: 0.65,
+															add: [armWidth, 2],
+														},
 														stripes: {
 															striplengt: 1,
 															gap: 1,
 															horizontal: true,
 															random: { r: -0.2 },
 														},
-														sX: mult(0.2, graie1Width),
+														sX: mult(
+															0.2,
+															graie1Width
+														),
 														sY: { r: 0.2, max: 6 },
 														minX: 3,
 														fX: true,
@@ -1165,14 +1376,27 @@ const renderList = [
 															[
 																graie1Width,
 																sub(armWidth),
-																sub(graie1BreastWidth),
-																sub(graie1BreastWidth),
-																sub(graie1BreastMargin),
+																sub(
+																	graie1BreastWidth
+																),
+																sub(
+																	graie1BreastWidth
+																),
+																sub(
+																	graie1BreastMargin
+																),
 															],
 														],
-														x: [sub(graie1ToLeft), armWidth],
+														x: [
+															sub(graie1ToLeft),
+															armWidth,
+														],
 														list: [
-															legStructure(1, false, true),
+															legStructure(
+																1,
+																false,
+																true
+															),
 															{
 																sY: armShadow,
 																color: graie1Shadow,
@@ -1188,14 +1412,23 @@ const renderList = [
 														tY: true,
 														fX: true,
 														list: [
-															legStructure(1, true, true),
-															{ sX: armShadow, color: graie1Shadow },
+															legStructure(
+																1,
+																true,
+																true
+															),
+															{
+																sX: armShadow,
+																color: graie1Shadow,
+															},
 															{
 																sY: armWidth,
 																sX: graie1ArmLength,
 																tX: true,
 																fX: true,
-																list: armToLeft(1),
+																list: armToLeft(
+																	1
+																),
 															},
 														],
 													},
@@ -1222,15 +1455,26 @@ const renderList = [
 																fX: true,
 																fY: true,
 																tY: true,
-																sX: { r: 0.05, max: 1 },
+																sX: {
+																	r: 0.05,
+																	max: 1,
+																},
 															},
 
 															{},
-															skinPoint(1, false, {
-																x: { r: 0.1 },
-																y: { r: 0.2 },
-																fX: true,
-															}), // skin Point
+															skinPoint(
+																1,
+																false,
+																{
+																	x: {
+																		r: 0.1,
+																	},
+																	y: {
+																		r: 0.2,
+																	},
+																	fX: true,
+																}
+															), // skin Point
 															skinPoint(1, true, {
 																x: { r: 0.4 },
 																y: { r: 0.1 },
@@ -1259,32 +1503,50 @@ const renderList = [
 															{
 																color: graie1Shadow,
 																sY: 1,
-																y: { r: 0.15, a: -2 },
+																y: {
+																	r: 0.15,
+																	a: -2,
+																},
 																x: 3,
 																fX: true,
 																fY: true,
 																tY: true,
-																sX: { r: 0.3, a: -2 },
+																sX: {
+																	r: 0.3,
+																	a: -2,
+																},
 															},
 															{
 																color: graie1Shadow,
 																sY: 1,
-																y: { r: 0.15, a: -4 },
+																y: {
+																	r: 0.15,
+																	a: -4,
+																},
 																x: 3,
 																fX: true,
 																fY: true,
 																tY: true,
-																sX: { r: 0.3, a: -2 },
+																sX: {
+																	r: 0.3,
+																	a: -2,
+																},
 															},
 															{
 																color: graie1Shadow,
 																sY: 1,
-																y: { r: 0.15, a: -6 },
+																y: {
+																	r: 0.15,
+																	a: -6,
+																},
 																x: 4,
 																fX: true,
 																fY: true,
 																tY: true,
-																sX: { r: 0.2, a: -2 },
+																sX: {
+																	r: 0.2,
+																	a: -2,
+																},
 															},
 
 															// Eyes
@@ -1325,15 +1587,20 @@ const renderList = [
 																				},
 																				fY: true,
 																				y: -1,
-																				sY: { r: 0.5 },
+																				sY: {
+																					r: 0.5,
+																				},
 																			},
 																			{
 																				sY: {
 																					r: 0.1,
 																					max: 1,
-																					otherDim: true,
+																					otherDim:
+																						true,
 																				},
-																				sX: { r: 0.35 },
+																				sX: {
+																					r: 0.35,
+																				},
 																				color: graie1Shadow,
 																				x: {
 																					r: -0.2,
@@ -1346,9 +1613,12 @@ const renderList = [
 																				sY: {
 																					r: 0.1,
 																					max: 1,
-																					otherDim: true,
+																					otherDim:
+																						true,
 																				},
-																				sX: { r: 0.35 },
+																				sX: {
+																					r: 0.35,
+																				},
 																				color: graie1Shadow,
 																				x: {
 																					r: -0.2,
@@ -1371,7 +1641,9 @@ const renderList = [
 																				},
 																				fY: true,
 																				fX: true,
-																				sY: { r: 0.3 },
+																				sY: {
+																					r: 0.3,
+																				},
 																			},
 																		],
 																	},
@@ -1390,34 +1662,49 @@ const renderList = [
 																y: [
 																	graie1NosePos,
 																	graie1NoseHeight,
-																	mult(0.02, graie1HeadHeight),
+																	mult(
+																		0.02,
+																		graie1HeadHeight
+																	),
 																],
 																list: [
 																	{
 																		sX: graie1MouthOuterPart,
 																		fY: true,
-																		sY: { r: 0.8 },
+																		sY: {
+																			r: 0.8,
+																		},
 																	},
 																	{
 																		x: graie1MouthOuterPart,
 																		sX: graie1MouthInnerPart,
-																		sY: { r: 0.8 },
+																		sY: {
+																			r: 0.8,
+																		},
 																	},
 																	{
-																		mX: { r: 0.35 },
-																		sY: { r: 0.8 },
+																		mX: {
+																			r: 0.35,
+																		},
+																		sY: {
+																			r: 0.8,
+																		},
 																		fY: true,
 																	},
 																	{
 																		x: graie1MouthOuterPart,
 																		sX: graie1MouthInnerPart,
-																		sY: { r: 0.8 },
+																		sY: {
+																			r: 0.8,
+																		},
 																		fX: true,
 																	},
 																	{
 																		sX: graie1MouthOuterPart,
 																		fY: true,
-																		sY: { r: 0.8 },
+																		sY: {
+																			r: 0.8,
+																		},
 																		fX: true,
 																	},
 																],
@@ -1435,7 +1722,11 @@ const renderList = [
 																sY: graie1NoseHeight,
 																sX: [
 																	graie1HeadWidth,
-																	{ r: 0.15, useSize: imgWidth },
+																	{
+																		r: 0.15,
+																		useSize:
+																			imgWidth,
+																	},
 																],
 																x: [
 																	graie1HairLeftWidth,
@@ -1446,12 +1737,18 @@ const renderList = [
 																list: [
 																	{
 																		sX: 1,
-																		sY: { r: 1, a: -1 },
+																		sY: {
+																			r: 1,
+																			a: -1,
+																		},
 																		fY: true,
 																		fX: true,
 																	},
 																	{
-																		sX: { r: 1, a: -1 },
+																		sX: {
+																			r: 1,
+																			a: -1,
+																		},
 																		list: [
 																			{},
 																			{
@@ -1468,12 +1765,18 @@ const renderList = [
 																	{
 																		color: graie1Shadow,
 																		fY: true,
-																		sY: { max: 1, r: 0.4 },
+																		sY: {
+																			max: 1,
+																			r: 0.4,
+																		},
 																	},
 																	{
 																		color: graie1Shadow,
 																		sX: 1,
-																		sY: { r: 1, a: -1 },
+																		sY: {
+																			r: 1,
+																			a: -1,
+																		},
 																		fY: true,
 																	},
 																],
@@ -1491,22 +1794,34 @@ const renderList = [
 																color: hair,
 																sY: {
 																	r: 1,
-																	add: [graie1BreadArmLength],
+																	add: [
+																		graie1BreadArmLength,
+																	],
 																},
 																sX: graie1HairLeftWidth,
 															}, // Left Hair
 															{
 																color: hair,
-																sY: { r: 1, a: -1 },
+																sY: {
+																	r: 1,
+																	a: -1,
+																},
 																y: 1,
 																sX: { r: 0.2 },
 																tX: true,
 																list: [
 																	{
 																		points: [
-																			{ fX: true },
-																			{ fY: true },
-																			{ fY: true, fX: true },
+																			{
+																				fX: true,
+																			},
+																			{
+																				fY: true,
+																			},
+																			{
+																				fY: true,
+																				fX: true,
+																			},
 																		],
 																	},
 																],
@@ -1514,20 +1829,29 @@ const renderList = [
 
 															{
 																color: hair,
-																sX: { r: 0.05, max: 1 },
+																sX: {
+																	r: 0.05,
+																	max: 1,
+																},
 																sY: { r: 0.2 },
 																x: { r: 0.45 },
 																y: -2,
 															}, // strand
 															{
 																color: hair,
-																sX: { r: 0.05, max: 1 },
+																sX: {
+																	r: 0.05,
+																	max: 1,
+																},
 																sY: { r: 0.07 },
 																x: { r: 0.85 },
 															},
 															{
 																color: hair,
-																sY: { r: 0.05, max: 1 },
+																sY: {
+																	r: 0.05,
+																	max: 1,
+																},
 																sX: { r: 0.07 },
 																y: { r: 0.3 },
 																fX: true,
@@ -1542,14 +1866,23 @@ const renderList = [
 														sX: armWidth,
 														x: sub(graie1ToLeft),
 														list: [
-															legStructure(1, true, true),
+															legStructure(
+																1,
+																true,
+																true
+															),
 															{
-																list: armToLeft(1),
+																list: armToLeft(
+																	1
+																),
 																sX: graieArmLengt,
 																sY: armWidth,
 																fY: true,
 															},
-															{ sX: armShadow, color: graie1Shadow },
+															{
+																sX: armShadow,
+																color: graie1Shadow,
+															},
 														],
 													}, // UpperArm
 												],
@@ -1587,7 +1920,12 @@ const renderList = [
 														sY: footLength,
 														sX: footWidth,
 														fY: true,
-														list: foot(true, true, true, 1),
+														list: foot(
+															true,
+															true,
+															true,
+															1
+														),
 													},
 												],
 											},
@@ -1602,11 +1940,20 @@ const renderList = [
 														sY: armShadow,
 														color: graie1Shadow,
 														fY: true,
-														sX: { r: 1, add: [sub(legWidth)] },
+														sX: {
+															r: 1,
+															add: [
+																sub(legWidth),
+															],
+														},
 													}, // Upper Leg Shadow
 
 													// Butt
-													{ sX: armShadow, color: graie1Shadow, sY: 1 }, // Upper Butt Shadow
+													{
+														sX: armShadow,
+														color: graie1Shadow,
+														sY: 1,
+													}, // Upper Butt Shadow
 													{
 														sX: 1,
 														sY: { r: 1, a: -2 },
@@ -1615,7 +1962,10 @@ const renderList = [
 														minHeight: 4,
 														list: [
 															{},
-															{ sX: armShadow, color: graie1Shadow },
+															{
+																sX: armShadow,
+																color: graie1Shadow,
+															},
 														],
 													},
 
@@ -1661,12 +2011,20 @@ const renderList = [
 										fY: true,
 										list: [
 											legStructure(2, true),
-											{ sX: armShadow, color: graie2Shadow },
+											{
+												sX: armShadow,
+												color: graie2Shadow,
+											},
 											{
 												sX: footLength,
 												sY: footWidth,
 												x: moveFootBack,
-												list: foot(false, true, true, 2),
+												list: foot(
+													false,
+													true,
+													true,
+													2
+												),
 											},
 
 											// [
@@ -1688,11 +2046,17 @@ const renderList = [
 									},
 									{
 										sX: armWidth,
-										sY: { r: 1, add: [sub(graie2BodyHeight)] },
+										sY: {
+											r: 1,
+											add: [sub(graie2BodyHeight)],
+										},
 										fX: true,
 										list: [
 											legStructure(2, true, true),
-											{ sX: armShadow, color: graie2Shadow },
+											{
+												sX: armShadow,
+												color: graie2Shadow,
+											},
 										],
 									},
 
@@ -1712,7 +2076,11 @@ const renderList = [
 												rotate: -90,
 												list: armToLeft(2),
 											},
-											{ fY: true, sY: armShadow, color: graie2Shadow },
+											{
+												fY: true,
+												sY: armShadow,
+												color: graie2Shadow,
+											},
 										],
 									},
 
@@ -1726,8 +2094,16 @@ const renderList = [
 										z: 10,
 										list: [
 											{},
-											{ sX: graie2HeadShadow, mY: 1, color: graie2Shadow },
-											{ sY: graie2HeadShadow, mX: 1, color: graie2Shadow },
+											{
+												sX: graie2HeadShadow,
+												mY: 1,
+												color: graie2Shadow,
+											},
+											{
+												sY: graie2HeadShadow,
+												mX: 1,
+												color: graie2Shadow,
+											},
 
 											// Nose
 											{
@@ -1744,8 +2120,14 @@ const renderList = [
 														color: graie2Shadow,
 													},
 													{ save: "graie2Nose" },
-													{ sX: armShadow, color: graie2Shadow },
-													{ sY: graie2HeadShadow, color: graie2Shadow },
+													{
+														sX: armShadow,
+														color: graie2Shadow,
+													},
+													{
+														sY: graie2HeadShadow,
+														color: graie2Shadow,
+													},
 												],
 											},
 
@@ -1758,11 +2140,17 @@ const renderList = [
 												sY: {
 													r: 0.15,
 													min: 1,
-													max: { r: 0.21, otherDim: true },
+													max: {
+														r: 0.21,
+														otherDim: true,
+													},
 												},
 												rY: true,
 												list: [
-													{ sX: { r: 0.4 }, list: graieEyes() },
+													{
+														sX: { r: 0.4 },
+														list: graieEyes(),
+													},
 													{
 														sX: { r: 0.4 },
 														list: graieEyes(),
@@ -1805,13 +2193,19 @@ const renderList = [
 											},
 
 											// Folds
-											{ use: "graie2Folds", color: graie2Shadow },
+											{
+												use: "graie2Folds",
+												color: graie2Shadow,
+											},
 											{ use: "graie2Folds", chance: 0.5 },
 											{
 												fY: true,
 												sX: { r: 1, a: -3 },
 												x: 2,
-												stripes: { gap: 2, horizontal: true },
+												stripes: {
+													gap: 2,
+													horizontal: true,
+												},
 												color: graie2Shadow,
 												sY: { r: 0.3 },
 												y: { r: 0.4 },
@@ -1872,8 +2266,15 @@ const renderList = [
 											{
 												sY: armWidth,
 												list: [
-													legStructure(3, false, true),
-													{ sX: armShadow, color: graie3Shadow },
+													legStructure(
+														3,
+														false,
+														true
+													),
+													{
+														sX: armShadow,
+														color: graie3Shadow,
+													},
 													{
 														sY: armShadow,
 														fY: true,
@@ -1896,7 +2297,12 @@ const renderList = [
 															{
 																sX: armShadow,
 																fY: true,
-																sY: { r: 1, add: [subArmWidth] },
+																sY: {
+																	r: 1,
+																	add: [
+																		subArmWidth,
+																	],
+																},
 																color: graie3Shadow,
 															},
 
@@ -1904,13 +2310,19 @@ const renderList = [
 															{
 																color: graie3Shadow,
 																sX: { r: 0.2 },
-																x: { r: 0.05, min: 2 },
+																x: {
+																	r: 0.05,
+																	min: 2,
+																},
 																y: { r: 0.3 },
 																sY: { r: 0.5 },
 																stripes: {
-																	horizontal: true,
+																	horizontal:
+																		true,
 																	gap: 1,
-																	random: { r: -0.3 },
+																	random: {
+																		r: -0.3,
+																	},
 																},
 															},
 
@@ -1918,15 +2330,24 @@ const renderList = [
 															{
 																sY: {
 																	r: 0.9,
-																	add: [sub(armWidth)],
+																	add: [
+																		sub(
+																			armWidth
+																		),
+																	],
 																},
 																x: -1,
 																y: armWidth,
-																sX: { r: 1, a: 2 },
+																sX: {
+																	r: 1,
+																	a: 2,
+																},
 																list: [
 																	// Right
 																	{
-																		sX: { r: 0.4 },
+																		sX: {
+																			r: 0.4,
+																		},
 																		fX: true,
 																		list: [
 																			{},
@@ -1938,7 +2359,10 @@ const renderList = [
 																				sY: armShadow,
 																				color: graie3Shadow,
 																				fY: true,
-																				sX: { r: 1, a: -2 },
+																				sX: {
+																					r: 1,
+																					a: -2,
+																				},
 																				x: 1,
 																				y: -1,
 																			},
@@ -1953,8 +2377,12 @@ const renderList = [
 																	},
 																	// Left
 																	{
-																		sX: { r: 0.3 },
-																		sY: { r: 0.6 },
+																		sX: {
+																			r: 0.3,
+																		},
+																		sY: {
+																			r: 0.6,
+																		},
 																		list: [
 																			{},
 																			{
@@ -1985,7 +2413,9 @@ const renderList = [
 																							true,
 																					},
 																				},
-																				sX: { r: 1.5 },
+																				sX: {
+																					r: 1.5,
+																				},
 																				list: [
 																					{},
 																					{
@@ -2029,13 +2459,19 @@ const renderList = [
 																list: [
 																	{},
 																	{
-																		horizontal: true,
+																		horizontal:
+																			true,
 																		color: graie3Shadow,
-																		stripes: {
-																			gap: 1,
-																			random: { r: -0.3 },
+																		stripes:
+																			{
+																				gap: 1,
+																				random: {
+																					r: -0.3,
+																				},
+																			},
+																		sX: {
+																			r: 1,
 																		},
-																		sX: { r: 1 },
 																	},
 																],
 															},
@@ -2098,7 +2534,10 @@ const renderList = [
 																			min: 1,
 																		},
 																		fY: true,
-																		y: { r: 0.2, min: 1 },
+																		y: {
+																			r: 0.2,
+																			min: 1,
+																		},
 																		mX: {
 																			r: 0.08,
 																			a: 1,
@@ -2107,17 +2546,30 @@ const renderList = [
 																		list: [
 																			{
 																				mX: 1,
-																				sY: { r: 1, a: -1 },
+																				sY: {
+																					r: 1,
+																					a: -1,
+																				},
 																			},
 																			{
-																				sY: { r: 1, a: -1 },
+																				sY: {
+																					r: 1,
+																					a: -1,
+																				},
 																				fY: true,
-																				sX: { r: 0.15 },
+																				sX: {
+																					r: 0.15,
+																				},
 																			},
 																			{
-																				sY: { r: 1, a: -1 },
+																				sY: {
+																					r: 1,
+																					a: -1,
+																				},
 																				fY: true,
-																				sX: { r: 0.15 },
+																				sX: {
+																					r: 0.15,
+																				},
 																				fX: true,
 																			},
 																		],
@@ -2131,8 +2583,12 @@ const renderList = [
 																			r: 0.2,
 																			max: graieHalfHeight,
 																		},
-																		sX: { r: 0.4 },
-																		y: { r: 0.2 },
+																		sX: {
+																			r: 0.4,
+																		},
+																		y: {
+																			r: 0.2,
+																		},
 																		cX: true,
 																		list: [
 																			{},
@@ -2141,7 +2597,9 @@ const renderList = [
 																				use: "graie3Nose",
 																				color: graie3Shadow,
 																			},
-																			{ save: "graie3Nose" },
+																			{
+																				save: "graie3Nose",
+																			},
 																			{
 																				color: graie3Shadow,
 																				sX: {
@@ -2162,40 +2620,58 @@ const renderList = [
 																				sY: {
 																					r: 0.2,
 																					max: 1,
-																					otherDim: true,
+																					otherDim:
+																						true,
 																				},
 																				fY: true,
 																				mX: 1,
 																				y: -1,
 																			},
-																			skinPoint(3, true, {
-																				fY: true,
-																				fX: true,
-																				y: {
-																					r: 0.1,
-																					min: 1,
-																				},
-																				x: {
-																					r: 0.1,
-																					min: 1,
-																				},
-																			}),
+																			skinPoint(
+																				3,
+																				true,
+																				{
+																					fY: true,
+																					fX: true,
+																					y: {
+																						r: 0.1,
+																						min: 1,
+																					},
+																					x: {
+																						r: 0.1,
+																						min: 1,
+																					},
+																				}
+																			),
 																		],
 																	},
 
 																	// Eyes
 																	{
 																		color: graie3Detail,
-																		sY: { r: 0.28, min: 1 },
-																		y: { r: 0.1, min: 1 },
-																		mX: { r: 0.08, min: 1 },
+																		sY: {
+																			r: 0.28,
+																			min: 1,
+																		},
+																		y: {
+																			r: 0.1,
+																			min: 1,
+																		},
+																		mX: {
+																			r: 0.08,
+																			min: 1,
+																		},
 																		list: [
 																			{
-																				sX: { r: 0.25 },
+																				sX: {
+																					r: 0.25,
+																				},
 																				list: graieEyes(),
 																			},
 																			{
-																				sX: { r: 0.25 },
+																				sX: {
+																					r: 0.25,
+																				},
 																				fX: true,
 																				list: graieEyes(),
 																				rX: true,
@@ -2211,7 +2687,11 @@ const renderList = [
 
 											// Arm to Bread
 											{
-												sY: [graieArmLengtDown, sub(graie3ToTop), -1],
+												sY: [
+													graieArmLengtDown,
+													sub(graie3ToTop),
+													-1,
+												],
 												sX: armWidth,
 												rotate: 90,
 												list: armToLeft(3),
@@ -2220,7 +2700,10 @@ const renderList = [
 											// Arm to Graie 2
 											{
 												sX: armWidth,
-												sY: [graie3ShoulderHeight, sub(graie3GripPoint)],
+												sY: [
+													graie3ShoulderHeight,
+													sub(graie3GripPoint),
+												],
 												fX: true,
 												list: [
 													legStructure(3, true, true),
@@ -2228,7 +2711,10 @@ const renderList = [
 														sX: armShadow,
 														color: graie3Shadow,
 														fY: true,
-														sY: { r: 1, add: [subArmWidth] },
+														sY: {
+															r: 1,
+															add: [subArmWidth],
+														},
 													},
 												],
 											},
@@ -2237,7 +2723,10 @@ const renderList = [
 												sX: [
 													graie2ToRight,
 													mult(1, armWidth),
-													mult(0.5, handArmDifference),
+													mult(
+														0.5,
+														handArmDifference
+													),
 												],
 												sY: armWidth,
 												y: graie3GripPoint,

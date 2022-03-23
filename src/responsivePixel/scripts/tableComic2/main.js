@@ -79,7 +79,8 @@ var TableComic = (window.renderer = function (init, slide, createSlider) {
 			current.linkList = linkList;
 			current.pushLinkList = window.helper.getLinkListPusher(linkList);
 
-			current.pushRelativeStandardAutomatic = pushRelativeStandardAutomatic;
+			current.pushRelativeStandardAutomatic =
+				pushRelativeStandardAutomatic;
 			current.changersRelativeCustomList = changersRelativeCustomList;
 			current.pushRelativeStandard = pushRelativeStandard;
 			current.changersCustomList = changersCustomList;
@@ -375,7 +376,11 @@ TableComic.prototype.getSizeWithRatio = function (args) {
 		sX = this.pushLinkList({ r: ratio, useSize: args.sY, max: args.sX });
 		sY = this.pushLinkList({ r: 1 / ratio, useSize: sX });
 	} else {
-		sY = this.pushLinkList({ r: 1 / ratio, useSize: args.sX, max: args.sY });
+		sY = this.pushLinkList({
+			r: 1 / ratio,
+			useSize: args.sX,
+			max: args.sY,
+		});
 		sX = this.pushLinkList({ r: ratio, useSize: sY });
 	}
 
@@ -390,7 +395,13 @@ TableComic.prototype.getSizeWithRatio = function (args) {
 // 	if( sX)
 // };
 
-TableComic.prototype.getSizeSwitch = function (baseSize, maxSize, finalSize, link, defaultPoint) {
+TableComic.prototype.getSizeSwitch = function (
+	baseSize,
+	maxSize,
+	finalSize,
+	link,
+	defaultPoint
+) {
 	baseSize = this.pushLinkList(baseSize);
 	maxSize = this.pushLinkList(maxSize);
 
@@ -453,7 +464,13 @@ TableComic.prototype.getPosition = function (args) {
 		}
 
 		this.y = this.pushLinkList({
-			add: [obj.y, { r: info.pos.posY || 0, useSize: obj.isRotated ? obj.sX : obj.sY }],
+			add: [
+				obj.y,
+				{
+					r: info.pos.posY || 0,
+					useSize: obj.isRotated ? obj.sX : obj.sY,
+				},
+			],
 		});
 	}
 };

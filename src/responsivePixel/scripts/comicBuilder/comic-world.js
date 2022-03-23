@@ -12,9 +12,15 @@ Comic.prototype.World = function World(args) {
 	this.zoomedOut = this.basicZoom * this.rFl(0.3, 0.5);
 
 	// Colors
-	this.foregroundBaseColor = [this.rInt(200, 255), this.rInt(200, 255), this.rInt(200, 255)];
+	this.foregroundBaseColor = [
+		this.rInt(200, 255),
+		this.rInt(200, 255),
+		this.rInt(200, 255),
+	];
 	this.noBackground = this.rIf(0.1);
-	this.backgroundColor = this.noBackground ? args.backgroundColor : this.foregroundBaseColor;
+	this.backgroundColor = this.noBackground
+		? args.backgroundColor
+		: this.foregroundBaseColor;
 	this.groundColor = [
 		this.foregroundBaseColor[0] * 0.5,
 		this.foregroundBaseColor[1] * 0.5,
@@ -51,7 +57,9 @@ Comic.prototype.World.prototype = {
 					: this.zoomedOut
 				: this.basicZoom;
 
-			this.focusedActor = this.rIf(0.5) ? this.actors.actor1 : this.actors.actor2;
+			this.focusedActor = this.rIf(0.5)
+				? this.actors.actor1
+				: this.actors.actor2;
 		}
 
 		return {
@@ -114,7 +122,10 @@ Comic.prototype.World.prototype = {
 				])
 			);
 
-			stageX.push({ r: this.focusedActor.left ? 1 : -1, useSize: actorCenterX });
+			stageX.push({
+				r: this.focusedActor.left ? 1 : -1,
+				useSize: actorCenterX,
+			});
 
 			stageY.push(
 				{ r: 0.5, useSize: stageSY },

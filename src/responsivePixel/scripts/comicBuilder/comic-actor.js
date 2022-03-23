@@ -37,9 +37,17 @@ Comic.prototype.Actor = function Actor(args, left) {
 		args.foregroundBaseColor[2] * this.rFl(0, 0.8),
 	];
 
-	this.shadowColor = [this.color[0] * 0.6, this.color[1] * 0.6, this.color[2] * 0.6];
+	this.shadowColor = [
+		this.color[0] * 0.6,
+		this.color[1] * 0.6,
+		this.color[2] * 0.6,
+	];
 
-	this.lightColor = [this.color[0] * 1.2, this.color[1] * 1.2, this.color[2] * 1.2];
+	this.lightColor = [
+		this.color[0] * 1.2,
+		this.color[1] * 1.2,
+		this.color[2] * 1.2,
+	];
 
 	this.groundShadowColor = args.groundShadowColor;
 	// Assets
@@ -66,7 +74,9 @@ Comic.prototype.Actor.prototype = {
 
 		args = args || {};
 
-		this.actorControl.addComment(this.name + (!args.dontStart ? " " : " will start ") + action);
+		this.actorControl.addComment(
+			this.name + (!args.dontStart ? " " : " will start ") + action
+		);
 
 		if (!args.dontStart) {
 			this.act(args);
@@ -75,13 +85,17 @@ Comic.prototype.Actor.prototype = {
 
 	decide(args) {
 		this.eye.changeExpression(0.4);
-		this.setAction(args.actions[this.rInt(0, args.actions.length - 1)], { dontStart: true });
+		this.setAction(args.actions[this.rInt(0, args.actions.length - 1)], {
+			dontStart: true,
+		});
 	},
 
 	startWalking() {
 		this.speed =
 			// Walk way if to close, or randomly
-			(1 - this.opponent.posX_ - this.posX_ < 0.2 || this.rIf(0.2) ? -1 : 1) *
+			(1 - this.opponent.posX_ - this.posX_ < 0.2 || this.rIf(0.2)
+				? -1
+				: 1) *
 			0.2 *
 			this.rFl(1, 3);
 		this.setAction("walk");
@@ -108,7 +122,9 @@ Comic.prototype.Actor.prototype = {
 				}
 			} else if (opponentPos - this.posX_ < 0) {
 				this.posX_ = opponentPos;
-				this.actorControl.addComment(`${this.name} has reached ${this.opponent.name}`);
+				this.actorControl.addComment(
+					`${this.name} has reached ${this.opponent.name}`
+				);
 				this.setAction("stop");
 
 				this.walking = false;
@@ -162,7 +178,11 @@ Comic.prototype.Actor.prototype = {
 		if (this.posY_ <= 0) {
 			this.posY_ = 0;
 			this.hasLanded = true;
-			this.setAction("stop", { actions: ["hit", "startWalking"], delay: 0.8, stay: 0.5 });
+			this.setAction("stop", {
+				actions: ["hit", "startWalking"],
+				delay: 0.8,
+				stay: 0.5,
+			});
 		}
 	},
 
@@ -215,7 +235,8 @@ Comic.prototype.Actor.prototype = {
 
 		this.linkList.push(
 			(this.sX = sX = { r: this.sX_, useSize: args.size }),
-			(this.sY = sY = { r: this.sY_ * (landed ? 0.6 : 1), useSize: args.size })
+			(this.sY = sY =
+				{ r: this.sY_ * (landed ? 0.6 : 1), useSize: args.size })
 		);
 
 		if (this.hasLegs) {
@@ -223,9 +244,12 @@ Comic.prototype.Actor.prototype = {
 		}
 
 		this.linkList.push(
-			(this.headSY = headSY = this.hasLegs ? [sY, { r: -1, useSize: legsSY }] : sY),
-			(this.topHeadSY = topHeadSY = { r: this.topHeadSY_, useSize: headSY }),
-			(this.bottomHeadSY = bottomHeadSY = [headSY, { r: -1, useSize: topHeadSY }]),
+			(this.headSY = headSY =
+				this.hasLegs ? [sY, { r: -1, useSize: legsSY }] : sY),
+			(this.topHeadSY = topHeadSY =
+				{ r: this.topHeadSY_, useSize: headSY }),
+			(this.bottomHeadSY = bottomHeadSY =
+				[headSY, { r: -1, useSize: topHeadSY }]),
 			(faceSX = { r: this.faceSX, useSize: sX })
 		);
 
@@ -258,7 +282,11 @@ Comic.prototype.Actor.prototype = {
 						// Symbol
 						// Heart
 						kiss && {
-							color: [this.color[0] * 2, this.color[1] * 1.2, this.color[2] * 1.2],
+							color: [
+								this.color[0] * 2,
+								this.color[1] * 1.2,
+								this.color[2] * 1.2,
+							],
 							sY: { r: 0.1, useSize: sY, min: 3 },
 							sX: 1,
 							cX: true,
@@ -267,7 +295,11 @@ Comic.prototype.Actor.prototype = {
 							z: 2000,
 							list: [
 								{ mX: { r: -0.1, otherDim: true, a: -1 } },
-								{ y: -1, sX: { r: 0.4, otherDim: true, min: 2 }, tX: true },
+								{
+									y: -1,
+									sX: { r: 0.4, otherDim: true, min: 2 },
+									tX: true,
+								},
 								{
 									y: -1,
 									sX: { r: 0.4, otherDim: true, min: 2 },
@@ -315,7 +347,10 @@ Comic.prototype.Actor.prototype = {
 										{
 											sX: faceSX,
 											list: [
-												{ color: this.lightColor, sX: { r: 0.5 } },
+												{
+													color: this.lightColor,
+													sX: { r: 0.5 },
+												},
 
 												// Eye
 												this.eye.draw(),
@@ -342,14 +377,26 @@ Comic.prototype.Actor.prototype = {
 											sX: !armForward
 												? 1
 												: hits
-												? { r: 2, useSize: args.distance, a: 1 }
+												? {
+														r: 2,
+														useSize: args.distance,
+														a: 1,
+												  }
 												: { r: 0.3, min: 2 },
 
 											list: [
 												hits && {
-													sX: { r: 1, otherDim: true },
+													sX: {
+														r: 1,
+														otherDim: true,
+													},
 													color: [200, 255, 0],
-													list: [{ name: "RoundRect", m: { r: -1.8 } }],
+													list: [
+														{
+															name: "RoundRect",
+															m: { r: -1.8 },
+														},
+													],
 												},
 												{},
 												this.carryObject &&
@@ -377,24 +424,46 @@ Comic.prototype.Actor.prototype = {
 										{
 											sX: faceSX,
 											list: [
-												{ color: this.lightColor, sX: { r: 0.5 } },
+												{
+													color: this.lightColor,
+													sX: { r: 0.5 },
+												},
 
 												// Mouth
 												kiss
 													? {
 															sX: { r: 0.2 },
-															sY: { r: 0.1, min: 1 },
+															sY: {
+																r: 0.1,
+																min: 1,
+															},
 															tX: true,
-															y: { r: this.mouthY, min: 1 },
+															y: {
+																r: this.mouthY,
+																min: 1,
+															},
 															fY: true,
-															color: this.shadowColor,
-															list: [{}, { sX: 1, mY: -1 }],
+															color: this
+																.shadowColor,
+															list: [
+																{},
+																{
+																	sX: 1,
+																	mY: -1,
+																},
+															],
 													  }
 													: {
 															sY: 1,
-															sX: { r: this.mouthSX },
-															y: { r: this.mouthY, min: 1 },
-															color: this.shadowColor,
+															sX: {
+																r: this.mouthSX,
+															},
+															y: {
+																r: this.mouthY,
+																min: 1,
+															},
+															color: this
+																.shadowColor,
 															z: 100,
 															fY: true,
 													  },
@@ -416,7 +485,13 @@ Comic.prototype.Actor.prototype = {
 										{
 											points: [
 												{ y: -1 },
-												{ fY: true, x: { r: legSpeed, otherDim: true } },
+												{
+													fY: true,
+													x: {
+														r: legSpeed,
+														otherDim: true,
+													},
+												},
 											],
 										},
 										{
@@ -425,7 +500,10 @@ Comic.prototype.Actor.prototype = {
 												{
 													fY: true,
 													fX: true,
-													x: { r: legSpeed, otherDim: true },
+													x: {
+														r: legSpeed,
+														otherDim: true,
+													},
 												},
 											],
 										},
@@ -479,7 +557,11 @@ Comic.prototype.Eye = function Eye(args) {
 	this.eyes = this.rIf(0.9);
 
 	// Colors
-	this.color = [args.lightColor[0] + 150, args.lightColor[1] + 150, args.lightColor[2] + 150];
+	this.color = [
+		args.lightColor[0] + 150,
+		args.lightColor[1] + 150,
+		args.lightColor[2] + 150,
+	];
 	this.eyeBrowColor = args.shadowColor;
 
 	this.changeExpression(0);
@@ -487,9 +569,15 @@ Comic.prototype.Eye = function Eye(args) {
 
 Comic.prototype.Eye.prototype = {
 	changeExpression(chance) {
-		this.eyeBrowRaised = this.rIf(chance) ? this.eyeBrowRaised : this.rInt(-2, 0);
-		this.eyeBrowAngled = this.rIf(chance) ? this.eyeBrowAngled : this.rIf(0.6);
-		this.evil = this.rIf(chance) ? this.evil : this.eyeBrowAngled && this.rIf(0.5);
+		this.eyeBrowRaised = this.rIf(chance)
+			? this.eyeBrowRaised
+			: this.rInt(-2, 0);
+		this.eyeBrowAngled = this.rIf(chance)
+			? this.eyeBrowAngled
+			: this.rIf(0.6);
+		this.evil = this.rIf(chance)
+			? this.evil
+			: this.eyeBrowAngled && this.rIf(0.5);
 	},
 
 	draw() {
@@ -527,8 +615,16 @@ Comic.prototype.CarryObject = function CarryObject() {
 
 	// Colors
 	this.color = [this.rInt(0, 255), this.rInt(0, 255), this.rInt(0, 255)];
-	this.lightColor = [this.color[0] * 1.5, this.color[1] * 1.5, this.color[2] * 1.5];
-	this.darkColor = [this.color[0] * 0.7, this.color[1] * 0.7, this.color[2] * 0.7];
+	this.lightColor = [
+		this.color[0] * 1.5,
+		this.color[1] * 1.5,
+		this.color[2] * 1.5,
+	];
+	this.darkColor = [
+		this.color[0] * 0.7,
+		this.color[1] * 0.7,
+		this.color[2] * 0.7,
+	];
 };
 
 Comic.prototype.CarryObject.prototype.draw = function (args) {

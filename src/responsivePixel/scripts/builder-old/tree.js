@@ -20,7 +20,8 @@ Builder.prototype.TreeFamily = function (args) {
 	this.leaveY = this.GR(1, 4);
 
 	this.leaveDetail = this.IF(0.8);
-	this.leaveDetailX = this.leaveDetail && this.leaveX > this.leaveY ? this.leaveX : 1;
+	this.leaveDetailX =
+		this.leaveDetail && this.leaveX > this.leaveY ? this.leaveX : 1;
 	this.leaveDetailY = this.leaveDetail && this.leaveX === 1 ? this.leaveY : 1;
 
 	this.fooliageCoverage = this.IF(0.3) && this.R(0, 1) * 0.5 + 1;
@@ -33,22 +34,32 @@ Builder.prototype.TreeFamily = function (args) {
 
 	// Colors
 	this.trunkColor = args.groundColor
-		? (args.skyColor && this.IF(0.2) ? args.skyColor : args.groundColor).copy({
+		? (args.skyColor && this.IF(0.2)
+				? args.skyColor
+				: args.groundColor
+		  ).copy({
 				brSet: Math.floor(this.GR(1, 4)),
 		  })
 		: new this.Color(this.IF() ? 1 : 0, Math.floor(this.GR(1, 4)));
 	this.trunkColorDetail = this.trunkColor.copy({ brContrast: -1 });
 
 	this.foliageColor = args.skyColor
-		? (args.groundColor && this.IF(0.8) ? args.skyColor : args.groundColor).copy({
+		? (args.groundColor && this.IF(0.8)
+				? args.skyColor
+				: args.groundColor
+		  ).copy({
 				brContrast: this.IF() ? -2 : 2,
 		  })
-		: this.trunkColor.copy({ nextColor: this.IF(), brContrast: this.IF() ? -2 : 2 });
+		: this.trunkColor.copy({
+				nextColor: this.IF(),
+				brContrast: this.IF() ? -2 : 2,
+		  });
 	this.foliageColorDetail = this.foliageColor.copy({ brAdd: -1 });
 
 	// this.groundColor = this.trunkColor.copy( { nextColor:this.IF(), brContrast:this.IF() ? -1 : 1 } );
 	this.fruitColor =
-		this.fruit && this.foliageColor.copy({ nextColor: this.IF(0.8), brContrast: 2 });
+		this.fruit &&
+		this.foliageColor.copy({ nextColor: this.IF(0.8), brContrast: 2 });
 };
 
 // END TreeFamily
@@ -104,8 +115,16 @@ Builder.prototype.Tree.prototype.draw = function (args, z, size) {
 	this.randomCount = 0;
 
 	this.vL[`treeSqu${code}`] = size;
-	this.vL[`foliageSX${code}`] = { r: this.foliageSX, useSize: `treeSqu${code}`, min: 1 };
-	this.vL[`foliageSY${code}`] = { r: this.foliageSY, useSize: `foliageSX${code}`, min: 1 };
+	this.vL[`foliageSX${code}`] = {
+		r: this.foliageSX,
+		useSize: `treeSqu${code}`,
+		min: 1,
+	};
+	this.vL[`foliageSY${code}`] = {
+		r: this.foliageSY,
+		useSize: `foliageSX${code}`,
+		min: 1,
+	};
 
 	return [
 		// Leaves Shadow
@@ -212,7 +231,11 @@ Builder.prototype.Tree.prototype.draw = function (args, z, size) {
 				min: 1,
 				save: `trunkSX${code}`,
 			},
-			sY: { r: this.crookedY, useSize: `treeSqu${code}`, save: `topTrunk${code}` },
+			sY: {
+				r: this.crookedY,
+				useSize: `treeSqu${code}`,
+				save: `topTrunk${code}`,
+			},
 			color: this.trunkColor.get(),
 			z: this.zInd,
 			list: [
@@ -225,13 +248,19 @@ Builder.prototype.Tree.prototype.draw = function (args, z, size) {
 								{
 									sY: `trunkSX${code}`,
 									fY: true,
-									sX: { r: this.crookedSX, useSize: `trunkSX${code}` },
+									sX: {
+										r: this.crookedSX,
+										useSize: `trunkSX${code}`,
+									},
 									list: [
 										{},
 										{
 											fX: true,
 											sX: `trunkSX${code}`,
-											sY: [`treeSqu${code}`, this.sub(`topTrunk${code}`)],
+											sY: [
+												`treeSqu${code}`,
+												this.sub(`topTrunk${code}`),
+											],
 											fY: true,
 											tY: true,
 										},
@@ -254,7 +283,12 @@ Builder.prototype.Tree.prototype.draw = function (args, z, size) {
 	];
 }; // END Tree draw
 
-Builder.prototype.Tree.prototype.addBranches = function (hor, parentLeft, count, level) {
+Builder.prototype.Tree.prototype.addBranches = function (
+	hor,
+	parentLeft,
+	count,
+	level
+) {
 	const list = [];
 	let i = Math.floor(count);
 	const step = (1 / i) * this.minFoliagePos;
@@ -272,10 +306,18 @@ Builder.prototype.Tree.prototype.addBranches = function (hor, parentLeft, count,
 	const { code } = this;
 	const leaves = [
 		// Shadow of Leaves
-		{ save: `leavesShadow${thisZ}${code}`, sY: { r: 2, min: 5 }, list: [strip] },
+		{
+			save: `leavesShadow${thisZ}${code}`,
+			sY: { r: 2, min: 5 },
+			list: [strip],
+		},
 
 		// Leaves
-		{ save: `leaves${thisZ}${code}`, sY: { r: 1.5, min: 3 }, list: [strip] },
+		{
+			save: `leaves${thisZ}${code}`,
+			sY: { r: 1.5, min: 3 },
+			list: [strip],
+		},
 
 		// Top of Leaves
 		{
@@ -384,7 +426,10 @@ Builder.prototype.Forrest = function () {
 
 	while (i--) {
 		count = this.GR(1, 6 - this.treeKindsCount);
-		family = new this.basic.TreeFamily({ color: this.groundColor, secondColor: this.skyColor });
+		family = new this.basic.TreeFamily({
+			color: this.groundColor,
+			secondColor: this.skyColor,
+		});
 
 		while (count--) {
 			this.trees.push({

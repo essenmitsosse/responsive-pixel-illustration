@@ -8,9 +8,14 @@ export const getRenderOnCanvas = () => {
 	const [height, setHeight] = useState(1);
 	const [pixelSize, setPixelSize] = useState(5);
 	const [isResizeable, setIsResizeable] = useState(true);
-	const [pixelGraphic, setPixelGraphic] = useState<PixelGraphics | null>(null);
-	const [boundingClientRectCanvas, setBoundingClientRectCanvas] = useState<DOMRect | null>(null);
-	const [imageFunction, setImageFunction] = useState<ImageFunction | null>(null);
+	const [pixelGraphic, setPixelGraphic] = useState<PixelGraphics | null>(
+		null
+	);
+	const [boundingClientRectCanvas, setBoundingClientRectCanvas] =
+		useState<DOMRect | null>(null);
+	const [imageFunction, setImageFunction] = useState<ImageFunction | null>(
+		null
+	);
 	const [widthAbs, setWidthAbs] = useState<number | null>(null);
 	const [isReady, setIsReady] = useState(false);
 	const canvas = useRef<HTMLCanvasElement>(null);

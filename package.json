@@ -1,42 +1,42 @@
 {
-  "name": "responsive-pixel-illustration",
-  "version": "1.0.0",
-  "private": true,
-  "description": "",
-  "author": "Marcus Blättermann <marcus@essenmitsosse.de>",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "lint": "eslint --ext .js --fix src",
-    "prettier": "prettier --check .",
-    "ts": "tsc --noemit"
-  },
-  "main": "index.js",
-  "dependencies": {
-    "@types/react": "^17.0.40",
-    "@types/react-dom": "^17.0.13",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
-  },
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.12.0",
-    "@typescript-eslint/parser": "^5.12.0",
-    "@vitejs/plugin-react": "^1.0.7",
-    "eslint": "8.9",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.25.4",
-    "prettier": "^2.6.0",
-    "typescript": "^4.5.5",
-    "vite": "^2.8.0"
-  },
-  "bugs": {
-    "url": "https://github.com/essenmitsosse/responsive-pixel-illustration/issues"
-  },
-  "homepage": "https://github.com/essenmitsosse/responsive-pixel-illustration#readme",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/essenmitsosse/responsive-pixel-illustration.git"
-  }
+	"name": "responsive-pixel-illustration",
+	"version": "1.0.0",
+	"private": true,
+	"description": "",
+	"author": "Marcus Blättermann <marcus@essenmitsosse.de>",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview",
+		"lint": "eslint --ext .js --fix src",
+		"prettier": "prettier --check .",
+		"ts": "tsc --noemit"
+	},
+	"main": "index.js",
+	"dependencies": {
+		"@types/react": "^17.0.40",
+		"@types/react-dom": "^17.0.13",
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2"
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^5.12.0",
+		"@typescript-eslint/parser": "^5.12.0",
+		"@vitejs/plugin-react": "^1.0.7",
+		"eslint": "8.9",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-import": "^2.25.4",
+		"prettier": "^2.6.0",
+		"typescript": "^4.5.5",
+		"vite": "^2.8.0"
+	},
+	"bugs": {
+		"url": "https://github.com/essenmitsosse/responsive-pixel-illustration/issues"
+	},
+	"homepage": "https://github.com/essenmitsosse/responsive-pixel-illustration#readme",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/essenmitsosse/responsive-pixel-illustration.git"
+	}
 }

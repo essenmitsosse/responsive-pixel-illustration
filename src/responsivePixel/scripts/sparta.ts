@@ -29,16 +29,38 @@ const help = helper,
 				{
 					tX: true,
 					fX: true,
-					sX: { r: 0.5, max: { r: 0.4, otherDim: true }, min: 1, save: "armWidth" },
-					sY: { r: 1.5, add: [{ otherDim: true, r: -0.5 }], min: { r: 0.8 } },
-					list: [{}, { color: skin, fY: true, tY: true, sY: { r: 1, otherDim: true } }],
+					sX: {
+						r: 0.5,
+						max: { r: 0.4, otherDim: true },
+						min: 1,
+						save: "armWidth",
+					},
+					sY: {
+						r: 1.5,
+						add: [{ otherDim: true, r: -0.5 }],
+						min: { r: 0.8 },
+					},
+					list: [
+						{},
+						{
+							color: skin,
+							fY: true,
+							tY: true,
+							sY: { r: 1, otherDim: true },
+						},
+					],
 				},
 			],
 		},
 
 		// Legs
 		{
-			sY: { r: 0.8, add: [{ r: -2, otherDim: true }], min: { r: 0.4 }, save: "legs" },
+			sY: {
+				r: 0.8,
+				add: [{ r: -2, otherDim: true }],
+				min: { r: 0.4 },
+				save: "legs",
+			},
 			color: water,
 			fY: true,
 			sX: { r: 0.6, min: 2 },
@@ -55,8 +77,18 @@ const help = helper,
 							color: [255, 255, 255],
 							fY: true,
 						},
-						{ sY: { r: 0.8, add: [{ r: 0.5, otherDim: true }], max: { r: 1 } } },
-						{ fY: true, color: [100, 50, 40], sY: { r: 0.05, min: 1 } },
+						{
+							sY: {
+								r: 0.8,
+								add: [{ r: 0.5, otherDim: true }],
+								max: { r: 1 },
+							},
+						},
+						{
+							fY: true,
+							color: [100, 50, 40],
+							sY: { r: 0.05, min: 1 },
+						},
 					],
 				},
 			],
@@ -85,7 +117,12 @@ const help = helper,
 				},
 
 				// Hair
-				{ gap: { a: 0 }, random: { r: 0.2 }, color: skinShadow, sY: { r: 0.1, min: 1 } },
+				{
+					gap: { a: 0 },
+					random: { r: 0.2 },
+					color: skinShadow,
+					sY: { r: 0.1, min: 1 },
+				},
 				{
 					gap: { a: 0 },
 					random: { r: 0.4 },
@@ -110,7 +147,12 @@ const help = helper,
 					color: skinDetail,
 					fY: true,
 					y: { r: 0.2 },
-					sX: { r: 0.8, add: [{ r: -0.2, height: true }], min: 1, max: { r: 1, a: -1 } },
+					sX: {
+						r: 0.8,
+						add: [{ r: -0.2, height: true }],
+						min: 1,
+						max: { r: 1, a: -1 },
+					},
 				},
 
 				// Neck
@@ -195,7 +237,10 @@ const help = helper,
 		imgWidth: [{ r: 1 }, mult(-2, "border")],
 		imgHeight: [{ r: 1, height: true }, mult(-2, "border")],
 		imgSquare: getSmallerDim({ r: 1, useSize: ["imgWidth", "imgHeight"] }),
-		imgSquareBigger: getBiggerDim({ r: 1, useSize: ["imgWidth", "imgHeight"] }),
+		imgSquareBigger: getBiggerDim({
+			r: 1,
+			useSize: ["imgWidth", "imgHeight"],
+		}),
 		eyeSize: mult(0.002, "imgSquareBigger", 1),
 		mouthHeight: "eyeSize",
 	};

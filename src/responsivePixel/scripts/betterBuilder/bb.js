@@ -1,7 +1,9 @@
 var BB = function (init) {
 	const args = {};
 	const ObjProto = BB.prototype.Obj.prototype;
-	const random = window.helper.random(init.id || Math.floor(Math.random() * 4294967296));
+	const random = window.helper.random(
+		init.id || Math.floor(Math.random() * 4294967296)
+	);
 
 	for (const attr in init) {
 		args[attr] = init[attr];
@@ -71,7 +73,9 @@ BBProto.Overview = function (init) {
 	);
 
 	do {
-		rotations.push(new this.calcRotation((this.rotate || 0) + (180 / vari) * i));
+		rotations.push(
+			new this.calcRotation((this.rotate || 0) + (180 / vari) * i)
+		);
 	} while ((i += 1) < vari);
 
 	do {
@@ -89,7 +93,10 @@ BBProto.Overview = function (init) {
 					y: { r: j, useSize: this.outerSY },
 					fY: true,
 					list: [
-						{ color: [(255 / rows) * j, (255 / vari) * i, 0], z: -Infinity },
+						{
+							color: [(255 / rows) * j, (255 / vari) * i, 0],
+							z: -Infinity,
+						},
 						{
 							s: this.innerS,
 							color: this.white,

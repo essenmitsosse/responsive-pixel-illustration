@@ -27,7 +27,18 @@ const renderer = function (init, slide, createSlider) {
 		const rIf = builder.basic.IF;
 		const rInt = builder.basic.GR;
 		const eyeLookVert = ["", "", "", "left", "right"];
-		const eyeLookHor = ["", "", "", "", "", "up", "down", "up", "down", "verDown"];
+		const eyeLookHor = [
+			"",
+			"",
+			"",
+			"",
+			"",
+			"up",
+			"down",
+			"up",
+			"down",
+			"verDown",
+		];
 		const eyeLids = [
 			"",
 			"",
@@ -158,7 +169,8 @@ const renderer = function (init, slide, createSlider) {
 			};
 
 			args.leg = {};
-			args.leg[rIf(0.5) ? "right" : "left"] = legPos[rInt(0, legPos.length)];
+			args.leg[rIf(0.5) ? "right" : "left"] =
+				legPos[rInt(0, legPos.length)];
 
 			args.hatDown = rIf(0.02);
 
@@ -201,7 +213,9 @@ const renderer = function (init, slide, createSlider) {
 			if (showPerson) {
 				args = {};
 				args.groundColor = builder.backgroundColor;
-				args.groundShadowColor = builder.backgroundColor.copy({ brAdd: -1 });
+				args.groundShadowColor = builder.backgroundColor.copy({
+					brAdd: -1,
+				});
 
 				getPosition(drawArgs);
 				drawArgs.size = innerSquare;

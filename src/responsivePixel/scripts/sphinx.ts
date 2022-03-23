@@ -34,12 +34,21 @@ const help = helper,
 			],
 		},
 		{},
-		{ sY: { r: 0.3, max: 1 }, sX: { r: 1, a: 1 }, color: g1, id: "eyebrow" },
+		{
+			sY: { r: 0.3, max: 1 },
+			sX: { r: 1, a: 1 },
+			color: g1,
+			id: "eyebrow",
+		},
 	],
 	arm = [
 		{
 			weight: "pArmWeight",
-			points: [{}, { x: { r: 0.35 }, y: { r: 0.5 } }, { fX: true, fY: true }],
+			points: [
+				{},
+				{ x: { r: 0.35 }, y: { r: 0.5 } },
+				{ fX: true, fY: true },
+			],
 		},
 	],
 	shadow = [
@@ -70,7 +79,13 @@ const help = helper,
 
 				// GROUND
 				{ use: "ground", color: g2 },
-				{ use: "ground", chance: 0.02, sX: { a: 1, random: 10 }, sY: 1, color: g1 },
+				{
+					use: "ground",
+					chance: 0.02,
+					sX: { a: 1, random: 10 },
+					sY: 1,
+					color: g1,
+				},
 				{
 					fY: true,
 					sY: "groundSY",
@@ -157,7 +172,11 @@ const help = helper,
 											points: [
 												{ y: "sBodyTop" },
 												{ fX: true },
-												{ fY: true, fX: true, x: "sBodyRight" },
+												{
+													fY: true,
+													fX: true,
+													x: "sBodyRight",
+												},
 											],
 										},
 									],
@@ -180,7 +199,11 @@ const help = helper,
 												max: { r: 0.3, otherDim: true },
 												save: "tailHeadSize",
 											},
-											sY: { r: 0.8, useSize: "tailHeadSize", min: 1 },
+											sY: {
+												r: 0.8,
+												useSize: "tailHeadSize",
+												min: 1,
+											},
 											tX: true,
 											tY: true,
 											id: "tailHead",
@@ -192,7 +215,11 @@ const help = helper,
 													y: { r: 0.6 },
 													clear: true,
 												},
-												{ sX: 1, sY: { r: 0.15, max: 1 }, clear: true },
+												{
+													sX: 1,
+													sY: { r: 0.15, max: 1 },
+													clear: true,
+												},
 												{
 													sX: 1,
 													sY: { r: 0.15, max: 1 },
@@ -214,19 +241,42 @@ const help = helper,
 										{
 											weight: {
 												r: 0.15,
-												max: { r: 0.12, otherDim: true },
+												max: {
+													r: 0.12,
+													otherDim: true,
+												},
 												min: 1,
 												save: "tailWeight",
 											},
 											points: [
-												{ x: { r: 0.6, save: "tailHead" } },
-												{ x: { r: 0.75 }, y: { r: 0.1 } },
+												{
+													x: {
+														r: 0.6,
+														save: "tailHead",
+													},
+												},
+												{
+													x: { r: 0.75 },
+													y: { r: 0.1 },
+												},
 
-												{ x: { r: 0.8 }, y: { r: 0.3 } },
+												{
+													x: { r: 0.8 },
+													y: { r: 0.3 },
+												},
 
-												{ x: { r: 0.7 }, y: { r: 0.37 } },
-												{ x: { r: 0.5 }, y: { r: 0.45 } },
-												{ x: { r: 0.1 }, y: { r: 0.55 } },
+												{
+													x: { r: 0.7 },
+													y: { r: 0.37 },
+												},
+												{
+													x: { r: 0.5 },
+													y: { r: 0.45 },
+												},
+												{
+													x: { r: 0.1 },
+													y: { r: 0.55 },
+												},
 
 												{
 													y: { r: 0.6 },
@@ -237,9 +287,18 @@ const help = helper,
 													},
 												},
 
-												{ x: { r: 0.05 }, y: { r: 0.7 } },
-												{ x: { r: 0.3 }, y: { r: 0.85 } },
-												{ x: { r: 0.6 }, y: { r: 0.95 } },
+												{
+													x: { r: 0.05 },
+													y: { r: 0.7 },
+												},
+												{
+													x: { r: 0.3 },
+													y: { r: 0.85 },
+												},
+												{
+													x: { r: 0.6 },
+													y: { r: 0.95 },
+												},
 												{
 													x: { r: -0.2 },
 													fX: true,
@@ -278,9 +337,17 @@ const help = helper,
 												{
 													sX: "frontLegSX",
 													sY: { r: 0.7 },
-													list: [{ sY: { r: 0.8 }, fY: true }],
+													list: [
+														{
+															sY: { r: 0.8 },
+															fY: true,
+														},
+													],
 												},
-												{ y: { r: 0.7 }, sY: "frontLegSX" },
+												{
+													y: { r: 0.7 },
+													sY: "frontLegSX",
+												},
 												{
 													y: { r: 0.7 },
 													fX: true,
@@ -288,7 +355,14 @@ const help = helper,
 													sY: { r: 0.3 },
 													list: [
 														{ sY: { r: 0.9 } },
-														{ stripes: { gap: 1, strip: { r: 0.2 } } },
+														{
+															stripes: {
+																gap: 1,
+																strip: {
+																	r: 0.2,
+																},
+															},
+														},
 													],
 												},
 											],
@@ -299,7 +373,10 @@ const help = helper,
 											use: "body",
 											color: g1,
 											chance: 0.02,
-											sY: { a: "pointSize", random: "pointSize" },
+											sY: {
+												a: "pointSize",
+												random: "pointSize",
+											},
 											mask: true,
 										},
 
@@ -311,15 +388,37 @@ const help = helper,
 												{ fY: true, x: { r: 0.1 } },
 
 												{ fY: true, y: { r: 0.1 } },
-												{ x: { r: 0.03 }, y: { r: 0.7 } },
-												{ x: { r: 0.1 }, y: { r: 0.5 } },
-												{ x: { r: 0.2 }, y: { r: 0.3 } },
-												{ x: { r: 0.4 }, y: { r: 0.12 } },
-												{ fX: true, x: "hairOvershotSX" },
+												{
+													x: { r: 0.03 },
+													y: { r: 0.7 },
+												},
+												{
+													x: { r: 0.1 },
+													y: { r: 0.5 },
+												},
+												{
+													x: { r: 0.2 },
+													y: { r: 0.3 },
+												},
+												{
+													x: { r: 0.4 },
+													y: { r: 0.12 },
+												},
+												{
+													fX: true,
+													x: "hairOvershotSX",
+												},
 
 												{ fX: true },
-												{ fX: true, y: "hairOvershotSY" },
-												{ fY: true, x: { r: 0.7 }, y: { r: 0.4 } },
+												{
+													fX: true,
+													y: "hairOvershotSY",
+												},
+												{
+													fY: true,
+													x: { r: 0.7 },
+													y: { r: 0.4 },
+												},
 												{ fY: true, x: { r: 0.5 } },
 											],
 										},
@@ -347,15 +446,40 @@ const help = helper,
 											points: [
 												{ fY: true, x: { r: 0.3 } },
 
-												{ x: { r: 0.2 }, y: { r: 0.6 } },
-												{ x: { r: 0.35 }, y: { r: 0.59 } },
-												{ x: { r: 0.5 }, y: { r: 0.62 } },
-												{ x: { r: 0.5 }, y: { r: 0.63 } },
-												{ x: { r: 0.7 }, y: { r: 0.5 } },
-												{ x: { r: 0.8 }, y: { r: 0.4 } },
+												{
+													x: { r: 0.2 },
+													y: { r: 0.6 },
+												},
+												{
+													x: { r: 0.35 },
+													y: { r: 0.59 },
+												},
+												{
+													x: { r: 0.5 },
+													y: { r: 0.62 },
+												},
+												{
+													x: { r: 0.5 },
+													y: { r: 0.63 },
+												},
+												{
+													x: { r: 0.7 },
+													y: { r: 0.5 },
+												},
+												{
+													x: { r: 0.8 },
+													y: { r: 0.4 },
+												},
 
-												{ fX: true, y: "hairOvershotSY" },
-												{ fY: true, x: { r: 0.7 }, y: { r: 0.4 } },
+												{
+													fX: true,
+													y: "hairOvershotSY",
+												},
+												{
+													fY: true,
+													x: { r: 0.7 },
+													y: { r: 0.4 },
+												},
 												{ fY: true, x: { r: 0.5 } },
 											],
 										},
@@ -365,7 +489,10 @@ const help = helper,
 											use: "backLeg",
 											color: g1,
 											chance: 0.02,
-											sY: { a: "pointSize", random: "pointSize" },
+											sY: {
+												a: "pointSize",
+												random: "pointSize",
+											},
 											mask: true,
 										},
 
@@ -380,10 +507,24 @@ const help = helper,
 												{
 													points: [
 														{ y: -1 },
-														{ x: { r: 0.5 }, y: { r: 0.1 } },
-														{ fX: true, y: { r: 0.4 }, x: { r: 0.1 } },
-														{ fX: true, y: { r: 0.7 } },
-														{ fX: true, fY: true, x: { r: 0.2 } },
+														{
+															x: { r: 0.5 },
+															y: { r: 0.1 },
+														},
+														{
+															fX: true,
+															y: { r: 0.4 },
+															x: { r: 0.1 },
+														},
+														{
+															fX: true,
+															y: { r: 0.7 },
+														},
+														{
+															fX: true,
+															fY: true,
+															x: { r: 0.2 },
+														},
 														{ fY: true },
 													],
 												},
@@ -420,7 +561,11 @@ const help = helper,
 										// Front Leg Front
 										{
 											fX: true,
-											sX: { r: 0.12, save: "frontLegSX", min: 1 },
+											sX: {
+												r: 0.12,
+												save: "frontLegSX",
+												min: 1,
+											},
 											x: { r: 0.15, save: "frontLegX" },
 											list: [
 												{ sY: { r: 0.8 }, fY: true },
@@ -456,11 +601,31 @@ const help = helper,
 										{
 											points: [
 												{ y: "sBodyTop" },
-												{ fX: true, x: "sHeadSX", y: -1 },
+												{
+													fX: true,
+													x: "sHeadSX",
+													y: -1,
+												},
 												{ fX: true, y: -1 },
-												{ fX: true, y: [mult(1.2, "sHeadSY"), "sHeadTop"] },
-												{ fY: true, fX: true, x: "sBodyRight" },
-												{ x: { r: 0.4 }, y: { r: 0.2, a: "sBodyTop" } },
+												{
+													fX: true,
+													y: [
+														mult(1.2, "sHeadSY"),
+														"sHeadTop",
+													],
+												},
+												{
+													fY: true,
+													fX: true,
+													x: "sBodyRight",
+												},
+												{
+													x: { r: 0.4 },
+													y: {
+														r: 0.2,
+														a: "sBodyTop",
+													},
+												},
 											],
 										},
 									],
@@ -479,11 +644,22 @@ const help = helper,
 											points: [
 												{ y: -1, fX: true },
 												{ y: { r: 0.5 }, fX: true },
-												{ x: { r: 0.15 }, y: { r: 0.6 }, fX: true },
-												{ x: "sHeadRight", fX: true, fY: true },
+												{
+													x: { r: 0.15 },
+													y: { r: 0.6 },
+													fX: true,
+												},
+												{
+													x: "sHeadRight",
+													fX: true,
+													fY: true,
+												},
 
 												{ x: "sHeadLeft", fY: true },
-												{ x: { r: 0.2 }, y: { r: 0.6 } },
+												{
+													x: { r: 0.2 },
+													y: { r: 0.6 },
+												},
 												{ y: { r: 0.5 } },
 												{ y: -1 },
 											],
@@ -495,7 +671,10 @@ const help = helper,
 												{
 													list: eye,
 													sX: { r: 0.24 },
-													sY: { r: 0.25, otherDim: true },
+													sY: {
+														r: 0.25,
+														otherDim: true,
+													},
 													id: "eye",
 													y: { r: 0.2 },
 													x: { r: 0.2 },
@@ -504,7 +683,10 @@ const help = helper,
 												{
 													list: eye,
 													sX: { r: 0.24 },
-													sY: { r: 0.25, otherDim: true },
+													sY: {
+														r: 0.25,
+														otherDim: true,
+													},
 													id: "eye",
 													y: { r: 0.2 },
 													x: { r: 0.1 },
@@ -530,7 +712,10 @@ const help = helper,
 															list: [
 																{},
 																{
-																	sY: { r: 0.2, max: 1 },
+																	sY: {
+																		r: 0.2,
+																		max: 1,
+																	},
 																	color: g3,
 																},
 																// { sX:{ r:.2, max:1 }, x:1, sY:{r:.5 }, color:g3 },
@@ -558,36 +743,58 @@ const help = helper,
 													stripes: {
 														horizontal: true,
 														strip: { r: 0.2 },
-														gap: { r: 0.05, max: 1 },
+														gap: {
+															r: 0.05,
+															max: 1,
+														},
 														change: { r: -0.1 },
 														random: 2,
 														cut: true,
 													},
 													list: [
 														{
-															sX: { r: 1, min: 1 },
+															sX: {
+																r: 1,
+																min: 1,
+															},
 															list: [
 																{
 																	points: [
 																		{
 																			x: {
 																				r: 1,
-																				otherDim: true,
-																				max: { r: 0.5 },
+																				otherDim:
+																					true,
+																				max: {
+																					r: 0.5,
+																				},
 																			},
 																			y: -1,
 																		},
-																		{ fX: true, y: -1 },
-																		{ fX: true, fY: true },
+																		{
+																			fX: true,
+																			y: -1,
+																		},
+																		{
+																			fX: true,
+																			fY: true,
+																		},
 																		{
 																			x: {
 																				r: 1,
-																				otherDim: true,
-																				max: { r: 0.5 },
+																				otherDim:
+																					true,
+																				max: {
+																					r: 0.5,
+																				},
 																			},
 																			fY: true,
 																		},
-																		{ y: { r: 0.5 } },
+																		{
+																			y: {
+																				r: 0.5,
+																			},
+																		},
 																	],
 																},
 															],
@@ -598,17 +805,35 @@ const help = helper,
 										},
 										{
 											fX: true,
-											sY: { r: 1, add: [mult(0.05, "motiveSqu")] },
+											sY: {
+												r: 1,
+												add: [mult(0.05, "motiveSqu")],
+											},
 											sX: { r: 0.2 },
 											list: [
 												{
 													points: [
 														{ y: -1, x: { r: -1 } },
-														{ x: { r: 0.7 }, y: { r: 0.1 } },
-														{ fX: true, y: { r: 0.25 } },
-														{ fX: true, y: { r: 0.3 } },
-														{ x: { r: 0.6 }, y: { r: 0.6 } },
-														{ x: { r: 0.7 }, fY: true },
+														{
+															x: { r: 0.7 },
+															y: { r: 0.1 },
+														},
+														{
+															fX: true,
+															y: { r: 0.25 },
+														},
+														{
+															fX: true,
+															y: { r: 0.3 },
+														},
+														{
+															x: { r: 0.6 },
+															y: { r: 0.6 },
+														},
+														{
+															x: { r: 0.7 },
+															fY: true,
+														},
 														{ y: "sWingSY" },
 													],
 												},
@@ -645,11 +870,19 @@ const help = helper,
 									color: g1,
 									list: [
 										{
-											sX: { add: [{ r: 1 }, mult(-2, "pTorsoLeft")] },
+											sX: {
+												add: [
+													{ r: 1 },
+													mult(-2, "pTorsoLeft"),
+												],
+											},
 											x: "pTorsoLeft",
 											list: [
 												{ sX: { r: 0.3, min: 1 } },
-												{ sX: { r: 0.3, min: 1 }, fX: true },
+												{
+													sX: { r: 0.3, min: 1 },
+													fX: true,
+												},
 												{
 													sY: { r: 0.15 },
 													list: [
@@ -658,7 +891,12 @@ const help = helper,
 															y: { r: 0.2 },
 															sY: { r: 0.1 },
 															color: g2,
-															stripes: { gap: 1, strip: { r: 0.2 } },
+															stripes: {
+																gap: 1,
+																strip: {
+																	r: 0.2,
+																},
+															},
 														},
 													],
 												},
@@ -678,14 +916,24 @@ const help = helper,
 											cX: true,
 											x: {
 												a: "pMoveTorso",
-												max: [mult(0.5, "pSX"), sub("pHeadS")],
+												max: [
+													mult(0.5, "pSX"),
+													sub("pHeadS"),
+												],
 											},
 											id: "pHead",
 											list: [
-												{ sY: 1, sX: "headEdgeTop", clear: true },
 												{
 													sY: 1,
-													sX: { r: 0.1, save: "headEdgeTop" },
+													sX: "headEdgeTop",
+													clear: true,
+												},
+												{
+													sY: 1,
+													sX: {
+														r: 0.1,
+														save: "headEdgeTop",
+													},
 													clear: true,
 													fX: true,
 												},
@@ -697,7 +945,10 @@ const help = helper,
 												},
 												{
 													sY: 1,
-													sX: { r: 0.06, save: "headEdgeBottom" },
+													sX: {
+														r: 0.06,
+														save: "headEdgeBottom",
+													},
 													clear: true,
 													fX: true,
 													fY: true,
@@ -715,8 +966,19 @@ const help = helper,
 													sX: { r: 0.45 },
 													x: { r: 0.1 },
 													list: [
-														{ sX: { r: 1, otherDim: true } },
-														{ sX: { r: 1, otherDim: true }, fX: true },
+														{
+															sX: {
+																r: 1,
+																otherDim: true,
+															},
+														},
+														{
+															sX: {
+																r: 1,
+																otherDim: true,
+															},
+															fX: true,
+														},
 													],
 												},
 											],
@@ -729,10 +991,24 @@ const help = helper,
 											list: [
 												{
 													points: [
-														{ x: "pShoulderLeft", y: -1 },
-														{ x: "pShoulderRight", fX: true, y: -1 },
-														{ x: "pTorsoLeft", fX: true, fY: true },
-														{ x: "pTorsoLeft", fY: true },
+														{
+															x: "pShoulderLeft",
+															y: -1,
+														},
+														{
+															x: "pShoulderRight",
+															fX: true,
+															y: -1,
+														},
+														{
+															x: "pTorsoLeft",
+															fX: true,
+															fY: true,
+														},
+														{
+															x: "pTorsoLeft",
+															fY: true,
+														},
 													],
 												},
 											],
@@ -752,7 +1028,12 @@ const help = helper,
 											tX: true,
 											tY: true,
 											y: ["pHeadS", "pArmWeight"],
-											x: ["pShoulderLeft", sub("pArmWeight"), -1, "pTorsoSX"],
+											x: [
+												"pShoulderLeft",
+												sub("pArmWeight"),
+												-1,
+												"pTorsoSX",
+											],
 											sX: mult(0.7, "pArmSX"),
 											sY: mult(1.3, "pArmSY"),
 											list: arm,
@@ -783,17 +1064,26 @@ const help = helper,
 		motiveSY: ["imageSY", mult(-2, "margin")],
 
 		motiveSqu: getSmallerDim({ r: 1, useSize: ["motiveSX", "motiveSY"] }),
-		motiveSquBigger: getBiggerDim({ r: 1, useSize: ["motiveSX", "motiveSY"] }),
+		motiveSquBigger: getBiggerDim({
+			r: 1,
+			useSize: ["motiveSX", "motiveSY"],
+		}),
 
 		restSX: ["motiveSX", sub("motiveSqu")],
 		restSY: ["motiveSY", sub("motiveSqu")],
 
-		restSXSuper: { add: ["restSX", mult(-0.2, "motiveSqu")], min: { a: 0 } },
+		restSXSuper: {
+			add: ["restSX", mult(-0.2, "motiveSqu")],
+			min: { a: 0 },
+		},
 		switch: mult(1000, "restSXSuper"),
 
 		restSquBigger: getBiggerDim({ r: 1, useSize: ["restSX", "restSY"] }),
 		squary: { add: ["motiveSqu", sub("restSquBigger")], min: { a: 0 } },
-		squarySuper: { add: ["squary", mult(-0.5, "motiveSqu")], min: { a: 0 } },
+		squarySuper: {
+			add: ["squary", mult(-0.5, "motiveSqu")],
+			min: { a: 0 },
+		},
 
 		// GROUND
 		groundSY: mult(0.2, "motiveSqu"),
@@ -802,7 +1092,11 @@ const help = helper,
 		bottomSY: { add: ["groundSY", sub("feetSY"), -2], min: 1 },
 
 		//PERSON
-		pSX: { r: 0.3, useSize: "motiveSX", max: { r: 0.5 / personRatio, useSize: "motiveSY" } },
+		pSX: {
+			r: 0.3,
+			useSize: "motiveSX",
+			max: { r: 0.5 / personRatio, useSize: "motiveSY" },
+		},
 		pSY: mult(personRatio, "pSX"),
 
 		pTorsoSX: mult(0.6, "pSX"),
@@ -856,7 +1150,10 @@ const help = helper,
 		sHeadRight: mult(0.25, "sHeadSX"),
 
 		sTailSX: [mult(0.15, "sSX"), mult(0.05, "restSX")],
-		sRightSX: { add: [mult(0.5, "sHeadSX"), mult(0.15, "restSX")], min: ["psOvershotSX", 1] },
+		sRightSX: {
+			add: [mult(0.5, "sHeadSX"), mult(0.15, "restSX")],
+			min: ["psOvershotSX", 1],
+		},
 
 		sBodySX: ["sSX", sub("sTailSX"), sub("sRightSX"), mult(-0.1, "restSX")],
 		sBodySY: ["sSY", mult(-0.5, "sHeadSY"), mult(-0.3, "restSY")],

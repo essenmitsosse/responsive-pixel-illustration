@@ -29,4 +29,9 @@ export interface Link {
 	debug?: true;
 }
 
-export type InputDimension = number | string | GetLength | GetLinkedVariable | Link;
+export type InputDimension =
+	| number
+	| string
+	| GetLength
+	| GetLinkedVariable
+	| Link;

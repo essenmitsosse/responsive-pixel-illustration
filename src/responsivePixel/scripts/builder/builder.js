@@ -67,7 +67,10 @@ const Builder = function (init) {
 		linkList,
 		pushLinkList,
 		backgroundColor: this.backgroundColor,
-		backgroundColorDark: this.backgroundColor.copy({ nextColor: true, brSet: 0 }),
+		backgroundColorDark: this.backgroundColor.copy({
+			nextColor: true,
+			brSet: 0,
+		}),
 		Color: this.Color,
 		colorInfo: this.colorInfo,
 		colorScheme: this.colorScheme,
@@ -84,7 +87,9 @@ Builder.prototype.buildColors = function (info) {
 		const g = rInt(0, 200);
 		const b = rInt(0, 200);
 		const br = Math.sqrt(
-			0.241 * Math.pow(r, 2) + 0.691 * Math.pow(g, 2) + 0.068 * Math.pow(b, 2)
+			0.241 * Math.pow(r, 2) +
+				0.691 * Math.pow(g, 2) +
+				0.068 * Math.pow(b, 2)
 		);
 		const rgb = [r, g, b];
 		const { steps } = info;
@@ -164,7 +169,10 @@ Builder.prototype.Color = function (nr, br) {
 Builder.prototype.Color.prototype.copy = function (args) {
 	args = args || {};
 
-	const color = new this.Color(args.nr !== undefined ? args.nr : this.nr, this.br);
+	const color = new this.Color(
+		args.nr !== undefined ? args.nr : this.nr,
+		this.br
+	);
 
 	if (args.nextColor) {
 		color.nextColor();
@@ -228,7 +236,11 @@ Builder.prototype.Color.prototype.brightnessSet = function (set) {
 	}
 };
 
-Builder.prototype.Color.prototype.brightnessContrast = function (add, min, max) {
+Builder.prototype.Color.prototype.brightnessContrast = function (
+	add,
+	min,
+	max
+) {
 	min = min || 0;
 	max = max || 5;
 
@@ -247,13 +259,16 @@ Builder.prototype.Color.prototype.brightnessContrast = function (add, min, max) 
 
 Builder.prototype.Color.prototype.getNormal = function () {
 	if (!this.finalColor) {
-		return (this.finalColor = this.colors[this.nr][this.br] || [200, 0, 155]);
+		return (this.finalColor = this.colors[this.nr][this.br] || [
+			200, 0, 155,
+		]);
 	}
 
 	return this.finalColor;
 };
 
-Builder.prototype.Color.prototype.get = Builder.prototype.Color.prototype.getNormal;
+Builder.prototype.Color.prototype.get =
+	Builder.prototype.Color.prototype.getNormal;
 
 Builder.prototype.Color.prototype.getBr = function () {
 	return this.br;
@@ -274,7 +289,8 @@ Builder.prototype.getDark = function (darkness) {
 };
 
 Builder.prototype.getNormalColor = function () {
-	Builder.prototype.Color.prototype.get = Builder.prototype.Color.prototype.getNormal;
+	Builder.prototype.Color.prototype.get =
+		Builder.prototype.Color.prototype.getNormal;
 };
 
 Builder.prototype.Object = function () {};

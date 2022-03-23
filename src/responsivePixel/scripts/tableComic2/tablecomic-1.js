@@ -80,7 +80,11 @@ TableComic.prototype.getStrip = function getStrip() {
 	let count = 0;
 	let currentPanel;
 	const finalPanels = [];
-	const combiner = this.getCombiner(finalPanels, stripInfo.defaultPanels, stripInfo.inventory);
+	const combiner = this.getCombiner(
+		finalPanels,
+		stripInfo.defaultPanels,
+		stripInfo.inventory
+	);
 
 	while (count < length) {
 		currentPanel = basicPanels[count];
@@ -183,9 +187,21 @@ TableComic.prototype.getStripInfo = function () {
 		// show: true
 	});
 
-	const actorBaseColor = [this.rInt(0, 255), this.rInt(0, 255), this.rInt(0, 255)];
-	const firstBaseColor = [this.rInt(0, 255), this.rInt(0, 255), this.rInt(0, 255)];
-	const secondBaseColor = [this.rInt(0, 255), this.rInt(0, 255), this.rInt(0, 255)];
+	const actorBaseColor = [
+		this.rInt(0, 255),
+		this.rInt(0, 255),
+		this.rInt(0, 255),
+	];
+	const firstBaseColor = [
+		this.rInt(0, 255),
+		this.rInt(0, 255),
+		this.rInt(0, 255),
+	];
+	const secondBaseColor = [
+		this.rInt(0, 255),
+		this.rInt(0, 255),
+		this.rInt(0, 255),
+	];
 
 	const actor1 = new this.basic.Actor({
 		color: {
@@ -222,7 +238,10 @@ TableComic.prototype.getStripInfo = function () {
 		colorDetail: [70, 90, 80],
 	});
 	const chair1 = new this.basic.Chair({ color: furnitureColor });
-	const chair2 = new this.basic.Chair({ color: furnitureColor, toLeft: true });
+	const chair2 = new this.basic.Chair({
+		color: furnitureColor,
+		toLeft: true,
+	});
 	const glass = new this.basic.Glass({
 		color: [this.rInt(0, 255), this.rInt(0, 255), this.rInt(0, 255)],
 	});
@@ -685,7 +704,11 @@ TableComic.prototype.getStripInfo = function () {
 								angle: 0.5,
 							},
 							max: {
-								target: { obj: actor2.head, posX: 0.5, posY: 0.5 },
+								target: {
+									obj: actor2.head,
+									posX: 0.5,
+									posY: 0.5,
+								},
 							},
 						},
 					},
@@ -771,7 +794,13 @@ TableComic.prototype.getStripInfo = function () {
 						},
 						hand: {
 							map: "a",
-							min: { target: { obj: actor2.head, posX: 0.5, posY: 0.5 } },
+							min: {
+								target: {
+									obj: actor2.head,
+									posX: 0.5,
+									posY: 0.5,
+								},
+							},
 							max: { angle: 1 },
 						},
 						maxStraight: 0.99,
@@ -793,7 +822,13 @@ TableComic.prototype.getStripInfo = function () {
 						},
 						hand: {
 							map: "a",
-							min: { target: { obj: actor2.head, posX: 0.5, posY: 0.5 } },
+							min: {
+								target: {
+									obj: actor2.head,
+									posX: 0.5,
+									posY: 0.5,
+								},
+							},
 							max: { angle: 0.55 },
 						},
 						flip: true,
@@ -828,7 +863,13 @@ TableComic.prototype.getStripInfo = function () {
 						},
 						hand: {
 							map: "a",
-							min: { target: { obj: actor1.head, posX: 1, posY: 0.5 } },
+							min: {
+								target: {
+									obj: actor1.head,
+									posX: 1,
+									posY: 0.5,
+								},
+							},
 							max: { angle: 1 },
 						},
 						maxStraight: 0.99,
@@ -843,7 +884,13 @@ TableComic.prototype.getStripInfo = function () {
 						},
 						hand: {
 							map: "a",
-							min: { target: { obj: actor1.head, posX: 0, posY: 0.5 } },
+							min: {
+								target: {
+									obj: actor1.head,
+									posX: 0,
+									posY: 0.5,
+								},
+							},
 							max: { angle: 0.55 },
 						},
 						maxStraight: 0.95,
@@ -944,7 +991,9 @@ TableComic.prototype.getStripInfo = function () {
 						pos: { obj: actor1.head, posX: 1, posY: 0.2 },
 						flip: true,
 						z: -2000,
-						hand: { target: { obj: actor1.head, posX: 1, posY: 1 } },
+						hand: {
+							target: { obj: actor1.head, posX: 1, posY: 1 },
+						},
 					},
 					armRight: {
 						pos: {
@@ -954,7 +1003,9 @@ TableComic.prototype.getStripInfo = function () {
 						},
 						hand: {
 							map: "a",
-							min: { target: { obj: actor1.head, posX: 0, posY: 0 } },
+							min: {
+								target: { obj: actor1.head, posX: 0, posY: 0 },
+							},
 							max: { angle: 0 },
 						},
 					},

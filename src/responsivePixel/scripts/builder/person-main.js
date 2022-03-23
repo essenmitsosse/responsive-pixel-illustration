@@ -22,7 +22,11 @@ Builder.prototype.Person.prototype.draw = function (args, z) {
 		z = this.basic.objectCount * 10000;
 	}
 
-	args.personHalfSX = this.pushLinkList({ r: 0.5, min: 5, useSize: args.size });
+	args.personHalfSX = this.pushLinkList({
+		r: 0.5,
+		min: 5,
+		useSize: args.size,
+	});
 
 	return sideView
 		? [{ list: this.basicBody.draw(args, args.view === "rightView") }]
@@ -57,8 +61,11 @@ Builder.prototype.BasicBody = function (args) {
 
 	this.sY = this.IF() ? this.R(0.4, 1) : 1;
 	this.sX =
-		(this.IF(0.1) ? this.R(0.3, 0.8) : this.IF(0.1) ? this.R(0.05, 0.15) : this.R(0.15, 0.3)) *
-		this.sY;
+		(this.IF(0.1)
+			? this.R(0.3, 0.8)
+			: this.IF(0.1)
+			? this.R(0.05, 0.15)
+			: this.R(0.15, 0.3)) * this.sY;
 
 	this.lowerBodySY = this.IF(0.1) ? this.R(0.5, 0.9) : 0.7;
 
@@ -80,8 +87,12 @@ Builder.prototype.BasicBody = function (args) {
 		max: 4,
 	});
 
-	this.skinShadowColor = args.skinShadowColor = args.skinColor.copy({ brAdd: -1 });
-	this.skinDetailColor = args.skinDetailColor = args.skinColor.copy({ brAdd: -2 });
+	this.skinShadowColor = args.skinShadowColor = args.skinColor.copy({
+		brAdd: -1,
+	});
+	this.skinDetailColor = args.skinDetailColor = args.skinColor.copy({
+		brAdd: -2,
+	});
 
 	this.groundShadowColor = args.groundShadowColor;
 
@@ -101,10 +112,18 @@ Builder.prototype.BasicBody.prototype.draw = function (args, right) {
 
 	if (args.calc) {
 		args.basicSX = this.pushLinkList({ r: 0, useSize: args.personHalfSX });
-		args.personSX = this.pushLinkList({ r: this.sX, useSize: args.basicSX, a: 2 });
+		args.personSX = this.pushLinkList({
+			r: this.sX,
+			useSize: args.basicSX,
+			a: 2,
+		});
 
 		args.basicSY = this.pushLinkList({ r: 0, useSize: args.size });
-		args.personSY = this.pushLinkList({ r: this.sY, min: 5, useSize: args.basicSY });
+		args.personSY = this.pushLinkList({
+			r: this.sY,
+			min: 5,
+			useSize: args.basicSY,
+		});
 
 		// this.simpleAddHoverChange(
 		// 	0.1,
@@ -136,7 +155,9 @@ Builder.prototype.BasicBody.prototype.draw = function (args, right) {
 			min: 1,
 		});
 
-		args.fullBodySY = this.pushLinkList({ add: [args.lowerBodySY, args.upperBodySY] });
+		args.fullBodySY = this.pushLinkList({
+			add: [args.lowerBodySY, args.upperBodySY],
+		});
 
 		args.personRealSX = this.pushLinkList({ add: [args.personSX] });
 		args.personRealMaxSY = this.pushLinkList({
@@ -234,7 +255,13 @@ Builder.prototype.Logo.prototype.draw = function (args) {
 				save: args[`logoSY${nrName}`],
 				max: { r: 1, save: args[`logoMaxSY${nrName}`] },
 			},
-			y: { r: this.Y, max: [args[`logoSY${nrName}`], this.sub(args[`logoSY${nrName}`])] },
+			y: {
+				r: this.Y,
+				max: [
+					args[`logoSY${nrName}`],
+					this.sub(args[`logoSY${nrName}`]),
+				],
+			},
 			cX: args.oneSide || sideView,
 			color: this.logoColor.get(),
 			id: args[`logo${nrName}`],

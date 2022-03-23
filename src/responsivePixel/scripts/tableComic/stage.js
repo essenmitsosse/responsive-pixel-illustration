@@ -22,7 +22,11 @@ TableComic.prototype.Background = function Background(args) {
 };
 
 TableComic.prototype.Background.prototype.draw = function BackgroundDraw(args) {
-	const borderSY = this.pushLinkList({ r: 0.05, min: 1, useSize: args.stageSY });
+	const borderSY = this.pushLinkList({
+		r: 0.05,
+		min: 1,
+		useSize: args.stageSY,
+	});
 	const borderFinalSY = (this.borerFinalSY = this.pushLinkList({
 		r: 1,
 		useSize: borderSY,

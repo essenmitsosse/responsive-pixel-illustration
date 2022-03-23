@@ -143,8 +143,15 @@ Comic.prototype.Strip = function Strip(args) {
 		// Find smalles Stage
 		(stageSmallestMaxSX = [smallesPanelSX, subBorderS]),
 		(stageSmallestMaxFullSY = [smallesPanelSY, subBorderS]),
-		(stageSmallestMaxSY = { r: this.rFl(0.8, 1) && 1, useSize: stageSmallestMaxFullSY, a: -2 }),
-		(stageSmallestMaxSquare = { add: [stageSmallestMaxSX], max: stageSmallestMaxSY }),
+		(stageSmallestMaxSY = {
+			r: this.rFl(0.8, 1) && 1,
+			useSize: stageSmallestMaxFullSY,
+			a: -2,
+		}),
+		(stageSmallestMaxSquare = {
+			add: [stageSmallestMaxSX],
+			max: stageSmallestMaxSY,
+		}),
 		(stageSmallestSX = {
 			r: stageRatio,
 			useSize: stageSmallestMaxSquare,
@@ -176,7 +183,10 @@ Comic.prototype.Strip = function Strip(args) {
 
 		current = panels[i];
 
-		this.linkList.push((sX = [current.sX, subBorderS]), (sY = [current.sY, subBorderS]));
+		this.linkList.push(
+			(sX = [current.sX, subBorderS]),
+			(sY = [current.sY, subBorderS])
+		);
 
 		current.list = [
 			// World
@@ -214,7 +224,8 @@ Comic.prototype.Strip = function Strip(args) {
 		color: border.borderColor,
 		id: "theEnd",
 		list: [
-			border.edgeBottomBent && border.edgeOuterBent && { name: "Dot", clear: true },
+			border.edgeBottomBent &&
+				border.edgeOuterBent && { name: "Dot", clear: true },
 			border.edgeBottomBent && {
 				name: "Dot",
 				fX: true,
@@ -243,7 +254,9 @@ Comic.prototype.Border = function (args) {
 
 	// Forms & Sizes
 	this.size = args.size;
-	this.linkList.push((this.borderEdge = { r: 0.45, useSize: args.size, max: 1 }));
+	this.linkList.push(
+		(this.borderEdge = { r: 0.45, useSize: args.size, max: 1 })
+	);
 
 	const hasBent = this.rIf(0.5);
 	const allBents = hasBent && this.rIf(0.5);
@@ -254,14 +267,17 @@ Comic.prototype.Border = function (args) {
 	this.open = this.edgeTop;
 
 	this.edgeOuterBent = !this.edgeTop || (hasBent && this.rIf(0.5));
-	this.edgeInnerBent = (hasBent && this.edgeTop && innerAndOutterBent) || !this.edgeOuterBent;
+	this.edgeInnerBent =
+		(hasBent && this.edgeTop && innerAndOutterBent) || !this.edgeOuterBent;
 
 	this.edgeTopBent = hasBent && this.rIf(0.5);
 	this.edgeBottomBent = (hasBent && topAndBottomBent) || !this.edgeTopBent;
 
 	// Colors
 	borderBaseColor =
-		!args.noWorldBackground && this.rIf(0.5) ? args.worldBaseColor : args.backgroundColor;
+		!args.noWorldBackground && this.rIf(0.5)
+			? args.worldBaseColor
+			: args.backgroundColor;
 	this.borderColor = [
 		borderBaseColor[0] * borderDarkess,
 		borderBaseColor[1] * borderDarkess,
@@ -311,7 +327,11 @@ Comic.prototype.Border.prototype.draw = function (args) {
 			list.push({ sY: this.size });
 		}
 
-		list.push({ sX: this.size }, { sX: this.size, fX: true }, { sY: this.size, fY: true });
+		list.push(
+			{ sX: this.size },
+			{ sX: this.size, fX: true },
+			{ sY: this.size, fY: true }
+		);
 
 		// Edge inner Bent
 		if (this.edgeInnerBent) {

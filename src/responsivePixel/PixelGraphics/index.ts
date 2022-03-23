@@ -28,11 +28,11 @@ export class PixelGraphics {
 			this.prepareVariableList(this.imageFunction.linkList);
 		}
 
-		Object.entries(this.imageFunction.variableList || ([] as ReadonlyArray<Variable>)).forEach(
-			([key, value]) => {
-				this.variableList[key] = new Variable(value, key, this.pixelUnit);
-			}
-		);
+		Object.entries(
+			this.imageFunction.variableList || ([] as ReadonlyArray<Variable>)
+		).forEach(([key, value]) => {
+			this.variableList[key] = new Variable(value, key, this.pixelUnit);
+		});
 
 		this.redraw = getRenderer(args, this);
 	}
@@ -73,7 +73,8 @@ export class PixelGraphics {
 					/* eslint-disable-next-line no-param-reassign */
 					current.calculated = true;
 					/* eslint-disable-next-line no-param-reassign */
-					current.real = dimensions[current.height ? "height" : "width"];
+					current.real =
+						dimensions[current.height ? "height" : "width"];
 				} else {
 					/* eslint-disable-next-line no-param-reassign */
 					current.calculated = current.autoUpdate;

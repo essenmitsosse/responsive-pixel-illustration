@@ -19,10 +19,14 @@ Builder.prototype.UpperBody = function (args) {
 	this.hanky = !this.topless && this.IF(0.02);
 
 	// Colors
-	this.clothColor = args.clothColor = args.topless ? args.skinColor : args.firstColor;
+	this.clothColor = args.clothColor = args.topless
+		? args.skinColor
+		: args.firstColor;
 	this.clothShadowColor = this.clothColor.copy({ brAdd: -1 });
 	this.skinColor = args.skinColor;
-	this.shirtColor = args.shirtColor = (this.IF(0.5) ? args.secondColor : args.clothColor).copy({
+	this.shirtColor = args.shirtColor = (
+		this.IF(0.5) ? args.secondColor : args.clothColor
+	).copy({
 		brSet: shirtColor === 4 ? 3 : shirtColor + 1,
 		max: 4,
 	});
@@ -52,7 +56,9 @@ Builder.prototype.UpperBody = function (args) {
 			this.stripes = new this.basic.Stripes(args);
 		}
 		if (this.IF(0.4)) {
-			this.collar = this.IF() ? new this.basic.Cleavage(args) : new this.basic.Collar(args);
+			this.collar = this.IF()
+				? new this.basic.Cleavage(args)
+				: new this.basic.Collar(args);
 		}
 		if (this.IF(0.3)) {
 			this.buttons = new this.basic.Buttons(args, this.clothColor);
@@ -77,9 +83,15 @@ Builder.prototype.UpperBody.prototype.draw = function (args) {
 			min: 1,
 			max: [args.upperBodySX, 1],
 		});
-		args.chestSY = this.pushLinkList({ r: this.chestSY, useSize: args.upperBodySY, min: 1 });
+		args.chestSY = this.pushLinkList({
+			r: this.chestSY,
+			useSize: args.upperBodySY,
+			min: 1,
+		});
 		if (this.chestWide) {
-			args.stomachSY = this.pushLinkList({ add: [args.upperBodySY, this.sub(args.chestSY)] });
+			args.stomachSY = this.pushLinkList({
+				add: [args.upperBodySY, this.sub(args.chestSY)],
+			});
 		}
 		args.trapSX = this.pushLinkList({
 			add: [args.chestSX, this.mult(sideView ? -2 : -1, args.neckSX)],
@@ -216,8 +228,14 @@ Builder.prototype.Stripes.prototype.draw = function (args, z) {
 				: this.doted && [
 						{
 							stripes: !this.dots && {
-								gap: { r: this.dotGap, useSize: args.upperBodySY },
-								strip: { r: this.dotStrip, useSize: args.upperBodySY },
+								gap: {
+									r: this.dotGap,
+									useSize: args.upperBodySY,
+								},
+								strip: {
+									r: this.dotStrip,
+									useSize: args.upperBodySY,
+								},
 								horizontal: !this.horizontal,
 							},
 						},
@@ -254,9 +272,17 @@ Builder.prototype.Buttons.prototype.draw = function (args, z) {
 			list: !this.zipper && [
 				{
 					stripes: {
-						gap: { r: this.buttonGapSY, useSize: args.upperBodySY, min: 1 },
+						gap: {
+							r: this.buttonGapSY,
+							useSize: args.upperBodySY,
+							min: 1,
+						},
 						horizontal: true,
-						strip: { r: this.buttonSY, useSize: args.upperBodySY, min: 1 },
+						strip: {
+							r: this.buttonSY,
+							useSize: args.upperBodySY,
+							min: 1,
+						},
 					},
 				},
 			],
@@ -273,9 +299,13 @@ Builder.prototype.Suspenders = function (args) {
 	this.detail = this.IF(0.5);
 
 	// Colors
-	this.strapColor = (this.IF(0.5) ? args.firstColor : args.secondColor).copy({ brContrast: -1 });
+	this.strapColor = (this.IF(0.5) ? args.firstColor : args.secondColor).copy({
+		brContrast: -1,
+	});
 	if (this.detail) {
-		this.detailColor = args.clothColor.copy({ brContrast: this.IF(0.5) ? 1 : -1 });
+		this.detailColor = args.clothColor.copy({
+			brContrast: this.IF(0.5) ? 1 : -1,
+		});
 	}
 
 	// Assets
@@ -286,11 +316,17 @@ Builder.prototype.Suspenders.prototype.draw = function (args, z) {
 	const { sideView } = args;
 	const detail = this.detail && [
 		{},
-		{ color: this.detailColor.get(), sY: { r: 1, otherDim: true }, fY: true },
+		{
+			color: this.detailColor.get(),
+			sY: { r: 1, otherDim: true },
+			fY: true,
+		},
 	];
 
 	if (args.calc) {
-		args.trapSX = this.pushLinkList({ add: [args.upperBodySX, this.sub(args.neckSX)] });
+		args.trapSX = this.pushLinkList({
+			add: [args.upperBodySX, this.sub(args.neckSX)],
+		});
 	}
 
 	return {
@@ -452,10 +488,18 @@ Builder.prototype.Cleavage.prototype.draw = function (args, z) {
 		if (this.sleeveless) {
 			if (sideView) {
 				args.cleavageRightX = this.pushLinkList({
-					add: [args.chestSX, this.sub(args.cleavageX), this.sub(args.cleavageSX)],
+					add: [
+						args.chestSX,
+						this.sub(args.cleavageX),
+						this.sub(args.cleavageSX),
+					],
 				});
 			}
-			args.strapSX = this.pushLinkList({ r: this.strapSX, useSize: args.cleavageX, max: -1 });
+			args.strapSX = this.pushLinkList({
+				r: this.strapSX,
+				useSize: args.cleavageX,
+				max: -1,
+			});
 		}
 	}
 
@@ -470,7 +514,11 @@ Builder.prototype.Cleavage.prototype.draw = function (args, z) {
 			this.sleeveless && {
 				color: this.skinColor.get(),
 				sX: [args.cleavageX, args.strapSX],
-				sY: { r: this.strapSY, add: [args.shoulderSY], save: args.sleevelessSY },
+				sY: {
+					r: this.strapSY,
+					add: [args.shoulderSY],
+					save: args.sleevelessSY,
+				},
 				fX: true,
 			},
 			this.cleavage && {
@@ -501,7 +549,10 @@ Builder.prototype.Nipples.prototype.draw = function (args, z) {
 	const { sideView } = args;
 
 	if (args.calc) {
-		args.nippleS = this.pushLinkList({ r: this.nippleSize, useSize: args.chestSX });
+		args.nippleS = this.pushLinkList({
+			r: this.nippleSize,
+			useSize: args.chestSX,
+		});
 	}
 
 	return {
@@ -531,7 +582,10 @@ Builder.prototype.Cape.prototype.draw = function (args) {
 	const { sideView } = args;
 
 	if (args.calc) {
-		args.capeFrontSY = this.pushLinkList({ r: this.capeFrontSY, useSize: args.upperArmSY });
+		args.capeFrontSY = this.pushLinkList({
+			r: this.capeFrontSY,
+			useSize: args.upperArmSY,
+		});
 		args.capeSY = this.pushLinkList({
 			r: this.capeSY,
 			useSize: args.fullBodySY,
@@ -569,7 +623,9 @@ Builder.prototype.Strap = function (args) {
 	// Color
 	this.strapColor =
 		args.beltColor ||
-		(args.beltColor = (this.IF(0.5) ? args.firstColor : args.secondColor).copy({
+		(args.beltColor = (
+			this.IF(0.5) ? args.firstColor : args.secondColor
+		).copy({
 			brContrast: this.IF() ? 2 : -2,
 		}));
 
@@ -606,7 +662,11 @@ Builder.prototype.Strap.prototype.draw = function (args, z) {
 					weight: args.strapTickness,
 					color: this.strapColor.get(),
 					points: [
-						{ fX: true, fY: true, x: this.mult(0.5, args.strapTickness) },
+						{
+							fX: true,
+							fY: true,
+							x: this.mult(0.5, args.strapTickness),
+						},
 						{
 							fX: true,
 							x: {

@@ -15,11 +15,16 @@ const recordClient = {
 	[Axis.y]: "clientY",
 } as const;
 
-const getIsMouseEvent = (event: MouseEvent | TouchEvent): event is MouseEvent => "clientX" in event;
+const getIsMouseEvent = (event: MouseEvent | TouchEvent): event is MouseEvent =>
+	"clientX" in event;
 
 const getPosClient = (axis: Axis, event: MouseEvent | TouchEvent): number => {
 	const nameDimClient = recordClient[axis];
-	return (getIsMouseEvent(event) ? event[nameDimClient] : event.touches[0][nameDimClient]) || 0;
+	return (
+		(getIsMouseEvent(event)
+			? event[nameDimClient]
+			: event.touches[0][nameDimClient]) || 0
+	);
 };
 
 const getPosCanvas = (
@@ -30,18 +35,21 @@ const getPosCanvas = (
 
 const getSize =
 	(axis: Axis) =>
-		(boundingClientRectCanvas: DOMRect): number =>
-			boundingClientRectCanvas[recordBoundClientRectSize[axis]];
+	(boundingClientRectCanvas: DOMRect): number =>
+		boundingClientRectCanvas[recordBoundClientRectSize[axis]];
 
 export const getSizeX = getSize(Axis.x);
 
 const getGetDimension =
 	(axis: Axis) =>
-		(event: MouseEvent | TouchEvent, boundingClientRectCanvas: DOMRect): number => {
-			const pos = getPosCanvas(axis, event, boundingClientRectCanvas);
-			const sizeHalf = getSize(axis)(boundingClientRectCanvas) / 2;
-			return Math.abs((pos - sizeHalf) / sizeHalf);
-		};
+	(
+		event: MouseEvent | TouchEvent,
+		boundingClientRectCanvas: DOMRect
+	): number => {
+		const pos = getPosCanvas(axis, event, boundingClientRectCanvas);
+		const sizeHalf = getSize(axis)(boundingClientRectCanvas) / 2;
+		return Math.abs((pos - sizeHalf) / sizeHalf);
+	};
 
 export const getDimensionX = getGetDimension(Axis.x);
 export const getDimensionY = getGetDimension(Axis.y);

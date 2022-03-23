@@ -17,7 +17,8 @@ Comic.prototype.Actors = function Actors(args) {
 	this.actor1.opponent = this.actor2;
 	this.actor2.opponent = this.actor1;
 
-	this.weakerActor = this.actor1.speed < this.actor2.strength ? this.actor1 : this.actor2;
+	this.weakerActor =
+		this.actor1.speed < this.actor2.strength ? this.actor1 : this.actor2;
 	this.weakerActor.weak = true;
 
 	this.hasBeenHit = false;
@@ -283,9 +284,12 @@ Comic.prototype.Actors.prototype = {
 			tracker.push(`${new Array(25).join("  _")}Frame #${i}`);
 
 			do {
-				string = name[c] + new Array(20 - `${name[c]}`.length).join(" ");
+				string =
+					name[c] + new Array(20 - `${name[c]}`.length).join(" ");
 				string +=
-					(a1[c] || "") + new Array(30 - `${a1[c]}`.length).join(" ") + (a2[c] || "");
+					(a1[c] || "") +
+					new Array(30 - `${a1[c]}`.length).join(" ") +
+					(a2[c] || "");
 
 				tracker.push(string);
 			} while ((c += 1) < l);

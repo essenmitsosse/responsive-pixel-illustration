@@ -59,7 +59,11 @@ TableComic.prototype.Strip = function (args) {
 		});
 
 		// Rounded Border
-		if (stripInfo.roundCorners || stripInfo.roundTopCorners || stripInfo.roundBottomCorners) {
+		if (
+			stripInfo.roundCorners ||
+			stripInfo.roundTopCorners ||
+			stripInfo.roundBottomCorners
+		) {
 			current.list.push({
 				minX: 6,
 				minY: 6,
@@ -73,12 +77,14 @@ TableComic.prototype.Strip = function (args) {
 						fX: true,
 						color: paperColor,
 					},
-					(stripInfo.roundCorners || stripInfo.roundBottomCorners) && {
+					(stripInfo.roundCorners ||
+						stripInfo.roundBottomCorners) && {
 						name: "Dot",
 						fY: true,
 						color: paperColor,
 					},
-					(stripInfo.roundCorners || stripInfo.roundBottomCorners) && {
+					(stripInfo.roundCorners ||
+						stripInfo.roundBottomCorners) && {
 						name: "Dot",
 						fX: true,
 						fY: true,
@@ -108,7 +114,10 @@ TableComic.prototype.Panel = function (args) {
 	this.ratio = args.ratio || 1;
 };
 
-TableComic.prototype.Panel.prototype.setStage = function (minPanelSX, minPanelSY) {
+TableComic.prototype.Panel.prototype.setStage = function (
+	minPanelSX,
+	minPanelSY
+) {
 	this.getSizeWithRatio(
 		(this.minPanelSX = minPanelSX),
 		(this.minPanelSY = minPanelSY),
@@ -119,14 +128,30 @@ TableComic.prototype.Panel.prototype.setStage = function (minPanelSX, minPanelSY
 
 TableComic.prototype.Panel.prototype.draw = function (args) {
 	const info = args.info || {};
-	const zoomSX = (this.zoomSX = this.pushLinkList({ r: 1, useSize: this.minSX }));
-	const zoomSY = (this.zoomSY = this.pushLinkList({ r: 1, useSize: this.minSY }));
+	const zoomSX = (this.zoomSX = this.pushLinkList({
+		r: 1,
+		useSize: this.minSX,
+	}));
+	const zoomSY = (this.zoomSY = this.pushLinkList({
+		r: 1,
+		useSize: this.minSY,
+	}));
 
-	const restSX = this.pushLinkList({ add: [args.sX, { r: -1, useSize: zoomSX }] });
-	const restSY = this.pushLinkList({ add: [args.sY, { r: -1, useSize: zoomSY }] });
+	const restSX = this.pushLinkList({
+		add: [args.sX, { r: -1, useSize: zoomSX }],
+	});
+	const restSY = this.pushLinkList({
+		add: [args.sY, { r: -1, useSize: zoomSY }],
+	});
 
-	const panXrel = (this.panXrel = this.pushLinkList({ r: 0.5, useSize: restSX }));
-	const panYrel = (this.panYrel = this.pushLinkList({ r: 0.5, useSize: restSY }));
+	const panXrel = (this.panXrel = this.pushLinkList({
+		r: 0.5,
+		useSize: restSX,
+	}));
+	const panYrel = (this.panYrel = this.pushLinkList({
+		r: 0.5,
+		useSize: restSY,
+	}));
 
 	const panX = (this.panX = this.pushLinkList({
 		r: 0,
@@ -204,8 +229,14 @@ TableComic.prototype.Panel.prototype.draw = function (args) {
 
 TableComic.prototype.Panel.prototype.faceDraw = function (args) {
 	const actor = args.info.actor.what;
-	const zoomX = (this.zoomX = this.pushLinkList({ r: 1, useSize: this.minPanelSX }));
-	const zoomY = (this.zoomY = this.pushLinkList({ r: 1, useSize: this.minPanelSY }));
+	const zoomX = (this.zoomX = this.pushLinkList({
+		r: 1,
+		useSize: this.minPanelSX,
+	}));
+	const zoomY = (this.zoomY = this.pushLinkList({
+		r: 1,
+		useSize: this.minPanelSY,
+	}));
 	const square = this.pushLinkList({ add: [zoomX], max: zoomY });
 
 	this.addHoverChange(args.info);

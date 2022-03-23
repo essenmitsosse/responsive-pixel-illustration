@@ -72,7 +72,9 @@ TableComic.prototype.Table.prototype.draw = function TableDraw(args) {
 	]);
 };
 
-TableComic.prototype.Table.prototype.getPosition = function TableGetPosition(id) {
+TableComic.prototype.Table.prototype.getPosition = function TableGetPosition(
+	id
+) {
 	return {
 		x: id === 0 ? this.x : this.pushLinkList([this.x, this.sX]),
 		y: this.sY,
@@ -101,7 +103,11 @@ TableComic.prototype.Chair.prototype.draw = function ChairDraw(args) {
 	this.sY = this.pushLinkList({ r: this.sY_, useSize: args.stageSY });
 
 	this.verticalElement = this.pushLinkList({ r: 0.1, useSize: this.sX });
-	this.horizontalElement = this.pushLinkList({ r: 0.15, useSize: this.sX, max: this.sY });
+	this.horizontalElement = this.pushLinkList({
+		r: 0.15,
+		useSize: this.sX,
+		max: this.sY,
+	});
 	this.legDistance = this.pushLinkList({ r: 0.3, useSize: this.sX });
 	this.backSY = this.pushLinkList({ r: 2, useSize: this.sY });
 
@@ -207,7 +213,10 @@ TableComic.prototype.Glass.prototype.draw = function GlassDraw(args) {
 		{
 			sY: this.level,
 			fY: true,
-			list: [{ color: this.color }, { color: this.mixColor, list: normalGlass }],
+			list: [
+				{ color: this.color },
+				{ color: this.mixColor, list: normalGlass },
+			],
 		},
 	]);
 };
@@ -243,7 +252,10 @@ TableComic.prototype.Emotion.prototype.draw = function EmotionDraw(args) {
 
 	this.innerS = this.pushLinkList({ r: 0.3, useSize: this.sX, a: 5 });
 	if (args.info.size) {
-		this.innerS = this.pushLinkList({ r: args.info.size, useSize: this.innerS });
+		this.innerS = this.pushLinkList({
+			r: args.info.size,
+			useSize: this.innerS,
+		});
 	}
 	this.innerS = this.pushLinkList({ r: 1, useSize: this.innerS });
 
@@ -307,8 +319,14 @@ TableComic.prototype.Emotion.prototype.draw = function EmotionDraw(args) {
 											weight: 1,
 											points: [
 												{ x: { r: 0.5 } },
-												{ x: { r: 0.65 }, y: { r: 0.4 } },
-												{ x: { r: 0.35 }, y: { r: 0.6 } },
+												{
+													x: { r: 0.65 },
+													y: { r: 0.4 },
+												},
+												{
+													x: { r: 0.35 },
+													y: { r: 0.6 },
+												},
 												{ x: { r: 0.5 }, fY: true },
 											],
 										},
@@ -326,7 +344,10 @@ TableComic.prototype.Emotion.prototype.draw = function EmotionDraw(args) {
 
 										// Bottom
 										{
-											y: { add: [this.cloudBottomY], min: 2 },
+											y: {
+												add: [this.cloudBottomY],
+												min: 2,
+											},
 											x: this.cloudLeftX,
 											fY: true,
 											fX: true,
@@ -334,22 +355,38 @@ TableComic.prototype.Emotion.prototype.draw = function EmotionDraw(args) {
 
 										{ x: { r: 0.5 }, fY: true },
 
-										{ y: this.cloudBottomY, x: this.cloudLeftX, fY: true },
+										{
+											y: this.cloudBottomY,
+											x: this.cloudLeftX,
+											fY: true,
+										},
 									],
 								},
 
-								{ sY: { r: 0.8 }, mX: { r: 0.05, otherDim: true, a: 1 }, fY: true },
+								{
+									sY: { r: 0.8 },
+									mX: { r: 0.05, otherDim: true, a: 1 },
+									fY: true,
+								},
 
 								// Outside
 								{
 									sY: { r: 0.6 },
 									sX: { r: 0.4, min: 2 },
-									x: { r: 0.2, useSize: this.cloudSX, max: { a: 0 } },
+									x: {
+										r: 0.2,
+										useSize: this.cloudSX,
+										max: { a: 0 },
+									},
 								},
 								{
 									sY: { r: 0.6 },
 									sX: { r: 0.4, min: 2 },
-									x: { r: 0.4, useSize: this.cloudSX, max: { a: 0 } },
+									x: {
+										r: 0.4,
+										useSize: this.cloudSX,
+										max: { a: 0 },
+									},
 									fX: true,
 								},
 
@@ -359,7 +396,11 @@ TableComic.prototype.Emotion.prototype.draw = function EmotionDraw(args) {
 									fY: true,
 									tY: true,
 									sY: { r: 0.1, min: 1 },
-									x: { r: 0.4, useSize: this.cloudSX, max: { a: 0 } },
+									x: {
+										r: 0.4,
+										useSize: this.cloudSX,
+										max: { a: 0 },
+									},
 								},
 
 								// Cloud
@@ -381,14 +422,22 @@ TableComic.prototype.Emotion.prototype.draw = function EmotionDraw(args) {
 								{
 									weight: 1,
 									points: [
-										{ fY: true, y: { r: 0.2 }, x: { r: -0.6 } },
+										{
+											fY: true,
+											y: { r: 0.2 },
+											x: { r: -0.6 },
+										},
 										{ fX: true, x: { r: 1 } },
 									],
 								},
 								{
 									weight: 1,
 									points: [
-										{ fY: true, x: { r: 0.2 }, y: { r: -0.2 } },
+										{
+											fY: true,
+											x: { r: 0.2 },
+											y: { r: -0.2 },
+										},
 										{ fX: true, y: { r: 0.5 } },
 									],
 								},

@@ -8,10 +8,13 @@ Builder.prototype.LowerBody = function (args) {
 
 	this.wideHips = this.IF(0.05);
 
-	this.pantless = args.pantless = args.animal || this.IF(this.skirt ? 0.4 : 0.01);
+	this.pantless = args.pantless =
+		args.animal || this.IF(this.skirt ? 0.4 : 0.01);
 
 	// Colors
-	this.pantsColor = args.pantsColor = this.pantless ? args.skinColor : args.secondColor;
+	this.pantsColor = args.pantsColor = this.pantless
+		? args.skinColor
+		: args.secondColor;
 
 	// Assets
 	this.leg = new this.basic.Leg(args);
@@ -93,7 +96,9 @@ Builder.prototype.Belt = function (args) {
 	// Colors
 	this.beltColor = args.beltColor || args.pantsColor.copy({ brContrast: -1 });
 	if (this.buckle) {
-		this.buckleColor = this.beltColor.copy({ brContrast: this.IF(0.5) ? -1 : 2 });
+		this.buckleColor = this.beltColor.copy({
+			brContrast: this.IF(0.5) ? -1 : 2,
+		});
 	}
 	if (this.strips) {
 		this.pantsColor = args.skirt ? args.skirtColor : args.pantsColor;
@@ -127,7 +132,11 @@ Builder.prototype.Belt.prototype.draw = function (args, z) {
 					color: this.buckleColor.get(),
 					sX: {
 						r: this.buckleSX * (sideView ? 0.5 : 1),
-						min: { r: 1, otherDim: true, max: { r: 0.8, a: -1, otherDim: true } },
+						min: {
+							r: 1,
+							otherDim: true,
+							max: { r: 0.8, a: -1, otherDim: true },
+						},
 					},
 				},
 		],
@@ -167,7 +176,9 @@ Builder.prototype.Skirt.prototype.draw = function (args) {
 			min: 1,
 			max: args.lowerBodySY,
 		});
-		args.feetRestSY = this.pushLinkList({ add: [args.lowerBodySY, this.sub(args.skirtSY)] });
+		args.feetRestSY = this.pushLinkList({
+			add: [args.lowerBodySY, this.sub(args.skirtSY)],
+		});
 	}
 
 	return (
@@ -229,8 +240,13 @@ Builder.prototype.Leg.prototype.draw = function (args, z, rightSide, behind) {
 			max: [args.lowerBodySX, this.legsIn ? -2 : -1],
 			min: 1,
 		});
-		args.upperLegSY = this.pushLinkList({ r: 0.5, useSize: args.lowerBodySY });
-		args.lowerLegSY = this.pushLinkList({ add: [args.lowerBodySY, this.sub(args.upperLegSY)] });
+		args.upperLegSY = this.pushLinkList({
+			r: 0.5,
+			useSize: args.lowerBodySY,
+		});
+		args.lowerLegSY = this.pushLinkList({
+			add: [args.lowerBodySY, this.sub(args.upperLegSY)],
+		});
 
 		args.shoeSY = this.pushLinkList(
 			this.bootsSY
@@ -258,7 +274,10 @@ Builder.prototype.Leg.prototype.draw = function (args, z, rightSide, behind) {
 			max: args.legMaxSX,
 			min: 1,
 		});
-		args.legFullSX = this.pushLinkList({ add: [args.thighsSX], min: args.calvesSX });
+		args.legFullSX = this.pushLinkList({
+			add: [args.thighsSX],
+			min: args.calvesSX,
+		});
 	}
 
 	return {
@@ -266,10 +285,13 @@ Builder.prototype.Leg.prototype.draw = function (args, z, rightSide, behind) {
 		fX: !behind,
 		x: !sideView && this.legsIn && { r: 0.3, max: 1 },
 		z,
-		rY: hipBend && (args.backView || (sideView && args.right === rightSide)),
+		rY:
+			hipBend &&
+			(args.backView || (sideView && args.right === rightSide)),
 		rX:
 			(!hipBend && sideView) ||
-			(hipBend && (args.backView || (sideView && args.right !== rightSide))),
+			(hipBend &&
+				(args.backView || (sideView && args.right !== rightSide))),
 		rotate: hipBend && (rightSide ? 90 : -90),
 		// y: [ args.crotchSY ],
 		list: [
@@ -293,15 +315,20 @@ Builder.prototype.Leg.prototype.draw = function (args, z, rightSide, behind) {
 								cX: true,
 								rY:
 									legBend &&
-									(args.backView || (sideView && args.right === rightSide)),
+									(args.backView ||
+										(sideView && args.right === rightSide)),
 								rX:
 									legBend &&
-									(args.backView || (sideView && args.right === rightSide)),
+									(args.backView ||
+										(sideView && args.right === rightSide)),
 								rotate: legBend && (rightSide ? -90 : 90),
 								list: [
 									{
 										sY: args.lowerLegSY,
-										y: legRaise && { r: -0.1, useSize: args.lowerBodySY },
+										y: legRaise && {
+											r: -0.1,
+											useSize: args.lowerBodySY,
+										},
 										list: [
 											{},
 
@@ -312,7 +339,11 @@ Builder.prototype.Leg.prototype.draw = function (args, z, rightSide, behind) {
 													this.bootsSXBig && {
 														r: 1,
 														a: this.bootsSXBig,
-														max: { r: 0.5, useSize: args.personHalfSX },
+														max: {
+															r: 0.5,
+															useSize:
+																args.personHalfSX,
+														},
 													},
 												cX: true,
 												fX: true,
@@ -323,14 +354,22 @@ Builder.prototype.Leg.prototype.draw = function (args, z, rightSide, behind) {
 													{},
 
 													!this.bareFoot && {
-														sY: { r: 0.2, useSize: args.legSX, min: 1 },
+														sY: {
+															r: 0.2,
+															useSize: args.legSX,
+															min: 1,
+														},
 														sX: {
 															r: 1,
 															a: 1,
 															max: {
 																r: 0.15,
-																useSize: args.personHalfSX,
-																max: [args.calvesSX, 1],
+																useSize:
+																	args.personHalfSX,
+																max: [
+																	args.calvesSX,
+																	1,
+																],
 															},
 														},
 														fY: true,

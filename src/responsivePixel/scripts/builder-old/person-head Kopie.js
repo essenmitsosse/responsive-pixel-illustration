@@ -20,7 +20,10 @@ Builder.prototype.Head = function (args) {
 	this.skinShadowColor = args.skinShadowColor;
 	this.skinDetailColor = args.skinDetailColor;
 
-	this.hairColor = args.hairColor = args.skinColor.copy({ nextColor: true, brContrast: -2 });
+	this.hairColor = args.hairColor = args.skinColor.copy({
+		nextColor: true,
+		brContrast: -2,
+	});
 
 	// Assets
 	this.hair = new this.basic.Hair(args);
@@ -42,7 +45,10 @@ Builder.prototype.Head.prototype.draw = function (args, z) {
 	};
 	this.vL[`neckSX${nr}`] = sideView
 		? {
-				add: [{ r: -1 + this.neckSX, useSize: `headMinSX${nr}` }, `headMinSX${nr}`],
+				add: [
+					{ r: -1 + this.neckSX, useSize: `headMinSX${nr}` },
+					`headMinSX${nr}`,
+				],
 				max: `chestSX${nr}`,
 				min: 1,
 		  }
@@ -53,9 +59,16 @@ Builder.prototype.Head.prototype.draw = function (args, z) {
 				min: 1,
 		  };
 	this.vL[`neckSY${nr}`] = { r: this.neckSY, useSize: `headNeckSY${nr}` };
-	this.vL[`headMinSY${nr}`] = { add: [`headNeckSY${nr}`, this.sub(`neckSY${nr}`)], min: 2 };
+	this.vL[`headMinSY${nr}`] = {
+		add: [`headNeckSY${nr}`, this.sub(`neckSY${nr}`)],
+		min: 2,
+	};
 
-	this.vL[`foreHeadSY${nr}`] = { r: this.foreHeadSY, useSize: `headMinSX${nr}`, min: 1 };
+	this.vL[`foreHeadSY${nr}`] = {
+		r: this.foreHeadSY,
+		useSize: `headMinSX${nr}`,
+		min: 1,
+	};
 
 	list = {
 		sY: `headNeckSY${nr}`,
@@ -100,7 +113,12 @@ Builder.prototype.Head.prototype.draw = function (args, z) {
 	};
 
 	this.vL[`headSX${nr}`] = `headMinSX${nr}`;
-	this.vL[`headSY${nr}`] = [`mouthTopY${nr}`, `eyeY${nr}`, `eyeSY${nr}`, `foreHeadSY${nr}`];
+	this.vL[`headSY${nr}`] = [
+		`mouthTopY${nr}`,
+		`eyeY${nr}`,
+		`eyeSY${nr}`,
+		`foreHeadSY${nr}`,
+	];
 
 	return list;
 };
@@ -154,7 +172,8 @@ Builder.prototype.Eye.prototype.draw = function (args, z) {
 
 	const thisEye = args.eye;
 
-	const eyeClosed = thisEye.lids === "closed" || (args.right && thisEye.lids === "wink");
+	const eyeClosed =
+		thisEye.lids === "closed" || (args.right && thisEye.lids === "wink");
 	const eyeHalfClosed = !eyeClosed && thisEye.lids === "halfClosed";
 
 	const lookUp = thisEye.up;
@@ -165,7 +184,11 @@ Builder.prototype.Eye.prototype.draw = function (args, z) {
 	this.vL[`eyeSY${nr}`] = { r: this.eyeSY, useSize: `headMinSY${nr}`, a: 1 };
 
 	this.vL[`eyeX${nr}`] = { r: this.eyeX, useSize: `headMinSX${nr}`, min: 1 };
-	this.vL[`eyeY${nr}`] = { r: this.eyeY, useSize: `headMinSY${nr}`, a: `mouthTopY${nr}` };
+	this.vL[`eyeY${nr}`] = {
+		r: this.eyeY,
+		useSize: `headMinSY${nr}`,
+		a: `mouthTopY${nr}`,
+	};
 
 	return {
 		sX: `eyeSX${nr}`,
@@ -264,7 +287,11 @@ Builder.prototype.Mouth.prototype.draw = function (args, z) {
 		a: 0.7,
 		min: 1,
 	};
-	this.vL[`mouthY${nr}`] = { r: this.mouthY, useSize: `headMinSY${nr}`, a: 0.4 };
+	this.vL[`mouthY${nr}`] = {
+		r: this.mouthY,
+		useSize: `headMinSY${nr}`,
+		a: 0.4,
+	};
 	this.vL[`mouthTopY${nr}`] = [`mouthSY${nr}`, `mouthY${nr}`];
 
 	return {

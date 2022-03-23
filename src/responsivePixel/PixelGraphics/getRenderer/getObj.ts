@@ -2,7 +2,11 @@ import type { PixelUnit } from "../pixelUnits";
 import type { PixelSetter } from "./PixelSetter";
 import type { Seed } from "./Seed";
 
-export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUnit) => {
+export const getObj = (
+	pixelSetter: PixelSetter,
+	seed: Seed,
+	pixelUnit: PixelUnit
+) => {
 	const Primitive = function Primitive() {};
 
 	const PointBased = function PointBased() {};
@@ -74,7 +78,12 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUni
 		}
 
 		const newArgs =
-			this.prepareSizeAndPos(args, reflectX, reflectY, (this.rotate = rotate === 90)) || {};
+			this.prepareSizeAndPos(
+				args,
+				reflectX,
+				reflectY,
+				(this.rotate = rotate === 90)
+			) || {};
 
 		newArgs.reflectX = (args.rX || false) !== reflectX;
 		newArgs.reflectY = (args.rY || false) !== reflectY;
@@ -123,7 +132,12 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUni
 	};
 
 	// Prepare Size and Position Data for Basic Objects
-	Primitive.prototype.prepareSizeAndPos = function (args, reflectX, reflectY, rotate) {
+	Primitive.prototype.prepareSizeAndPos = function (
+		args,
+		reflectX,
+		reflectY,
+		rotate
+	) {
 		this.dimensions = new pixelUnit.Dimensions(
 			args,
 			(this.fromRight = rotate
@@ -148,8 +162,20 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUni
 		this.getColorArray()(pos.x, pos.y);
 	};
 
-	Dot.prototype.prepareSizeAndPos = function (args, reflectX, reflectY, rotate) {
-		return { getRealPosition: new pixelUnit.Position(args, reflectX, reflectY, rotate) };
+	Dot.prototype.prepareSizeAndPos = function (
+		args,
+		reflectX,
+		reflectY,
+		rotate
+	) {
+		return {
+			getRealPosition: new pixelUnit.Position(
+				args,
+				reflectX,
+				reflectY,
+				rotate
+			),
+		};
 	};
 
 	// ------------------ Line ------------------
@@ -190,7 +216,12 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUni
 			: this.getColorArray;
 	};
 
-	Line.prototype.prepareSizeAndPos = function (args, reflectX, reflectY, rotate) {
+	Line.prototype.prepareSizeAndPos = function (
+		args,
+		reflectX,
+		reflectY,
+		rotate
+	) {
 		const newPoints = [];
 		const { points } = args;
 		let l = points.length;
@@ -199,7 +230,9 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUni
 		reflectY = (args.rY || false) !== reflectY;
 
 		while (l--) {
-			newPoints.push(new pixelUnit.Position(points[l], reflectX, reflectY, rotate));
+			newPoints.push(
+				new pixelUnit.Position(points[l], reflectX, reflectY, rotate)
+			);
 		}
 		return {
 			points: newPoints,
@@ -228,7 +261,13 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUni
 					Number.isNaN(p1.x) ||
 					Number.isNaN(p1.y)
 				) {
-					throw new Error("Line with NaN found!", p0.x, p0.y, p1.x, p1.y);
+					throw new Error(
+						"Line with NaN found!",
+						p0.x,
+						p0.y,
+						p1.x,
+						p1.y
+					);
 				}
 
 				if (p0.x > p1.x) {
@@ -357,7 +396,10 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUni
 							first = true;
 						}
 
-						edgeList[(i += 1)] = { x0: x0 + (dx ? 1 : 0), y: (y0 += sy) };
+						edgeList[(i += 1)] = {
+							x0: x0 + (dx ? 1 : 0),
+							y: (y0 += sy),
+						};
 
 						err += dx;
 						e2 = 2 * err;
@@ -424,7 +466,12 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUni
 	};
 
 	// Prepare Size and Position Data for Basic Objects
-	Fill.prototype.prepareSizeAndPos = function (args, reflectX, reflectY, rotate) {
+	Fill.prototype.prepareSizeAndPos = function (
+		args,
+		reflectX,
+		reflectY,
+		rotate
+	) {
 		const width = (rotate ? args.sY : args.sX) || args.s;
 		const height = (rotate ? args.sX : args.sY) || args.s;
 
@@ -472,9 +519,15 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUni
 		const width = this.width ? this.width.getReal() : 1;
 		const height = this.height ? this.height.getReal() : 1;
 
-		const sizeRandom = this.sizeRandom ? this.sizeRandom.getReal() + 1 : false;
-		const heightRandom = this.heightRandom ? this.heightRandom.getReal() + 1 : false;
-		const widthRandom = this.widthRandom ? this.widthRandom.getReal() + 1 : false;
+		const sizeRandom = this.sizeRandom
+			? this.sizeRandom.getReal() + 1
+			: false;
+		const heightRandom = this.heightRandom
+			? this.heightRandom.getReal() + 1
+			: false;
+		const widthRandom = this.widthRandom
+			? this.widthRandom.getReal() + 1
+			: false;
 
 		const color = this.getColorArray();
 		const array = pixelSetter.getSave(this.use);
@@ -508,22 +561,31 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUni
 		}
 		if (
 			count < Infinity &&
-			(width > 1 || height > 1 || heightRandom > 0 || widthRandom > 0 || sizeRandom > 0)
+			(width > 1 ||
+				height > 1 ||
+				heightRandom > 0 ||
+				widthRandom > 0 ||
+				sizeRandom > 0)
 		) {
 			while (count-- > 0) {
 				w =
 					width +
 					(randWidth =
 						(widthRandom ? Math.floor(widthRandom * random()) : 0) +
-						(randSize = sizeRandom ? Math.floor(sizeRandom * random()) : 0));
+						(randSize = sizeRandom
+							? Math.floor(sizeRandom * random())
+							: 0));
 				realHeight =
 					height +
 					(randHeight =
-						(heightRandom ? Math.floor(heightRandom * random()) : 0) + randSize);
+						(heightRandom
+							? Math.floor(heightRandom * random())
+							: 0) + randSize);
 
 				odd = !odd;
 				currentX =
-					(current = array[Math.floor(random() * l)])[0] - (odd ? width + randWidth : 0);
+					(current = array[Math.floor(random() * l)])[0] -
+					(odd ? width + randWidth : 0);
 				currentY = current[1] - (odd ? height + randHeight : 0);
 
 				while (w--) {
@@ -540,7 +602,10 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUni
 			}
 		} else {
 			while (count-- > 0) {
-				color((current = array[Math.floor(random() * l)])[0], current[1]);
+				color(
+					(current = array[Math.floor(random() * l)])[0],
+					current[1]
+				);
 			}
 		}
 	};
@@ -680,7 +745,9 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUni
 		this.gapWidth = new Dimension(stripes.gap || { a: 0 }); // Width of a single Line
 
 		if (stripes.strip && stripes.strip.random) {
-			this.stripWidthRandom = new pixelUnit.createSize(stripes.strip.random);
+			this.stripWidthRandom = new pixelUnit.createSize(
+				stripes.strip.random
+			);
 			random = true;
 		}
 
@@ -716,32 +783,58 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUni
 
 		this.fromOtherSide = horizontal ? this.fromBottom : this.fromRight;
 
-		this.getDraw = horizontal ? this.drawers.horizontal : this.drawers.normal;
+		this.getDraw = horizontal
+			? this.drawers.horizontal
+			: this.drawers.normal;
 	};
 
 	Stripes.prototype.drawers = {
-		normal(drawer, fromOtherSide, stripWidth, endX, startY, endY, overflow) {
+		normal(
+			drawer,
+			fromOtherSide,
+			stripWidth,
+			endX,
+			startY,
+			endY,
+			overflow
+		) {
 			return function (startX, currentHeightChange, randomWidth) {
 				const end = startX + stripWidth + randomWidth;
-				const start = startY - (fromOtherSide ? currentHeightChange : 0);
+				const start =
+					startY - (fromOtherSide ? currentHeightChange : 0);
 
 				drawer({
 					posX: startX,
 					posY: start,
 					width: (!overflow && end > endX ? endX : end) - startX,
-					height: endY + (!fromOtherSide ? currentHeightChange : 0) - start,
+					height:
+						endY +
+						(!fromOtherSide ? currentHeightChange : 0) -
+						start,
 				});
 			};
 		},
-		horizontal(drawer, fromOtherSide, stripWidth, endY, startX, endX, overflow) {
+		horizontal(
+			drawer,
+			fromOtherSide,
+			stripWidth,
+			endY,
+			startX,
+			endX,
+			overflow
+		) {
 			return function (startY, currentHeightChange, randomWidth) {
 				const end = startY + stripWidth + randomWidth;
-				const start = startX - (fromOtherSide ? currentHeightChange : 0);
+				const start =
+					startX - (fromOtherSide ? currentHeightChange : 0);
 
 				drawer({
 					posX: start,
 					posY: startY,
-					width: endX + (!fromOtherSide ? currentHeightChange : 0) - start,
+					width:
+						endX +
+						(!fromOtherSide ? currentHeightChange : 0) -
+						start,
 					height: (!overflow && end > endY ? endY : end) - startY,
 				});
 			};
@@ -775,15 +868,23 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUni
 			gapWidth = singleSX - stripWidth;
 		}
 
-		const lengthChange = this.lengthChange ? this.lengthChange.getReal() : 0;
+		const lengthChange = this.lengthChange
+			? this.lengthChange.getReal()
+			: 0;
 		const lengthChangeStep =
-			(lengthChange / (this.horizontal ? dimensions.height : dimensions.width)) *
+			(lengthChange /
+				(this.horizontal ? dimensions.height : dimensions.width)) *
 			(fromOtherSide ? -1 : 1);
-		let totalHeightChange = Math.round(fromOtherSide ? -lengthChangeStep : 0);
+		let totalHeightChange = Math.round(
+			fromOtherSide ? -lengthChangeStep : 0
+		);
 
-		const startX = dimensions.posX - (horizontal && fromRight && fromBottom ? lengthChange : 0);
+		const startX =
+			dimensions.posX -
+			(horizontal && fromRight && fromBottom ? lengthChange : 0);
 		const startY =
-			dimensions.posY - (!horizontal && fromRight && fromBottom ? lengthChange : 0);
+			dimensions.posY -
+			(!horizontal && fromRight && fromBottom ? lengthChange : 0);
 
 		const width =
 			dimensions.width +
@@ -806,9 +907,15 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUni
 		const end = horizontal ? endY : endX;
 
 		const random = this.random ? this.random().one : false;
-		const stripWidthRandom = this.stripWidthRandom ? this.stripWidthRandom.getReal() + 1 : 0;
-		const gapWidthRandom = this.gapWidthRandom ? this.gapWidthRandom.getReal() + 1 : 0;
-		const lengthRandom = this.lengthRandom ? this.lengthRandom.getReal() : 0;
+		const stripWidthRandom = this.stripWidthRandom
+			? this.stripWidthRandom.getReal() + 1
+			: 0;
+		const gapWidthRandom = this.gapWidthRandom
+			? this.gapWidthRandom.getReal() + 1
+			: 0;
+		const lengthRandom = this.lengthRandom
+			? this.lengthRandom.getReal()
+			: 0;
 		let randomWidth;
 		let totalWidth;
 		const { list } = args;
@@ -816,7 +923,11 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUni
 		const length = list ? list.length : 0;
 
 		const draw = this.getDraw(
-			list ? pixelUnit.push : this.getColorArray ? this.getColorArray() : false,
+			list
+				? pixelUnit.push
+				: this.getColorArray
+				? this.getColorArray()
+				: false,
 			horizontal ? fromRight : fromBottom, // From Other Side?
 			stripWidth,
 			end,
@@ -828,7 +939,9 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUni
 		do {
 			totalWidth =
 				singleSX +
-				(randomWidth = stripWidthRandom ? Math.floor(stripWidthRandom * random()) : 0) +
+				(randomWidth = stripWidthRandom
+					? Math.floor(stripWidthRandom * random())
+					: 0) +
 				(gapWidthRandom ? Math.floor(gapWidthRandom * random()) : 0);
 
 			if (totalWidth < 1) {
@@ -838,9 +951,14 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUni
 			if (!cut || start + totalWidth <= end) {
 				draw(
 					start,
-					(lengthRandom !== 0 ? Math.round(lengthRandom * random()) : 0) +
+					(lengthRandom !== 0
+						? Math.round(lengthRandom * random())
+						: 0) +
 						(lengthChangeStep
-							? Math.round((totalHeightChange += lengthChangeStep * totalWidth))
+							? Math.round(
+									(totalHeightChange +=
+										lengthChangeStep * totalWidth)
+							  )
 							: 0),
 					randomWidth
 				);
@@ -1014,14 +1132,19 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUni
 				current = {
 					x,
 					y,
-					singleSXWithGutter: Math.floor((this.sX + this.gutterX) / x),
-					singleSYWithGutter: Math.floor((this.sY + this.gutterY) / y),
+					singleSXWithGutter: Math.floor(
+						(this.sX + this.gutterX) / x
+					),
+					singleSYWithGutter: Math.floor(
+						(this.sY + this.gutterY) / y
+					),
 				};
 
 				current.singleSX = current.singleSXWithGutter - this.gutterX;
 				current.singleSY = current.singleSYWithGutter - this.gutterY;
 
-				current.ratio = current.singleSXWithGutter / current.singleSYWithGutter;
+				current.ratio =
+					current.singleSXWithGutter / current.singleSYWithGutter;
 
 				current.ratioDiff = Math.abs(current.ratio - imgRatio);
 				// current.squareness = Math.abs( 1 - current.ratio );
@@ -1180,13 +1303,18 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUni
 			} else {
 				// Calc PanelWidth and add to total.
 				if (first) {
-					currentWidth = size + (currentPanel.odd ? -this.fluctuation : this.fluctuation);
+					currentWidth =
+						size +
+						(currentPanel.odd
+							? -this.fluctuation
+							: this.fluctuation);
 				} else {
 					currentWidth = size;
 				}
 
 				width = Math.round(
-					currentWidth * this.singleSX + (currentWidth - 1) * this.gutterX
+					currentWidth * this.singleSX +
+						(currentWidth - 1) * this.gutterX
 				);
 			}
 
@@ -1434,7 +1562,9 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUni
 		if (this.upperArmLength >= Math.abs(jointY)) {
 			// if ellbow can reach
 
-			this.jointX.real = Math.sqrt(Math.pow(this.upperArmLength, 2) - Math.pow(jointY, 2));
+			this.jointX.real = Math.sqrt(
+				Math.pow(this.upperArmLength, 2) - Math.pow(jointY, 2)
+			);
 			this.jointY.real = this.endY.real = jointY;
 			this.endX.real = this.jointX.real;
 		} else {
@@ -1449,7 +1579,8 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUni
 				this.endX.real =
 					this.upperArmLength +
 					Math.sqrt(
-						Math.pow(this.lowerArmLength, 2) - Math.pow(jointY - this.upperArmLength, 2)
+						Math.pow(this.lowerArmLength, 2) -
+							Math.pow(jointY - this.upperArmLength, 2)
 					);
 			} else {
 				// if hand can’t reach, let it hang down
@@ -1483,7 +1614,8 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUni
 			}
 
 			if (this.upperArmLength - this.lowerArmLength > fullDistance) {
-				lengthToDistanceRatio = (this.upperArmLength - this.lowerArmLength) / fullDistance;
+				lengthToDistanceRatio =
+					(this.upperArmLength - this.lowerArmLength) / fullDistance;
 				x *= lengthToDistanceRatio;
 				y *= lengthToDistanceRatio;
 				fullDistance *= lengthToDistanceRatio;
@@ -1519,8 +1651,12 @@ export const getObj = (pixelSetter: PixelSetter, seed: Seed, pixelUnit: PixelUni
 		const upperArmAngle = this.straightAngle + innerAngle;
 
 		// get one sides of the upper arm triangle
-		this.jointX.real = Math.round(this.upperArmLength * Math.sin(upperArmAngle));
-		this.jointY.real = Math.round(this.upperArmLength * Math.cos(upperArmAngle));
+		this.jointX.real = Math.round(
+			this.upperArmLength * Math.sin(upperArmAngle)
+		);
+		this.jointY.real = Math.round(
+			this.upperArmLength * Math.cos(upperArmAngle)
+		);
 
 		if (isNaN(this.jointX.real)) {
 			this.jointX.real = 0;

@@ -3,7 +3,10 @@ import { Seed } from "./Seed";
 import { PixelSetter } from "./PixelSetter";
 import type { GetRandom } from "../getGetRandom";
 
-const getDrawingTools = (pixelGraphics: { pixelUnit; getRandom: GetRandom }) => {
+const getDrawingTools = (pixelGraphics: {
+	pixelUnit;
+	getRandom: GetRandom;
+}) => {
 	const pixelUnit = pixelGraphics.pixelUnit;
 	const seed = new Seed(pixelGraphics.getRandom);
 	const pixelSetter = new PixelSetter();

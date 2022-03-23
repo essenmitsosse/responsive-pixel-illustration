@@ -23,7 +23,11 @@ TableComic.prototype.Legs = function Legs(args) {
 
 TableComic.prototype.Legs.prototype.getSize = function LegsGetSize(args) {
 	this.legSX = this.pushLinkList({ r: this.legSX_, useSize: args.sX });
-	this.hipSY = this.pushLinkList({ r: this.hipSY_, useSize: args.sY, min: this.legSY });
+	this.hipSY = this.pushLinkList({
+		r: this.hipSY_,
+		useSize: args.sY,
+		min: this.legSY,
+	});
 	this.legY = this.pushLinkList([this.hipSY, { r: -1, useSize: this.legSX }]);
 };
 
@@ -55,9 +59,13 @@ TableComic.prototype.Legs.prototype.draw = function LegsDraw(args) {
 	this.sX = args.sX;
 	this.sY = args.sY;
 
-	this.legY = this.pushLinkList({ add: [this.hipSY, { r: -1, useSize: this.legSX }] });
+	this.legY = this.pushLinkList({
+		add: [this.hipSY, { r: -1, useSize: this.legSX }],
+	});
 
-	this.fullLegSY = this.pushLinkList({ add: [args.sY, { r: -1, useSize: this.hipSY }] });
+	this.fullLegSY = this.pushLinkList({
+		add: [args.sY, { r: -1, useSize: this.hipSY }],
+	});
 	this.lowerLegSY = this.pushLinkList({ r: 1, useSize: this.fullLegSY });
 	this.topLegSY = this.pushLinkList({
 		add: [this.fullLegSY, { r: -1, useSize: this.lowerLegSY }],
@@ -73,8 +81,16 @@ TableComic.prototype.Legs.prototype.draw = function LegsDraw(args) {
 	this.pushRelativeStandardAutomatic({
 		side: args.info.body && args.info.body.side,
 		lowerLegSY: bendLeg && { map: "props", min: 1, max: 0.5 },
-		beltSY: this.belt && { map: "actor-accessoirs", min: 0, max: this.beltSY_ },
-		skirtSY: this.skirt && { map: "actor-accessoirs", min: 0, max: this.skirtSY_ },
+		beltSY: this.belt && {
+			map: "actor-accessoirs",
+			min: 0,
+			max: this.beltSY_,
+		},
+		skirtSY: this.skirt && {
+			map: "actor-accessoirs",
+			min: 0,
+			max: this.skirtSY_,
+		},
 		shoeSY: { map: "actor-accessoirs", min: 0, max: this.shoeSY_ },
 	});
 
@@ -90,7 +106,10 @@ TableComic.prototype.Legs.prototype.draw = function LegsDraw(args) {
 						{},
 						{
 							// leg to right
-							sX: { add: [this.sideOther, this.legSX], min: this.legSX },
+							sX: {
+								add: [this.sideOther, this.legSX],
+								min: this.legSX,
+							},
 							fX: true,
 							list: [
 								// lowerLeg
@@ -98,7 +117,14 @@ TableComic.prototype.Legs.prototype.draw = function LegsDraw(args) {
 								{
 									sX: this.legSX,
 									sY: [this.lowerLegSY, this.legSX],
-									list: [{}, { sY: this.shoeSY, color: this.color[3], fY: true }],
+									list: [
+										{},
+										{
+											sY: this.shoeSY,
+											color: this.color[3],
+											fY: true,
+										},
+									],
 								},
 							],
 						},

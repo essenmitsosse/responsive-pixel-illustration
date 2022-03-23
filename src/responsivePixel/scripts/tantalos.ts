@@ -34,16 +34,31 @@ const help = helper,
 	borderSX = linkListPush({ r: 0.05, useSize: fullRect }),
 	borderDetail = linkListPush({ r: 0.08, useSize: fullRect }),
 	borderBottomDetail = linkListPush({ r: 0.06, useSize: fullRect }),
-	borderBottomMargin = linkListPush([{ r: 0.5 }, { r: -0.5, useSize: borderDetail }]),
+	borderBottomMargin = linkListPush([
+		{ r: 0.5 },
+		{ r: -0.5, useSize: borderDetail },
+	]),
 	frameDetailSize = linkListPush({ add: [borderSX, -2], min: 1 }),
 	motiveSX = linkListPush({ add: [sXMain, { r: -2, useSize: borderSX }] }),
 	motiveSY = linkListPush([sYMain, { r: -2, useSize: borderSX }]),
-	motiveSqu = linkListPush(getSmallerDim({ r: 1, useSize: [motiveSX, motiveSY] })),
-	motiveSquBigger = linkListPush(getBiggerDim({ r: 1, useSize: [motiveSX, motiveSY] })),
-	overshotSX = linkListPush({ add: [motiveSX, { r: -1, useSize: motiveSqu }] }),
-	overshotSY = linkListPush({ add: [motiveSY, { r: -1, useSize: motiveSqu }] }),
+	motiveSqu = linkListPush(
+		getSmallerDim({ r: 1, useSize: [motiveSX, motiveSY] })
+	),
+	motiveSquBigger = linkListPush(
+		getBiggerDim({ r: 1, useSize: [motiveSX, motiveSY] })
+	),
+	overshotSX = linkListPush({
+		add: [motiveSX, { r: -1, useSize: motiveSqu }],
+	}),
+	overshotSY = linkListPush({
+		add: [motiveSY, { r: -1, useSize: motiveSqu }],
+	}),
 	// Teiresias
-	centerX = linkListPush({ r: 0.5, useSize: motiveSX, add: [{ r: 0.05, useSize: overshotSY }] }),
+	centerX = linkListPush({
+		r: 0.5,
+		useSize: motiveSX,
+		add: [{ r: 0.05, useSize: overshotSY }],
+	}),
 	centerY = linkListPush({
 		r: 0.5,
 		useSize: motiveSY,
@@ -89,16 +104,26 @@ const help = helper,
 	torsoSY = getBodyPartSize(torsoRel, true),
 	bodyWithoutLegsX = linkListPush([handSX_, armSX, torsoSX]),
 	bodyWithoutLegsY = linkListPush([handSY_, armSY, torsoSY]),
-	lowerBodySX = linkListPush({ add: [movementSX, { r: -1, useSize: bodyWithoutLegsX }] }),
-	lowerBodySY = linkListPush({ add: [movementSY, { r: -1, useSize: bodyWithoutLegsY }] }),
+	lowerBodySX = linkListPush({
+		add: [movementSX, { r: -1, useSize: bodyWithoutLegsX }],
+	}),
+	lowerBodySY = linkListPush({
+		add: [movementSY, { r: -1, useSize: bodyWithoutLegsY }],
+	}),
 	shoulderX = linkListPush([handSX_, armSX]),
 	shoulderY = linkListPush([handSY_, armSY]),
 	hipX_ = linkListPush({ add: [shoulderX, torsoSX] }),
 	hipY = linkListPush({ add: [shoulderY, torsoSY] }),
 	// Hand
 	handRatio = 0.5,
-	handSX = linkListPush({ add: [handSX_], min: { r: handRatio, useSize: handSY_ } }),
-	handSY = linkListPush({ add: [handSY_], min: { r: handRatio, useSize: handSX_ } }),
+	handSX = linkListPush({
+		add: [handSX_],
+		min: { r: handRatio, useSize: handSY_ },
+	}),
+	handSY = linkListPush({
+		add: [handSY_],
+		min: { r: handRatio, useSize: handSX_ },
+	}),
 	handL = linkListPush({ getLength: [handSX, handSY] }),
 	// Arm
 	upperArmL = linkListPush({ r: upperArmRel, useSize: movementL, min: 1 }),
@@ -168,7 +193,11 @@ const help = helper,
 	}),
 	upperLeg = linkListPush({ r: 0.5, useSize: legL }),
 	legSX = hipSX,
-	legSY = linkListPush([movementSY, { r: -1, useSize: hipY }, { r: -1, useSize: hipSY }]),
+	legSY = linkListPush([
+		movementSY,
+		{ r: -1, useSize: hipY },
+		{ r: -1, useSize: hipSY },
+	]),
 	legX = hipX,
 	legY = linkListPush([hipY, hipSY]),
 	// legFrontX = linkListPush( { r: -0.2, useSize: legSY } ),
@@ -201,12 +230,18 @@ const help = helper,
 	headSXRel = headSYRel * 0.6,
 	headSX = linkListPush({ r: headSXRel, useSize: torsoL }),
 	headSY = linkListPush({ r: headSYRel, useSize: torsoL }),
-	headX = linkListPush({ add: [shoulderX, { r: 0.02, useSize: overshotSY }] }),
+	headX = linkListPush({
+		add: [shoulderX, { r: 0.02, useSize: overshotSY }],
+	}),
 	headY = linkListPush({
 		add: [
 			shoulderY,
 			{ r: -1, useSize: headSY },
-			{ r: 0.03, useSize: overshotSX, max: linkListPush({ r: 0.5, useSize: headSY }) },
+			{
+				r: 0.03,
+				useSize: overshotSX,
+				max: linkListPush({ r: 0.5, useSize: headSY }),
+			},
 		],
 	}),
 	eyeSY = linkListPush({ r: 0.2, min: 1, useSize: headSY }),
@@ -217,7 +252,11 @@ const help = helper,
 	mouthSX = linkListPush({ r: 0.7, useSize: headSX }),
 	mouthSY = linkListPush({
 		r: 0.5,
-		useSize: linkListPush([headSY, { r: -1, useSize: eyeY }, { r: -1, useSize: eyeSY }]),
+		useSize: linkListPush([
+			headSY,
+			{ r: -1, useSize: eyeY },
+			{ r: -1, useSize: eyeSY },
+		]),
 		min: 1,
 	}),
 	mouthX = linkListPush({ a: 0 }),
@@ -253,22 +292,41 @@ const help = helper,
 	fruitHandMaxX = linkListPush({
 		add: [handSX, foreArmS, 1, { r: -0.1, useSize: overshotSY }],
 		min: linkListPush({
-			add: [-1, { r: 0.5, useSize: handSX }, { r: -0.5, useSize: fruitSX }],
+			add: [
+				-1,
+				{ r: 0.5, useSize: handSX },
+				{ r: -0.5, useSize: fruitSX },
+			],
 		}),
 	}),
 	fruitHandMaxY = linkListPush({
 		add: [handSY, foreArmS, 1, { r: -0.1, useSize: overshotSX }],
 		min: linkListPush({
-			add: [-1, { r: 0.5, useSize: handSY }, { r: -0.5, useSize: fruitSY }],
+			add: [
+				-1,
+				{ r: 0.5, useSize: handSY },
+				{ r: -0.5, useSize: fruitSY },
+			],
 		}),
 	}),
-	fruitX = linkListPush({ add: [centerX, { r: -1, useSize: handSX }, fruitHandMaxX] }),
+	fruitX = linkListPush({
+		add: [centerX, { r: -1, useSize: handSX }, fruitHandMaxX],
+	}),
 	fruitY = linkListPush({
-		add: [centerY, handSY, { r: -1, useSize: fruitSY }, { r: -1, useSize: fruitHandMaxY }],
+		add: [
+			centerY,
+			handSY,
+			{ r: -1, useSize: fruitSY },
+			{ r: -1, useSize: fruitHandMaxY },
+		],
 	}),
 	// Island
 	shadowSY = linkListPush({
-		add: [perspectiveY, { r: 2, useSize: legLowerS }, { r: -0.05, useSize: overshotSY }],
+		add: [
+			perspectiveY,
+			{ r: 2, useSize: legLowerS },
+			{ r: -0.05, useSize: overshotSY },
+		],
 		min: 2,
 	}),
 	islandSX = linkListPush([movementSX, { r: -0.1, useSize: overshotSX }]),
@@ -283,9 +341,17 @@ const help = helper,
 	trunkSizeBack = 0.015,
 	trunkRatio = 0.5,
 	trunkHor = linkListPush({ r: trunkSize, useSize: sXMain, a: 1 }),
-	trunkVert = linkListPush({ r: trunkSize * trunkRatio, useSize: sXMain, a: 1 }),
+	trunkVert = linkListPush({
+		r: trunkSize * trunkRatio,
+		useSize: sXMain,
+		a: 1,
+	}),
 	trunkHorBack = linkListPush({ r: trunkSizeBack, useSize: sXMain, a: 1 }),
-	trunkVertBack = linkListPush({ r: trunkSizeBack * trunkRatio, useSize: sXMain, a: 1 }),
+	trunkVertBack = linkListPush({
+		r: trunkSizeBack * trunkRatio,
+		useSize: sXMain,
+		a: 1,
+	}),
 	// End Variables
 
 	leg = [
@@ -346,7 +412,10 @@ const help = helper,
 				// Lower Body
 				{
 					sX: hipSX,
-					sY: [hipY, { r: -1, useSize: linkListPush([shoulderY, 1]) }],
+					sY: [
+						hipY,
+						{ r: -1, useSize: linkListPush([shoulderY, 1]) },
+					],
 					x: hipX,
 					y: [shoulderY, 1],
 					list: [{}, { sX: 1, color: skinShadowColor, fX: true }],
@@ -359,7 +428,10 @@ const help = helper,
 					sX: [
 						hipSX,
 						hipX,
-						{ r: -1, useSize: linkListPush([shoulderX, shoulderSX]) },
+						{
+							r: -1,
+							useSize: linkListPush([shoulderX, shoulderSX]),
+						},
 						-1,
 					],
 					list: [
@@ -374,13 +446,22 @@ const help = helper,
 							sY: 1,
 							color: skinShadowColor,
 							fY: true,
-							sX: { r: 0.5, add: [{ r: -0.1, useSize: overshotSY }] },
+							sX: {
+								r: 0.5,
+								add: [{ r: -0.1, useSize: overshotSY }],
+							},
 						},
 					],
 				},
 
 				// hip
-				{ sX: hipSX, sY: [hipSY, 1], x: hipX, y: hipY, color: shortsColor },
+				{
+					sX: hipSX,
+					sY: [hipSY, 1],
+					x: hipX,
+					y: hipY,
+					color: shortsColor,
+				},
 
 				// shoulder
 				{
@@ -405,7 +486,10 @@ const help = helper,
 							color: skinShadowColor,
 							list: [
 								{ sX: { r: 0.25, useSize: shoulderSY } },
-								{ sX: { r: 0.25, useSize: shoulderSY }, fX: true },
+								{
+									sX: { r: 0.25, useSize: shoulderSY },
+									fX: true,
+								},
 							],
 						},
 					],
@@ -615,7 +699,10 @@ const help = helper,
 							{
 								sY: 1,
 								fY: true,
-								list: [{ sX: { r: 0.4 } }, { sX: { r: 0.3 }, fX: true }],
+								list: [
+									{ sX: { r: 0.4 } },
+									{ sX: { r: 0.3 }, fX: true },
+								],
 							},
 							{ fX: true, sX: 2, fY: true, sY: { r: 0.4 } },
 							{ sX: 2, cY: true, sY: { r: 0.4 } },
@@ -623,10 +710,20 @@ const help = helper,
 								mX: -5,
 								mY: -2,
 								list: [
-									{ cX: true, fY: true, sX: { r: 0.5 }, sY: 1 },
+									{
+										cX: true,
+										fY: true,
+										sX: { r: 0.5 },
+										sY: 1,
+									},
 									{ fY: true, sX: { r: 0.2 }, sY: 1 },
 									{ sX: 2, sY: { r: 0.4 }, fY: true },
-									{ sX: 2, sY: { r: 0.4 }, fX: true, cY: true },
+									{
+										sX: 2,
+										sY: { r: 0.4 },
+										fX: true,
+										cY: true,
+									},
 								],
 							},
 						],
@@ -671,7 +768,14 @@ const help = helper,
 						},
 						list: [
 							{ save: "tree-main", y: -1 },
-							{ fX: true, sX: 1, color: treeShadow, sY: { r: 0.2 }, y: 1, fY: true },
+							{
+								fX: true,
+								sX: 1,
+								color: treeShadow,
+								sY: { r: 0.2 },
+								y: 1,
+								fY: true,
+							},
 							{ fY: true, sY: 1, mX: 1, color: treeShadow },
 						],
 					},
@@ -700,7 +804,13 @@ const help = helper,
 				{ sX: 1, sY: { r: 0.3, max: 1 }, color: borderColor, fY: true },
 			],
 			borderEdgeTop = [
-				{ clear: true, sX: 1, sY: { r: 0.2, max: 1 }, fX: true, fY: true },
+				{
+					clear: true,
+					sX: 1,
+					sY: { r: 0.2, max: 1 },
+					fX: true,
+					fY: true,
+				},
 				{},
 				{
 					m: 1,
@@ -717,7 +827,13 @@ const help = helper,
 				{ m: 1, color: borderDetailColor, list: edgeDetail, rX: true },
 			],
 			borderVertDetail = [
-				{ clear: true, sY: 1, sX: { r: 0.3, max: 1 }, fX: true, fY: true },
+				{
+					clear: true,
+					sY: 1,
+					sX: { r: 0.3, max: 1 },
+					fX: true,
+					fY: true,
+				},
 				{},
 				{
 					sX: { r: 1, a: -1, min: 1 },
@@ -749,14 +865,25 @@ const help = helper,
 				{
 					stripes: { strip: frameDetailSize, horizontal: true },
 					list: [
-						{ clear: true, sX: 1, sY: { r: 0.3, max: 1 }, fX: true, fY: true },
+						{
+							clear: true,
+							sX: 1,
+							sY: { r: 0.3, max: 1 },
+							fX: true,
+							fY: true,
+						},
 						{},
 						{
 							sY: { r: 1, a: -1, min: 1 },
 							mX: 1,
 							list: [
 								{ color: borderDetailColor },
-								{ sX: 1, sY: { r: 0.4, max: 1 }, fX: true, fY: true },
+								{
+									sX: 1,
+									sY: { r: 0.4, max: 1 },
+									fX: true,
+									fY: true,
+								},
 								{ sX: 1, sY: { r: 0.8 }, x: 1 },
 							],
 						},
@@ -769,15 +896,33 @@ const help = helper,
 			z: 10000,
 			list: [
 				{ sY: borderSX, id: "borderTop", list: borderVert },
-				{ sY: borderSX, id: "borderBottom", fY: true, rY: true, list: borderVert },
+				{
+					sY: borderSX,
+					id: "borderBottom",
+					fY: true,
+					rY: true,
+					list: borderVert,
+				},
 				{ sX: borderSX, id: "borderLeft", list: borderHor },
-				{ sX: borderSX, id: "borderRight", fX: true, rX: true, list: borderHor },
+				{
+					sX: borderSX,
+					id: "borderRight",
+					fX: true,
+					rX: true,
+					list: borderHor,
+				},
 
 				{ s: borderDetail, list: borderEdgeTop },
 				{ s: borderDetail, fX: true, rX: true, list: borderEdgeTop },
 
 				{ s: borderBottomDetail, list: borderEdgeBottom, fY: true },
-				{ s: borderBottomDetail, list: borderEdgeBottom, fY: true, fX: true, rX: true },
+				{
+					s: borderBottomDetail,
+					list: borderEdgeBottom,
+					fY: true,
+					fX: true,
+					rX: true,
+				},
 
 				{
 					sY: borderBottomDetail,
@@ -790,7 +935,11 @@ const help = helper,
 					fY: true,
 					list: [
 						{},
-						{ m: 1, color: borderDetailColor, list: [{ sX: 1 }, { sX: 1, fX: true }] },
+						{
+							m: 1,
+							color: borderDetailColor,
+							list: [{ sX: 1 }, { sX: 1, fX: true }],
+						},
 					],
 				},
 			],

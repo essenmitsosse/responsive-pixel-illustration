@@ -12,7 +12,10 @@ Builder.prototype.Comic = function (init) {
 
 	const outerBorderColor =
 		this.IF(0.9) &&
-		borderColor.copy({ brContrast: this.IF(0.8) ? 5 : 3, dontChange: this.IF(0.5) });
+		borderColor.copy({
+			brContrast: this.IF(0.8) ? 5 : 3,
+			dontChange: this.IF(0.5),
+		});
 	const bigPanel = panels % 2 !== 0 && (this.IF(0.5) ? 0 : panels - 1);
 	const panelsCalc = bigPanel !== false ? panels + 1 : panels;
 	let i = 0;
@@ -25,11 +28,18 @@ Builder.prototype.Comic = function (init) {
 
 	// BORDER
 	this.vL.borderX = { r: border, useSize: "fullSqu", min: 2 };
-	this.vL.borderY = { r: border * horRatio, useSize: "fullSqu", min: ["borderX", 1] };
+	this.vL.borderY = {
+		r: border * horRatio,
+		useSize: "fullSqu",
+		min: ["borderX", 1],
+	};
 
 	// IMAGE
 	this.vL.imgSX = { add: [{ r: 1 }, this.mult(-2, "borderX")] };
-	this.vL.imgSY = [{ r: 1, height: true }, this.mult(this.GR(-3.5, -2), "borderY")];
+	this.vL.imgSY = [
+		{ r: 1, height: true },
+		this.mult(this.GR(-3.5, -2), "borderY"),
+	];
 
 	this.vL.imgSqu = { a: "imgSX", max: "imgSY" };
 	this.vL.imgSquBigger = { a: "imgSX", min: "imgSY" };
@@ -48,7 +58,9 @@ Builder.prototype.Comic = function (init) {
 		max: 1,
 	};
 	this.vL._panelOvershot3IF =
-		panels === 4 ? { a: 0 } : { r: 10000000, useSize: "_panelOvershot3", min: { a: 0 } };
+		panels === 4
+			? { a: 0 }
+			: { r: 10000000, useSize: "_panelOvershot3", min: { a: 0 } };
 
 	this.vL.gutterX = {
 		r: gutter,
@@ -73,11 +85,18 @@ Builder.prototype.Comic = function (init) {
 			max: { r: 3, useSize: "imgSX" },
 			add: [
 				"_panelOvershot3IF",
-				{ a: "_panelOvershot2IF", min: "imgSX", max: { r: 2, useSize: "imgSX" } },
+				{
+					a: "_panelOvershot2IF",
+					min: "imgSX",
+					max: { r: 2, useSize: "imgSX" },
+				},
 			],
 		});
 
-	this.vL.panelRestSX = ["_effectiveImgSX", this.mult(-1 * panelsCalc, "gutterX")];
+	this.vL.panelRestSX = [
+		"_effectiveImgSX",
+		this.mult(-1 * panelsCalc, "gutterX"),
+	];
 	this.vL.panelSX = this.mult(1 / panelsCalc, "panelRestSX");
 
 	this.vL.panelRest2SY = ["imgSY", this.mult(-1, "gutterY")];
@@ -214,7 +233,8 @@ Builder.prototype.Panel = function (args) {
 	this.horizont = this.IF(0.6) ? this.R(0.1, 0.6) : this.R(0, 1);
 
 	this.lightnessSwitched = this.IF(0.01 * args.panels);
-	this.colorChangeGradual = !this.lightnessSwitched && this.IF(0.01 * args.panels);
+	this.colorChangeGradual =
+		!this.lightnessSwitched && this.IF(0.01 * args.panels);
 
 	if (this.lightnessSwitched) {
 		this.lightnessSwitchPanel = this.R(1, args.panels - 1);
@@ -222,7 +242,9 @@ Builder.prototype.Panel = function (args) {
 		this.newLightness = args.newLightness =
 			args.newLightness || this.GR(1, 3) * (this.IF(0.7) ? -1 : 1);
 	} else if (this.colorChangeGradual) {
-		this.colorChangeStart = this.IF(0.5) ? 0 : (this.IF(0.8) ? -1 : 1) * this.R(0, 4);
+		this.colorChangeStart = this.IF(0.5)
+			? 0
+			: (this.IF(0.8) ? -1 : 1) * this.R(0, 4);
 
 		this.colorChange =
 			this.R(0, 0.5) *
@@ -286,7 +308,9 @@ Builder.prototype.Panel.prototype.draw = function (args) {
 					? this.newLightness
 					: 0;
 		} else {
-			darkness = Math.round(this.colorChangeStart + this.colorChange * nr);
+			darkness = Math.round(
+				this.colorChangeStart + this.colorChange * nr
+			);
 			if (darkness < -3) {
 				darkness = -3;
 			}
@@ -301,7 +325,10 @@ Builder.prototype.Panel.prototype.draw = function (args) {
 			});
 		} else if (darkness < -1) {
 			// Night
-			this.finalSkyColor = this.skyColor.copy({ brSet: 1, dontChange: true });
+			this.finalSkyColor = this.skyColor.copy({
+				brSet: 1,
+				dontChange: true,
+			});
 			stars = darkness < -2 && this.clearSky;
 			if (stars) {
 				this.starColor = this.finalSkyColor.copy({
@@ -322,7 +349,9 @@ Builder.prototype.Panel.prototype.draw = function (args) {
 		"panelSqu"
 	);
 	this.vL[`horizont${nr}`] = {
-		r: this.horizont * (closeUp ? 0.6 : wideShot ? 1.25 : superWideShot ? 1.5 : 1),
+		r:
+			this.horizont *
+			(closeUp ? 0.6 : wideShot ? 1.25 : superWideShot ? 1.5 : 1),
 		useSize: "panelSY",
 	};
 
@@ -472,7 +501,18 @@ Builder.prototype.Actor = function (args) {
 Builder.prototype.Actor.prototype = new Builder.prototype.Object();
 Builder.prototype.Actor.prototype.draw = function (args, z, size) {
 	const eyeLookVert = ["", "", "", "left", "right"];
-	const eyeLookHor = ["", "", "", "", "", "up", "down", "up", "down", "verDown"];
+	const eyeLookHor = [
+		"",
+		"",
+		"",
+		"",
+		"",
+		"up",
+		"down",
+		"up",
+		"down",
+		"verDown",
+	];
 	const eyeLids = [
 		"",
 		"",
@@ -490,9 +530,33 @@ Builder.prototype.Actor.prototype.draw = function (args, z, size) {
 		"closed",
 		"wink",
 	];
-	const eyeBrow = ["", "", "", "raised", "low", "sceptical", "superSceptical", "angry", "sad"];
+	const eyeBrow = [
+		"",
+		"",
+		"",
+		"raised",
+		"low",
+		"sceptical",
+		"superSceptical",
+		"angry",
+		"sad",
+	];
 
-	const mouthHeight = ["", "", "", "", "", "", "", "", "", "slight", "slight", "half", "full"];
+	const mouthHeight = [
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"slight",
+		"slight",
+		"half",
+		"full",
+	];
 	const mouthWid = ["", "", "", "narrow"];
 	const mouthForm = ["", "", "", "sceptical", "grin", "D:"];
 
@@ -562,7 +626,8 @@ Builder.prototype.Actor.prototype.draw = function (args, z, size) {
 	};
 
 	args.leg = {};
-	args.leg[this.IF(0.5) ? "right" : "left"] = legPos[this.GR(0, legPos.length)];
+	args.leg[this.IF(0.5) ? "right" : "left"] =
+		legPos[this.GR(0, legPos.length)];
 
 	args.hatDown = this.IF(0.02);
 
@@ -578,7 +643,9 @@ Builder.prototype.Ground = function (args) {
 		nextColor: this.IF(),
 		brContrast: this.GR(1, 4),
 	});
-	this.groundShadowColor = args.groundShadowColor = this.groundColor.copy({ brAdd: -1 });
+	this.groundShadowColor = args.groundShadowColor = this.groundColor.copy({
+		brAdd: -1,
+	});
 
 	// Assets
 }; // END Ground

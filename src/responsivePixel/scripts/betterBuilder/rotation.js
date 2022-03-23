@@ -66,7 +66,9 @@ BBProto.Rotater = function (args) {
 		(this.sX = {
 			r:
 				1 + // Base Size
-				(args.frontSX !== undefined ? rotate.front * (args.frontSX - 1) : 0), // change for Front
+				(args.frontSX !== undefined
+					? rotate.front * (args.frontSX - 1)
+					: 0), // change for Front
 			// + ( args.sideSX !== undefined ? rotate.side * ( args.sideSX - 1 ) : 0 ), 	// change for Side
 			useSize: args.baseSX,
 			odd: true,
@@ -120,7 +122,9 @@ BBProto.Rotater = function (args) {
 			y: args.y,
 			id: args.id,
 			cX: true,
-			z: (args.z ? args.z * rotate.turnedAway : 0) + (args.zAbs ? args.zAbs : 0),
+			z:
+				(args.z ? args.z * rotate.turnedAway : 0) +
+				(args.zAbs ? args.zAbs : 0),
 			list: this.list,
 		},
 		rotate,
@@ -249,7 +253,11 @@ BBProto.RotateInfo = function (rotate) {
 				color: [150, 150, 150],
 				c: true,
 				s,
-				list: [{}, { sX: 1, color: this.c1 }, { sY: 1, fY: true, color: this.c1D }],
+				list: [
+					{},
+					{ sX: 1, color: this.c1 },
+					{ sY: 1, fY: true, color: this.c1D },
+				],
 			},
 			{
 				s: 1,

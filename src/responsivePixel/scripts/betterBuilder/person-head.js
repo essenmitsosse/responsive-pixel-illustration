@@ -95,7 +95,9 @@ BBProto.HeadTop = function (args) {
 	this.colorDark = args.colorDark;
 
 	this.eyeSYLeft = this.R(0.2, 0.9);
-	this.eyeSYRight = this.IF(0.5) ? this.eyeSYLeft : this.eyeSYLeft + this.R(-0.1, 0.1);
+	this.eyeSYRight = this.IF(0.5)
+		? this.eyeSYLeft
+		: this.eyeSYLeft + this.R(-0.1, 0.1);
 }; // End HeadTop
 
 BBProto.HeadTop.prototype = new BBObj();
@@ -122,7 +124,11 @@ BBProto.HeadTop.prototype.draw = function (args, front, right) {
 		front && {
 			color: this.white,
 			sX: { r: 0.3, min: 1 },
-			sY: { r: right ? this.eyeSYRight : this.eyeSYLeft, min: 1, max: { r: 1, a: -3 } },
+			sY: {
+				r: right ? this.eyeSYRight : this.eyeSYLeft,
+				min: 1,
+				max: { r: 1, a: -3 },
+			},
 			x: { r: 0.1, min: { a: 1, max: { r: 0.2 } } },
 			y: { r: 0.1, min: 2 },
 			fX: true,

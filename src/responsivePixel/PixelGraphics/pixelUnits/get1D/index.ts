@@ -11,7 +11,11 @@ import { getDimension } from "./getDimension";
 
 export interface ContextInner {
 	getGetLengthCalculation: (x: number, y: number) => () => number;
-	getGetRealDistanceWithMaxMinWrapper: (max: number, min: number, dim: Dimension) => () => number;
+	getGetRealDistanceWithMaxMinWrapper: (
+		max: number,
+		min: number,
+		dim: Dimension
+	) => () => number;
 	getSize: (dim: Dimension) => Height | Width;
 }
 
@@ -28,7 +32,8 @@ export const get1D = (context) => {
 	contextInner.getGetLengthCalculation = (x, y) => {
 		const sizeX = new Width(x);
 		const sizeY = new Width(y);
-		return () => Math.round(Math.sqrt(sizeX.getReal() ** 2 + sizeY.getReal() ** 2));
+		return () =>
+			Math.round(Math.sqrt(sizeX.getReal() ** 2 + sizeY.getReal() ** 2));
 	};
 
 	contextInner.getGetRealDistanceWithMaxMinWrapper = (max, min, dim) =>

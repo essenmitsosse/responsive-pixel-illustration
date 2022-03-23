@@ -8,10 +8,13 @@ Builder.prototype.LowerBody = function (args) {
 
 	this.wideHips = this.IF(0.05);
 
-	this.pantless = args.pantless = args.animal || this.IF(this.skirt ? 0.4 : 0.01);
+	this.pantless = args.pantless =
+		args.animal || this.IF(this.skirt ? 0.4 : 0.01);
 
 	// Colors
-	this.pantsColor = args.pantsColor = this.pantless ? args.skinColor : args.secondColor;
+	this.pantsColor = args.pantsColor = this.pantless
+		? args.skinColor
+		: args.secondColor;
 
 	// Assets
 	this.leg = new this.basic.Leg(args);
@@ -88,8 +91,12 @@ Builder.prototype.Belt = function (args) {
 
 	// Colors
 	this.beltColor = args.beltColor || args.pantsColor.copy({ brContrast: -1 });
-	this.buckle && (this.buckleColor = this.beltColor.copy({ brContrast: this.IF(0.5) ? -1 : 2 }));
-	this.strips && (this.pantsColor = args.skirt ? args.skirtColor : args.pantsColor);
+	this.buckle &&
+		(this.buckleColor = this.beltColor.copy({
+			brContrast: this.IF(0.5) ? -1 : 2,
+		}));
+	this.strips &&
+		(this.pantsColor = args.skirt ? args.skirtColor : args.pantsColor);
 
 	// Assets
 }; // END Belt
@@ -120,7 +127,11 @@ Builder.prototype.Belt.prototype.draw = function (args, z) {
 					color: this.buckleColor.get(),
 					sX: {
 						r: this.buckleSX * (sideView ? 0.5 : 1),
-						min: { r: 1, otherDim: true, max: { r: 0.8, a: -1, otherDim: true } },
+						min: {
+							r: 1,
+							otherDim: true,
+							max: { r: 0.8, a: -1, otherDim: true },
+						},
 					},
 				},
 		],
@@ -141,7 +152,8 @@ Builder.prototype.Skirt = function (args) {
 	this.skirtColor = args.skirtColor = this.IF()
 		? args.firstColor
 		: args.secondColor.copy({ brContrast: 1, max: 4 });
-	this.stripes && (this.stripeColor = this.skirtColor.copy({ brContrast: -1 }));
+	this.stripes &&
+		(this.stripeColor = this.skirtColor.copy({ brContrast: -1 }));
 
 	// Assets
 }; // END Skirt
@@ -157,7 +169,10 @@ Builder.prototype.Skirt.prototype.draw = function (args) {
 			min: 1,
 			max: `lowerBodySY${nr}`,
 		};
-		this.vL[`feetRestSY${nr}`] = [`lowerBodySY${nr}`, this.sub(`skirtSY${nr}`)];
+		this.vL[`feetRestSY${nr}`] = [
+			`lowerBodySY${nr}`,
+			this.sub(`skirtSY${nr}`),
+		];
 	}
 
 	return (
@@ -221,7 +236,10 @@ Builder.prototype.Leg.prototype.draw = function (args, z, rightSide, behind) {
 			min: 1,
 		};
 		this.vL[`upperLegSY${nr}`] = { r: 0.5, useSize: `lowerBodySY${nr}` };
-		this.vL[`lowerLegSY${nr}`] = [`lowerBodySY${nr}`, this.sub(`upperLegSY${nr}`)];
+		this.vL[`lowerLegSY${nr}`] = [
+			`lowerBodySY${nr}`,
+			this.sub(`upperLegSY${nr}`),
+		];
 
 		this.vL[`shoeSY${nr}`] = this.bootsSY
 			? { r: this.bootsSY, useSize: `lowerLegSY${nr}`, min: 1 }
@@ -247,7 +265,10 @@ Builder.prototype.Leg.prototype.draw = function (args, z, rightSide, behind) {
 			max: `legMaxSX${nr}`,
 			min: 1,
 		};
-		this.vL[`legFullSX${nr}`] = { a: `thighsSX${nr}`, min: `calvesSX${nr}` };
+		this.vL[`legFullSX${nr}`] = {
+			a: `thighsSX${nr}`,
+			min: `calvesSX${nr}`,
+		};
 	}
 
 	return {
@@ -255,10 +276,13 @@ Builder.prototype.Leg.prototype.draw = function (args, z, rightSide, behind) {
 		fX: !behind,
 		x: !sideView && this.legsIn && { r: 0.3, max: 1 },
 		z,
-		rY: hipBend && (args.backView || (sideView && args.right === rightSide)),
+		rY:
+			hipBend &&
+			(args.backView || (sideView && args.right === rightSide)),
 		rX:
 			(!hipBend && sideView) ||
-			(hipBend && (args.backView || (sideView && !args.right === rightSide))),
+			(hipBend &&
+				(args.backView || (sideView && !args.right === rightSide))),
 		rotate: hipBend && (rightSide ? 90 : -90),
 		// y:["crotchSY"+nr],
 		list: [
@@ -282,15 +306,20 @@ Builder.prototype.Leg.prototype.draw = function (args, z, rightSide, behind) {
 								cX: true,
 								rY:
 									legBend &&
-									(args.backView || (sideView && args.right === rightSide)),
+									(args.backView ||
+										(sideView && args.right === rightSide)),
 								rX:
 									legBend &&
-									(args.backView || (sideView && args.right === rightSide)),
+									(args.backView ||
+										(sideView && args.right === rightSide)),
 								rotate: legBend && (rightSide ? -90 : 90),
 								list: [
 									{
 										sY: `lowerLegSY${nr}`,
-										y: legRaise && { r: -0.1, useSize: `lowerBodySY${nr}` },
+										y: legRaise && {
+											r: -0.1,
+											useSize: `lowerBodySY${nr}`,
+										},
 										list: [
 											{},
 
@@ -326,7 +355,10 @@ Builder.prototype.Leg.prototype.draw = function (args, z, rightSide, behind) {
 															max: {
 																r: 0.15,
 																useSize: `personHalfSX${nr}`,
-																max: [`calvesSX${nr}`, 1],
+																max: [
+																	`calvesSX${nr}`,
+																	1,
+																],
 															},
 														},
 														fY: true,

@@ -9,8 +9,16 @@ TableComic.prototype.Actor = function (args) {
 
 	// Colors
 	this.color = args.color || [255, 255, 255];
-	this.darkColor = [this.color[0] * 0.7, this.color[1] * 0.7, this.color[2] * 0.7];
-	this.detailColor = [this.darkColor[0] * 0.7, this.darkColor[1] * 0.7, this.darkColor[2] * 0.7];
+	this.darkColor = [
+		this.color[0] * 0.7,
+		this.color[1] * 0.7,
+		this.color[2] * 0.7,
+	];
+	this.detailColor = [
+		this.darkColor[0] * 0.7,
+		this.darkColor[1] * 0.7,
+		this.darkColor[2] * 0.7,
+	];
 
 	// Assets
 	this.head = new this.basic.Head({
@@ -40,9 +48,18 @@ TableComic.prototype.Actor.prototype.getSize = function (args) {
 
 TableComic.prototype.Actor.prototype.getSizeHead = function (args) {
 	// calculates this.sX & this.sY
-	this.getSizeWithRatio(args.stageSX, args.stageSY, "sX", "headSY", this.ratio / this.headSY_);
+	this.getSizeWithRatio(
+		args.stageSX,
+		args.stageSY,
+		"sX",
+		"headSY",
+		this.ratio / this.headSY_
+	);
 
-	this.bodySY = this.pushLinkList({ r: (1 - this.headSY_) / this.headSY_, useSize: this.headSY });
+	this.bodySY = this.pushLinkList({
+		r: (1 - this.headSY_) / this.headSY_,
+		useSize: this.headSY,
+	});
 	this.sY = this.pushLinkList([this.bodySY, this.headSY]);
 };
 
@@ -68,7 +85,9 @@ TableComic.prototype.Actor.prototype.draw = function (args) {
 
 	// drag the actor deeper for sitting
 	this.baseShift = this.pushLinkList(
-		info.sitting ? [{ r: -1, useSize: this.body.legSY }, this.body.legs.hipSY] : { a: 0 }
+		info.sitting
+			? [{ r: -1, useSize: this.body.legSY }, this.body.legs.hipSY]
+			: { a: 0 }
 	);
 
 	this.y = this.pushLinkList({ add: [this.y, this.baseShift] });
@@ -143,7 +162,11 @@ TableComic.prototype.Head.prototype.draw = function (args) {
 		max: sX,
 		odd: true,
 	});
-	const eyeAreaSY = this.pushLinkList({ r: this.eyeAreaSY_, useSize: sY, min: 1 });
+	const eyeAreaSY = this.pushLinkList({
+		r: this.eyeAreaSY_,
+		useSize: sY,
+		min: 1,
+	});
 
 	const eyeRestSX = this.pushLinkList([sX, { r: -1, useSize: eyeAreaSX }]);
 
@@ -241,7 +264,11 @@ TableComic.prototype.Eyes.prototype.draw = function (args) {
 		useSize: maxEyesSX,
 		max: maxEyesSX,
 	});
-	const eyeSY = this.pushLinkList({ r: this.eyeSY_, useSize: args.sY, min: 1 });
+	const eyeSY = this.pushLinkList({
+		r: this.eyeSY_,
+		useSize: args.sY,
+		min: 1,
+	});
 
 	let eyeLeftSX;
 	let eyeRightSX;
@@ -265,7 +292,10 @@ TableComic.prototype.Eyes.prototype.draw = function (args) {
 		useSize: maxEyesCombinedSX,
 		add: [{ r: 0.5, useSize: this.side }],
 	});
-	eyeRightSX = this.pushLinkList([maxEyesCombinedSX, { r: -1, useSize: eyeLeftSX }]);
+	eyeRightSX = this.pushLinkList([
+		maxEyesCombinedSX,
+		{ r: -1, useSize: eyeLeftSX },
+	]);
 
 	this.sideRestSX = this.pushLinkList({ r: 0, useSize: args.eyeRestSX });
 
@@ -332,16 +362,25 @@ TableComic.prototype.Eye.prototype.draw = function EyeDraw(args) {
 		max: args.sY,
 	});
 
-	/* 0_1+*/ const sY = (this.sY = this.pushLinkList({ r: 1, useSize: sYNormal }));
+	/* 0_1+*/ const sY = (this.sY = this.pushLinkList({
+		r: 1,
+		useSize: sYNormal,
+	}));
 
-	/* 0_1 */ const openSY = (this.openSY = this.pushLinkList({ r: 1, useSize: sY }));
+	/* 0_1 */ const openSY = (this.openSY = this.pushLinkList({
+		r: 1,
+		useSize: sY,
+	}));
 	const eyeLidsFullSY = this.pushLinkList([sY, { r: -1, useSize: openSY }]);
 
 	/* 0_1 */ const eyeLidTopSY = (this.eyeLidTopSY = this.pushLinkList({
 		r: 0.55,
 		useSize: eyeLidsFullSY,
 	}));
-	const eyeLidBottomSY = this.pushLinkList([eyeLidsFullSY, { r: -1, useSize: eyeLidTopSY }]);
+	const eyeLidBottomSY = this.pushLinkList([
+		eyeLidsFullSY,
+		{ r: -1, useSize: eyeLidTopSY },
+	]);
 
 	/* -1_1 */ const eyeBrowMove = (this.eyeBrowMove = this.pushLinkList({
 		r: 0,
@@ -362,17 +401,30 @@ TableComic.prototype.Eye.prototype.draw = function EyeDraw(args) {
 		add: [eyeLidTopSY],
 	});
 
-	/* 0_1+*/ const pupilS = (this.pupilS = this.pushLinkList({ r: 0.8, useSize: sY }));
+	/* 0_1+*/ const pupilS = (this.pupilS = this.pushLinkList({
+		r: 0.8,
+		useSize: sY,
+	}));
 	/* 0_1 */ const pupilSX = (this.pupilSX = this.pushLinkList({
 		r: 0.5,
 		useSize: pupilS,
 		min: 1,
 	}));
-	/* 0_1 */ const pupilSY = (this.pupilSX = this.pushLinkList({ r: 1, useSize: pupilS, min: 1 }));
+	/* 0_1 */ const pupilSY = (this.pupilSX = this.pushLinkList({
+		r: 1,
+		useSize: pupilS,
+		min: 1,
+	}));
 
 	// pupilPosrel moves relative to the white, pupilPos moves relative to the pupil
-	const pupilRestSX = this.pushLinkList({ add: [sX, { r: -1, useSize: pupilSX }], min: 1 });
-	const pupilRestSY = this.pushLinkList({ add: [sY, { r: -1, useSize: pupilSY }], min: 1 });
+	const pupilRestSX = this.pushLinkList({
+		add: [sX, { r: -1, useSize: pupilSX }],
+		min: 1,
+	});
+	const pupilRestSY = this.pushLinkList({
+		add: [sY, { r: -1, useSize: pupilSY }],
+		min: 1,
+	});
 
 	/* 0_1+*/ const pupilPosXrel = (this.pupilPosXrel = this.pushLinkList({
 		r: 0,
@@ -486,7 +538,10 @@ TableComic.prototype.Eye.prototype.draw = function EyeDraw(args) {
 						weight: 1,
 						z: 10,
 						id: "eyeLid",
-						points: [{ y: eyeBrowOuterY }, { y: eyeBrowInnerY, fX: true }],
+						points: [
+							{ y: eyeBrowOuterY },
+							{ y: eyeBrowInnerY, fX: true },
+						],
 					},
 				],
 			},
@@ -503,7 +558,11 @@ TableComic.prototype.Eye.prototype.draw = function EyeDraw(args) {
 				minX: 4,
 				minY: 4,
 				list: [
-					this.roundInner && { name: "Dot", color: this.color, fY: true },
+					this.roundInner && {
+						name: "Dot",
+						color: this.color,
+						fY: true,
+					},
 					this.roundOuter && {
 						name: "Dot",
 						color: this.color,
@@ -511,7 +570,11 @@ TableComic.prototype.Eye.prototype.draw = function EyeDraw(args) {
 						fX: true,
 					},
 					this.roundInner && { name: "Dot", color: this.color },
-					this.roundOuter && { name: "Dot", color: this.color, fX: true },
+					this.roundOuter && {
+						name: "Dot",
+						color: this.color,
+						fX: true,
+					},
 				],
 			},
 		],
@@ -528,7 +591,10 @@ TableComic.prototype.Mouth = function Mouth(args) {
 };
 
 TableComic.prototype.Mouth.prototype.draw = function MouthDraw(args) {
-	const cutOff = (this.cutOff = this.pushLinkList({ r: 1, useSize: args.sX }));
+	const cutOff = (this.cutOff = this.pushLinkList({
+		r: 1,
+		useSize: args.sX,
+	}));
 	/* 0_1 */ const sX = (this.sX = this.pushLinkList({
 		r: 1,
 		useSize: args.sX,
@@ -548,32 +614,62 @@ TableComic.prototype.Mouth.prototype.draw = function MouthDraw(args) {
 		],
 		min: 1,
 	}));
-	/* 0_1 */ const sY = (this.sY = this.pushLinkList({ r: 0, useSize: args.sY, min: 1 }));
+	/* 0_1 */ const sY = (this.sY = this.pushLinkList({
+		r: 0,
+		useSize: args.sY,
+		min: 1,
+	}));
 
-	const restSX = this.pushLinkList([args.headSX, { r: -1, useSize: finalSX }]);
+	const restSX = this.pushLinkList([
+		args.headSX,
+		{ r: -1, useSize: finalSX },
+	]);
 	const halfRestSX = this.pushLinkList({ r: 0.5, useSize: restSX });
 	const restSY = this.pushLinkList([args.sY, { r: -1, useSize: sY }, -1]);
 
-	const sideRestSX = (this.sideRestSX = this.pushLinkList({ r: 0, useSize: halfRestSX }));
+	const sideRestSX = (this.sideRestSX = this.pushLinkList({
+		r: 0,
+		useSize: halfRestSX,
+	}));
 
 	/* 0_1 */ const x = (this.x = this.pushLinkList({
 		add: [halfRestSX, sideRestSX],
 		max: restSX,
 	}));
-	/* 0_1 */ const y = (this.y = this.pushLinkList({ r: 0.3, useSize: restSY }));
+	/* 0_1 */ const y = (this.y = this.pushLinkList({
+		r: 0.3,
+		useSize: restSY,
+	}));
 
-	const curveSX = (this.curveSX = this.pushLinkList({ r: 0.3, useSize: finalSX }));
-	const curveSideSX = (this.curveSideSX = this.pushLinkList({ r: 0, useSize: curveSX }));
+	const curveSX = (this.curveSX = this.pushLinkList({
+		r: 0.3,
+		useSize: finalSX,
+	}));
+	const curveSideSX = (this.curveSideSX = this.pushLinkList({
+		r: 0,
+		useSize: curveSX,
+	}));
 	const outerLeftSX = this.pushLinkList({ add: [curveSX, curveSideSX] });
-	const outerRightSX = this.pushLinkList({ add: [curveSX, { r: -1, useSize: curveSideSX }] });
+	const outerRightSX = this.pushLinkList({
+		add: [curveSX, { r: -1, useSize: curveSideSX }],
+	});
 
-	/* -1_1 */ const curveSY = (this.curveSY = this.pushLinkList({ r: 0, useSize: sY }));
-	const curveTopSY = this.pushLinkList({ add: [{ r: -1, useSize: curveSY }], min: 0 });
+	/* -1_1 */ const curveSY = (this.curveSY = this.pushLinkList({
+		r: 0,
+		useSize: sY,
+	}));
+	const curveTopSY = this.pushLinkList({
+		add: [{ r: -1, useSize: curveSY }],
+		min: 0,
+	});
 	const curveBottomSY = this.pushLinkList({ add: [curveSY], min: 0 });
 	const curveMax = this.pushLinkList([sY, -1]);
 
 	const teethTopMax = this.pushLinkList({ r: 0.55, useSize: sY });
-	const teethBottomMax = this.pushLinkList([sY, { r: -1, useSize: teethTopMax }]);
+	const teethBottomMax = this.pushLinkList([
+		sY,
+		{ r: -1, useSize: teethTopMax },
+	]);
 
 	/* 0_1 */ const teethTopSY = (this.teethTopSY = this.pushLinkList({
 		r: 0,
@@ -585,7 +681,11 @@ TableComic.prototype.Mouth.prototype.draw = function MouthDraw(args) {
 	}));
 
 	const smirkTop = this.pushLinkList({ r: 0.5, useSize: curveSY, max: 1 });
-	const smirkBottom = this.pushLinkList({ r: -0.1, useSize: curveSY, max: 1 });
+	const smirkBottom = this.pushLinkList({
+		r: -0.1,
+		useSize: curveSY,
+		max: 1,
+	});
 
 	let mouthOuter;
 
@@ -651,15 +751,21 @@ TableComic.prototype.Mouth.prototype.draw = function MouthDraw(args) {
 								clear: true,
 								// color:[0,255,0],
 								fY: true,
-								stripes: { change: { r: -1, useSize: curveTopSY } },
-								list: [{ sY: { r: 1, max: curveMax }, fY: true }],
+								stripes: {
+									change: { r: -1, useSize: curveTopSY },
+								},
+								list: [
+									{ sY: { r: 1, max: curveMax }, fY: true },
+								],
 							},
 							{
 								sY: curveBottomSY,
 								minY: 2,
 								clear: true,
 								// color:[0,255,0],
-								stripes: { change: { r: -1, useSize: curveBottomSY } },
+								stripes: {
+									change: { r: -1, useSize: curveBottomSY },
+								},
 								list: [{ sY: { r: 1, max: curveMax } }],
 							},
 						]),
@@ -723,7 +829,9 @@ TableComic.prototype.Body = function Body(args) {
 
 TableComic.prototype.Body.prototype.getSize = function BodyGetSize(args) {
 	this.legSY = this.pushLinkList({ r: this.legSY_, useSize: args.sY });
-	this.torsoSY = this.pushLinkList({ add: [args.sY, { r: -1, useSize: this.legSY }] });
+	this.torsoSY = this.pushLinkList({
+		add: [args.sY, { r: -1, useSize: this.legSY }],
+	});
 
 	this.legs.getSize({
 		sX: args.sX,
@@ -866,7 +974,9 @@ TableComic.prototype.Arm.prototype.draw = function ArmDraw(args) {
 	const armSY = this.pushLinkList({ r: 2, useSize: args.torsoSY });
 
 	const upperArmSY = this.pushLinkList({ r: 0.4, useSize: armSY });
-	const lowerArmSY = this.pushLinkList({ add: [armSY, { r: -1, useSize: upperArmSY }] });
+	const lowerArmSY = this.pushLinkList({
+		add: [armSY, { r: -1, useSize: upperArmSY }],
+	});
 
 	const armS = this.pushLinkList({ r: 0.08, useSize: armSY, min: 1 });
 	const upperArmS = this.pushLinkList({ r: 0.1, useSize: armSY, min: 1 });
@@ -902,7 +1012,8 @@ TableComic.prototype.Arm.prototype.draw = function ArmDraw(args) {
 			return [
 				dimension,
 				function () {
-					const value = (angles[name] = angle + (prev ? angles[prev] : 0));
+					const value = (angles[name] =
+						angle + (prev ? angles[prev] : 0));
 
 					return mathSin(value);
 				},
@@ -913,7 +1024,8 @@ TableComic.prototype.Arm.prototype.draw = function ArmDraw(args) {
 			dimension,
 			function () {
 				const value = (angles[name] =
-					(min + arguments[map] * change) * pi + (prev ? angles[prev] : 0));
+					(min + arguments[map] * change) * pi +
+					(prev ? angles[prev] : 0));
 
 				return mathSin(value);
 			},
@@ -928,8 +1040,20 @@ TableComic.prototype.Arm.prototype.draw = function ArmDraw(args) {
 		getAngleFunction(handLX, "sin", handAngle, "hand", "lowerArm"),
 		getAngleFunction(handLY, "cos", handAngle, "hand", "lowerArm"),
 
-		getAngleFunction(lowerArmLX, "sin", lowerArmAngle, "lowerArm", "upperArm"),
-		getAngleFunction(lowerArmLY, "cos", lowerArmAngle, "lowerArm", "upperArm"),
+		getAngleFunction(
+			lowerArmLX,
+			"sin",
+			lowerArmAngle,
+			"lowerArm",
+			"upperArm"
+		),
+		getAngleFunction(
+			lowerArmLY,
+			"cos",
+			lowerArmAngle,
+			"lowerArm",
+			"upperArm"
+		),
 
 		getAngleFunction(upperArmLX, "sin", upperArmAngle, "upperArm"),
 		getAngleFunction(upperArmLY, "cos", upperArmAngle, "upperArm")
@@ -1058,7 +1182,11 @@ TableComic.prototype.Legs = function Legs(args) {
 
 TableComic.prototype.Legs.prototype.getSize = function LegsGetSize(args) {
 	this.legSX = this.pushLinkList({ r: this.legSX_, useSize: args.sX });
-	this.hipSY = this.pushLinkList({ r: this.hipSY_, useSize: args.sY, min: this.legSY });
+	this.hipSY = this.pushLinkList({
+		r: this.hipSY_,
+		useSize: args.sY,
+		min: this.legSY,
+	});
 	this.legY = this.pushLinkList([this.hipSY, { r: -1, useSize: this.legSX }]);
 };
 
@@ -1090,7 +1218,10 @@ TableComic.prototype.Legs.prototype.draw = function LegsDraw(args) {
 				s: this.legSX,
 				list: [
 					{
-						sY: { add: [this.sideOther, this.legSX], min: this.legSX },
+						sY: {
+							add: [this.sideOther, this.legSX],
+							min: this.legSX,
+						},
 						list: [
 							{},
 							// Legs to the Left
@@ -1100,7 +1231,10 @@ TableComic.prototype.Legs.prototype.draw = function LegsDraw(args) {
 								list: [
 									// Legs to the Right
 									{
-										sY: { add: [this.side, this.legSX], min: this.legSX },
+										sY: {
+											add: [this.side, this.legSX],
+											min: this.legSX,
+										},
 										fY: true,
 										list: [
 											{},

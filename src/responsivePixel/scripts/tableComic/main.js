@@ -155,16 +155,29 @@ var TableComic = (window.renderer = function (init) {
 	};
 });
 
-TableComic.prototype.getSizeWithRatio = function (sX, sY, sXName, sYName, ratio) {
+TableComic.prototype.getSizeWithRatio = function (
+	sX,
+	sY,
+	sXName,
+	sYName,
+	ratio
+) {
 	ratio = ratio || this.ratio;
 	sXName = sXName || "sX";
 	sYName = sYName || "sY";
 
 	if (ratio > 1) {
 		this[sXName] = this.pushLinkList({ r: ratio, useSize: sY, max: sX });
-		this[sYName] = this.pushLinkList({ r: 1 / ratio, useSize: this[sXName] });
+		this[sYName] = this.pushLinkList({
+			r: 1 / ratio,
+			useSize: this[sXName],
+		});
 	} else {
-		this[sYName] = this.pushLinkList({ r: 1 / ratio, useSize: sX, max: sY });
+		this[sYName] = this.pushLinkList({
+			r: 1 / ratio,
+			useSize: sX,
+			max: sY,
+		});
 		this[sXName] = this.pushLinkList({ r: ratio, useSize: this[sYName] });
 	}
 };
@@ -196,7 +209,10 @@ TableComic.prototype.getPosition = function (args) {
 
 			this.x = this.pushLinkList([
 				obj.x,
-				this.getRelativePosition(rotate ? obj.sY : obj.sX, info.pos.posX || 0),
+				this.getRelativePosition(
+					rotate ? obj.sY : obj.sX,
+					info.pos.posX || 0
+				),
 			]);
 			this.y = this.pushLinkList({
 				r: info.pos.posY || 0,

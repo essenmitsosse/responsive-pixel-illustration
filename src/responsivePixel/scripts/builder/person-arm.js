@@ -16,9 +16,12 @@ Builder.prototype.Arm = function (args) {
 
 	if (this.sleeves) {
 		this.sleeveSY = this.R(0, 1);
-		this.upperSleeveSY = this.upperArmSY > this.sleeveSY ? this.sleeveSY : "full";
+		this.upperSleeveSY =
+			this.upperArmSY > this.sleeveSY ? this.sleeveSY : "full";
 		this.lowerSleeveSY =
-			this.upperArmSY > this.sleeveSY ? false : this.sleeveSY - this.upperArmSY;
+			this.upperArmSY > this.sleeveSY
+				? false
+				: this.sleeveSY - this.upperArmSY;
 		this.fullUpper = this.upperSleeveSY === "full";
 	}
 
@@ -34,11 +37,15 @@ Builder.prototype.Arm = function (args) {
 	this.shoulderPad = this.IF(0.05) && new this.basic.ShoulderPad(args);
 	this.toolLeft =
 		(args.demo || this.IF(0.1)) &&
-		(this.IF(0.5) ? new this.basic.Shield(args) : new this.basic.Sword(args));
+		(this.IF(0.5)
+			? new this.basic.Shield(args)
+			: new this.basic.Sword(args));
 	this.toolRight =
 		!args.demo &&
 		this.IF(0.1) &&
-		(this.IF(0.5) ? new this.basic.Shield(args, true) : new this.basic.Sword(args, true));
+		(this.IF(0.5)
+			? new this.basic.Shield(args, true)
+			: new this.basic.Sword(args, true));
 
 	this.headGear = args.headGear;
 }; // END Arm
@@ -54,8 +61,10 @@ Builder.prototype.Arm.prototype.draw = function (args, rightSide, behind) {
 	const otherHand = !rightSide ? this.toolRight : this.toolLeft;
 	const finger = args.finger && args.finger[name];
 
-	const shoulderAngle = ((args.shoulder && args.shoulder[name]) || 0) * Math.PI;
-	const armAngle = ((args.arm && args.arm[name]) || 0) * Math.PI + shoulderAngle;
+	const shoulderAngle =
+		((args.shoulder && args.shoulder[name]) || 0) * Math.PI;
+	const armAngle =
+		((args.arm && args.arm[name]) || 0) * Math.PI + shoulderAngle;
 
 	let fullAngle = (armAngle / Math.PI) * 180;
 
@@ -68,10 +77,17 @@ Builder.prototype.Arm.prototype.draw = function (args, rightSide, behind) {
 	}
 
 	if (args.calc) {
-		args.armSX = this.pushLinkList({ r: this.armSX, useSize: args.personHalfSX, min: 1 });
+		args.armSX = this.pushLinkList({
+			r: this.armSX,
+			useSize: args.personHalfSX,
+			min: 1,
+		});
 
 		args.armBasicSY = this.pushLinkList({ r: 1, useSize: args.fullBodySY });
-		args.armSY = this.pushLinkList({ r: this.armSY, useSize: args.armBasicSY });
+		args.armSY = this.pushLinkList({
+			r: this.armSY,
+			useSize: args.armBasicSY,
+		});
 
 		args.shoulderSX = this.pushLinkList([args.armSX]);
 		args.shoulderSY = this.pushLinkList({
@@ -90,10 +106,19 @@ Builder.prototype.Arm.prototype.draw = function (args, rightSide, behind) {
 			min: 1,
 			max: { r: 0.1, useSize: args.personHalfSX },
 		});
-		args.handHalfNegSX = this.pushLinkList({ r: -0.5, useSize: args.handSX });
+		args.handHalfNegSX = this.pushLinkList({
+			r: -0.5,
+			useSize: args.handSX,
+		});
 
-		args.upperArmSY = this.pushLinkList({ r: this.upperArmSY, useSize: args.armSY });
-		args.lowerArmSY = this.pushLinkList([args.armSY, this.sub(args.upperArmSY)]);
+		args.upperArmSY = this.pushLinkList({
+			r: this.upperArmSY,
+			useSize: args.armSY,
+		});
+		args.lowerArmSY = this.pushLinkList([
+			args.armSY,
+			this.sub(args.upperArmSY),
+		]);
 
 		if (this.sleeves) {
 			if (!this.fullUpper) {
@@ -115,7 +140,11 @@ Builder.prototype.Arm.prototype.draw = function (args, rightSide, behind) {
 	args[`armHalfSX${nrName}`] = this.pushLinkList({
 		r: renderFromRight ? 0.49 : 0.51,
 		useSize: args.armSX,
-		max: { r: 0.22, useSize: args.upperBodySX, a: renderFromRight ? -1 : 0 },
+		max: {
+			r: 0.22,
+			useSize: args.upperBodySX,
+			a: renderFromRight ? -1 : 0,
+		},
 	});
 
 	args[`upperArmX${nrName}`] = this.pushLinkList({
@@ -165,7 +194,9 @@ Builder.prototype.Arm.prototype.draw = function (args, rightSide, behind) {
 		fX: !behind,
 		rX: behind,
 		id: args[`shoulder${nrName}`],
-		color: this.vest ? this.shirtColor.get() : !this.sleeves && this.skinColor.get(),
+		color: this.vest
+			? this.shirtColor.get()
+			: !this.sleeves && this.skinColor.get(),
 		z: 1000,
 		list: [
 			// Shoulder
@@ -210,7 +241,10 @@ Builder.prototype.Arm.prototype.draw = function (args, rightSide, behind) {
 
 			{
 				fX: true,
-				x: { add: [this.sub(args[`armHalfSX${nrName}`])], a: renderFromRight && -1 },
+				x: {
+					add: [this.sub(args[`armHalfSX${nrName}`])],
+					a: renderFromRight && -1,
+				},
 				y: [this.mult(0.49, args.armSX)],
 				list: [
 					// Upper Arm
@@ -264,7 +298,9 @@ Builder.prototype.Arm.prototype.draw = function (args, rightSide, behind) {
 								minX: 2,
 								x: [
 									args[`lowerArmX${nrName}`],
-									renderFromRight ? args.handHalfNegSX : { a: 0 },
+									renderFromRight
+										? args.handHalfNegSX
+										: { a: 0 },
 								],
 								y: [args[`lowerArmY${nrName}`]],
 								color: this.shirtColor.get(),
@@ -273,14 +309,17 @@ Builder.prototype.Arm.prototype.draw = function (args, rightSide, behind) {
 										fY: fullAngle < 90 && fullAngle > -90,
 										fX: fullAngle > 0,
 										x:
-											(fullAngle < 22.5 && fullAngle > -22.5) ||
+											(fullAngle < 22.5 &&
+												fullAngle > -22.5) ||
 											fullAngle > 157.5 ||
 											fullAngle < -157.5
 												? 0
 												: 1,
 										y:
-											(fullAngle > 67.5 && fullAngle < 112.5) ||
-											(fullAngle < -67.5 && fullAngle > -112.5)
+											(fullAngle > 67.5 &&
+												fullAngle < 112.5) ||
+											(fullAngle < -67.5 &&
+												fullAngle > -112.5)
 												? 0
 												: 1,
 									},
@@ -290,8 +329,14 @@ Builder.prototype.Arm.prototype.draw = function (args, rightSide, behind) {
 							// Hand
 							{
 								s: args.handSX,
-								x: [args[`lowerArmX${nrName}`], args.handHalfNegSX],
-								y: [args[`lowerArmY${nrName}`], args.handHalfNegSX],
+								x: [
+									args[`lowerArmX${nrName}`],
+									args.handHalfNegSX,
+								],
+								y: [
+									args[`lowerArmY${nrName}`],
+									args.handHalfNegSX,
+								],
 								color: this.skinColor.get(),
 								rX: fullAngle < 0,
 								rotate:
@@ -314,13 +359,18 @@ Builder.prototype.Arm.prototype.draw = function (args, rightSide, behind) {
 											sY: {
 												r: 1.5,
 												a: 1,
-												max: { r: 0.15, useSize: args.personHalfSX },
+												max: {
+													r: 0.15,
+													useSize: args.personHalfSX,
+												},
 											},
 											fX: true,
 										},
 
 									// Tool
-									(!args.demo || args.tool) && tool && tool.draw(args, 100),
+									(!args.demo || args.tool) &&
+										tool &&
+										tool.draw(args, 100),
 
 									(rightSide || otherHand) &&
 										args.hatDown &&
@@ -333,7 +383,12 @@ Builder.prototype.Arm.prototype.draw = function (args, rightSide, behind) {
 													tX: true,
 													rX: true,
 													x: 1,
-													list: [this.headGear.draw(args, 100)],
+													list: [
+														this.headGear.draw(
+															args,
+															100
+														),
+													],
 												},
 											],
 										},
@@ -380,7 +435,9 @@ Builder.prototype.ShoulderPad = function (args) {
 		: this.shoulderPadColor.copy({ brContrast: -1, max: 4 });
 
 	if (this.deko || this.topDetail) {
-		this.dekoColor = (this.IF(0.5) ? this.shoulderPadColor : args.secondColor).copy({
+		this.dekoColor = (
+			this.IF(0.5) ? this.shoulderPadColor : args.secondColor
+		).copy({
 			brContrast: 2,
 			max: 4,
 		});
@@ -400,7 +457,11 @@ Builder.prototype.ShoulderPad.prototype.draw = function (args, z) {
 			min: args.armSX,
 			save: args.shoulderPadSX,
 		},
-		sY: { r: this.SY, useSize: args.armSX, min: { r: 0.2, useSize: args.shoulderPadSX } },
+		sY: {
+			r: this.SY,
+			useSize: args.armSX,
+			min: { r: 0.2, useSize: args.shoulderPadSX },
+		},
 		y: { r: this.Y, useSize: args.armSX, max: { a: 0 } },
 		x: { r: this.X, useSize: args.trapSX },
 		id: `shoulderPad${nr}`,
@@ -450,7 +511,10 @@ Builder.prototype.ShoulderPad.prototype.draw = function (args, z) {
 				sY: { r: this.topDetailSY },
 				x: !this.topDetailStrip && {
 					r: this.topDetailX,
-					max: [args.shoulderPadSX, this.sub(args.shoulderPadDetailSX)],
+					max: [
+						args.shoulderPadSX,
+						this.sub(args.shoulderPadDetailSX),
+					],
 				},
 				y: 1,
 				list: this.topDetailStrip
@@ -461,7 +525,11 @@ Builder.prototype.ShoulderPad.prototype.draw = function (args, z) {
 								},
 							},
 					  ]
-					: [{ name: "Dot", clear: true }, { name: "Dot", fX: true, clear: true }, {}],
+					: [
+							{ name: "Dot", clear: true },
+							{ name: "Dot", fX: true, clear: true },
+							{},
+					  ],
 			},
 
 			// Border
@@ -509,7 +577,9 @@ Builder.prototype.Sword = function (args, right) {
 	this.middleStrip = this.IF(0.5);
 
 	// Color
-	this.hiltColor = (this.IF(0.5) ? args.firstColor : args.secondColor).copy({ brContrast: -1 });
+	this.hiltColor = (this.IF(0.5) ? args.firstColor : args.secondColor).copy({
+		brContrast: -1,
+	});
 	this.bladeColor = (this.IF(0.5) ? args.firstColor : args.secondColor).copy({
 		brContrast: 1,
 		max: 4,
@@ -526,7 +596,10 @@ Builder.prototype.Sword.prototype.draw = function (args, z) {
 	const name = this.rightSide ? "right" : "left";
 	const nrName = name + nr;
 
-	args[`handleSY${nrName}`] = this.pushLinkList({ add: [args.handSX, -2], min: 1 });
+	args[`handleSY${nrName}`] = this.pushLinkList({
+		add: [args.handSX, -2],
+		min: 1,
+	});
 	args[`bladeSX${nrName}`] = this.pushLinkList({
 		r: this.bladeSY,
 		useSize: args.personHalfSX,
@@ -537,7 +610,10 @@ Builder.prototype.Sword.prototype.draw = function (args, z) {
 		useSize: args.personHalfSX,
 		min: args[`handleSY${nrName}`],
 	});
-	args[`handleSX${nrName}`] = this.pushLinkList({ r: this.handleSX, useSize: args.personHalfSX });
+	args[`handleSX${nrName}`] = this.pushLinkList({
+		r: this.handleSX,
+		useSize: args.personHalfSX,
+	});
 	args[`handleOtherSX${nrName}`] = this.pushLinkList({
 		r: this.handleOtherSX,
 		useSize: args.personHalfSX,
@@ -586,7 +662,10 @@ Builder.prototype.Sword.prototype.draw = function (args, z) {
 						color: this.bladeLightColor.get(),
 						list: [
 							{ sY: { r: 1, max: 1 }, fY: true },
-							{ sY: { r: 1, max: 1 }, color: this.bladeShadowColor.get() },
+							{
+								sY: { r: 1, max: 1 },
+								color: this.bladeShadowColor.get(),
+							},
 						],
 					},
 				],
@@ -604,7 +683,10 @@ Builder.prototype.Sword.prototype.draw = function (args, z) {
 			this.crossGuard && {
 				x: args[`handleSX${nrName}`],
 				sX: 1,
-				sY: { r: this.noKnife ? 1.2 : 1, useSize: args[`bladeSY${nrName}`] },
+				sY: {
+					r: this.noKnife ? 1.2 : 1,
+					useSize: args[`bladeSY${nrName}`],
+				},
 				cY: this.noKnife,
 			},
 		],
@@ -627,9 +709,11 @@ Builder.prototype.Shield = function (args, right) {
 	this.roundBottom = this.IF(0.5);
 
 	// Colors
-	this.shieldColor = (this.IF(0.5) ? args.firstColor : args.secondColor).copy({
-		brContrast: this.IF() ? 1 : -1,
-	});
+	this.shieldColor = (this.IF(0.5) ? args.firstColor : args.secondColor).copy(
+		{
+			brContrast: this.IF() ? 1 : -1,
+		}
+	);
 	this.shieldShadowColor = this.shieldColor.copy({ brContrast: -1 });
 
 	// Assets

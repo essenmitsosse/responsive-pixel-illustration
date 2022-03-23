@@ -77,7 +77,10 @@ const getSmallerDim = helper.getSmallerDim,
 					tY: true,
 					tX: true,
 					color: hair,
-					sX: ["leftSide", { r: center ? 0.5 : 0.1, save: "leftBottom" }],
+					sX: [
+						"leftSide",
+						{ r: center ? 0.5 : 0.1, save: "leftBottom" },
+					],
 					x: "leftBottom",
 					list: [
 						{
@@ -97,7 +100,10 @@ const getSmallerDim = helper.getSmallerDim,
 					tY: true,
 					tX: true,
 					color: hair,
-					sX: ["rightSide", { r: center ? 0.5 : 0.9, save: "rightBottom" }],
+					sX: [
+						"rightSide",
+						{ r: center ? 0.5 : 0.9, save: "rightBottom" },
+					],
 					x: "rightBottom",
 					list: [
 						{
@@ -156,7 +162,11 @@ const getSmallerDim = helper.getSmallerDim,
 						{
 							sY: { r: 0.1 },
 							color: hair,
-							stripes: { random: "beardDetail", strip: 2, overflow: true },
+							stripes: {
+								random: "beardDetail",
+								strip: 2,
+								overflow: true,
+							},
 						},
 						{
 							sY: { r: 0.05 },
@@ -180,7 +190,12 @@ const getSmallerDim = helper.getSmallerDim,
 	},
 	mustach = function (hades) {
 		const mustachHalf = [
-			{ sY: { r: 0.5 }, y: { r: 0.5 }, fY: true, stripes: { change: { r: -0.5 } } },
+			{
+				sY: { r: 0.5 },
+				y: { r: 0.5 },
+				fY: true,
+				stripes: { change: { r: -0.5 } },
+			},
 			{
 				y: { r: 0.5 },
 				sY: { r: 0.5 },
@@ -190,7 +205,11 @@ const getSmallerDim = helper.getSmallerDim,
 
 		return [
 			{ sX: "mustachHalf", fX: true, list: mustachHalf },
-			{ sX: { r: hades ? 0.5 : 0.45, save: "mustachHalf" }, rX: true, list: mustachHalf },
+			{
+				sX: { r: hades ? 0.5 : 0.45, save: "mustachHalf" },
+				rX: true,
+				list: mustachHalf,
+			},
 		];
 	},
 	eyes = function (color, hair, hades?: boolean) {
@@ -205,7 +224,13 @@ const getSmallerDim = helper.getSmallerDim,
 				y: hades ? 1 : 0,
 				list: [{ stripes: { random: "beardSmallDetail" }, fY: true }],
 			},
-			{ fY: true, tY: true, sY: { r: 0.15, max: 1 }, y: -1, sX: { r: 0.8 } },
+			{
+				fY: true,
+				tY: true,
+				sY: { r: 0.15, max: 1 },
+				y: -1,
+				sX: { r: 0.8 },
+			},
 		];
 
 		return {
@@ -213,7 +238,12 @@ const getSmallerDim = helper.getSmallerDim,
 			sY: { r: hades ? 0.15 : 0.1, a: 1 },
 			list: [
 				{ sX: "eye", list: eye },
-				{ sX: { r: hades ? 0.4 : 0.3, save: "eye" }, fX: true, rX: true, list: eye },
+				{
+					sX: { r: hades ? 0.4 : 0.3, save: "eye" },
+					fX: true,
+					rX: true,
+					list: eye,
+				},
 			],
 		};
 	},
@@ -267,14 +297,21 @@ const getSmallerDim = helper.getSmallerDim,
 			{
 				color: posei ? cloth : shadow(cloth),
 				sX: { r: 2.5, useSize: "headSY", save: "torsoSX" },
-				sY: { add: ["oSY", sub("headSY"), sub("oHeadTop")], save: "torsoSY" },
+				sY: {
+					add: ["oSY", sub("headSY"), sub("oHeadTop")],
+					save: "torsoSY",
+				},
 				fY: true,
 				fX: true,
 				list: [
 					{
 						sX: "torsoLeft",
 						list: [
-							{ fY: true, fX: true, stripes: { change: leftShoulder } },
+							{
+								fY: true,
+								fX: true,
+								stripes: { change: leftShoulder },
+							},
 							{
 								fY: true,
 								fX: true,
@@ -351,10 +388,16 @@ const getSmallerDim = helper.getSmallerDim,
 									{ fY: true, sY: "staff" },
 									{ sX: "staff" },
 									{ sX: "staff", fX: true },
-									posei ? { sX: "staff", cX: true } : undefined,
+									posei
+										? { sX: "staff", cX: true }
+										: undefined,
 								],
 							},
-							{ cX: true, sX: { r: 0.08, min: 1, save: "staff" }, fY: true },
+							{
+								cX: true,
+								sX: { r: 0.08, min: 1, save: "staff" },
+								fY: true,
+							},
 						],
 					},
 				],
@@ -370,7 +413,10 @@ const getSmallerDim = helper.getSmallerDim,
 				},
 				sY: { r: headRatio, useSize: "headSX", save: "headSY" },
 				fX: true,
-				x: { add: [mult(0.3, "oSX"), mult(-0.3, "headSX")], save: "headRight" },
+				x: {
+					add: [mult(0.3, "oSX"), mult(-0.3, "headSX")],
+					save: "headRight",
+				},
 				y: "oHeadTop",
 				list: [
 					{},
@@ -411,7 +457,11 @@ const getSmallerDim = helper.getSmallerDim,
 										sY: { r: 0.7 },
 										color: skinShadow,
 										list: [
-											{ color: skin, fY: true, sY: { r: 0.5 } },
+											{
+												color: skin,
+												fY: true,
+												sY: { r: 0.5 },
+											},
 											{
 												fY: true,
 												sY: "noseBottom",
@@ -429,7 +479,10 @@ const getSmallerDim = helper.getSmallerDim,
 												fY: true,
 												sY: { r: posei ? 0.6 : 0.4 },
 												sX: { r: 0.6 },
-												y: { r: 0.15, save: "noseBottom" },
+												y: {
+													r: 0.15,
+													save: "noseBottom",
+												},
 												list: [
 													{
 														stripes: {
@@ -477,12 +530,22 @@ const getSmallerDim = helper.getSmallerDim,
 	},
 	hair = [
 		{
-			stripes: { change: { r: -1 }, random: "beardDetail", strip: 2, horizontal: true },
+			stripes: {
+				change: { r: -1 },
+				random: "beardDetail",
+				strip: 2,
+				horizontal: true,
+			},
 			fX: true,
 			fY: true,
 		},
 	],
-	outerStrip = { gap: "gap", strip: "strip", horizontal: true, overflow: true },
+	outerStrip = {
+		gap: "gap",
+		strip: "strip",
+		horizontal: true,
+		overflow: true,
+	},
 	detail = [
 		{},
 		{ color: backgroundColor, mY: 1, sX: 1, fX: true },
@@ -492,7 +555,12 @@ const getSmallerDim = helper.getSmallerDim,
 		{ color: backgroundColor },
 		{ sX: "borderOutline", x: "borderMargin" },
 		{ sX: "borderOutline", x: "borderMargin", fX: true },
-		{ sX: "borderInline", x: "borderInner", stripes: outerStrip, list: detail },
+		{
+			sX: "borderInline",
+			x: "borderInner",
+			stripes: outerStrip,
+			list: detail,
+		},
 		{
 			sX: "borderInline",
 			x: "borderInner",
@@ -506,11 +574,21 @@ const getSmallerDim = helper.getSmallerDim,
 	borderSmall = [
 		{ color: backgroundColor },
 		{ sX: "borderSmallOutline", x: "borderSmallMargin" },
-		{ sX: "borderSmallInline", x: "borderSmallInner", stripes: outerStrip, list: detail },
+		{
+			sX: "borderSmallInline",
+			x: "borderSmallInner",
+			stripes: outerStrip,
+			list: detail,
+		},
 	],
 	borderSmallCenter = [
 		{ color: backgroundColor },
-		{ sX: "borderSmallInline", x: "borderSmallInner", stripes: outerStrip, list: detail },
+		{
+			sX: "borderSmallInline",
+			x: "borderSmallInner",
+			stripes: outerStrip,
+			list: detail,
+		},
 		{ sX: "borderSmallOutline", x: "borderSmallMargin" },
 		{ sX: "borderSmallOutline", x: "borderSmallMargin", fX: true },
 	],
@@ -526,10 +604,20 @@ const getSmallerDim = helper.getSmallerDim,
 	],
 	edgeSmallInner = [
 		{ sX: "borderSmallOutline", x: "borderSmallMargin", fX: true },
-		{ sY: "borderSmallOutline", sX: "borderSmallMargin", y: "borderSmallMargin", fX: true },
+		{
+			sY: "borderSmallOutline",
+			sX: "borderSmallMargin",
+			y: "borderSmallMargin",
+			fX: true,
+		},
 	],
 	edgeSmallCenter = [
-		{ sX: "borderSmallOutline", sY: "borderSmallMargin", x: "borderSmallMargin", fY: true },
+		{
+			sX: "borderSmallOutline",
+			sY: "borderSmallMargin",
+			x: "borderSmallMargin",
+			fY: true,
+		},
 		{
 			sX: "borderSmallOutline",
 			sY: "borderSmallMargin",
@@ -548,7 +636,12 @@ const getSmallerDim = helper.getSmallerDim,
 				mX: "borderSmallMargin",
 				list: [{}, { m: 1, color: backgroundColor }],
 			},
-			{ sX: "borderSmallOutline", sY: "borderMargin", x: "borderSmallMargin", fY: true },
+			{
+				sX: "borderSmallOutline",
+				sY: "borderMargin",
+				x: "borderSmallMargin",
+				fY: true,
+			},
 			center
 				? {
 						sX: "borderSmallOutline",
@@ -562,8 +655,18 @@ const getSmallerDim = helper.getSmallerDim,
 	},
 	edgeBig = [
 		{ color: backgroundColor },
-		{ color: borderDetail, sX: "borderOutline", x: "borderMargin", y: "borderMargin" },
-		{ color: borderDetail, sY: "borderOutline", y: "borderMargin", x: "borderMargin" },
+		{
+			color: borderDetail,
+			sX: "borderOutline",
+			x: "borderMargin",
+			y: "borderMargin",
+		},
+		{
+			color: borderDetail,
+			sY: "borderOutline",
+			y: "borderMargin",
+			x: "borderMargin",
+		},
 		{
 			color: borderDetail,
 			sX: "borderOutline",
@@ -659,7 +762,11 @@ const getSmallerDim = helper.getSmallerDim,
 										],
 									},
 									{
-										sY: { r: 0.1, useSize: "staffLength", save: "staff" },
+										sY: {
+											r: 0.1,
+											useSize: "staffLength",
+											save: "staff",
+										},
 										sX: { r: hades ? 1 : 1.5 },
 										cY: true,
 									},
@@ -670,10 +777,32 @@ const getSmallerDim = helper.getSmallerDim,
 		];
 	},
 	sideBorder = [
-		{ sX: "border", sY: "borderSmall", list: edgeWide(), rotate: 90, rX: true, tX: true },
-		{ sX: "border", sY: "borderSmall", list: edgeWide(), rotate: -90, tX: true, fX: true },
+		{
+			sX: "border",
+			sY: "borderSmall",
+			list: edgeWide(),
+			rotate: 90,
+			rX: true,
+			tX: true,
+		},
+		{
+			sX: "border",
+			sY: "borderSmall",
+			list: edgeWide(),
+			rotate: -90,
+			tX: true,
+			fX: true,
+		},
 	],
-	oSideBorder = [{ s: "borderSmall", tX: true, fX: true, rX: true, list: edgeSmallInner }],
+	oSideBorder = [
+		{
+			s: "borderSmall",
+			tX: true,
+			fX: true,
+			rX: true,
+			list: edgeSmallInner,
+		},
+	],
 	renderList = [
 		// MAIN IMAGE
 		{
@@ -687,7 +816,12 @@ const getSmallerDim = helper.getSmallerDim,
 					color: zSkin,
 					list: [
 						{ color: zBackground },
-						{ use: "background", chance: 0.005, color: flash, mask: true },
+						{
+							use: "background",
+							chance: 0.005,
+							color: flash,
+							mask: true,
+						},
 						{ save: "background" },
 
 						{
@@ -742,11 +876,25 @@ const getSmallerDim = helper.getSmallerDim,
 								{
 									sX: { r: 0.5 },
 									fX: true,
-									stripes: { change: { r: 0.5, save: "shoulderChange" } },
+									stripes: {
+										change: {
+											r: 0.5,
+											save: "shoulderChange",
+										},
+									},
 									fY: true,
 								},
-								{ use: "chest", chance: 0.1, sY: 2, color: zSkinShadow },
-								{ save: "chest", mX: { r: 0.1 }, y: { r: 0.1 } },
+								{
+									use: "chest",
+									chance: 0.1,
+									sY: 2,
+									color: zSkinShadow,
+								},
+								{
+									save: "chest",
+									mX: { r: 0.1 },
+									y: { r: 0.1 },
+								},
 								{
 									color: zCloth,
 									fX: true,
@@ -754,7 +902,10 @@ const getSmallerDim = helper.getSmallerDim,
 									x: { r: 0.06 },
 									sX: { r: 0.2 },
 									sY: { r: 1.2 },
-									stripes: { strip: { r: 0.05 }, change: { r: 0.2 } },
+									stripes: {
+										strip: { r: 0.05 },
+										change: { r: 0.2 },
+									},
 								},
 							],
 						},
@@ -768,13 +919,20 @@ const getSmallerDim = helper.getSmallerDim,
 							list: [
 								{},
 
-								{ color: zSkinShadow, fY: true, sY: { r: 0.4 } },
+								{
+									color: zSkinShadow,
+									fY: true,
+									sY: { r: 0.4 },
+								},
 								beard(zHair, true),
 								{
 									fY: true,
 									sY: { r: 0.25 },
 									color: zHair,
-									stripes: { random: "beardDetail", strip: 2 },
+									stripes: {
+										random: "beardDetail",
+										strip: 2,
+									},
 								},
 
 								// FACE
@@ -783,7 +941,10 @@ const getSmallerDim = helper.getSmallerDim,
 									y: { r: 0.3 },
 									sY: { r: 0.45 },
 									list: [
-										{ mX: { r: 0.1 }, list: [eyes(zSkinShadow, zHair)] },
+										{
+											mX: { r: 0.1 },
+											list: [eyes(zSkinShadow, zHair)],
+										},
 										{
 											color: zHair,
 											sY: { r: 0.4 },
@@ -806,7 +967,11 @@ const getSmallerDim = helper.getSmallerDim,
 													sY: { r: 0.2 },
 													id: "noseW",
 													list: [
-														{ name: "Dot", fY: true, clear: true },
+														{
+															name: "Dot",
+															fY: true,
+															clear: true,
+														},
 														{
 															name: "Dot",
 															fX: true,
@@ -840,7 +1005,13 @@ const getSmallerDim = helper.getSmallerDim,
 							sX: "oSX",
 							sY: "oSY",
 							color: hSkin,
-							list: getOthers(false, hSkin, hHair, hCloth, hBackground),
+							list: getOthers(
+								false,
+								hSkin,
+								hHair,
+								hCloth,
+								hBackground
+							),
 						}, // END HADES
 
 						// POSEIDON
@@ -851,7 +1022,13 @@ const getSmallerDim = helper.getSmallerDim,
 							fY: true,
 							color: pSkin,
 							rX: true,
-							list: getOthers(true, pSkin, pHair, pCloth, pBackground),
+							list: getOthers(
+								true,
+								pSkin,
+								pHair,
+								pCloth,
+								pBackground
+							),
 						}, // END POSEIDON
 					],
 				}, // END OTHERS
@@ -913,7 +1090,10 @@ const getSmallerDim = helper.getSmallerDim,
 							sX: "oSX",
 							sY: "borderSmall",
 							fX: true,
-							y: { add: ["border", "aboveOther"], save: "aboveBorder" },
+							y: {
+								add: ["border", "aboveOther"],
+								save: "aboveBorder",
+							},
 							x: "border",
 						},
 
@@ -938,11 +1118,29 @@ const getSmallerDim = helper.getSmallerDim,
 
 				// LEFT / RIGHT
 				{ sX: "border", mY: "border", list: outerBorder },
-				{ sX: "border", fX: true, mY: "border", rX: true, list: outerBorder },
+				{
+					sX: "border",
+					fX: true,
+					mY: "border",
+					rX: true,
+					list: outerBorder,
+				},
 
 				// TOP / BOTTOM
-				{ sY: "border", fY: true, mX: "border", rotate: -90, list: outerBorder },
-				{ sY: "border", mX: "border", rotate: 90, rX: true, list: outerBorder },
+				{
+					sY: "border",
+					fY: true,
+					mX: "border",
+					rotate: -90,
+					list: outerBorder,
+				},
+				{
+					sY: "border",
+					mX: "border",
+					rotate: 90,
+					rX: true,
+					list: outerBorder,
+				},
 
 				// BETWEEN OTHERS
 				{
@@ -984,7 +1182,11 @@ const getSmallerDim = helper.getSmallerDim,
 						{
 							sY: "switch",
 							list: [
-								{ s: "borderSmall", list: edgeSmallOuter, tX: true },
+								{
+									s: "borderSmall",
+									list: edgeSmallOuter,
+									tX: true,
+								},
 								{
 									s: "borderSmall",
 									list: edgeSmallOuter,
@@ -994,7 +1196,10 @@ const getSmallerDim = helper.getSmallerDim,
 								},
 							],
 						},
-						{ sY: ["borderSmall", sub("switch")], list: sideBorder },
+						{
+							sY: ["borderSmall", sub("switch")],
+							list: sideBorder,
+						},
 					],
 				},
 
@@ -1013,7 +1218,10 @@ const getSmallerDim = helper.getSmallerDim,
 							sX: "oSX",
 							sY: "borderSmall",
 							fX: true,
-							y: { add: ["border", "aboveOther"], save: "aboveBorder" },
+							y: {
+								add: ["border", "aboveOther"],
+								save: "aboveBorder",
+							},
 							x: "border",
 							rX: true,
 							list: oSideBorder,
@@ -1058,18 +1266,34 @@ const getSmallerDim = helper.getSmallerDim,
 				{ s: "border", list: edgeBig },
 				{ s: "border", list: edgeBig, rX: true, fX: true },
 				{ s: "border", list: edgeBig, rY: true, fY: true },
-				{ s: "border", list: edgeBig, rX: true, rY: true, fX: true, fY: true },
+				{
+					s: "border",
+					list: edgeBig,
+					rX: true,
+					rY: true,
+					fX: true,
+					fY: true,
+				},
 
 				// Betwenn Others
 				{
 					sX: "borderSmall",
-					sY: { add: ["oSY", sub("switch"), sub("switch2")], save: "between" },
+					sY: {
+						add: ["oSY", sub("switch"), sub("switch2")],
+						save: "between",
+					},
 					fY: true,
 					cX: true,
 					y: "border",
 					list: [
 						{ tY: true, sY: "borderSmall", list: edgeSmallCenter },
-						{ tY: true, fY: true, sY: "border", list: edgeWide(true), rY: true },
+						{
+							tY: true,
+							fY: true,
+							sY: "border",
+							list: edgeWide(true),
+							rY: true,
+						},
 					],
 				},
 
@@ -1111,19 +1335,31 @@ const getSmallerDim = helper.getSmallerDim,
 		motiveSY: [{ r: 1, height: true }, mult(-2, "border")],
 
 		motiveSqu: getSmallerDim({ r: 1, useSize: ["motiveSX", "motiveSY"] }),
-		motiveSquBigger: getBiggerDim({ r: 1, useSize: ["motiveSX", "motiveSY"] }),
+		motiveSquBigger: getBiggerDim({
+			r: 1,
+			useSize: ["motiveSX", "motiveSY"],
+		}),
 
 		restSX: ["motiveSX", sub("motiveSqu")],
 		restSY: ["motiveSY", sub("motiveSqu")],
 
-		restSXSuper: { add: ["restSX", mult(-0.2, "motiveSqu")], min: { a: 0 } },
+		restSXSuper: {
+			add: ["restSX", mult(-0.2, "motiveSqu")],
+			min: { a: 0 },
+		},
 		switch: mult(1000, "restSXSuper"),
 
-		restSYSuper: { add: ["restSY", mult(-1.5, "motiveSqu")], min: { a: 0 } },
+		restSYSuper: {
+			add: ["restSY", mult(-1.5, "motiveSqu")],
+			min: { a: 0 },
+		},
 		switch2: mult(1000, "restSYSuper"),
 
 		// MAINFRAMES
-		zMX: { a: "switch", max: [mult(0.32, "motiveSX"), mult(-0.05, "restSX")] },
+		zMX: {
+			a: "switch",
+			max: [mult(0.32, "motiveSX"), mult(-0.05, "restSX")],
+		},
 		zSYHor: {
 			add: [mult(0.6, "motiveSY"), mult(0.5, "restSX"), "switch2"],
 			max: "motiveSY",
@@ -1132,7 +1368,11 @@ const getSmallerDim = helper.getSmallerDim,
 		zSY: {
 			a: "switch",
 			max: "zSYHor",
-			min: [mult(0.5, "motiveSY"), mult(0.2, "restSY"), mult(-0.3, "restSYSuper")],
+			min: [
+				mult(0.5, "motiveSY"),
+				mult(0.2, "restSY"),
+				mult(-0.3, "restSYSuper"),
+			],
 		},
 		zSquare: getSmallerDim({ r: 1, useSize: ["zSX", "zSY"] }),
 		zSquareBigger: getBiggerDim({ r: 1, useSize: ["zSX", "zSY"] }),
@@ -1148,7 +1388,10 @@ const getSmallerDim = helper.getSmallerDim,
 			add: [mult(0.6, "motiveSY"), mult(0.5, "restSX"), "switch2"],
 			max: "motiveSY",
 		},
-		oSYboth: { add: ["motiveSY", sub("zSY"), "borderSmallSub", "switch"], max: "oSYHor" },
+		oSYboth: {
+			add: ["motiveSY", sub("zSY"), "borderSmallSub", "switch"],
+			max: "oSYHor",
+		},
 		oSYwithoutBorder: ["oSYboth", "borderSmallSub"],
 
 		oSX: { r: 0.5, useSize: "oBothSX", a: "switch2", max: "motiveSX" },
@@ -1162,11 +1405,18 @@ const getSmallerDim = helper.getSmallerDim,
 		oSquareBigger: getBiggerDim({ r: 1, useSize: ["oSX", "oSY"] }),
 
 		centerBorder: { a: "switch2", max: ["border", "oSY"] },
-		aboveOther: { a: "switch", max: ["motiveSY", sub("oSY"), sub("borderSmall")] },
+		aboveOther: {
+			a: "switch",
+			max: ["motiveSY", sub("oSY"), sub("borderSmall")],
+		},
 
 		// ZEUS
 		// Head
-		zHeadSX: getSmallerDim({ r: 0.8, r2: 0.6 / headRatio, useSize: ["zSX", "zSY"] }),
+		zHeadSX: getSmallerDim({
+			r: 0.8,
+			r2: 0.6 / headRatio,
+			useSize: ["zSX", "zSY"],
+		}),
 		zHeadSY: mult(headRatio, "zHeadSX"),
 		zHeadRestSX: ["zSY", sub("zHeadSY")],
 		zHeadTop: [mult(0.2, "zHeadRestSX")],
@@ -1195,7 +1445,11 @@ const getSmallerDim = helper.getSmallerDim,
 		borderSmallOutline: 1,
 		borderSmallMargin: 1,
 		borderSmallInner: ["borderSmallMargin", "borderSmallOutline"],
-		borderSmallInline: ["borderSmall", sub("borderSmallInner"), sub("borderSmallMargin")],
+		borderSmallInline: [
+			"borderSmall",
+			sub("borderSmallInner"),
+			sub("borderSmallMargin"),
+		],
 	};
 
 const image: ImageFunction = {

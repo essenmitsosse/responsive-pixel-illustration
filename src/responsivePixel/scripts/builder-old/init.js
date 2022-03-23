@@ -45,7 +45,18 @@ const renderer = function (init) {
 		const { GR } = builder.basic;
 
 		const eyeLookVert = ["", "", "", "left", "right"];
-		const eyeLookHor = ["", "", "", "", "", "up", "down", "up", "down", "verDown"];
+		const eyeLookHor = [
+			"",
+			"",
+			"",
+			"",
+			"",
+			"up",
+			"down",
+			"up",
+			"down",
+			"verDown",
+		];
 		const eyeLids = [
 			"",
 			"",
@@ -182,7 +193,8 @@ const renderer = function (init) {
 				};
 
 				args.leg = {};
-				args.leg[IF(0.5) ? "right" : "left"] = legPos[GR(0, legPos.length)];
+				args.leg[IF(0.5) ? "right" : "left"] =
+					legPos[GR(0, legPos.length)];
 
 				args.hatDown = IF(0.02);
 
@@ -220,7 +232,9 @@ const renderer = function (init) {
 
 				args.size = "personInnerS";
 			} else {
-				args.groundShadowColor = builder.backgroundColor.copy({ brAdd: -1 });
+				args.groundShadowColor = builder.backgroundColor.copy({
+					brAdd: -1,
+				});
 			}
 
 			list.push(

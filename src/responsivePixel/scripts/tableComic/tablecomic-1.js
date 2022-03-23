@@ -8,7 +8,11 @@ TableComic.prototype.getStrip = function getStrip() {
 	let count = 0;
 	let currentPanel;
 	const finalPanels = [];
-	const combiner = this.getCombiner(finalPanels, stripInfo.defaultPanels, stripInfo.inventory);
+	const combiner = this.getCombiner(
+		finalPanels,
+		stripInfo.defaultPanels,
+		stripInfo.inventory
+	);
 
 	while (count < length) {
 		currentPanel = basicPanels[count];
@@ -133,7 +137,10 @@ TableComic.prototype.getStripInfo = function () {
 		colorTop: [70, 90, 80],
 	});
 	const chair1 = new this.basic.Chair({ color: furnitureColor });
-	const chair2 = new this.basic.Chair({ color: furnitureColor, toLeft: true });
+	const chair2 = new this.basic.Chair({
+		color: furnitureColor,
+		toLeft: true,
+	});
 	const glass = new this.basic.Glass({
 		color: [this.rFl(0, 255), this.rFl(0, 255), this.rFl(0, 255)],
 	});

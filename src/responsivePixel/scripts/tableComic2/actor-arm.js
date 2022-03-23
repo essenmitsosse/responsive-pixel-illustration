@@ -26,14 +26,29 @@ TableComic.prototype.Arm.prototype.draw = function ArmDraw(args) {
 	const armSY = this.getSizeSwitch(
 		{ r: this.armBaseSY_, useSize: args.torsoSY },
 		{ r: this.armRelSY_ },
-		{ min: { r: 1, useSize: args.torsoSX }, max: { r: 0.8, useSize: this.actor.bodySY } },
+		{
+			min: { r: 1, useSize: args.torsoSX },
+			max: { r: 0.8, useSize: this.actor.bodySY },
+		},
 		"actor-features"
 	);
-	const armS = (this.armS = this.pushLinkList({ r: 0.08, useSize: armSY, min: 1 }));
+	const armS = (this.armS = this.pushLinkList({
+		r: 0.08,
+		useSize: armSY,
+		min: 1,
+	}));
 	const upperArmS = this.pushLinkList({ r: 0.1, useSize: armSY, min: 1 });
-	const armSHalf = (this.armSHalf = this.pushLinkList({ r: 0.5, useSize: upperArmS, a: -1 }));
+	const armSHalf = (this.armSHalf = this.pushLinkList({
+		r: 0.5,
+		useSize: upperArmS,
+		a: -1,
+	}));
 
-	const handS = (this.handS = this.pushLinkList({ r: 0.1, useSize: armSY, min: 1 }));
+	const handS = (this.handS = this.pushLinkList({
+		r: 0.1,
+		useSize: armSY,
+		min: 1,
+	}));
 	const handSY = this.pushLinkList({ r: 0.14, useSize: armSY, min: 1 });
 
 	this.right = args.right;
@@ -103,7 +118,11 @@ TableComic.prototype.Arm.prototype.draw = function ArmDraw(args) {
 				jointY: this.pushLinkList({}),
 				endX: this.endX,
 				endY: this.endY,
-				flip: info ? (info.flip ? this.right : !this.right) : !this.right,
+				flip: info
+					? info.flip
+						? this.right
+						: !this.right
+					: !this.right,
 				debug: this.debug,
 				ellbow: info && info.pos && info.pos.ellbow,
 				hand: {
@@ -132,13 +151,21 @@ TableComic.prototype.Arm.prototype.getHandTarget = function (target, name) {
 	const y = `${name}Y`;
 
 	if (target.angle) {
-		this[x] = this.pushLinkList({ a: Math.sin(target.angle * Math.PI) * 20 });
-		this[y] = this.pushLinkList({ a: Math.cos(target.angle * Math.PI) * 20 });
+		this[x] = this.pushLinkList({
+			a: Math.sin(target.angle * Math.PI) * 20,
+		});
+		this[y] = this.pushLinkList({
+			a: Math.cos(target.angle * Math.PI) * 20,
+		});
 	} else if (target.target) {
 		this.getTarget(target.target, name);
 
-		this[x] = this.pushLinkList({ add: [this[x], { r: -1, useSize: this.endX }] });
-		this[y] = this.pushLinkList({ add: [this[y], { r: -1, useSize: this.endY }] });
+		this[x] = this.pushLinkList({
+			add: [this[x], { r: -1, useSize: this.endX }],
+		});
+		this[y] = this.pushLinkList({
+			add: [this[y], { r: -1, useSize: this.endY }],
+		});
 	} else {
 		this[x] = this.pushLinkList({ a: 0 });
 		this[y] = this.pushLinkList({ a: 1 });
@@ -169,11 +196,20 @@ TableComic.prototype.Arm.prototype.getTarget = function (target, name) {
 			: target.obj.getPosY(target.posY)
 	);
 
-	(this.isRotated ? xAdd : yAdd).push({ r: -1, useSize: this.y }, this.actor.bodySY, -1);
+	(this.isRotated ? xAdd : yAdd).push(
+		{ r: -1, useSize: this.y },
+		this.actor.bodySY,
+		-1
+	);
 
 	(!this.isRotated ? xAdd : yAdd).push(
-		{ r: (this.isRotated ? -1 : 1) * (!this.right ? -1 : 1), useSize: this.x },
-		this.right ? { r: this.isRotated ? 1 : -1, useSize: this.actor.body.torso.sX } : 0,
+		{
+			r: (this.isRotated ? -1 : 1) * (!this.right ? -1 : 1),
+			useSize: this.x,
+		},
+		this.right
+			? { r: this.isRotated ? 1 : -1, useSize: this.actor.body.torso.sX }
+			: 0,
 		!this.right ? (this.isRotated ? 1 : -1) : 0
 	);
 
@@ -181,7 +217,11 @@ TableComic.prototype.Arm.prototype.getTarget = function (target, name) {
 	this[`${name}Y`] = this.pushLinkList({ add: yAdd });
 };
 
-TableComic.prototype.Arm.prototype.getMoveableTarget = function (name, targetFunc, info) {
+TableComic.prototype.Arm.prototype.getMoveableTarget = function (
+	name,
+	targetFunc,
+	info
+) {
 	const mainX = `${name}X`;
 	const mainY = `${name}Y`;
 	const moveXName = `${name}moveX`;
@@ -208,13 +248,25 @@ TableComic.prototype.Arm.prototype.getMoveableTarget = function (name, targetFun
 			}),
 		});
 
-		pushRelativeStandardAutomaticObject[moveXName] = { map: info.map, min: 0, max: 1 };
-		pushRelativeStandardAutomaticObject[moveYName] = { map: info.map, min: 0, max: 1 };
+		pushRelativeStandardAutomaticObject[moveXName] = {
+			map: info.map,
+			min: 0,
+			max: 1,
+		};
+		pushRelativeStandardAutomaticObject[moveYName] = {
+			map: info.map,
+			min: 0,
+			max: 1,
+		};
 
 		this.pushRelativeStandardAutomatic(pushRelativeStandardAutomaticObject);
 
-		this[mainX] = this.pushLinkList({ add: [this[mainX], this[moveXName]] });
-		this[mainY] = this.pushLinkList({ add: [this[mainY], this[moveYName]] });
+		this[mainX] = this.pushLinkList({
+			add: [this[mainX], this[moveXName]],
+		});
+		this[mainY] = this.pushLinkList({
+			add: [this[mainY], this[moveYName]],
+		});
 	} else {
 		this[targetFunc](info, name);
 	}

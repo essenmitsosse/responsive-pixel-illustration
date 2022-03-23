@@ -30,10 +30,11 @@ export const getDimension = (contextInner: ContextInner, context) =>
 					return;
 				}
 				if (args.getLength) {
-					this.realPartCalculation = this.contextInner.getGetLengthCalculation(
-						args.getLength[0],
-						args.getLength[1]
-					);
+					this.realPartCalculation =
+						this.contextInner.getGetLengthCalculation(
+							args.getLength[0],
+							args.getLength[1]
+						);
 					return;
 				}
 				this.debug = !!args.debug;
@@ -45,17 +46,26 @@ export const getDimension = (contextInner: ContextInner, context) =>
 				}
 				if (args.useSize) {
 					if (typeof args.useSize === "string") {
-						this.context.variableListLink(args.useSize, (this.useVari = {}));
+						this.context.variableListLink(
+							args.useSize,
+							(this.useVari = {})
+						);
 					} else if (args.useSize.getLinkedVariable) {
 						this.useSize = args.useSize.getLinkedVariable;
 					} else {
 						// errorAdd( "useSize must be a String" )
 					}
 				} else {
-					this.dim = !args.height && (args.otherDim ? !this.axis : this.axis);
+					this.dim =
+						!args.height &&
+						(args.otherDim ? !this.axis : this.axis);
 				}
 				// Get gefaults and try to do quick version
-				if (this.getDefaults(args.r, args.a) && !args.useSize && !args.add) {
+				if (
+					this.getDefaults(args.r, args.a) &&
+					!args.useSize &&
+					!args.add
+				) {
 					this.realPartCalculation = this.getQuick;
 				} else {
 					this.realPartCalculation =
@@ -124,7 +134,11 @@ export const getDimension = (contextInner: ContextInner, context) =>
 		}
 
 		getDefaults(r, a) {
-			if (r === undefined && a === undefined && this.adder === undefined) {
+			if (
+				r === undefined &&
+				a === undefined &&
+				this.adder === undefined
+			) {
 				this.rele = 1;
 				this.abs = 0;
 				return true;
@@ -168,7 +182,10 @@ export const getDimension = (contextInner: ContextInner, context) =>
 		}
 
 		getRealDistanceWithCalc() {
-			return this.getRealDistanceBasic() + this.getRealDistanceWithCalcOnlyAdding();
+			return (
+				this.getRealDistanceBasic() +
+				this.getRealDistanceWithCalcOnlyAdding()
+			);
 		}
 
 		getRealDistanceWithCalcOnlyAdding() {

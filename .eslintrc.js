@@ -4,7 +4,7 @@ module.exports = {
 		node: true,
 	},
 	plugins: ["@typescript-eslint"],
-	extends: ["plugin:vue/recommended", "eslint:recommended", "prettier"],
+	extends: ["eslint:recommended", "prettier"],
 	parserOptions: {
 		ecmaVersion: 2022,
 	},
@@ -16,7 +16,6 @@ module.exports = {
 			extends: [
 				"plugin:@typescript-eslint/recommended",
 				// "plugin:@typescript-eslint/recommended-requiring-type-checking",
-				"@vue/typescript/recommended",
 			],
 			parserOptions: {
 				project: ["./tsconfig.json"],

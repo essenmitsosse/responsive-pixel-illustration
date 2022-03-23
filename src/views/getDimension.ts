@@ -28,13 +28,20 @@ const getPosCanvas = (
 	boundingClientRectCanvas: DOMRect
 ): number => getPosClient(axis, event) - boundingClientRectCanvas[axis];
 
+const getSize =
+	(axis: Axis) =>
+		(boundingClientRectCanvas: DOMRect): number =>
+			boundingClientRectCanvas[recordBoundClientRectSize[axis]];
+
+export const getSizeX = getSize(Axis.x);
+
 const getGetDimension =
 	(axis: Axis) =>
-	(event: MouseEvent | TouchEvent, boundingClientRectCanvas: DOMRect): number => {
-		const pos = getPosCanvas(axis, event, boundingClientRectCanvas);
-		const sizeHalf = boundingClientRectCanvas[recordBoundClientRectSize[axis]] / 2;
-		return Math.abs((pos - sizeHalf) / sizeHalf);
-	};
+		(event: MouseEvent | TouchEvent, boundingClientRectCanvas: DOMRect): number => {
+			const pos = getPosCanvas(axis, event, boundingClientRectCanvas);
+			const sizeHalf = getSize(axis)(boundingClientRectCanvas) / 2;
+			return Math.abs((pos - sizeHalf) / sizeHalf);
+		};
 
 export const getDimensionX = getGetDimension(Axis.x);
 export const getDimensionY = getGetDimension(Axis.y);

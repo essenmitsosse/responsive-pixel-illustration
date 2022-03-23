@@ -8,6 +8,7 @@ export default () => {
 	const {
 		width,
 		height,
+		widthAbs,
 		pixelSize,
 		isResizeable,
 		canvas,
@@ -20,6 +21,14 @@ export default () => {
 		setImageFunction,
 		isReady,
 	} = getRenderOnCanvas();
+
+	const setPixelCount = (pixelCount) => {
+		setPixelSize((pixelCountMax ?? 1) / pixelCount)
+	}
+
+	const pixelCountMin = 50;
+	const pixelCountMax = widthAbs;
+	const pixelCount = Math.round((pixelCountMax ?? 1) / pixelSize)
 
 	useEffect(() => {
 		recordImage[idImage]
@@ -64,13 +73,25 @@ export default () => {
 				/>
 			</label>
 			<label style={{ display: 'inline-block' }}>
-				<span>Pixel Size</span>
+				<span>Pixel Size ({Math.round(pixelSize)})</span>
 				<input style={{ display: 'block' }}
 					value={pixelSize}
 					onInput={(event) => setPixelSize(parseFloat(event.currentTarget.value))}
 					type="range"
 					min="2"
 					max="30"
+					step="1"
+				/>
+			</label>
+			<label style={{ display: 'inline-block' }}>
+				<span>Pixel Count ({Math.round(pixelCount)} / {Math.round(pixelCountMax ?? 1)})</span>
+				<input
+					style={{ display: 'block' }}
+					value={pixelCount}
+					onInput={(event) => setPixelCount(parseFloat(event.currentTarget.value))}
+					type="range"
+					min={pixelCountMin}
+					max={pixelCountMax ?? 1}
 					step="1"
 				/>
 			</label>

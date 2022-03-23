@@ -1,5 +1,5 @@
 import { useState, useRef, TouchEvent, MouseEvent, useEffect } from "react";
-import { getDimensionX, getDimensionY } from "./getDimension";
+import { getDimensionX, getDimensionY, getSizeX } from "./getDimension";
 import { PixelGraphics } from "../responsivePixel/PixelGraphics";
 import { ImageFunction } from "../responsivePixel/PixelGraphics/types";
 
@@ -11,6 +11,7 @@ export const getRenderOnCanvas = () => {
 	const [pixelGraphic, setPixelGraphic] = useState<PixelGraphics | null>(null);
 	const [boundingClientRectCanvas, setBoundingClientRectCanvas] = useState<DOMRect | null>(null);
 	const [imageFunction, setImageFunction] = useState<ImageFunction | null>(null);
+	const [widthAbs, setWidthAbs] = useState<number | null>(null);
 	const [isReady, setIsReady] = useState(false);
 	const canvas = useRef<HTMLCanvasElement>(null);
 
@@ -37,6 +38,8 @@ export const getRenderOnCanvas = () => {
 		}
 		event.preventDefault();
 
+		setWidthAbs(getSizeX(boundingClientRectCanvas));
+
 		setWidth(getDimensionX(event, boundingClientRectCanvas));
 		setHeight(getDimensionY(event, boundingClientRectCanvas));
 	};
@@ -59,6 +62,7 @@ export const getRenderOnCanvas = () => {
 	return {
 		width,
 		height,
+		widthAbs,
 		pixelSize,
 		isResizeable,
 		isReady,

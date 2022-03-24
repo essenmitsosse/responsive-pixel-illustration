@@ -7,43 +7,43 @@ export const recordImage: Record<
 	argos: {
 		niceName: "Argos",
 		getImage: () => {
-			return import("../responsivePixel/scripts/argos");
+			return import("../responsivePixel/images/argos");
 		},
 	},
 	brothers: {
 		niceName: "Brothers",
 		getImage: () => {
-			return import("../responsivePixel/scripts/brothers");
+			return import("../responsivePixel/images/brothers");
 		},
 	},
 	graien: {
 		niceName: "Graien",
 		getImage: () => {
-			return import("../responsivePixel/scripts/graien");
+			return import("../responsivePixel/images/graien");
 		},
 	},
 	sphinx: {
 		niceName: "Sphinx",
 		getImage: () => {
-			return import("../responsivePixel/scripts/sphinx");
+			return import("../responsivePixel/images/sphinx");
 		},
 	},
 	sparta: {
 		niceName: "Sparta",
 		getImage: () => {
-			return import("../responsivePixel/scripts/sparta");
+			return import("../responsivePixel/images/sparta");
 		},
 	},
 	tantalos: {
 		niceName: "Tantalos",
 		getImage: () => {
-			return import("../responsivePixel/scripts/tantalos");
+			return import("../responsivePixel/images/tantalos");
 		},
 	},
 	teiresias: {
 		niceName: "Teiresias",
 		getImage: () => {
-			return import("../responsivePixel/scripts/teiresias");
+			return import("../responsivePixel/images/teiresias");
 		},
 	},
 };

@@ -1,8 +1,8 @@
+import { Outlet } from "react-router-dom";
 import "./App.css";
-import RenderPixel from "./views/RenderPixel";
 
 export default () => (
 	<div id="App">
-		<RenderPixel />
+		<Outlet />
 	</div>
 );

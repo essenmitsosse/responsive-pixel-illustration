@@ -2,9 +2,9 @@ import "./RenderPixel.css";
 import { getRenderOnCanvas } from "./getRenderOnCanvas";
 import { useEffect, useState } from "react";
 import { recordImage, listPairImage } from "./recordImage";
+import { useNavigate } from "react-router-dom";
 
-export default () => {
-	const [idImage, setIdImage] = useState("teiresias");
+export default (props: { idImage: string }) => {
 	const {
 		width,
 		height,
@@ -31,12 +31,18 @@ export default () => {
 	const pixelCount = Math.round((pixelCountMax ?? 1) / pixelSize);
 
 	useEffect(() => {
-		recordImage[idImage]
+		recordImage[props.idImage]
 			.getImage()
 			.then((imageFunctionExport) =>
 				setImageFunction(imageFunctionExport.default)
 			);
-	}, [idImage]);
+	}, [props.idImage]);
+
+	const navigate = useNavigate();
+
+	const setIdImage = (idImageNew: string) => {
+		navigate(`/${idImageNew}`);
+	};
 
 	redraw();
 
@@ -46,7 +52,7 @@ export default () => {
 				<span>Select Image</span>
 				<select
 					style={{ display: "block" }}
-					value={idImage}
+					value={props.idImage}
 					onChange={(event) => setIdImage(event.currentTarget.value)}
 				>
 					{listPairImage.map(([id, image]) => (

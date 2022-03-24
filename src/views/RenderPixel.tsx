@@ -1,7 +1,7 @@
 import "./RenderPixel.css";
 import { useState, useRef, TouchEvent, MouseEvent, useEffect } from "react";
 import { recordImage, listPairImage } from "./recordImage";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { getDimensionX, getDimensionY, getSizeX } from "./getDimension";
 import { PixelGraphics } from "../responsivePixel/PixelGraphics";
 import { ImageFunction } from "../responsivePixel/PixelGraphics/types";
@@ -10,7 +10,8 @@ export default (props: { idImage: string }) => {
 	const [width, setWidth] = useState(1);
 	const [height, setHeight] = useState(1);
 	const [pixelSize, setPixelSize] = useState(5);
-	const [isResizeable, setIsResizeable] = useState(true);
+	const [searchParams, setSearchParams] = useSearchParams();
+	const isResizeable = searchParams.get("resizeable") !== "false";
 	const [pixelGraphic, setPixelGraphic] = useState<PixelGraphics | null>(
 		null
 	);
@@ -87,6 +88,10 @@ export default (props: { idImage: string }) => {
 
 	const setIdImage = (idImageNew: string) => {
 		navigate(`/${idImageNew}`);
+	};
+
+	const setIsResizeable = (isResizable: boolean) => {
+		setSearchParams(isResizable ? {} : { resizeable: "false" });
 	};
 
 	redraw();

@@ -1,12 +1,7 @@
-import { helper } from "../helperPixelGraphics";
+import { getSmallerDim, getBiggerDim, mult, sub } from "../helperPixelGraphics";
 import { ColorRgb, ImageFunction } from "../PixelGraphics/types";
 
-const help = helper,
-	getSmallerDim = help.getSmallerDim,
-	getBiggerDim = help.getBiggerDim,
-	mult = help.mult,
-	sub = help.sub,
-	c1 = [255, 0, 0],
+const c1 = [255, 0, 0],
 	g1: ColorRgb = [0, 0, 0],
 	g2 = [85, 85, 85],
 	g3 = [170, 170, 170],

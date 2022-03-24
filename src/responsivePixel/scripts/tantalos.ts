@@ -1,10 +1,7 @@
-import { helper } from "../helperPixelGraphics";
+import { getSmallerDim, getBiggerDim } from "../helperPixelGraphics";
 import { ColorRgb, ImageFunction } from "../PixelGraphics/types";
 
-const help = helper,
-	getSmallerDim = help.getSmallerDim,
-	getBiggerDim = help.getBiggerDim,
-	water = [36, 44, 53],
+const water = [36, 44, 53],
 	waterLight = [74, 81, 88],
 	ground = [72, 71, 68],
 	groundDark = [65, 54, 57],
@@ -23,6 +20,7 @@ const help = helper,
 	shorts = [139, 146, 154],
 	shortsWater = [60, 68, 77],
 	// Variables
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	linkList: Array<any> = [],
 	linkListPush = <T>(obj: T) => {
 		linkList.push(obj);
@@ -124,7 +122,6 @@ const help = helper,
 		add: [handSY_],
 		min: { r: handRatio, useSize: handSX_ },
 	}),
-	handL = linkListPush({ getLength: [handSX, handSY] }),
 	// Arm
 	upperArmL = linkListPush({ r: upperArmRel, useSize: movementL, min: 1 }),
 	armL = linkListPush({ getLength: [armSX, armSY] }),

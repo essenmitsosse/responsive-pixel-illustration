@@ -1,18 +1,19 @@
 "use strict";
 
-import { helper } from "../helperPixelGraphics";
+import {
+	getSmallerDim,
+	getBiggerDim,
+	mult,
+	sub,
+	getDarken,
+} from "../helperPixelGraphics";
 import { ColorRgb, ImageFunction } from "../PixelGraphics/types";
-const help = helper,
-	getSmallerDim = help.getSmallerDim,
-	getBiggerDim = help.getBiggerDim,
-	mult = help.mult,
-	sub = help.sub,
-	shadowColor = [255, 255, 255],
-	shadow = help.darken(shadowColor, 0.5),
-	detail = help.darken(shadowColor, 0.2),
+const shadowColor = [255, 255, 255],
+	shadow = getDarken(shadowColor, 0.5),
+	detail = getDarken(shadowColor, 0.2),
 	backgroundColor: ColorRgb = [60, 60, 60],
-	water = [36, 44, 53],
-	skin = [227, 200, 190],
+	water: ColorRgb = [36, 44, 53],
+	skin: ColorRgb = [227, 200, 190],
 	skinDetail = detail(skin),
 	skinShadow = shadow(skin),
 	leftHalf = [

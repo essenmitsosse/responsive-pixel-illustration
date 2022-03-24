@@ -1,11 +1,6 @@
-import { helper } from "../helperPixelGraphics";
+import { getSmallerDim, getBiggerDim, mult, sub } from "../helperPixelGraphics";
 import type { ColorRgb, ImageFunction } from "../PixelGraphics/types";
-const help = helper,
-	getSmallerDim = help.getSmallerDim,
-	getBiggerDim = help.getBiggerDim,
-	mult = help.mult,
-	sub = help.sub,
-	wood = [155, 114, 70],
+const wood = [155, 114, 70],
 	wood1 = [143, 92, 57],
 	wood2 = [177, 124, 62],
 	wood3 = [130, 99, 64],

@@ -1,11 +1,12 @@
 /* eslint-disable max-len */
-import { helper } from "../helperPixelGraphics";
-import type { ImageFunction } from "../PixelGraphics/types";
-
-const { getSmallerDim } = helper;
-const { getBiggerDim } = helper;
-const { mult } = helper;
-const { sub } = helper;
+import {
+	getSmallerDim,
+	getBiggerDim,
+	mult,
+	sub,
+	getDarken,
+} from "../helperPixelGraphics";
+import type { ColorRgb, ImageFunction } from "../PixelGraphics/types";
 
 const background = [60, 120, 110] as const;
 const bSS = 0.5;
@@ -15,19 +16,19 @@ const shadowColor = [
 	background[1] * bSS + shadowAdd,
 	background[2] * bSS + shadowAdd,
 ];
-const shadow = helper.darken(shadowColor, 0.7);
-const detail = helper.darken(shadowColor, 0.4);
+const shadow = getDarken(shadowColor, 0.7);
+const detail = getDarken(shadowColor, 0.4);
 
-const grey = [204, 204, 204];
-const bread = [150, 130, 100];
+const grey: ColorRgb = [204, 204, 204];
+const bread: ColorRgb = [150, 130, 100];
 const breadDark = shadow(bread);
 const backgroundMedium = shadow(background);
 const backgroundDark = detail(background);
 
-const hair = [255, 255, 255];
-const graie1 = [227, 200, 190];
-const graie2 = [192, 176, 133];
-const graie3 = [232, 204, 151];
+const hair: ColorRgb = [255, 255, 255];
+const graie1: ColorRgb = [227, 200, 190];
+const graie2: ColorRgb = [192, 176, 133];
+const graie3: ColorRgb = [232, 204, 151];
 
 const graie1Shadow = shadow(graie1);
 const graie1Detail = detail(graie1);
@@ -40,9 +41,11 @@ const graie3Detail = detail(graie3);
 
 const imgDifference = 0.05;
 
-const linkList = [];
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const linkList: Array<any> = [];
 
-const linkListPush = (obj) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const linkListPush = (obj: any) => {
 	linkList.push(obj);
 	return obj;
 };

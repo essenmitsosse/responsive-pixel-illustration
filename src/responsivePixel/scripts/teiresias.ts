@@ -1,17 +1,19 @@
-import { helper } from "../helperPixelGraphics";
-import type { ImageFunction } from "../PixelGraphics/types";
-
-const { getSmallerDim } = helper;
-const { getBiggerDim } = helper;
-const { mult } = helper;
-const { sub } = helper;
+import {
+	getSmallerDim,
+	getBiggerDim,
+	mult,
+	sub,
+	getDarken,
+	getLighten,
+} from "../helperPixelGraphics";
+import type { ColorRgb, ImageFunction } from "../PixelGraphics/types";
 
 const mixShadowColor = [255, 200, 255];
-const shadow = helper.darken(mixShadowColor, 0.7);
-const detail = helper.darken(mixShadowColor, 0.4);
-const lighten = helper.lighten(mixShadowColor, 0.3);
+const shadow = getDarken(mixShadowColor, 0.7);
+const detail = getDarken(mixShadowColor, 0.4);
+const lighten = getLighten(mixShadowColor, 0.3);
 
-const trees = [40, 74, 95];
+const trees: ColorRgb = [40, 74, 95];
 
 const frame = lighten(trees);
 const frameDark = shadow(frame);
@@ -19,18 +21,18 @@ const treesDark = shadow(trees);
 
 const backgroundColor = detail(trees);
 
-const teiresias = [100, 50, 60];
+const teiresias: ColorRgb = [100, 50, 60];
 const teiresiasShadow = shadow(teiresias);
-const stick = [90, 90, 90];
+const stick: ColorRgb = [90, 90, 90];
 const stickDark = shadow(stick);
 const stickDarkest = detail(stick);
-const skin = [193, 180, 163];
+const skin: ColorRgb = [193, 180, 163];
 const skinShadow = shadow(skin);
 const eyes = detail(skin);
 
 const snake1 = teiresias;
 const snake1Detail = shadow(snake1);
-const snake2 = [165, 157, 105];
+const snake2: ColorRgb = [165, 157, 105];
 const snake2Detail = shadow(snake2);
 const snakeTongue = [150, 85, 94];
 const snakeEyes = backgroundColor;

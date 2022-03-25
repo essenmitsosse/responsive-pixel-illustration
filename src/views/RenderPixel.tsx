@@ -134,9 +134,9 @@ export default (props: { idImage: string }) => {
 	};
 
 	return (
-		<div className="home">
+		<div className="flex h-screen flex-col">
 			<form className="mb-4 flex w-full flex-wrap">
-				<label className="inline-block w-1/6 px-4">
+				<label className="inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6">
 					<span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
 						Select Image
 					</span>
@@ -156,7 +156,7 @@ export default (props: { idImage: string }) => {
 						</select>
 					</div>
 				</label>
-				<label className="inline-block w-1/6 px-4">
+				<label className="inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6">
 					<span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
 						Width
 					</span>
@@ -172,7 +172,7 @@ export default (props: { idImage: string }) => {
 						step="0.0001"
 					/>{" "}
 				</label>
-				<label className="inline-block w-1/6 px-4">
+				<label className="inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6">
 					<span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
 						Height
 					</span>
@@ -188,7 +188,7 @@ export default (props: { idImage: string }) => {
 						step="0.0001"
 					/>
 				</label>
-				<label className="inline-block w-1/6 px-4">
+				<label className="inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6">
 					<span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
 						Pixel Size{" "}
 						<span className="opacity-50">
@@ -207,7 +207,7 @@ export default (props: { idImage: string }) => {
 						step="1"
 					/>
 				</label>
-				<label className="inline-block w-1/6 px-4">
+				<label className="inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6">
 					<span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
 						Pixel Count{" "}
 						<span className="opacity-50">
@@ -227,7 +227,7 @@ export default (props: { idImage: string }) => {
 						step="1"
 					/>
 				</label>
-				<label className="inline-block w-1/6 px-4">
+				<label className="inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6">
 					<span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
 						Resize on Hover
 					</span>
@@ -240,10 +240,10 @@ export default (props: { idImage: string }) => {
 				</label>
 			</form>
 			{isReady ? null : "Bild lädt ..."}
-			<div className="wrapper-canvas">
+			<div className="relative h-full w-full">
 				<canvas
 					ref={canvas}
-					className="canvas"
+					className="absolute h-full w-full"
 					onMouseMove={onDrag}
 					onTouchMove={onDrag}
 				/>

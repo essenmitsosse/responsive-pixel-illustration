@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+input[type="range"]::-webkit-slider-thumb {
+	@apply h-3 w-3 cursor-pointer appearance-none rounded-full bg-gray-600 dark:bg-gray-300;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+	@apply bg-gray-500 dark:bg-gray-200;
+}

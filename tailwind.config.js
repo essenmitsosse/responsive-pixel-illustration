@@ -4,7 +4,19 @@ module.exports = {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ["Graphik", "sans-serif"],
+				sans: [
+					"-apple-system",
+					"BlinkMacSystemFont",
+					"Segoe UI",
+					"Roboto",
+					"Oxygen",
+					"Ubuntu",
+					"Cantarell",
+					"Fira Sans",
+					"Droid Sans",
+					"Helvetica Neue",
+					"sans-serif",
+				],
 				serif: ["Merriweather", "serif"],
 			},
 		},

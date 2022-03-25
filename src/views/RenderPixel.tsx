@@ -135,8 +135,8 @@ export default (props: { idImage: string }) => {
 
 	return (
 		<div className="flex h-screen flex-col">
-			<form className="mb-4 flex w-full flex-wrap">
-				<label className="inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6">
+			<form className="flex w-full flex-wrap">
+				<label className="mb-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
 					<span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
 						Select Image
 					</span>
@@ -156,7 +156,7 @@ export default (props: { idImage: string }) => {
 						</select>
 					</div>
 				</label>
-				<label className="inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6">
+				<label className="mb-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
 					<span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
 						Width
 					</span>
@@ -172,7 +172,7 @@ export default (props: { idImage: string }) => {
 						step="0.0001"
 					/>{" "}
 				</label>
-				<label className="inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6">
+				<label className="mb-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
 					<span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
 						Height
 					</span>
@@ -188,7 +188,7 @@ export default (props: { idImage: string }) => {
 						step="0.0001"
 					/>
 				</label>
-				<label className="inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6">
+				<label className="mb-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
 					<span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
 						Pixel Size{" "}
 						<span className="font-mono font-light opacity-50">
@@ -207,7 +207,7 @@ export default (props: { idImage: string }) => {
 						step="1"
 					/>
 				</label>
-				<label className="inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6">
+				<label className="mb-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
 					<span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
 						Pixel Count{" "}
 						<span className="font-mono font-light opacity-50">
@@ -227,7 +227,7 @@ export default (props: { idImage: string }) => {
 						step="1"
 					/>
 				</label>
-				<label className="inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6">
+				<label className="mb-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
 					<span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
 						Resize on Hover
 					</span>

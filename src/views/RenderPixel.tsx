@@ -191,7 +191,7 @@ export default (props: { idImage: string }) => {
 				<label className="inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6">
 					<span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
 						Pixel Size{" "}
-						<span className="opacity-50">
+						<span className="font-mono font-light opacity-50">
 							({Math.round(pixelSize)})
 						</span>
 					</span>
@@ -210,7 +210,7 @@ export default (props: { idImage: string }) => {
 				<label className="inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6">
 					<span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
 						Pixel Count{" "}
-						<span className="opacity-50">
+						<span className="font-mono font-light opacity-50">
 							({Math.round(pixelCount)} /{" "}
 							{Math.round(absSizeXFull ?? 1)})
 						</span>

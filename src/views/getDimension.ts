@@ -39,6 +39,7 @@ const getSize =
 		boundingClientRectCanvas[recordBoundClientRectSize[axis]];
 
 export const getSizeX = getSize(Axis.x);
+export const getSizeY = getSize(Axis.y);
 
 const getGetDimension =
 	(axis: Axis) =>

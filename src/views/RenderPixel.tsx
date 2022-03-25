@@ -9,13 +9,18 @@ import {
 } from "react";
 import { recordImage, listPairImage } from "./recordImage";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { getDimensionX, getDimensionY, getSizeX } from "./getDimension";
+import {
+	getDimensionX,
+	getDimensionY,
+	getSizeX,
+	getSizeY,
+} from "./getDimension";
 import { PixelGraphics } from "../responsivePixel/PixelGraphics";
 import { ImageFunction } from "../responsivePixel/PixelGraphics/types";
 
 export default (props: { idImage: string }) => {
-	const [width, setWidth] = useState(1);
-	const [height, setHeight] = useState(1);
+	const [relSizeX, setRelSizeX] = useState(1);
+	const [relSizeY, setRelSizeY] = useState(1);
 	const [pixelSize, setPixelSize] = useState(5);
 	const [searchParams, setSearchParams] = useSearchParams();
 	const isResizeable = searchParams.get("resizeable") !== "false";
@@ -27,13 +32,14 @@ export default (props: { idImage: string }) => {
 	const [imageFunction, setImageFunction] = useState<ImageFunction | null>(
 		null
 	);
-	const [widthAbs, setWidthAbs] = useState<number | null>(null);
+	const [absSizeXFull, setAbsSizeXFull] = useState<number | null>(null);
+	const [absSizeYFull, setAbsSizeYFull] = useState<number | null>(null);
 	const [isReady, setIsReady] = useState(false);
 	const canvas = useRef<HTMLCanvasElement>(null);
 	const pixelCountMin = 50;
 	const pixelCount = useMemo(() => {
-		return Math.round((widthAbs ?? 1) / pixelSize);
-	}, [widthAbs, pixelSize]);
+		return Math.round((absSizeXFull ?? 1) / pixelSize);
+	}, [absSizeXFull, pixelSize]);
 
 	const onDrag = (event: MouseEvent | TouchEvent) => {
 		if (
@@ -45,33 +51,57 @@ export default (props: { idImage: string }) => {
 		}
 		event.preventDefault();
 
-		setWidth(getDimensionX(event, boundingClientRectCanvas));
-		setHeight(getDimensionY(event, boundingClientRectCanvas));
+		setRelSizeX(getDimensionX(event, boundingClientRectCanvas));
+		setRelSizeY(getDimensionY(event, boundingClientRectCanvas));
+	};
+
+	const resize = () => {
+		if (canvas.current === null) return;
+		setBoundingClientRectCanvas(canvas.current.getBoundingClientRect());
 	};
 
 	useEffect(() => {
+		window.addEventListener("resize", resize);
+		return () => {
+			window.removeEventListener("resize", resize);
+		};
+	});
+
+	useEffect(() => {
 		if (boundingClientRectCanvas === null) return;
-		setWidthAbs(getSizeX(boundingClientRectCanvas));
+		setAbsSizeXFull(getSizeX(boundingClientRectCanvas));
+		setAbsSizeYFull(getSizeY(boundingClientRectCanvas));
 	}, [boundingClientRectCanvas]);
 
 	useEffect(() => {
-		if (pixelGraphic === null || boundingClientRectCanvas === null) {
+		if (
+			pixelGraphic === null ||
+			absSizeXFull === null ||
+			absSizeYFull === null
+		) {
 			return;
 		}
 		pixelGraphic.redraw({
-			widthFactor: width,
-			heightFactor: height,
+			relSizeX: relSizeX,
+			relSizeY: relSizeY,
 			pixelSize: pixelSize,
-			sizeX: boundingClientRectCanvas.width,
-			sizeY: boundingClientRectCanvas.height,
+			absSizeXFull: absSizeXFull,
+			absSizeYFull: absSizeYFull,
 		});
-	}, [pixelGraphic, boundingClientRectCanvas, width, height, pixelSize]);
+	}, [
+		pixelGraphic,
+		absSizeXFull,
+		absSizeYFull,
+		relSizeX,
+		relSizeY,
+		pixelSize,
+	]);
 
 	useEffect(() => {
 		if (canvas.current === null || imageFunction === null) {
 			return;
 		}
-		setBoundingClientRectCanvas(canvas.current.getBoundingClientRect());
+		resize();
 		setPixelGraphic(
 			new PixelGraphics({
 				divCanvas: canvas.current,
@@ -83,7 +113,7 @@ export default (props: { idImage: string }) => {
 	}, [canvas, imageFunction]);
 
 	const setPixelCount = (pixelCount) => {
-		setPixelSize((widthAbs ?? 1) / pixelCount);
+		setPixelSize((absSizeXFull ?? 1) / pixelCount);
 	};
 
 	useEffect(() => {
@@ -95,7 +125,6 @@ export default (props: { idImage: string }) => {
 	}, [props.idImage]);
 
 	const navigate = useNavigate();
-
 	const setIdImage = (idImageNew: string) => {
 		navigate(`/${idImageNew}`);
 	};
@@ -133,9 +162,9 @@ export default (props: { idImage: string }) => {
 					</span>
 					<input
 						className="h-0.5 w-full appearance-none rounded bg-gray-700 dark:bg-gray-300"
-						value={width}
+						value={relSizeX}
 						onInput={(event) =>
-							setWidth(parseFloat(event.currentTarget.value))
+							setRelSizeX(parseFloat(event.currentTarget.value))
 						}
 						type="range"
 						min="0"
@@ -149,9 +178,9 @@ export default (props: { idImage: string }) => {
 					</span>
 					<input
 						className="h-0.5 w-full appearance-none rounded bg-gray-700 dark:bg-gray-300"
-						value={height}
+						value={relSizeY}
 						onInput={(event) =>
-							setHeight(parseFloat(event.currentTarget.value))
+							setRelSizeY(parseFloat(event.currentTarget.value))
 						}
 						type="range"
 						min="0"
@@ -183,7 +212,7 @@ export default (props: { idImage: string }) => {
 						Pixel Count{" "}
 						<span className="opacity-50">
 							({Math.round(pixelCount)} /{" "}
-							{Math.round(widthAbs ?? 1)})
+							{Math.round(absSizeXFull ?? 1)})
 						</span>
 					</span>
 					<input
@@ -194,7 +223,7 @@ export default (props: { idImage: string }) => {
 						}
 						type="range"
 						min={pixelCountMin}
-						max={widthAbs ?? 1}
+						max={absSizeXFull ?? 1}
 						step="1"
 					/>
 				</label>

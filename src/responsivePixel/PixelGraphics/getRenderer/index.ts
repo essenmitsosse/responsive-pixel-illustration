@@ -4,11 +4,11 @@ import type { PixelGraphics } from "..";
 import type { ImageFunction } from "../types";
 
 export type Redraw = (args: {
-	sizeX: number;
-	sizeY: number;
+	absSizeXFull: number;
+	absSizeYFull: number;
 	pixelSize: number;
-	widthFactor: number;
-	heightFactor: number;
+	relSizeX: number;
+	relSizeY: number;
 }) => [number, number];
 
 export const getRenderer = (
@@ -36,13 +36,13 @@ export const getRenderer = (
 	}
 
 	return (args) => {
-		const countXFull = args.sizeX / args.pixelSize;
-		const countYFull = args.sizeY / args.pixelSize;
+		const countXFull = args.absSizeXFull / args.pixelSize;
+		const countYFull = args.absSizeYFull / args.pixelSize;
 		const countX = Math.round(
-			Math.min(1, args.widthFactor || 1) * countXFull
+			Math.min(1, args.relSizeX || 1) * countXFull
 		);
 		const countY = Math.round(
-			Math.min(1, args.heightFactor || 1) * countYFull
+			Math.min(1, args.relSizeY || 1) * countYFull
 		);
 		const image =
 			countX && countY && virtualContext.createImageData(countX, countY);
@@ -56,9 +56,9 @@ export const getRenderer = (
 			virtualCanvas.height = countY;
 
 			/* eslint-disable-next-line no-param-reassign */
-			options.divCanvas.width = args.sizeX;
+			options.divCanvas.width = args.absSizeXFull;
 			/* eslint-disable-next-line no-param-reassign */
-			options.divCanvas.height = args.sizeY;
+			options.divCanvas.height = args.absSizeYFull;
 
 			// Disable Anti-Alaising
 			context.imageSmoothingEnabled = false;
@@ -82,6 +82,6 @@ export const getRenderer = (
 			);
 		}
 
-		return [args.sizeX, args.sizeY];
+		return [args.absSizeXFull, args.absSizeYFull];
 	};
 };

@@ -18,40 +18,27 @@ export class PixelSetter {
 	}
 
 	getSet(color, zInd, id) {
-		const that = this;
-		return function () {
-			return that.colorArray.getSet(color, zInd, id);
-		};
+		return () => this.colorArray.getSet(color, zInd, id);
 	}
 	getClear(id) {
-		const that = this;
-		return function () {
-			return that.colorArray.getClear(id);
-		};
+		return () => this.colorArray.getClear(id);
 	}
 	getSetForRect(color, zInd, id) {
-		const that = this;
-		return function () {
-			return that.colorArray.getSetForRect(color, zInd, id);
-		};
+		return () => this.colorArray.getSetForRect(color, zInd, id);
 	}
 	getClearForRect(id) {
-		const that = this;
-		return function () {
-			return that.colorArray.getClearForRect(id);
-		};
+		return () => this.colorArray.getClearForRect(id);
 	}
 	getSetSave(name, isRect) {
-		const that = this;
-		return function () {
-			const thisSave = that.forms[name]
-				? that.forms[name]
-				: (that.forms[name] = {});
+		return () => {
+			const thisSave = this.forms[name]
+				? this.forms[name]
+				: (this.forms[name] = {});
 			const save = thisSave.save ? thisSave.save : (thisSave.save = []);
 			const mask = thisSave.mask ? thisSave.mask : (thisSave.mask = []);
 
 			return isRect
-				? that.colorArray.getSaveForRect(save, mask)
+				? this.colorArray.getSaveForRect(save, mask)
 				: function (x, y) {
 						save.push([x, y]);
 
@@ -64,17 +51,16 @@ export class PixelSetter {
 	}
 
 	getClearSave(name, isRect) {
-		const that = this;
-		return function () {
-			const thisSave = that.forms[name];
+		return () => {
+			const thisSave = this.forms[name];
 
 			if (thisSave) {
 				return isRect
-					? that.colorArray.getClearSaveForRect(
+					? this.colorArray.getClearSaveForRect(
 							thisSave.save,
 							thisSave.mask
 					  )
-					: function () {};
+					: () => {};
 			}
 		};
 	}

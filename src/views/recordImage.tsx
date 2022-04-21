@@ -46,5 +46,11 @@ export const recordImage: Record<
 			return import("../responsivePixel/images/teiresias");
 		},
 	},
+	stripes: {
+		niceName: "Stripes",
+		getImage: () => {
+			return import("../responsivePixel/images/stripes");
+		},
+	},
 };
 export const listPairImage = Object.entries(recordImage);

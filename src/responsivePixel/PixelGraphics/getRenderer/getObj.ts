@@ -102,7 +102,7 @@ export const getObj = (
 			newArgs.id = args.id || inherit.id || newArgs.save;
 		}
 		if (args.mask) {
-			newArgs.mask = pixelSetter.setColorMask;
+			newArgs.mask = pixelSetter.setColorMask.bind(pixelSetter);
 		}
 
 		newArgs.zInd = (inherit.zInd || 0) + (args.z || 0);

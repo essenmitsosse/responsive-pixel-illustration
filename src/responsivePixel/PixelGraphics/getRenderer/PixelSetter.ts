@@ -5,6 +5,7 @@ export class PixelSetter {
 	constructor() {
 		this.forms = {};
 		this.colorArray = [];
+		this.init(this.colorArray);
 	}
 
 	init(newArray) {

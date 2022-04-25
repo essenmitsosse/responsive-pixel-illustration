@@ -1,12 +1,39 @@
 import type { ContextInner } from '.'
 import type { Size } from '../../types'
+import { Variable } from '../../Variable'
+import { VariableDynamic } from '../../VariableDynamic'
 
-export const getDimension = (contextInner: ContextInner, context) =>
+const variableListLink = (
+  variableList: Record<string, Variable>,
+  name: string,
+  vari: Variable,
+) => {
+  if (variableList[name]) {
+    variableList[name].link(vari)
+  } else {
+    variableList[name] = new VariableDynamic(name)
+    variableList[name].link(vari)
+  }
+}
+
+const variableListCreate = (
+  variableList: Record<string, Variable>,
+  name: string,
+) => {
+  if (!variableList[name]) {
+    variableList[name] = new VariableDynamic(name)
+  }
+  return variableList[name]
+}
+
+export const getDimension = (
+  contextInner: ContextInner,
+  variableList: Record<string, Variable>,
+) =>
   class Dimension {
     dimension: boolean
     axis: boolean
     contextInner = contextInner
-    context = context
     debug = false
     abs!: number
     rele!: number
@@ -38,14 +65,14 @@ export const getDimension = (contextInner: ContextInner, context) =>
         }
         this.debug = !!args.debug
         if ('a' in args && typeof args.a === 'string') {
-          this.context.variableListLink(args.a, this)
+          variableListLink(variableList, args.a, this)
         }
         if (args.add) {
           this.createAdder(args.add)
         }
         if (args.useSize) {
           if (typeof args.useSize === 'string') {
-            this.context.variableListLink(args.useSize, (this.useVari = {}))
+            variableListLink(variableList, args.useSize, (this.useVari = {}))
           } else if (args.useSize.getLinkedVariable) {
             this.useSize = args.useSize.getLinkedVariable
           } else {
@@ -69,7 +96,7 @@ export const getDimension = (contextInner: ContextInner, context) =>
         }
         if (args.save) {
           this.realPartCalculation = this.getSaveDistance(
-            this.context.variableListCreate(args.save),
+            variableListCreate(variableList, args.save),
           )
         }
         if (args.odd || args.even) {
@@ -87,7 +114,7 @@ export const getDimension = (contextInner: ContextInner, context) =>
           this.rele = 0
         } else if (typeof args === 'string') {
           // Linked to Variable ( old style )
-          this.context.variableListLink(args, this)
+          variableListLink(variableList, args, this)
           this.rele = 0
           this.realPartCalculation = this.getRealDistance
           return

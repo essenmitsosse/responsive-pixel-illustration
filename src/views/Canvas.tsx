@@ -1,5 +1,9 @@
 import { ReactNode, useEffect, useRef, useState } from 'react'
-import { PixelGraphics } from '../responsivePixel/PixelGraphics'
+import {
+  getRenderer,
+  Redraw,
+} from '../responsivePixel/PixelGraphics/getRenderer'
+
 import { ImageFunction } from '../responsivePixel/PixelGraphics/types'
 
 const Canvas = (props: {
@@ -12,14 +16,14 @@ const Canvas = (props: {
   setIsDone?: () => void
 }): ReactNode => {
   const $canvas = useRef<HTMLCanvasElement>(null)
-  const [pixelGraphic, setPixelGraphic] = useState<PixelGraphics | null>(null)
+  const [redraw, setRedraw] = useState<{ redraw: Redraw } | null>(null)
 
   useEffect(() => {
-    if (pixelGraphic === null) {
+    if (redraw === null) {
       return
     }
 
-    pixelGraphic.redraw({
+    redraw.redraw({
       sizeRelX: props.sizeRelX,
       sizeRelY: props.sizeRelY,
       pixelSize: props.pixelSize,
@@ -29,7 +33,7 @@ const Canvas = (props: {
 
     props.setIsDone !== undefined && props.setIsDone()
   }, [
-    pixelGraphic,
+    redraw,
     props.sizeAbsXFull,
     props.sizeAbsYFull,
     props.sizeRelX,
@@ -42,13 +46,13 @@ const Canvas = (props: {
       return
     }
 
-    setPixelGraphic(
-      new PixelGraphics({
+    setRedraw({
+      redraw: getRenderer({
         divCanvas: $canvas.current,
         pixelSize: props.pixelSize,
         imageFunction: props.imageFunction,
       }),
-    )
+    })
   }, [$canvas, props.imageFunction])
 
   return (

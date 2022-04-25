@@ -16,6 +16,10 @@ import {
   getSizeY,
 } from './getDimension'
 import { ImageFunction } from '../responsivePixel/PixelGraphics/types'
+import {
+  getRenderer,
+  Redraw,
+} from '../responsivePixel/PixelGraphics/getRenderer'
 import Canvas from './Canvas'
 
 const recordStateImage = {
@@ -30,6 +34,7 @@ export default (props: { idImage: string }) => {
   const [sizePixel, setSizePixel] = useState(5)
   const [searchParams, setSearchParams] = useSearchParams()
   const isResizeable = searchParams.get('resizeable') !== 'false'
+  const [redraw, setRedraw] = useState<{ redraw: Redraw } | null>(null)
   const [boundingClientRectWrapper, setBoundingClientRectWrapper] =
     useState<DOMRect | null>(null)
   const [imageFunction, setImageFunction] = useState<ImageFunction | null>(null)

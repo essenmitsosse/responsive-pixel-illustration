@@ -1,28 +1,29 @@
 import { getSmallerDim, getBiggerDim } from "../helperPixelGraphics";
-import { ColorRgb, ImageFunction } from "../PixelGraphics/types";
+import { ColorRgb, ImageFunction, Size } from "../PixelGraphics/types";
 
-const water = [36, 44, 53],
-	waterLight = [74, 81, 88],
-	ground = [72, 71, 68],
-	groundDark = [65, 54, 57],
-	groundWater = [54, 58, 61],
-	tree = [100, 118, 64],
-	treeShadow = [90, 90, 53],
-	treeBackground = [49, 45, 35],
-	fruit = [123, 35, 35],
-	trunk = [82, 76, 68],
-	trunkShadow = [74, 58, 58],
-	skin = [193, 180, 163],
-	skinWater = [69, 74, 79],
-	skinShadow = [162, 146, 129],
-	borderColor = [111, 67, 29],
-	borderDetailColor = [123, 87, 35],
-	shorts = [139, 146, 154],
-	shortsWater = [60, 68, 77],
+const water: ColorRgb = [36, 44, 53],
+	waterLight: ColorRgb = [74, 81, 88],
+	ground: ColorRgb = [72, 71, 68],
+	groundDark: ColorRgb = [65, 54, 57],
+	groundWater: ColorRgb = [54, 58, 61],
+	tree: ColorRgb = [100, 118, 64],
+	treeShadow: ColorRgb = [90, 90, 53],
+	treeBackground: ColorRgb = [49, 45, 35],
+	fruit: ColorRgb = [123, 35, 35],
+	trunk: ColorRgb = [82, 76, 68],
+	trunkShadow: ColorRgb = [74, 58, 58],
+	skin: ColorRgb = [193, 180, 163],
+	skinWater: ColorRgb = [69, 74, 79],
+	skinShadow: ColorRgb = [162, 146, 129],
+	borderColor: ColorRgb = [111, 67, 29],
+	borderDetailColor: ColorRgb = [123, 87, 35],
+	shorts: ColorRgb = [139, 146, 154],
+	shortsWater: ColorRgb = [60, 68, 77],
 	// Variables
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	linkList: Array<any> = [],
-	linkListPush = <T>(obj: T) => {
+	linkList: Array<Size | ReadonlyArray<Size>> = [],
+	linkListPush = (
+		obj: Size | ReadonlyArray<Size>
+	): Size | ReadonlyArray<Size> => {
 		linkList.push(obj);
 		return obj;
 	},
@@ -948,6 +949,8 @@ const water = [36, 44, 53],
 		border(),
 	],
 	backgroundColor: ColorRgb = [31, 29, 29];
+
+console.log(linkList);
 
 const image: ImageFunction = {
 	renderList: renderList,

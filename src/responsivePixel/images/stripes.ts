@@ -1,16 +1,22 @@
 "use strict";
 
-import { ColorRgb, ImageFunction } from "../PixelGraphics/types";
+import {
+	ColorRgb,
+	ImageFunction,
+	Render,
+	RenderObject,
+	Size,
+} from "../PixelGraphics/types";
 
 const backgroundColor: ColorRgb = [100, 100, 120],
-	linkList = [],
-	linkListPush = function (obj) {
+	linkList: Array<Size> = [],
+	linkListPush = function (obj: Size) {
 		linkList.push(obj);
 
 		return obj;
 	},
-	white = [220, 220, 255],
-	red = [220, 50, 40],
+	white: ColorRgb = [220, 220, 255],
+	red: ColorRgb = [220, 50, 40],
 	count = 5,
 	width = linkListPush({ main: true }),
 	height = linkListPush({ main: true, height: true }),
@@ -38,7 +44,7 @@ const backgroundColor: ColorRgb = [100, 100, 120],
 	whiteSX = linkListPush({
 		add: [innerSingleSY, { r: -2, useSize: stripSX }],
 	}),
-	versions = function (size) {
+	versions = function (size): [Render, Render, Render, Render, Render] {
 		return [
 			[
 				{ color: white },
@@ -80,8 +86,8 @@ const backgroundColor: ColorRgb = [100, 100, 120],
 		];
 	},
 	sizes = (function (count) {
-		let i = 0,
-			obj = {};
+		const obj: Record<`s${number}`, Size> = {};
+		let i = 0;
 
 		while (i < count) {
 			obj["s" + i] = linkListPush({
@@ -94,12 +100,13 @@ const backgroundColor: ColorRgb = [100, 100, 120],
 
 		return obj;
 	})(count),
-	getSquares = function (args) {
-		let list = [],
-			i = 0,
+	getSquares = (): ReadonlyArray<RenderObject> => {
+		const list: Array<RenderObject> = [],
 			max = count;
+		let i: 0 | 1 | 2 | 3 | 4 | 5 = 0;
 
 		while (i < max) {
+			const foo = versions(sizes["s" + i]);
 			list.push({
 				sY: [singleSY, -1],
 				sX: sizes["s" + i],
@@ -107,7 +114,7 @@ const backgroundColor: ColorRgb = [100, 100, 120],
 				x: 1,
 				list: [
 					{ color: [50, 50, 60] },
-					{ m: 1, mask: true, list: versions(sizes["s" + i])[i] },
+					{ m: 1, mask: true, list: foo[i] },
 				],
 			});
 			i += 1;
@@ -115,7 +122,7 @@ const backgroundColor: ColorRgb = [100, 100, 120],
 
 		return list;
 	},
-	renderList = [
+	renderList: ReadonlyArray<Render> = [
 		{
 			sX: {
 				add: [{ r: 10000, useSize: heightOvershot }],
@@ -128,7 +135,7 @@ const backgroundColor: ColorRgb = [100, 100, 120],
 			color: [0, 255, 255],
 			rotate: 90,
 			rY: true,
-			list: getSquares({ horizontal: true }),
+			list: getSquares(),
 		},
 		{
 			sX: { add: [{ r: 10000, useSize: widthOvershot }], max: width },
@@ -137,7 +144,7 @@ const backgroundColor: ColorRgb = [100, 100, 120],
 				max: height,
 			},
 			color: [255, 0, 0],
-			list: getSquares({ horizontal: false }),
+			list: getSquares(),
 		},
 	];
 

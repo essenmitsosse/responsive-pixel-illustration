@@ -4,7 +4,7 @@ import { getGetRandom } from "./getGetRandom";
 import { Variable } from "./Variable";
 import { VariableDynamic } from "./VariableDynamic";
 import type { Redraw } from "./getRenderer";
-import type { ImageFunction, Link } from "./types";
+import type { ImageFunction, Size } from "./types";
 
 export class PixelGraphics {
 	public getRandom = getGetRandom();
@@ -37,11 +37,11 @@ export class PixelGraphics {
 		this.redraw = getRenderer(args, this);
 	}
 
-	prepareVariableList(vl: ReadonlyArray<Link>) {
+	prepareVariableList(vl: ReadonlyArray<Size>) {
 		if (vl.length === 0) {
 			return;
 		}
-		const getLinkedVariable = (variable: Variable) => () => {
+		const getLinkedVariable = (variable: Size) => () => {
 			if (!variable.calculated) {
 				/* eslint-disable-next-line no-param-reassign */
 				variable.calculated = true;

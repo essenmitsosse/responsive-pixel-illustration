@@ -1,10 +1,10 @@
-import type { InputDimension } from "../../types";
+import type { Size } from "../../types";
 
 export const getHeight = (Dimension) =>
 	class Height extends Dimension {
 		axis = false;
 
-		constructor(args: InputDimension) {
+		constructor(args: Size) {
 			super(false, true, args);
 		}
 	};

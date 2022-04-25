@@ -1,5 +1,5 @@
 import type { ContextInner } from ".";
-import type { InputDimension } from "../../types";
+import type { Size } from "../../types";
 
 export const getDimension = (contextInner: ContextInner, context) =>
 	class Dimension {
@@ -13,7 +13,7 @@ export const getDimension = (contextInner: ContextInner, context) =>
 		getRealDistance = this.getRealDistanceBasic;
 		realPartCalculation?: () => number;
 
-		constructor(axis: boolean, dimension: boolean, args: InputDimension) {
+		constructor(axis: boolean, dimension: boolean, args: Size) {
 			this.axis = axis;
 			this.dimension = dimension;
 

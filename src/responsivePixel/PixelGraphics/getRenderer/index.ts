@@ -44,37 +44,39 @@ export const getRenderer = (options: {
     const missingX = countXFull - countX
     const missingY = countYFull - countY
 
-    if (image && countX > 0 && countY > 0) {
-      // Resize Canvas to new Windows-Size
-      virtualCanvas.width = countX
-      virtualCanvas.height = countY
-
-      /* eslint-disable-next-line no-param-reassign */
-      options.divCanvas.width = args.sizeAbsXFull
-      /* eslint-disable-next-line no-param-reassign */
-      options.divCanvas.height = args.sizeAbsYFull
-
-      // Disable Anti-Alaising
-      context.imageSmoothingEnabled = false
-
-      // Render the Image Data to the Pixel Array
-      drawing = drawer(countX, countY).get
-
-      // Render the Pixel Array to the Image
-      renderPixelToImage(countX, countY, drawing, image.data)
-
-      // Place Image on the Context
-      virtualContext.putImageData(image, 0, 0)
-
-      // Draw and upscale Context on Canvas
-      context.drawImage(
-        virtualCanvas,
-        Math.round(missingX / 2) * args.pixelSize,
-        Math.round(missingY / 2) * args.pixelSize,
-        countX * args.pixelSize,
-        countY * args.pixelSize,
-      )
+    if (!image || countX === 0 || countY === 0) {
+      return [0, 0]
     }
+
+    // Resize Canvas to new Windows-Size
+    virtualCanvas.width = countX
+    virtualCanvas.height = countY
+
+    /* eslint-disable-next-line no-param-reassign */
+    options.divCanvas.width = args.sizeAbsXFull
+    /* eslint-disable-next-line no-param-reassign */
+    options.divCanvas.height = args.sizeAbsYFull
+
+    // Disable Anti-Alaising
+    context.imageSmoothingEnabled = false
+
+    // Render the Image Data to the Pixel Array
+    drawing = drawer(countX, countY).get
+
+    // Render the Pixel Array to the Image
+    renderPixelToImage(countX, countY, drawing, image.data)
+
+    // Place Image on the Context
+    virtualContext.putImageData(image, 0, 0)
+
+    // Draw and upscale Context on Canvas
+    context.drawImage(
+      virtualCanvas,
+      Math.round(missingX / 2) * args.pixelSize,
+      Math.round(missingY / 2) * args.pixelSize,
+      countX * args.pixelSize,
+      countY * args.pixelSize,
+    )
 
     return [args.sizeAbsXFull, args.sizeAbsYFull]
   }

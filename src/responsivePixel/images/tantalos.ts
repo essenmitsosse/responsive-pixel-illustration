@@ -936,8 +936,6 @@ const water: ColorRgb = [36, 44, 53],
   ],
   backgroundColor: ColorRgb = [31, 29, 29]
 
-console.log(linkList)
-
 const image: ImageFunction = {
   renderList: renderList,
   linkList: linkList,

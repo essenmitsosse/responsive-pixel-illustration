@@ -1,7 +1,7 @@
 import type { ContextInner } from '.'
 import type { Size } from '../../types'
-import { Variable } from '../../Variable'
-import { VariableDynamic } from '../../VariableDynamic'
+import { Variable } from '../Variable'
+import { VariableDynamic } from '../VariableDynamic'
 
 const variableListLink = (
   variableList: Record<string, Variable>,

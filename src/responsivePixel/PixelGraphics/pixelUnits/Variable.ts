@@ -1,4 +1,4 @@
-import { OneD } from './pixelUnits/get1D'
+import { OneD } from './get1D'
 export class Variable {
   constructor(args, name, oneD: OneD) {
     if (args) {

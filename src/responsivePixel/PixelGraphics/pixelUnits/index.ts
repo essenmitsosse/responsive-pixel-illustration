@@ -1,8 +1,8 @@
 import { get1D, OneD } from './get1D'
 import { getAxis } from './getAxis'
 import { get2D } from './get2D'
-import type { ImageFunction, Size, Variable as VariableType } from '../types'
-import { Variable } from '../Variable'
+import type { ImageFunction, Size, Variable as VariableType } from './types'
+import { Variable } from './Variable'
 
 const getLinkedVariable = (variable: Size) => () => {
   if (!variable.calculated) {

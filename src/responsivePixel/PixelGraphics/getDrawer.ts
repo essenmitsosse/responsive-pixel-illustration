@@ -1,7 +1,7 @@
 import { getPixelArray } from './getPixelArray'
 import { getDrawingTools } from './DrawingTools'
-import type { Render } from '../types'
-import { PixelUnit } from '../pixelUnits'
+import type { Render } from './types'
+import { PixelUnit } from './pixelUnits'
 
 export const getDrawer = (
   pixelUnit: PixelUnit,

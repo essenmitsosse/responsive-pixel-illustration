@@ -1,4 +1,4 @@
-import type { GetRandom } from '../getGetRandom'
+import type { GetRandom } from './getGetRandom'
 
 export class Seed {
   private getRandom: GetRandom

@@ -8,7 +8,7 @@ import { getDistanceX } from './getDistanceX'
 import { getDistanceY } from './getDistanceY'
 import type { Dimension } from './getDimension'
 import { getDimension } from './getDimension'
-import { Variable } from '../../Variable'
+import { Variable } from '../Variable'
 
 export interface ContextInner {
   getGetLengthCalculation: (x: number, y: number) => () => number

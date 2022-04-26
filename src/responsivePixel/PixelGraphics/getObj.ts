@@ -1,4 +1,4 @@
-import type { PixelUnit } from '../pixelUnits'
+import type { PixelUnit } from './pixelUnits'
 import type { PixelSetter } from './PixelSetter'
 import type { Seed } from './Seed'
 

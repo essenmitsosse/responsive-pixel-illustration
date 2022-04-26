@@ -1,7 +1,7 @@
 import { getRenderPixelToImage } from './getRenderPixelToImage'
 import { getDrawer } from './getDrawer'
-import type { ImageFunction } from '../types'
-import { getPixelUnits } from '../pixelUnits'
+import type { ImageFunction } from './types'
+import { getPixelUnits } from './pixelUnits'
 
 export type Redraw = (args: {
   sizeAbsXFull: number

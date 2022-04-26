@@ -1,4 +1,4 @@
-import { Color } from './getRenderer/Color'
+import { Color } from './Color'
 
 export interface Variable {}
 

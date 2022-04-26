@@ -6,6 +6,8 @@ import sphinx from './sphinx'
 import stripes from './stripes'
 import tantalos from './tantalos'
 import teiresias from './teiresias'
+import trex from './trex'
+import typo from './typo'
 import zeus from './zeus'
 import { DO_SCREENSHOT_LIST_IMAGE } from './HELPER_SCREENSHOTS'
 
@@ -25,6 +27,8 @@ DO_SCREENSHOT_LIST_IMAGE({
 })
 DO_SCREENSHOT_LIST_IMAGE({ IMAGE_FUNCTION: tantalos, NAME: 'tantalos' })
 DO_SCREENSHOT_LIST_IMAGE({ IMAGE_FUNCTION: teiresias, NAME: 'teiresias' })
+DO_SCREENSHOT_LIST_IMAGE({ IMAGE_FUNCTION: trex, NAME: 'trex' })
+DO_SCREENSHOT_LIST_IMAGE({ IMAGE_FUNCTION: typo, NAME: 'typo' })
 DO_SCREENSHOT_LIST_IMAGE({
   IMAGE_FUNCTION: zeus,
   NAME: 'zeus',

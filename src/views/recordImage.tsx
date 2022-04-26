@@ -52,5 +52,11 @@ export const recordImage: Record<
       return import('../responsivePixel/images/stripes')
     },
   },
+  zeus: {
+    niceName: 'Zeus',
+    getImage: () => {
+      return import('../responsivePixel/images/zeus')
+    },
+  },
 }
 export const listPairImage = Object.entries(recordImage)

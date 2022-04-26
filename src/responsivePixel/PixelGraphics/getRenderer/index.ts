@@ -40,7 +40,6 @@ export const getRenderer = (options: {
     const countY = Math.round(Math.min(1, args.sizeRelY || 1) * countYFull)
     const image =
       countX && countY && virtualContext.createImageData(countX, countY)
-    let drawing
     const missingX = countXFull - countX
     const missingY = countYFull - countY
 
@@ -61,7 +60,7 @@ export const getRenderer = (options: {
     context.imageSmoothingEnabled = false
 
     // Render the Image Data to the Pixel Array
-    drawing = drawer(countX, countY).get
+    const drawing = drawer(countX, countY).get
 
     // Render the Pixel Array to the Image
     renderPixelToImage(countX, countY, drawing, image.data)

@@ -1,7 +1,6 @@
 import { getRenderPixelToImage } from './getRenderPixelToImage'
 import { getDrawer } from './getDrawer'
 import type { ImageFunction } from './types'
-import { getPixelUnits } from './pixelUnits'
 
 export type Redraw = (args: {
   sizeAbsXFull: number
@@ -19,9 +18,7 @@ export const getRenderer = (options: {
   const context = options.divCanvas.getContext('2d')
   const virtualCanvas = document.createElement('canvas')
   const virtualContext = virtualCanvas.getContext('2d')
-  const pixelUnit = getPixelUnits(options)
-
-  const drawer = getDrawer(pixelUnit, options.imageFunction.renderList)
+  const drawer = getDrawer(options.imageFunction)
   const renderPixelToImage = getRenderPixelToImage(
     options.imageFunction.background,
   )

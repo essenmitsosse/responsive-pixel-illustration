@@ -2,11 +2,13 @@ import { getObj } from './getObj'
 import { Seed } from './Seed'
 import { PixelSetter } from './PixelSetter'
 import { getGetRandom } from './getGetRandom'
-import { PixelUnit } from './pixelUnits'
+import { getPixelUnits } from './pixelUnits'
+import { ImageFunction } from './types'
 
-export const getDrawingTools = (pixelUnit: PixelUnit) => {
+export const getDrawingTools = (imageFunction: ImageFunction) => {
   const seed = new Seed(getGetRandom())
   const pixelSetter = new PixelSetter()
+  const pixelUnit = getPixelUnits(imageFunction)
 
   return {
     Obj: getObj(pixelSetter, seed, pixelUnit),

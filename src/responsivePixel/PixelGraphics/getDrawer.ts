@@ -1,14 +1,12 @@
 import { getPixelArray } from './getPixelArray'
 import { getDrawingTools } from './DrawingTools'
-import type { Render } from './types'
-import { PixelUnit } from './pixelUnits'
+import type { ImageFunction } from './types'
 
-export const getDrawer = (
-  pixelUnit: PixelUnit,
-  renderList: ReadonlyArray<Render>,
-) => {
-  const drawingTool = getDrawingTools(pixelUnit)
-  const canvasTool = new drawingTool.Obj().create({ list: renderList })
+export const getDrawer = (imageFunction: ImageFunction) => {
+  const drawingTool = getDrawingTools(imageFunction)
+  const canvasTool = new drawingTool.Obj().create({
+    list: imageFunction.renderList,
+  })
   return (countW, countH) => {
     const pixelArray = getPixelArray(countW, countH)
     drawingTool.init(countW, countH, pixelArray)

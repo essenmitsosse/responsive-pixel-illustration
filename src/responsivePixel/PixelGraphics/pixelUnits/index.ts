@@ -58,18 +58,18 @@ const updateVariableList = (variableList: Record<string, VariableType>) => {
   })
 }
 
-export const getPixelUnits = (args: { imageFunction: ImageFunction }) => {
+export const getPixelUnits = (imageFunction: ImageFunction) => {
   const variableList = {}
   const oneD = get1D(variableList)
   const Axis = getAxis(oneD)
   const twoD = get2D(Axis)
 
-  if (args.imageFunction.variableList) {
-    prepareVariableList(args.imageFunction.variableList, variableList, oneD)
+  if (imageFunction.variableList) {
+    prepareVariableList(imageFunction.variableList, variableList, oneD)
   }
 
-  if (args.imageFunction.linkList) {
-    prepareLinkList(args.imageFunction.linkList, oneD)
+  if (imageFunction.linkList) {
+    prepareLinkList(imageFunction.linkList, oneD)
   }
 
   const old = []
@@ -83,10 +83,10 @@ export const getPixelUnits = (args: { imageFunction: ImageFunction }) => {
     init(dimensions) {
       oneD.set(dimensions)
       Axis.set(dimensions)
-      if (args.imageFunction.linkList) {
-        updateLinkList(args.imageFunction.linkList, dimensions)
+      if (imageFunction.linkList) {
+        updateLinkList(imageFunction.linkList, dimensions)
       }
-      if (args.imageFunction.variableList) {
+      if (imageFunction.variableList) {
         updateVariableList(variableList)
       }
     },

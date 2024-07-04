@@ -2,11 +2,13 @@ module.exports = {
 	root: true,
 	env: {
 		node: true,
+		browser: true,
 	},
 	plugins: ["@typescript-eslint"],
 	extends: ["eslint:recommended", "prettier"],
 	parserOptions: {
 		ecmaVersion: 2022,
+		sourceType: "module",
 	},
 	overrides: [
 		// This makes sure typescript rules are only used for typescript files

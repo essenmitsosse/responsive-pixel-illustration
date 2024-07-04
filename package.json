@@ -1,49 +1,49 @@
 {
-	"name": "responsive-pixel-illustration",
-	"version": "1.0.0",
-	"private": true,
-	"description": "",
-	"author": "Marcus Blättermann <marcus@essenmitsosse.de>",
-	"scripts": {
-		"dev": "vite",
-		"build": "vite build",
-		"preview": "vite preview",
-		"lint": "eslint --ext .js --fix src",
-		"prettier": "prettier . --write --ignore-path .gitignore",
-		"prettierCheck": "prettier . --check --ignore-path .gitignore",
-		"ts": "tsc --noemit"
-	},
-	"main": "index.js",
-	"dependencies": {
-		"@types/react": "^18",
-		"@types/react-dom": "^18",
-		"react": "^18",
-		"react-dom": "^18",
-		"react-router-dom": "^6.2.2"
-	},
-	"devDependencies": {
-		"@tailwindcss/forms": "^0.5.0",
-		"@typescript-eslint/eslint-plugin": "^7",
-		"@typescript-eslint/parser": "^7",
-		"@vitejs/plugin-react": "^4",
-		"autoprefixer": "^10.4.4",
-		"eslint": "^8.9",
-		"eslint-config-prettier": "^9",
-		"eslint-plugin-import": "^2.25.4",
-		"postcss": "^8.4.12",
-		"prettier": "^3",
-		"prettier-plugin-tailwindcss": "^0.6",
-		"tailwindcss": "^3.0.23",
-		"typescript": "^5",
-		"vite": "^5"
-	},
-	"bugs": {
-		"url": "https://github.com/essenmitsosse/responsive-pixel-illustration/issues"
-	},
-	"homepage": "https://github.com/essenmitsosse/responsive-pixel-illustration#readme",
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/essenmitsosse/responsive-pixel-illustration.git"
-	}
+  "name": "responsive-pixel-illustration",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "author": "Marcus Blättermann <marcus@essenmitsosse.de>",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint --ext .js --fix src",
+    "prettier": "prettier . --write --ignore-path .gitignore",
+    "prettierCheck": "prettier . --check --ignore-path .gitignore",
+    "ts": "tsc --noemit"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-router-dom": "^6.2.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.0",
+    "@typescript-eslint/eslint-plugin": "^7",
+    "@typescript-eslint/parser": "^7",
+    "@vitejs/plugin-react": "^4",
+    "autoprefixer": "^10.4.4",
+    "eslint": "^8.9",
+    "eslint-config-prettier": "^9",
+    "eslint-plugin-import": "^2.25.4",
+    "postcss": "^8.4.12",
+    "prettier": "^3",
+    "prettier-plugin-tailwindcss": "^0.6",
+    "tailwindcss": "^3.0.23",
+    "typescript": "^5",
+    "vite": "^5"
+  },
+  "bugs": {
+    "url": "https://github.com/essenmitsosse/responsive-pixel-illustration/issues"
+  },
+  "homepage": "https://github.com/essenmitsosse/responsive-pixel-illustration#readme",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/essenmitsosse/responsive-pixel-illustration.git"
+  }
 }

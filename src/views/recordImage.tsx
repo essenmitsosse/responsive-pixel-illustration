@@ -22,6 +22,12 @@ export const recordImage: Record<
       return import('../responsivePixel/images/graien')
     },
   },
+  landscape: {
+    niceName: 'Landscape',
+    getImage: () => {
+      return import('../responsivePixel/images/landscape')
+    },
+  },
   sphinx: {
     niceName: 'Sphinx',
     getImage: () => {

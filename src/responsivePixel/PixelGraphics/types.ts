@@ -12,31 +12,45 @@ export interface SizeObject {
   min?: Size | ReadonlyArray<Size>
   main?: boolean
   height?: boolean
+  random?: { r: number }
 }
 
 export type Size = number | string | GetLength | GetLinkedVariable | SizeObject
 
 export interface Stripes {
-  strip: ReadonlyArray<Size>
+  strip: number | ReadonlyArray<Size>
+  random: Size
 }
 
 export interface RenderObject {
+  s?: Size
   sX?: Size | ReadonlyArray<Size>
   sY?: Size | ReadonlyArray<Size>
   x?: Size | ReadonlyArray<Size>
   y?: Size | ReadonlyArray<Size>
   m?: Size | ReadonlyArray<Size>
+  minX?: number
+  minY?: number
   color?: ColorRgb
   rotate?: 0 | -90 | 90 | 180
   rY?: boolean
   fX?: boolean
+  fY?: boolean
   cX?: boolean
+  cY?: boolean
   list?: Render
   mask?: boolean
   stripes?: Stripes
+  use?: string
+  chance?: number
+  name?: string
+  clear?: boolean
+  save?: string
+  id?: string
+  points?: ReadonlyArray<RenderObject>
 }
 
-export type Render = RenderObject | ReadonlyArray<RenderObject>
+export type Render = RenderObject | ReadonlyArray<RenderObject | undefined>
 
 export type ColorRgb = readonly [number, number, number]
 

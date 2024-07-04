@@ -9,7 +9,8 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"lint": "eslint --ext .js --fix src",
-		"prettier": "prettier --check .",
+		"prettier": "prettier . --write --ignore-path .gitignore",
+		"prettierCheck": "prettier . --check --ignore-path .gitignore",
 		"ts": "tsc --noemit"
 	},
 	"main": "index.js",

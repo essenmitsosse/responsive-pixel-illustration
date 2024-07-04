@@ -9,7 +9,7 @@ Builder.prototype.Comic = function (init) {
 	const panels = this.IF(0.05) ? 1 : this.GR(3, 6);
 	const borderColor = (args.borderColor = new this.Color(
 		this.IF() ? 1 : 0,
-		this.IF(0.1) ? (this.IF(0.5) ? 2 : 3) : this.IF(0.5) ? 5 : 0
+		this.IF(0.1) ? (this.IF(0.5) ? 2 : 3) : this.IF(0.5) ? 5 : 0,
 	));
 
 	const outerBorderColor =
@@ -182,7 +182,7 @@ Builder.prototype.Comic = function (init) {
 				row3a: panels / 3 <= i,
 				row3b: (2 * panels) / 3 <= i,
 				big: i === bigPanel,
-			})
+			}),
 		);
 
 		if (i === bigPanel) {
@@ -255,8 +255,8 @@ Builder.prototype.Panel = function (args) {
 					? -1
 					: 1
 				: this.colorChangeStart > 0
-				? -1
-				: 1);
+					? -1
+					: 1);
 	}
 
 	this.clearSky = this.IF(0.5);
@@ -307,11 +307,11 @@ Builder.prototype.Panel.prototype.draw = function (args) {
 						? this.newLightness
 						: 0
 					: this.backWard
-					? this.newLightness
-					: 0;
+						? this.newLightness
+						: 0;
 		} else {
 			darkness = Math.round(
-				this.colorChangeStart + this.colorChange * nr
+				this.colorChangeStart + this.colorChange * nr,
 			);
 			if (darkness < -3) {
 				darkness = -3;
@@ -348,7 +348,7 @@ Builder.prototype.Panel.prototype.draw = function (args) {
 
 	this.vL[`thingS${nr}`] = this.mult(
 		closeUp ? 2 : wideShot ? 0.5 : superWideShot ? 0.2 : 1,
-		"panelSqu"
+		"panelSqu",
 	);
 	this.vL[`horizont${nr}`] = {
 		r:
@@ -612,14 +612,14 @@ Builder.prototype.Actor.prototype.draw = function (args, z, size) {
 			args.shoulder.left > 0.55
 				? this.R(0.5)
 				: this.IF(0.7)
-				? this.R(-0.75, 0.75)
-				: this.R(-0.25, 0.25),
+					? this.R(-0.75, 0.75)
+					: this.R(-0.25, 0.25),
 		right:
 			args.shoulder.right > 0.55
 				? this.R(0.5)
 				: this.IF(0.7)
-				? this.R(-0.75, 0.75)
-				: this.R(-0.25, 0.25),
+					? this.R(-0.75, 0.75)
+					: this.R(-0.25, 0.25),
 	};
 
 	args.finger = {

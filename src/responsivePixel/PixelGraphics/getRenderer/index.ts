@@ -17,7 +17,7 @@ export const getRenderer = (
 		pixelSize: number;
 		imageFunction: ImageFunction;
 	},
-	pixelGraphics: PixelGraphics
+	pixelGraphics: PixelGraphics,
 ): Redraw => {
 	const context = options.divCanvas.getContext("2d");
 	const virtualCanvas = document.createElement("canvas");
@@ -25,7 +25,7 @@ export const getRenderer = (
 
 	const drawer = getDrawer(pixelGraphics, options.imageFunction.renderList);
 	const renderPixelToImage = getRenderPixelToImage(
-		options.imageFunction.background
+		options.imageFunction.background,
 	);
 
 	if (context === null) {
@@ -38,12 +38,8 @@ export const getRenderer = (
 	return (args) => {
 		const countXFull = args.absSizeXFull / args.pixelSize;
 		const countYFull = args.absSizeYFull / args.pixelSize;
-		const countX = Math.round(
-			Math.min(1, args.relSizeX || 1) * countXFull
-		);
-		const countY = Math.round(
-			Math.min(1, args.relSizeY || 1) * countYFull
-		);
+		const countX = Math.round(Math.min(1, args.relSizeX || 1) * countXFull);
+		const countY = Math.round(Math.min(1, args.relSizeY || 1) * countYFull);
 		const image =
 			countX && countY && virtualContext.createImageData(countX, countY);
 		let drawing;
@@ -78,7 +74,7 @@ export const getRenderer = (
 				Math.round(missingX / 2) * args.pixelSize,
 				Math.round(missingY / 2) * args.pixelSize,
 				countX * args.pixelSize,
-				countY * args.pixelSize
+				countY * args.pixelSize,
 			);
 		}
 

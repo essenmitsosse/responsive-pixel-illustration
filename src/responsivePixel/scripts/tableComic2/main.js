@@ -58,7 +58,7 @@ var TableComic = (window.renderer = function (init, slide, createSlider) {
 			min: 0,
 			map: "b",
 			variable: controlerY,
-		}
+		},
 	);
 
 	// Assign global Functions to all Comic Constructors
@@ -108,8 +108,8 @@ var TableComic = (window.renderer = function (init, slide, createSlider) {
 	this.stripInfo = faceVersion
 		? new this.getFace()
 		: init.altVersion
-		? this.getStrip()
-		: new this.getTableComic(init); // !!!! REMOVE ONE OF THEM !!!!!
+			? this.getStrip()
+			: new this.getTableComic(init); // !!!! REMOVE ONE OF THEM !!!!!
 	this.paperColor = this.stripInfo.paperColor || [255, 255, 255];
 
 	renderList = [
@@ -400,7 +400,7 @@ TableComic.prototype.getSizeSwitch = function (
 	maxSize,
 	finalSize,
 	link,
-	defaultPoint
+	defaultPoint,
 ) {
 	baseSize = this.pushLinkList(baseSize);
 	maxSize = this.pushLinkList(maxSize);

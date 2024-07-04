@@ -12,7 +12,7 @@ TableComic.prototype.getTableComic = function getTableComic(args) {
 		ratio: 1.3,
 		basicPanel: this.panel,
 		panels: this.story.getPanels(
-			args.panels !== undefined ? args.panels : 3
+			args.panels !== undefined ? args.panels : 3,
 		),
 	};
 
@@ -28,7 +28,7 @@ TableComic.prototype.getStory = function getStory() {
 };
 
 TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
-	totalPanelCount
+	totalPanelCount,
 ) {
 	const actor0StandUp = 0.1;
 	const { stage } = this;
@@ -974,7 +974,7 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
 		mainSteps[count].absFloatLength =
 			totalPanelCount * mainSteps[count].relLength;
 		mainSteps[count].absLength = Math.round(
-			mainSteps[count].absFloatLength
+			mainSteps[count].absFloatLength,
 		);
 		if (mainSteps[count].absLength <= 0) {
 			mainSteps[count].absLength = 1;
@@ -1091,7 +1091,7 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
 };
 
 TableComic.prototype.getStory.prototype.getPanels = function getStoryPanels(
-	totalPanelCount
+	totalPanelCount,
 ) {
 	const panels = [];
 	let currentPanelNumber = 0;
@@ -1137,7 +1137,7 @@ TableComic.prototype.getStory.prototype.getPanel = function (frame, rel) {
 				what: actorsList[key].renderObject,
 				info: main[key],
 				relPosition: rel || frame.relPosition,
-			})
+			}),
 		);
 	}
 
@@ -1164,7 +1164,7 @@ TableComic.prototype.getAnimation = function getAnimation(args) {
 				map: args.map,
 				min: args.start.min + process * (args.end.min - args.start.min),
 				max: args.start.max + process * (args.end.max - args.start.max),
-		  };
+			};
 };
 // END getAnimation \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
@@ -1205,29 +1205,29 @@ TableComic.prototype.getActors = function (story) {
 		new this.basic.Chair({
 			color: this.furnitureColor,
 			colorDetail: this.furnitureDetailColor,
-		})
+		}),
 	);
 	this.chair1 = new this.basic.RenderObjectContainer(
 		new this.basic.Chair({
 			toLeft: true,
 			color: this.furnitureColor,
 			colorDetail: this.furnitureDetailColor,
-		})
+		}),
 	);
 	this.table = new this.basic.RenderObjectContainer(
 		new this.basic.Table({
 			color: this.furnitureColor,
 			colorDetail: this.furnitureDetailColor,
-		})
+		}),
 	);
 
 	this.glass = new this.basic.RenderObjectContainer(new this.basic.Glass());
 
 	this.emotion0 = new this.basic.RenderObjectContainer(
-		new this.basic.Emotion()
+		new this.basic.Emotion(),
 	);
 	this.emotion1 = new this.basic.RenderObjectContainer(
-		new this.basic.Emotion()
+		new this.basic.Emotion(),
 	);
 };
 
@@ -1250,7 +1250,7 @@ TableComic.prototype.getActors.prototype.getNewActor = function (args) {
 				max: this.baseColor2Alt,
 			}),
 			main: args.main,
-		})
+		}),
 	);
 };
 // END getActors \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
@@ -1261,7 +1261,7 @@ TableComic.prototype.RenderObjectContainer = function (renderObject) {
 };
 
 TableComic.prototype.RenderObjectContainer.prototype.getAction = function (
-	args
+	args,
 ) {
 	let obj = {};
 	const { info } = args;
@@ -1283,7 +1283,7 @@ TableComic.prototype.RenderObjectContainer.prototype.getAction = function (
 
 TableComic.prototype.RenderObjectContainer.prototype.joinObject = function (
 	main,
-	defaults
+	defaults,
 ) {
 	let key;
 
@@ -1309,7 +1309,7 @@ TableComic.prototype.RenderObjectContainer.prototype.getActionProcessor.prototyp
 			obj[key] = this.checkIfObject(
 				obj[key] || {},
 				start[key],
-				end && end[key]
+				end && end[key],
 			);
 		}
 
@@ -1363,8 +1363,8 @@ TableComic.prototype.getColorScheme.prototype.getColor = function (args) {
 			typeof args === "number"
 				? args
 				: args.random
-				? this.rInt(0, this.colors.length - 1)
-				: args.nr || 0
+					? this.rInt(0, this.colors.length - 1)
+					: args.nr || 0
 		];
 
 	return shade ? this.multiplyColor(baseColor, shade) : baseColor;
@@ -1377,6 +1377,6 @@ TableComic.prototype.getColorScheme.prototype.getColorMap = function (args) {
 				map: "actor-color",
 				min: this.getColor(args.min),
 				max: this.getColor(args.max),
-		  };
+			};
 };
 // END getColorScheme \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/

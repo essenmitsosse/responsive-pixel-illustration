@@ -211,7 +211,7 @@ Builder.prototype.Stripes.prototype.draw = function (args, z) {
 							mask: true,
 						},
 						{ save: `shirt${nr}` },
-				  ]
+					]
 				: this.doted && [
 						{
 							stripes: !this.dots && {
@@ -226,7 +226,7 @@ Builder.prototype.Stripes.prototype.draw = function (args, z) {
 								horizontal: !this.horizontal,
 							},
 						},
-				  ],
+					],
 		}
 	);
 }; // END Stripes draw
@@ -464,7 +464,7 @@ Builder.prototype.Cleavage.prototype.draw = function (args, z) {
 					this.mult(0.5, `chestSX${nr}`),
 					this.mult(-0.5, `cleavageSX${nr}`),
 					this.sub(`collarSX${nr}`),
-			  ]
+				]
 			: [`chestSX${nr}`, this.mult(-1, `cleavageSX${nr}`)];
 		this.sleeveless &&
 			(sideView &&

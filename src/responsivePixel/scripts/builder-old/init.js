@@ -177,14 +177,14 @@ const renderer = function (init) {
 						args.shoulder.left > 0.55
 							? R(0, 0.5)
 							: IF(0.8)
-							? R(0, 1) * 1.5 - 0.75
-							: R(0, 1) * 0.5 - 0.25,
+								? R(0, 1) * 1.5 - 0.75
+								: R(0, 1) * 0.5 - 0.25,
 					right:
 						args.shoulder.right > 0.55
 							? R(0, 0.5)
 							: IF(0.8)
-							? R(0, 1) * 1.5 - 0.75
-							: R(0, 1) * 0.5 - 0.25,
+								? R(0, 1) * 1.5 - 0.75
+								: R(0, 1) * 0.5 - 0.25,
 				};
 
 				args.finger = {
@@ -249,8 +249,8 @@ const renderer = function (init) {
 									list: getCols(new func(args), false, i, nr),
 								},
 							],
-					  }
-					: { x: pos, list: func.draw(args) }
+						}
+					: { x: pos, list: func.draw(args) },
 			);
 			i += 1;
 		}

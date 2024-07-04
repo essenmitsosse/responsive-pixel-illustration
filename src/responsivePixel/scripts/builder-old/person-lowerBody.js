@@ -53,7 +53,7 @@ Builder.prototype.LowerBody.prototype.draw = function (args, z) {
 						sY: `crotchSY${nr}`,
 						z: z + 110,
 						cX: sideView,
-				  },
+					},
 
 			// Leg
 			{

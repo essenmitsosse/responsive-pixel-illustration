@@ -35,7 +35,7 @@ Builder.prototype.Person.prototype.draw = function (args, z) {
 					x: [`personHalfSX${nr}`, -1],
 					list: this.basicBody.draw(args, backView),
 				},
-		  ];
+			];
 }; // END Person draw
 
 // BASICBODY --------------------------------------------------------------------------------
@@ -55,8 +55,8 @@ Builder.prototype.BasicBody = function (args) {
 		(this.IF(0.1)
 			? this.R(0.3, 0.8)
 			: this.IF(0.1)
-			? this.R(0.05, 0.15)
-			: this.R(0.15, 0.3)) * this.sY;
+				? this.R(0.05, 0.15)
+				: this.R(0.15, 0.3)) * this.sY;
 
 	this.lowerBodySY = this.IF(0.1) ? this.R(0.5, 0.9) : 0.7;
 	if (args.demo && args.hip) {

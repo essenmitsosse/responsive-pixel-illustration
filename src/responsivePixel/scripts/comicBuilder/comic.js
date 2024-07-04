@@ -162,7 +162,10 @@ Comic.prototype.Strip = function Strip(args) {
 			useSize: stageSmallestSX,
 			max: stageSmallestMaxSY,
 		}),
-		(stageSmallestSquare = { add: [stageSmallestSX], max: stageSmallestSY })
+		(stageSmallestSquare = {
+			add: [stageSmallestSX],
+			max: stageSmallestSY,
+		}),
 	);
 
 	// Create Border and draw it immediately
@@ -185,7 +188,7 @@ Comic.prototype.Strip = function Strip(args) {
 
 		this.linkList.push(
 			(sX = [current.sX, subBorderS]),
-			(sY = [current.sY, subBorderS])
+			(sY = [current.sY, subBorderS]),
 		);
 
 		current.list = [
@@ -255,7 +258,7 @@ Comic.prototype.Border = function (args) {
 	// Forms & Sizes
 	this.size = args.size;
 	this.linkList.push(
-		(this.borderEdge = { r: 0.45, useSize: args.size, max: 1 })
+		(this.borderEdge = { r: 0.45, useSize: args.size, max: 1 }),
 	);
 
 	const hasBent = this.rIf(0.5);
@@ -299,7 +302,7 @@ Comic.prototype.Border.prototype.draw = function (args) {
 						sY: this.borderEdge,
 						fX: true,
 						clear: true,
-					}
+					},
 				);
 			}
 
@@ -317,7 +320,7 @@ Comic.prototype.Border.prototype.draw = function (args) {
 						fX: true,
 						fY: true,
 						clear: true,
-					}
+					},
 				);
 			}
 		}
@@ -330,7 +333,7 @@ Comic.prototype.Border.prototype.draw = function (args) {
 		list.push(
 			{ sX: this.size },
 			{ sX: this.size, fX: true },
-			{ sY: this.size, fY: true }
+			{ sY: this.size, fY: true },
 		);
 
 		// Edge inner Bent
@@ -349,7 +352,7 @@ Comic.prototype.Border.prototype.draw = function (args) {
 						sX: this.borderEdge,
 						sY: 1,
 						fX: true,
-					}
+					},
 				);
 			}
 
@@ -369,7 +372,7 @@ Comic.prototype.Border.prototype.draw = function (args) {
 						sY: 1,
 						fX: true,
 						fY: true,
-					}
+					},
 				);
 			}
 		}

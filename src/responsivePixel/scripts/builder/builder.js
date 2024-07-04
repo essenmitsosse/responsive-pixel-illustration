@@ -89,7 +89,7 @@ Builder.prototype.buildColors = function (info) {
 		const br = Math.sqrt(
 			0.241 * Math.pow(r, 2) +
 				0.691 * Math.pow(g, 2) +
-				0.068 * Math.pow(b, 2)
+				0.068 * Math.pow(b, 2),
 		);
 		const rgb = [r, g, b];
 		const { steps } = info;
@@ -171,7 +171,7 @@ Builder.prototype.Color.prototype.copy = function (args) {
 
 	const color = new this.Color(
 		args.nr !== undefined ? args.nr : this.nr,
-		this.br
+		this.br,
 	);
 
 	if (args.nextColor) {
@@ -239,7 +239,7 @@ Builder.prototype.Color.prototype.brightnessSet = function (set) {
 Builder.prototype.Color.prototype.brightnessContrast = function (
 	add,
 	min,
-	max
+	max,
 ) {
 	min = min || 0;
 	max = max || 5;

@@ -30,12 +30,12 @@ Builder.prototype.Head = function (args) {
 			? args.skinColor.copy({
 					brContrast:
 						(this.IF(0.5) ? 2 : 1) * (this.IF(0.5) ? -1 : 1),
-			  })
+				})
 			: args.skinColor.copy({
 					nextColor: hairNext,
 					prevColor: !hairNext,
 					brContrast: -2,
-			  });
+				});
 	this.hairDetailColor = args.hairDetailColor = args.hairColor.copy({
 		brContrast: -1,
 	});
@@ -55,10 +55,10 @@ Builder.prototype.Head = function (args) {
 		new (this.IF(0.01)
 			? this.basic.Horns
 			: this.IF(0.2)
-			? this.basic.Helm
-			: this.IF(0.1)
-			? this.basic.HeadBand
-			: this.basic.Hat)(args);
+				? this.basic.Helm
+				: this.IF(0.1)
+					? this.basic.HeadBand
+					: this.basic.Hat)(args);
 
 	this.hair = this.IF(0.9) && new this.basic.Hair(args);
 }; // END Head
@@ -90,13 +90,13 @@ Builder.prototype.Head.prototype.getSizes = function (args) {
 						],
 						max: args.personSX,
 						min: 1,
-				  }
+					}
 				: {
 						r: this.neckSX,
 						useSize: args.headMinSX,
 						max: args.personSX,
 						min: 1,
-				  }
+					},
 		);
 		args.neckSY = this.pushLinkList({
 			r: this.headSY * this.neckSY,
@@ -272,7 +272,7 @@ Builder.prototype.Head.prototype.draw = function (args) {
 							this.mouthDrawn ||
 								this.mouth.draw(
 									args,
-									args.backView ? -500 : 50
+									args.backView ? -500 : 50,
 								),
 
 							// Eye Area
@@ -557,7 +557,7 @@ Builder.prototype.Eye.prototype.draw = function (args) {
 													r: 1,
 													add: [
 														this.sub(
-															args.lowerLids
+															args.lowerLids,
 														),
 														-1,
 													],
@@ -597,13 +597,13 @@ Builder.prototype.Eye.prototype.draw = function (args) {
 										],
 									},
 							],
-					  }
+						}
 					: {
 							// Closed Eyes
 							fY: true,
 							sY: 1,
 							cY: lids !== "sleepy",
-					  },
+						},
 
 				// Eye Brow
 				this.eyeBrow && {
@@ -613,12 +613,12 @@ Builder.prototype.Eye.prototype.draw = function (args) {
 								r: 1,
 								a: 1,
 								max: [args.headSX, this.sub(args.eyeX)],
-						  },
+							},
 					sY: eyeBrowAngry
 						? [
 								args.eyeBrowSY,
 								{ r: 0.2, useSize: args.eyeSY, max: 1 },
-						  ]
+							]
 						: args.eyeBrowSY,
 					y:
 						(eyeBrowRaised && -1) ||
@@ -706,10 +706,10 @@ Builder.prototype.Mouth.prototype.draw = function (args) {
 			mouthSlight || mouthSmile
 				? { a: 2, max: args.mouthMaxSY }
 				: mouthOpen
-				? mouthHalfOpen
-					? this.mult(0.5, args.mouthMaxSY)
-					: args.mouthMaxSY
-				: { a: 1, max: args.mouthMaxSY }
+					? mouthHalfOpen
+						? this.mult(0.5, args.mouthMaxSY)
+						: args.mouthMaxSY
+					: { a: 1, max: args.mouthMaxSY },
 		);
 		args.mouthY = this.pushLinkList({
 			r: this.mouthY,
@@ -745,7 +745,7 @@ Builder.prototype.Mouth.prototype.draw = function (args) {
 							fY: mouthD,
 						},
 						{ sX: { r: 1, a: -1 }, sY: 1, fY: !mouthD },
-				  ]
+					]
 				: mouthOpen && [
 						mouthOpen &&
 							(mouthD || mouthGrin) && {
@@ -777,7 +777,7 @@ Builder.prototype.Mouth.prototype.draw = function (args) {
 							fY: true,
 							color: this.teethColor.get(),
 						},
-				  ],
+					],
 		}
 	);
 }; // END Mouth draw
@@ -1089,11 +1089,11 @@ Builder.prototype.Hat = function (args) {
 	this.baseCap = this.hatRim && this.IF(0.1);
 	this.thickRim = this.hatRim && this.IF(0.3);
 	this.hatBand = this.IF(
-		0.3 + (this.hatRim ? 0.3 : 0) + (this.baseCap ? -0.4 : 0)
+		0.3 + (this.hatRim ? 0.3 : 0) + (this.baseCap ? -0.4 : 0),
 	);
 
 	this.dent = this.IF(
-		0.2 + (this.hatRim ? 0.3 : 0) + (this.baseCap ? -0.49 : 0)
+		0.2 + (this.hatRim ? 0.3 : 0) + (this.baseCap ? -0.49 : 0),
 	);
 	this.dentSX = this.dent && this.R(0, 0.5);
 
@@ -1184,7 +1184,7 @@ Builder.prototype.Hat.prototype.draw = function (args) {
 						? {
 								x: { r: this.hatTopSX * (sideView ? 0.5 : 1) },
 								y: -1,
-						  }
+							}
 						: { y: -1 },
 					{
 						x: { r: this.hatTopSX * (sideView ? 0.5 : 1) },

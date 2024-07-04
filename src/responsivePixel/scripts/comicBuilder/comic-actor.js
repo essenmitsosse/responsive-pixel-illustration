@@ -75,7 +75,7 @@ Comic.prototype.Actor.prototype = {
 		args = args || {};
 
 		this.actorControl.addComment(
-			this.name + (!args.dontStart ? " " : " will start ") + action
+			this.name + (!args.dontStart ? " " : " will start ") + action,
 		);
 
 		if (!args.dontStart) {
@@ -123,7 +123,7 @@ Comic.prototype.Actor.prototype = {
 			} else if (opponentPos - this.posX_ < 0) {
 				this.posX_ = opponentPos;
 				this.actorControl.addComment(
-					`${this.name} has reached ${this.opponent.name}`
+					`${this.name} has reached ${this.opponent.name}`,
 				);
 				this.setAction("stop");
 
@@ -236,7 +236,7 @@ Comic.prototype.Actor.prototype = {
 		this.linkList.push(
 			(this.sX = sX = { r: this.sX_, useSize: args.size }),
 			(this.sY = sY =
-				{ r: this.sY_ * (landed ? 0.6 : 1), useSize: args.size })
+				{ r: this.sY_ * (landed ? 0.6 : 1), useSize: args.size }),
 		);
 
 		if (this.hasLegs) {
@@ -250,7 +250,7 @@ Comic.prototype.Actor.prototype = {
 				{ r: this.topHeadSY_, useSize: headSY }),
 			(this.bottomHeadSY = bottomHeadSY =
 				[headSY, { r: -1, useSize: topHeadSY }]),
-			(faceSX = { r: this.faceSX, useSize: sX })
+			(faceSX = { r: this.faceSX, useSize: sX }),
 		);
 
 		this.posX = posX;
@@ -377,12 +377,13 @@ Comic.prototype.Actor.prototype = {
 											sX: !armForward
 												? 1
 												: hits
-												? {
-														r: 2,
-														useSize: args.distance,
-														a: 1,
-												  }
-												: { r: 0.3, min: 2 },
+													? {
+															r: 2,
+															useSize:
+																args.distance,
+															a: 1,
+														}
+													: { r: 0.3, min: 2 },
 
 											list: [
 												hits && {
@@ -452,7 +453,7 @@ Comic.prototype.Actor.prototype = {
 																	mY: -1,
 																},
 															],
-													  }
+														}
 													: {
 															sY: 1,
 															sX: {
@@ -466,7 +467,7 @@ Comic.prototype.Actor.prototype = {
 																.shadowColor,
 															z: 100,
 															fY: true,
-													  },
+														},
 											],
 										},
 									],
@@ -507,7 +508,7 @@ Comic.prototype.Actor.prototype = {
 												},
 											],
 										},
-								  ]
+									]
 								: [
 										// Stands
 										{ sX: 1 },
@@ -525,7 +526,7 @@ Comic.prototype.Actor.prototype = {
 											fY: true,
 											fX: true,
 										},
-								  ],
+									],
 						},
 					],
 				},

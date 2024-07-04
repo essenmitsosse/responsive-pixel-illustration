@@ -24,18 +24,18 @@ Builder.prototype.Person = function (args) {
 
 	this.vL[`topSY${nr}`] = this.mult(
 		(this.bigHead ? 0.7 : 0.2) * this.superHead,
-		`personSqu${nr}`
+		`personSqu${nr}`,
 	);
 	this.vL[`bottomSY${nr}`] = [`personSqu${nr}`, this.sub(`topSY${nr}`)];
 
 	this.vL[`personSX${nr}`] = this.mult(
 		this.FL() * 0.2 + 0.1,
-		`personHalfSX${nr}`
+		`personHalfSX${nr}`,
 	);
 	this.vL[`personSideSX${nr}`] = this.mult(1.2, `personSX${nr}`);
 	this.vL[`personSY${nr}`] = this.mult(
 		this.dwarf ? 0.7 : 1,
-		`personSqu${nr}`
+		`personSqu${nr}`,
 	);
 
 	this.vL[`headSX${nr}`] = {
@@ -54,7 +54,7 @@ Builder.prototype.Person = function (args) {
 	};
 	this.vL[`neckSY${nr}`] = this.mult(
 		this.IF() ? 0.2 : 0.1,
-		`headNeckSY${nr}`
+		`headNeckSY${nr}`,
 	);
 
 	this.vL[`headSY${nr}`] = [`headNeckSY${nr}`, this.sub(`neckSY${nr}`)];
@@ -108,7 +108,7 @@ Builder.prototype.Person = function (args) {
 				useSize: `personSX${nr}`,
 				min: 1,
 				max: this.mult(0.5, `legSY${nr}`),
-		  }
+			}
 		: `legWid${nr}`;
 
 	this.vL[`armSY${nr}`] = this.mult(0.5, `bodySY${nr}`);
@@ -132,7 +132,7 @@ Builder.prototype.Person = function (args) {
 					this.sub(`personSX${nr}`),
 				],
 				min: 1,
-		  };
+			};
 	this.vL[`restArmSY${nr}`] = [
 		`armSY${nr}`,
 		this.sub(`shoulderHeadSX${nr}`),
@@ -164,7 +164,7 @@ Builder.prototype.Person.prototype.draw = function (args) {
 					sX: `personHalfSX${nr}`,
 					list: this.basicBody.draw(args, back),
 				},
-		  ];
+			];
 }; // END Person draw
 
 // BASICBODY --------------------------------------------------------------------------------
@@ -179,12 +179,12 @@ Builder.prototype.BasicBody = function (args) {
 	// Color
 	this.skinColor = args.skinColor = new this.Color(
 		this.IF() ? 1 : 0,
-		Math.floor(this.GR(1, 4))
+		Math.floor(this.GR(1, 4)),
 	);
 	args.skinDetailColor = args.skinColor.copy({ brContrast: -2 });
 	args.clothColor = new this.Color(
 		this.IF(0.3) ? (this.IF(0.3) ? 0 : 1) : 2,
-		this.IF() ? (this.IF() ? 4 : 2) : 3
+		this.IF() ? (this.IF() ? 4 : 2) : 3,
 	);
 
 	// Assets
@@ -283,8 +283,8 @@ Builder.prototype.Head = function (args) {
 		? this.IF()
 			? new this.basic.BasicHat(args)
 			: this.IF(0.05)
-			? new this.basic.Helmet(args)
-			: undefined
+				? new this.basic.Helmet(args)
+				: undefined
 		: undefined;
 	this.ears = this.IF(0.05) && new this.basic.Ear(args);
 }; // END Head
@@ -439,7 +439,7 @@ Builder.prototype.Face.prototype.draw = function (args) {
 								a: -2,
 								max: 2,
 								min: 1,
-						  }
+							}
 						: 1,
 				sX:
 					!eyesSquish && (this.bigEyes || eyesClosed)
@@ -462,8 +462,8 @@ Builder.prototype.Face.prototype.draw = function (args) {
 					mouthOpen || mouthD
 						? { r: 0.5, max: { r: 1, a: -2 }, min: 2 }
 						: mouthGrin
-						? { r: 0.4, max: { r: 1, a: -3 }, min: 2 }
-						: 1,
+							? { r: 0.4, max: { r: 1, a: -3 }, min: 2 }
+							: 1,
 				fY: true,
 				id: `mouth${nr}`,
 				list: [
@@ -517,7 +517,7 @@ Builder.prototype.Face.prototype.draw = function (args) {
 									`headSideSX${nr}`,
 									`beardOvershotSideSX${nr}`,
 									this.sub(`hairSideSX${nr}`),
-							  ]
+								]
 							: `headSX${nr}`,
 						sY: this.mult(this.bigHead ? 1 : 1, `faceSY${nr}`),
 						list: [
@@ -684,15 +684,15 @@ Builder.prototype.BasicHat.prototype.draw = function (args) {
 						fX: true,
 						sX: side ? { r: 1.5 } : undefined,
 						color: this.hatRimColor.get(),
-				  }
+					}
 				: this.hatRim && {
 						fY: true,
 						sY: { r: 0.1, min: 1 },
 						mX: this.mult(
 							this.hatNarrow ? -0.5 : -1,
-							`headSX${nr}`
+							`headSX${nr}`,
 						),
-				  },
+					},
 		],
 	};
 }; // END BasicHat draw
@@ -727,7 +727,7 @@ Builder.prototype.Helmet.prototype.draw = function (args) {
 							`faceSX${nr}`,
 							this.sub(`eyeS${nr}`),
 							this.sub(`eyeX${nr}`),
-					  ],
+						],
 				sY: { r: 0.6 },
 			},
 			{
@@ -738,8 +738,8 @@ Builder.prototype.Helmet.prototype.draw = function (args) {
 						sX: back
 							? undefined
 							: side
-							? `faceSideRestX${nr}`
-							: `faceRestX${nr}`,
+								? `faceSideRestX${nr}`
+								: `faceRestX${nr}`,
 					},
 					{ z: args.zInd + (back ? 170 : -170) },
 				],
@@ -767,7 +767,7 @@ Builder.prototype.UpperBody = function (args) {
 		? this.bodyColor.copy({
 				brContrast: this.IF(0.1) ? 2 : -2,
 				nextColor: this.IF(),
-		  })
+			})
 		: undefined;
 
 	// Assests
@@ -777,8 +777,8 @@ Builder.prototype.UpperBody = function (args) {
 	this.chestDeko = args.topless
 		? new this.basic.Nipple(args)
 		: this.IF(0.1)
-		? new this.basic.Buttons(args)
-		: undefined;
+			? new this.basic.Buttons(args)
+			: undefined;
 
 	if (this.IF(0.02)) {
 		this.onBack = new this.basic.Cape(args);
@@ -818,7 +818,7 @@ Builder.prototype.UpperBody.prototype.draw = function (args) {
 									fX: true,
 									x: `shoulderSideSX${nr}`,
 								},
-						  ]
+							]
 						: [{ fX: true }, { fY: true, x: { r: -1, a: 1 } }],
 				},
 		],
@@ -1176,8 +1176,8 @@ Builder.prototype.SquareObject.prototype.draw = function (args) {
 				sX: this.handleWide
 					? `shieldSX${nrName}`
 					: this.handleSmall
-					? 1
-					: [2, `armWid${nr}`],
+						? 1
+						: [2, `armWid${nr}`],
 				cX: true,
 				list: [
 					{ sY: 1 },
@@ -1278,13 +1278,13 @@ Builder.prototype.LowerBody = function (args) {
 			: args.clothColor.copy({
 					nextColor: this.IF(0.6),
 					brContrast: this.IF() ? 1 : -1,
-			  }));
+				}));
 	this.shoeColor = args.shoeColor = this.shoes
 		? (this.pantsColor || args.clothColor).copy({ brSet: 0 })
 		: false;
 	this.beltColor = this.belt
 		? args.beltColor ||
-		  this.pantsColor.copy({ prevColor: true, brContrast: -1 })
+			this.pantsColor.copy({ prevColor: true, brContrast: -1 })
 		: undefined;
 
 	// Assests

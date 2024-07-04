@@ -99,7 +99,7 @@ Comic.prototype.World.prototype = {
 			(stageDoubleX = { add: [args.sX, { r: -1, useSize: stageSX }] }),
 			(stageDoubleY = { add: [args.sY, { r: -1, useSize: stageSY }] }),
 			(stageCenterX = { r: 0.5, useSize: stageDoubleX }),
-			(stageCenterY = { r: 0.5, useSize: stageDoubleY })
+			(stageCenterY = { r: 0.5, useSize: stageDoubleY }),
 		);
 
 		actors = this.actors.draw({
@@ -119,7 +119,7 @@ Comic.prototype.World.prototype = {
 					{ r: -1, useSize: actors.actorS },
 					{ r: 0.5, useSize: this.focusedActor.sX },
 					{ r: -1, useSize: this.focusedActor.posX },
-				])
+				]),
 			);
 
 			stageX.push({
@@ -130,7 +130,7 @@ Comic.prototype.World.prototype = {
 			stageY.push(
 				{ r: 0.5, useSize: stageSY },
 				{ r: -1, useSize: this.focusedActor.sY },
-				{ r: 0.5, useSize: this.focusedActor.topHeadSY }
+				{ r: 0.5, useSize: this.focusedActor.topHeadSY },
 			);
 		}
 
@@ -141,7 +141,7 @@ Comic.prototype.World.prototype = {
 			// Ground & Sky
 			(groundTopSY = { r: this.groundTopSY, useSize: stageSX, min: 1 }),
 			(groundSY = [groundTopSY, stageY]),
-			[args.stageSY, { r: -1, useSize: groundSY }]
+			[args.stageSY, { r: -1, useSize: groundSY }],
 		);
 
 		return [
@@ -210,7 +210,7 @@ Comic.prototype.Logo = function Logo(args) {
 		(widePanelRest = [args.sX, { r: -1, useSize: args.stageSX }]),
 		(widePanelBorder = { r: -0.1, useSize: widePanelRest }),
 		(widePanelPan = [widePanelBorder, { r: 0.5, useSize: widePanelRest }]),
-		(logoRest = [widePanelRest, widePanelBorder])
+		(logoRest = [widePanelRest, widePanelBorder]),
 	);
 
 	args.stageX.push({
@@ -259,7 +259,7 @@ Comic.prototype.Logo = function Logo(args) {
 			fY: true,
 			color: shadowColor,
 			z: 50,
-		}
+		},
 	);
 
 	return {

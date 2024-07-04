@@ -149,7 +149,7 @@ Comic.prototype.Actors.prototype = {
 				actorsMaxDistance,
 				{ r: -1, useSize: actorsCurrentDistance },
 				{ r: -1, useSize: actor1PosX },
-			])
+			]),
 		);
 
 		actorArgs = {
@@ -262,7 +262,7 @@ Comic.prototype.Actors.prototype = {
 				`${Math.round(actor.speed * 100) / 100}`, // speed
 				`${
 					Math.round(actor.posX_ * 100) / 100 // posX_
-				} / ${Math.round(actor.posY_ * 100) / 100}` // posX_
+				} / ${Math.round(actor.posY_ * 100) / 100}`, // posX_
 			);
 		};
 
@@ -270,7 +270,7 @@ Comic.prototype.Actors.prototype = {
 			// "   ACTING",
 			"   SPEED",
 			"   POSX/POSY",
-			`   diff ${Math.round(this.getActorDistance() * 100) / 100}`
+			`   diff ${Math.round(this.getActorDistance() * 100) / 100}`,
 		);
 
 		addActor(actor1Array, this.actor1, 1);

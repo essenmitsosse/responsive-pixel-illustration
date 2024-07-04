@@ -47,7 +47,7 @@ TableComic.prototype.Strip = function (args) {
 			(sX = {}),
 			(sY = {}),
 			(minSX = { add: [sX], max: minSX }),
-			(minSY = { add: [sY], max: minSY })
+			(minSY = { add: [sY], max: minSY }),
 		);
 
 		sizeList.push({
@@ -136,7 +136,7 @@ TableComic.prototype.Panel = function (args) {
 
 TableComic.prototype.Panel.prototype.setStage = function (
 	minPanelSX,
-	minPanelSY
+	minPanelSY,
 ) {
 	this.getSizeWithRatio({
 		sX: (this.minPanelSX = minPanelSX),
@@ -168,14 +168,14 @@ TableComic.prototype.Panel.prototype.draw = function (args) {
 				{ r: zoomToHead1, useSize: this.basePanelX },
 				{ r: zoomToHead2, useSize: this.basePanelX },
 				{},
-				cameraFocus.map
+				cameraFocus.map,
 			);
 
 			this.zoomBaseSY = this.getSizeSwitch(
 				{ r: zoomToHead1, useSize: this.basePanelY },
 				{ r: zoomToHead2, useSize: this.basePanelY },
 				{},
-				cameraFocus.map
+				cameraFocus.map,
 			);
 		} else {
 			const zoomToHead = cameraFocus
@@ -207,7 +207,7 @@ TableComic.prototype.Panel.prototype.draw = function (args) {
 					min: this.zoomBaseSX,
 				}),
 				{},
-				cameraFocus.map
+				cameraFocus.map,
 			);
 
 			this.zoomBaseActorSizeSY = this.getSizeSwitch(
@@ -222,7 +222,7 @@ TableComic.prototype.Panel.prototype.draw = function (args) {
 					min: this.zoomBaseSY,
 				}),
 				{},
-				cameraFocus.map
+				cameraFocus.map,
 			);
 
 			if (cameraFocus.min.obj.sizeMap) {
@@ -377,12 +377,12 @@ TableComic.prototype.Panel.prototype.draw = function (args) {
 			actorFocus1 = cameraFocus.min.obj.getFocus(
 				this.stageSX,
 				this.stageSY,
-				cameraFocus.min
+				cameraFocus.min,
 			);
 			actorFocus2 = cameraFocus.max.obj.getFocus(
 				this.stageSX,
 				this.stageSY,
-				cameraFocus.max
+				cameraFocus.max,
 			);
 
 			this.actorFocusX = this.pushLinkList({
@@ -391,7 +391,7 @@ TableComic.prototype.Panel.prototype.draw = function (args) {
 					actorFocus1.x,
 					actorFocus2.x,
 					{},
-					cameraFocus.map
+					cameraFocus.map,
 				),
 			});
 
@@ -401,14 +401,14 @@ TableComic.prototype.Panel.prototype.draw = function (args) {
 					actorFocus1.y,
 					actorFocus2.y,
 					{},
-					cameraFocus.map
+					cameraFocus.map,
 				),
 			});
 		} else {
 			actorFocus1 = cameraFocus.obj.getFocus(
 				this.stageSX,
 				this.stageSY,
-				cameraFocus
+				cameraFocus,
 			);
 
 			this.actorFocusX = this.pushLinkList({

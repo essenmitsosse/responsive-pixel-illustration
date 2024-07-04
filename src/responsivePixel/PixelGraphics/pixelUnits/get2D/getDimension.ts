@@ -19,7 +19,7 @@ export const getDimension = (Axis) =>
 							toOtherSide: args.tY,
 							min: args.minY,
 							center: args.cY || args.c,
-					  }
+						}
 					: {
 							size: args.sX,
 							pos: args.x,
@@ -28,7 +28,7 @@ export const getDimension = (Axis) =>
 							toOtherSide: args.tX,
 							min: args.minX,
 							center: args.cX || args.c,
-					  }
+						},
 			);
 			this.y = new Axis.Y(
 				rotate
@@ -40,7 +40,7 @@ export const getDimension = (Axis) =>
 							toOtherSide: args.tX,
 							min: args.minX,
 							center: args.cX || args.c,
-					  }
+						}
 					: {
 							size: args.sY,
 							pos: args.y,
@@ -49,7 +49,7 @@ export const getDimension = (Axis) =>
 							toOtherSide: args.tY,
 							min: args.minY,
 							center: args.cY || args.c,
-					  }
+						},
 			);
 		}
 

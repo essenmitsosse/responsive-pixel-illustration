@@ -9,13 +9,13 @@ export const getPosition = (Axis) =>
 						fromOtherSide: !fromBottom,
 						toOtherSide: args.toTop,
 						center: args.centerX || args.center,
-				  }
+					}
 				: {
 						pos: args.x,
 						fromOtherSide: fromRight,
 						toOtherSide: args.toLeft,
 						center: args.centerY || args.center,
-				  }
+					},
 		);
 		const y = new Axis.PosY(
 			rotate
@@ -24,13 +24,13 @@ export const getPosition = (Axis) =>
 						fromOtherSide: fromRight,
 						toOtherSide: args.toLeft,
 						center: args.centerX || args.center,
-				  }
+					}
 				: {
 						pos: args.y,
 						fromOtherSide: fromBottom,
 						toOtherSide: args.toTop,
 						center: args.centerY || args.center,
-				  }
+					},
 		);
 		return function () {
 			return {

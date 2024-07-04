@@ -22,7 +22,7 @@ const water: ColorRgb = [36, 44, 53],
 	// Variables
 	linkList: Array<Size | ReadonlyArray<Size>> = [],
 	linkListPush = (
-		obj: Size | ReadonlyArray<Size>
+		obj: Size | ReadonlyArray<Size>,
 	): Size | ReadonlyArray<Size> => {
 		linkList.push(obj);
 		return obj;
@@ -41,10 +41,10 @@ const water: ColorRgb = [36, 44, 53],
 	motiveSX = linkListPush({ add: [sXMain, { r: -2, useSize: borderSX }] }),
 	motiveSY = linkListPush([sYMain, { r: -2, useSize: borderSX }]),
 	motiveSqu = linkListPush(
-		getSmallerDim({ r: 1, useSize: [motiveSX, motiveSY] })
+		getSmallerDim({ r: 1, useSize: [motiveSX, motiveSY] }),
 	),
 	motiveSquBigger = linkListPush(
-		getBiggerDim({ r: 1, useSize: [motiveSX, motiveSY] })
+		getBiggerDim({ r: 1, useSize: [motiveSX, motiveSY] }),
 	),
 	overshotSX = linkListPush({
 		add: [motiveSX, { r: -1, useSize: motiveSqu }],

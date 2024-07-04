@@ -25,12 +25,12 @@ export default (props: { idImage: string }) => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const isResizeable = searchParams.get("resizeable") !== "false";
 	const [pixelGraphic, setPixelGraphic] = useState<PixelGraphics | null>(
-		null
+		null,
 	);
 	const [boundingClientRectCanvas, setBoundingClientRectCanvas] =
 		useState<DOMRect | null>(null);
 	const [imageFunction, setImageFunction] = useState<ImageFunction | null>(
-		null
+		null,
 	);
 	const [absSizeXFull, setAbsSizeXFull] = useState<number | null>(null);
 	const [absSizeYFull, setAbsSizeYFull] = useState<number | null>(null);
@@ -107,7 +107,7 @@ export default (props: { idImage: string }) => {
 				divCanvas: canvas.current,
 				pixelSize: pixelSize,
 				imageFunction: imageFunction,
-			})
+			}),
 		);
 		setIsReady(true);
 	}, [canvas, imageFunction]);
@@ -120,7 +120,7 @@ export default (props: { idImage: string }) => {
 		recordImage[props.idImage]
 			.getImage()
 			.then((imageFunctionExport) =>
-				setImageFunction(imageFunctionExport.default)
+				setImageFunction(imageFunctionExport.default),
 			);
 	}, [props.idImage]);
 

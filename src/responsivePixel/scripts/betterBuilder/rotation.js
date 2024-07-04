@@ -72,7 +72,7 @@ BBProto.Rotater = function (args) {
 			// + ( args.sideSX !== undefined ? rotate.side * ( args.sideSX - 1 ) : 0 ), 	// change for Side
 			useSize: args.baseSX,
 			odd: true,
-		})
+		}),
 	);
 
 	if (args.side) {
@@ -167,7 +167,7 @@ BBObjProto.moveOut = function (args, rotate) {
 					{ r: 0.5, useSize: args.sXBase },
 					{ r: -0.5, useSize: args.sX },
 				],
-			})
+			}),
 		);
 
 		add.push({
@@ -218,8 +218,8 @@ BBObjProto.mover = function (what, move) {
 					? -1
 					: 1
 				: move.xBase && move.xBase < 0
-				? -1
-				: 1) *
+					? -1
+					: 1) *
 			(move.z || 50) *
 			what.rotate.turnedAway,
 	});

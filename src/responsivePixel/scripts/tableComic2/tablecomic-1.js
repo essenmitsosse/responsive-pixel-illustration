@@ -83,7 +83,7 @@ TableComic.prototype.getStrip = function getStrip() {
 	const combiner = this.getCombiner(
 		finalPanels,
 		stripInfo.defaultPanels,
-		stripInfo.inventory
+		stripInfo.inventory,
 	);
 
 	while (count < length) {
@@ -126,7 +126,7 @@ TableComic.prototype.getCombiner = function (finals, defaults, inventory) {
 					} else {
 						object[valueKey] = copyDefaultObject(
 							object[valueKey],
-							defaultObject[valueKey]
+							defaultObject[valueKey],
 						);
 					}
 				}
@@ -145,7 +145,7 @@ TableComic.prototype.getCombiner = function (finals, defaults, inventory) {
 					for (listKey in defaultsList) {
 						panelList[listKey] = copyDefaultObject(
 							panelList[listKey],
-							defaultsList[listKey]
+							defaultsList[listKey],
 						);
 
 						newList.push(panelList[listKey]);

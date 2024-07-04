@@ -82,14 +82,14 @@ const imgHeight = linkListPush([sYMain, { useSize: fullBorderY, r: -2 }]);
 const backWidth = linkListPush([sXMain, { useSize: border, r: -2 }]);
 const backHeight = linkListPush([sYMain, { useSize: border, r: -2 }]);
 const backSquare = linkListPush(
-	getSmallerDim({ r: 1, useSize: [backWidth, backHeight] })
+	getSmallerDim({ r: 1, useSize: [backWidth, backHeight] }),
 );
 
 const imgSquare = linkListPush(
-	getSmallerDim({ r: 1, useSize: [imgWidth, imgHeight] })
+	getSmallerDim({ r: 1, useSize: [imgWidth, imgHeight] }),
 );
 const imgSquareBigger = linkListPush(
-	getBiggerDim({ r: 1, useSize: [imgWidth, imgHeight] })
+	getBiggerDim({ r: 1, useSize: [imgWidth, imgHeight] }),
 );
 
 // BORDER DETAILS
@@ -135,7 +135,7 @@ const breadHeight = linkListPush([
 	{ r: 0.08, useSize: sYMain, min: 3 },
 ]);
 const breadSquare = linkListPush(
-	getSmallerDim({ r: 1, useSize: [breadWidth, breadHeight] })
+	getSmallerDim({ r: 1, useSize: [breadWidth, breadHeight] }),
 );
 const breadDetail = linkListPush({ r: 0.15, useSize: breadSquare });
 
@@ -201,7 +201,7 @@ const graie1ShoulderHeight = linkListPush(mult(0.6, imgHeight));
 const graie1ToTop = linkListPush([imgHeight, sub(graie1ShoulderHeight)]);
 const graie1ToLeft = linkListPush([footWidth, { r: 0.01, useSize: imgWidth }]);
 const graie1Width = linkListPush(
-	getSmallerDim({ r: 0.15, r2: 0.6, useSize: [imgWidth, imgHeight] })
+	getSmallerDim({ r: 0.15, r2: 0.6, useSize: [imgWidth, imgHeight] }),
 );
 const graie1LegHeight = linkListPush([
 	legWidth,
@@ -299,7 +299,7 @@ const graie1BreadArmLength = linkListPush([
 
 // GRAIE II
 const graie2ToLeft = linkListPush(
-	getSmallerDim({ r: 0.35, r2: 4, useSize: [imgWidth, imgHeight] })
+	getSmallerDim({ r: 0.35, r2: 4, useSize: [imgWidth, imgHeight] }),
 );
 const graie2ToRight = linkListPush(mult(0.3, imgWidth));
 const graie2Width = linkListPush([
@@ -353,7 +353,7 @@ const graie3ShoulderHeight = linkListPush(mult(0.75, imgHeight));
 const graie3ToTop = linkListPush([imgHeight, sub(graie3ShoulderHeight)]);
 const graie3GripPoint = linkListPush([graie2BodyHeight, mult(0.05, imgHeight)]);
 const graie3ToRight = linkListPush(
-	getSmallerDim({ r: 0.1, r2: 0.5, useSize: [imgWidth, imgHeight] })
+	getSmallerDim({ r: 0.1, r2: 0.5, useSize: [imgWidth, imgHeight] }),
 );
 const graie3Width = linkListPush(graie1Width);
 const graie3LegLength = linkListPush([graie2LegLength, mult(0.2, imgHeight)]);
@@ -506,7 +506,7 @@ const breast = (left?: boolean) => [
 				sY: armShadow,
 				color: graie1Shadow,
 				sX: graie1BreastMargin,
-		  },
+			},
 ];
 
 const foot = (hor, down, fX, nr) => {
@@ -538,7 +538,7 @@ const foot = (hor, down, fX, nr) => {
 					sY: 1,
 					fX: true,
 					fY: down,
-			  }
+				}
 			: undefined,
 		{
 			sX: armShadow,
@@ -554,7 +554,7 @@ const foot = (hor, down, fX, nr) => {
 					fX: true,
 					sX: [footFrontLength, sub(toeSize)],
 					x: toeSize,
-			  }
+				}
 			: undefined,
 		!hor
 			? {
@@ -563,7 +563,7 @@ const foot = (hor, down, fX, nr) => {
 					sX: toeSize,
 					fX: true,
 					y: [toeSize, -1],
-			  }
+				}
 			: undefined,
 		{
 			minX: 3,
@@ -695,7 +695,7 @@ const skinPoint = (nr, big, obj) => {
 				a: -1,
 				otherDim: true,
 				max: 4,
-		  }
+			}
 		: 1;
 
 	return objFinal;
@@ -937,7 +937,7 @@ const renderList = [
 														list: [
 															legStructure(
 																3,
-																true
+																true,
 															),
 															{
 																sX: armShadow,
@@ -960,7 +960,7 @@ const renderList = [
 														list: [
 															legStructure(
 																3,
-																true
+																true,
 															),
 															{
 																sX: armShadow,
@@ -986,7 +986,7 @@ const renderList = [
 																fX: true,
 																list: [
 																	legStructure(
-																		3
+																		3,
 																	),
 																	{
 																		sY: armShadow,
@@ -1011,7 +1011,7 @@ const renderList = [
 																	true,
 																	true,
 																	false,
-																	3
+																	3,
 																),
 															},
 
@@ -1094,7 +1094,7 @@ const renderList = [
 															true,
 															false,
 															true,
-															2
+															2,
 														),
 													},
 
@@ -1301,7 +1301,7 @@ const renderList = [
 														},
 														sX: mult(
 															0.2,
-															graie1Width
+															graie1Width,
 														),
 														sY: {
 															r: 0.8,
@@ -1315,7 +1315,7 @@ const renderList = [
 														x: [
 															mult(
 																2,
-																graie1BreastWidth
+																graie1BreastWidth,
 															),
 															graie1BreastMargin,
 														],
@@ -1364,7 +1364,7 @@ const renderList = [
 														},
 														sX: mult(
 															0.2,
-															graie1Width
+															graie1Width,
 														),
 														sY: { r: 0.2, max: 6 },
 														minX: 3,
@@ -1380,13 +1380,13 @@ const renderList = [
 																graie1Width,
 																sub(armWidth),
 																sub(
-																	graie1BreastWidth
+																	graie1BreastWidth,
 																),
 																sub(
-																	graie1BreastWidth
+																	graie1BreastWidth,
 																),
 																sub(
-																	graie1BreastMargin
+																	graie1BreastMargin,
 																),
 															],
 														],
@@ -1398,7 +1398,7 @@ const renderList = [
 															legStructure(
 																1,
 																false,
-																true
+																true,
 															),
 															{
 																sY: armShadow,
@@ -1418,7 +1418,7 @@ const renderList = [
 															legStructure(
 																1,
 																true,
-																true
+																true,
 															),
 															{
 																sX: armShadow,
@@ -1430,7 +1430,7 @@ const renderList = [
 																tX: true,
 																fX: true,
 																list: armToLeft(
-																	1
+																	1,
 																),
 															},
 														],
@@ -1476,7 +1476,7 @@ const renderList = [
 																		r: 0.2,
 																	},
 																	fX: true,
-																}
+																},
 															), // skin Point
 															skinPoint(1, true, {
 																x: { r: 0.4 },
@@ -1667,7 +1667,7 @@ const renderList = [
 																	graie1NoseHeight,
 																	mult(
 																		0.02,
-																		graie1HeadHeight
+																		graie1HeadHeight,
 																	),
 																],
 																list: [
@@ -1872,11 +1872,11 @@ const renderList = [
 															legStructure(
 																1,
 																true,
-																true
+																true,
 															),
 															{
 																list: armToLeft(
-																	1
+																	1,
 																),
 																sX: graieArmLengt,
 																sY: armWidth,
@@ -1927,7 +1927,7 @@ const renderList = [
 															true,
 															true,
 															true,
-															1
+															1,
 														),
 													},
 												],
@@ -2026,7 +2026,7 @@ const renderList = [
 													false,
 													true,
 													true,
-													2
+													2,
 												),
 											},
 
@@ -2272,7 +2272,7 @@ const renderList = [
 													legStructure(
 														3,
 														false,
-														true
+														true,
 													),
 													{
 														sX: armShadow,
@@ -2335,7 +2335,7 @@ const renderList = [
 																	r: 0.9,
 																	add: [
 																		sub(
-																			armWidth
+																			armWidth,
 																		),
 																	],
 																},
@@ -2644,7 +2644,7 @@ const renderList = [
 																						r: 0.1,
 																						min: 1,
 																					},
-																				}
+																				},
 																			),
 																		],
 																	},
@@ -2728,7 +2728,7 @@ const renderList = [
 													mult(1, armWidth),
 													mult(
 														0.5,
-														handArmDifference
+														handArmDifference,
 													),
 												],
 												sY: armWidth,

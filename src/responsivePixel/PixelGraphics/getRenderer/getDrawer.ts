@@ -5,7 +5,7 @@ import type { Render } from "../types";
 
 export const getDrawer = (
 	pixelGraphics: PixelGraphics,
-	renderList: ReadonlyArray<Render>
+	renderList: ReadonlyArray<Render>,
 ) => {
 	const drawingTool = getDrawingTools(pixelGraphics);
 	const canvasTool = new drawingTool.Obj().create({ list: renderList });

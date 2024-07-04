@@ -47,7 +47,7 @@ export class PixelSetter {
 							mask[x] = [];
 						}
 						mask[x][y] = true;
-				  };
+					};
 		};
 	}
 
@@ -59,8 +59,8 @@ export class PixelSetter {
 				return isRect
 					? this.colorArray.getClearSaveForRect(
 							thisSave.save,
-							thisSave.mask
-					  )
+							thisSave.mask,
+						)
 					: () => {};
 			}
 		};
@@ -73,15 +73,15 @@ export class PixelSetter {
 					? this.getClearSave(save, isRect)
 					: this.getClearForRect(id)
 				: save
-				? this.getClearSave(save, isRect)
-				: this.getClear(id)
+					? this.getClearSave(save, isRect)
+					: this.getClear(id)
 			: color
-			? isRect
-				? this.getSetForRect(color, zInd, id)
-				: this.getSet(color, zInd, id)
-			: save
-			? this.getSetSave(save, isRect)
-			: undefined;
+				? isRect
+					? this.getSetForRect(color, zInd, id)
+					: this.getSet(color, zInd, id)
+				: save
+					? this.getSetSave(save, isRect)
+					: undefined;
 	}
 
 	setColorMask(dimensions, push) {

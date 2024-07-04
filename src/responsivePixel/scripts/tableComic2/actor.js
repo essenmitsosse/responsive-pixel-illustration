@@ -156,7 +156,7 @@ TableComic.prototype.Actor.prototype.getBetterPosY = function (rel) {
 				r: -1 * rel,
 				useSize: this.pushLinkList({ add: [this.sY, this.baseShift] }),
 			},
-			this.baseShift
+			this.baseShift,
 		);
 	} else {
 		add.push(this.pushLinkList({ r: -rel, useSize: this.sX }));
@@ -168,7 +168,7 @@ TableComic.prototype.Actor.prototype.getBetterPosY = function (rel) {
 TableComic.prototype.Actor.prototype.getFocus = function (
 	zoomSX,
 	zoomSY,
-	focus
+	focus,
 ) {
 	const x = this.pushLinkList({
 		add: [
@@ -191,17 +191,17 @@ TableComic.prototype.Actor.prototype.getFocus = function (
 
 		y.add.push(
 			{ r: -focus.posY, useSize: this.square },
-			{ r: -1, useSize: this.lean }
+			{ r: -1, useSize: this.lean },
 		);
 	} else {
 		x.add.push(
 			{ r: -focus.posX, useSize: this.sX }, // relative to Head
-			{ r: -1, useSize: this.lean }
+			{ r: -1, useSize: this.lean },
 		);
 
 		y.add.push(
 			{ r: -1, useSize: this.sY }, // size
-			{ r: 1 - focus.posY, useSize: this.headSY } // relative to Head
+			{ r: 1 - focus.posY, useSize: this.headSY }, // relative to Head
 		);
 	}
 
@@ -240,7 +240,7 @@ TableComic.prototype.Actor.prototype.draw = function (args) {
 	this.baseShift = this.pushLinkList(
 		info.sitting
 			? [{ r: -1, useSize: this.body.legSY }, this.body.legs.hipSY]
-			: { a: 0 }
+			: { a: 0 },
 	);
 
 	this.baseShift = this.pushLinkList({ r: 1, useSize: this.baseShift });
@@ -345,7 +345,7 @@ TableComic.prototype.Body.prototype.getSize = function BodyGetSize(args) {
 		{ r: this.legBaseSY_, useSize: args.sY },
 		{ r: this.legRelSY_ },
 		{},
-		"actor-features"
+		"actor-features",
 	);
 	this.torsoSY = this.pushLinkList({
 		add: [args.sY, { r: -1, useSize: this.legSY }],

@@ -153,14 +153,14 @@ const renderer = function (init, slide, createSlider) {
 					args.shoulder.left > 0.55
 						? rFl(0, 0.5)
 						: rIf(0.8)
-						? rFl(0, 1) * 1.5 - 0.75
-						: rFl(0, 1) * 0.5 - 0.25,
+							? rFl(0, 1) * 1.5 - 0.75
+							: rFl(0, 1) * 0.5 - 0.25,
 				right:
 					args.shoulder.right > 0.55
 						? rFl(0, 0.5)
 						: rIf(0.8)
-						? rFl(0, 1) * 1.5 - 0.75
-						: rFl(0, 1) * 0.5 - 0.25,
+							? rFl(0, 1) * 1.5 - 0.75
+							: rFl(0, 1) * 0.5 - 0.25,
 			};
 
 			args.finger = {

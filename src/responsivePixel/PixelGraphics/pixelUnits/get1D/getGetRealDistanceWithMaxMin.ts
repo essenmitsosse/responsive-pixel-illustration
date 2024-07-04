@@ -17,10 +17,10 @@ export const getGetRealDistanceWithMaxMin = (maxInput, minInput, Dim) => {
 				const realMax = typeof max === "number" ? max : max.getReal();
 				const realDistance = this.getRealDistance();
 				return realDistance > realMax ? realMax : realDistance;
-		  }
+			}
 		: function getRealDistanceWithMin() {
 				const realMin = typeof min === "number" ? min : min.getReal();
 				const realDistance = this.getRealDistance();
 				return realDistance < realMin ? realMin : realDistance;
-		  };
+			};
 };

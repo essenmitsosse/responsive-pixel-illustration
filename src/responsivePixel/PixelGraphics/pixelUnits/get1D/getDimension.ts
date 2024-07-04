@@ -33,7 +33,7 @@ export const getDimension = (contextInner: ContextInner, context) =>
 					this.realPartCalculation =
 						this.contextInner.getGetLengthCalculation(
 							args.getLength[0],
-							args.getLength[1]
+							args.getLength[1],
 						);
 					return;
 				}
@@ -48,7 +48,7 @@ export const getDimension = (contextInner: ContextInner, context) =>
 					if (typeof args.useSize === "string") {
 						this.context.variableListLink(
 							args.useSize,
-							(this.useVari = {})
+							(this.useVari = {}),
 						);
 					} else if (args.useSize.getLinkedVariable) {
 						this.useSize = args.useSize.getLinkedVariable;
@@ -73,13 +73,13 @@ export const getDimension = (contextInner: ContextInner, context) =>
 							? this.contextInner.getGetRealDistanceWithMaxMinWrapper(
 									args.max,
 									args.min,
-									this.dim
-							  )
+									this.dim,
+								)
 							: this.getRealDistance;
 				}
 				if (args.save) {
 					this.realPartCalculation = this.getSaveDistance(
-						this.context.variableListCreate(args.save)
+						this.context.variableListCreate(args.save),
 					);
 				}
 				if (args.odd || args.even) {

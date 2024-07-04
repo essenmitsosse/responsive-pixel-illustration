@@ -53,7 +53,7 @@ TableComic.prototype.Actor.prototype.getSizeHead = function (args) {
 		args.stageSY,
 		"sX",
 		"headSY",
-		this.ratio / this.headSY_
+		this.ratio / this.headSY_,
 	);
 
 	this.bodySY = this.pushLinkList({
@@ -87,7 +87,7 @@ TableComic.prototype.Actor.prototype.draw = function (args) {
 	this.baseShift = this.pushLinkList(
 		info.sitting
 			? [{ r: -1, useSize: this.body.legSY }, this.body.legs.hipSY]
-			: { a: 0 }
+			: { a: 0 },
 	);
 
 	this.y = this.pushLinkList({ add: [this.y, this.baseShift] });
@@ -1045,18 +1045,18 @@ TableComic.prototype.Arm.prototype.draw = function ArmDraw(args) {
 			"sin",
 			lowerArmAngle,
 			"lowerArm",
-			"upperArm"
+			"upperArm",
 		),
 		getAngleFunction(
 			lowerArmLY,
 			"cos",
 			lowerArmAngle,
 			"lowerArm",
-			"upperArm"
+			"upperArm",
 		),
 
 		getAngleFunction(upperArmLX, "sin", upperArmAngle, "upperArm"),
-		getAngleFunction(upperArmLY, "cos", upperArmAngle, "upperArm")
+		getAngleFunction(upperArmLY, "cos", upperArmAngle, "upperArm"),
 	);
 
 	return {

@@ -34,7 +34,7 @@ TableComic.prototype.Strip = function (args) {
 			(sX = {}),
 			(sY = {}),
 			(minSX = { add: [sX], max: minSX }),
-			(minSY = { add: [sY], max: minSY })
+			(minSY = { add: [sY], max: minSY }),
 		);
 
 		sizeList.push({
@@ -116,13 +116,13 @@ TableComic.prototype.Panel = function (args) {
 
 TableComic.prototype.Panel.prototype.setStage = function (
 	minPanelSX,
-	minPanelSY
+	minPanelSY,
 ) {
 	this.getSizeWithRatio(
 		(this.minPanelSX = minPanelSX),
 		(this.minPanelSY = minPanelSY),
 		"minSX",
-		"minSY"
+		"minSY",
 	);
 };
 

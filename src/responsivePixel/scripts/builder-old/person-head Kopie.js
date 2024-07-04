@@ -51,13 +51,13 @@ Builder.prototype.Head.prototype.draw = function (args, z) {
 				],
 				max: `chestSX${nr}`,
 				min: 1,
-		  }
+			}
 		: {
 				r: this.neckSX,
 				useSize: `headMinSX${nr}`,
 				max: `torsoSX${nr}`,
 				min: 1,
-		  };
+			};
 	this.vL[`neckSY${nr}`] = { r: this.neckSY, useSize: `headNeckSY${nr}` };
 	this.vL[`headMinSY${nr}`] = {
 		add: [`headNeckSY${nr}`, this.sub(`neckSY${nr}`)],

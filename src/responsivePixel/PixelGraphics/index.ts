@@ -29,7 +29,7 @@ export class PixelGraphics {
 		}
 
 		Object.entries(
-			this.imageFunction.variableList || ([] as ReadonlyArray<Variable>)
+			this.imageFunction.variableList || ([] as ReadonlyArray<Variable>),
 		).forEach(([key, value]) => {
 			this.variableList[key] = new Variable(value, key, this.pixelUnit);
 		});

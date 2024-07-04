@@ -2,7 +2,7 @@ var BB = function (init) {
 	const args = {};
 	const ObjProto = BB.prototype.Obj.prototype;
 	const random = window.helper.random(
-		init.id || Math.floor(Math.random() * 4294967296)
+		init.id || Math.floor(Math.random() * 4294967296),
 	);
 
 	for (const attr in init) {
@@ -68,13 +68,13 @@ BBProto.Overview = function (init) {
 			useSize: this.outerSX,
 			max: { r: inner, useSize: this.outerSY },
 			odd: true,
-		})
+		}),
 		// this.innerS = { r:2, a:-1, useSize:this.innerSHalf }
 	);
 
 	do {
 		rotations.push(
-			new this.calcRotation((this.rotate || 0) + (180 / vari) * i)
+			new this.calcRotation((this.rotate || 0) + (180 / vari) * i),
 		);
 	} while ((i += 1) < vari);
 

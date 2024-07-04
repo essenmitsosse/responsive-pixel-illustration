@@ -46,7 +46,7 @@ TableComic.prototype.Table.prototype.draw = function TableDraw(args) {
 };
 
 TableComic.prototype.Table.prototype.getPosition = function TableGetPosition(
-	id
+	id,
 ) {
 	return {
 		x: id === 0 ? this.x : this.pushLinkList([this.x, this.sX]),
@@ -270,7 +270,7 @@ TableComic.prototype.Emotion.prototype.draw = function EmotionDraw(args) {
 								{ mX: this.cloudSX, mY: { r: 0.1, min: 1 } },
 							],
 						},
-				  ]
+					]
 				: [
 						{
 							weight: 1,
@@ -290,7 +290,7 @@ TableComic.prototype.Emotion.prototype.draw = function EmotionDraw(args) {
 								{ fX: true, y: { r: 0.5 } },
 							],
 						},
-				  ],
+					],
 		},
 	]);
 };

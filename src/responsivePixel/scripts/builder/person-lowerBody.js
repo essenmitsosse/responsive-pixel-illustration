@@ -72,7 +72,7 @@ Builder.prototype.LowerBody.prototype.draw = function (args, z) {
 						sY: args.crotchSY,
 						z: z + 110,
 						cX: sideView,
-				  },
+					},
 
 			// Leg
 			leg,
@@ -251,7 +251,7 @@ Builder.prototype.Leg.prototype.draw = function (args, z, rightSide, behind) {
 		args.shoeSY = this.pushLinkList(
 			this.bootsSY
 				? { r: this.bootsSY, useSize: args.lowerLegSY, min: 1 }
-				: { r: 0.8, useSize: args.legSX, min: 1 }
+				: { r: 0.8, useSize: args.legSX, min: 1 },
 		);
 
 		args.legMaxSX = this.pushLinkList({

@@ -64,13 +64,13 @@ TableComic.prototype.Head.prototype.getBetterPosY = function (rel) {
 	if (!this.rotate) {
 		add.push(
 			this.actor.getBetterPosY(1),
-			this.pushLinkList({ r: 1 - rel, useSize: this.sY })
+			this.pushLinkList({ r: 1 - rel, useSize: this.sY }),
 		);
 	} else {
 		add.push(
 			this.actor.getBetterPosY(0),
 			{ r: -1, useSize: this.actor.sX },
-			{ r: 1 - rel, useSize: this.sX }
+			{ r: 1 - rel, useSize: this.sX },
 		);
 	}
 
@@ -84,7 +84,7 @@ TableComic.prototype.Head.prototype.draw = function (args) {
 		{ r: this.relSX_ },
 		{ min: 4 },
 		"actor-features",
-		0
+		0,
 	));
 
 	const sY = (this.sY = args.sY || args.stageSY);
@@ -98,14 +98,14 @@ TableComic.prototype.Head.prototype.draw = function (args) {
 			max: sX,
 			odd: true,
 		},
-		"actor-features"
+		"actor-features",
 	);
 
 	const eyeAreaSY = this.getSizeSwitch(
 		{ r: this.eyeAreaBaseSY_, useSize: sY },
 		{ r: this.eyeAreaRelSY_ },
 		{ min: 1 },
-		"actor-features"
+		"actor-features",
 	);
 
 	const eyeRestSX = this.pushLinkList([sX, { r: -1, useSize: eyeAreaSX }]);
@@ -114,7 +114,7 @@ TableComic.prototype.Head.prototype.draw = function (args) {
 		{ r: this.mouthAreaBaseSX_, useSize: sX },
 		{ r: this.mouthAreaRelSX_ },
 		{ min: 1, odd: true },
-		"actor-features"
+		"actor-features",
 	);
 
 	const mouthAreaSY = this.pushLinkList({
@@ -272,14 +272,14 @@ TableComic.prototype.Eyes.prototype.draw = function (args) {
 		{ r: this.eyeBaseSX_, useSize: maxEyesSX },
 		{ r: this.eyeSXRel_ },
 		{ a: 2, max: maxEyesSX, even: true },
-		"actor-features"
+		"actor-features",
 	);
 
 	const eyeSY = this.getSizeSwitch(
 		{ r: this.eyeBaseSY_, useSize: args.sY },
 		{ r: this.eyeSYRel_ },
 		{ min: 1 },
-		"actor-features"
+		"actor-features",
 	);
 
 	const square = this.pushLinkList({

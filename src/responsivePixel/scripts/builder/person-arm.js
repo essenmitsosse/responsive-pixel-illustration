@@ -345,10 +345,10 @@ Builder.prototype.Arm.prototype.draw = function (args, rightSide, behind) {
 											? -90
 											: -180
 										: fullAngle < -45
-										? fullAngle > -135
-											? 90
-											: 180
-										: 0) * (renderFromRight ? -1 : 1),
+											? fullAngle > -135
+												? 90
+												: 180
+											: 0) * (renderFromRight ? -1 : 1),
 								list: [
 									{},
 
@@ -386,7 +386,7 @@ Builder.prototype.Arm.prototype.draw = function (args, rightSide, behind) {
 													list: [
 														this.headGear.draw(
 															args,
-															100
+															100,
 														),
 													],
 												},
@@ -425,14 +425,14 @@ Builder.prototype.ShoulderPad = function (args) {
 	this.shoulderPadColor = this.IF()
 		? args.clothColor
 		: this.IF()
-		? args.secondColor.copy({ brContrast: 1, max: 4 })
-		: args.clothColor.copy({ brContrast: -1, max: 4 });
+			? args.secondColor.copy({ brContrast: 1, max: 4 })
+			: args.clothColor.copy({ brContrast: -1, max: 4 });
 
 	this.shoulderPadDetailColor = this.IF()
 		? args.clothColor
 		: this.IF()
-		? args.secondColor.copy({ brContrast: 2, max: 4 })
-		: this.shoulderPadColor.copy({ brContrast: -1, max: 4 });
+			? args.secondColor.copy({ brContrast: 2, max: 4 })
+			: this.shoulderPadColor.copy({ brContrast: -1, max: 4 });
 
 	if (this.deko || this.topDetail) {
 		this.dekoColor = (
@@ -524,12 +524,12 @@ Builder.prototype.ShoulderPad.prototype.draw = function (args, z) {
 									gap: { r: 0.1, min: 1 },
 								},
 							},
-					  ]
+						]
 					: [
 							{ name: "Dot", clear: true },
 							{ name: "Dot", fX: true, clear: true },
 							{},
-					  ],
+						],
 			},
 
 			// Border
@@ -712,7 +712,7 @@ Builder.prototype.Shield = function (args, right) {
 	this.shieldColor = (this.IF(0.5) ? args.firstColor : args.secondColor).copy(
 		{
 			brContrast: this.IF() ? 1 : -1,
-		}
+		},
 	);
 	this.shieldShadowColor = this.shieldColor.copy({ brContrast: -1 });
 
@@ -724,7 +724,7 @@ Builder.prototype.Shield = function (args, right) {
 			true,
 			this.IF(0.1)
 				? this.shieldColor.copy({ nextColor: true, brContrast: 3 })
-				: this.shieldShadowColor
+				: this.shieldShadowColor,
 		);
 	}
 }; // END Shield

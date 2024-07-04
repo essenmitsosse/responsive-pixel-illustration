@@ -932,7 +932,7 @@ const wood = [155, 114, 70],
 														{
 															s: mult(
 																0.5,
-																"boatSY"
+																"boatSY",
 															),
 															fY: true,
 															tY: true,

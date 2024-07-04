@@ -37,9 +37,9 @@ Builder.prototype.TreeFamily = function (args) {
 		? (args.skyColor && this.IF(0.2)
 				? args.skyColor
 				: args.groundColor
-		  ).copy({
+			).copy({
 				brSet: Math.floor(this.GR(1, 4)),
-		  })
+			})
 		: new this.Color(this.IF() ? 1 : 0, Math.floor(this.GR(1, 4)));
 	this.trunkColorDetail = this.trunkColor.copy({ brContrast: -1 });
 
@@ -47,13 +47,13 @@ Builder.prototype.TreeFamily = function (args) {
 		? (args.groundColor && this.IF(0.8)
 				? args.skyColor
 				: args.groundColor
-		  ).copy({
+			).copy({
 				brContrast: this.IF() ? -2 : 2,
-		  })
+			})
 		: this.trunkColor.copy({
 				nextColor: this.IF(),
 				brContrast: this.IF() ? -2 : 2,
-		  });
+			});
 	this.foliageColorDetail = this.foliageColor.copy({ brAdd: -1 });
 
 	// this.groundColor = this.trunkColor.copy( { nextColor:this.IF(), brContrast:this.IF() ? -1 : 1 } );
@@ -267,7 +267,7 @@ Builder.prototype.Tree.prototype.draw = function (args, z, size) {
 									],
 								},
 							],
-					  }
+						}
 					: { save: `trunk${code}` },
 			],
 		},
@@ -287,7 +287,7 @@ Builder.prototype.Tree.prototype.addBranches = function (
 	hor,
 	parentLeft,
 	count,
-	level
+	level,
 ) {
 	const list = [];
 	let i = Math.floor(count);

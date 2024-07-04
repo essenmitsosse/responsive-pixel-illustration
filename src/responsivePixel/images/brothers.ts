@@ -277,7 +277,7 @@ const shadowColor: ColorRgb = [255, 255, 255],
 						chance: 0.02,
 						color: shadowSoft(background),
 						mask: true,
-				  }
+					}
 				: undefined,
 			posei
 				? {
@@ -286,14 +286,14 @@ const shadowColor: ColorRgb = [255, 255, 255],
 						chance: 0.02,
 						color: lightenSoft(background),
 						mask: true,
-				  }
+					}
 				: {
 						use: "background",
 						sY: { r: 0.2 },
 						chance: 0.4,
 						color: shadowSoft(background),
 						mask: true,
-				  },
+					},
 			{ save: "background" },
 
 			// TORSO
@@ -523,7 +523,7 @@ const shadowColor: ColorRgb = [255, 255, 255],
 								sY: { r: 0.2 },
 								y: { r: 0.4 },
 								list: [{ mY: 1 }, { sX: { r: 1, a: -1 } }],
-						  }
+							}
 						: undefined,
 				],
 			},
@@ -652,7 +652,7 @@ const shadowColor: ColorRgb = [255, 255, 255],
 						x: "borderSmallMargin",
 						fY: true,
 						fX: true,
-				  }
+					}
 				: undefined,
 		];
 	},
@@ -729,7 +729,7 @@ const shadowColor: ColorRgb = [255, 255, 255],
 						minY: 7,
 						list: flashForm,
 						color: backgroundColor,
-				  }
+					}
 				: {
 						x: "borderInner",
 						minY: 10,
@@ -776,7 +776,7 @@ const shadowColor: ColorRgb = [255, 255, 255],
 								],
 							},
 						],
-				  },
+					},
 		];
 	},
 	sideBorder = [
@@ -1013,7 +1013,7 @@ const shadowColor: ColorRgb = [255, 255, 255],
 								hSkin,
 								hHair,
 								hCloth,
-								hBackground
+								hBackground,
 							),
 						}, // END HADES
 
@@ -1030,7 +1030,7 @@ const shadowColor: ColorRgb = [255, 255, 255],
 								pSkin,
 								pHair,
 								pCloth,
-								pBackground
+								pBackground,
 							),
 						}, // END POSEIDON
 					],

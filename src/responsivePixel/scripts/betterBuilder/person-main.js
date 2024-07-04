@@ -27,7 +27,7 @@ BBProto.PersonMain.prototype.draw = function (args) {
 			{ r: -1, useSize: this.headSY },
 			{ r: -1, useSize: this.neckSY },
 			1,
-		])
+		]),
 	);
 
 	let head = this.head.draw({
@@ -46,7 +46,7 @@ BBProto.PersonMain.prototype.draw = function (args) {
 			r: 0.5,
 			useSize: head.sX,
 			max: { r: 0.5, useSize: bodyMain.chest.sX },
-		})
+		}),
 	);
 
 	const neck =
@@ -107,7 +107,7 @@ BBProto.BodyMain.prototype.draw = function (args) {
 
 	this.ll.push((this.chestSY = { r: this._chestSY, useSize: args.sY }));
 	this.ll.push(
-		(this.lowerBodySY = [args.sY, { r: -1, useSize: this.chestSY }])
+		(this.lowerBodySY = [args.sY, { r: -1, useSize: this.chestSY }]),
 	);
 
 	let lowerBody = new this.basic.Rotater({

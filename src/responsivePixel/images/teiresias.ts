@@ -168,7 +168,7 @@ const snake = (nr, vert?: boolean) => {
 					sY: vert ? s : undefined,
 					sX: !vert ? s : undefined,
 				},
-		  ];
+			];
 };
 
 const treeTrunk = () => {
@@ -784,7 +784,7 @@ const renderList = [
 															add: [
 																mult(
 																	-1.5,
-																	"sXRest"
+																	"sXRest",
 																),
 															],
 														},

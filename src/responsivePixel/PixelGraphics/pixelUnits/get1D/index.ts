@@ -14,7 +14,7 @@ export interface ContextInner {
 	getGetRealDistanceWithMaxMinWrapper: (
 		max: number,
 		min: number,
-		dim: Dimension
+		dim: Dimension,
 	) => () => number;
 	getSize: (dim: Dimension) => Height | Width;
 }
@@ -63,10 +63,10 @@ export const get1D = (context) => {
 				return add
 					? function getRealPosAdd() {
 							return round(this.realPartCalculation() + add);
-					  }
+						}
 					: function getRealPosStatic() {
 							return round(this.realPartCalculation());
-					  };
+						};
 			};
 			const getFromOtherSide = (add) => {
 				const round = r;
@@ -79,13 +79,13 @@ export const get1D = (context) => {
 								add -
 								round(this.realPartCalculation() + size)
 							);
-					  }
+						}
 					: function fromOtherSide(size) {
 							return (
 								(this.axis ? width : height) -
 								round(this.realPartCalculation() + size)
 							);
-					  };
+						};
 			};
 			DistanceX.prototype.getReal = getRealPos(x);
 			DistanceY.prototype.getReal = getRealPos(y);

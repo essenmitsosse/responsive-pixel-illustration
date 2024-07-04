@@ -5,7 +5,7 @@ export function getRenderPixelToImage(backgroundColor: ColorRgb) {
 		pixelW: number,
 		pixelH: number,
 		pixelArray: PixelArray,
-		imageData: Uint8ClampedArray
+		imageData: Uint8ClampedArray,
 	): Uint8ClampedArray {
 		let sizeXPixel: number = pixelW;
 		let w4 = sizeXPixel * 4;

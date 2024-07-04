@@ -74,7 +74,7 @@ var TableComic = (window.renderer = function (init) {
 			min: 0,
 			map: 1,
 			variable: controlerY,
-		}
+		},
 	);
 
 	// Assign global Functions to all Comic Constructors
@@ -160,7 +160,7 @@ TableComic.prototype.getSizeWithRatio = function (
 	sY,
 	sXName,
 	sYName,
-	ratio
+	ratio,
 ) {
 	ratio = ratio || this.ratio;
 	sXName = sXName || "sX";
@@ -211,7 +211,7 @@ TableComic.prototype.getPosition = function (args) {
 				obj.x,
 				this.getRelativePosition(
 					rotate ? obj.sY : obj.sX,
-					info.pos.posX || 0
+					info.pos.posX || 0,
 				),
 			]);
 			this.y = this.pushLinkList({

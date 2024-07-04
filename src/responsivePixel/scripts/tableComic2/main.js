@@ -1,26 +1,26 @@
 // BEGINN TableComic /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 var TableComic = (window.renderer = function (init, slide, createSlider) {
-  let sX;
-  let sY;
-  let square;
-  let margin;
-  let doubleMargin;
-  let innerSX;
-  let innerSY;
-  let innerSquare;
-  let innerSquareBig;
-  let innerSquareAverage;
-  let controlerX;
-  let controlerY;
-  const { helper } = window;
-  const random = helper.random(init.id);
-  const rFl = random.getRandomFloat;
-  const rInt = random.getRandom;
-  const rIf = random.getIf;
+  let sX
+  let sY
+  let square
+  let margin
+  let doubleMargin
+  let innerSX
+  let innerSY
+  let innerSquare
+  let innerSquareBig
+  let innerSquareAverage
+  let controlerX
+  let controlerY
+  const { helper } = window
+  const random = helper.random(init.id)
+  const rFl = random.getRandomFloat
+  const rInt = random.getRandom
+  const rIf = random.getIf
 
-  const debug = init.debug || slide.debug;
-  const hover = helper.getHoverChangers();
-  const faceVersion = init.faceVersion || slide.faceVersion;
+  const debug = init.debug || slide.debug
+  const hover = helper.getHoverChangers()
+  const faceVersion = init.faceVersion || slide.faceVersion
 
   const linkList = [
     (sX = { main: true }),
@@ -42,74 +42,74 @@ var TableComic = (window.renderer = function (init, slide, createSlider) {
     { r: 0.01, useSize: square, min: 1 },
     (controlerX = { r: 0, useSize: sX }),
     (controlerY = { r: 0, useSize: sY }),
-  ];
+  ]
 
-  let renderList;
+  let renderList
 
   hover.list.push(
     {
       change: 1,
       min: 0,
-      map: "a",
+      map: 'a',
       variable: controlerX,
     },
     {
       change: 1,
       min: 0,
-      map: "b",
+      map: 'b',
       variable: controlerY,
     },
-  );
+  )
 
   // Assign global Functions to all Comic Constructors
-  (function (comicPrototype) {
-    let current;
-    const { pushRelativeStandardAutomatic } = hover;
-    const { changersRelativeCustomList } = hover;
-    const { pushColorStandard } = hover;
-    const { pushRelativeStandard } = hover;
-    const { changersCustomList } = hover;
+  ;(function (comicPrototype) {
+    let current
+    const { pushRelativeStandardAutomatic } = hover
+    const { changersRelativeCustomList } = hover
+    const { pushColorStandard } = hover
+    const { pushRelativeStandard } = hover
+    const { changersCustomList } = hover
 
     for (const key in comicPrototype) {
-      current = comicPrototype[key].prototype;
+      current = comicPrototype[key].prototype
 
-      current.rIf = rIf;
-      current.rInt = rInt;
-      current.rFl = rFl;
-      current.linkList = linkList;
-      current.pushLinkList = window.helper.getLinkListPusher(linkList);
+      current.rIf = rIf
+      current.rInt = rInt
+      current.rFl = rFl
+      current.linkList = linkList
+      current.pushLinkList = window.helper.getLinkListPusher(linkList)
 
-      current.pushRelativeStandardAutomatic = pushRelativeStandardAutomatic;
-      current.changersRelativeCustomList = changersRelativeCustomList;
-      current.pushRelativeStandard = pushRelativeStandard;
-      current.changersCustomList = changersCustomList;
-      current.colorList = pushColorStandard;
+      current.pushRelativeStandardAutomatic = pushRelativeStandardAutomatic
+      current.changersRelativeCustomList = changersRelativeCustomList
+      current.pushRelativeStandard = pushRelativeStandard
+      current.changersCustomList = changersCustomList
+      current.colorList = pushColorStandard
 
-      current.getSizeWithRatio = comicPrototype.getSizeWithRatio;
-      current.getRelativePosition = comicPrototype.getRelativePosition;
-      current.getPosition = comicPrototype.getPosition;
+      current.getSizeWithRatio = comicPrototype.getSizeWithRatio
+      current.getRelativePosition = comicPrototype.getRelativePosition
+      current.getPosition = comicPrototype.getPosition
       if (!current.getFocus) {
-        current.getFocus = comicPrototype.getFocus;
+        current.getFocus = comicPrototype.getFocus
       }
-      current.getObject = comicPrototype.getObject;
+      current.getObject = comicPrototype.getObject
 
-      current.getPosX = comicPrototype.getPosX;
-      current.getPosY = comicPrototype.getPosY;
-      current.getSizeSwitch = comicPrototype.getSizeSwitch;
+      current.getPosX = comicPrototype.getPosX
+      current.getPosY = comicPrototype.getPosY
+      current.getSizeSwitch = comicPrototype.getSizeSwitch
 
-      current.multiplyColor = helper.multiplyColor;
-      current.getColorShades = comicPrototype.getColorShades;
+      current.multiplyColor = helper.multiplyColor
+      current.getColorShades = comicPrototype.getColorShades
 
-      current.debug = debug;
+      current.debug = debug
     }
-  })(TableComic.prototype);
+  })(TableComic.prototype)
 
   this.stripInfo = faceVersion
     ? new this.getFace()
     : init.altVersion
       ? this.getStrip()
-      : new this.getTableComic(init); // !!!! REMOVE ONE OF THEM !!!!!
-  this.paperColor = this.stripInfo.paperColor || [255, 255, 255];
+      : new this.getTableComic(init) // !!!! REMOVE ONE OF THEM !!!!!
+  this.paperColor = this.stripInfo.paperColor || [255, 255, 255]
 
   renderList = [
     {
@@ -150,209 +150,209 @@ var TableComic = (window.renderer = function (init, slide, createSlider) {
     // 	rotate: -90,
     // 	list: controler
     // }
-  ];
+  ]
 
   if (createSlider) {
     if (faceVersion) {
       createSlider.slider({
-        niceName: "A",
-        valueName: "a",
+        niceName: 'A',
+        valueName: 'a',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
       createSlider.slider({
-        niceName: "B",
-        valueName: "b",
+        niceName: 'B',
+        valueName: 'b',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
       createSlider.slider({
-        niceName: "C",
-        valueName: "c",
+        niceName: 'C',
+        valueName: 'c',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
       createSlider.slider({
-        niceName: "D",
-        valueName: "d",
+        niceName: 'D',
+        valueName: 'd',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
       createSlider.slider({
-        niceName: "E",
-        valueName: "e",
+        niceName: 'E',
+        valueName: 'e',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
       createSlider.slider({
-        niceName: "F",
-        valueName: "f",
+        niceName: 'F',
+        valueName: 'f',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
       createSlider.slider({
-        niceName: "G",
-        valueName: "g",
+        niceName: 'G',
+        valueName: 'g',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
       createSlider.slider({
-        niceName: "H",
-        valueName: "h",
+        niceName: 'H',
+        valueName: 'h',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
       createSlider.slider({
-        niceName: "I",
-        valueName: "i",
+        niceName: 'I',
+        valueName: 'i',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
       createSlider.slider({
-        niceName: "J",
-        valueName: "j",
+        niceName: 'J',
+        valueName: 'j',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
       createSlider.slider({
-        niceName: "K",
-        valueName: "k",
+        niceName: 'K',
+        valueName: 'k',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
       createSlider.slider({
-        niceName: "L",
-        valueName: "l",
+        niceName: 'L',
+        valueName: 'l',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
       createSlider.slider({
-        niceName: "M",
-        valueName: "m",
+        niceName: 'M',
+        valueName: 'm',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
       createSlider.slider({
-        niceName: "N",
-        valueName: "n",
+        niceName: 'N',
+        valueName: 'n',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
 
       createSlider.slider({
-        niceName: "Side",
-        valueName: "side",
+        niceName: 'Side',
+        valueName: 'side',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
       createSlider.slider({
-        niceName: "Kamera",
-        valueName: "camera",
+        niceName: 'Kamera',
+        valueName: 'camera',
         defaultValue: 0,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
     } else {
-      createSlider.title({ title: "Layout" });
+      createSlider.title({ title: 'Layout' })
       createSlider.number({
-        niceName: "Panel Count",
-        valueName: "panels",
+        niceName: 'Panel Count',
+        valueName: 'panels',
         defaultValue: 3,
         input: { min: 1, max: 20, step: 1 },
         forceRedraw: true,
-      });
+      })
       createSlider.slider({
-        niceName: "Image Ration",
-        valueName: "imgRatio",
+        niceName: 'Image Ration',
+        valueName: 'imgRatio',
         defaultValue: 1,
         input: { min: 0.01, max: 4, step: 0.01 },
         output: { min: 0.01, max: 4 },
-      });
+      })
       createSlider.slider({
-        niceName: "Gutter Width",
-        valueName: "gutter-width",
+        niceName: 'Gutter Width',
+        valueName: 'gutter-width',
         defaultValue: 0.25,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
       createSlider.slider({
-        niceName: "Gutter Height",
-        valueName: "gutter-height",
+        niceName: 'Gutter Height',
+        valueName: 'gutter-height',
         defaultValue: 0.25,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
 
-      createSlider.title({ title: "Content" });
+      createSlider.title({ title: 'Content' })
       createSlider.slider({
-        niceName: "Story Beginn",
-        valueName: "a",
+        niceName: 'Story Beginn',
+        valueName: 'a',
         defaultValue: 0,
         input: { min: -1, max: 1, step: 0.02 },
-      });
+      })
       createSlider.slider({
-        niceName: "Story End",
-        valueName: "b",
+        niceName: 'Story End',
+        valueName: 'b',
         defaultValue: 0,
         input: { min: -1, max: 1, step: 0.02 },
-      });
+      })
 
-      createSlider.title({ title: "Camera" });
+      createSlider.title({ title: 'Camera' })
       createSlider.slider({
-        niceName: "Camera",
-        valueName: "camera",
+        niceName: 'Camera',
+        valueName: 'camera',
         defaultValue: 0,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
       createSlider.slider({
-        niceName: "Camera Alternative",
-        valueName: "altCamera",
+        niceName: 'Camera Alternative',
+        valueName: 'altCamera',
         defaultValue: 0,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
 
-      createSlider.title({ title: "Actors" });
+      createSlider.title({ title: 'Actors' })
       createSlider.slider({
-        niceName: "Actors Size",
-        valueName: "actor-size",
+        niceName: 'Actors Size',
+        valueName: 'actor-size',
         defaultValue: 0.5,
         input: { min: -1, max: 1, step: 0.02 },
-      });
+      })
       createSlider.slider({
-        niceName: "Actors Color",
-        valueName: "actor-color",
+        niceName: 'Actors Color',
+        valueName: 'actor-color',
         defaultValue: 0,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
       createSlider.slider({
-        niceName: "Actors Proportion",
-        valueName: "actor-features",
+        niceName: 'Actors Proportion',
+        valueName: 'actor-features',
         defaultValue: 0,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
       createSlider.slider({
-        niceName: "Actors Cloth",
-        valueName: "actor-accessoirs",
+        niceName: 'Actors Cloth',
+        valueName: 'actor-accessoirs',
         defaultValue: 0,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
       createSlider.slider({
-        niceName: "Emotions",
-        valueName: "emotions",
+        niceName: 'Emotions',
+        valueName: 'emotions',
         defaultValue: 0,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
 
-      createSlider.title({ title: "Environment" });
+      createSlider.title({ title: 'Environment' })
       createSlider.slider({
-        niceName: "Background",
-        valueName: "set",
+        niceName: 'Background',
+        valueName: 'set',
         defaultValue: 0,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
       createSlider.slider({
-        niceName: "Props",
-        valueName: "props",
+        niceName: 'Props',
+        valueName: 'props',
         defaultValue: 0,
         input: { min: 0, max: 1, step: 0.02 },
-      });
+      })
     }
   }
 
@@ -363,29 +363,29 @@ var TableComic = (window.renderer = function (init, slide, createSlider) {
     hover: hover.hover,
     changeValueSetter: hover.ready,
     recommendedPixelSize: 3,
-  };
-});
+  }
+})
 
 TableComic.prototype.getSizeWithRatio = function (args) {
-  const ratio = args.ratio || this.ratio;
-  let sX;
-  let sY;
+  const ratio = args.ratio || this.ratio
+  let sX
+  let sY
 
   if (ratio > 1) {
-    sX = this.pushLinkList({ r: ratio, useSize: args.sY, max: args.sX });
-    sY = this.pushLinkList({ r: 1 / ratio, useSize: sX });
+    sX = this.pushLinkList({ r: ratio, useSize: args.sY, max: args.sX })
+    sY = this.pushLinkList({ r: 1 / ratio, useSize: sX })
   } else {
     sY = this.pushLinkList({
       r: 1 / ratio,
       useSize: args.sX,
       max: args.sY,
-    });
-    sX = this.pushLinkList({ r: ratio, useSize: sY });
+    })
+    sX = this.pushLinkList({ r: ratio, useSize: sY })
   }
 
-  this[args.sXName || "sX"] = sX;
-  this[args.sYName || "sY"] = sY;
-};
+  this[args.sXName || 'sX'] = sX
+  this[args.sYName || 'sY'] = sY
+}
 
 // TableComic.prototype.getSizeWithSizeXY = function ( args ) {
 // 	var sX_ = args.sX_ || this.sX_,
@@ -401,11 +401,11 @@ TableComic.prototype.getSizeSwitch = function (
   link,
   defaultPoint,
 ) {
-  baseSize = this.pushLinkList(baseSize);
-  maxSize = this.pushLinkList(maxSize);
+  baseSize = this.pushLinkList(baseSize)
+  maxSize = this.pushLinkList(maxSize)
 
   if (!maxSize.useSize) {
-    maxSize.useSize = baseSize;
+    maxSize.useSize = baseSize
   }
 
   this.difference = this.pushLinkList({
@@ -413,14 +413,14 @@ TableComic.prototype.getSizeSwitch = function (
     useSize: this.pushLinkList({
       add: [maxSize, { r: -1, useSize: baseSize }],
     }),
-  });
+  })
 
-  this.pushRelativeStandard(0, 1, link, this.difference);
+  this.pushRelativeStandard(0, 1, link, this.difference)
 
-  finalSize.add = [baseSize, this.difference];
+  finalSize.add = [baseSize, this.difference]
 
-  return this.pushLinkList(finalSize);
-};
+  return this.pushLinkList(finalSize)
+}
 
 TableComic.prototype.getRelativePosition = function (obj, pos) {
   return this.pushLinkList({
@@ -429,36 +429,36 @@ TableComic.prototype.getRelativePosition = function (obj, pos) {
       obj.isRotated ? obj.sY : obj.sX,
       { r: -1, useSize: this.isRotated ? this.sY : this.sX },
     ]),
-  });
-};
+  })
+}
 
 TableComic.prototype.getPosition = function (args) {
-  const info = args.info || {};
-  let obj;
+  const info = args.info || {}
+  let obj
 
-  this.square = this.pushLinkList({ add: [this.sX], max: this.sY });
-  this.rotation = info.rotate;
-  this.isRotated = this.rotation && Math.abs(this.rotation) === 90;
-  this.zInd = info.z;
+  this.square = this.pushLinkList({ add: [this.sX], max: this.sY })
+  this.rotation = info.rotate
+  this.isRotated = this.rotation && Math.abs(this.rotation) === 90
+  this.zInd = info.z
 
-  this.x = false;
-  this.y = false;
+  this.x = false
+  this.y = false
   if (info.pos) {
-    if (typeof info.pos === "number") {
-      this.x = this.getRelativePosition(args.stageSX, info.pos);
-    } else if (typeof info.pos === "object") {
-      obj = info.pos.obj;
+    if (typeof info.pos === 'number') {
+      this.x = this.getRelativePosition(args.stageSX, info.pos)
+    } else if (typeof info.pos === 'object') {
+      obj = info.pos.obj
 
       this.x = this.pushLinkList({
         add: [obj.x, this.getRelativePosition(obj, info.pos.posX || 0)],
-      });
+      })
 
       if (this.isRotated) {
-        this.x.add.push(this.sY, { r: -1, useSize: this.sX });
+        this.x.add.push(this.sY, { r: -1, useSize: this.sX })
       }
 
       if (obj.isRotated) {
-        this.x.add.push(obj.sX, { r: -1, useSize: obj.sY });
+        this.x.add.push(obj.sX, { r: -1, useSize: obj.sY })
       }
     }
 
@@ -470,9 +470,9 @@ TableComic.prototype.getPosition = function (args) {
           useSize: obj.isRotated ? obj.sX : obj.sY,
         },
       ],
-    });
+    })
   }
-};
+}
 
 TableComic.prototype.getObject = function (object) {
   return {
@@ -493,8 +493,8 @@ TableComic.prototype.getObject = function (object) {
         list: object,
       },
     ],
-  };
-};
+  }
+}
 
 TableComic.prototype.getFocus = function (zoomSX, zoomSY, focus) {
   const x = this.pushLinkList({
@@ -503,26 +503,26 @@ TableComic.prototype.getFocus = function (zoomSX, zoomSY, focus) {
       { r: -1, useSize: this.x }, // pos,
       { r: -focus.posX, useSize: this.sX }, // relative to Head
     ],
-  });
+  })
   const y = this.pushLinkList({
     add: [
       { r: 0.5, useSize: zoomSY }, // normalize pan
       { r: -1, useSize: this.y }, // pos,
       { r: -focus.posY, useSize: this.sY }, // size
     ],
-  });
+  })
 
   return {
     x,
     y,
-  };
-};
+  }
+}
 
 TableComic.prototype.getPosX = function (rel) {
   return this.pushLinkList({
     add: [this.x, { r: rel, useSize: this.sX }],
-  });
-};
+  })
+}
 
 TableComic.prototype.getPosY = function (rel) {
   return this.pushLinkList({
@@ -530,14 +530,14 @@ TableComic.prototype.getPosY = function (rel) {
       { r: -1, useSize: this.y },
       { r: -1 * rel, useSize: this.sY },
     ],
-  });
-};
+  })
+}
 
 TableComic.prototype.getColorShades = function (color) {
-  let c0;
-  let c1;
-  let c2;
-  let c3;
+  let c0
+  let c1
+  let c2
+  let c3
 
   if (color.max) {
     this.colorList.push({
@@ -545,30 +545,30 @@ TableComic.prototype.getColorShades = function (color) {
       min: color.min,
       max: color.max,
       color: (c0 = []),
-    });
+    })
 
     this.colorList.push({
       map: color.map,
       min: this.multiplyColor(color.min, 0.9),
       max: this.multiplyColor(color.max, 0.9),
       color: (c1 = []),
-    });
+    })
 
     this.colorList.push({
       map: color.map,
       min: this.multiplyColor(color.min, 0.7),
       max: this.multiplyColor(color.max, 0.7),
       color: (c2 = []),
-    });
+    })
 
     this.colorList.push({
       map: color.map,
       min: this.multiplyColor(color.min, 0.5),
       max: this.multiplyColor(color.max, 0.5),
       color: (c3 = []),
-    });
+    })
 
-    return [c0, c1, c2, c3];
+    return [c0, c1, c2, c3]
   }
 
   return [
@@ -576,5 +576,5 @@ TableComic.prototype.getColorShades = function (color) {
     this.multiplyColor(color, 0.9),
     this.multiplyColor(color, 0.7),
     this.multiplyColor(color, 0.5),
-  ];
-};
+  ]
+}

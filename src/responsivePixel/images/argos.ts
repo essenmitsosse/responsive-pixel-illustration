@@ -1,5 +1,5 @@
-import { getSmallerDim, getBiggerDim, mult, sub } from "../helperPixelGraphics";
-import type { ColorRgb, ImageFunction } from "../PixelGraphics/types";
+import { getSmallerDim, getBiggerDim, mult, sub } from '../helperPixelGraphics'
+import type { ColorRgb, ImageFunction } from '../PixelGraphics/types'
 const wood = [155, 114, 70],
   wood1 = [143, 92, 57],
   wood2 = [177, 124, 62],
@@ -26,7 +26,7 @@ const wood = [155, 114, 70],
   cloud = [198, 245, 255],
   mast = function (center?: boolean, fromRight?: boolean) {
     return {
-      sX: "mastSX",
+      sX: 'mastSX',
       color: wood1,
       cX: center,
       fX: fromRight,
@@ -35,7 +35,7 @@ const wood = [155, 114, 70],
         {
           cX: true,
           sY: { r: 0.85 },
-          sX: "sail",
+          sX: 'sail',
           color: sail,
           list: [
             {
@@ -78,10 +78,10 @@ const wood = [155, 114, 70],
           color: string,
           sX: {
             r: 0.2,
-            add: [mult(0.4, "motiveSY")],
-            max: { r: 1.3, max: "innerShipSX" },
+            add: [mult(0.4, 'motiveSY')],
+            max: { r: 1.3, max: 'innerShipSX' },
             otherDim: true,
-            save: "sail",
+            save: 'sail',
           },
           list: [
             { points: [{ x: { r: 0.5 } }, { fY: true }] },
@@ -101,7 +101,7 @@ const wood = [155, 114, 70],
         },
         {},
       ],
-    };
+    }
   },
   fullOar = [
     { color: oar, weight: 1, points: [{ fY: true }, { fX: true }] },
@@ -189,24 +189,24 @@ const wood = [155, 114, 70],
 
     {
       fY: true,
-      sY: "waterSY",
+      sY: 'waterSY',
       color: water,
       list: [
         {},
         {
-          stripes: { horizontal: true, random: sub("backSX") },
+          stripes: { horizontal: true, random: sub('backSX') },
           fX: true,
           list: [
             {
               stripes: {
                 gap: {
-                  add: ["waterGapLength", 1],
-                  save: "waterGapLength",
+                  add: ['waterGapLength', 1],
+                  save: 'waterGapLength',
                 },
                 strip: {
-                  add: ["waterLength", mult(-0.012, "motiveSX")],
-                  save: "waterLength",
-                  random: "backSX",
+                  add: ['waterLength', mult(-0.012, 'motiveSX')],
+                  save: 'waterLength',
+                  random: 'backSX',
                 },
               },
               list: [{ color: water2 }, { sX: { r: 0.4 }, color: water1 }],
@@ -216,33 +216,33 @@ const wood = [155, 114, 70],
         {
           fX: true,
           sX: 2,
-          stripes: { horizontal: true, random: mult(0.5, "frontSX") },
+          stripes: { horizontal: true, random: mult(0.5, 'frontSX') },
           color: water,
         },
       ],
     },
 
     {
-      sX: { a: 0, save: "waterGapLength" },
-      sY: { r: 0.2, useSize: "motiveSX", save: "waterLength" },
+      sX: { a: 0, save: 'waterGapLength' },
+      sY: { r: 0.2, useSize: 'motiveSX', save: 'waterLength' },
     },
 
     // BOAT
     {
-      sX: "boatSX",
+      sX: 'boatSX',
       cX: true,
       fY: true,
-      y: "waterSY",
-      sY: "boatSY",
+      y: 'waterSY',
+      sY: 'boatSY',
       color: wood,
       list: [
         // BACK
         {
           sY: {
-            add: [mult(2, "boatSY"), mult(-1, "deckSYreal")],
-            save: "backSY",
+            add: [mult(2, 'boatSY'), mult(-1, 'deckSYreal')],
+            save: 'backSY',
           },
-          sX: "backSX",
+          sX: 'backSX',
           fY: true,
           list: [
             {
@@ -251,24 +251,24 @@ const wood = [155, 114, 70],
                 { y: 5, fX: true },
                 {
                   x: { r: 0.2 },
-                  y: [mult(0.3, "upperEnd"), 3],
+                  y: [mult(0.3, 'upperEnd'), 3],
                   fX: true,
                 },
                 {
                   x: { r: 0.3 },
-                  y: [mult(0.5, "upperEnd"), 3],
+                  y: [mult(0.5, 'upperEnd'), 3],
                   fX: true,
                 },
                 {
                   x: { r: 0.2 },
-                  y: [mult(0.7, "upperEnd"), 3],
+                  y: [mult(0.7, 'upperEnd'), 3],
                   fX: true,
                 },
 
                 {
                   fY: true,
                   fX: true,
-                  y: ["boatSY", sub("deckSYreal")],
+                  y: ['boatSY', sub('deckSYreal')],
                 },
                 { fY: true, fX: true },
 
@@ -292,24 +292,24 @@ const wood = [155, 114, 70],
                 { y: 5, fX: true },
                 {
                   x: { r: 0.2 },
-                  y: [mult(0.3, "upperEnd"), 3],
+                  y: [mult(0.3, 'upperEnd'), 3],
                   fX: true,
                 },
                 {
                   x: { r: 0.3 },
-                  y: [mult(0.5, "upperEnd"), 3],
+                  y: [mult(0.5, 'upperEnd'), 3],
                   fX: true,
                 },
                 {
                   x: { r: 0.2 },
-                  y: [mult(0.7, "upperEnd"), 3],
+                  y: [mult(0.7, 'upperEnd'), 3],
                   fX: true,
                 },
 
                 {
                   fY: true,
                   fX: true,
-                  y: ["boatSY", sub("deckSYreal")],
+                  y: ['boatSY', sub('deckSYreal')],
                 },
               ],
             },
@@ -338,8 +338,8 @@ const wood = [155, 114, 70],
             {
               sX: { a: 0 },
               sY: {
-                add: ["backSY", sub("boatSY"), "deckSYreal"],
-                save: "upperEnd",
+                add: ['backSY', sub('boatSY'), 'deckSYreal'],
+                save: 'upperEnd',
               },
             },
           ],
@@ -347,19 +347,19 @@ const wood = [155, 114, 70],
 
         // FRONT
         {
-          sX: "frontSX",
+          sX: 'frontSX',
           fX: true,
           fY: true,
           list: [
             {
               fY: true,
-              sY: "lowerTrunk",
+              sY: 'lowerTrunk',
               list: [
                 {
                   tY: true,
-                  y: sub("deckSYreal"),
-                  sY: mult(0.3, "airSY"),
-                  sX: "ramFullSX",
+                  y: sub('deckSYreal'),
+                  sY: mult(0.3, 'airSY'),
+                  sX: 'ramFullSX',
                   list: [
                     // {
                     // 	points: [
@@ -377,8 +377,8 @@ const wood = [155, 114, 70],
                 // Upper Deck
                 {
                   tY: true,
-                  y: sub("deckSYreal"),
-                  sX: "overshot",
+                  y: sub('deckSYreal'),
+                  sX: 'overshot',
                   sY: 4,
                   list: [
                     { sY: 1 },
@@ -390,22 +390,22 @@ const wood = [155, 114, 70],
 
                 // FACE
                 {
-                  sX: "ramFullSX",
+                  sX: 'ramFullSX',
                   sY: {
-                    add: ["lowerTrunk", sub("ramSY")],
-                    save: "faceSY",
+                    add: ['lowerTrunk', sub('ramSY')],
+                    save: 'faceSY',
                   },
                   list: [
                     {
                       clear: true,
                       sX: { r: 2 },
-                      id: "face",
+                      id: 'face',
                       fY: true,
                       tY: true,
                     },
                     {
                       y: 1,
-                      id: "face",
+                      id: 'face',
                       fX: true,
                       list: [
                         {
@@ -413,20 +413,20 @@ const wood = [155, 114, 70],
                           fY: true,
                           list: [
                             {
-                              sX: "ramFaceSlopSX",
+                              sX: 'ramFaceSlopSX',
                               fX: true,
                               color: wood1,
                               list: faceSlop,
                             },
                             {
-                              sX: "ramFaceSlopSX",
+                              sX: 'ramFaceSlopSX',
                               fX: true,
                               color: wood2,
                               x: 3,
                               list: faceSlop,
                             },
                             {
-                              sX: "ramFaceSlopSX",
+                              sX: 'ramFaceSlopSX',
                               fX: true,
                               color: wood3,
                               x: 6,
@@ -441,11 +441,11 @@ const wood = [155, 114, 70],
                       color: woodDark,
                       minX: 5,
                       minY: 5,
-                      sY: "eye",
+                      sY: 'eye',
                       sX: {
                         r: 0.4,
                         max: { r: 0.4, otherDim: true },
-                        save: "eye",
+                        save: 'eye',
                       },
                       x: { r: 0.4 },
                       fX: true,
@@ -495,11 +495,11 @@ const wood = [155, 114, 70],
                     },
 
                     {
-                      sX: "ramUpperSX",
+                      sX: 'ramUpperSX',
                       list: [
                         {
                           clear: true,
-                          id: "ship",
+                          id: 'ship',
                           stripes: {
                             change: { r: -1 },
                           },
@@ -513,18 +513,18 @@ const wood = [155, 114, 70],
 
                 // RAM
                 {
-                  x: sub("ramX"),
+                  x: sub('ramX'),
                   sX: {
                     r: 1,
-                    add: [{ r: 0.2, save: "ramX" }],
+                    add: [{ r: 0.2, save: 'ramX' }],
                   },
-                  sY: { r: 0.2, save: "ramSY" },
+                  sY: { r: 0.2, save: 'ramSY' },
                   fY: true,
                   list: [
                     {
                       sX: {
                         r: 1,
-                        add: [sub("ramTipSX")],
+                        add: [sub('ramTipSX')],
                       },
                       list: [
                         {},
@@ -544,7 +544,7 @@ const wood = [155, 114, 70],
 
                     {
                       fX: true,
-                      sX: { r: 0.25, save: "ramTipSX" },
+                      sX: { r: 0.25, save: 'ramTipSX' },
                       sY: { r: 1, a: 1 },
                       fY: true,
                       color: ram,
@@ -578,7 +578,7 @@ const wood = [155, 114, 70],
 
                     {
                       clear: true,
-                      id: "ship",
+                      id: 'ship',
                       list: [
                         {
                           stripes: {
@@ -596,18 +596,18 @@ const wood = [155, 114, 70],
                 // Deck
                 {
                   tY: true,
-                  sY: "deckSYreal",
-                  sX: "ramUpperSX",
+                  sY: 'deckSYreal',
+                  sX: 'ramUpperSX',
                   list: [
                     { sX: 7 },
-                    { sY: 1, sX: "overshot", color: wood3 },
+                    { sY: 1, sX: 'overshot', color: wood3 },
                     {
                       points: [
                         {},
                         {
                           x: {
                             r: 1.5,
-                            save: "overshot",
+                            save: 'overshot',
                           },
                         },
                         { fX: true, fY: true },
@@ -633,7 +633,7 @@ const wood = [155, 114, 70],
 
                 {
                   sY: { a: 0 },
-                  sX: { a: "ramUpperSX", save: "overshot" },
+                  sX: { a: 'ramUpperSX', save: 'overshot' },
                 }, // reset
               ],
             },
@@ -642,18 +642,18 @@ const wood = [155, 114, 70],
 
         // INNERSHIP
         {
-          x: "backSX",
-          sX: "innerShipSX",
-          id: "ship",
+          x: 'backSX',
+          sX: 'innerShipSX',
+          id: 'ship',
           list: [
             // HULK
             {
               fY: true,
               sY: {
-                add: ["boatSY", sub("deckSYreal")],
-                save: "lowerTrunk",
+                add: ['boatSY', sub('deckSYreal')],
+                save: 'lowerTrunk',
               },
-              sX: ["innerShipSX", "ramUpperSX"],
+              sX: ['innerShipSX', 'ramUpperSX'],
               list: [
                 {},
                 {
@@ -693,13 +693,13 @@ const wood = [155, 114, 70],
 
             // MAST
             {
-              sY: "mastSY",
+              sY: 'mastSY',
               tY: true,
               list: [
                 // FRONT MASTS
                 {
                   fX: true,
-                  sX: mult(0.5, "boatSX"),
+                  sX: mult(0.5, 'boatSX'),
                   list: [
                     {
                       sX: { r: 0.9 },
@@ -718,7 +718,7 @@ const wood = [155, 114, 70],
 
                 // BACK MASTS
                 {
-                  sX: mult(0.5, "boatSX"),
+                  sX: mult(0.5, 'boatSX'),
                   list: [
                     {
                       sX: { r: 0.7 },
@@ -759,7 +759,7 @@ const wood = [155, 114, 70],
               color: argoCloth,
               tY: true,
               y: -1,
-              sY: { a: 20, max: "mastSY" },
+              sY: { a: 20, max: 'mastSY' },
               fX: true,
               x: 5,
               sX: { r: 0.3, a: -5 },
@@ -798,7 +798,7 @@ const wood = [155, 114, 70],
                           ],
                         },
                         {
-                          name: "Dot",
+                          name: 'Dot',
                           color: argoSkin,
                           fX: true,
                           y: 3,
@@ -824,8 +824,8 @@ const wood = [155, 114, 70],
 
             // LOWER ROWERS
             {
-              y: "deckSYreal",
-              sY: { r: 0.8, add: [sub("deckSYreal")] },
+              y: 'deckSYreal',
+              sY: { r: 0.8, add: [sub('deckSYreal')] },
               stripes: {
                 strip: 10,
                 horizontal: true,
@@ -843,7 +843,7 @@ const wood = [155, 114, 70],
                       list: [
                         { color: holes },
                         {
-                          s: mult(0.4, "boatSY"),
+                          s: mult(0.4, 'boatSY'),
                           fY: true,
                           tY: true,
                           tX: true,
@@ -859,7 +859,7 @@ const wood = [155, 114, 70],
             },
 
             {
-              sY: "deckSYreal",
+              sY: 'deckSYreal',
               list: [
                 { sY: 1, fY: true, color: woodDark },
                 { sY: 1, y: 1, fY: true, color: wood },
@@ -906,7 +906,7 @@ const wood = [155, 114, 70],
                               color: slaveSkin,
                             },
                             {
-                              s: mult(0.5, "boatSY"),
+                              s: mult(0.5, 'boatSY'),
                               fY: true,
                               tY: true,
                               tX: true,
@@ -927,13 +927,13 @@ const wood = [155, 114, 70],
 
         // TEST DECK
         {
-          sY: "deckSY",
-          minY: ["deckTarget", -1],
-          list: [{ sY: { save: "deckSYreal" }, sX: { a: 0 } }],
+          sY: 'deckSY',
+          minY: ['deckTarget', -1],
+          list: [{ sY: { save: 'deckSYreal' }, sX: { a: 0 } }],
         }, // END TEST DECK
 
         // RESET DECK
-        { sY: { a: 0, save: "deckSYreal" } },
+        { sY: { a: 0, save: 'deckSYreal' } },
       ],
     },
 
@@ -942,8 +942,8 @@ const wood = [155, 114, 70],
       sY: 1,
       fX: true,
       fY: true,
-      y: "waterSY",
-      sX: "frontSX",
+      y: 'waterSY',
+      sX: 'frontSX',
       list: [
         {
           stripes: {
@@ -976,58 +976,58 @@ const wood = [155, 114, 70],
 
     // BORDER
     border: { a: 0 },
-    borderSub: sub("border"),
+    borderSub: sub('border'),
 
     // MOTIVE
-    motiveSX: { add: [{ r: 1 }, mult(-2, "border")] },
-    motiveSY: [{ r: 1, height: true }, mult(-2, "border")],
+    motiveSX: { add: [{ r: 1 }, mult(-2, 'border')] },
+    motiveSY: [{ r: 1, height: true }, mult(-2, 'border')],
 
-    motiveSqu: getSmallerDim({ r: 1, useSize: ["motiveSX", "motiveSY"] }),
+    motiveSqu: getSmallerDim({ r: 1, useSize: ['motiveSX', 'motiveSY'] }),
     motiveSquBigger: getBiggerDim({
       r: 1,
-      useSize: ["motiveSX", "motiveSY"],
+      useSize: ['motiveSX', 'motiveSY'],
     }),
 
     gridY: {
       add: [
-        { r: 0.04, useSize: "motiveSqu" },
-        { r: 0.04, useSize: "motiveSquBigger" },
+        { r: 0.04, useSize: 'motiveSqu' },
+        { r: 0.04, useSize: 'motiveSquBigger' },
       ],
       min: 5,
     },
-    gridYReal: ["gridY", -1],
-    gridYNeg: sub("gridYReal"),
-    gridX: { r: 2, useSize: "gridY" },
+    gridYReal: ['gridY', -1],
+    gridYNeg: sub('gridYReal'),
+    gridX: { r: 2, useSize: 'gridY' },
 
-    waterSY: { a: 20, max: mult(0.2, "motiveSY"), min: 1 },
-    airSY: ["motiveSY", sub("waterSY")],
+    waterSY: { a: 20, max: mult(0.2, 'motiveSY'), min: 1 },
+    airSY: ['motiveSY', sub('waterSY')],
 
     // BOAT
-    boatSX: ["motiveSX", -2],
-    boatSY: { r: 0.4, useSize: "airSY", min: 1, max: ["airSY", -8] },
+    boatSX: ['motiveSX', -2],
+    boatSY: { r: 0.4, useSize: 'airSY', min: 1, max: ['airSY', -8] },
     deckTarget: 10,
-    deckSY: { r: 0.75, useSize: "boatSY", max: "deckTarget" },
+    deckSY: { r: 0.75, useSize: 'boatSY', max: 'deckTarget' },
 
-    mastSY: { add: ["airSY", sub("boatSY"), -1] },
+    mastSY: { add: ['airSY', sub('boatSY'), -1] },
     mastSX: 2,
 
-    backSX: { r: 0.1, a: 5, useSize: "boatSX" },
+    backSX: { r: 0.1, a: 5, useSize: 'boatSX' },
     frontSX: [
-      { r: 0.2, a: 5, useSize: "boatSX" },
-      { r: 0.2, useSize: "boatSY" },
+      { r: 0.2, a: 5, useSize: 'boatSX' },
+      { r: 0.2, useSize: 'boatSY' },
     ],
-    innerShipSX: ["boatSX", sub("frontSX"), sub("backSX")],
+    innerShipSX: ['boatSX', sub('frontSX'), sub('backSX')],
 
-    ramFullSX: { r: 0.5, add: [mult(0.2, "boatSY")], useSize: "frontSX" },
-    ramDiag: { r: 0.6, useSize: "ramFullSX" },
-    ramUpperSX: ["ramFullSX", sub("ramDiag")],
-    ramFaceSlopSX: ["ramFullSX", sub("ramUpperSX")],
-  };
+    ramFullSX: { r: 0.5, add: [mult(0.2, 'boatSY')], useSize: 'frontSX' },
+    ramDiag: { r: 0.6, useSize: 'ramFullSX' },
+    ramUpperSX: ['ramFullSX', sub('ramDiag')],
+    ramFaceSlopSX: ['ramFullSX', sub('ramUpperSX')],
+  }
 
 const image: ImageFunction = {
   renderList: renderList,
   variableList: variableList,
   background: backgroundColor,
-};
+}
 
-export default image;
+export default image

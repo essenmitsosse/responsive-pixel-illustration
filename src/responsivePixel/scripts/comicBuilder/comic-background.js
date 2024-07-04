@@ -2,9 +2,9 @@
 
 // BEGINN Mountains /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 Comic.prototype.Mountains = function Mountains() {
-  let count = this.rInt(3, 20);
-  const singleWid = 1 / count;
-  const list = [];
+  let count = this.rInt(3, 20)
+  const singleWid = 1 / count
+  const list = []
 
   while (count--) {
     list.push({
@@ -12,10 +12,10 @@ Comic.prototype.Mountains = function Mountains() {
       sY: { r: this.rFl(0, 1) },
       fY: true,
       x: { r: count * singleWid },
-    });
+    })
   }
 
-  return list;
-};
+  return list
+}
 
-Comic.prototype.Mountains.prototype.draw = function () {}; // END Mountains \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
+Comic.prototype.Mountains.prototype.draw = function () {} // END Mountains \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/

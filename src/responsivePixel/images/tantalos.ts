@@ -1,5 +1,5 @@
-import { getSmallerDim, getBiggerDim } from "../helperPixelGraphics";
-import { ColorRgb, ImageFunction, Size } from "../PixelGraphics/types";
+import { getSmallerDim, getBiggerDim } from '../helperPixelGraphics'
+import { ColorRgb, ImageFunction, Size } from '../PixelGraphics/types'
 
 const water: ColorRgb = [36, 44, 53],
   waterLight: ColorRgb = [74, 81, 88],
@@ -24,8 +24,8 @@ const water: ColorRgb = [36, 44, 53],
   linkListPush = (
     obj: Size | ReadonlyArray<Size>,
   ): Size | ReadonlyArray<Size> => {
-    linkList.push(obj);
-    return obj;
+    linkList.push(obj)
+    return obj
   },
   sXMain = linkListPush({ main: true }),
   sYMain = linkListPush({ main: true, height: true }),
@@ -93,7 +93,7 @@ const water: ColorRgb = [36, 44, 53],
       r: rel,
       useSize: height ? movementSY : movementSX,
       min: min ? 1 : undefined,
-    });
+    })
   },
   handSX_ = getBodyPartSize(handRel, false, true),
   handSY_ = getBodyPartSize(handRel, true, true),
@@ -353,7 +353,7 @@ const water: ColorRgb = [36, 44, 53],
   teiresias = (reflect?: boolean) => {
     const skinColor = reflect ? skinWater : skin,
       skinShadowColor = reflect ? skinWater : skinShadow,
-      shortsColor = reflect ? shortsWater : shorts;
+      shortsColor = reflect ? shortsWater : shorts
 
     return {
       color: skinColor,
@@ -456,7 +456,7 @@ const water: ColorRgb = [36, 44, 53],
           sY: shoulderSY,
           x: shoulderX,
           y: shoulderY,
-          id: "shoulder",
+          id: 'shoulder',
           list: [
             {},
             {
@@ -547,7 +547,7 @@ const water: ColorRgb = [36, 44, 53],
           ],
         },
       ],
-    };
+    }
   },
   trunkObj = (shadowColor, hor, vert) => {
     return [
@@ -563,7 +563,7 @@ const water: ColorRgb = [36, 44, 53],
         list: [{}, { color: shadowColor, sY: { r: 0.9 } }],
       },
       { sY: 2, fY: true, color: shadowColor },
-    ];
+    ]
   },
   mainImage = () => {
     return [
@@ -599,38 +599,38 @@ const water: ColorRgb = [36, 44, 53],
         sY: waterSY,
         y: waterY,
         list: [
-          { use: "water3" },
+          { use: 'water3' },
           {
-            use: "water3",
+            use: 'water3',
             color: waterLight,
             chance: 0.05,
             sY: 1,
             sX: { a: 4, random: 27 },
             mask: true,
           },
-          { save: "water3" },
+          { save: 'water3' },
 
-          { use: "water2" },
+          { use: 'water2' },
           {
-            use: "water2",
+            use: 'water2',
             color: waterLight,
             chance: 0.05,
             sY: 1,
             sX: { a: 2, random: 9 },
             mask: true,
           },
-          { save: "water2", sY: { r: 0.5 } },
+          { save: 'water2', sY: { r: 0.5 } },
 
-          { use: "water" },
+          { use: 'water' },
           {
-            use: "water",
+            use: 'water',
             color: waterLight,
             chance: 0.05,
             sY: 1,
             sX: { a: 1, random: 3 },
             mask: true,
           },
-          { save: "water", sY: { r: 0.2 } },
+          { save: 'water', sY: { r: 0.2 } },
         ],
       },
 
@@ -720,17 +720,17 @@ const water: ColorRgb = [36, 44, 53],
       teiresias(),
 
       // Main Tree
-      { use: "tree-main-background", color: treeShadow },
-      { use: "tree-main", color: tree },
+      { use: 'tree-main-background', color: treeShadow },
+      { use: 'tree-main', color: tree },
       {
-        use: "tree-main",
+        use: 'tree-main',
         color: treeShadow,
         chance: 0.05,
         sY: { a: 3, random: 10 },
         mask: true,
       },
       {
-        use: "tree-main",
+        use: 'tree-main',
         color: fruit,
         chance: 0.06,
         sY: { r: 0.6, useSize: fruitSY },
@@ -743,7 +743,7 @@ const water: ColorRgb = [36, 44, 53],
         fX: true,
         list: [
           {
-            id: "tree-main",
+            id: 'tree-main',
             sY: { r: 0.8 },
             stripes: {
               strip: { a: 4, random: 4 },
@@ -751,7 +751,7 @@ const water: ColorRgb = [36, 44, 53],
               change: { r: 0.6 },
             },
             list: [
-              { save: "tree-main", y: -1 },
+              { save: 'tree-main', y: -1 },
               {
                 fX: true,
                 sX: 1,
@@ -764,21 +764,21 @@ const water: ColorRgb = [36, 44, 53],
             ],
           },
           {
-            id: "tree-main-background",
+            id: 'tree-main-background',
             sY: { r: 0.9 },
             stripes: {
               strip: { a: 4, random: 4 },
               random: { r: -0.4 },
               change: { r: 0.6 },
             },
-            list: [{ save: "tree-main-background", y: -1 }],
+            list: [{ save: 'tree-main-background', y: -1 }],
           },
         ],
       },
 
       // fruit
       { color: fruit, sX: fruitSX, sY: fruitSY, x: fruitX, y: fruitY },
-    ];
+    ]
   },
   border = () => {
     const edgeDetail = [
@@ -873,24 +873,24 @@ const water: ColorRgb = [36, 44, 53],
             },
           ],
         },
-      ];
+      ]
 
     return {
       color: borderColor,
       z: 10000,
       list: [
-        { sY: borderSX, id: "borderTop", list: borderVert },
+        { sY: borderSX, id: 'borderTop', list: borderVert },
         {
           sY: borderSX,
-          id: "borderBottom",
+          id: 'borderBottom',
           fY: true,
           rY: true,
           list: borderVert,
         },
-        { sX: borderSX, id: "borderLeft", list: borderHor },
+        { sX: borderSX, id: 'borderLeft', list: borderHor },
         {
           sX: borderSX,
-          id: "borderRight",
+          id: 'borderRight',
           fX: true,
           rX: true,
           list: borderHor,
@@ -927,21 +927,21 @@ const water: ColorRgb = [36, 44, 53],
           ],
         },
       ],
-    };
+    }
   },
   renderList = [
     // Image
     { list: mainImage() },
     border(),
   ],
-  backgroundColor: ColorRgb = [31, 29, 29];
+  backgroundColor: ColorRgb = [31, 29, 29]
 
-console.log(linkList);
+console.log(linkList)
 
 const image: ImageFunction = {
   renderList: renderList,
   linkList: linkList,
   background: backgroundColor,
-};
+}
 
-export default image;
+export default image

@@ -3,11 +3,11 @@ export const getDimension = (Axis) =>
     constructor(args, fromRight, fromBottom, rotate) {
       if (args.sX === undefined) {
         /* eslint-disable-next-line no-param-reassign */
-        args.sX = args.s;
+        args.sX = args.s
       }
       if (args.sY === undefined) {
         /* eslint-disable-next-line no-param-reassign */
-        args.sY = args.s;
+        args.sY = args.s
       }
       this.x = new Axis.X(
         rotate
@@ -29,7 +29,7 @@ export const getDimension = (Axis) =>
               min: args.minX,
               center: args.cX || args.c,
             },
-      );
+      )
       this.y = new Axis.Y(
         rotate
           ? {
@@ -50,13 +50,13 @@ export const getDimension = (Axis) =>
               min: args.minY,
               center: args.cY || args.c,
             },
-      );
+      )
     }
 
     calc() {
-      this.x.calc();
-      this.y.calc();
-      return this;
+      this.x.calc()
+      this.y.calc()
+      return this
     }
 
     checkMin() {
@@ -65,30 +65,30 @@ export const getDimension = (Axis) =>
         (this.x.min && this.x.realSize < this.x.min.getReal()) ||
         this.y.realSize < 1 ||
         (this.y.min && this.y.realSize < this.y.min.getReal())
-      );
+      )
     }
 
     get width() {
-      return this.x.realSize;
+      return this.x.realSize
     }
 
     get height() {
-      return this.y.realSize;
+      return this.y.realSize
     }
 
     get posX() {
-      return this.x.realPos;
+      return this.x.realPos
     }
 
     get posY() {
-      return this.y.realPos;
+      return this.y.realPos
     }
 
     get endX() {
-      return this.x.realPos + this.x.realSize;
+      return this.x.realPos + this.x.realSize
     }
 
     get endY() {
-      return this.y.realPos + this.y.realSize;
+      return this.y.realPos + this.y.realSize
     }
-  };
+  }

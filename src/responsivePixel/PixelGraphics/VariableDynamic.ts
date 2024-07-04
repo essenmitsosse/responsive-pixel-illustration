@@ -1,16 +1,16 @@
-import { Variable } from "./Variable";
+import { Variable } from './Variable'
 
 export class VariableDynamic extends Variable {
   constructor(name) {
-    super();
-    this.name = name;
-    this.linkedP = [];
-    this.l = 0;
+    super()
+    this.name = name
+    this.linkedP = []
+    this.l = 0
   }
 
   set(value) {
     this.linkedP.forEach((_, key) => {
-      this.linkedP[key].abs = value;
-    });
+      this.linkedP[key].abs = value
+    })
   }
 }

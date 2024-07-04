@@ -1,70 +1,70 @@
 /* global TableComic */
 // BEGINN Background /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 TableComic.prototype.Background = function Background(args) {
-  const floorFactor = 0.8;
-  const borderFactor = 0.9;
+  const floorFactor = 0.8
+  const borderFactor = 0.9
 
-  this.blank = args.blank;
+  this.blank = args.blank
 
-  this.backgroundColor = args.backgroundColor || [180, 190, 200];
+  this.backgroundColor = args.backgroundColor || [180, 190, 200]
   this.floorColor = [
     this.backgroundColor[0] * floorFactor,
     this.backgroundColor[1] * floorFactor,
     this.backgroundColor[2] * floorFactor,
-  ];
+  ]
   this.borderColor = [
     this.backgroundColor[0] * borderFactor,
     this.backgroundColor[1] * borderFactor,
     this.backgroundColor[2] * borderFactor,
-  ];
+  ]
 
   this.floor = new this.basic.Floor({
     color: this.floorColor,
-  });
-};
+  })
+}
 
 TableComic.prototype.Background.prototype.draw = function BackgroundDraw(args) {
   const borderSY = this.pushLinkList({
     r: 0.05,
     min: 1,
     useSize: args.stageSY,
-  });
+  })
   const borderFinalSY = (this.borderFinalSY = this.pushLinkList({
     r: 1,
     useSize: borderSY,
-  }));
+  }))
 
-  const stripeSX = this.pushLinkList({ r: 0.1, useSize: args.stageSX });
+  const stripeSX = this.pushLinkList({ r: 0.1, useSize: args.stageSX })
   const stripeFinalSX = (this.stripeFinalSX = this.pushLinkList({
     r: 1,
     useSize: stripeSX,
     min: 1,
-  }));
+  }))
 
   const floorY = this.pushLinkList({
     add: [args.panY, { r: 0.2, useSize: args.stageSX }],
-  });
+  })
 
-  this.backgroundSY = this.pushLinkList({ r: 1, useSize: args.fullSY });
-  this.floorSY = this.pushLinkList({ r: 1, useSize: floorY });
+  this.backgroundSY = this.pushLinkList({ r: 1, useSize: args.fullSY })
+  this.floorSY = this.pushLinkList({ r: 1, useSize: floorY })
 
   this.pushRelativeStandardAutomatic({
-    backgroundSY: { map: "set", min: 0, max: 1 },
-    borderFinalSY: { map: "set", min: 0, max: 1 },
-    floorSY: { map: "set", min: 0, max: 1 },
-  });
+    backgroundSY: { map: 'set', min: 0, max: 1 },
+    borderFinalSY: { map: 'set', min: 0, max: 1 },
+    floorSY: { map: 'set', min: 0, max: 1 },
+  })
 
   this.borderFinalSY = this.pushLinkList({
     r: 1,
     useSize: this.borderFinalSY,
     min: 1,
-  });
+  })
 
   if (args.info) {
     this.pushRelativeStandardAutomatic({
       borderFinalSY: args.info.zoom,
       stripeFinalSX: args.info.zoom,
-    });
+    })
   }
 
   return {
@@ -102,21 +102,21 @@ TableComic.prototype.Background.prototype.draw = function BackgroundDraw(args) {
         ],
       },
     ],
-  };
-};
+  }
+}
 // END Background \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Floor /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 TableComic.prototype.Floor = function Floor(args) {
-  const darkFactor = 0.9;
+  const darkFactor = 0.9
 
-  this.color = args.color;
+  this.color = args.color
   this.darkColor = [
     this.color[0] * darkFactor,
     this.color[1] * darkFactor,
     this.color[2] * darkFactor,
-  ];
-};
+  ]
+}
 
 TableComic.prototype.Floor.prototype.draw = function FloorDraw(args) {
   if (args.horizontal) {
@@ -133,14 +133,14 @@ TableComic.prototype.Floor.prototype.draw = function FloorDraw(args) {
           },
         },
       ],
-    };
+    }
   }
   const stripes = {
     center: true,
     strip: args.sY || { r: 0.22, useSize: args.stageSX },
     mask: true,
-  };
-  const list = [{ sX: 1 }];
+  }
+  const list = [{ sX: 1 }]
 
   return {
     color: this.color,
@@ -172,26 +172,26 @@ TableComic.prototype.Floor.prototype.draw = function FloorDraw(args) {
         ],
       },
     ],
-  };
-};
+  }
+}
 // END Floor \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Stage /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 TableComic.prototype.Stage = function Stage(args) {
   if (!args) {
-    args = {};
+    args = {}
   }
 
-  this.show = args.show;
+  this.show = args.show
 
   // // Stage always has to be at 0 because it has nothing to be relative to. Use panX/panY to move camera.
-  this.x = this.pushLinkList({ a: 0 });
-  this.y = this.pushLinkList({ a: 0 });
-};
+  this.x = this.pushLinkList({ a: 0 })
+  this.y = this.pushLinkList({ a: 0 })
+}
 
 TableComic.prototype.Stage.prototype.draw = function StageDraw(args) {
-  this.sX = args.stageSX;
-  this.sY = args.stageSY;
+  this.sX = args.stageSX
+  this.sY = args.stageSY
 
   return (
     this.debug && {
@@ -230,6 +230,6 @@ TableComic.prototype.Stage.prototype.draw = function StageDraw(args) {
         { sX: 1, fX: true },
       ],
     }
-  );
-};
+  )
+}
 // END Stage \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/

@@ -1,9 +1,9 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import Image from "./views/Image";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
+import App from './App'
+import Image from './views/Image'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,5 +16,5 @@ ReactDOM.render(
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
-  document.getElementById("root"),
-);
+  document.getElementById('root'),
+)

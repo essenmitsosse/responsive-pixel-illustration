@@ -3,71 +3,71 @@
 // BEGINN Actors /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 Comic.prototype.Actors = function Actors(args) {
   // Add Tracker for Debugging
-  window.track = this.track();
-  this.tracker = [];
+  window.track = this.track()
+  this.tracker = []
 
-  args.actorControl = this;
+  args.actorControl = this
 
   // Forms And Sizes
 
   // Assets
-  this.actor1 = new this.basic.Actor(args, true);
-  this.actor2 = new this.basic.Actor(args, false);
+  this.actor1 = new this.basic.Actor(args, true)
+  this.actor2 = new this.basic.Actor(args, false)
 
-  this.actor1.opponent = this.actor2;
-  this.actor2.opponent = this.actor1;
+  this.actor1.opponent = this.actor2
+  this.actor2.opponent = this.actor1
 
   this.weakerActor =
-    this.actor1.speed < this.actor2.strength ? this.actor1 : this.actor2;
-  this.weakerActor.weak = true;
+    this.actor1.speed < this.actor2.strength ? this.actor1 : this.actor2
+  this.weakerActor.weak = true
 
-  this.hasBeenHit = false;
+  this.hasBeenHit = false
 
-  this.currentActor = false;
-  this.someOneIsActing = false;
-};
+  this.currentActor = false
+  this.someOneIsActing = false
+}
 
 Comic.prototype.Actors.prototype = {
   isDone() {
-    this.currentActor = false;
+    this.currentActor = false
   },
 
   getActorDistance() {
-    return 1 - this.actor1.posX_ - this.actor2.posX_;
+    return 1 - this.actor1.posX_ - this.actor2.posX_
   },
 
   setActor(actor) {
-    this.currentActor = actor;
+    this.currentActor = actor
 
-    this.currentActor.acting = true;
-    this.someOneIsActing = true;
+    this.currentActor.acting = true
+    this.someOneIsActing = true
 
-    this.addComment(`\n\nnew Actor is ${actor.name}`);
+    this.addComment(`\n\nnew Actor is ${actor.name}`)
   },
 
   endComic() {
-    this.end = true;
+    this.end = true
   },
 
   prepare(args) {
-    let first;
+    let first
 
-    this.panelNr = args.i + 1;
+    this.panelNr = args.i + 1
 
     if (!this.someOneIsActing) {
       if (this.rIf(0.9)) {
-        first = this.rIf(0.5);
+        first = this.rIf(0.5)
 
-        this.setActor(first ? this.actor1 : this.actor2);
+        this.setActor(first ? this.actor1 : this.actor2)
 
-        this.actor1.startActing();
+        this.actor1.startActing()
       } else {
-        this.addComment("no new Actor found");
+        this.addComment('no new Actor found')
       }
     }
 
-    this.actor1.act();
-    this.actor2.act();
+    this.actor1.act()
+    this.actor2.act()
 
     // // If no one is acting, FIND NEW ACTOR
     // if( !this.currentActor ) {
@@ -113,27 +113,27 @@ Comic.prototype.Actors.prototype = {
     // 	}
     // }
 
-    this.addTrack(this.panelNr);
+    this.addTrack(this.panelNr)
 
     return {
       hit: this.hit,
       currentActor: this.currentActor,
       end: this.end,
-    };
+    }
   },
 
   draw(args) {
-    let actorsMaxDistance;
-    let actorsCurrentDistance;
+    let actorsMaxDistance
+    let actorsCurrentDistance
 
-    let actorS;
+    let actorS
 
-    let actor1PosX;
-    let actor2PosX;
+    let actor1PosX
+    let actor2PosX
 
-    let actorArgs;
+    let actorArgs
 
-    this.actorsCurrentDistanceRel = this.getActorDistance();
+    this.actorsCurrentDistanceRel = this.getActorDistance()
 
     // Get real Positions of the actors
     this.linkList.push(
@@ -150,12 +150,12 @@ Comic.prototype.Actors.prototype = {
         { r: -1, useSize: actorsCurrentDistance },
         { r: -1, useSize: actor1PosX },
       ]),
-    );
+    )
 
     actorArgs = {
       size: actorS,
       distance: actorsCurrentDistance,
-    };
+    }
 
     return {
       actorS,
@@ -164,7 +164,7 @@ Comic.prototype.Actors.prototype = {
         args.debug && {
           list: [
             // Stage Grid
-            { name: "Grid", color: [200, 100, 0] },
+            { name: 'Grid', color: [200, 100, 0] },
 
             // Stage Marks
             {
@@ -236,26 +236,26 @@ Comic.prototype.Actors.prototype = {
         this.actor1.draw(actorArgs, actor1PosX),
         this.actor2.draw(actorArgs, actor2PosX),
       ],
-    };
+    }
   },
 
   track() {
-    const that = this;
+    const that = this
     return function () {
-      let info = that.tracker.join("\n");
+      let info = that.tracker.join('\n')
 
       // eslint-disable-next-line no-unused-vars
-      info = new Array(20).join("\n") + info;
+      info = new Array(20).join('\n') + info
 
       // window.console.log( "%c%s", "color:#500", info );
-    };
+    }
   },
 
   addTrack(i) {
-    const { tracker } = this;
-    const actor1Array = [];
-    const actor2Array = [];
-    const name = [];
+    const { tracker } = this
+    const actor1Array = []
+    const actor2Array = []
+    const name = []
     const addActor = function (actorArray, actor) {
       actorArray.push(
         // actor.acting ? "ACTING" : "NOT acting",
@@ -263,41 +263,40 @@ Comic.prototype.Actors.prototype = {
         `${
           Math.round(actor.posX_ * 100) / 100 // posX_
         } / ${Math.round(actor.posY_ * 100) / 100}`, // posX_
-      );
-    };
+      )
+    }
 
     name.push(
       // "   ACTING",
-      "   SPEED",
-      "   POSX/POSY",
+      '   SPEED',
+      '   POSX/POSY',
       `   diff ${Math.round(this.getActorDistance() * 100) / 100}`,
-    );
+    )
 
-    addActor(actor1Array, this.actor1, 1);
-    addActor(actor2Array, this.actor2, 2);
+    addActor(actor1Array, this.actor1, 1)
+    addActor(actor2Array, this.actor2, 2)
+    ;(function (a1, a2, name) {
+      const l = name.length
+      let c = 0
+      let string
 
-    (function (a1, a2, name) {
-      const l = name.length;
-      let c = 0;
-      let string;
-
-      tracker.push(`${new Array(25).join("  _")}Frame #${i}`);
+      tracker.push(`${new Array(25).join('  _')}Frame #${i}`)
 
       do {
-        string = name[c] + new Array(20 - `${name[c]}`.length).join(" ");
+        string = name[c] + new Array(20 - `${name[c]}`.length).join(' ')
         string +=
-          (a1[c] || "") +
-          new Array(30 - `${a1[c]}`.length).join(" ") +
-          (a2[c] || "");
+          (a1[c] || '') +
+          new Array(30 - `${a1[c]}`.length).join(' ') +
+          (a2[c] || '')
 
-        tracker.push(string);
-      } while ((c += 1) < l);
-    })(actor1Array, actor2Array, name);
+        tracker.push(string)
+      } while ((c += 1) < l)
+    })(actor1Array, actor2Array, name)
   },
 
   addComment(comment) {
-    this.tracker.push(`${this.panelNr} . . . . . . ${comment}`);
+    this.tracker.push(`${this.panelNr} . . . . . . ${comment}`)
 
     // console.log( this.panelNr, comment );
   },
-}; // END Actors \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
+} // END Actors \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/

@@ -1,4 +1,4 @@
-"use strict";
+'use strict'
 
 import {
   ColorRgb,
@@ -6,14 +6,14 @@ import {
   Render,
   RenderObject,
   Size,
-} from "../PixelGraphics/types";
+} from '../PixelGraphics/types'
 
 const backgroundColor: ColorRgb = [100, 100, 120],
   linkList: Array<Size> = [],
   linkListPush = function (obj: Size) {
-    linkList.push(obj);
+    linkList.push(obj)
 
-    return obj;
+    return obj
   },
   white: ColorRgb = [220, 220, 255],
   red: ColorRgb = [220, 50, 40],
@@ -83,41 +83,41 @@ const backgroundColor: ColorRgb = [100, 100, 120],
           },
         },
       ],
-    ];
+    ]
   },
   sizes = (function (count) {
-    const obj: Record<`s${number}`, Size> = {};
-    let i = 0;
+    const obj: Record<`s${number}`, Size> = {}
+    let i = 0
 
     while (i < count) {
-      obj["s" + i] = linkListPush({
+      obj['s' + i] = linkListPush({
         r: 0,
         useSize: stripMaxSX,
         min: singleSY,
-      });
-      i += 1;
+      })
+      i += 1
     }
 
-    return obj;
+    return obj
   })(count),
   getSquares = (): ReadonlyArray<RenderObject> => {
     const list: Array<RenderObject> = [],
-      max = count;
-    let i: 0 | 1 | 2 | 3 | 4 | 5 = 0;
+      max = count
+    let i: 0 | 1 | 2 | 3 | 4 | 5 = 0
 
     while (i < max) {
-      const foo = versions(sizes["s" + i]);
+      const foo = versions(sizes['s' + i])
       list.push({
         sY: [singleSY, -1],
-        sX: sizes["s" + i],
+        sX: sizes['s' + i],
         y: { r: i, useSize: singleSY, a: 1 },
         x: 1,
         list: [{ color: [50, 50, 60] }, { m: 1, mask: true, list: foo[i] }],
-      });
-      i += 1;
+      })
+      i += 1
     }
 
-    return list;
+    return list
   },
   renderList: ReadonlyArray<Render> = [
     {
@@ -143,12 +143,12 @@ const backgroundColor: ColorRgb = [100, 100, 120],
       color: [255, 0, 0],
       list: getSquares(),
     },
-  ];
+  ]
 
 const image: ImageFunction = {
   renderList: renderList,
   background: backgroundColor,
   linkList: linkList,
-};
+}
 
-export default image;
+export default image

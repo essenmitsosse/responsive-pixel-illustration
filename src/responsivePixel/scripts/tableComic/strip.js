@@ -2,32 +2,32 @@
 
 // BEGINN Strip /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 TableComic.prototype.Strip = function (args) {
-  const { stripInfo } = args;
-  const panelsInfo = stripInfo.panels;
-  const count = panelsInfo.length;
-  let i = 0;
-  const panels = [];
-  let minSX;
-  let minSY;
-  let current;
-  let sizeCurrent;
-  const sizeList = [];
-  let sX;
-  let sY;
+  const { stripInfo } = args
+  const panelsInfo = stripInfo.panels
+  const count = panelsInfo.length
+  let i = 0
+  const panels = []
+  let minSX
+  let minSY
+  let current
+  let sizeCurrent
+  const sizeList = []
+  let sX
+  let sY
   const gutterX = {
     r: 0.025,
     useSize: args.square,
     a: -1,
     min: 1,
-  };
+  }
   const gutterY = {
     r: 0.04,
     useSize: args.square,
     a: -1,
     min: 1,
-  };
-  const basicPanel = new this.basic.Panel(stripInfo);
-  const { paperColor } = args;
+  }
+  const basicPanel = new this.basic.Panel(stripInfo)
+  const { paperColor } = args
 
   do {
     this.linkList.push(
@@ -35,20 +35,20 @@ TableComic.prototype.Strip = function (args) {
       (sY = {}),
       (minSX = { add: [sX], max: minSX }),
       (minSY = { add: [sY], max: minSY }),
-    );
+    )
 
     sizeList.push({
       sX,
       sY,
-    });
-  } while ((i += 1) < count);
+    })
+  } while ((i += 1) < count)
 
-  basicPanel.setStage(minSX, minSY);
+  basicPanel.setStage(minSX, minSY)
 
-  i = 0;
+  i = 0
   do {
-    sizeCurrent = sizeList[i];
-    current = basicPanel[panelsInfo[i].method || "draw"]({
+    sizeCurrent = sizeList[i]
+    current = basicPanel[panelsInfo[i].method || 'draw']({
       i,
       rel: i / (count - 1),
       sX: sizeCurrent.sX,
@@ -56,7 +56,7 @@ TableComic.prototype.Strip = function (args) {
       minSX,
       minSY,
       info: panelsInfo[i],
-    });
+    })
 
     // Rounded Border
     if (
@@ -69,31 +69,31 @@ TableComic.prototype.Strip = function (args) {
         minY: 6,
         list: [
           (stripInfo.roundCorners || stripInfo.roundTopCorners) && {
-            name: "Dot",
+            name: 'Dot',
             color: paperColor,
           },
           (stripInfo.roundCorners || stripInfo.roundTopCorners) && {
-            name: "Dot",
+            name: 'Dot',
             fX: true,
             color: paperColor,
           },
           (stripInfo.roundCorners || stripInfo.roundBottomCorners) && {
-            name: "Dot",
+            name: 'Dot',
             fY: true,
             color: paperColor,
           },
           (stripInfo.roundCorners || stripInfo.roundBottomCorners) && {
-            name: "Dot",
+            name: 'Dot',
             fX: true,
             fY: true,
             color: paperColor,
           },
         ],
-      });
+      })
     }
 
-    panels.push(current);
-  } while ((i += 1) < count);
+    panels.push(current)
+  } while ((i += 1) < count)
 
   return {
     mask: true,
@@ -101,16 +101,16 @@ TableComic.prototype.Strip = function (args) {
     gutterY,
     imgRatio: 1.5,
     panels,
-  };
-};
+  }
+}
 // END Strip \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Panel /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 TableComic.prototype.Panel = function (args) {
-  this.background = args.background || new this.basic.Background({});
+  this.background = args.background || new this.basic.Background({})
 
-  this.ratio = args.ratio || 1;
-};
+  this.ratio = args.ratio || 1
+}
 
 TableComic.prototype.Panel.prototype.setStage = function (
   minPanelSX,
@@ -119,77 +119,77 @@ TableComic.prototype.Panel.prototype.setStage = function (
   this.getSizeWithRatio(
     (this.minPanelSX = minPanelSX),
     (this.minPanelSY = minPanelSY),
-    "minSX",
-    "minSY",
-  );
-};
+    'minSX',
+    'minSY',
+  )
+}
 
 TableComic.prototype.Panel.prototype.draw = function (args) {
-  const info = args.info || {};
+  const info = args.info || {}
   const zoomSX = (this.zoomSX = this.pushLinkList({
     r: 1,
     useSize: this.minSX,
-  }));
+  }))
   const zoomSY = (this.zoomSY = this.pushLinkList({
     r: 1,
     useSize: this.minSY,
-  }));
+  }))
 
   const restSX = this.pushLinkList({
     add: [args.sX, { r: -1, useSize: zoomSX }],
-  });
+  })
   const restSY = this.pushLinkList({
     add: [args.sY, { r: -1, useSize: zoomSY }],
-  });
+  })
 
   const panXrel = (this.panXrel = this.pushLinkList({
     r: 0.5,
     useSize: restSX,
-  }));
+  }))
   const panYrel = (this.panYrel = this.pushLinkList({
     r: 0.5,
     useSize: restSY,
-  }));
+  }))
 
   const panX = (this.panX = this.pushLinkList({
     r: 0,
     useSize: zoomSX,
     add: [panXrel],
-  }));
+  }))
 
   const panY = (this.panY = this.pushLinkList({
     r: 0,
     useSize: zoomSY,
     add: [panYrel],
-  }));
+  }))
 
-  const square = this.pushLinkList({ add: [zoomSX], max: zoomSY });
-  const infoList = info.list;
-  const l = infoList ? infoList.length : 0;
-  let count = 0;
-  let current;
-  const renderList = [];
+  const square = this.pushLinkList({ add: [zoomSX], max: zoomSY })
+  const infoList = info.list
+  const l = infoList ? infoList.length : 0
+  let count = 0
+  let current
+  const renderList = []
   const drawInfo = {
     stageSX: zoomSX,
     stageSY: zoomSY,
     square,
-  };
-
-  const background = info.background || this.background;
-
-  while (count < l) {
-    current = infoList[count];
-
-    drawInfo.info = current;
-
-    renderList.push(current.what.draw(drawInfo));
-
-    count += 1;
   }
 
-  info.zoomSX = info.zoom;
-  info.zoomSY = info.zoom;
-  this.addHoverChange(info);
+  const background = info.background || this.background
+
+  while (count < l) {
+    current = infoList[count]
+
+    drawInfo.info = current
+
+    renderList.push(current.what.draw(drawInfo))
+
+    count += 1
+  }
+
+  info.zoomSX = info.zoom
+  info.zoomSY = info.zoom
+  this.addHoverChange(info)
 
   // this.addHoverChange( [
   // 	[ zoom, sX ],
@@ -222,22 +222,22 @@ TableComic.prototype.Panel.prototype.draw = function (args) {
         list: renderList,
       },
     ],
-  };
-};
+  }
+}
 
 TableComic.prototype.Panel.prototype.faceDraw = function (args) {
-  const actor = args.info.actor.what;
+  const actor = args.info.actor.what
   const zoomX = (this.zoomX = this.pushLinkList({
     r: 1,
     useSize: this.minPanelSX,
-  }));
+  }))
   const zoomY = (this.zoomY = this.pushLinkList({
     r: 1,
     useSize: this.minPanelSY,
-  }));
-  const square = this.pushLinkList({ add: [zoomX], max: zoomY });
+  }))
+  const square = this.pushLinkList({ add: [zoomX], max: zoomY })
 
-  this.addHoverChange(args.info);
+  this.addHoverChange(args.info)
 
   if (args.info.actor.pos) {
     args.info.actor.pos.obj.draw({
@@ -248,7 +248,7 @@ TableComic.prototype.Panel.prototype.faceDraw = function (args) {
         posX: 0.5,
         posY: 0,
       },
-    });
+    })
   }
 
   // actor.getSizeHead(  );
@@ -278,6 +278,6 @@ TableComic.prototype.Panel.prototype.faceDraw = function (args) {
         ],
       },
     ],
-  };
-};
+  }
+}
 // END Panel \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/

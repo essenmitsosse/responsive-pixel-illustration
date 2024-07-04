@@ -5,39 +5,39 @@ import {
   sub,
   getDarken,
   getLighten,
-} from "../helperPixelGraphics";
-import type { ColorRgb, ImageFunction } from "../PixelGraphics/types";
+} from '../helperPixelGraphics'
+import type { ColorRgb, ImageFunction } from '../PixelGraphics/types'
 
-const mixShadowColor = [255, 200, 255];
-const shadow = getDarken(mixShadowColor, 0.7);
-const detail = getDarken(mixShadowColor, 0.4);
-const lighten = getLighten(mixShadowColor, 0.3);
+const mixShadowColor = [255, 200, 255]
+const shadow = getDarken(mixShadowColor, 0.7)
+const detail = getDarken(mixShadowColor, 0.4)
+const lighten = getLighten(mixShadowColor, 0.3)
 
-const trees: ColorRgb = [40, 74, 95];
+const trees: ColorRgb = [40, 74, 95]
 
-const frame = lighten(trees);
-const frameDark = shadow(frame);
-const treesDark = shadow(trees);
+const frame = lighten(trees)
+const frameDark = shadow(frame)
+const treesDark = shadow(trees)
 
-const backgroundColor = detail(trees);
+const backgroundColor = detail(trees)
 
-const teiresias: ColorRgb = [100, 50, 60];
-const teiresiasShadow = shadow(teiresias);
-const stick: ColorRgb = [90, 90, 90];
-const stickDark = shadow(stick);
-const stickDarkest = detail(stick);
-const skin: ColorRgb = [193, 180, 163];
-const skinShadow = shadow(skin);
-const eyes = detail(skin);
+const teiresias: ColorRgb = [100, 50, 60]
+const teiresiasShadow = shadow(teiresias)
+const stick: ColorRgb = [90, 90, 90]
+const stickDark = shadow(stick)
+const stickDarkest = detail(stick)
+const skin: ColorRgb = [193, 180, 163]
+const skinShadow = shadow(skin)
+const eyes = detail(skin)
 
-const snake1 = teiresias;
-const snake1Detail = shadow(snake1);
-const snake2: ColorRgb = [165, 157, 105];
-const snake2Detail = shadow(snake2);
-const snakeTongue = [150, 85, 94];
-const snakeEyes = backgroundColor;
+const snake1 = teiresias
+const snake1Detail = shadow(snake1)
+const snake2: ColorRgb = [165, 157, 105]
+const snake2Detail = shadow(snake2)
+const snakeTongue = [150, 85, 94]
+const snakeEyes = backgroundColor
 
-const shadowColor = treesDark;
+const shadowColor = treesDark
 
 const getFrame = [
   {},
@@ -47,39 +47,39 @@ const getFrame = [
     minY: 1,
     list: [
       {
-        x: "borderWidth",
+        x: 'borderWidth',
         stripes: { strip: 8 },
         list: [
           {
             sX: 1,
-            sY: "dekoheight",
+            sY: 'dekoheight',
             fY: true,
             x: 2,
             color: trees,
           },
           {
             sX: 1,
-            sY: "dekoheight",
+            sY: 'dekoheight',
             fY: true,
             x: 6,
             color: trees,
           },
 
-          { sX: 1, sY: "dekoheight" }, // dark
+          { sX: 1, sY: 'dekoheight' }, // dark
           { sY: 1, sX: 4 }, // dark
-          { sX: 1, sY: "dekoheight", x: 4 }, // dark
+          { sX: 1, sY: 'dekoheight', x: 4 }, // dark
           {
             sY: 1,
             sX: 4,
             fY: true,
-            y: "dekoOffset",
+            y: 'dekoOffset',
             x: 4,
           }, // dark
 
           {
             sY: 1,
             sX: 4,
-            y: "dekoOffset",
+            y: 'dekoOffset',
             x: 2,
             color: trees,
           },
@@ -94,15 +94,15 @@ const getFrame = [
           {
             minY: 6,
             list: [
-              { name: "Dot", x: 6, color: trees },
-              { name: "Dot", x: 4, fY: true },
+              { name: 'Dot', x: 6, color: trees },
+              { name: 'Dot', x: 4, fY: true },
             ],
           },
         ],
       },
     ],
   },
-];
+]
 
 const bigEdge = [
   { sX: { r: 0.5 } },
@@ -118,7 +118,7 @@ const bigEdge = [
     m: 1,
     list: [
       {
-        name: "Line",
+        name: 'Line',
         closed: true,
         color: frameDark,
         points: [
@@ -130,7 +130,7 @@ const bigEdge = [
         ],
       },
       {
-        name: "Dot",
+        name: 'Dot',
         color: trees,
         fY: true,
         x: 2,
@@ -138,19 +138,19 @@ const bigEdge = [
       },
     ],
   },
-];
+]
 
-const hair = [255, 255, 255];
+const hair = [255, 255, 255]
 
-let i = 0;
+let i = 0
 
 const snake = (nr, vert?: boolean) => {
-  const x = !vert ? ["snakeWeight", -1] : undefined;
-  const y = vert ? ["snakeWeight", -1] : undefined;
-  const s = { r: 1, add: [sub("snakeWeight")] };
+  const x = !vert ? ['snakeWeight', -1] : undefined
+  const y = vert ? ['snakeWeight', -1] : undefined
+  const s = { r: 1, add: [sub('snakeWeight')] }
 
   return nr === 2
-    ? [{ save: "snake2" }]
+    ? [{ save: 'snake2' }]
     : [
         { color: snake1Detail },
         { sX: 1 },
@@ -160,7 +160,7 @@ const snake = (nr, vert?: boolean) => {
         {
           stripes: {
             strip: 1,
-            gap: "snakeDetailSize",
+            gap: 'snakeDetailSize',
             horizontal: vert,
           },
           x,
@@ -168,11 +168,11 @@ const snake = (nr, vert?: boolean) => {
           sY: vert ? s : undefined,
           sX: !vert ? s : undefined,
         },
-      ];
-};
+      ]
+}
 
 const treeTrunk = () => {
-  const name = `treeBark${(i += 1)}`;
+  const name = `treeBark${(i += 1)}`
 
   return [
     { use: name },
@@ -186,7 +186,7 @@ const treeTrunk = () => {
     {
       sY: { r: 0.45 },
       color: stickDarkest,
-      stripes: { random: "treeRandom", strip: 2 },
+      stripes: { random: 'treeRandom', strip: 2 },
     },
     {
       sY: 1,
@@ -195,16 +195,16 @@ const treeTrunk = () => {
       sX: { r: 0.5, max: 5 },
       color: stickDarkest,
     },
-  ];
-};
+  ]
+}
 
 const treeLeaves = (random) => {
-  const name = `treeLeaves${(i += 1)}`;
-  const name2 = `treesSpots${i}`;
+  const name = `treeLeaves${(i += 1)}`
+  const name2 = `treesSpots${i}`
   return [
     {
       sY: { r: 1.2 },
-      stripes: { strip: 2, random: "treeRandom" },
+      stripes: { strip: 2, random: 'treeRandom' },
       color: treesDark,
       change: random,
     },
@@ -223,11 +223,11 @@ const treeLeaves = (random) => {
       mask: true,
     },
     {
-      stripes: { strip: 2, random: "treeRandom", change: random },
+      stripes: { strip: 2, random: 'treeRandom', change: random },
       save: `treeLeaves${i}`,
     },
-  ];
-};
+  ]
+}
 
 const shadowGround = [
   {
@@ -241,19 +241,19 @@ const shadowGround = [
     y: { r: 0.5 },
     stripes: { strip: 2, random: { r: 0.15 } },
   },
-];
+]
 
-const torsoMargin = 0.4;
-const torsoTop = 0.35;
+const torsoMargin = 0.4
+const torsoTop = 0.35
 
 const renderList = [
   // IMAGE
   {
-    m: "borderWidth",
+    m: 'borderWidth',
     list: [
       {
         sX: {
-          add: ["imgWidth", mult(-3, "teiresias")],
+          add: ['imgWidth', mult(-3, 'teiresias')],
           min: { r: 0.15 },
         },
         color: treesDark,
@@ -272,7 +272,7 @@ const renderList = [
       {
         fX: true,
         sX: {
-          add: ["imgWidth", mult(-1.5, "teiresias")],
+          add: ['imgWidth', mult(-1.5, 'teiresias')],
           min: { r: 0.15 },
         },
         sY: { r: 2 },
@@ -295,13 +295,13 @@ const renderList = [
       // Tree Trunks
       {
         color: stickDark,
-        sX: { add: ["imgWidth", mult(-2, "teiresias")] },
+        sX: { add: ['imgWidth', mult(-2, 'teiresias')] },
         fX: true,
         list: treeTrunk(),
       },
       {
         color: stickDark,
-        sX: { add: [mult(0.2, "imgWidth"), mult(-0.5, "teiresias")] },
+        sX: { add: [mult(0.2, 'imgWidth'), mult(-0.5, 'teiresias')] },
         list: treeTrunk(),
       },
 
@@ -310,7 +310,7 @@ const renderList = [
         sY: { r: 0.05 },
         fX: true,
         sX: {
-          add: ["imgWidth", mult(-0.5, "teiresias")],
+          add: ['imgWidth', mult(-0.5, 'teiresias')],
           min: { r: 0.3, otherDim: true },
         },
         color: trees,
@@ -319,7 +319,7 @@ const renderList = [
       {
         sY: { r: 0.4 },
         fX: true,
-        sX: { add: ["imgWidth", mult(-1.2, "teiresias")] },
+        sX: { add: ['imgWidth', mult(-1.2, 'teiresias')] },
         color: trees,
         list: treeLeaves,
       },
@@ -328,7 +328,7 @@ const renderList = [
       {
         sY: { r: 0.3 },
         sX: {
-          add: [mult(0.2, "imgWidth"), mult(-0.3, "teiresias")],
+          add: [mult(0.2, 'imgWidth'), mult(-0.3, 'teiresias')],
           min: { r: 0.1, otherDim: true },
         },
         color: trees,
@@ -336,8 +336,8 @@ const renderList = [
       },
 
       // Ground
-      { use: "ground", color: trees },
-      { use: "ground", chance: 0.01, color: treesDark },
+      { use: 'ground', color: trees },
+      { use: 'ground', chance: 0.01, color: treesDark },
       {
         sY: { r: 0.2 },
         fY: true,
@@ -349,7 +349,7 @@ const renderList = [
               random: { r: 0.1 },
             },
             fY: true,
-            save: "ground",
+            save: 'ground',
           },
           {
             stripes: {
@@ -359,28 +359,28 @@ const renderList = [
             },
             fX: true,
             fY: true,
-            save: "ground",
+            save: 'ground',
           },
         ],
       },
 
       // MOTIVE
       {
-        m: "imgPadding",
+        m: 'imgPadding',
         list: [
           {
-            y: mult(0.5, "imgPadding"),
+            y: mult(0.5, 'imgPadding'),
             list: [
               // TEIRESIAS Shadow
               {
                 color: shadowColor,
-                sX: "teiresias",
-                sY: "imgPadding",
-                x: "teiresiasX",
+                sX: 'teiresias',
+                sY: 'imgPadding',
+                x: 'teiresiasX',
                 fY: true,
                 list: [
                   {
-                    mX: { r: 0.6, useSize: "torsoMargin" },
+                    mX: { r: 0.6, useSize: 'torsoMargin' },
                     x: { r: 0.1 },
                     list: shadowGround,
                   },
@@ -390,11 +390,11 @@ const renderList = [
               // SNAKES Shadow
               {
                 color: shadowColor,
-                sX: "snakeWidth",
-                sY: "imgPadding",
+                sX: 'snakeWidth',
+                sY: 'imgPadding',
                 fY: true,
                 fX: true,
-                mX: "snakeWeight",
+                mX: 'snakeWeight',
                 list: shadowGround,
               },
             ],
@@ -403,78 +403,78 @@ const renderList = [
           // TEIRESIAS
           {
             color: teiresias,
-            s: "teiresias",
-            x: "teiresiasX",
-            y: "teiresiasY",
+            s: 'teiresias',
+            x: 'teiresiasX',
+            y: 'teiresiasY',
             list: [
               // STICK
-              { use: "stick", color: stick },
+              { use: 'stick', color: stick },
               {
-                use: "stick",
+                use: 'stick',
                 color: stickDark,
                 chance: 0.2,
-                sX: "stickWeight",
+                sX: 'stickWeight',
                 mask: true,
               },
               {
-                name: "Line",
-                save: "stick",
-                weight: "stickWeight",
+                name: 'Line',
+                save: 'stick',
+                weight: 'stickWeight',
                 points: [
-                  { y: ["stickLeft", "stickWeight"] },
-                  { x: { r: 0.2 }, y: "handLeft" },
+                  { y: ['stickLeft', 'stickWeight'] },
+                  { x: { r: 0.2 }, y: 'handLeft' },
                   {
                     x: { r: 0.5 },
-                    y: [mult(0.4, "stickLeft"), mult(0.4, "stickRight")],
+                    y: [mult(0.4, 'stickLeft'), mult(0.4, 'stickRight')],
                   },
-                  { x: { r: 0.2 }, y: "handRight", fX: true },
+                  { x: { r: 0.2 }, y: 'handRight', fX: true },
                   {
-                    y: ["stickRight", sub("stickWeight")],
+                    y: ['stickRight', sub('stickWeight')],
                     fX: true,
                   },
                 ],
               },
 
               {
-                name: "Line",
-                save: "stick",
-                weight: mult(0.7, "stickWeight"),
+                name: 'Line',
+                save: 'stick',
+                weight: mult(0.7, 'stickWeight'),
                 points: [
-                  { x: { r: 0.15 }, y: "stickPoint" },
+                  { x: { r: 0.15 }, y: 'stickPoint' },
                   {
                     x: { r: 0.01 },
-                    y: ["stickPoint", "stickWeight"],
+                    y: ['stickPoint', 'stickWeight'],
                   },
                 ],
               },
 
               {
-                name: "Line",
-                weight: "armWeight",
+                name: 'Line',
+                weight: 'armWeight',
                 color: skin,
                 points: [
-                  { x: { r: 0.2 }, y: "handLeft" },
+                  { x: { r: 0.2 }, y: 'handLeft' },
                   {
                     x: { r: 0.18 },
-                    y: ["handLeft", "armLength"],
+                    y: ['handLeft', 'armLength'],
                   },
-                  { x: "torsoMargin", y: { r: torsoTop } },
+                  { x: 'torsoMargin', y: { r: torsoTop } },
                 ],
               },
 
               {
-                name: "Line",
-                weight: "armWeight",
+                name: 'Line',
+                weight: 'armWeight',
                 color: skin,
                 points: [
-                  { x: { r: 0.2 }, y: "handRight", fX: true },
+                  { x: { r: 0.2 }, y: 'handRight', fX: true },
                   {
                     x: { r: 0.18 },
-                    y: ["handRight", "armLength"],
+                    y: ['handRight', 'armLength'],
                     fX: true,
                   },
                   {
-                    x: "torsoMargin",
+                    x: 'torsoMargin',
                     y: { r: torsoTop },
                     fX: true,
                   },
@@ -484,51 +484,51 @@ const renderList = [
               // HANDS
               {
                 color: skin,
-                s: "handSize",
+                s: 'handSize',
                 x: { r: 0.2 },
-                y: ["handLeft", "halfHandSizeNeg"],
+                y: ['handLeft', 'halfHandSizeNeg'],
               },
               {
                 color: skin,
-                s: "handSize",
+                s: 'handSize',
                 x: { r: 0.2 },
-                y: ["handRight", "halfHandSizeNeg"],
+                y: ['handRight', 'halfHandSizeNeg'],
                 fX: true,
               },
 
               // LEGS
               {
-                name: "Line",
-                weight: "armWeight",
+                name: 'Line',
+                weight: 'armWeight',
                 color: skin,
                 points: [
                   {
-                    x: "feetLeftX",
-                    y: ["feetLeftY", "handSize"],
+                    x: 'feetLeftX',
+                    y: ['feetLeftY', 'handSize'],
                     fY: true,
                   }, // Left Foot
                   {
-                    x: "kneeLeftX",
-                    y: "kneeLeftY",
+                    x: 'kneeLeftX',
+                    y: 'kneeLeftY',
                     fY: true,
                   }, // Left Knee
                 ],
               },
 
               {
-                name: "Line",
-                weight: "armWeight",
+                name: 'Line',
+                weight: 'armWeight',
                 color: skin,
                 points: [
                   {
-                    x: "feetRightX",
-                    y: ["feetRightY", "handSize"],
+                    x: 'feetRightX',
+                    y: ['feetRightY', 'handSize'],
                     fX: true,
                     fY: true,
                   }, // Right Foot
                   {
-                    x: "kneeRightX",
-                    y: "kneeRightY",
+                    x: 'kneeRightX',
+                    y: 'kneeRightY',
                     fX: true,
                     fY: true,
                   }, // Right Knee
@@ -538,16 +538,16 @@ const renderList = [
               // FEETS
               {
                 color: skin,
-                s: "handSize",
-                x: "feetLeftX",
-                y: "feetLeftY",
+                s: 'handSize',
+                x: 'feetLeftX',
+                y: 'feetLeftY',
                 fY: true,
               },
               {
                 color: skin,
-                s: "handSize",
-                x: "feetRightX",
-                y: "feetRightY",
+                s: 'handSize',
+                x: 'feetRightX',
+                y: 'feetRightY',
                 fY: true,
                 fX: true,
                 tX: true,
@@ -556,49 +556,49 @@ const renderList = [
               // SKIRT
               {
                 points: [
-                  { x: "torsoMargin", y: "torsoBottom" }, // Left Hip
+                  { x: 'torsoMargin', y: 'torsoBottom' }, // Left Hip
                   {
-                    x: "torsoMargin",
-                    y: "torsoBottom",
+                    x: 'torsoMargin',
+                    y: 'torsoBottom',
                     fX: true,
                   }, // Right Hip
                   {
-                    x: ["kneeRightX", sub("armWeight")],
-                    y: ["kneeRightY", "armWeight"],
+                    x: ['kneeRightX', sub('armWeight')],
+                    y: ['kneeRightY', 'armWeight'],
                     fX: true,
                     fY: true,
                   }, // Right Knee
                   {
-                    x: ["skirtRightX", sub("armWeight")],
-                    y: "skirtRightY",
+                    x: ['skirtRightX', sub('armWeight')],
+                    y: 'skirtRightY',
                     fX: true,
                     fY: true,
                   }, // Middle Right
                   {
-                    x: ["skirtLeftX", sub("armWeight")],
-                    y: "skirtLeftY",
+                    x: ['skirtLeftX', sub('armWeight')],
+                    y: 'skirtLeftY',
                     fY: true,
                   }, // Middle Left
                   {
-                    x: ["kneeLeftX", sub("armWeight")],
-                    y: ["kneeLeftY", "armWeight"],
+                    x: ['kneeLeftX', sub('armWeight')],
+                    y: ['kneeLeftY', 'armWeight'],
                     fY: true,
                   }, // Left Knee
                 ],
               },
 
               {
-                name: "Line",
+                name: 'Line',
                 color: teiresiasShadow,
                 points: [
                   {
-                    x: ["skirtLeftX", mult(2, "armWeight")],
-                    y: ["skirtLeftY", mult(2, "armWeight")],
+                    x: ['skirtLeftX', mult(2, 'armWeight')],
+                    y: ['skirtLeftY', mult(2, 'armWeight')],
                     fY: true,
                   },
                   {
-                    x: ["skirtRightX", mult(4, "armWeight")],
-                    y: ["skirtRightY"],
+                    x: ['skirtRightX', mult(4, 'armWeight')],
+                    y: ['skirtRightY'],
                     fX: true,
                     fY: true,
                   },
@@ -606,17 +606,17 @@ const renderList = [
               },
 
               {
-                name: "Line",
+                name: 'Line',
                 color: teiresiasShadow,
                 points: [
                   {
-                    x: ["skirtLeftX", mult(4, "armWeight")],
-                    y: ["skirtLeftY", mult(5, "armWeight")],
+                    x: ['skirtLeftX', mult(4, 'armWeight')],
+                    y: ['skirtLeftY', mult(5, 'armWeight')],
                     fY: true,
                   },
                   {
-                    x: ["skirtRightX", mult(2, "armWeight")],
-                    y: ["skirtRightY", mult(2.5, "armWeight")],
+                    x: ['skirtRightX', mult(2, 'armWeight')],
+                    y: ['skirtRightY', mult(2.5, 'armWeight')],
                     fX: true,
                     fY: true,
                   },
@@ -625,9 +625,9 @@ const renderList = [
 
               // TORSO
               {
-                mX: "torsoMargin",
-                sY: "torsoheight",
-                y: "torsoY",
+                mX: 'torsoMargin',
+                sY: 'torsoheight',
+                y: 'torsoY',
                 list: [
                   {
                     sY: { r: 1, a: 1 },
@@ -648,10 +648,10 @@ const renderList = [
                         sY: { r: 0.25 },
                         sX: {
                           r: 0.02,
-                          useSize: "sXRest",
+                          useSize: 'sXRest',
                           max: {
                             r: 0.05,
-                            useSize: "teiresias",
+                            useSize: 'teiresias',
                           },
                         },
                       },
@@ -676,11 +676,11 @@ const renderList = [
                     color: skin,
                     tY: true,
                     mX: { r: 0.25 },
-                    id: "head",
+                    id: 'head',
                     list: [
-                      { name: "Dot", clear: true },
+                      { name: 'Dot', clear: true },
                       {
-                        name: "Dot",
+                        name: 'Dot',
                         clear: true,
                         fX: true,
                       },
@@ -696,7 +696,7 @@ const renderList = [
                         color: hair,
                         sY: {
                           r: 0,
-                          add: [mult(1, "sXRest")],
+                          add: [mult(1, 'sXRest')],
                           max: { r: 5 },
                         },
                         list: [
@@ -713,7 +713,7 @@ const renderList = [
                         color: hair,
                         sY: {
                           r: 0.2,
-                          add: [mult(-0.5, "sYRest")],
+                          add: [mult(-0.5, 'sYRest')],
                         },
                         list: [
                           {
@@ -738,7 +738,7 @@ const renderList = [
                             mX: { r: 0.2 },
                             list: [
                               {
-                                name: "Line",
+                                name: 'Line',
                                 points: [
                                   {
                                     fY: true,
@@ -767,7 +767,7 @@ const renderList = [
                           {
                             sY: {
                               r: 2,
-                              add: [mult(-1.5, "sXRest")],
+                              add: [mult(-1.5, 'sXRest')],
                             },
                             list: [
                               {
@@ -823,7 +823,7 @@ const renderList = [
                             tY: true,
                             list: [
                               {
-                                name: "Line",
+                                name: 'Line',
                                 points: [
                                   {},
                                   {
@@ -856,55 +856,55 @@ const renderList = [
           // Snakes
           {
             color: snake1,
-            sX: "snakeWidth",
-            sY: "snakeheight",
+            sX: 'snakeWidth',
+            sY: 'snakeheight',
             fY: true,
             fX: true,
-            mX: "snakeWeight",
-            id: "snakes",
+            mX: 'snakeWeight',
+            id: 'snakes',
             list: [
               // ROUND EDGES
-              { name: "Dot", clear: true },
-              { name: "Dot", clear: true, fY: true },
+              { name: 'Dot', clear: true },
+              { name: 'Dot', clear: true, fY: true },
 
               {
-                x: mult(2, "snakePeriode"),
+                x: mult(2, 'snakePeriode'),
                 minY: 5,
-                sX: { r: 1, add: [sub("snakePeriode")] },
+                sX: { r: 1, add: [sub('snakePeriode')] },
                 stripes: {
-                  strip: "snakePeriode",
-                  gap: "snakePeriode",
+                  strip: 'snakePeriode',
+                  gap: 'snakePeriode',
                   cut: true,
                 },
                 list: [
                   {
-                    name: "Dot",
+                    name: 'Dot',
                     clear: true,
-                    x: ["snakePeriodeHalf", "snakeWeight", -1],
-                    y: "snakeOffset",
+                    x: ['snakePeriodeHalf', 'snakeWeight', -1],
+                    y: 'snakeOffset',
                   },
                   {
-                    name: "Dot",
+                    name: 'Dot',
                     clear: true,
-                    x: "snakePeriodeHalf",
+                    x: 'snakePeriodeHalf',
                     fY: true,
                   },
-                  { name: "Dot", clear: true },
+                  { name: 'Dot', clear: true },
                   {
-                    name: "Dot",
+                    name: 'Dot',
                     clear: true,
-                    x: ["snakeWeight", -1],
-                    y: "snakeOffset",
+                    x: ['snakeWeight', -1],
+                    y: 'snakeOffset',
                     fY: true,
                   },
                 ],
               },
 
               {
-                x: "snakePeriode",
+                x: 'snakePeriode',
                 stripes: {
-                  strip: "snakePeriode",
-                  gap: "snakePeriode",
+                  strip: 'snakePeriode',
+                  gap: 'snakePeriode',
                   cut: true,
                 },
                 list: [
@@ -912,27 +912,27 @@ const renderList = [
                     minY: 5,
                     list: [
                       {
-                        name: "Dot",
+                        name: 'Dot',
                         clear: true,
-                        x: ["snakeWeight", -1],
+                        x: ['snakeWeight', -1],
                       },
                       {
-                        name: "Dot",
+                        name: 'Dot',
                         clear: true,
                         fY: true,
-                        y: "snakeOffset",
+                        y: 'snakeOffset',
                       },
                       {
-                        name: "Dot",
+                        name: 'Dot',
                         clear: true,
                         fY: true,
-                        x: ["snakePeriodeHalf", "snakeWeight", -1],
+                        x: ['snakePeriodeHalf', 'snakeWeight', -1],
                       },
                       {
-                        name: "Dot",
+                        name: 'Dot',
                         clear: true,
-                        x: "snakePeriodeHalf",
-                        y: "snakeOffset",
+                        x: 'snakePeriodeHalf',
+                        y: 'snakeOffset',
                       },
                     ],
                   },
@@ -940,33 +940,33 @@ const renderList = [
               },
 
               // COLOR SNAKE 2
-              { use: "snake2", color: snake2 },
+              { use: 'snake2', color: snake2 },
               {
-                use: "snake2",
+                use: 'snake2',
                 color: snake2Detail,
-                sX: { a: "snakeDetailSize", min: 1 },
+                sX: { a: 'snakeDetailSize', min: 1 },
                 mask: true,
                 chance: 0.1,
               },
 
               // HEADS
               {
-                sY: "snakeWeight",
-                sX: "snakePeriode",
+                sY: 'snakeWeight',
+                sX: 'snakePeriode',
                 list: snake(1),
               },
               {
-                sX: "snakeWeight",
+                sX: 'snakeWeight',
                 list: [
                   {
-                    sY: "snakeHeadPos",
+                    sY: 'snakeHeadPos',
                     list: snake(1, true),
                   },
                   {
-                    y: "snakeHeadPos",
-                    sY: "snakeHeadSize",
+                    y: 'snakeHeadPos',
+                    sY: 'snakeHeadSize',
                     cX: true,
-                    sX: "snakeHeadSize",
+                    sX: 'snakeHeadSize',
                     list: [
                       {},
                       {
@@ -982,13 +982,13 @@ const renderList = [
                         y: { r: 0.4 },
                       },
                       {
-                        name: "Dot",
+                        name: 'Dot',
                         color: snakeEyes,
                         y: { r: 0.5 },
                         x: { r: 0.2 },
                       },
                       {
-                        name: "Dot",
+                        name: 'Dot',
                         color: snakeEyes,
                         y: { r: 0.5 },
                         x: { r: 0.2 },
@@ -997,19 +997,19 @@ const renderList = [
                       {
                         sX: 1,
                         color: snakeTongue,
-                        sY: "snakeTongueLength",
+                        sY: 'snakeTongueLength',
                         fY: true,
                         x: { r: 0.45 },
                         tY: true,
                         list: [
                           { sY: { r: 1, a: -1 } },
                           {
-                            name: "Dot",
+                            name: 'Dot',
                             fY: true,
                             x: -1,
                           },
                           {
-                            name: "Dot",
+                            name: 'Dot',
                             fY: true,
                             x: 1,
                           },
@@ -1021,35 +1021,35 @@ const renderList = [
               },
 
               {
-                sY: "snakeWeight",
-                sX: ["snakePeriode", "snakeWeight", 1],
+                sY: 'snakeWeight',
+                sX: ['snakePeriode', 'snakeWeight', 1],
                 list: snake(2),
                 fY: true,
               },
               {
-                sX: "snakeWeight",
+                sX: 'snakeWeight',
                 list: [
                   {
-                    sY: "snakeHeadPos",
+                    sY: 'snakeHeadPos',
                     list: snake(2, true),
                     fY: true,
                   },
                   {
-                    y: "snakeHeadPos",
-                    sY: "snakeHeadSize",
+                    y: 'snakeHeadPos',
+                    sY: 'snakeHeadSize',
                     cX: true,
-                    sX: "snakeHeadSize",
+                    sX: 'snakeHeadSize',
                     fY: true,
                     list: [
-                      { save: "snake2" },
+                      { save: 'snake2' },
                       {
-                        name: "Dot",
+                        name: 'Dot',
                         color: snakeEyes,
                         y: { r: 0.5 },
                         x: { r: 0.2 },
                       },
                       {
-                        name: "Dot",
+                        name: 'Dot',
                         color: snakeEyes,
                         y: { r: 0.5 },
                         x: { r: 0.2 },
@@ -1058,19 +1058,19 @@ const renderList = [
                       {
                         sX: 1,
                         color: snakeTongue,
-                        sY: "snakeTongueLength",
+                        sY: 'snakeTongueLength',
                         x: { r: 0.45 },
                         fX: true,
                         tY: true,
                         list: [
                           {},
                           {
-                            name: "Dot",
+                            name: 'Dot',
                             tY: true,
                             x: -1,
                           },
                           {
-                            name: "Dot",
+                            name: 'Dot',
                             tY: true,
                             x: 1,
                           },
@@ -1083,34 +1083,34 @@ const renderList = [
 
               // SNAKE BODIES
               {
-                x: mult(2, "snakePeriode"),
-                sX: { r: 1, add: [sub("snakePeriode")] },
+                x: mult(2, 'snakePeriode'),
+                sX: { r: 1, add: [sub('snakePeriode')] },
                 stripes: {
-                  strip: "snakePeriode",
-                  gap: "snakePeriode",
+                  strip: 'snakePeriode',
+                  gap: 'snakePeriode',
                   cut: true,
                 },
                 list: [
                   {
-                    sX: "snakeWeight",
-                    sY: "snakeheightReal",
+                    sX: 'snakeWeight',
+                    sY: 'snakeheightReal',
                     list: snake(1, true),
                   },
-                  { sY: "snakeWeight", list: snake(1) },
+                  { sY: 'snakeWeight', list: snake(1) },
 
-                  { use: "snake2", save: "upperSnake2" },
+                  { use: 'snake2', save: 'upperSnake2' },
                   {
-                    sX: "snakeWeight",
-                    sY: "snakeheightReal",
-                    x: "snakePeriodeHalf",
+                    sX: 'snakeWeight',
+                    sY: 'snakeheightReal',
+                    x: 'snakePeriodeHalf',
                     fY: true,
                     color: snake2,
                     list: snake(2, true),
                   },
                   {
-                    sY: "snakeWeight",
+                    sY: 'snakeWeight',
                     fY: true,
-                    x: "snakePeriodeHalf",
+                    x: 'snakePeriodeHalf',
                     color: snake2,
                     list: snake(2),
                   },
@@ -1118,37 +1118,37 @@ const renderList = [
               },
 
               {
-                x: "snakePeriode",
+                x: 'snakePeriode',
                 stripes: {
-                  strip: "snakePeriode",
-                  gap: "snakePeriode",
+                  strip: 'snakePeriode',
+                  gap: 'snakePeriode',
                   cut: true,
                 },
                 list: [
-                  { use: "snake2", clear: true },
+                  { use: 'snake2', clear: true },
                   {
-                    sX: "snakeWeight",
-                    sY: "snakeheightReal",
-                    x: "snakePeriodeHalf",
+                    sX: 'snakeWeight',
+                    sY: 'snakeheightReal',
+                    x: 'snakePeriodeHalf',
                     fY: true,
                     color: snake2,
                     list: snake(2, true),
                   },
                   {
-                    sY: "snakeWeight",
-                    x: "snakePeriodeHalf",
-                    y: "snakeOffset",
+                    sY: 'snakeWeight',
+                    x: 'snakePeriodeHalf',
+                    y: 'snakeOffset',
                     color: snake2,
                     list: snake(2),
                   },
                   {
-                    sX: "snakeWeight",
-                    sY: "snakeheightReal",
+                    sX: 'snakeWeight',
+                    sY: 'snakeheightReal',
                     list: snake(1, true),
                   },
                   {
-                    sY: "snakeWeight",
-                    y: "snakeOffset",
+                    sY: 'snakeWeight',
+                    y: 'snakeOffset',
                     fY: true,
                     list: snake(1),
                   },
@@ -1168,22 +1168,22 @@ const renderList = [
   {
     color: frame,
     list: [
-      { sY: "borderWidth", list: getFrame },
-      { sY: "borderWidth", fY: true, list: getFrame },
+      { sY: 'borderWidth', list: getFrame },
+      { sY: 'borderWidth', fY: true, list: getFrame },
       {
-        sX: "borderWidth",
+        sX: 'borderWidth',
         list: getFrame,
         rotate: -90,
         rX: true,
       },
       {
-        sX: "borderWidth",
+        sX: 'borderWidth',
         fX: true,
         list: getFrame,
         rotate: 90,
       },
       {
-        s: "borderWidth",
+        s: 'borderWidth',
         list: [
           {},
           {
@@ -1193,20 +1193,20 @@ const renderList = [
               {
                 sX: 1,
                 fX: true,
-                x: "dekoOffset",
+                x: 'dekoOffset',
                 fY: true,
                 tY: true,
-                sY: "dekoheight",
-                y: ["dekoOffset", 1],
+                sY: 'dekoheight',
+                y: ['dekoOffset', 1],
               },
               {
                 sY: 1,
                 fX: true,
-                y: "dekoOffset",
+                y: 'dekoOffset',
                 fY: true,
                 tX: true,
-                sX: "dekoheight",
-                x: ["dekoOffset", 1],
+                sX: 'dekoheight',
+                x: ['dekoOffset', 1],
               },
               {
                 sX: 1,
@@ -1225,22 +1225,22 @@ const renderList = [
                 sX: 5,
                 x: 1,
               },
-              { name: "Dot", color: trees },
-              { name: "Dot", x: "dekoheight" },
-              { name: "Dot", y: "dekoheight" },
+              { name: 'Dot', color: trees },
+              { name: 'Dot', x: 'dekoheight' },
+              { name: 'Dot', y: 'dekoheight' },
             ],
           },
         ],
       },
-      { s: "bigEdgeSize", fY: true, list: bigEdge },
+      { s: 'bigEdgeSize', fY: true, list: bigEdge },
       {
-        s: "bigEdgeSize",
+        s: 'bigEdgeSize',
         fX: true,
         list: bigEdge,
         rotate: 180,
       },
       {
-        s: "borderWidth",
+        s: 'borderWidth',
         fX: true,
         fY: true,
         list: [
@@ -1259,143 +1259,143 @@ const renderList = [
       },
     ],
   },
-];
+]
 
-const imgDims = ["imgWidth", "imgheight"];
-const motiveDims = ["motiveWidth", "motiveheight"];
+const imgDims = ['imgWidth', 'imgheight']
+const motiveDims = ['motiveWidth', 'motiveheight']
 
 const variableList = {
   fullRect: { r: 1, max: { r: 1, height: true } },
   borderWidth: {
     r: 0.06,
     a: 1,
-    useSize: "fullRect",
+    useSize: 'fullRect',
     min: 1,
   },
-  borderInner: ["borderWidth", -4],
-  dekoOffset: mult(0.4, "borderInner"),
-  dekoheight: ["borderWidth", -2, sub("dekoOffset")],
-  bigEdgeSize: mult(2, "borderWidth"),
+  borderInner: ['borderWidth', -4],
+  dekoOffset: mult(0.4, 'borderInner'),
+  dekoheight: ['borderWidth', -2, sub('dekoOffset')],
+  bigEdgeSize: mult(2, 'borderWidth'),
 
-  imgWidth: [{ r: 1 }, mult(-2, "borderWidth")],
-  imgheight: [{ r: 1, height: true }, mult(-2, "borderWidth")],
+  imgWidth: [{ r: 1 }, mult(-2, 'borderWidth')],
+  imgheight: [{ r: 1, height: true }, mult(-2, 'borderWidth')],
 
   imgSqu: getSmallerDim({ r: 1, useSize: imgDims }),
   imgSquBigger: getBiggerDim({ r: 1, useSize: imgDims }),
 
-  imgPadding: mult(0.05, "imgSqu"),
+  imgPadding: mult(0.05, 'imgSqu'),
 
-  motiveWidth: ["imgWidth", mult(-2, "imgPadding")],
-  motiveheight: ["imgheight", mult(-2, "imgPadding")],
+  motiveWidth: ['imgWidth', mult(-2, 'imgPadding')],
+  motiveheight: ['imgheight', mult(-2, 'imgPadding')],
 
   motiveSqu: getSmallerDim({ r: 1, useSize: motiveDims }),
   motiveSquBigger: getBiggerDim({ r: 1, useSize: motiveDims }),
 
-  sXRest: { add: ["motiveWidth", sub("motiveSqu")], min: 0 },
-  sYRest: { add: ["motiveheight", sub("motiveSqu")], min: 0 },
+  sXRest: { add: ['motiveWidth', sub('motiveSqu')], min: 0 },
+  sYRest: { add: ['motiveheight', sub('motiveSqu')], min: 0 },
 
-  teiresias: { a: "motiveSqu", max: mult(0.6, "motiveSquBigger") },
-  teiresiasX: mult(0.1, "sXRest"),
-  teiresiasY: mult(0.1, "sYRest"),
+  teiresias: { a: 'motiveSqu', max: mult(0.6, 'motiveSquBigger') },
+  teiresiasX: mult(0.1, 'sXRest'),
+  teiresiasY: mult(0.1, 'sYRest'),
 
-  armLength: mult(0.2, "teiresias"),
-  armWeight: { r: 0.025, useSize: "teiresias", min: 1 },
+  armLength: mult(0.2, 'teiresias'),
+  armWeight: { r: 0.025, useSize: 'teiresias', min: 1 },
 
-  maxStick: mult(0.3, "teiresias"),
-  stickLeft: { r: 0.5, useSize: "sXRest", max: "maxStick" },
-  stickRight: { r: 0.5, useSize: "sYRest", max: "maxStick" },
-  stickWeight: { r: 0.03, useSize: "teiresias", min: 1 },
-  stickPoint: [mult(0.85, "stickLeft"), mult(0.15, "stickRight")],
+  maxStick: mult(0.3, 'teiresias'),
+  stickLeft: { r: 0.5, useSize: 'sXRest', max: 'maxStick' },
+  stickRight: { r: 0.5, useSize: 'sYRest', max: 'maxStick' },
+  stickWeight: { r: 0.03, useSize: 'teiresias', min: 1 },
+  stickPoint: [mult(0.85, 'stickLeft'), mult(0.15, 'stickRight')],
 
-  torsoY: { r: torsoTop, useSize: "teiresias" },
-  torsoheight: { r: 0.2, useSize: "teiresias" },
-  torsoBottom: ["torsoY", "torsoheight"],
+  torsoY: { r: torsoTop, useSize: 'teiresias' },
+  torsoheight: { r: 0.2, useSize: 'teiresias' },
+  torsoBottom: ['torsoY', 'torsoheight'],
 
-  legLength: mult(1.3, "armLength"),
+  legLength: mult(1.3, 'armLength'),
 
-  handSize: mult(1.5, "stickWeight", 1),
-  halfHandSizeNeg: mult(-0.5, "handSize"),
-  handLeft: [mult(0.8, "stickLeft"), mult(0.2, "stickRight")],
-  handRight: [mult(0.2, "stickLeft"), mult(0.8, "stickRight")],
+  handSize: mult(1.5, 'stickWeight', 1),
+  halfHandSizeNeg: mult(-0.5, 'handSize'),
+  handLeft: [mult(0.8, 'stickLeft'), mult(0.2, 'stickRight')],
+  handRight: [mult(0.2, 'stickLeft'), mult(0.8, 'stickRight')],
 
-  torsoMargin: { r: torsoMargin, useSize: "teiresias" },
+  torsoMargin: { r: torsoMargin, useSize: 'teiresias' },
 
-  feetLeftX: "torsoMargin",
-  feetRightX: { r: 0.2, useSize: "teiresias" },
+  feetLeftX: 'torsoMargin',
+  feetRightX: { r: 0.2, useSize: 'teiresias' },
 
   feetLeftY: { a: 0 },
   feetRightY: {
     r: 0.2,
-    useSize: "teiresias",
-    add: [sub("sYRest")],
+    useSize: 'teiresias',
+    add: [sub('sYRest')],
     min: 2,
   },
 
   kneeRightX: [
-    "feetRightX",
-    { add: [mult(-0.5, "sYRest")], min: { r: -0.02 } },
+    'feetRightX',
+    { add: [mult(-0.5, 'sYRest')], min: { r: -0.02 } },
   ],
-  kneeRightY: ["feetRightY", "legLength"],
+  kneeRightY: ['feetRightY', 'legLength'],
 
-  kneeLeftX: ["feetLeftX", { add: [mult(-0.5, "sYRest")], min: { r: -0.1 } }],
-  kneeLeftY: ["feetLeftY", "legLength"],
+  kneeLeftX: ['feetLeftX', { add: [mult(-0.5, 'sYRest')], min: { r: -0.1 } }],
+  kneeLeftY: ['feetLeftY', 'legLength'],
 
-  skirtRightX: [mult(0.5, "feetRightX"), mult(0.5, "kneeRightX")],
-  skirtRightY: [mult(0.5, "feetRightY"), mult(0.5, "kneeRightY")],
+  skirtRightX: [mult(0.5, 'feetRightX'), mult(0.5, 'kneeRightX')],
+  skirtRightY: [mult(0.5, 'feetRightY'), mult(0.5, 'kneeRightY')],
 
-  skirtLeftX: [mult(0.5, "feetLeftX"), mult(0.5, "kneeLeftX")],
-  skirtLeftY: [mult(0.5, "feetLeftY"), mult(0.5, "kneeLeftY")],
+  skirtLeftX: [mult(0.5, 'feetLeftX'), mult(0.5, 'kneeLeftX')],
+  skirtLeftY: [mult(0.5, 'feetLeftY'), mult(0.5, 'kneeLeftY')],
 
   snakeheight: {
-    add: ["motiveheight", sub("teiresias"), sub("teiresiasY")],
+    add: ['motiveheight', sub('teiresias'), sub('teiresiasY')],
     min: {
-      add: [mult(0.3, "motiveSquBigger")],
+      add: [mult(0.3, 'motiveSquBigger')],
       min: 6,
-      max: mult(0.4, "motiveheight"),
+      max: mult(0.4, 'motiveheight'),
     },
-    max: mult(0.3, "motiveheight"),
+    max: mult(0.3, 'motiveheight'),
   },
   snakeWidth: {
-    add: ["motiveWidth", sub("teiresias"), sub("teiresiasX")],
-    min: { add: [mult(0.5, "motiveSquBigger")], max: { a: "motiveWidth" } },
+    add: ['motiveWidth', sub('teiresias'), sub('teiresiasX')],
+    min: { add: [mult(0.5, 'motiveSquBigger')], max: { a: 'motiveWidth' } },
   },
-  snakeSqu: getSmallerDim({ r: 1, useSize: ["snakeheight", "snakeWidth"] }),
-  snakeWeight: { r: 0.07, useSize: "snakeSqu", min: 1 },
+  snakeSqu: getSmallerDim({ r: 1, useSize: ['snakeheight', 'snakeWidth'] }),
+  snakeWeight: { r: 0.07, useSize: 'snakeSqu', min: 1 },
 
-  snakeheightMargin: ["snakeheight"],
-  snakeWidthMargin: ["snakeWidth", mult(-2, "snakeWeight")],
+  snakeheightMargin: ['snakeheight'],
+  snakeWidthMargin: ['snakeWidth', mult(-2, 'snakeWeight')],
 
-  snakePeriode: [{ r: 2, useSize: "snakeWeight", a: 2 }],
-  snakePeriodeHalf: mult(0.5, "snakePeriode"),
+  snakePeriode: [{ r: 2, useSize: 'snakeWeight', a: 2 }],
+  snakePeriodeHalf: mult(0.5, 'snakePeriode'),
   snakeOffset: {
     r: 1,
-    useSize: "snakeWeight",
+    useSize: 'snakeWeight',
     a: 1,
-    max: mult(0.1, "snakeheight"),
+    max: mult(0.1, 'snakeheight'),
   },
-  snakeheightReal: ["snakeheightMargin", sub("snakeOffset")],
+  snakeheightReal: ['snakeheightMargin', sub('snakeOffset')],
 
-  snakeHeadSize: { r: 1.5, useSize: "snakeWeight", min: 2 },
-  snakeTongueLength: { r: 0.7, useSize: "snakeHeadSize", min: 2 },
+  snakeHeadSize: { r: 1.5, useSize: 'snakeWeight', min: 2 },
+  snakeTongueLength: { r: 0.7, useSize: 'snakeHeadSize', min: 2 },
 
-  snakeDetailSize: ["snakeWeight", -2],
+  snakeDetailSize: ['snakeWeight', -2],
   snakeHeadPos: {
     add: [
-      mult(0.5, "snakeheight"),
-      mult(-1.5, "snakeHeadSize"),
-      sub("snakeTongueLength"),
+      mult(0.5, 'snakeheight'),
+      mult(-1.5, 'snakeHeadSize'),
+      sub('snakeTongueLength'),
       -2,
     ],
     min: { a: 0 },
   },
 
-  treeRandom: mult(0.1, "imgheight"),
-};
+  treeRandom: mult(0.1, 'imgheight'),
+}
 
 const image: ImageFunction = {
   renderList,
   variableList,
   background: backgroundColor,
-};
+}
 
-export default image;
+export default image

@@ -2,63 +2,63 @@
 
 // BEGINN ACTOR /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 Comic.prototype.Actor = function Actor(args, left) {
-  this.copy(args);
+  this.copy(args)
 
-  this.name = `actor${left ? "1" : "2"}`;
+  this.name = `actor${left ? '1' : '2'}`
 
   // Forms & Sizes
-  this.left = left;
-  this.posX_ = 0;
-  this.posY_ = 0;
-  this.movementDirection = this.left ? 1 : -1;
-  this.baseSpeed = this.rFl(0.1, 0.3);
-  this.speed = 0;
+  this.left = left
+  this.posX_ = 0
+  this.posY_ = 0
+  this.movementDirection = this.left ? 1 : -1
+  this.baseSpeed = this.rFl(0.1, 0.3)
+  this.speed = 0
 
-  this.hasLegs = this.rIf(0.5);
+  this.hasLegs = this.rIf(0.5)
 
-  this.sX_ = this.rFl(0.4, 1);
-  this.sY_ = this.rFl(0.6, 1);
-  this.legsSY_ = this.hasLegs && this.rFl(0, 0.3);
+  this.sX_ = this.rFl(0.4, 1)
+  this.sY_ = this.rFl(0.6, 1)
+  this.legsSY_ = this.hasLegs && this.rFl(0, 0.3)
 
-  this.topHeadSY_ = this.rFl(0.25, 0.75);
+  this.topHeadSY_ = this.rFl(0.25, 0.75)
 
-  this.mouthSX = this.rFl(0, 1);
-  this.mouthY = this.rFl(0, 1);
+  this.mouthSX = this.rFl(0, 1)
+  this.mouthY = this.rFl(0, 1)
 
-  this.faceSX = this.rFl(0.2, 0.4);
+  this.faceSX = this.rFl(0.2, 0.4)
 
-  this.foreHeadRound = this.rIf(0.5);
-  this.backHeadRound = this.rIf(0.5);
+  this.foreHeadRound = this.rIf(0.5)
+  this.backHeadRound = this.rIf(0.5)
 
   // Colors
   this.color = [
     args.foregroundBaseColor[0] * this.rFl(0, 0.8),
     args.foregroundBaseColor[1] * this.rFl(0, 0.8),
     args.foregroundBaseColor[2] * this.rFl(0, 0.8),
-  ];
+  ]
 
   this.shadowColor = [
     this.color[0] * 0.6,
     this.color[1] * 0.6,
     this.color[2] * 0.6,
-  ];
+  ]
 
   this.lightColor = [
     this.color[0] * 1.2,
     this.color[1] * 1.2,
     this.color[2] * 1.2,
-  ];
+  ]
 
-  this.groundShadowColor = args.groundShadowColor;
+  this.groundShadowColor = args.groundShadowColor
   // Assets
   this.eye = new this.basic.Eye({
     color: this.color,
     shadowColor: this.shadowColor,
     lightColor: this.lightColor,
-  });
+  })
 
-  this.carryObject = this.rIf(0.1) && new this.basic.CarryObject();
-};
+  this.carryObject = this.rIf(0.1) && new this.basic.CarryObject()
+}
 
 Comic.prototype.Actor.prototype = {
   act() {},
@@ -66,28 +66,28 @@ Comic.prototype.Actor.prototype = {
   idle() {},
 
   startActing() {
-    this.setAction("decide", { actions: ["startWalking", "hit"] });
+    this.setAction('decide', { actions: ['startWalking', 'hit'] })
   },
 
   setAction(action, args) {
-    this.act = this[action];
+    this.act = this[action]
 
-    args = args || {};
+    args = args || {}
 
     this.actorControl.addComment(
-      this.name + (!args.dontStart ? " " : " will start ") + action,
-    );
+      this.name + (!args.dontStart ? ' ' : ' will start ') + action,
+    )
 
     if (!args.dontStart) {
-      this.act(args);
+      this.act(args)
     }
   },
 
   decide(args) {
-    this.eye.changeExpression(0.4);
+    this.eye.changeExpression(0.4)
     this.setAction(args.actions[this.rInt(0, args.actions.length - 1)], {
       dontStart: true,
-    });
+    })
   },
 
   startWalking() {
@@ -95,133 +95,133 @@ Comic.prototype.Actor.prototype = {
       // Walk way if to close, or randomly
       (1 - this.opponent.posX_ - this.posX_ < 0.2 || this.rIf(0.2) ? -1 : 1) *
       0.2 *
-      this.rFl(1, 3);
-    this.setAction("walk");
+      this.rFl(1, 3)
+    this.setAction('walk')
   },
 
   walk() {
-    const opponentPos = 1 - this.opponent.posX_;
+    const opponentPos = 1 - this.opponent.posX_
 
     // Small Chance of randomly stopping to walk
     if (this.rIf(1 - this.posX_)) {
-      this.posX_ += this.speed;
+      this.posX_ += this.speed
 
-      this.walking = true;
+      this.walking = true
 
       if (this.posX_ < -2) {
         // Walking Away
         if (this.rIf(0.5)) {
           // End Comic
-          this.actorControl.endComic();
+          this.actorControl.endComic()
         } else {
           // Turn Around
-          this.speed *= -1.5;
-          this.actorControl.addComment(`${this.name} turned around `);
+          this.speed *= -1.5
+          this.actorControl.addComment(`${this.name} turned around `)
         }
       } else if (opponentPos - this.posX_ < 0) {
-        this.posX_ = opponentPos;
+        this.posX_ = opponentPos
         this.actorControl.addComment(
           `${this.name} has reached ${this.opponent.name}`,
-        );
-        this.setAction("stop");
+        )
+        this.setAction('stop')
 
-        this.walking = false;
+        this.walking = false
       }
     } else {
-      this.actorControl.addComment(`${this.name} randomly stopps`);
-      this.setAction("stop");
+      this.actorControl.addComment(`${this.name} randomly stopps`)
+      this.setAction('stop')
     }
   },
 
   passBall(args) {
-    const stay = this.rIf(0, args.stay);
+    const stay = this.rIf(0, args.stay)
 
     if (stay) {
-      this.actorControl.addComment(`${this.name} STAYS Actor`);
-      this.setAction("decide", args);
-      args.dontStart = true;
+      this.actorControl.addComment(`${this.name} STAYS Actor`)
+      this.setAction('decide', args)
+      args.dontStart = true
     } else {
-      this.setAction("idle");
-      this.actorControl.setActor(this.opponent);
-      this.opponent.setAction("decide", args);
+      this.setAction('idle')
+      this.actorControl.setActor(this.opponent)
+      this.opponent.setAction('decide', args)
     }
   },
 
   hit() {
-    const distance = 1 - this.opponent.posX_ - this.posX_;
+    const distance = 1 - this.opponent.posX_ - this.posX_
     if (distance < 0.3) {
-      this.hitting = true;
-      this.armLength = distance;
-      this.opponent.isHit = true;
+      this.hitting = true
+      this.armLength = distance
+      this.opponent.isHit = true
     } else {
-      this.pointing = true;
+      this.pointing = true
     }
 
-    this.setAction("stop", { stay: 0.5 });
+    this.setAction('stop', { stay: 0.5 })
   },
 
   kiss() {
-    this.kissing = true;
+    this.kissing = true
 
-    this.setAction("stop", { dontStart: true, stay: 0.5 });
+    this.setAction('stop', { dontStart: true, stay: 0.5 })
   },
 
   jump() {
-    this.posY_ = 0.5;
-    this.setAction("fall", { dontStart: true });
+    this.posY_ = 0.5
+    this.setAction('fall', { dontStart: true })
   },
 
   fall() {
-    this.posY_ -= 0.5;
+    this.posY_ -= 0.5
     if (this.posY_ <= 0) {
-      this.posY_ = 0;
-      this.hasLanded = true;
-      this.setAction("stop", {
-        actions: ["hit", "startWalking"],
+      this.posY_ = 0
+      this.hasLanded = true
+      this.setAction('stop', {
+        actions: ['hit', 'startWalking'],
         delay: 0.8,
         stay: 0.5,
-      });
+      })
     }
   },
 
   stop(args) {
-    args = args || this.stopArgs || {};
+    args = args || this.stopArgs || {}
 
-    this.speed = 0;
+    this.speed = 0
 
     if (args.delay && this.rIf(args.delay)) {
-      this.actorControl.addComment(`${this.name} delays Ballpass`);
-      args.delay /= 2;
-      this.stopArgs = args;
-      return;
+      this.actorControl.addComment(`${this.name} delays Ballpass`)
+      args.delay /= 2
+      this.stopArgs = args
+      return
     }
-    this.setAction("passBall", {
-      actions: args.actions || ["kiss", "hit", "jump", "startWalking"],
+    this.setAction('passBall', {
+      actions: args.actions || ['kiss', 'hit', 'jump', 'startWalking'],
       stay: args.stay || 0.5,
-    });
+    })
   },
 
   draw(args, posX) {
-    let sX;
-    let sY;
-    let legsSY;
-    let headSY;
-    let faceSX;
-    let topHeadSY;
-    let bottomHeadSY;
-    const backward = this.speed < 0;
-    const still = !this.isHit && this.speed === 0;
-    const moveBottom = still ? 0 : 0;
-    const moveTop = still ? 0 : 1;
-    const inAir = this.posY_ > 0;
-    const landed = this.hasLanded;
-    const hits = this.hitting;
-    const kiss = this.kissing;
-    const walk = this.walking;
-    const armForward = hits || this.pointing;
-    const legSpeed = this.feetPos ? -0.3 : 0.3;
+    let sX
+    let sY
+    let legsSY
+    let headSY
+    let faceSX
+    let topHeadSY
+    let bottomHeadSY
+    const backward = this.speed < 0
+    const still = !this.isHit && this.speed === 0
+    const moveBottom = still ? 0 : 0
+    const moveTop = still ? 0 : 1
+    const inAir = this.posY_ > 0
+    const landed = this.hasLanded
+    const hits = this.hitting
+    const kiss = this.kissing
+    const walk = this.walking
+    const armForward = hits || this.pointing
+    const legSpeed = this.feetPos ? -0.3 : 0.3
 
-    this.feetPos = !this.feetPos;
+    this.feetPos = !this.feetPos
 
     this.hitting =
       this.pointing =
@@ -229,15 +229,15 @@ Comic.prototype.Actor.prototype = {
       this.isHit =
       this.kissing =
       this.walking =
-        false;
+        false
 
     this.linkList.push(
       (this.sX = sX = { r: this.sX_, useSize: args.size }),
       (this.sY = sY = { r: this.sY_ * (landed ? 0.6 : 1), useSize: args.size }),
-    );
+    )
 
     if (this.hasLegs) {
-      this.linkList.push((legsSY = { r: this.legsSY_, useSize: sY }));
+      this.linkList.push((legsSY = { r: this.legsSY_, useSize: sY }))
     }
 
     this.linkList.push(
@@ -247,9 +247,9 @@ Comic.prototype.Actor.prototype = {
       (this.bottomHeadSY = bottomHeadSY =
         [headSY, { r: -1, useSize: topHeadSY }]),
       (faceSX = { r: this.faceSX, useSize: sX }),
-    );
+    )
 
-    this.posX = posX;
+    this.posX = posX
 
     return {
       s: args.size,
@@ -389,7 +389,7 @@ Comic.prototype.Actor.prototype = {
                           color: [200, 255, 0],
                           list: [
                             {
-                              name: "RoundRect",
+                              name: 'RoundRect',
                               m: { r: -1.8 },
                             },
                           ],
@@ -536,40 +536,40 @@ Comic.prototype.Actor.prototype = {
           z: -100,
         },
       ],
-    };
+    }
   },
-}; // END Actors \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
+} // END Actors \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Eye /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 Comic.prototype.Eye = function Eye(args) {
   // Forms and Sizes
-  this.sX = this.rFl(0, 0.5);
-  this.sY = this.rFl(0, 0.5);
-  this.x = this.rFl(0, 1);
-  this.y = this.rFl(0, 1);
+  this.sX = this.rFl(0, 0.5)
+  this.sY = this.rFl(0, 0.5)
+  this.x = this.rFl(0, 1)
+  this.y = this.rFl(0, 1)
 
-  this.eyes = this.rIf(0.9);
+  this.eyes = this.rIf(0.9)
 
   // Colors
   this.color = [
     args.lightColor[0] + 150,
     args.lightColor[1] + 150,
     args.lightColor[2] + 150,
-  ];
-  this.eyeBrowColor = args.shadowColor;
+  ]
+  this.eyeBrowColor = args.shadowColor
 
-  this.changeExpression(0);
-};
+  this.changeExpression(0)
+}
 
 Comic.prototype.Eye.prototype = {
   changeExpression(chance) {
     this.eyeBrowRaised = this.rIf(chance)
       ? this.eyeBrowRaised
-      : this.rInt(-2, 0);
-    this.eyeBrowAngled = this.rIf(chance) ? this.eyeBrowAngled : this.rIf(0.6);
+      : this.rInt(-2, 0)
+    this.eyeBrowAngled = this.rIf(chance) ? this.eyeBrowAngled : this.rIf(0.6)
     this.evil = this.rIf(chance)
       ? this.evil
-      : this.eyeBrowAngled && this.rIf(0.5);
+      : this.eyeBrowAngled && this.rIf(0.5)
   },
 
   draw() {
@@ -595,29 +595,29 @@ Comic.prototype.Eye.prototype = {
           ],
         },
       ],
-    };
+    }
   },
-}; // END Eye \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
+} // END Eye \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN CarryObject /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 Comic.prototype.CarryObject = function CarryObject() {
   // Forms & Sizes
-  this.sX_ = this.rFl(0.1, 0.3);
-  this.sY_ = this.rFl(0.1, 0.3);
+  this.sX_ = this.rFl(0.1, 0.3)
+  this.sY_ = this.rFl(0.1, 0.3)
 
   // Colors
-  this.color = [this.rInt(0, 255), this.rInt(0, 255), this.rInt(0, 255)];
+  this.color = [this.rInt(0, 255), this.rInt(0, 255), this.rInt(0, 255)]
   this.lightColor = [
     this.color[0] * 1.5,
     this.color[1] * 1.5,
     this.color[2] * 1.5,
-  ];
+  ]
   this.darkColor = [
     this.color[0] * 0.7,
     this.color[1] * 0.7,
     this.color[2] * 0.7,
-  ];
-};
+  ]
+}
 
 Comic.prototype.CarryObject.prototype.draw = function (args) {
   return {
@@ -631,10 +631,10 @@ Comic.prototype.CarryObject.prototype.draw = function (args) {
       { sX: 1, cX: true, color: this.lightColor },
       { sY: 1, fY: true, color: this.darkColor },
     ],
-  };
-}; // END CarryObject \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
+  }
+} // END CarryObject \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN DUMMYDUMMYDUMMY /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-Comic.prototype.DUMMYDUMMYDUMMY = function DUMMYDUMMYDUMMY() {};
+Comic.prototype.DUMMYDUMMYDUMMY = function DUMMYDUMMYDUMMY() {}
 
-Comic.prototype.DUMMYDUMMYDUMMY.prototype.draw = function () {}; // END DUMMYDUMMYDUMMY \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
+Comic.prototype.DUMMYDUMMYDUMMY.prototype.draw = function () {} // END DUMMYDUMMYDUMMY \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/

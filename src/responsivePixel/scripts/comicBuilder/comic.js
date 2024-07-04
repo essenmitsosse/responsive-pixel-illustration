@@ -1,18 +1,18 @@
 const comicConfig = {
   maxPanels: 15,
-};
+}
 
 const Comic = function Comic(init) {
-  const random = window.helper.random(init.id);
-  const rFl = random.getRandomFloat;
-  const rInt = random.getRandom;
-  const rIf = random.getIf;
-  let height;
-  let square;
-  let margin;
+  const random = window.helper.random(init.id)
+  const rFl = random.getRandomFloat
+  const rInt = random.getRandom
+  const rIf = random.getIf
+  let height
+  let square
+  let margin
   // panelSquare,
-  let gutterX = rFl(0.002, 0.01);
-  let gutterY = rFl(1.5, 5) * gutterX;
+  let gutterX = rFl(0.002, 0.01)
+  let gutterY = rFl(1.5, 5) * gutterX
   const linkList = [
     { main: true },
     (height = { main: true, height: true }),
@@ -24,25 +24,25 @@ const Comic = function Comic(init) {
     (gutterX = { r: gutterX, useSize: square, min: 1 }),
     (gutterY = { r: gutterY, useSize: square, min: [gutterX, 1] }),
     { r: 0.5, useSize: height },
-  ];
-  let comic;
-  const backgroundColor = [rInt(150, 255), rInt(150, 255), rInt(150, 255)];
+  ]
+  let comic
+  const backgroundColor = [rInt(150, 255), rInt(150, 255), rInt(150, 255)]
 
   // Assign global Functions to all Comic Constructors
-  (function (comicPrototype, comicConfig, global) {
-    let current;
+  ;(function (comicPrototype, comicConfig, global) {
+    let current
     for (const key in comicPrototype) {
-      current = comicPrototype[key].prototype;
+      current = comicPrototype[key].prototype
 
-      current.rIf = rIf;
-      current.rInt = rInt;
-      current.rFl = rFl;
-      current.linkList = linkList;
-      current.config = comicConfig;
-      current.global = global;
-      current.copy = comicPrototype.copy;
+      current.rIf = rIf
+      current.rInt = rInt
+      current.rFl = rFl
+      current.linkList = linkList
+      current.config = comicConfig
+      current.global = global
+      current.copy = comicPrototype.copy
     }
-  })(Comic.prototype, comicConfig, {});
+  })(Comic.prototype, comicConfig, {})
 
   comic = {
     renderList: [
@@ -75,63 +75,63 @@ const Comic = function Comic(init) {
     ],
     linkList,
     background: backgroundColor,
-  };
-
-  if (init.debug === "true") {
-    window.track();
   }
 
-  return comic;
-};
+  if (init.debug === 'true') {
+    window.track()
+  }
+
+  return comic
+}
 
 Comic.prototype.copy = function copy(args) {
   for (const key in args) {
-    this[key] = args[key];
+    this[key] = args[key]
   }
-};
+}
 
 // BEGINN Strip /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 Comic.prototype.Strip = function Strip(args) {
-  let panelCount = this.rInt(1, this.config.maxPanels) + 5;
-  const panels = [];
-  let sX;
-  let sY;
-  let smallesPanelSX;
-  let smallesPanelSY;
-  let smallesPanelSquare;
-  let borderS;
-  let subBorderS;
-  let stageSmallestMaxSX;
-  let stageSmallestMaxFullSY;
-  let stageSmallestMaxSY;
-  let stageSmallestMaxSquare;
-  let stageSmallestSX;
-  let stageSmallestSY;
-  let stageSmallestSquare;
-  let current;
+  let panelCount = this.rInt(1, this.config.maxPanels) + 5
+  const panels = []
+  let sX
+  let sY
+  let smallesPanelSX
+  let smallesPanelSY
+  let smallesPanelSquare
+  let borderS
+  let subBorderS
+  let stageSmallestMaxSX
+  let stageSmallestMaxFullSY
+  let stageSmallestMaxSY
+  let stageSmallestMaxSquare
+  let stageSmallestSX
+  let stageSmallestSY
+  let stageSmallestSquare
+  let current
 
-  let i = (panelCount = args.panels || panelCount);
+  let i = (panelCount = args.panels || panelCount)
 
   const world = new this.basic.World({
     backgroundColor: args.backgroundColor,
     panelCount,
-  });
+  })
 
-  const stageRatio = this.rIf(0.9) ? this.rFl(2.5, 4) : this.rFl(3, 6);
+  const stageRatio = this.rIf(0.9) ? this.rFl(2.5, 4) : this.rFl(3, 6)
 
-  let border;
-  let worldPrepared;
-  let finished;
+  let border
+  let worldPrepared
+  let finished
 
   while (i--) {
-    sX = {};
-    sY = {};
+    sX = {}
+    sY = {}
 
-    panels[i] = { sX, sY };
-    this.linkList.push(sX, sY);
+    panels[i] = { sX, sY }
+    this.linkList.push(sX, sY)
 
-    smallesPanelSX = { add: [sX], max: smallesPanelSX };
-    smallesPanelSY = { add: [sY], max: smallesPanelSY };
+    smallesPanelSX = { add: [sX], max: smallesPanelSX }
+    smallesPanelSY = { add: [sY], max: smallesPanelSY }
   }
 
   this.linkList.push(
@@ -166,7 +166,7 @@ Comic.prototype.Strip = function Strip(args) {
       add: [stageSmallestSX],
       max: stageSmallestSY,
     }),
-  );
+  )
 
   // Create Border and draw it immediately
   border = new this.basic.Border({
@@ -174,22 +174,22 @@ Comic.prototype.Strip = function Strip(args) {
     noWorldBackground: world.noBackground,
     backgroundColor: args.backgroundColor,
     size: borderS,
-  });
+  })
 
-  i = 0;
+  i = 0
   do {
     worldPrepared = world.prepare({
       i,
-    });
+    })
 
     // finished = worldPrepared.actorInfos.end;
 
-    current = panels[i];
+    current = panels[i]
 
     this.linkList.push(
       (sX = [current.sX, subBorderS]),
       (sY = [current.sY, subBorderS]),
-    );
+    )
 
     current.list = [
       // World
@@ -211,12 +211,12 @@ Comic.prototype.Strip = function Strip(args) {
 
       // Borders
       border.draw(worldPrepared),
-    ];
-  } while ((i += 1) < panelCount && !finished);
+    ]
+  } while ((i += 1) < panelCount && !finished)
 
   // delete remaining Panels
   while ((i += 1) < panelCount) {
-    panels.pop();
+    panels.pop()
   }
 
   panels[panels.length - 1].list.push({
@@ -225,12 +225,12 @@ Comic.prototype.Strip = function Strip(args) {
     fY: true,
     z: 110000,
     color: border.borderColor,
-    id: "theEnd",
+    id: 'theEnd',
     list: [
       border.edgeBottomBent &&
-        border.edgeOuterBent && { name: "Dot", clear: true },
+        border.edgeOuterBent && { name: 'Dot', clear: true },
       border.edgeBottomBent && {
-        name: "Dot",
+        name: 'Dot',
         fX: true,
         fY: true,
         clear: true,
@@ -245,51 +245,51 @@ Comic.prototype.Strip = function Strip(args) {
         ],
       },
     ],
-  });
+  })
 
-  return panels;
-}; // END Strip \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
+  return panels
+} // END Strip \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Border /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 Comic.prototype.Border = function (args) {
-  const borderDarkess = this.rFl(0.3, 0.5);
-  let borderBaseColor;
+  const borderDarkess = this.rFl(0.3, 0.5)
+  let borderBaseColor
 
   // Forms & Sizes
-  this.size = args.size;
+  this.size = args.size
   this.linkList.push(
     (this.borderEdge = { r: 0.45, useSize: args.size, max: 1 }),
-  );
+  )
 
-  const hasBent = this.rIf(0.5);
-  const allBents = hasBent && this.rIf(0.5);
-  const innerAndOutterBent = (hasBent && allBents) || this.rIf(0.5);
-  const topAndBottomBent = (hasBent && allBents) || this.rIf(0.5);
+  const hasBent = this.rIf(0.5)
+  const allBents = hasBent && this.rIf(0.5)
+  const innerAndOutterBent = (hasBent && allBents) || this.rIf(0.5)
+  const topAndBottomBent = (hasBent && allBents) || this.rIf(0.5)
 
-  this.edgeTop = !args.noWorldBackground;
-  this.open = this.edgeTop;
+  this.edgeTop = !args.noWorldBackground
+  this.open = this.edgeTop
 
-  this.edgeOuterBent = !this.edgeTop || (hasBent && this.rIf(0.5));
+  this.edgeOuterBent = !this.edgeTop || (hasBent && this.rIf(0.5))
   this.edgeInnerBent =
-    (hasBent && this.edgeTop && innerAndOutterBent) || !this.edgeOuterBent;
+    (hasBent && this.edgeTop && innerAndOutterBent) || !this.edgeOuterBent
 
-  this.edgeTopBent = hasBent && this.rIf(0.5);
-  this.edgeBottomBent = (hasBent && topAndBottomBent) || !this.edgeTopBent;
+  this.edgeTopBent = hasBent && this.rIf(0.5)
+  this.edgeBottomBent = (hasBent && topAndBottomBent) || !this.edgeTopBent
 
   // Colors
   borderBaseColor =
     !args.noWorldBackground && this.rIf(0.5)
       ? args.worldBaseColor
-      : args.backgroundColor;
+      : args.backgroundColor
   this.borderColor = [
     borderBaseColor[0] * borderDarkess,
     borderBaseColor[1] * borderDarkess,
     borderBaseColor[2] * borderDarkess,
-  ];
-};
+  ]
+}
 
 Comic.prototype.Border.prototype.draw = function (args) {
-  const list = [];
+  const list = []
 
   if (!args.hit) {
     // Edge outer Bent
@@ -303,7 +303,7 @@ Comic.prototype.Border.prototype.draw = function (args) {
             fX: true,
             clear: true,
           },
-        );
+        )
       }
 
       if (this.edgeBottomBent) {
@@ -321,20 +321,20 @@ Comic.prototype.Border.prototype.draw = function (args) {
             fY: true,
             clear: true,
           },
-        );
+        )
       }
     }
 
     // Edge Top
     if (this.edgeTop) {
-      list.push({ sY: this.size });
+      list.push({ sY: this.size })
     }
 
     list.push(
       { sX: this.size },
       { sX: this.size, fX: true },
       { sY: this.size, fY: true },
-    );
+    )
 
     // Edge inner Bent
     if (this.edgeInnerBent) {
@@ -353,7 +353,7 @@ Comic.prototype.Border.prototype.draw = function (args) {
             sY: 1,
             fX: true,
           },
-        );
+        )
       }
 
       if (this.edgeBottomBent) {
@@ -373,15 +373,15 @@ Comic.prototype.Border.prototype.draw = function (args) {
             fX: true,
             fY: true,
           },
-        );
+        )
       }
     }
 
     return {
-      id: "border",
+      id: 'border',
       color: this.borderColor,
       list,
       z: 100000,
-    };
+    }
   }
-}; // END Border \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
+} // END Border \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/

@@ -1,66 +1,66 @@
 export class PixelSetter {
-  private colorArray: Array<any>;
-  private forms: Record<string, any>;
+  private colorArray: Array<any>
+  private forms: Record<string, any>
 
   constructor() {
-    this.forms = {};
-    this.colorArray = [];
-    this.init(this.colorArray);
+    this.forms = {}
+    this.colorArray = []
+    this.init(this.colorArray)
   }
 
   init(newArray) {
-    let key;
+    let key
 
     for (key in this.forms) {
-      this.forms[key] = [];
+      this.forms[key] = []
     }
 
-    this.colorArray = newArray;
+    this.colorArray = newArray
   }
 
   getSet(color, zInd, id) {
-    return () => this.colorArray.getSet(color, zInd, id);
+    return () => this.colorArray.getSet(color, zInd, id)
   }
   getClear(id) {
-    return () => this.colorArray.getClear(id);
+    return () => this.colorArray.getClear(id)
   }
   getSetForRect(color, zInd, id) {
-    return () => this.colorArray.getSetForRect(color, zInd, id);
+    return () => this.colorArray.getSetForRect(color, zInd, id)
   }
   getClearForRect(id) {
-    return () => this.colorArray.getClearForRect(id);
+    return () => this.colorArray.getClearForRect(id)
   }
   getSetSave(name, isRect) {
     return () => {
       const thisSave = this.forms[name]
         ? this.forms[name]
-        : (this.forms[name] = {});
-      const save = thisSave.save ? thisSave.save : (thisSave.save = []);
-      const mask = thisSave.mask ? thisSave.mask : (thisSave.mask = []);
+        : (this.forms[name] = {})
+      const save = thisSave.save ? thisSave.save : (thisSave.save = [])
+      const mask = thisSave.mask ? thisSave.mask : (thisSave.mask = [])
 
       return isRect
         ? this.colorArray.getSaveForRect(save, mask)
         : function (x, y) {
-            save.push([x, y]);
+            save.push([x, y])
 
             if (!mask[x]) {
-              mask[x] = [];
+              mask[x] = []
             }
-            mask[x][y] = true;
-          };
-    };
+            mask[x][y] = true
+          }
+    }
   }
 
   getClearSave(name, isRect) {
     return () => {
-      const thisSave = this.forms[name];
+      const thisSave = this.forms[name]
 
       if (thisSave) {
         return isRect
           ? this.colorArray.getClearSaveForRect(thisSave.save, thisSave.mask)
-          : () => {};
+          : () => {}
       }
-    };
+    }
   }
 
   setColorArray(color, clear, zInd, id, isRect, save) {
@@ -78,18 +78,18 @@ export class PixelSetter {
           : this.getSet(color, zInd, id)
         : save
           ? this.getSetSave(save, isRect)
-          : undefined;
+          : undefined
   }
 
   setColorMask(dimensions, push) {
-    return this.colorArray.setMask(dimensions, push);
+    return this.colorArray.setMask(dimensions, push)
   }
 
   getSave(name) {
-    return this.forms[name] ? this.forms[name].save : false;
+    return this.forms[name] ? this.forms[name].save : false
   }
 
   getMask(name) {
-    return this.forms[name] ? this.forms[name].mask : false;
+    return this.forms[name] ? this.forms[name].mask : false
   }
 }

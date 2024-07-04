@@ -1,17 +1,17 @@
-import { get1D } from "./get1D";
-import { getAxis } from "./getAxis";
-import { get2D } from "./get2D";
+import { get1D } from './get1D'
+import { getAxis } from './getAxis'
+import { get2D } from './get2D'
 
 export const getPixelUnits = () => {
-  const old = [];
+  const old = []
 
-  let updateList;
-  let calculateList;
-  const context = {};
+  let updateList
+  let calculateList
+  const context = {}
 
-  const oneD = get1D(context);
-  const Axis = getAxis(oneD);
-  const twoD = get2D(Axis);
+  const oneD = get1D(context)
+  const Axis = getAxis(oneD)
+  const twoD = get2D(Axis)
 
   return {
     Position: twoD.Position,
@@ -20,37 +20,37 @@ export const getPixelUnits = () => {
     Width: oneD.Width,
     Height: oneD.Height,
     setList(args) {
-      context.variableListLink = args.variableListLink;
-      context.variableListCreate = args.variableListCreate;
-      updateList = args.updateList;
+      context.variableListLink = args.variableListLink
+      context.variableListCreate = args.variableListCreate
+      updateList = args.updateList
     },
     linkList(calc) {
-      calculateList = calc;
+      calculateList = calc
     },
     init(dimensions) {
-      oneD.set(dimensions);
-      Axis.set(dimensions);
+      oneD.set(dimensions)
+      Axis.set(dimensions)
       if (calculateList) {
-        calculateList(dimensions);
+        calculateList(dimensions)
       }
       if (updateList) {
-        updateList();
+        updateList()
       }
     },
     pop() {
-      const o = old[old.length - 2];
+      const o = old[old.length - 2]
       if (o) {
-        oneD.set(o);
-        Axis.set(o);
-        old.pop();
+        oneD.set(o)
+        Axis.set(o)
+        old.pop()
       }
     },
     push(dimensions) {
-      oneD.set(dimensions);
-      Axis.set(dimensions);
-      old.push(dimensions);
+      oneD.set(dimensions)
+      Axis.set(dimensions)
+      old.push(dimensions)
     },
-  };
-};
+  }
+}
 
-export type PixelUnit = ReturnType<typeof getPixelUnits>;
+export type PixelUnit = ReturnType<typeof getPixelUnits>

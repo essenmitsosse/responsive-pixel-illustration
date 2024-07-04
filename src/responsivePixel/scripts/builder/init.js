@@ -1,131 +1,131 @@
 // eslint-disable-next-line no-unused-vars
 const renderer = function (init, slide, createSlider) {
-  const builder = new window.Builder(init);
+  const builder = new window.Builder(init)
 
-  const { hover } = builder;
+  const { hover } = builder
 
-  const { pushLinkList } = builder;
+  const { pushLinkList } = builder
 
-  const width = pushLinkList({ main: true });
-  const height = pushLinkList({ main: true, height: true });
-  const squ = pushLinkList({ add: [width], max: height });
+  const width = pushLinkList({ main: true })
+  const height = pushLinkList({ main: true, height: true })
+  const squ = pushLinkList({ add: [width], max: height })
 
   const borderS = pushLinkList({
     r: 0.05,
     a: -2,
     useSize: squ,
     min: 1,
-  });
+  })
 
-  const imgSX = pushLinkList([width, { r: -2, useSize: borderS }]);
-  const imgSY = pushLinkList([height, { r: -2, useSize: borderS }]);
+  const imgSX = pushLinkList([width, { r: -2, useSize: borderS }])
+  const imgSY = pushLinkList([height, { r: -2, useSize: borderS }])
 
-  const showPerson = slide.showPerson || init.showPerson;
+  const showPerson = slide.showPerson || init.showPerson
 
   const getPosition = (function () {
-    const rFl = builder.basic.R;
-    const rIf = builder.basic.IF;
-    const rInt = builder.basic.GR;
-    const eyeLookVert = ["", "", "", "left", "right"];
+    const rFl = builder.basic.R
+    const rIf = builder.basic.IF
+    const rInt = builder.basic.GR
+    const eyeLookVert = ['', '', '', 'left', 'right']
     const eyeLookHor = [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "up",
-      "down",
-      "up",
-      "down",
-      "verDown",
-    ];
+      '',
+      '',
+      '',
+      '',
+      '',
+      'up',
+      'down',
+      'up',
+      'down',
+      'verDown',
+    ]
     const eyeLids = [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "halfClosed",
-      "halfClosed",
-      "halfClosed",
-      "closed",
-      "closed",
-      "wink",
-    ];
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      'halfClosed',
+      'halfClosed',
+      'halfClosed',
+      'closed',
+      'closed',
+      'wink',
+    ]
     const eyeBrow = [
-      "",
-      "",
-      "",
-      "raised",
-      "low",
-      "sceptical",
-      "superSceptical",
-      "angry",
-      "sad",
-    ];
+      '',
+      '',
+      '',
+      'raised',
+      'low',
+      'sceptical',
+      'superSceptical',
+      'angry',
+      'sad',
+    ]
 
     const mouthHeight = [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "slight",
-      "slight",
-      "half",
-      "full",
-    ];
-    const mouthWid = ["", "", "", "narrow"];
-    const mouthForm = ["", "", "", "sceptical", "grin", "D:"];
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      'slight',
+      'slight',
+      'half',
+      'full',
+    ]
+    const mouthWid = ['', '', '', 'narrow']
+    const mouthForm = ['', '', '', 'sceptical', 'grin', 'D:']
 
     const legPos = [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "legRaise",
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      'legRaise',
       // "kneeBend", "legHigh"
-    ];
+    ]
 
-    const teethPos = ["", "top", "bottom", "both", "full"];
+    const teethPos = ['', 'top', 'bottom', 'both', 'full']
     // eslint-disable-next-line no-unused-vars
-    const shoulderPos = [0, 0, 0, 0, 0, -90, -90, 180];
+    const shoulderPos = [0, 0, 0, 0, 0, -90, -90, 180]
     // eslint-disable-next-line no-unused-vars
-    const ellbowPos = [0, 0, 0, 90, -90];
+    const ellbowPos = [0, 0, 0, 90, -90]
 
     // eslint-disable-next-line no-unused-vars
     const views = [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "rightView",
-      "leftView",
-      "rightView",
-      "leftView",
-      "rightView",
-      "leftView",
-      "rightView",
-      "leftView",
-      "backView",
-    ];
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      'rightView',
+      'leftView',
+      'rightView',
+      'leftView',
+      'rightView',
+      'leftView',
+      'rightView',
+      'leftView',
+      'backView',
+    ]
 
     return function (args) {
       args.eye = {
@@ -133,20 +133,20 @@ const renderer = function (init, slide, createSlider) {
         lookHor: eyeLookHor[rInt(0, eyeLookHor.length)],
         lids: eyeLids[rInt(0, eyeLids.length)],
         brow: eyeBrow[rInt(0, eyeBrow.length)],
-      };
+      }
 
       args.mouth = {
         height: mouthHeight[rInt(0, mouthHeight.length)],
-        width: mouthWid[rInt(0, mouthWid.length)] && "narrowSide",
+        width: mouthWid[rInt(0, mouthWid.length)] && 'narrowSide',
         form: mouthForm[rInt(0, mouthForm.length)],
         teeth: teethPos[rInt(0, teethPos.length)],
         smirk: rIf(0.08),
-      };
+      }
 
       args.shoulder = {
         left: rIf(0.8) && Math.pow(rFl(0, 1), 3),
         right: rIf(0.8) && Math.pow(rFl(0, 1), 3),
-      };
+      }
 
       args.arm = {
         left:
@@ -161,17 +161,17 @@ const renderer = function (init, slide, createSlider) {
             : rIf(0.8)
               ? rFl(0, 1) * 1.5 - 0.75
               : rFl(0, 1) * 0.5 - 0.25,
-      };
+      }
 
       args.finger = {
         left: rIf(0.1),
         right: rIf(0.1),
-      };
+      }
 
-      args.leg = {};
-      args.leg[rIf(0.5) ? "right" : "left"] = legPos[rInt(0, legPos.length)];
+      args.leg = {}
+      args.leg[rIf(0.5) ? 'right' : 'left'] = legPos[rInt(0, legPos.length)]
 
-      args.hatDown = rIf(0.02);
+      args.hatDown = rIf(0.02)
 
       // args.view = "backView";
       // args.view = "leftView";
@@ -179,47 +179,47 @@ const renderer = function (init, slide, createSlider) {
       // args.shoulder = { right : 0,	left : 180 };
       // args.ellbow = 	{ right : -90,	left : -90 };
       // args.hand = 	{ right : 90,	left : 90 };
-    };
-  })();
+    }
+  })()
 
   const getPanels = function () {
-    let l = init.panelCount || 6;
-    const half = l / 2;
-    const list = [];
-    let args;
-    let drawArgs;
-    const sX = pushLinkList({});
-    const sY = pushLinkList({});
-    const square = pushLinkList({ add: [sX], max: sY });
-    const innerSquare = pushLinkList({ r: 0.7, useSize: square });
-    const SingleObject = showPerson ? builder.Person : builder.Tree;
+    let l = init.panelCount || 6
+    const half = l / 2
+    const list = []
+    let args
+    let drawArgs
+    const sX = pushLinkList({})
+    const sY = pushLinkList({})
+    const square = pushLinkList({ add: [sX], max: sY })
+    const innerSquare = pushLinkList({ r: 0.7, useSize: square })
+    const SingleObject = showPerson ? builder.Person : builder.Tree
     const Tree1Family =
       !showPerson &&
       new builder.TreeFamily({
         color: builder.backgroundColor,
         secondColor: builder.backgroundColor.copy({ next: true }),
-      });
+      })
     const Tree2Family =
       !showPerson &&
       new builder.TreeFamily({
         color: builder.backgroundColor,
         secondColor: builder.backgroundColor.copy({ prev: true }),
-      });
+      })
 
     while (l--) {
-      drawArgs = {};
+      drawArgs = {}
 
       if (showPerson) {
-        args = {};
-        args.groundColor = builder.backgroundColor;
+        args = {}
+        args.groundColor = builder.backgroundColor
         args.groundShadowColor = builder.backgroundColor.copy({
           brAdd: -1,
-        });
+        })
 
-        getPosition(drawArgs);
-        drawArgs.size = innerSquare;
+        getPosition(drawArgs)
+        drawArgs.size = innerSquare
       } else {
-        args = l >= half ? Tree1Family : Tree2Family;
+        args = l >= half ? Tree1Family : Tree2Family
       }
 
       list.push({
@@ -233,11 +233,11 @@ const renderer = function (init, slide, createSlider) {
             list: new SingleObject(args).draw(drawArgs, 0, square),
           },
         ],
-      });
+      })
     }
 
-    return list;
-  };
+    return list
+  }
 
   const renderList = [
     {
@@ -249,47 +249,47 @@ const renderer = function (init, slide, createSlider) {
       imgRatio: 1,
       panels: getPanels(),
     },
-    init.cs === "true" && builder.colorScheme(),
-  ];
+    init.cs === 'true' && builder.colorScheme(),
+  ]
 
   if (showPerson && createSlider) {
     createSlider.number({
-      niceName: "Person Count",
-      valueName: "panelCount",
+      niceName: 'Person Count',
+      valueName: 'panelCount',
       defaultValue: 6,
       input: { min: 1, max: 20, step: 1 },
       forceRedraw: true,
-    });
+    })
     createSlider.slider({
-      niceName: "Headsize",
-      valueName: "head-size",
+      niceName: 'Headsize',
+      valueName: 'head-size',
       defaultValue: 0.5,
       input: { min: 0, max: 1, step: 0.01 },
-    });
+    })
     createSlider.slider({
-      niceName: "Body Width",
-      valueName: "body-width",
+      niceName: 'Body Width',
+      valueName: 'body-width',
       defaultValue: 0.5,
       input: { min: 0, max: 1, step: 0.01 },
-    });
+    })
     createSlider.slider({
-      niceName: "Body Height",
-      valueName: "body-height",
+      niceName: 'Body Height',
+      valueName: 'body-height',
       defaultValue: 0.75,
       input: { min: 0, max: 1, step: 0.01 },
-    });
+    })
     createSlider.slider({
-      niceName: "Arm Length",
-      valueName: "arm-length",
+      niceName: 'Arm Length',
+      valueName: 'arm-length',
       defaultValue: 0.5,
       input: { min: 0, max: 1, step: 0.01 },
-    });
+    })
     createSlider.slider({
-      niceName: "Leg Length",
-      valueName: "leg-length",
+      niceName: 'Leg Length',
+      valueName: 'leg-length',
       defaultValue: 0.5,
       input: { min: 0, max: 1, step: 0.01 },
-    });
+    })
   }
 
   return {
@@ -299,5 +299,5 @@ const renderer = function (init, slide, createSlider) {
     hover: hover.hover,
     hoverAlt: builder.hoverAlt,
     changeValueSetter: hover.ready,
-  };
-};
+  }
+}

@@ -1,10 +1,10 @@
-import type { Size } from "../../types";
+import type { Size } from '../../types'
 
 export const getDistanceY = (Distance) =>
   class DistanceY extends Distance {
-    axis = false;
+    axis = false
 
     constructor(args: Size) {
-      super(false, args);
+      super(false, args)
     }
-  };
+  }

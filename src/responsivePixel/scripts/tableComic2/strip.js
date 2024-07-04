@@ -2,45 +2,45 @@
 
 // BEGINN Strip /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 TableComic.prototype.Strip = function (args) {
-  const { stripInfo } = args;
-  const panelsInfo = stripInfo.panels;
-  const count = panelsInfo.length;
-  const countSqrt = Math.sqrt(count);
-  let i = 0;
-  const panels = [];
-  let current;
-  let sizeCurrent;
-  const sizeList = [];
-  let sX;
-  let sY;
-  let minSX;
-  let minSY;
+  const { stripInfo } = args
+  const panelsInfo = stripInfo.panels
+  const count = panelsInfo.length
+  const countSqrt = Math.sqrt(count)
+  let i = 0
+  const panels = []
+  let current
+  let sizeCurrent
+  const sizeList = []
+  let sX
+  let sY
+  let minSX
+  let minSY
   const gutterBase = (this.gutterBase = this.pushLinkList({
     r: 0.2 / countSqrt,
     useSize: args.squareBig,
-  }));
+  }))
   const gutterX = (this.gutterX = this.pushLinkList({
     r: 1,
     useSize: gutterBase,
-  }));
+  }))
   const gutterY = (this.gutterY = this.pushLinkList({
     r: 1,
     useSize: gutterBase,
-  }));
-  const basicPanel = stripInfo.basicPanel || new this.basic.Panel(stripInfo);
-  const { paperColor } = args;
-  const imgRatio = { ratio: 1.5 };
+  }))
+  const basicPanel = stripInfo.basicPanel || new this.basic.Panel(stripInfo)
+  const { paperColor } = args
+  const imgRatio = { ratio: 1.5 }
 
   this.pushRelativeStandardAutomatic({
-    gutterX: { map: "gutter-width", min: 0, max: 1 },
-    gutterY: { map: "gutter-height", min: 0, max: 1 },
-  });
+    gutterX: { map: 'gutter-width', min: 0, max: 1 },
+    gutterY: { map: 'gutter-height', min: 0, max: 1 },
+  })
 
   this.changersCustomList.push((args) => {
     if (args.imgRatio) {
-      imgRatio.ratio = 1 / args.imgRatio;
+      imgRatio.ratio = 1 / args.imgRatio
     }
-  });
+  })
 
   do {
     this.linkList.push(
@@ -48,20 +48,20 @@ TableComic.prototype.Strip = function (args) {
       (sY = {}),
       (minSX = { add: [sX], max: minSX }),
       (minSY = { add: [sY], max: minSY }),
-    );
+    )
 
     sizeList.push({
       sX,
       sY,
-    });
-  } while ((i += 1) < count);
+    })
+  } while ((i += 1) < count)
 
-  basicPanel.setStage(minSX, minSY);
+  basicPanel.setStage(minSX, minSY)
 
-  i = 0;
+  i = 0
   do {
-    sizeCurrent = sizeList[i];
-    current = basicPanel[panelsInfo[i].method || "draw"]({
+    sizeCurrent = sizeList[i]
+    current = basicPanel[panelsInfo[i].method || 'draw']({
       i,
       rel: i / (count - 1),
       sX: sizeCurrent.sX,
@@ -69,7 +69,7 @@ TableComic.prototype.Strip = function (args) {
       minSX,
       minSY,
       info: panelsInfo[i],
-    });
+    })
 
     // Rounded Border
     if (
@@ -82,31 +82,31 @@ TableComic.prototype.Strip = function (args) {
         minY: 6,
         list: [
           (stripInfo.roundCorners || stripInfo.roundTopCorners) && {
-            name: "Dot",
+            name: 'Dot',
             color: paperColor,
           },
           (stripInfo.roundCorners || stripInfo.roundTopCorners) && {
-            name: "Dot",
+            name: 'Dot',
             fX: true,
             color: paperColor,
           },
           (stripInfo.roundCorners || stripInfo.roundBottomCorners) && {
-            name: "Dot",
+            name: 'Dot',
             fY: true,
             color: paperColor,
           },
           (stripInfo.roundCorners || stripInfo.roundBottomCorners) && {
-            name: "Dot",
+            name: 'Dot',
             fX: true,
             fY: true,
             color: paperColor,
           },
         ],
-      });
+      })
     }
 
-    panels.push(current);
-  } while ((i += 1) < count);
+    panels.push(current)
+  } while ((i += 1) < count)
 
   return {
     mask: true,
@@ -114,23 +114,23 @@ TableComic.prototype.Strip = function (args) {
     gutterY,
     imgRatio,
     panels,
-  };
-};
+  }
+}
 // END Strip \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Panel /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 TableComic.prototype.Panel = function (args) {
   if (!args) {
-    args = {};
+    args = {}
   }
   this.background =
     args.background !== undefined
       ? args.background
-      : new this.basic.Background({});
+      : new this.basic.Background({})
 
   // Stage Ratio
-  this.ratio = args.ratio || 1.5;
-};
+  this.ratio = args.ratio || 1.5
+}
 
 TableComic.prototype.Panel.prototype.setStage = function (
   minPanelSX,
@@ -139,17 +139,17 @@ TableComic.prototype.Panel.prototype.setStage = function (
   this.getSizeWithRatio({
     sX: (this.minPanelSX = minPanelSX),
     sY: (this.minPanelSY = minPanelSY),
-    sXName: "minSX",
-    sYName: "minSY",
-  });
-};
+    sXName: 'minSX',
+    sYName: 'minSY',
+  })
+}
 
 TableComic.prototype.Panel.prototype.draw = function (args) {
-  const info = args.info || {};
-  const cameraFocus = info.camera && info.camera.focus;
+  const info = args.info || {}
+  const cameraFocus = info.camera && info.camera.focus
 
-  this.basePanelX = this.pushLinkList({ r: 0.9, useSize: this.minSX });
-  this.basePanelY = this.pushLinkList({ r: 0.9, useSize: this.minSY });
+  this.basePanelX = this.pushLinkList({ r: 0.9, useSize: this.minSX })
+  this.basePanelY = this.pushLinkList({ r: 0.9, useSize: this.minSY })
 
   // START camera zoom - - - - - - - - - - - - - - - - -
   if (cameraFocus) {
@@ -157,37 +157,37 @@ TableComic.prototype.Panel.prototype.draw = function (args) {
     if (cameraFocus.map) {
       const zoomToHead1 = cameraFocus
         ? 1 / (cameraFocus.min.obj.headSY_ || cameraFocus.min.obj.sY_)
-        : 1;
+        : 1
       const zoomToHead2 = cameraFocus
         ? 1 / (cameraFocus.max.obj.headSY_ || cameraFocus.max.obj.sY_)
-        : 1;
+        : 1
 
       this.zoomBaseSX = this.getSizeSwitch(
         { r: zoomToHead1, useSize: this.basePanelX },
         { r: zoomToHead2, useSize: this.basePanelX },
         {},
         cameraFocus.map,
-      );
+      )
 
       this.zoomBaseSY = this.getSizeSwitch(
         { r: zoomToHead1, useSize: this.basePanelY },
         { r: zoomToHead2, useSize: this.basePanelY },
         {},
         cameraFocus.map,
-      );
+      )
     } else {
       const zoomToHead = cameraFocus
         ? 1 / (cameraFocus.obj.headSY_ || cameraFocus.obj.sY_)
-        : 1;
+        : 1
 
       this.zoomBaseSX = this.pushLinkList({
         r: zoomToHead,
         useSize: this.basePanelX,
-      });
+      })
       this.zoomBaseSY = this.pushLinkList({
         r: zoomToHead,
         useSize: this.basePanelY,
-      });
+      })
     }
 
     // HACK: the min value only works, because actors can’t be bigger
@@ -206,7 +206,7 @@ TableComic.prototype.Panel.prototype.draw = function (args) {
         }),
         {},
         cameraFocus.map,
-      );
+      )
 
       this.zoomBaseActorSizeSY = this.getSizeSwitch(
         (info.camera.zoomBaseActor1SizeSY = {
@@ -221,43 +221,43 @@ TableComic.prototype.Panel.prototype.draw = function (args) {
         }),
         {},
         cameraFocus.map,
-      );
+      )
 
       if (cameraFocus.min.obj.sizeMap) {
         info.camera.zoomBaseActor1SizeSX = info.camera.zoomBaseActor1SizeSY = {
-          map: "actor-size",
+          map: 'actor-size',
           min: 1 / cameraFocus.min.obj.sizeMap.min,
           max: 1 / cameraFocus.min.obj.sizeMap.max,
-        };
+        }
       }
 
       if (cameraFocus.max.obj.sizeMap) {
         info.camera.zoomBaseActor2SizeSX = info.camera.zoomBaseActor2SizeSY = {
-          map: "actor-size",
+          map: 'actor-size',
           min: 1 / cameraFocus.max.obj.sizeMap.min,
           max: 1 / cameraFocus.max.obj.sizeMap.max,
-        };
+        }
       }
     } else {
       this.zoomBaseActorSizeSX = this.pushLinkList({
         r: 1,
         useSize: this.zoomBaseSX,
         min: this.zoomBaseSX,
-      });
+      })
       this.zoomBaseActorSizeSY = this.pushLinkList({
         r: 1,
         useSize: this.zoomBaseSY,
         min: this.zoomBaseSY,
-      });
+      })
 
       // If it is an actor, who has a sizemap
       if (cameraFocus.obj.sizeMap) {
         // Zoom Based on actor size
         info.camera.zoomBaseActorSizeSX = info.camera.zoomBaseActorSizeSY = {
-          map: "actor-size",
+          map: 'actor-size',
           min: 1 / cameraFocus.obj.sizeMap.min,
           max: 1 / cameraFocus.obj.sizeMap.max,
-        };
+        }
       }
     }
 
@@ -267,22 +267,22 @@ TableComic.prototype.Panel.prototype.draw = function (args) {
       useSize: this.pushLinkList({
         add: [this.basePanelX, this.zoomBaseActorSizeSX],
       }),
-    });
+    })
     this.zoomFinalSY = this.pushLinkList({
       r: 1,
       useSize: this.pushLinkList({
         add: [this.basePanelY, this.zoomBaseActorSizeSY],
       }),
-    });
+    })
   } else {
     this.zoomFinalSX = this.pushLinkList({
       r: 1,
       useSize: this.basePanelX,
-    });
+    })
     this.zoomFinalSY = this.pushLinkList({
       r: 1,
       useSize: this.basePanelY,
-    });
+    })
   }
 
   this.zoomDiffSX = this.pushLinkList({
@@ -290,95 +290,95 @@ TableComic.prototype.Panel.prototype.draw = function (args) {
     useSize: this.pushLinkList({
       add: [{ r: -1, useSize: this.basePanelX }, this.zoomFinalSX],
     }),
-  });
+  })
   this.zoomDiffSY = this.pushLinkList({
     r: 1,
     useSize: this.pushLinkList({
       add: [{ r: -1, useSize: this.basePanelY }, this.zoomFinalSY],
     }),
-  });
+  })
 
   this.stageSX = this.pushLinkList({
     add: [this.basePanelX, this.zoomDiffSX],
-  });
+  })
   this.stageSY = this.pushLinkList({
     add: [this.basePanelY, this.zoomDiffSY],
-  });
+  })
 
   // Attach the zoom value to both SX and SY;
   if (info.camera) {
-    info.camera.zoomFinalSX = info.camera.zoomFinalSY = info.camera.zoom;
+    info.camera.zoomFinalSX = info.camera.zoomFinalSY = info.camera.zoom
   }
 
   // Camera Zoom
   this.changersRelativeCustomList.push([
     this.zoomDiffSX,
     this.cameraZoomFunction,
-  ]);
+  ])
   this.changersRelativeCustomList.push([
     this.zoomDiffSY,
     this.cameraZoomFunction,
-  ]);
+  ])
   // END camera zoom  - - - - - - - - - - - - - - - - -
 
   // START render stage  - - - - - - - - - - - - - - - - -
-  const infoList = (this.infoList = info.list);
-  const l = infoList ? infoList.length : 0;
-  let count = 0;
-  let current;
-  const renderList = [];
+  const infoList = (this.infoList = info.list)
+  const l = infoList ? infoList.length : 0
+  let count = 0
+  let current
+  const renderList = []
   const drawInfo = {
     stageSX: this.stageSX,
     stageSY: this.stageSY,
     square: this.pushLinkList({ add: [this.stageSX], max: this.stageSY }),
-  };
-  const finishList = [];
+  }
+  const finishList = []
 
-  const background = info.background || this.background;
+  const background = info.background || this.background
 
   while (count < l) {
-    current = infoList[count];
+    current = infoList[count]
 
-    drawInfo.info = current;
+    drawInfo.info = current
 
     // Check if current returns something and if it is an Array (actor) or already the finished Object
     if (current.pos) {
-      current.what.currentPosition = current.pos;
+      current.what.currentPosition = current.pos
     }
 
     if ((current = current.what.draw(drawInfo))) {
       if (current.constructor === Array) {
-        renderList.push(current[0]);
-        finishList.push(current[1]);
+        renderList.push(current[0])
+        finishList.push(current[1])
       } else {
-        renderList.push(current);
+        renderList.push(current)
       }
     }
-    count += 1;
+    count += 1
   }
 
-  count = finishList.length;
+  count = finishList.length
   while (count--) {
-    finishList[count].finishRendering();
+    finishList[count].finishRendering()
   }
   // END render stage  - - - - - - - - - - - - - - - - -
 
   // START Camera Pan - - - - - - - - - - - - - - - - - - - - - - - -
   if (cameraFocus) {
-    let actorFocus1;
-    let actorFocus2;
+    let actorFocus1
+    let actorFocus2
 
     if (cameraFocus.map) {
       actorFocus1 = cameraFocus.min.obj.getFocus(
         this.stageSX,
         this.stageSY,
         cameraFocus.min,
-      );
+      )
       actorFocus2 = cameraFocus.max.obj.getFocus(
         this.stageSX,
         this.stageSY,
         cameraFocus.max,
-      );
+      )
 
       this.actorFocusX = this.pushLinkList({
         r: 0,
@@ -388,7 +388,7 @@ TableComic.prototype.Panel.prototype.draw = function (args) {
           {},
           cameraFocus.map,
         ),
-      });
+      })
 
       this.actorFocusY = this.pushLinkList({
         r: 0,
@@ -398,83 +398,83 @@ TableComic.prototype.Panel.prototype.draw = function (args) {
           {},
           cameraFocus.map,
         ),
-      });
+      })
     } else {
       actorFocus1 = cameraFocus.obj.getFocus(
         this.stageSX,
         this.stageSY,
         cameraFocus,
-      );
+      )
 
       this.actorFocusX = this.pushLinkList({
         r: 0,
         useSize: actorFocus1.x,
-      });
+      })
       this.actorFocusY = this.pushLinkList({
         r: 0,
         useSize: actorFocus1.y,
-      });
+      })
     }
 
     // Camera Pan
     this.changersRelativeCustomList.push([
       this.actorFocusX,
       this.cameraPanFunction,
-    ]);
+    ])
     this.changersRelativeCustomList.push([
       this.actorFocusY,
       this.cameraPanFunction,
-    ]);
+    ])
   }
 
   // pan relative from the stage to the panel size
   this.stageRestSX = this.pushLinkList({
     add: [args.sX, { r: -1, useSize: this.stageSX }],
-  });
+  })
   this.stageRestSY = this.pushLinkList({
     add: [args.sY, { r: -1, useSize: this.stageSY }],
-  });
+  })
 
-  this.panCenterX = this.pushLinkList({ r: 0.5, useSize: this.stageRestSX });
-  this.panCenterY = this.pushLinkList({ r: 0.5, useSize: this.stageRestSY });
+  this.panCenterX = this.pushLinkList({ r: 0.5, useSize: this.stageRestSX })
+  this.panCenterY = this.pushLinkList({ r: 0.5, useSize: this.stageRestSY })
 
-  this.panXrel = this.pushLinkList({ r: 0, useSize: this.panCenterX });
-  this.panYrel = this.pushLinkList({ r: 0, useSize: this.panCenterY });
+  this.panXrel = this.pushLinkList({ r: 0, useSize: this.panCenterX })
+  this.panYrel = this.pushLinkList({ r: 0, useSize: this.panCenterY })
 
   // pan relative to the stage
   this.panX = this.pushLinkList({
     r: 0,
     useSize: this.stageSX,
     add: [this.panXrel, (cameraFocus && this.actorFocusX) || 0],
-  });
+  })
 
   this.panY = this.pushLinkList({
     r: 0,
     useSize: this.stageSY,
     add: [this.panYrel, (cameraFocus && this.actorFocusY) || 0],
-  });
+  })
 
-  this.panDiffX = this.pushLinkList({ r: 1, useSize: this.panX });
-  this.panDiffY = this.pushLinkList({ r: 1, useSize: this.panY });
+  this.panDiffX = this.pushLinkList({ r: 1, useSize: this.panX })
+  this.panDiffY = this.pushLinkList({ r: 1, useSize: this.panY })
 
   if (info.camera) {
     info.camera.panDiffX = info.camera.panDiffY = {
-      map: "camera",
+      map: 'camera',
       min: 0,
       max: 1,
-    };
+    }
   }
 
   this.finalPanX = this.pushLinkList({
     add: [this.panDiffX, this.panCenterX],
-  });
+  })
   this.finalPanY = this.pushLinkList({
     add: [this.panDiffY, this.panCenterY],
-  });
+  })
 
   // END Camera Pan - - - - - - - - - - - - - - - - - - - - - - - -
 
-  this.pushRelativeStandardAutomatic(info.camera);
+  this.pushRelativeStandardAutomatic(info.camera)
 
   return {
     sX: args.sX,
@@ -505,18 +505,18 @@ TableComic.prototype.Panel.prototype.draw = function (args) {
         list: renderList,
       },
     ],
-  };
-};
+  }
+}
 
 TableComic.prototype.Panel.prototype.cameraZoomFunction = function (args) {
   if (args.camera !== undefined) {
-    return Math.pow(args.camera, 3);
+    return Math.pow(args.camera, 3)
   }
-};
+}
 
 TableComic.prototype.Panel.prototype.cameraPanFunction = function (args) {
   if (args.camera !== undefined) {
-    return Math.pow(args.camera, 0.333);
+    return Math.pow(args.camera, 0.333)
   }
-};
+}
 // END Panel \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/

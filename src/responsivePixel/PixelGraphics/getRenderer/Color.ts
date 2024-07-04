@@ -1,36 +1,36 @@
-import type { ColorRgb } from "../types";
+import type { ColorRgb } from '../types'
 
 export class Color {
   public s: Array<{
-    c: ColorRgb;
-    zInd: number;
-    id: string;
-  }>;
+    c: ColorRgb
+    zInd: number
+    id: string
+  }>
 
   constructor() {
-    this.s = [];
+    this.s = []
   }
 
   draw(c: ColorRgb, zInd: number, id: string) {
-    let i = this.s.length - 1;
+    let i = this.s.length - 1
 
     if (this.s.length === 0 || this.s[i].zInd < zInd) {
-      this.s.push({ id, c, zInd });
+      this.s.push({ id, c, zInd })
     } else if (this.s[i].zInd !== zInd) {
       do {
         if (this.s[i].zInd < zInd) {
-          break;
+          break
         }
-        i -= 1;
-      } while (i > 0);
-      this.s.splice(i + 1, 0, { id, c, zInd });
+        i -= 1
+      } while (i > 0)
+      this.s.splice(i + 1, 0, { id, c, zInd })
     }
   }
 
   clear(id: string) {
-    const { s } = this;
+    const { s } = this
     while (s.length > 0 && s[s.length - 1].id === id) {
-      this.s.pop();
+      this.s.pop()
     }
   }
 }

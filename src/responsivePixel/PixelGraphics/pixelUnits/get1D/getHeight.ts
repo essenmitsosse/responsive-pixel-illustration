@@ -1,12 +1,12 @@
-import type { Size } from "../../types";
+import type { Size } from '../../types'
 
 export const getHeight = (Dimension) =>
   class Height extends Dimension {
-    axis = false;
+    axis = false
 
     constructor(args: Size) {
-      super(false, true, args);
+      super(false, true, args)
     }
-  };
+  }
 
-export type Height = ReturnType<typeof getHeight>;
+export type Height = ReturnType<typeof getHeight>

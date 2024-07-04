@@ -2,34 +2,34 @@
 
 // HEAD MAIN  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 BBProto.Head = function (args) {
-  this.color = args.color || [255, 0, 0];
-  this.colorDark = args.colorDark || [150, 0, 0];
+  this.color = args.color || [255, 0, 0]
+  this.colorDark = args.colorDark || [150, 0, 0]
 
-  this._sX = this.R(0.4, 1.8);
-  this.headSideRatio = this.R(0.5, 1.5);
+  this._sX = this.R(0.4, 1.8)
+  this.headSideRatio = this.R(0.5, 1.5)
 
-  this.headTopFrontSX = this.R(0.5, 1.5);
-  this.headTopSideSX = this.headTopFrontSX + this.R(-0.2, 0.2);
+  this.headTopFrontSX = this.R(0.5, 1.5)
+  this.headTopSideSX = this.headTopFrontSX + this.R(-0.2, 0.2)
 
-  this.wideJaw = this.headSideRatio > this.headTopSideSX;
+  this.wideJaw = this.headSideRatio > this.headTopSideSX
 
-  this.headTopX = (this.wideJaw ? -1 : 1) * this.R(0, 1);
-  this.headTopSY = this.R(0.2, 0.8);
+  this.headTopX = (this.wideJaw ? -1 : 1) * this.R(0, 1)
+  this.headTopSY = this.R(0.2, 0.8)
 
-  this.headTop = new this.basic.HeadTop(args);
-  this.headBottom = new this.basic.HeadBottom(args);
-  this.nose = new this.basic.Nose(args);
-}; // End Head
+  this.headTop = new this.basic.HeadTop(args)
+  this.headBottom = new this.basic.HeadBottom(args)
+  this.nose = new this.basic.Nose(args)
+} // End Head
 
-BBProto.Head.prototype = new BBObj();
+BBProto.Head.prototype = new BBObj()
 BBProto.Head.prototype.draw = function (args) {
-  const { rotate } = args;
+  const { rotate } = args
 
-  this.ll.push((this.sX = { r: this._sX, useSize: args.sY }));
+  this.ll.push((this.sX = { r: this._sX, useSize: args.sY }))
 
   const headBottom = new this.basic.Rotater({
     drawer: this.headBottom,
-    id: "lowerHead",
+    id: 'lowerHead',
     rotate,
     baseSX: this.sX,
     sideSX: this.headSideRatio,
@@ -37,10 +37,10 @@ BBProto.Head.prototype.draw = function (args) {
     fY: true,
     roundTop: true,
     roundBottom: true,
-  });
+  })
   const headTop = new this.basic.Rotater({
     drawer: this.headTop,
-    id: "topHead",
+    id: 'topHead',
     rotate,
     baseSX: this.sX,
     frontSX: this.headTopFrontSX,
@@ -50,10 +50,10 @@ BBProto.Head.prototype.draw = function (args) {
     sY: { add: [{ r: -1, useSize: headBottom.sY }, args.sY, 2] },
     roundTop: true,
     roundBottom: true,
-  });
+  })
   const nose = new this.basic.Rotater({
     drawer: this.nose,
-    id: "nose",
+    id: 'nose',
     rotate,
     baseSX: this.sX,
     frontSX: 0.1,
@@ -67,7 +67,7 @@ BBProto.Head.prototype.draw = function (args) {
       xRel: 1,
       xAdd: this.wideJaw && headTop.x,
     },
-  });
+  })
 
   // this.ll.push(
   // 	sizes.headTopSY = { r:this.headTopSY, useSize:args.sY },
@@ -86,21 +86,21 @@ BBProto.Head.prototype.draw = function (args) {
     sX: headBottom.sX,
     sY: args.sY,
     rotate,
-  };
-}; // End Head Main Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  }
+} // End Head Main Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // HEAD TOP - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 BBProto.HeadTop = function (args) {
-  this.color = args.color;
-  this.colorDark = args.colorDark;
+  this.color = args.color
+  this.colorDark = args.colorDark
 
-  this.eyeSYLeft = this.R(0.2, 0.9);
+  this.eyeSYLeft = this.R(0.2, 0.9)
   this.eyeSYRight = this.IF(0.5)
     ? this.eyeSYLeft
-    : this.eyeSYLeft + this.R(-0.1, 0.1);
-}; // End HeadTop
+    : this.eyeSYLeft + this.R(-0.1, 0.1)
+} // End HeadTop
 
-BBProto.HeadTop.prototype = new BBObj();
+BBProto.HeadTop.prototype = new BBObj()
 
 BBProto.HeadTop.prototype.draw = function (args, front, right) {
   return [
@@ -146,16 +146,16 @@ BBProto.HeadTop.prototype.draw = function (args, front, right) {
         },
       ],
     },
-  ];
-}; // End Head Top Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  ]
+} // End Head Top Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // HEAD BOTTOM - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 BBProto.HeadBottom = function (args) {
-  this.color = args.color;
-  this.colorDark = args.colorDark;
-}; // End Head Bottom
+  this.color = args.color
+  this.colorDark = args.colorDark
+} // End Head Bottom
 
-BBProto.HeadBottom.prototype = new BBObj();
+BBProto.HeadBottom.prototype = new BBObj()
 
 BBProto.HeadBottom.prototype.draw = function (args, front) {
   return [
@@ -180,16 +180,16 @@ BBProto.HeadBottom.prototype.draw = function (args, front) {
     // 	id:"beard",
     // 	color:this.black,
     // },
-  ];
-}; // End Head Bottom Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  ]
+} // End Head Bottom Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // NOSE MAIN  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 BBProto.Nose = function (args) {
-  this.color = args.color;
-  this.colorDark = args.colorDark;
-}; // End Nose
+  this.color = args.color
+  this.colorDark = args.colorDark
+} // End Nose
 
-BBProto.Nose.prototype = new BBObj();
+BBProto.Nose.prototype = new BBObj()
 BBProto.Nose.prototype.draw = function (args, front) {
   return [
     {
@@ -197,20 +197,20 @@ BBProto.Nose.prototype.draw = function (args, front) {
       sY: !front && { r: 1, a: 1 },
       fY: true,
     },
-  ];
-}; // End Nose Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  ]
+} // End Nose Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // NECK MAIN  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 BBProto.Neck = function (args) {
-  this.color = args.color;
-  this.colorDark = args.colorDark;
-}; // End Neck
+  this.color = args.color
+  this.colorDark = args.colorDark
+} // End Neck
 
-BBProto.Neck.prototype = new BBObj();
+BBProto.Neck.prototype = new BBObj()
 BBProto.Neck.prototype.draw = function () {
   return [
     {
       color: this.colorDark,
     },
-  ];
-}; // End Neck Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  ]
+} // End Neck Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

@@ -1,4 +1,4 @@
-"use strict";
+'use strict'
 
 import {
   getSmallerDim,
@@ -6,8 +6,8 @@ import {
   mult,
   sub,
   getDarken,
-} from "../helperPixelGraphics";
-import { ColorRgb, ImageFunction } from "../PixelGraphics/types";
+} from '../helperPixelGraphics'
+import { ColorRgb, ImageFunction } from '../PixelGraphics/types'
 const shadowColor = [255, 255, 255],
   shadow = getDarken(shadowColor, 0.5),
   detail = getDarken(shadowColor, 0.2),
@@ -18,9 +18,9 @@ const shadowColor = [255, 255, 255],
   skinShadow = shadow(skin),
   leftHalf = [
     {
-      sY: { r: 1, add: [sub("headHeight"), sub("legs"), -1] },
-      y: ["legs"],
-      sX: { r: 0.6, min: 2, max: { r: 1, a: -1 }, save: "torsoWidth" },
+      sY: { r: 1, add: [sub('headHeight'), sub('legs'), -1] },
+      y: ['legs'],
+      sX: { r: 0.6, min: 2, max: { r: 1, a: -1 }, save: 'torsoWidth' },
       fY: true,
       list: [
         // Torso
@@ -34,7 +34,7 @@ const shadowColor = [255, 255, 255],
             r: 0.5,
             max: { r: 0.4, otherDim: true },
             min: 1,
-            save: "armWidth",
+            save: 'armWidth',
           },
           sY: {
             r: 1.5,
@@ -60,7 +60,7 @@ const shadowColor = [255, 255, 255],
         r: 0.8,
         add: [{ r: -2, otherDim: true }],
         min: { r: 0.4 },
-        save: "legs",
+        save: 'legs',
       },
       color: water,
       fY: true,
@@ -101,7 +101,7 @@ const shadowColor = [255, 255, 255],
         add: [{ r: 2, otherDim: true }, { r: -0.1 }],
         max: { r: 0.4 },
         min: { r: 0.05, min: 3 },
-        save: "headHeight",
+        save: 'headHeight',
       },
       sX: { r: 0.5, min: 2 },
       color: skin,
@@ -138,13 +138,13 @@ const shadowColor = [255, 255, 255],
           color: skinDetail,
           x: { r: 0.1, min: 1 },
           y: { r: 0.5 },
-          sX: "eyeSize",
-          sY: "eyeSize",
+          sX: 'eyeSize',
+          sY: 'eyeSize',
         },
 
         // Mouth
         {
-          sY: "mouthHeight",
+          sY: 'mouthHeight',
           color: skinDetail,
           fY: true,
           y: { r: 0.2 },
@@ -176,7 +176,7 @@ const shadowColor = [255, 255, 255],
           sY: 2,
           y: -1,
           cX: true,
-          sX: [mult(2, "armWidth"), mult(2, "torsoWidth")],
+          sX: [mult(2, 'armWidth'), mult(2, 'torsoWidth')],
           fY: true,
         },
         { sX: { r: 0.5 }, rX: true, list: leftHalf },
@@ -218,7 +218,7 @@ const shadowColor = [255, 255, 255],
   ],
   renderList = [
     {
-      m: "border",
+      m: 'border',
       list: [
         // { color:[255,0,0], gap:1, strip:{a:5, r:.005, random:{r:.1, add:[{r:.12, height:true}]} }, random:{r:-.9}, fY:true, list:person  }
         {
@@ -235,21 +235,21 @@ const shadowColor = [255, 255, 255],
   ],
   variableList = {
     border: getSmallerDim({ r: 0.05 }),
-    imgWidth: [{ r: 1 }, mult(-2, "border")],
-    imgHeight: [{ r: 1, height: true }, mult(-2, "border")],
-    imgSquare: getSmallerDim({ r: 1, useSize: ["imgWidth", "imgHeight"] }),
+    imgWidth: [{ r: 1 }, mult(-2, 'border')],
+    imgHeight: [{ r: 1, height: true }, mult(-2, 'border')],
+    imgSquare: getSmallerDim({ r: 1, useSize: ['imgWidth', 'imgHeight'] }),
     imgSquareBigger: getBiggerDim({
       r: 1,
-      useSize: ["imgWidth", "imgHeight"],
+      useSize: ['imgWidth', 'imgHeight'],
     }),
-    eyeSize: mult(0.002, "imgSquareBigger", 1),
-    mouthHeight: "eyeSize",
-  };
+    eyeSize: mult(0.002, 'imgSquareBigger', 1),
+    mouthHeight: 'eyeSize',
+  }
 
 const sparta: ImageFunction = {
   renderList: renderList,
   background: backgroundColor,
   variableList: variableList,
-};
+}
 
-export default sparta;
+export default sparta

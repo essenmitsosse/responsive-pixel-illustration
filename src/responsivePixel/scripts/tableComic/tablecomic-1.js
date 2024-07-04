@@ -2,68 +2,68 @@
 
 // BEGINN getStrip /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 TableComic.prototype.getStrip = function getStrip() {
-  const stripInfo = new this.getStripInfo();
-  const basicPanels = stripInfo.panels;
-  const { length } = basicPanels;
-  let count = 0;
-  let currentPanel;
-  const finalPanels = [];
+  const stripInfo = new this.getStripInfo()
+  const basicPanels = stripInfo.panels
+  const { length } = basicPanels
+  let count = 0
+  let currentPanel
+  const finalPanels = []
   const combiner = this.getCombiner(
     finalPanels,
     stripInfo.defaultPanels,
     stripInfo.inventory,
-  );
+  )
 
   while (count < length) {
-    currentPanel = basicPanels[count];
+    currentPanel = basicPanels[count]
 
-    if (currentPanel.draw === "faceDraw") {
-      finalPanels.push(currentPanel);
+    if (currentPanel.draw === 'faceDraw') {
+      finalPanels.push(currentPanel)
     } else {
-      combiner(currentPanel);
+      combiner(currentPanel)
     }
 
-    count += 1;
+    count += 1
   }
 
-  return stripInfo;
-};
+  return stripInfo
+}
 
 TableComic.prototype.getCombiner = function (finals, defaults, inventory) {
   return function (panel) {
-    const panelList = panel.list || {};
-    const newList = [];
-    let objectKey;
-    let listKey;
-    let defaultsList;
+    const panelList = panel.list || {}
+    const newList = []
+    let objectKey
+    let listKey
+    let defaultsList
     var copyDefaultObject = function (object, defaultObject) {
-      let valueKey;
+      let valueKey
 
       if (object === undefined) {
         // If no Info exist about Object, that is supposed to be there
-        return defaultObject;
+        return defaultObject
       } // If Info already exists about that object
       for (valueKey in defaultObject) {
-        if (object[valueKey] === undefined || valueKey === "body") {
+        if (object[valueKey] === undefined || valueKey === 'body') {
           // If no value exists, use default value
           if (defaultObject[valueKey].map !== undefined) {
-            object[valueKey] = defaultObject[valueKey];
+            object[valueKey] = defaultObject[valueKey]
           } else {
             object[valueKey] = copyDefaultObject(
               object[valueKey],
               defaultObject[valueKey],
-            );
+            )
           }
         }
       }
 
-      return object;
-    };
+      return object
+    }
 
     for (objectKey in defaults) {
-      if (objectKey === "list") {
+      if (objectKey === 'list') {
         if (!panel.noDefaults) {
-          defaultsList = defaults[objectKey];
+          defaultsList = defaults[objectKey]
 
           // fill the List with the defaults, needs special treatment
           // Use Default values if current has no values or not all important values are defined
@@ -71,52 +71,52 @@ TableComic.prototype.getCombiner = function (finals, defaults, inventory) {
             panelList[listKey] = copyDefaultObject(
               panelList[listKey],
               defaultsList[listKey],
-            );
+            )
 
-            newList.push(panelList[listKey]);
+            newList.push(panelList[listKey])
           }
         } else {
           for (listKey in panelList) {
-            newList.push(panelList[listKey]);
+            newList.push(panelList[listKey])
           }
         }
       } else {
         // Fill the rest of the panel Information with defaults
-        panel[objectKey] = panel[objectKey] || defaults[objectKey];
+        panel[objectKey] = panel[objectKey] || defaults[objectKey]
       }
     }
 
     // Transform to finals form, so it can be used
     for (objectKey in panelList) {
-      panelList[objectKey].what = inventory[objectKey];
+      panelList[objectKey].what = inventory[objectKey]
     }
 
-    panel.list = newList;
+    panel.list = newList
 
-    finals.push(panel);
-  };
-};
+    finals.push(panel)
+  }
+}
 
 TableComic.prototype.getStripInfo = function () {
-  const background = new this.basic.Background({});
+  const background = new this.basic.Background({})
 
   const basicPanel = new this.basic.Panel({
     background,
-  });
+  })
 
-  const ratio = 1.3;
+  const ratio = 1.3
 
-  const furnitureColor = [30, 50, 50];
+  const furnitureColor = [30, 50, 50]
 
   const stage = new this.basic.Stage({
     // show: true
-  });
+  })
 
   const actor1 = new this.basic.Actor({
     color: [this.rFl(0, 255), this.rFl(0, 255), this.rFl(0, 255)],
     firstColor: [this.rFl(0, 255), this.rFl(0, 255), this.rFl(0, 255)],
     secondColor: [this.rFl(0, 255), this.rFl(0, 255), this.rFl(0, 255)],
-  });
+  })
 
   const actor2 = new this.basic.Actor({
     color: [this.rFl(0, 255), this.rFl(0, 255), this.rFl(0, 255)],
@@ -129,51 +129,51 @@ TableComic.prototype.getStripInfo = function () {
         },
       },
     },
-  });
+  })
 
   const table = new this.basic.Table({
     color: furnitureColor,
     sX: 0.6,
     colorTop: [70, 90, 80],
-  });
-  const chair1 = new this.basic.Chair({ color: furnitureColor });
+  })
+  const chair1 = new this.basic.Chair({ color: furnitureColor })
   const chair2 = new this.basic.Chair({
     color: furnitureColor,
     toLeft: true,
-  });
+  })
   const glass = new this.basic.Glass({
     color: [this.rFl(0, 255), this.rFl(0, 255), this.rFl(0, 255)],
-  });
+  })
 
-  const emotion1 = new this.basic.Emotion({});
-  const emotion2 = new this.basic.Emotion({});
+  const emotion1 = new this.basic.Emotion({})
+  const emotion2 = new this.basic.Emotion({})
 
-  const noCameraMovement = false;
+  const noCameraMovement = false
 
   const getZoom = (function () {
-    let min = 1;
-    let max = min;
-    const zoomIn = 0.04;
-    let i = 0;
+    let min = 1
+    let max = min
+    const zoomIn = 0.04
+    let i = 0
 
     return function () {
-      const zoom = { map: 0, min, max };
+      const zoom = { map: 0, min, max }
 
       if (i > 0) {
         // min += zoomOut;
-        max += zoomIn;
+        max += zoomIn
 
         if (i === 4) {
-          min += 0.2;
-          max += 0.2;
+          min += 0.2
+          max += 0.2
         }
       }
 
-      i += 1;
+      i += 1
 
-      return noCameraMovement ? (zoom.max + zoom.min) / 2 : zoom;
-    };
-  })();
+      return noCameraMovement ? (zoom.max + zoom.min) / 2 : zoom
+    }
+  })()
   const panY = [
     -0.15, // 0
     { map: 0, min: -0.15, max: -0.18 }, // 1
@@ -181,7 +181,7 @@ TableComic.prototype.getStripInfo = function () {
     { map: 0, min: -0.15, max: -0.25 }, // 3
     { map: 0, min: -0.15, max: -0.275 }, // 4
     { map: 0, min: 0.1, max: 0.1 }, // 5
-  ];
+  ]
   const panX = [
     0, // 0
     0, // 1
@@ -189,40 +189,40 @@ TableComic.prototype.getStripInfo = function () {
     0, // 3
     0, // 4
     noCameraMovement ? 0.2 : { map: 0, min: 0.4, max: 0.5 }, // 5
-  ];
+  ]
 
-  const actor1PosRel = 0.1;
-  const actor2PosRel = 0.85;
+  const actor1PosRel = 0.1
+  const actor2PosRel = 0.85
 
   const chair1basic = {
     pos: {
       obj: stage,
       posX: actor1PosRel,
     },
-  };
+  }
 
   const chair2basic = {
     pos: {
       obj: stage,
       posX: actor2PosRel,
     },
-  };
+  }
 
   const actor2standing = {
     obj: stage,
     posX: actor2PosRel,
     posY: 0,
-  };
+  }
 
   const chair1FallenOver = {
     rotate: -90,
     pos: { obj: stage, posX: -0.3 },
-  };
+  }
 
   const chair2FallenOver = {
     rotate: 90,
     pos: { obj: stage, posX: 1.4, posY: 0 },
-  };
+  }
 
   const tableOnGround = {
     z: 0,
@@ -231,7 +231,7 @@ TableComic.prototype.getStripInfo = function () {
       posX: 1,
     },
     rotate: 90,
-  };
+  }
 
   const glassBasic = {
     z: 11000,
@@ -241,7 +241,7 @@ TableComic.prototype.getStripInfo = function () {
       posX: 0.8,
       posY: 1,
     },
-  };
+  }
 
   const glassFallenOver = {
     rotate: 90,
@@ -251,7 +251,7 @@ TableComic.prototype.getStripInfo = function () {
       posY: 1,
     },
     level: 0,
-  };
+  }
 
   const glassOnGround = {
     pos: {
@@ -261,7 +261,7 @@ TableComic.prototype.getStripInfo = function () {
     },
     level: 0,
     rotate: -90,
-  };
+  }
 
   const panels = [
     {
@@ -911,7 +911,7 @@ TableComic.prototype.getStripInfo = function () {
         glass: glassOnGround,
       },
     },
-  ];
+  ]
 
   return {
     paperColor: [220, 220, 220],
@@ -980,6 +980,6 @@ TableComic.prototype.getStripInfo = function () {
       },
     },
     panels,
-  };
-};
+  }
+}
 // END getStrip \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/

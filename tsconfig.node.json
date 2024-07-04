@@ -1,8 +1,15 @@
 {
   "compilerOptions": {
     "composite": true,
-    "module": "esnext",
-    "moduleResolution": "node"
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "outDir": "tsbuild",
+
+    /* Linting */
+    "strict": true,
+    "noUncheckedIndexedAccess": true
   },
-  "include": ["vite.config.ts"]
+  "include": ["*.config.*", "eslint"]
 }

@@ -26,3 +26,6 @@ dist-ssr
 *.sw?
 
 graph.*
+
+# TypeScript build output
+tsbuild

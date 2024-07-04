@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier": "prettier --write ."
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/essenmitsosse/responsive-pixel-illustration/issues"
   },
-  "homepage": "https://github.com/essenmitsosse/responsive-pixel-illustration#readme"
+  "homepage": "https://github.com/essenmitsosse/responsive-pixel-illustration#readme",
+  "dependencies": {
+    "prettier": "^3.3.3"
+  }
 }

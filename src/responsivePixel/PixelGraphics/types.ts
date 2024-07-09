@@ -3,7 +3,7 @@ import { Color } from './Color'
 export interface Variable {}
 
 export interface SizeObject {
-  a?: number
+  a?: Size
   r?: number
   debug?: true
   add?: ReadonlyArray<Size>
@@ -25,6 +25,9 @@ export interface Stripes {
   random?: Size
   horizontal?: boolean
   gap?: Size
+  cut?: boolean
+  round?: boolean
+  overflow?: boolean
 }
 
 export interface RenderObject {
@@ -36,8 +39,8 @@ export interface RenderObject {
   m?: Size | ReadonlyArray<Size>
   mX?: Size | ReadonlyArray<Size>
   mY?: Size | ReadonlyArray<Size>
-  minX?: number
-  minY?: number
+  minX?: Size | ReadonlyArray<Size>
+  minY?: Size | ReadonlyArray<Size>
   minHeight?: Size | ReadonlyArray<Size>
   minWidth?: Size | ReadonlyArray<Size>
   color?: ColorRgb
@@ -63,6 +66,8 @@ export interface RenderObject {
   id?: string
   points?: ReadonlyArray<RenderObject>
   z?: number
+  weight?: number
+  closed?: boolean
 }
 
 export type Render = RenderObject | ReadonlyArray<RenderObject | undefined>

@@ -6,7 +6,12 @@ import {
   getDarken,
   getLighten,
 } from '../helperPixelGraphics'
-import type { ColorRgb, ImageFunction } from '../PixelGraphics/types'
+import type {
+  ColorRgb,
+  ImageFunction,
+  RenderObject,
+  Size,
+} from '../PixelGraphics/types'
 
 const shadowColor: ColorRgb = [255, 255, 255],
   shadow = getDarken(shadowColor, 0.7),
@@ -46,7 +51,7 @@ const shadowColor: ColorRgb = [255, 255, 255],
       ],
     },
   ],
-  beard = function (hair, center?: boolean) {
+  beard = function (hair: ColorRgb, center?: boolean) {
     const beardSideHeight = { r: 0.6, a: -1 },
       beardSideWidth = center ? 0.4 : 0.2,
       beardInner = [
@@ -185,7 +190,7 @@ const shadowColor: ColorRgb = [255, 255, 255],
       ],
     }
   },
-  mustach = function (hades) {
+  mustach = function (hades: boolean): ReadonlyArray<RenderObject> {
     const mustachHalf = [
       {
         sY: { r: 0.5 },
@@ -209,7 +214,7 @@ const shadowColor: ColorRgb = [255, 255, 255],
       },
     ]
   },
-  eyes = function (color, hair, hades?: boolean) {
+  eyes = function (color: ColorRgb, hair: ColorRgb, hades?: boolean) {
     const eye = [
       { mX: 2, x: 1 },
       { mY: 1, sY: { min: 3 } },
@@ -244,7 +249,13 @@ const shadowColor: ColorRgb = [255, 255, 255],
       ],
     }
   },
-  getOthers = function (posei, skin, hair, cloth, background) {
+  getOthers = function (
+    posei: boolean,
+    skin: ColorRgb,
+    hair: ColorRgb,
+    cloth: ColorRgb,
+    background: ColorRgb,
+  ): ReadonlyArray<RenderObject | undefined> {
     const clothShadow = !posei ? cloth : shadow(cloth),
       skinShadow = shadow(skin),
       clothDetail = [
@@ -648,7 +659,7 @@ const shadowColor: ColorRgb = [255, 255, 255],
         : undefined,
     ]
   },
-  edgeBig = [
+  edgeBig: ReadonlyArray<RenderObject> = [
     { color: backgroundColor },
     {
       color: borderDetail,
@@ -687,7 +698,7 @@ const shadowColor: ColorRgb = [255, 255, 255],
     },
   ],
   areaStrip = { strip: 'strip', gap: 1, horizontal: true },
-  areaPiece = function (who) {
+  areaPiece = function (who: 'hades' | 'zeus' | 'poseidon') {
     const hades = who === 'hades'
 
     return [
@@ -771,7 +782,7 @@ const shadowColor: ColorRgb = [255, 255, 255],
           },
     ]
   },
-  sideBorder = [
+  sideBorder: ReadonlyArray<RenderObject> = [
     {
       sX: 'border',
       sY: 'borderSmall',
@@ -798,7 +809,7 @@ const shadowColor: ColorRgb = [255, 255, 255],
       list: edgeSmallInner,
     },
   ],
-  renderList = [
+  renderList: ReadonlyArray<RenderObject> = [
     // MAIN IMAGE
     {
       m: 'border',

@@ -66,7 +66,7 @@ export interface RenderObject {
   id?: string
   points?: ReadonlyArray<RenderObject>
   z?: number
-  weight?: number
+  weight?: Size
   closed?: boolean
 }
 

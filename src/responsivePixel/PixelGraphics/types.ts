@@ -13,6 +13,8 @@ export interface SizeObject {
   main?: boolean
   height?: boolean
   random?: Size
+  otherDim?: boolean
+  save?: string
 }
 
 export type Size = number | string | GetLength | GetLinkedVariable | SizeObject
@@ -21,11 +23,12 @@ export interface Stripes {
   strip?: ReadonlyArray<Size> | Size
   change?: Size
   random?: Size
+  horizontal?: boolean
   gap?: Size
 }
 
 export interface RenderObject {
-  s?: Size
+  s?: Size | ReadonlyArray<Size>
   sX?: Size | ReadonlyArray<Size>
   sY?: Size | ReadonlyArray<Size>
   x?: Size | ReadonlyArray<Size>
@@ -35,7 +38,11 @@ export interface RenderObject {
   mY?: Size | ReadonlyArray<Size>
   minX?: number
   minY?: number
+  minHeight?: Size | ReadonlyArray<Size>
+  minWidth?: Size | ReadonlyArray<Size>
   color?: ColorRgb
+  c?: boolean
+  horizontal?: boolean
   rotate?: 0 | -90 | 90 | 180
   rX?: boolean
   rY?: boolean

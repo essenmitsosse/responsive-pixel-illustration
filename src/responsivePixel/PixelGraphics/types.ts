@@ -6,20 +6,22 @@ export interface SizeObject {
   a?: number
   r?: number
   debug?: true
-  add?: ReadonlyArray<Size> | ReadonlyArray<ReadonlyArray<Size>>
-  useSize?: Size
+  add?: ReadonlyArray<Size>
+  useSize?: Size | ReadonlyArray<Size>
   max?: Size | ReadonlyArray<Size>
   min?: Size | ReadonlyArray<Size>
   main?: boolean
   height?: boolean
-  random?: { r: number }
+  random?: Size
 }
 
 export type Size = number | string | GetLength | GetLinkedVariable | SizeObject
 
 export interface Stripes {
-  strip: number | ReadonlyArray<Size>
-  random: Size
+  strip?: ReadonlyArray<Size> | Size
+  change?: Size
+  random?: Size
+  gap?: Size
 }
 
 export interface RenderObject {
@@ -29,15 +31,20 @@ export interface RenderObject {
   x?: Size | ReadonlyArray<Size>
   y?: Size | ReadonlyArray<Size>
   m?: Size | ReadonlyArray<Size>
+  mX?: Size | ReadonlyArray<Size>
+  mY?: Size | ReadonlyArray<Size>
   minX?: number
   minY?: number
   color?: ColorRgb
   rotate?: 0 | -90 | 90 | 180
+  rX?: boolean
   rY?: boolean
   fX?: boolean
   fY?: boolean
   cX?: boolean
   cY?: boolean
+  tX?: boolean
+  tY?: boolean
   list?: Render
   mask?: boolean
   stripes?: Stripes
@@ -48,6 +55,7 @@ export interface RenderObject {
   save?: string
   id?: string
   points?: ReadonlyArray<RenderObject>
+  z?: number
 }
 
 export type Render = RenderObject | ReadonlyArray<RenderObject | undefined>
@@ -56,14 +64,14 @@ export type ColorRgb = readonly [number, number, number]
 
 export type PixelArray = ReadonlyArray<ReadonlyArray<Color>>
 export interface ImageFunction {
-  linkList?: ReadonlyArray<Size>
+  linkList?: ReadonlyArray<Size | ReadonlyArray<Size>>
   variableList?: Record<string, Variable>
   renderList: ReadonlyArray<Render>
   background: ColorRgb
 }
 
 interface GetLength {
-  getLength: [number, number]
+  getLength: [Size, Size]
   debug?: true
 }
 

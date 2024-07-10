@@ -20,22 +20,22 @@ import { ImageFunction } from '../responsivePixel/PixelGraphics/types'
 import Canvas from './Canvas'
 
 export default (props: { idImage: string }) => {
-  const [relSizeX, setRelSizeX] = useState(1)
-  const [relSizeY, setRelSizeY] = useState(1)
-  const [pixelSize, setPixelSize] = useState(5)
+  const [sizeRelX, setSizeRelX] = useState(1)
+  const [sizeRelY, setSizeRelY] = useState(1)
+  const [sizePixel, setSizePixel] = useState(5)
   const [searchParams, setSearchParams] = useSearchParams()
   const isResizeable = searchParams.get('resizeable') !== 'false'
   const [boundingClientRectWrapper, setBoundingClientRectWrapper] =
     useState<DOMRect | null>(null)
   const [imageFunction, setImageFunction] = useState<ImageFunction | null>(null)
-  const [absSizeXFull, setAbsSizeXFull] = useState<number | null>(null)
-  const [absSizeYFull, setAbsSizeYFull] = useState<number | null>(null)
+  const [sizeAbsXFull, setSizeAbsXFull] = useState<number | null>(null)
+  const [sizeAbsYFull, setSizeAbsYFull] = useState<number | null>(null)
   const [isReady, setIsReady] = useState(false)
   const $wrapper = useRef<HTMLDivElement>(null)
-  const pixelCountMin = 50
-  const pixelCount = useMemo(() => {
-    return Math.round((absSizeXFull ?? 1) / pixelSize)
-  }, [absSizeXFull, pixelSize])
+  const quantityPixelMin = 50
+  const quantityPixel = useMemo(() => {
+    return Math.round((sizeAbsXFull ?? 1) / sizePixel)
+  }, [sizeAbsXFull, sizePixel])
 
   const onDrag = (event: MouseEvent | TouchEvent) => {
     if (
@@ -47,8 +47,8 @@ export default (props: { idImage: string }) => {
     }
     event.preventDefault()
 
-    setRelSizeX(getDimensionX(event, boundingClientRectWrapper))
-    setRelSizeY(getDimensionY(event, boundingClientRectWrapper))
+    setSizeRelX(getDimensionX(event, boundingClientRectWrapper))
+    setSizeRelY(getDimensionY(event, boundingClientRectWrapper))
   }
 
   const resize = () => {
@@ -65,8 +65,8 @@ export default (props: { idImage: string }) => {
 
   useEffect(() => {
     if (boundingClientRectWrapper === null) return
-    setAbsSizeXFull(getSizeX(boundingClientRectWrapper))
-    setAbsSizeYFull(getSizeY(boundingClientRectWrapper))
+    setSizeAbsXFull(getSizeX(boundingClientRectWrapper))
+    setSizeAbsYFull(getSizeY(boundingClientRectWrapper))
   }, [boundingClientRectWrapper])
 
   useEffect(() => {
@@ -77,8 +77,8 @@ export default (props: { idImage: string }) => {
     setIsReady(true)
   }, [imageFunction])
 
-  const setPixelCount = (pixelCount) => {
-    setPixelSize((absSizeXFull ?? 1) / pixelCount)
+  const setQuantityPixel = (quantityPixel) => {
+    setSizePixel((sizeAbsXFull ?? 1) / quantityPixel)
   }
 
   useEffect(() => {
@@ -108,15 +108,15 @@ export default (props: { idImage: string }) => {
       >
         {isReady &&
         imageFunction !== null &&
-        absSizeXFull !== null &&
-        absSizeYFull !== null ? (
+        sizeAbsXFull !== null &&
+        sizeAbsYFull !== null ? (
           <Canvas
             imageFunction={imageFunction}
-            sizeAbsXFull={absSizeXFull}
-            sizeAbsYFull={absSizeYFull}
-            pixelSize={pixelSize}
-            sizeRelX={relSizeX}
-            sizeRelY={relSizeY}
+            sizeAbsXFull={sizeAbsXFull}
+            sizeAbsYFull={sizeAbsYFull}
+            pixelSize={sizePixel}
+            sizeRelX={sizeRelX}
+            sizeRelY={sizeRelY}
           />
         ) : (
           'Bild lädt ...'
@@ -149,9 +149,9 @@ export default (props: { idImage: string }) => {
           <div className="justify-center">
             <input
               className="h-0.5 w-full appearance-none rounded bg-gray-700 dark:bg-gray-300"
-              value={relSizeX}
+              value={sizeRelX}
               onInput={(event) =>
-                setRelSizeX(parseFloat(event.currentTarget.value))
+                setSizeRelX(parseFloat(event.currentTarget.value))
               }
               type="range"
               min="0"
@@ -161,7 +161,7 @@ export default (props: { idImage: string }) => {
             />
           </div>
           <span className="text-xs font-mono font-light opacity-50">
-            {Math.round(relSizeX * 100)}%
+            {Math.round(sizeRelX * 100)}%
           </span>
         </label>
         <label className="grid grid-rows-subgrid row-span-3">
@@ -171,9 +171,9 @@ export default (props: { idImage: string }) => {
           <div className="justify-center">
             <input
               className="h-0.5 w-full appearance-none rounded bg-gray-700 dark:bg-gray-300"
-              value={relSizeY}
+              value={sizeRelY}
               onInput={(event) =>
-                setRelSizeY(parseFloat(event.currentTarget.value))
+                setSizeRelY(parseFloat(event.currentTarget.value))
               }
               type="range"
               min="0"
@@ -183,7 +183,7 @@ export default (props: { idImage: string }) => {
             />
           </div>
           <span className="text-xs font-mono font-light opacity-50">
-            {Math.round(relSizeY * 100)}%
+            {Math.round(sizeRelY * 100)}%
           </span>
         </label>
         <label className="grid grid-rows-subgrid row-span-3">
@@ -193,9 +193,9 @@ export default (props: { idImage: string }) => {
           <div className="justify-center">
             <input
               className="h-0.5 w-full appearance-none rounded bg-gray-700 dark:bg-gray-300 "
-              value={pixelSize}
+              value={sizePixel}
               onInput={(event) =>
-                setPixelSize(parseFloat(event.currentTarget.value))
+                setSizePixel(parseFloat(event.currentTarget.value))
               }
               type="range"
               min="2"
@@ -205,7 +205,7 @@ export default (props: { idImage: string }) => {
             />
           </div>
           <span className="text-xs font-mono font-light opacity-50">
-            {Math.round(pixelSize)}px
+            {Math.round(sizePixel)}px
           </span>
         </label>
         <label className="grid grid-rows-subgrid row-span-3">
@@ -215,19 +215,19 @@ export default (props: { idImage: string }) => {
           <div className="justify-center">
             <input
               className="h-0.5 w-full appearance-none rounded bg-gray-700 dark:bg-gray-300"
-              value={pixelCount}
+              value={quantityPixel}
               onInput={(event) =>
-                setPixelCount(parseFloat(event.currentTarget.value))
+                setQuantityPixel(parseFloat(event.currentTarget.value))
               }
               type="range"
-              min={pixelCountMin}
-              max={absSizeXFull ?? 1}
+              min={quantityPixelMin}
+              max={sizeAbsXFull ?? 1}
               step="1"
               data-test="input-quantity-pixel"
             />
           </div>
           <span className="text-xs font-mono font-light opacity-50">
-            {Math.round(pixelCount)}px / {Math.round(absSizeXFull ?? 1)}px
+            {Math.round(quantityPixel)}px / {Math.round(sizeAbsXFull ?? 1)}px
           </span>
         </label>
         <label className="grid grid-rows-subgrid row-span-3">

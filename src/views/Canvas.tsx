@@ -20,11 +20,11 @@ const Canvas = (props: {
     }
 
     pixelGraphic.redraw({
-      relSizeX: props.sizeRelX,
-      relSizeY: props.sizeRelY,
+      sizeRelX: props.sizeRelX,
+      sizeRelY: props.sizeRelY,
       pixelSize: props.pixelSize,
-      absSizeXFull: props.sizeAbsXFull,
-      absSizeYFull: props.sizeAbsYFull,
+      sizeAbsXFull: props.sizeAbsXFull,
+      sizeAbsYFull: props.sizeAbsYFull,
     })
 
     if (isRendered === false) {

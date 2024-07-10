@@ -4,11 +4,11 @@ import type { PixelGraphics } from '..'
 import type { ImageFunction } from '../types'
 
 export type Redraw = (args: {
-  absSizeXFull: number
-  absSizeYFull: number
+  sizeAbsXFull: number
+  sizeAbsYFull: number
   pixelSize: number
-  relSizeX: number
-  relSizeY: number
+  sizeRelX: number
+  sizeRelY: number
 }) => [number, number]
 
 export const getRenderer = (
@@ -36,10 +36,10 @@ export const getRenderer = (
   }
 
   return (args) => {
-    const countXFull = args.absSizeXFull / args.pixelSize
-    const countYFull = args.absSizeYFull / args.pixelSize
-    const countX = Math.round(Math.min(1, args.relSizeX || 1) * countXFull)
-    const countY = Math.round(Math.min(1, args.relSizeY || 1) * countYFull)
+    const countXFull = args.sizeAbsXFull / args.pixelSize
+    const countYFull = args.sizeAbsYFull / args.pixelSize
+    const countX = Math.round(Math.min(1, args.sizeRelX || 1) * countXFull)
+    const countY = Math.round(Math.min(1, args.sizeRelY || 1) * countYFull)
     const image =
       countX && countY && virtualContext.createImageData(countX, countY)
     let drawing
@@ -52,9 +52,9 @@ export const getRenderer = (
       virtualCanvas.height = countY
 
       /* eslint-disable-next-line no-param-reassign */
-      options.divCanvas.width = args.absSizeXFull
+      options.divCanvas.width = args.sizeAbsXFull
       /* eslint-disable-next-line no-param-reassign */
-      options.divCanvas.height = args.absSizeYFull
+      options.divCanvas.height = args.sizeAbsYFull
 
       // Disable Anti-Alaising
       context.imageSmoothingEnabled = false
@@ -78,6 +78,6 @@ export const getRenderer = (
       )
     }
 
-    return [args.absSizeXFull, args.absSizeYFull]
+    return [args.sizeAbsXFull, args.sizeAbsYFull]
   }
 }

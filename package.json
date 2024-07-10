@@ -16,14 +16,9 @@
   },
   "main": "index.js",
   "dependencies": {
+    "@tailwindcss/forms": "^0.5.0",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "react": "^18",
-    "react-dom": "^18",
-    "react-router-dom": "^6.2.2"
-  },
-  "devDependencies": {
-    "@tailwindcss/forms": "^0.5.0",
     "@typescript-eslint/eslint-plugin": "^7",
     "@typescript-eslint/parser": "^7",
     "@vitejs/plugin-react": "^4",
@@ -34,6 +29,9 @@
     "postcss": "^8.4.12",
     "prettier": "^3",
     "prettier-plugin-tailwindcss": "^0.6",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-router-dom": "^6.2.2",
     "tailwindcss": "^3.0.23",
     "typescript": "^5",
     "vite": "^5"

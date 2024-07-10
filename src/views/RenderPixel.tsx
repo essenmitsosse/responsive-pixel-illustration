@@ -124,8 +124,18 @@ export default (props: { idImage: string }) => {
 
   return (
     <div className="flex h-screen flex-col">
+      {isReady ? null : 'Bild lädt ...'}
+      <div className="relative h-full w-full">
+        <canvas
+          ref={canvas}
+          className="absolute h-full w-full"
+          onMouseMove={onDrag}
+          onTouchMove={onDrag}
+          data-test="canvas"
+        />
+      </div>
       <form className="flex w-full flex-wrap">
-        <label className="mb-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
+        <label className="my-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
           <span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
             Select Image
           </span>
@@ -144,7 +154,7 @@ export default (props: { idImage: string }) => {
             </select>
           </div>
         </label>
-        <label className="mb-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
+        <label className="my-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
           <span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
             Width
           </span>
@@ -161,7 +171,7 @@ export default (props: { idImage: string }) => {
             data-test="input-size-x"
           />{' '}
         </label>
-        <label className="mb-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
+        <label className="my-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
           <span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
             Height
           </span>
@@ -178,7 +188,7 @@ export default (props: { idImage: string }) => {
             data-test="input-size-y"
           />
         </label>
-        <label className="mb-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
+        <label className="my-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
           <span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
             Pixel Size{' '}
             <span className="font-mono font-light opacity-50">
@@ -198,7 +208,7 @@ export default (props: { idImage: string }) => {
             data-test="input-size-pixel"
           />
         </label>
-        <label className="mb-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
+        <label className="my-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
           <span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
             Pixel Count{' '}
             <span className="font-mono font-light opacity-50">
@@ -218,7 +228,7 @@ export default (props: { idImage: string }) => {
             data-test="input-quantity-pixel"
           />
         </label>
-        <label className="mb-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
+        <label className="my-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
           <span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
             Resize on Hover
           </span>
@@ -231,16 +241,6 @@ export default (props: { idImage: string }) => {
           />
         </label>
       </form>
-      {isReady ? null : 'Bild lädt ...'}
-      <div className="relative h-full w-full">
-        <canvas
-          ref={canvas}
-          className="absolute h-full w-full"
-          onMouseMove={onDrag}
-          onTouchMove={onDrag}
-          data-test="canvas"
-        />
-      </div>
     </div>
   )
 }

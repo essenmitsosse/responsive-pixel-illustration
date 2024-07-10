@@ -1,19 +1,13 @@
 import './index.css'
-import App from './App'
-import Image from './views/Image'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { StrictMode } from 'react'
+import listConfigRouter from './listConfigRouter'
+
+const router = createBrowserRouter(listConfigRouter)
 
 const WrapperApp = () => (
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route index element={<Image idImage="tantalos" />} />
-          <Route path=":idImage" element={<Image />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <RouterProvider router={router} />
   </StrictMode>
 )
 

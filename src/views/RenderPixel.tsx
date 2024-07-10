@@ -25,13 +25,14 @@ export default (props: { idImage: string }) => {
   const [searchParams, setSearchParams] = useSearchParams()
   const isResizeable = searchParams.get('resizeable') !== 'false'
   const [pixelGraphic, setPixelGraphic] = useState<PixelGraphics | null>(null)
-  const [boundingClientRectCanvas, setBoundingClientRectCanvas] =
+  const [boundingClientRectWrapper, setBoundingClientRectWrapper] =
     useState<DOMRect | null>(null)
   const [imageFunction, setImageFunction] = useState<ImageFunction | null>(null)
   const [absSizeXFull, setAbsSizeXFull] = useState<number | null>(null)
   const [absSizeYFull, setAbsSizeYFull] = useState<number | null>(null)
   const [isReady, setIsReady] = useState(false)
   const $canvas = useRef<HTMLCanvasElement>(null)
+  const $wrapper = useRef<HTMLDivElement>(null)
   const pixelCountMin = 50
   const pixelCount = useMemo(() => {
     return Math.round((absSizeXFull ?? 1) / pixelSize)
@@ -41,19 +42,19 @@ export default (props: { idImage: string }) => {
     if (
       isResizeable === false ||
       ('touches' in event && event.touches.length > 1) ||
-      boundingClientRectCanvas === null
+      boundingClientRectWrapper === null
     ) {
       return
     }
     event.preventDefault()
 
-    setRelSizeX(getDimensionX(event, boundingClientRectCanvas))
-    setRelSizeY(getDimensionY(event, boundingClientRectCanvas))
+    setRelSizeX(getDimensionX(event, boundingClientRectWrapper))
+    setRelSizeY(getDimensionY(event, boundingClientRectWrapper))
   }
 
   const resize = () => {
-    if ($canvas.current === null) return
-    setBoundingClientRectCanvas($canvas.current.getBoundingClientRect())
+    if ($wrapper.current === null) return
+    setBoundingClientRectWrapper($wrapper.current.getBoundingClientRect())
   }
 
   useEffect(() => {
@@ -64,10 +65,10 @@ export default (props: { idImage: string }) => {
   })
 
   useEffect(() => {
-    if (boundingClientRectCanvas === null) return
-    setAbsSizeXFull(getSizeX(boundingClientRectCanvas))
-    setAbsSizeYFull(getSizeY(boundingClientRectCanvas))
-  }, [boundingClientRectCanvas])
+    if (boundingClientRectWrapper === null) return
+    setAbsSizeXFull(getSizeX(boundingClientRectWrapper))
+    setAbsSizeYFull(getSizeY(boundingClientRectWrapper))
+  }, [boundingClientRectWrapper])
 
   useEffect(() => {
     if (
@@ -125,12 +126,15 @@ export default (props: { idImage: string }) => {
   return (
     <div className="flex h-screen flex-col">
       {isReady ? null : 'Bild lädt ...'}
-      <div className="relative h-full w-full">
+      <div
+        className="relative h-full w-full"
+        ref={$wrapper}
+        onMouseMove={onDrag}
+        onTouchMove={onDrag}
+      >
         <canvas
           ref={$canvas}
           className="absolute h-full w-full"
-          onMouseMove={onDrag}
-          onTouchMove={onDrag}
           data-test="canvas"
         />
       </div>

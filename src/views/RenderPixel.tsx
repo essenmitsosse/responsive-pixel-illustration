@@ -134,8 +134,8 @@ export default (props: { idImage: string }) => {
           data-test="canvas"
         />
       </div>
-      <form className="flex w-full flex-wrap">
-        <label className="my-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
+      <form className="grid w-full grid-cols-3 lg:grid-cols-6 grid-rows-[repeat(3,min-content)] gap-x-4 gap-y-2 p-4">
+        <label className="grid grid-rows-subgrid row-span-3">
           <span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
             Select Image
           </span>
@@ -154,91 +154,107 @@ export default (props: { idImage: string }) => {
             </select>
           </div>
         </label>
-        <label className="my-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
+        <label className="grid grid-rows-subgrid row-span-3">
           <span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
             Width
           </span>
-          <input
-            className="h-0.5 w-full appearance-none rounded bg-gray-700 dark:bg-gray-300"
-            value={relSizeX}
-            onInput={(event) =>
-              setRelSizeX(parseFloat(event.currentTarget.value))
-            }
-            type="range"
-            min="0"
-            max="1"
-            step="0.0001"
-            data-test="input-size-x"
-          />{' '}
+          <div className="justify-center">
+            <input
+              className="h-0.5 w-full appearance-none rounded bg-gray-700 dark:bg-gray-300"
+              value={relSizeX}
+              onInput={(event) =>
+                setRelSizeX(parseFloat(event.currentTarget.value))
+              }
+              type="range"
+              min="0"
+              max="1"
+              step="0.0001"
+              data-test="input-size-x"
+            />
+          </div>
+          <span className="text-xs font-mono font-light opacity-50">
+            {Math.round(relSizeX * 100)}%
+          </span>
         </label>
-        <label className="my-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
+        <label className="grid grid-rows-subgrid row-span-3">
           <span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
             Height
           </span>
-          <input
-            className="h-0.5 w-full appearance-none rounded bg-gray-700 dark:bg-gray-300"
-            value={relSizeY}
-            onInput={(event) =>
-              setRelSizeY(parseFloat(event.currentTarget.value))
-            }
-            type="range"
-            min="0"
-            max="1"
-            step="0.0001"
-            data-test="input-size-y"
-          />
-        </label>
-        <label className="my-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
-          <span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
-            Pixel Size{' '}
-            <span className="font-mono font-light opacity-50">
-              ({Math.round(pixelSize)})
-            </span>
+          <div className="justify-center">
+            <input
+              className="h-0.5 w-full appearance-none rounded bg-gray-700 dark:bg-gray-300"
+              value={relSizeY}
+              onInput={(event) =>
+                setRelSizeY(parseFloat(event.currentTarget.value))
+              }
+              type="range"
+              min="0"
+              max="1"
+              step="0.0001"
+              data-test="input-size-y"
+            />
+          </div>
+          <span className="text-xs font-mono font-light opacity-50">
+            {Math.round(relSizeY * 100)}%
           </span>
-          <input
-            className="h-0.5 w-full appearance-none rounded bg-gray-700 dark:bg-gray-300 "
-            value={pixelSize}
-            onInput={(event) =>
-              setPixelSize(parseFloat(event.currentTarget.value))
-            }
-            type="range"
-            min="2"
-            max="30"
-            step="1"
-            data-test="input-size-pixel"
-          />
         </label>
-        <label className="my-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
+        <label className="grid grid-rows-subgrid row-span-3">
           <span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
-            Pixel Count{' '}
-            <span className="font-mono font-light opacity-50">
-              ({Math.round(pixelCount)} / {Math.round(absSizeXFull ?? 1)})
-            </span>
+            Pixel Size
           </span>
-          <input
-            className="h-0.5 w-full appearance-none rounded bg-gray-700 dark:bg-gray-300"
-            value={pixelCount}
-            onInput={(event) =>
-              setPixelCount(parseFloat(event.currentTarget.value))
-            }
-            type="range"
-            min={pixelCountMin}
-            max={absSizeXFull ?? 1}
-            step="1"
-            data-test="input-quantity-pixel"
-          />
+          <div className="justify-center">
+            <input
+              className="h-0.5 w-full appearance-none rounded bg-gray-700 dark:bg-gray-300 "
+              value={pixelSize}
+              onInput={(event) =>
+                setPixelSize(parseFloat(event.currentTarget.value))
+              }
+              type="range"
+              min="2"
+              max="30"
+              step="1"
+              data-test="input-size-pixel"
+            />
+          </div>
+          <span className="text-xs font-mono font-light opacity-50">
+            {Math.round(pixelSize)}px
+          </span>
         </label>
-        <label className="my-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
+        <label className="grid grid-rows-subgrid row-span-3">
+          <span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
+            Pixel Count
+          </span>
+          <div className="justify-center">
+            <input
+              className="h-0.5 w-full appearance-none rounded bg-gray-700 dark:bg-gray-300"
+              value={pixelCount}
+              onInput={(event) =>
+                setPixelCount(parseFloat(event.currentTarget.value))
+              }
+              type="range"
+              min={pixelCountMin}
+              max={absSizeXFull ?? 1}
+              step="1"
+              data-test="input-quantity-pixel"
+            />
+          </div>
+          <span className="text-xs font-mono font-light opacity-50">
+            {Math.round(pixelCount)}px / {Math.round(absSizeXFull ?? 1)}px
+          </span>
+        </label>
+        <label className="grid grid-rows-subgrid row-span-3">
           <span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">
             Resize on Hover
           </span>
-          <input
-            className="form-checkbox mt-2 block h-5 w-5 cursor-pointer appearance-none rounded-md border border-gray-300 bg-gray-200 checked:border-blue-600 checked:bg-blue-600 focus:outline-none dark:border-gray-600 dark:bg-gray-700"
-            checked={isResizeable}
-            onChange={() => setIsResizeable(!isResizeable)}
-            type="checkbox"
-            data-test="input-is-resizeable"
-          />
+          <div className="justify-center">
+            <input
+              className="form-checkbox mt-2 block h-5 w-5 cursor-pointer appearance-none rounded-md border border-gray-300 bg-gray-200 checked:border-blue-600 checked:bg-blue-600 focus:outline-none dark:border-gray-600 dark:bg-gray-700"
+              checked={isResizeable}
+              onChange={() => setIsResizeable(!isResizeable)}
+              type="checkbox"
+              data-test="input-is-resizeable"
+            />
+          </div>
         </label>
       </form>
     </div>

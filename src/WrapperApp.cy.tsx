@@ -28,7 +28,7 @@ describe('<WrapperApp />', () => {
     cy.screenshot('main-800-600-0-light-hover-top-left', { overwrite: true })
 
     cy.GET('canvas').trigger('mouseover')
-    cy.GET('canvas').trigger('mousemove', 500, 400)
+    cy.GET('canvas').trigger('mousemove', 500, 400, { force: true })
     cy.screenshot('main-800-600-1-light-touch-bottom-right', {
       overwrite: true,
     })

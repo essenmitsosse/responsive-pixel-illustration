@@ -6,6 +6,7 @@ import {
   MouseEvent,
   useEffect,
   useMemo,
+  useCallback,
 } from 'react'
 import { recordImage, listPairImage } from './recordImage'
 import { useNavigate, useSearchParams } from 'react-router-dom'
@@ -15,8 +16,8 @@ import {
   getSizeX,
   getSizeY,
 } from './getDimension'
-import { PixelGraphics } from '../responsivePixel/PixelGraphics'
 import { ImageFunction } from '../responsivePixel/PixelGraphics/types'
+import Canvas from './Canvas'
 
 export default (props: { idImage: string }) => {
   const [relSizeX, setRelSizeX] = useState(1)
@@ -24,14 +25,12 @@ export default (props: { idImage: string }) => {
   const [pixelSize, setPixelSize] = useState(5)
   const [searchParams, setSearchParams] = useSearchParams()
   const isResizeable = searchParams.get('resizeable') !== 'false'
-  const [pixelGraphic, setPixelGraphic] = useState<PixelGraphics | null>(null)
   const [boundingClientRectWrapper, setBoundingClientRectWrapper] =
     useState<DOMRect | null>(null)
   const [imageFunction, setImageFunction] = useState<ImageFunction | null>(null)
   const [absSizeXFull, setAbsSizeXFull] = useState<number | null>(null)
   const [absSizeYFull, setAbsSizeYFull] = useState<number | null>(null)
   const [isReady, setIsReady] = useState(false)
-  const $canvas = useRef<HTMLCanvasElement>(null)
   const $wrapper = useRef<HTMLDivElement>(null)
   const pixelCountMin = 50
   const pixelCount = useMemo(() => {
@@ -71,36 +70,12 @@ export default (props: { idImage: string }) => {
   }, [boundingClientRectWrapper])
 
   useEffect(() => {
-    if (
-      pixelGraphic === null ||
-      absSizeXFull === null ||
-      absSizeYFull === null
-    ) {
-      return
-    }
-    pixelGraphic.redraw({
-      relSizeX: relSizeX,
-      relSizeY: relSizeY,
-      pixelSize: pixelSize,
-      absSizeXFull: absSizeXFull,
-      absSizeYFull: absSizeYFull,
-    })
-  }, [pixelGraphic, absSizeXFull, absSizeYFull, relSizeX, relSizeY, pixelSize])
-
-  useEffect(() => {
-    if ($canvas.current === null || imageFunction === null) {
+    if (imageFunction === null) {
       return
     }
     resize()
-    setPixelGraphic(
-      new PixelGraphics({
-        divCanvas: $canvas.current,
-        pixelSize: pixelSize,
-        imageFunction: imageFunction,
-      }),
-    )
     setIsReady(true)
-  }, [$canvas, imageFunction])
+  }, [imageFunction])
 
   const setPixelCount = (pixelCount) => {
     setPixelSize((absSizeXFull ?? 1) / pixelCount)
@@ -125,18 +100,27 @@ export default (props: { idImage: string }) => {
 
   return (
     <div className="flex h-screen flex-col">
-      {isReady ? null : 'Bild lädt ...'}
       <div
         className="relative h-full w-full"
         ref={$wrapper}
         onMouseMove={onDrag}
         onTouchMove={onDrag}
       >
-        <canvas
-          ref={$canvas}
-          className="absolute h-full w-full"
-          data-test="canvas"
-        />
+        {isReady &&
+        imageFunction !== null &&
+        absSizeXFull !== null &&
+        absSizeYFull !== null ? (
+          <Canvas
+            imageFunction={imageFunction}
+            sizeAbsXFull={absSizeXFull}
+            sizeAbsYFull={absSizeYFull}
+            pixelSize={pixelSize}
+            sizeRelX={relSizeX}
+            sizeRelY={relSizeY}
+          />
+        ) : (
+          'Bild lädt ...'
+        )}
       </div>
       <form className="grid w-full grid-cols-3 lg:grid-cols-6 grid-rows-[repeat(3,min-content)] gap-x-4 gap-y-2 p-4">
         <label className="grid grid-rows-subgrid row-span-3">

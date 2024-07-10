@@ -58,6 +58,7 @@ export interface RenderObject {
   list?: Render
   mask?: boolean
   stripes?: Stripes
+  strip?: ReadonlyArray<Size> | Size
   use?: string
   chance?: number
   name?: string
@@ -68,6 +69,10 @@ export interface RenderObject {
   z?: number
   weight?: Size
   closed?: boolean
+  gap?: Size
+  change?: Size
+  random?: Size
+  cut?: boolean
 }
 
 export type Render = RenderObject | ReadonlyArray<RenderObject | undefined>

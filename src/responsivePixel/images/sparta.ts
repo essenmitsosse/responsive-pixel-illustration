@@ -7,7 +7,7 @@ import {
   sub,
   getDarken,
 } from '../helperPixelGraphics'
-import { ColorRgb, ImageFunction } from '../PixelGraphics/types'
+import { ColorRgb, ImageFunction, RenderObject } from '../PixelGraphics/types'
 const shadowColor = [255, 255, 255],
   shadow = getDarken(shadowColor, 0.5),
   detail = getDarken(shadowColor, 0.2),
@@ -16,7 +16,7 @@ const shadowColor = [255, 255, 255],
   skin: ColorRgb = [227, 200, 190],
   skinDetail = detail(skin),
   skinShadow = shadow(skin),
-  leftHalf = [
+  leftHalf: ReadonlyArray<RenderObject> = [
     {
       sY: { r: 1, add: [sub('headHeight'), sub('legs'), -1] },
       y: ['legs'],
@@ -167,7 +167,7 @@ const shadowColor = [255, 255, 255],
       ],
     },
   ],
-  person = [
+  person: ReadonlyArray<RenderObject> = [
     {
       minX: 5,
       list: [
@@ -181,46 +181,13 @@ const shadowColor = [255, 255, 255],
         },
         { sX: { r: 0.5 }, rX: true, list: leftHalf },
         { sX: { r: 0.5 }, fX: true, list: leftHalf },
-        // { sY:"shield", sX:{r:.4, a:-5, otherDim:true, save:"shield" }, minX:5, cY:true, x:[mult(-.5,"shield"),3], fX:true, color:shield, list:[
-        // 	{},
-        // 	{ m:{r:.1}, color:shieldShadow, list:[
-        // 		{},
-        // 		{ m:{r:.1}, color: shield, list:[
-        // 			{},
-        // 			{ m:{r:.1}, color:shieldShadow, list:[
-        // 				{},
-        // 				{ m:{r:.1}, color: shield , list:[
-        // 					{},
-        // 					{ m:{r:.1}, color:shieldShadow, list:[
-        // 						{},
-        // 						{ m:{r:.1}, color: shield , list:[
-        // 							{},
-        // 							{ m:{r:.1}, color:shieldShadow, list:[
-        // 								{},
-        // 								{ m:{r:.1}, color: shield , list:[
-        // 									{},
-        // 									{ m:{r:.1}, color:shieldShadow, list:[
-        // 										{},
-        // 										{ m:{r:.1}, color: shield }
-        // 									] },
-        // 								] },
-        // 							] },
-        // 						] },
-        // 					] },
-        // 				] },
-        // 			] },
-        // 		] },
-        // 	] },
-        // 	{ m:{r:.5, a:-2}, color:shieldShadow }
-        // ] }
       ],
     },
   ],
-  renderList = [
+  renderList: ReadonlyArray<RenderObject> = [
     {
       m: 'border',
       list: [
-        // { color:[255,0,0], gap:1, strip:{a:5, r:.005, random:{r:.1, add:[{r:.12, height:true}]} }, random:{r:-.9}, fY:true, list:person  }
         {
           color: [255, 0, 0],
           gap: 1,

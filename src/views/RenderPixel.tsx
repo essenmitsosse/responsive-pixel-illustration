@@ -37,18 +37,25 @@ export default (props: { idImage: string }) => {
     return Math.round((sizeAbsXFull ?? 1) / sizePixel)
   }, [sizeAbsXFull, sizePixel])
 
-  const onDrag = (event: MouseEvent | TouchEvent) => {
+  const onDrag = (args: {
+    isPassive: boolean
+    event: MouseEvent | TouchEvent
+  }) => {
     if (
       isResizeable === false ||
-      ('touches' in event && event.touches.length > 1) ||
+      ('touches' in args.event && args.event.touches.length > 1) ||
       boundingClientRectWrapper === null
     ) {
       return
     }
-    event.preventDefault()
 
-    setSizeRelX(getDimensionX(event, boundingClientRectWrapper))
-    setSizeRelY(getDimensionY(event, boundingClientRectWrapper))
+    /** We can't `preventDefault` on a touch event — this would throw an error */
+    if (!args.isPassive) {
+      args.event.preventDefault()
+    }
+
+    setSizeRelX(getDimensionX(args.event, boundingClientRectWrapper))
+    setSizeRelY(getDimensionY(args.event, boundingClientRectWrapper))
   }
 
   const resize = () => {
@@ -103,8 +110,8 @@ export default (props: { idImage: string }) => {
       <div
         className="relative h-full w-full"
         ref={$wrapper}
-        onMouseMove={onDrag}
-        onTouchMove={onDrag}
+        onMouseMove={(event) => onDrag({ isPassive: false, event })}
+        onTouchMove={(event) => onDrag({ isPassive: true, event })}
       >
         {isReady &&
         imageFunction !== null &&

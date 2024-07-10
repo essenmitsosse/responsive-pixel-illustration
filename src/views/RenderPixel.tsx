@@ -31,7 +31,7 @@ export default (props: { idImage: string }) => {
   const [absSizeXFull, setAbsSizeXFull] = useState<number | null>(null)
   const [absSizeYFull, setAbsSizeYFull] = useState<number | null>(null)
   const [isReady, setIsReady] = useState(false)
-  const canvas = useRef<HTMLCanvasElement>(null)
+  const $canvas = useRef<HTMLCanvasElement>(null)
   const pixelCountMin = 50
   const pixelCount = useMemo(() => {
     return Math.round((absSizeXFull ?? 1) / pixelSize)
@@ -52,8 +52,8 @@ export default (props: { idImage: string }) => {
   }
 
   const resize = () => {
-    if (canvas.current === null) return
-    setBoundingClientRectCanvas(canvas.current.getBoundingClientRect())
+    if ($canvas.current === null) return
+    setBoundingClientRectCanvas($canvas.current.getBoundingClientRect())
   }
 
   useEffect(() => {
@@ -87,19 +87,19 @@ export default (props: { idImage: string }) => {
   }, [pixelGraphic, absSizeXFull, absSizeYFull, relSizeX, relSizeY, pixelSize])
 
   useEffect(() => {
-    if (canvas.current === null || imageFunction === null) {
+    if ($canvas.current === null || imageFunction === null) {
       return
     }
     resize()
     setPixelGraphic(
       new PixelGraphics({
-        divCanvas: canvas.current,
+        divCanvas: $canvas.current,
         pixelSize: pixelSize,
         imageFunction: imageFunction,
       }),
     )
     setIsReady(true)
-  }, [canvas, imageFunction])
+  }, [$canvas, imageFunction])
 
   const setPixelCount = (pixelCount) => {
     setPixelSize((absSizeXFull ?? 1) / pixelCount)
@@ -127,7 +127,7 @@ export default (props: { idImage: string }) => {
       {isReady ? null : 'Bild lädt ...'}
       <div className="relative h-full w-full">
         <canvas
-          ref={canvas}
+          ref={$canvas}
           className="absolute h-full w-full"
           onMouseMove={onDrag}
           onTouchMove={onDrag}

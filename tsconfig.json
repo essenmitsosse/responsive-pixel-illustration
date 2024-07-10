@@ -5,6 +5,7 @@
     "useDefineForClassFields": true,
     "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "module": "ESNext",
+    "types": ["cypress"],
     "skipLibCheck": true,
     "outDir": "tsbuild",
 
@@ -20,6 +21,6 @@
     "strict": true,
     "noUncheckedIndexedAccess": true
   },
-  "include": ["src"],
+  "include": ["cypress", "src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

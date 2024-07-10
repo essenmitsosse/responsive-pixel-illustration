@@ -6,6 +6,7 @@
   "description": "",
   "author": "Marcus Blättermann <marcus@essenmitsosse.de>",
   "scripts": {
+    "cy": "cypress open --component --browser=electron --port=5175",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
@@ -23,6 +24,8 @@
     "@typescript-eslint/parser": "^7",
     "@vitejs/plugin-react": "^4",
     "autoprefixer": "^10.4.4",
+    "cypress": "^13.13.0",
+    "cypress-fail-on-console-error": "^5.1.1",
     "eslint": "^8.9",
     "eslint-config-prettier": "^9",
     "eslint-plugin-import": "^2.25.4",

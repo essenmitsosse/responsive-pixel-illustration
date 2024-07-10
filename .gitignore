@@ -29,3 +29,6 @@ graph.*
 
 # TypeScript build output
 tsbuild
+
+# default Cypress screenshots (automated screenshots are in a separate folder)
+cypress/screenshotsComponentLocal

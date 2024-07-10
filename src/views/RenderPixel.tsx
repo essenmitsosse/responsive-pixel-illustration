@@ -134,6 +134,7 @@ export default (props: { idImage: string }) => {
               className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-1 px-4 pr-8  focus:border-gray-800 focus:outline-none dark:border-gray-600 dark:bg-gray-700 focus:dark:border-gray-300"
               value={props.idImage}
               onChange={(event) => setIdImage(event.currentTarget.value)}
+              data-test="input-id-image"
             >
               {listPairImage.map(([id, image]) => (
                 <option value={id} key={id}>
@@ -157,6 +158,7 @@ export default (props: { idImage: string }) => {
             min="0"
             max="1"
             step="0.0001"
+            data-test="input-size-x"
           />{' '}
         </label>
         <label className="mb-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
@@ -173,6 +175,7 @@ export default (props: { idImage: string }) => {
             min="0"
             max="1"
             step="0.0001"
+            data-test="input-size-y"
           />
         </label>
         <label className="mb-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
@@ -192,6 +195,7 @@ export default (props: { idImage: string }) => {
             min="2"
             max="30"
             step="1"
+            data-test="input-size-pixel"
           />
         </label>
         <label className="mb-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
@@ -211,6 +215,7 @@ export default (props: { idImage: string }) => {
             min={pixelCountMin}
             max={absSizeXFull ?? 1}
             step="1"
+            data-test="input-quantity-pixel"
           />
         </label>
         <label className="mb-4 inline-block w-1/2 px-4 sm:w-1/3 md:w-1/6 ">
@@ -222,6 +227,7 @@ export default (props: { idImage: string }) => {
             checked={isResizeable}
             onChange={() => setIsResizeable(!isResizeable)}
             type="checkbox"
+            data-test="input-is-resizeable"
           />
         </label>
       </form>
@@ -232,6 +238,7 @@ export default (props: { idImage: string }) => {
           className="absolute h-full w-full"
           onMouseMove={onDrag}
           onTouchMove={onDrag}
+          data-test="canvas"
         />
       </div>
     </div>

@@ -1,4 +1,3 @@
-import './RenderPixel.css'
 import {
   useState,
   useRef,

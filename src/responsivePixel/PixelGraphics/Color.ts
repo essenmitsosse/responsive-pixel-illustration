@@ -1,4 +1,4 @@
-import type { ColorRgb } from '../types'
+import type { ColorRgb } from './types'
 
 export class Color {
   public s: Array<{

@@ -8,7 +8,7 @@ export class VariableDynamic extends Variable {
     this.l = 0
   }
 
-  set(value) {
+  set(value?: number) {
     this.linkedP.forEach((_, key) => {
       this.linkedP[key].abs = value
     })

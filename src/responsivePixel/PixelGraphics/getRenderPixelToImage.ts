@@ -1,4 +1,4 @@
-import type { ColorRgb, PixelArray } from '../types'
+import type { ColorRgb, PixelArray } from './types'
 
 export function getRenderPixelToImage(backgroundColor: ColorRgb) {
   return function renderPixelToImage(

@@ -22,6 +22,12 @@ export const recordImage: Record<
       return import('../responsivePixel/images/graien')
     },
   },
+  landscape: {
+    niceName: 'Landscape',
+    getImage: () => {
+      return import('../responsivePixel/images/landscape')
+    },
+  },
   sphinx: {
     niceName: 'Sphinx',
     getImage: () => {
@@ -46,10 +52,28 @@ export const recordImage: Record<
       return import('../responsivePixel/images/teiresias')
     },
   },
+  trex: {
+    niceName: 'T-Rex',
+    getImage: () => {
+      return import('../responsivePixel/images/trex')
+    },
+  },
+  typo: {
+    niceName: 'Typo',
+    getImage: () => {
+      return import('../responsivePixel/images/typo')
+    },
+  },
   stripes: {
     niceName: 'Stripes',
     getImage: () => {
       return import('../responsivePixel/images/stripes')
+    },
+  },
+  zeus: {
+    niceName: 'Zeus',
+    getImage: () => {
+      return import('../responsivePixel/images/zeus')
     },
   },
 }

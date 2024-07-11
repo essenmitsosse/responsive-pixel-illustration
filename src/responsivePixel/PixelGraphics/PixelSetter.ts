@@ -1,34 +1,36 @@
+import { HandlerPixelArray } from 'src/responsivePixel/PixelGraphics/getHandlerPixelArray'
+
 export class PixelSetter {
-  private colorArray: Array<any>
+  private handlePixelArray: HandlerPixelArray
   private forms: Record<string, any>
 
   constructor() {
     this.forms = {}
-    this.colorArray = []
-    this.init(this.colorArray)
+    this.handlePixelArray = {}
+    this.init(this.handlePixelArray)
   }
 
-  init(newArray) {
+  init(handlerPixelArray: HandlerPixelArray) {
     let key
 
     for (key in this.forms) {
       this.forms[key] = []
     }
 
-    this.colorArray = newArray
+    this.handlePixelArray = handlerPixelArray
   }
 
   getSet(color, zInd, id) {
-    return () => this.colorArray.getSet(color, zInd, id)
+    return () => this.handlePixelArray.getSet(color, zInd, id)
   }
   getClear(id) {
-    return () => this.colorArray.getClear(id)
+    return () => this.handlePixelArray.getClear(id)
   }
   getSetForRect(color, zInd, id) {
-    return () => this.colorArray.getSetForRect(color, zInd, id)
+    return () => this.handlePixelArray.getSetForRect(color, zInd, id)
   }
   getClearForRect(id) {
-    return () => this.colorArray.getClearForRect(id)
+    return () => this.handlePixelArray.getClearForRect(id)
   }
   getSetSave(name, isRect) {
     return () => {
@@ -39,7 +41,7 @@ export class PixelSetter {
       const mask = thisSave.mask ? thisSave.mask : (thisSave.mask = [])
 
       return isRect
-        ? this.colorArray.getSaveForRect(save, mask)
+        ? this.handlePixelArray.getSaveForRect(save, mask)
         : function (x, y) {
             save.push([x, y])
 
@@ -57,7 +59,10 @@ export class PixelSetter {
 
       if (thisSave) {
         return isRect
-          ? this.colorArray.getClearSaveForRect(thisSave.save, thisSave.mask)
+          ? this.handlePixelArray.getClearSaveForRect(
+              thisSave.save,
+              thisSave.mask,
+            )
           : () => {}
       }
     }
@@ -82,7 +87,7 @@ export class PixelSetter {
   }
 
   setColorMask(dimensions, push) {
-    return this.colorArray.setMask(dimensions, push)
+    return this.handlePixelArray.setMask(dimensions, push)
   }
 
   getSave(name) {

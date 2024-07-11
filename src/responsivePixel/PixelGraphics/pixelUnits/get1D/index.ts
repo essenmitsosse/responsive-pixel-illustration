@@ -8,6 +8,7 @@ import { getDistanceX } from './getDistanceX'
 import { getDistanceY } from './getDistanceY'
 import type { Dimension } from './getDimension'
 import { getDimension } from './getDimension'
+import { Variable } from '../Variable'
 
 export interface ContextInner {
   getGetLengthCalculation: (x: number, y: number) => () => number
@@ -19,10 +20,9 @@ export interface ContextInner {
   getSize: (dim: Dimension) => Height | Width
 }
 
-export const get1D = (context) => {
+export const get1D = (variableList: Record<string, Variable>) => {
   const contextInner: ContextInner = {} as ContextInner
-
-  const Dimension = getDimension(contextInner, context)
+  const Dimension = getDimension(contextInner, variableList)
   const Distance = getDistance(Dimension)
   const Width = getWidth(Dimension)
   const Height = getHeight(Dimension)

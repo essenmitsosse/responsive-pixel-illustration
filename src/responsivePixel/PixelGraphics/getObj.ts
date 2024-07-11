@@ -1,12 +1,19 @@
-import type { PixelUnit } from '../pixelUnits'
+import type { PixelUnit } from './pixelUnits'
 import type { PixelSetter } from './PixelSetter'
 import type { Seed } from './Seed'
+import { Render } from 'src/responsivePixel/PixelGraphics/types'
+
+export type Obj = {
+  new (): {
+    create(args: { list: ReadonlyArray<Render> }): { draw: () => void }
+  }
+}
 
 export const getObj = (
   pixelSetter: PixelSetter,
   seed: Seed,
   pixelUnit: PixelUnit,
-) => {
+): Obj => {
   const Primitive = function Primitive() {}
 
   const PointBased = function PointBased() {}

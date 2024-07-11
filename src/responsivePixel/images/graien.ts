@@ -6,7 +6,12 @@ import {
   sub,
   getDarken,
 } from '../helperPixelGraphics'
-import type { ColorRgb, ImageFunction } from '../PixelGraphics/types'
+import type {
+  ColorRgb,
+  ImageFunction,
+  RenderObject,
+  Size,
+} from '../PixelGraphics/types'
 
 const background = [60, 120, 110] as const
 const bSS = 0.5
@@ -447,8 +452,8 @@ const graie3EarPos = linkListPush(mult(0.1, graie3FaceHeight))
 const listGraieShadow = [graie1Shadow, graie2Shadow, graie3Shadow]
 const listGraie = [graie1, graie2, graie3]
 
-const getShadow = (nr) => listGraieShadow[nr - 1]
-const getSkin = (nr) => listGraie[nr - 1]
+const getShadow = (nr: 1 | 2 | 3): ColorRgb => listGraieShadow[nr - 1]!
+const getSkin = (nr: 1 | 2 | 3): ColorRgb => listGraie[nr - 1]!
 
 const graie1Eye = [
   {
@@ -505,7 +510,7 @@ const breast = (left?: boolean) => [
       },
 ]
 
-const foot = (hor, down, fX, nr) => {
+const foot = (hor: boolean, down: boolean, fX: boolean, nr: 1 | 2 | 3) => {
   const shadowFoot = getShadow(nr)
   const withoutToes = { r: 1, add: [sub(toeSize)] }
   const anklePos = { r: 0.5, useSize: legLowerWidth }
@@ -589,7 +594,7 @@ const legStructure = (() => {
   let i = 0
   const s = { a: 0, random: legDetailWidth }
   const armSize = { a: 0, random: armDetailLength }
-  return (nr, hor?: boolean, isArm?: boolean) => {
+  return (nr: 1 | 2 | 3, hor?: boolean, isArm?: boolean) => {
     const shadowLeg = getShadow(nr)
 
     const horFinal = isArm ? !hor : hor
@@ -618,7 +623,7 @@ const legStructure = (() => {
   }
 })()
 
-const armToLeft = (nr, down?: boolean) => {
+const armToLeft = (nr: 1 | 2 | 3, down?: boolean) => {
   const shadowArm = getShadow(nr)
   return [
     legStructure(nr, false, true),
@@ -670,7 +675,7 @@ const armToLeft = (nr, down?: boolean) => {
   ]
 }
 
-const skinPoint = (nr, big, obj) => {
+const skinPoint = (nr: 1 | 2 | 3, big: boolean, obj: RenderObject) => {
   const shadowSkin = getShadow(nr)
   const skin = getSkin(nr)
 
@@ -735,7 +740,7 @@ const borderHor = [
   },
 ]
 
-const bottomEdge = [
+const bottomEdge: ReadonlyArray<RenderObject> = [
   {},
   { color: backgroundDark, m: 1 },
   {
@@ -790,7 +795,7 @@ const bottomEdge = [
   },
 ]
 
-const renderList = [
+const renderList: ReadonlyArray<RenderObject> = [
   // ---- FRAME ----------------
   {
     mX: framePadding,
@@ -1301,7 +1306,6 @@ const renderList = [
                               add: [armWidth, 2],
                             },
                             stripes: {
-                              striplengt: 1,
                               gap: 1,
                               horizontal: true,
                               random: { r: -0.2 },

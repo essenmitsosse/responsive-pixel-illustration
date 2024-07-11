@@ -6,7 +6,12 @@ import {
   getDarken,
   getLighten,
 } from '../helperPixelGraphics'
-import type { ColorRgb, ImageFunction } from '../PixelGraphics/types'
+import type {
+  ColorRgb,
+  ImageFunction,
+  RenderObject,
+  Size,
+} from '../PixelGraphics/types'
 
 const mixShadowColor = [255, 200, 255]
 const shadow = getDarken(mixShadowColor, 0.7)
@@ -34,7 +39,7 @@ const snake1 = teiresias
 const snake1Detail = shadow(snake1)
 const snake2: ColorRgb = [165, 157, 105]
 const snake2Detail = shadow(snake2)
-const snakeTongue = [150, 85, 94]
+const snakeTongue: ColorRgb = [150, 85, 94]
 const snakeEyes = backgroundColor
 
 const shadowColor = treesDark
@@ -140,11 +145,11 @@ const bigEdge = [
   },
 ]
 
-const hair = [255, 255, 255]
+const hair: ColorRgb = [255, 255, 255]
 
 let i = 0
 
-const snake = (nr, vert?: boolean) => {
+const snake = (nr: 1 | 2, vert?: boolean) => {
   const x = !vert ? ['snakeWeight', -1] : undefined
   const y = vert ? ['snakeWeight', -1] : undefined
   const s = { r: 1, add: [sub('snakeWeight')] }
@@ -198,7 +203,7 @@ const treeTrunk = () => {
   ]
 }
 
-const treeLeaves = (random) => {
+const treeLeaves = (random: Size): ReadonlyArray<RenderObject> => {
   const name = `treeLeaves${(i += 1)}`
   const name2 = `treesSpots${i}`
   return [
@@ -246,7 +251,7 @@ const shadowGround = [
 const torsoMargin = 0.4
 const torsoTop = 0.35
 
-const renderList = [
+const renderList: ReadonlyArray<RenderObject> = [
   // IMAGE
   {
     m: 'borderWidth',
@@ -317,11 +322,11 @@ const renderList = [
         list: treeLeaves({ r: 2 }),
       },
       {
-        sY: { r: 0.4 },
+        sY: { r: 0.1 },
         fX: true,
         sX: { add: ['imgWidth', mult(-1.2, 'teiresias')] },
         color: trees,
-        list: treeLeaves,
+        list: treeLeaves({ r: 2 }),
       },
 
       // Tree Right

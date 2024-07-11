@@ -1,5 +1,12 @@
 import { getSmallerDim, getBiggerDim } from '../helperPixelGraphics'
-import { ColorRgb, ImageFunction, Size } from '../PixelGraphics/types'
+import {
+  ColorRgb,
+  ImageFunction,
+  Render,
+  RenderObject,
+  Size,
+  SizeObject,
+} from '../PixelGraphics/types'
 
 const water: ColorRgb = [36, 44, 53],
   waterLight: ColorRgb = [74, 81, 88],
@@ -21,50 +28,55 @@ const water: ColorRgb = [36, 44, 53],
   shortsWater: ColorRgb = [60, 68, 77],
   // Variables
   linkList: Array<Size | ReadonlyArray<Size>> = [],
-  linkListPush = (
-    obj: Size | ReadonlyArray<Size>,
-  ): Size | ReadonlyArray<Size> => {
+  linkListPush = <TSize extends Size | ReadonlyArray<Size>>(
+    obj: TSize,
+  ): TSize => {
     linkList.push(obj)
     return obj
   },
-  sXMain = linkListPush({ main: true }),
-  sYMain = linkListPush({ main: true, height: true }),
-  fullRect = linkListPush(linkListPush({ add: [sXMain], max: sYMain })),
-  borderSX = linkListPush({ r: 0.05, useSize: fullRect }),
-  borderDetail = linkListPush({ r: 0.08, useSize: fullRect }),
-  borderBottomDetail = linkListPush({ r: 0.06, useSize: fullRect }),
-  borderBottomMargin = linkListPush([
+  sXMain: Size = linkListPush({ main: true }),
+  sYMain: Size = linkListPush({ main: true, height: true }),
+  fullRect: Size = linkListPush(linkListPush({ add: [sXMain], max: sYMain })),
+  borderSX: Size = linkListPush({ r: 0.05, useSize: fullRect }),
+  borderDetail: Size = linkListPush({ r: 0.08, useSize: fullRect }),
+  borderBottomDetail: Size = linkListPush({ r: 0.06, useSize: fullRect }),
+  borderBottomMargin: ReadonlyArray<Size> = linkListPush([
     { r: 0.5 },
     { r: -0.5, useSize: borderDetail },
   ]),
-  frameDetailSize = linkListPush({ add: [borderSX, -2], min: 1 }),
-  motiveSX = linkListPush({ add: [sXMain, { r: -2, useSize: borderSX }] }),
-  motiveSY = linkListPush([sYMain, { r: -2, useSize: borderSX }]),
-  motiveSqu = linkListPush(
+  frameDetailSize: Size = linkListPush({ add: [borderSX, -2], min: 1 }),
+  motiveSX: Size = linkListPush({
+    add: [sXMain, { r: -2, useSize: borderSX }],
+  }),
+  motiveSY: ReadonlyArray<Size> = linkListPush([
+    sYMain,
+    { r: -2, useSize: borderSX },
+  ]),
+  motiveSqu: Size = linkListPush(
     getSmallerDim({ r: 1, useSize: [motiveSX, motiveSY] }),
   ),
-  motiveSquBigger = linkListPush(
+  motiveSquBigger: Size = linkListPush(
     getBiggerDim({ r: 1, useSize: [motiveSX, motiveSY] }),
   ),
-  overshotSX = linkListPush({
+  overshotSX: Size = linkListPush({
     add: [motiveSX, { r: -1, useSize: motiveSqu }],
   }),
-  overshotSY = linkListPush({
-    add: [motiveSY, { r: -1, useSize: motiveSqu }],
+  overshotSY: Size = linkListPush({
+    add: [...motiveSY, { r: -1, useSize: motiveSqu }],
   }),
   // Teiresias
-  centerX = linkListPush({
+  centerX: Size = linkListPush({
     r: 0.5,
     useSize: motiveSX,
     add: [{ r: 0.05, useSize: overshotSY }],
   }),
-  centerY = linkListPush({
+  centerY: Size = linkListPush({
     r: 0.5,
     useSize: motiveSY,
     add: [{ r: -0.02, useSize: overshotSX }],
     min: 1,
   }),
-  movementSY = linkListPush({
+  movementSY: Size = linkListPush({
     add: [
       { r: 0.9, useSize: motiveSY },
       { r: -1, useSize: centerY },
@@ -72,7 +84,7 @@ const water: ColorRgb = [36, 44, 53],
       { r: -0.1, useSize: overshotSY },
     ],
   }),
-  movementSX = linkListPush({
+  movementSX: Size = linkListPush({
     add: [
       { r: 0.7, useSize: motiveSquBigger },
       { r: -1, useSize: overshotSY },
@@ -80,15 +92,17 @@ const water: ColorRgb = [36, 44, 53],
     min: { r: 0.2, useSize: movementSY, max: centerX },
     max: { r: 7, useSize: movementSY },
   }),
-  movementL = linkListPush({ getLength: [movementSX, movementSY] }),
-  perspectiveY = linkListPush({ r: 0.1, useSize: movementSY }),
+  movementL: Size = linkListPush({
+    getLength: [movementSX, movementSY],
+  }),
+  perspectiveY: Size = linkListPush({ r: 0.1, useSize: movementSY }),
   groundThickness = perspectiveY,
   // General Sizes
   handRel = 0.05,
   armRel = 0.2,
   torsoRel = 0.25,
   upperArmRel = handRel * 0.4,
-  getBodyPartSize = (rel: number, height?: boolean, min?: boolean) => {
+  getBodyPartSize = (rel: number, height?: boolean, min?: boolean): Size => {
     return linkListPush({
       r: rel,
       useSize: height ? movementSY : movementSX,
@@ -101,53 +115,80 @@ const water: ColorRgb = [36, 44, 53],
   armSY = getBodyPartSize(armRel, true),
   torsoSX = getBodyPartSize(torsoRel),
   torsoSY = getBodyPartSize(torsoRel, true),
-  bodyWithoutLegsX = linkListPush([handSX_, armSX, torsoSX]),
-  bodyWithoutLegsY = linkListPush([handSY_, armSY, torsoSY]),
-  lowerBodySX = linkListPush({
+  bodyWithoutLegsX: ReadonlyArray<Size> = linkListPush([
+    handSX_,
+    armSX,
+    torsoSX,
+  ]),
+  bodyWithoutLegsY: ReadonlyArray<Size> = linkListPush([
+    handSY_,
+    armSY,
+    torsoSY,
+  ]),
+  lowerBodySX: Size = linkListPush({
     add: [movementSX, { r: -1, useSize: bodyWithoutLegsX }],
   }),
-  lowerBodySY = linkListPush({
+  lowerBodySY: Size = linkListPush({
     add: [movementSY, { r: -1, useSize: bodyWithoutLegsY }],
   }),
-  shoulderX = linkListPush([handSX_, armSX]),
-  shoulderY = linkListPush([handSY_, armSY]),
-  hipX_ = linkListPush({ add: [shoulderX, torsoSX] }),
-  hipY = linkListPush({ add: [shoulderY, torsoSY] }),
+  shoulderX: ReadonlyArray<Size> = linkListPush([handSX_, armSX]),
+  shoulderY: ReadonlyArray<Size> = linkListPush([handSY_, armSY]),
+  hipX_: Size = linkListPush({ add: [...shoulderX, torsoSX] }),
+  hipY: Size = linkListPush({ add: [...shoulderY, torsoSY] }),
   // Hand
   handRatio = 0.5,
-  handSX = linkListPush({
+  handSX: Size = linkListPush({
     add: [handSX_],
     min: { r: handRatio, useSize: handSY_ },
   }),
-  handSY = linkListPush({
+  handSY: Size = linkListPush({
     add: [handSY_],
     min: { r: handRatio, useSize: handSX_ },
   }),
   // Arm
-  upperArmL = linkListPush({ r: upperArmRel, useSize: movementL, min: 1 }),
-  armL = linkListPush({ getLength: [armSX, armSY] }),
+  upperArmL: Size = linkListPush({
+    r: upperArmRel,
+    useSize: movementL,
+    min: 1,
+  }),
+  armL: Size = linkListPush({ getLength: [armSX, armSY] }),
   armHandX = handSX,
-  armHandY = linkListPush({ a: 0 }),
+  armHandY: Size = linkListPush({ a: 0 }),
   armShoulderX = shoulderX,
-  armShoulderY = linkListPush([shoulderY, { r: 0.5, useSize: upperArmL }]),
+  armShoulderY: ReadonlyArray<Size> = linkListPush([
+    ...shoulderY,
+    { r: 0.5, useSize: upperArmL },
+  ]),
   // armBentPos = 0.4,
   // armBent = -0.1,
 
-  // armEllbowX_ = linkListPush( { add:[ armHandX, { r: armBentPos, useSize: armShoulderX } ] } ),
-  // armEllbowY_ = linkListPush( { add:[ armHandY, { r: armBentPos, useSize: armShoulderY } ] } ),
+  // armEllbowX_: Size = linkListPush( { add:[ armHandX, { r: armBentPos, useSize: armShoulderX } ] } ),
+  // armEllbowY_: Size = linkListPush( { add:[ armHandY, { r: armBentPos, useSize: armShoulderY } ] } ),
 
-  // armEllbowX = linkListPush( { add: [ armEllbowX_, { r: armBent, useSize: armEllbowY_ } ] } ),
-  // armEllbowY = linkListPush( { add: [ armEllbowY_, { r: -armBent * 1.2, useSize: armEllbowX_ } ] } ),
+  // armEllbowX: Size = linkListPush( { add: [ armEllbowX_, { r: armBent, useSize: armEllbowY_ } ] } ),
+  // armEllbowY: Size = linkListPush( { add: [ armEllbowY_, { r: -armBent * 1.2, useSize: armEllbowX_ } ] } ),
 
-  foreArmS = linkListPush({ r: 0.008, useSize: movementL, min: 1 }),
-  upperArmS = linkListPush({ r: 1, useSize: foreArmS, max: [foreArmS, 1] }),
-  arm2Y = linkListPush([shoulderY, upperArmS]),
-  arm2SYMax1 = linkListPush({ add: [armL, { r: 0.2, useSize: movementSY }] }),
-  arm2SYMax2 = linkListPush({ add: [movementSY, { r: -1, useSize: arm2Y }] }),
-  arm2SY = linkListPush({ add: [arm2SYMax1], max: arm2SYMax2 }),
-  arm2SX = linkListPush({ r: 0.2, useSize: arm2SYMax1 }),
-  ellbowS = linkListPush({ r: 1.5, useSize: upperArmS, max: [upperArmS, 2] }),
-  // ellbowSHalf = linkListPush( {r: -0.5, useSize: ellbowS } ),
+  foreArmS: Size = linkListPush({ r: 0.008, useSize: movementL, min: 1 }),
+  upperArmS: Size = linkListPush({
+    r: 1,
+    useSize: foreArmS,
+    max: [foreArmS, 1],
+  }),
+  arm2Y: ReadonlyArray<Size> = linkListPush([...shoulderY, upperArmS]),
+  arm2SYMax1: Size = linkListPush({
+    add: [armL, { r: 0.2, useSize: movementSY }],
+  }),
+  arm2SYMax2: Size = linkListPush({
+    add: [movementSY, { r: -1, useSize: arm2Y }],
+  }),
+  arm2SY: Size = linkListPush({ add: [arm2SYMax1], max: arm2SYMax2 }),
+  arm2SX: Size = linkListPush({ r: 0.2, useSize: arm2SYMax1 }),
+  ellbowS: Size = linkListPush({
+    r: 1.5,
+    useSize: upperArmS,
+    max: [upperArmS, 2],
+  }),
+  // ellbowSHalf: Size = linkListPush( {r: -0.5, useSize: ellbowS } ),
 
   legLowerS = foreArmS,
   legUpperS = upperArmS,
@@ -155,8 +196,12 @@ const water: ColorRgb = [36, 44, 53],
   // Shoulder
   shoulderSXRel = 0.1,
   shoulderSYRel = shoulderSXRel * 0.5,
-  shoulderSX = linkListPush({ r: shoulderSXRel, useSize: movementL, min: 1 }),
-  shoulderSY = linkListPush({
+  shoulderSX: Size = linkListPush({
+    r: shoulderSXRel,
+    useSize: movementL,
+    min: 1,
+  }),
+  shoulderSY: Size = linkListPush({
     r: shoulderSYRel,
     useSize: movementL,
     min: 1,
@@ -165,22 +210,22 @@ const water: ColorRgb = [36, 44, 53],
   // Hip
   hipSXRel = 0.08,
   hipSYRel = shoulderSXRel * 0.4,
-  hipSX = linkListPush({ r: hipSXRel, useSize: movementL, min: 1 }),
-  hipSY = linkListPush({
+  hipSX: Size = linkListPush({ r: hipSXRel, useSize: movementL, min: 1 }),
+  hipSY: Size = linkListPush({
     r: hipSYRel,
     useSize: movementL,
     min: 1,
     max: { r: 0.15, useSize: movementSY },
   }),
-  hipX = linkListPush({ add: [hipX_, { r: -1, useSize: hipSX }] }),
-  torsoL = linkListPush({
+  hipX: Size = linkListPush({ add: [hipX_, { r: -1, useSize: hipSX }] }),
+  torsoL: Size = linkListPush({
     getLength: [
       linkListPush({ add: [{ r: -1, useSize: shoulderX, hipX }] }),
       linkListPush({ add: [{ r: -1, useSize: shoulderY, hipY }] }),
     ],
   }),
   // Legs
-  legL = linkListPush({
+  legL: Size = linkListPush({
     r: 0.6,
     useSize: linkListPush({
       add: [
@@ -189,31 +234,31 @@ const water: ColorRgb = [36, 44, 53],
       ],
     }),
   }),
-  upperLeg = linkListPush({ r: 0.5, useSize: legL }),
+  upperLeg: Size = linkListPush({ r: 0.5, useSize: legL }),
   legSX = hipSX,
-  legSY = linkListPush([
+  legSY: ReadonlyArray<Size> = linkListPush([
     movementSY,
     { r: -1, useSize: hipY },
     { r: -1, useSize: hipSY },
   ]),
   legX = hipX,
-  legY = linkListPush([hipY, hipSY]),
-  // legFrontX = linkListPush( { r: -0.2, useSize: legSY } ),
+  legY: ReadonlyArray<Size> = linkListPush([hipY, hipSY]),
+  // legFrontX: Size = linkListPush( { r: -0.2, useSize: legSY } ),
   legUpper1L = legSY,
-  legLower1L = linkListPush({
+  legLower1L: Size = linkListPush({
     add: [legL, { r: -1, useSize: legSY }],
     min: { a: 0 },
     max: { r: 1.5, useSize: legUpper1L },
   }),
-  legUpper2L = linkListPush({
+  legUpper2L: Size = linkListPush({
     add: [{ r: 1.3, useSize: upperLeg }],
     max: linkListPush([
-      legSY,
+      ...legSY,
       { r: -1, useSize: perspectiveY },
       { r: -0.5, useSize: legUpperS },
     ]),
   }),
-  legLower2L = linkListPush({
+  legLower2L: Size = linkListPush({
     add: [legL, { r: -0.8, useSize: legUpper2L }],
     min: { a: 0 },
     max: { r: 1.5, useSize: legUpper1L },
@@ -226,14 +271,14 @@ const water: ColorRgb = [36, 44, 53],
   // Head
   headSYRel = 0.3,
   headSXRel = headSYRel * 0.6,
-  headSX = linkListPush({ r: headSXRel, useSize: torsoL }),
-  headSY = linkListPush({ r: headSYRel, useSize: torsoL }),
-  headX = linkListPush({
-    add: [shoulderX, { r: 0.02, useSize: overshotSY }],
+  headSX: Size = linkListPush({ r: headSXRel, useSize: torsoL }),
+  headSY: Size = linkListPush({ r: headSYRel, useSize: torsoL }),
+  headX: Size = linkListPush({
+    add: [...shoulderX, { r: 0.02, useSize: overshotSY }],
   }),
-  headY = linkListPush({
+  headY: Size = linkListPush({
     add: [
-      shoulderY,
+      ...shoulderY,
       { r: -1, useSize: headSY },
       {
         r: 0.03,
@@ -242,13 +287,13 @@ const water: ColorRgb = [36, 44, 53],
       },
     ],
   }),
-  eyeSY = linkListPush({ r: 0.2, min: 1, useSize: headSY }),
-  eyesSX = linkListPush({ r: 0.6, min: 1, useSize: headSX }),
-  eyeX = linkListPush({ r: 0.1, useSize: headSX }),
-  eyeY = linkListPush({ r: 0.3, useSize: headSY }),
-  eyeSX = linkListPush({ r: 0.5, useSize: eyesSX, a: -1 }),
-  mouthSX = linkListPush({ r: 0.7, useSize: headSX }),
-  mouthSY = linkListPush({
+  eyeSY: Size = linkListPush({ r: 0.2, min: 1, useSize: headSY }),
+  eyesSX: Size = linkListPush({ r: 0.6, min: 1, useSize: headSX }),
+  eyeX: Size = linkListPush({ r: 0.1, useSize: headSX }),
+  eyeY: Size = linkListPush({ r: 0.3, useSize: headSY }),
+  eyeSX: Size = linkListPush({ r: 0.5, useSize: eyesSX, a: -1 }),
+  mouthSX: Size = linkListPush({ r: 0.7, useSize: headSX }),
+  mouthSY: Size = linkListPush({
     r: 0.5,
     useSize: linkListPush([
       headSY,
@@ -257,8 +302,8 @@ const water: ColorRgb = [36, 44, 53],
     ]),
     min: 1,
   }),
-  mouthX = linkListPush({ a: 0 }),
-  mouthY = linkListPush({
+  mouthX: Size = linkListPush({ a: 0 }),
+  mouthY: Size = linkListPush({
     r: 0.3,
     useSize: linkListPush([
       headSY,
@@ -273,36 +318,36 @@ const water: ColorRgb = [36, 44, 53],
   fruitRatio = 1.8,
   fruitSYrel = fruitSXrel * fruitRatio,
   fruitSYBigRel = fruitSXBigRel * fruitRatio,
-  fruitSX = linkListPush({
+  fruitSX: Size = linkListPush({
     r: fruitSXrel,
     min: 2,
     useSize: motiveSqu,
     add: [{ r: fruitSXBigRel, useSize: motiveSquBigger }],
     max: { r: 0.1, useSize: motiveSqu },
   }),
-  fruitSY = linkListPush({
+  fruitSY: Size = linkListPush({
     r: fruitSYrel,
     min: 3,
     useSize: motiveSqu,
     add: [{ r: fruitSYBigRel, useSize: motiveSquBigger }],
     max: { r: 0.1 * 1.8, useSize: motiveSqu },
   }),
-  fruitHandMaxX = linkListPush({
+  fruitHandMaxX: Size = linkListPush({
     add: [handSX, foreArmS, 1, { r: -0.1, useSize: overshotSY }],
     min: linkListPush({
       add: [-1, { r: 0.5, useSize: handSX }, { r: -0.5, useSize: fruitSX }],
     }),
   }),
-  fruitHandMaxY = linkListPush({
+  fruitHandMaxY: Size = linkListPush({
     add: [handSY, foreArmS, 1, { r: -0.1, useSize: overshotSX }],
     min: linkListPush({
       add: [-1, { r: 0.5, useSize: handSY }, { r: -0.5, useSize: fruitSY }],
     }),
   }),
-  fruitX = linkListPush({
+  fruitX: Size = linkListPush({
     add: [centerX, { r: -1, useSize: handSX }, fruitHandMaxX],
   }),
-  fruitY = linkListPush({
+  fruitY: Size = linkListPush({
     add: [
       centerY,
       handSY,
@@ -311,7 +356,7 @@ const water: ColorRgb = [36, 44, 53],
     ],
   }),
   // Island
-  shadowSY = linkListPush({
+  shadowSY: Size = linkListPush({
     add: [
       perspectiveY,
       { r: 2, useSize: legLowerS },
@@ -319,25 +364,52 @@ const water: ColorRgb = [36, 44, 53],
     ],
     min: 2,
   }),
-  islandSX = linkListPush([movementSX, { r: -0.1, useSize: overshotSX }]),
-  islandSY = linkListPush([shadowSY, { r: 1, useSize: groundThickness }]),
-  islandX = linkListPush([centerX, { r: -1, useSize: movementSX }]),
-  islandY = linkListPush([centerY, movementSY, { r: -1, useSize: shadowSY }]),
-  waterY = linkListPush([islandY, { r: -1, useSize: islandSY }]),
-  waterSY = linkListPush([sYMain, { r: -1, useSize: waterY }]),
-  mainTreeSX = linkListPush([sXMain, { r: -1, useSize: fruitX }, fruitSX]),
+  islandSX: ReadonlyArray<Size> = linkListPush([
+    movementSX,
+    { r: -0.1, useSize: overshotSX },
+  ]),
+  islandSY: ReadonlyArray<Size> = linkListPush([
+    shadowSY,
+    { r: 1, useSize: groundThickness },
+  ]),
+  islandX: ReadonlyArray<Size> = linkListPush([
+    centerX,
+    { r: -1, useSize: movementSX },
+  ]),
+  islandY: ReadonlyArray<Size> = linkListPush([
+    centerY,
+    movementSY,
+    { r: -1, useSize: shadowSY },
+  ]),
+  waterY: ReadonlyArray<Size> = linkListPush([
+    ...islandY,
+    { r: -1, useSize: islandSY },
+  ]),
+  waterSY: ReadonlyArray<Size> = linkListPush([
+    sYMain,
+    { r: -1, useSize: waterY },
+  ]),
+  mainTreeSX: ReadonlyArray<Size> = linkListPush([
+    sXMain,
+    { r: -1, useSize: fruitX },
+    fruitSX,
+  ]),
   mainTreeSY = fruitY,
   trunkSize = 0.02,
   trunkSizeBack = 0.015,
   trunkRatio = 0.5,
-  trunkHor = linkListPush({ r: trunkSize, useSize: sXMain, a: 1 }),
-  trunkVert = linkListPush({
+  trunkHor: Size = linkListPush({ r: trunkSize, useSize: sXMain, a: 1 }),
+  trunkVert: Size = linkListPush({
     r: trunkSize * trunkRatio,
     useSize: sXMain,
     a: 1,
   }),
-  trunkHorBack = linkListPush({ r: trunkSizeBack, useSize: sXMain, a: 1 }),
-  trunkVertBack = linkListPush({
+  trunkHorBack: Size = linkListPush({
+    r: trunkSizeBack,
+    useSize: sXMain,
+    a: 1,
+  }),
+  trunkVertBack: Size = linkListPush({
     r: trunkSizeBack * trunkRatio,
     useSize: sXMain,
     a: 1,
@@ -350,7 +422,7 @@ const water: ColorRgb = [36, 44, 53],
     { fY: true, sY: legLowerS },
     { s: kneeS, fY: true, x: -1 },
   ],
-  teiresias = (reflect?: boolean) => {
+  teiresias = (reflect?: boolean): RenderObject => {
     const skinColor = reflect ? skinWater : skin,
       skinShadowColor = reflect ? skinWater : skinShadow,
       shortsColor = reflect ? shortsWater : shorts
@@ -402,22 +474,22 @@ const water: ColorRgb = [36, 44, 53],
         // Lower Body
         {
           sX: hipSX,
-          sY: [hipY, { r: -1, useSize: linkListPush([shoulderY, 1]) }],
+          sY: [hipY, { r: -1, useSize: linkListPush([...shoulderY, 1]) }],
           x: hipX,
-          y: [shoulderY, 1],
+          y: [...shoulderY, 1],
           list: [{}, { sX: 1, color: skinShadowColor, fX: true }],
         },
 
         {
-          y: [shoulderY, 1],
-          x: [shoulderX, shoulderSX],
+          y: [...shoulderY, 1],
+          x: [...shoulderX, shoulderSX],
           sY: [shoulderSY, -1],
           sX: [
             hipSX,
             hipX,
             {
               r: -1,
-              useSize: linkListPush([shoulderX, shoulderSX]),
+              useSize: linkListPush([...shoulderX, shoulderSX]),
             },
             -1,
           ],
@@ -503,7 +575,7 @@ const water: ColorRgb = [36, 44, 53],
 
         // Arm Front
         {
-          x: [shoulderX, shoulderSX],
+          x: [...shoulderX, shoulderSX],
           y: arm2Y,
           sX: arm2SX,
           sY: arm2SY,
@@ -549,7 +621,11 @@ const water: ColorRgb = [36, 44, 53],
       ],
     }
   },
-  trunkObj = (shadowColor, hor, vert) => {
+  trunkObj = (
+    shadowColor: ColorRgb,
+    hor: SizeObject,
+    vert: SizeObject,
+  ): Render => {
     return [
       { fY: true, sY: hor },
       { sX: vert },
@@ -565,7 +641,7 @@ const water: ColorRgb = [36, 44, 53],
       { sY: 2, fY: true, color: shadowColor },
     ]
   },
-  mainImage = () => {
+  mainImage = (): Render => {
     return [
       // Background Tree
       {
@@ -780,7 +856,7 @@ const water: ColorRgb = [36, 44, 53],
       { color: fruit, sX: fruitSX, sY: fruitSY, x: fruitX, y: fruitY },
     ]
   },
-  border = () => {
+  border = (): Render => {
     const edgeDetail = [
         {},
         { sX: 1, sY: { r: 0.3, max: 1 }, color: borderColor },
@@ -929,14 +1005,12 @@ const water: ColorRgb = [36, 44, 53],
       ],
     }
   },
-  renderList = [
+  renderList: ReadonlyArray<Render> = [
     // Image
     { list: mainImage() },
     border(),
   ],
   backgroundColor: ColorRgb = [31, 29, 29]
-
-console.log(linkList)
 
 const image: ImageFunction = {
   renderList: renderList,

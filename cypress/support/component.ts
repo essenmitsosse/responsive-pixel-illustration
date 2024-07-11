@@ -25,7 +25,7 @@ import { mount } from 'cypress/react18'
 import type { Router } from '@remix-run/router'
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import listConfigRouter from '../../src/listConfigRouter'
-import { createElement } from 'react'
+import { createElement, StrictMode } from 'react'
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
@@ -40,6 +40,7 @@ declare global {
        */
       readonly DO_MOUNT_ROUTER: (ARGS?: {
         readonly NAME_PATH?: string
+        readonly IS_STRICT_MODE?: true
       }) => Cypress.Chainable<Router>
 
       mount: typeof mount
@@ -50,7 +51,15 @@ declare global {
 Cypress.Commands.add('DO_MOUNT_ROUTER', (ARGS) => {
   const ROUTER_MEMORY = createMemoryRouter(listConfigRouter)
 
-  mount(createElement(RouterProvider, { router: ROUTER_MEMORY }))
+  const $ROUTER_PROVIDER = createElement(RouterProvider, {
+    router: ROUTER_MEMORY,
+  })
+
+  mount(
+    ARGS?.IS_STRICT_MODE
+      ? createElement(StrictMode, {}, $ROUTER_PROVIDER)
+      : $ROUTER_PROVIDER,
+  )
 
   if (ARGS?.NAME_PATH !== undefined) {
     ROUTER_MEMORY.state.location.pathname = ARGS.NAME_PATH

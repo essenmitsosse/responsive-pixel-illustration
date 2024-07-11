@@ -1,8 +1,9 @@
+import { OneD } from './get1D'
 export class Variable {
-  constructor(args, name, pixelUnit) {
+  constructor(args, name, oneD: OneD) {
     if (args) {
       this.name = name
-      this.vari = pixelUnit.createSize(args)
+      this.vari = oneD.createSize(args)
       this.linkedP = []
     }
   }

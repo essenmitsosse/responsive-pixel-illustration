@@ -1,7 +1,64 @@
-import type { PixelArray } from '../types'
+import type { ColorRgb, PixelArray } from './types'
 import { getPixelArrayBase } from './getPixelArrayBase'
 
-export const getPixelArray = (canvasWidth: number, canvasHeight: number) => {
+export type HandlerPixelArray = {
+  setMask(dimensions: unknown, push: boolean): unknown
+
+  getSet(
+    color: ColorRgb,
+    zInd: number,
+    id: string,
+  ): (x: number, y: number) => void
+
+  getSetForRect(
+    color: ColorRgb,
+    zInd: number,
+    id: string,
+  ): (args: {
+    posX: number
+    posY: number
+    width: number
+    height: number
+  }) => void
+
+  getClear(id: string): (x: number, y: number) => void
+
+  getClearForRect(
+    id: string,
+  ): (args: {
+    posX: number
+    posY: number
+    width: number
+    height: number
+  }) => void
+
+  getSaveForRect(
+    save: ReadonlyArray<[number, number]>,
+    mask: unknown,
+  ): (args: {
+    posX: number
+    posY: number
+    width: number
+    height: number
+  }) => void
+
+  getClearSaveForRect(
+    save: ReadonlyArray<[number, number]>,
+    mask: unknown,
+  ): (args: {
+    posX: number
+    posY: number
+    width: number
+    height: number
+  }) => void
+
+  pixelArray: PixelArray
+}
+
+export const getHandlerPixelArray = (
+  canvasWidth: number,
+  canvasHeight: number,
+): HandlerPixelArray => {
   const pixelArray: PixelArray = getPixelArrayBase(canvasWidth, canvasHeight)
   let minX = 0
   let minY = 0
@@ -149,6 +206,6 @@ export const getPixelArray = (canvasWidth: number, canvasHeight: number) => {
         }
       }
     },
-    get: pixelArray,
+    pixelArray,
   } // Return prepared Color-Array, with default Color;
 }

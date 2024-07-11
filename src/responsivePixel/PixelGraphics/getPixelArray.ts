@@ -149,6 +149,6 @@ export const getPixelArray = (canvasWidth: number, canvasHeight: number) => {
         }
       }
     },
-    get: pixelArray,
+    pixelArray,
   } // Return prepared Color-Array, with default Color;
 }

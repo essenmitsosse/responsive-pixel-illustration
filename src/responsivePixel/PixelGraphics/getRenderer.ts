@@ -57,7 +57,7 @@ export const getRenderer = (options: {
     context.imageSmoothingEnabled = false
 
     // Render the Image Data to the Pixel Array
-    const drawing = drawer(countX, countY).get
+    const drawing = drawer(countX, countY).pixelArray
 
     // Render the Pixel Array to the Image
     renderPixelToImage(countX, countY, drawing, image.data)

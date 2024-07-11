@@ -44,7 +44,7 @@ const backgroundColor: ColorRgb = [100, 100, 120],
   whiteSX = linkListPush({
     add: [innerSingleSY, { r: -2, useSize: stripSX }],
   }),
-  versions = function (size): [Render, Render, Render, Render, Render] {
+  versions = function (size: Size): [Render, Render, Render, Render, Render] {
     return [
       [
         { color: white },
@@ -85,12 +85,12 @@ const backgroundColor: ColorRgb = [100, 100, 120],
       ],
     ]
   },
-  sizes = (function (count) {
+  sizes = (function (count: 5): Record<`s${0 | 1 | 2 | 3 | 4 | 5}`, Size> {
     const obj: Record<`s${number}`, Size> = {}
     let i = 0
 
     while (i < count) {
-      obj['s' + i] = linkListPush({
+      obj[`s${i}`] = linkListPush({
         r: 0,
         useSize: stripMaxSX,
         min: singleSY,
@@ -106,13 +106,14 @@ const backgroundColor: ColorRgb = [100, 100, 120],
     let i: 0 | 1 | 2 | 3 | 4 | 5 = 0
 
     while (i < max) {
-      const foo = versions(sizes['s' + i])
+      const idSize = `s${i as 0 | 1 | 2 | 3 | 4 | 5}` as const
+      const version = versions(sizes[idSize])
       list.push({
         sY: [singleSY, -1],
-        sX: sizes['s' + i],
+        sX: sizes[idSize],
         y: { r: i, useSize: singleSY, a: 1 },
         x: 1,
-        list: [{ color: [50, 50, 60] }, { m: 1, mask: true, list: foo[i] }],
+        list: [{ color: [50, 50, 60] }, { m: 1, mask: true, list: version[i] }],
       })
       i += 1
     }

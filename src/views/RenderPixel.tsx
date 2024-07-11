@@ -24,7 +24,10 @@ const recordStateImage = {
   DONE: '',
 } as const
 
-export default (props: { idImage: string }) => {
+export default (props: {
+  imageFunction: ImageFunction | null
+  idImage?: string
+}) => {
   const [sizeRelX, setSizeRelX] = useState(1)
   const [sizeRelY, setSizeRelY] = useState(1)
   const [sizePixel, setSizePixel] = useState(5)
@@ -32,11 +35,17 @@ export default (props: { idImage: string }) => {
   const isResizeable = searchParams.get('resizeable') !== 'false'
   const [boundingClientRectWrapper, setBoundingClientRectWrapper] =
     useState<DOMRect | null>(null)
-  const [imageFunction, setImageFunction] = useState<ImageFunction | null>(null)
   const [sizeAbsXFull, setSizeAbsXFull] = useState<number | null>(null)
   const [sizeAbsYFull, setSizeAbsYFull] = useState<number | null>(null)
-  const [idState, setIdState] =
-    useState<keyof typeof recordStateImage>('LOADING')
+  const [isDoneRendering, setIsDoneRendering] = useState<boolean>(true)
+
+  const idStateFinal: keyof typeof recordStateImage =
+    props.imageFunction === null
+      ? 'LOADING'
+      : isDoneRendering
+        ? 'DONE'
+        : 'RENDERING'
+
   const $wrapper = useRef<HTMLDivElement>(null)
   const quantityPixelMin = 50
   const quantityPixel = useMemo(() => {
@@ -87,13 +96,9 @@ export default (props: { idImage: string }) => {
   }
 
   useEffect(() => {
-    setIdState('LOADING')
-    recordImage[props.idImage]?.getImage().then((imageFunctionExport) => {
-      setIdState('RENDERING')
-      setImageFunction(imageFunctionExport.default)
-      resize()
-    })
-  }, [props.idImage])
+    setIsDoneRendering(false)
+    resize()
+  }, [props.imageFunction])
 
   const navigate = useNavigate()
   const setIdImage = (idImageNew: string) => {
@@ -112,18 +117,17 @@ export default (props: { idImage: string }) => {
         onMouseMove={(event) => onDrag({ isPassive: false, event })}
         onTouchMove={(event) => onDrag({ isPassive: true, event })}
       >
-        {idState !== 'LOADING' &&
-          imageFunction !== null &&
+        {props.imageFunction !== null &&
           sizeAbsXFull !== null &&
           sizeAbsYFull !== null && (
             <Canvas
-              imageFunction={imageFunction}
+              imageFunction={props.imageFunction}
               sizeAbsXFull={sizeAbsXFull}
               sizeAbsYFull={sizeAbsYFull}
               pixelSize={sizePixel}
               sizeRelX={sizeRelX}
               sizeRelY={sizeRelY}
-              setIsDone={() => setIdState('DONE')}
+              setIsDone={() => setIsDoneRendering(true)}
             />
           )}
       </div>
@@ -149,10 +153,10 @@ export default (props: { idImage: string }) => {
           <span
             className="text-xs font-mono font-light opacity-50"
             data-test="image-state"
-            data-image-state={idState}
-            data-image={idState === 'DONE' ? props.idImage : undefined}
+            data-image-state={idStateFinal}
+            data-image={idStateFinal === 'DONE' ? props.idImage : undefined}
           >
-            {recordStateImage[idState]}
+            {recordStateImage[idStateFinal]}
           </span>
         </label>
         <label className="grid grid-rows-subgrid row-span-3">

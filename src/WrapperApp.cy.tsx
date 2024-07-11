@@ -7,11 +7,10 @@ describe('<WrapperApp />', () => {
     cy.DO_MOUNT_ROUTER()
 
     /** Make sure image loading is displayed */
-    cy.get('body').contains('Bild lädt').should('exist')
+    cy.GET('image-state').should('have.attr', 'data-image-state', 'LOADING')
 
     /** Make sure image is fully loaded and rendered */
-    cy.get('body').contains('Bild lädt').should('not.exist')
-    cy.get('body').contains('Bild rendert').should('not.exist')
+    cy.GET('image-state').should('have.attr', 'data-image', 'tantalos')
 
     cy.DO_FORCE_DARK_MODE()
     cy.viewport(1024, 800)
@@ -42,6 +41,10 @@ describe('<WrapperApp />', () => {
     cy.GET('input-id-image').select('brothers')
 
     cy.GET('input-size-pixel').invoke('val', 2).trigger('input')
+
+    /** Make sure image is fully loaded and rendered */
+    cy.GET('image-state').should('have.attr', 'data-image', 'brothers')
+
     cy.screenshot('main-800-600-3-light-change-image-and-pixel-size', {
       overwrite: true,
     })

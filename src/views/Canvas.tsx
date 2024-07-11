@@ -9,10 +9,10 @@ const Canvas = (props: {
   sizeAbsXFull: number
   sizeAbsYFull: number
   imageFunction: ImageFunction
+  setIsDone?: () => void
 }): ReactNode => {
   const $canvas = useRef<HTMLCanvasElement>(null)
   const [pixelGraphic, setPixelGraphic] = useState<PixelGraphics | null>(null)
-  const [isRendered, setIsRenderedFirst] = useState<boolean>(false)
 
   useEffect(() => {
     if (pixelGraphic === null) {
@@ -27,9 +27,7 @@ const Canvas = (props: {
       sizeAbsYFull: props.sizeAbsYFull,
     })
 
-    if (isRendered === false) {
-      setIsRenderedFirst(true)
-    }
+    props.setIsDone !== undefined && props.setIsDone()
   }, [
     pixelGraphic,
     props.sizeAbsXFull,
@@ -51,7 +49,6 @@ const Canvas = (props: {
         imageFunction: props.imageFunction,
       }),
     )
-    setIsRenderedFirst(false)
   }, [$canvas, props.imageFunction])
 
   return (
@@ -61,7 +58,6 @@ const Canvas = (props: {
         data-test="canvas"
         className="absolute h-full w-full"
       />
-      {isRendered === false && <div className="absolute">Bild rendert ...</div>}
     </>
   )
 }

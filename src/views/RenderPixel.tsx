@@ -19,6 +19,12 @@ import {
 import { ImageFunction } from '../responsivePixel/PixelGraphics/types'
 import Canvas from './Canvas'
 
+const recordStateImage = {
+  LOADING: 'Image Loading …',
+  RENDERING: 'Image Rendering …',
+  DONE: '',
+} as const
+
 export default (props: { idImage: string }) => {
   const [sizeRelX, setSizeRelX] = useState(1)
   const [sizeRelY, setSizeRelY] = useState(1)
@@ -30,7 +36,8 @@ export default (props: { idImage: string }) => {
   const [imageFunction, setImageFunction] = useState<ImageFunction | null>(null)
   const [sizeAbsXFull, setSizeAbsXFull] = useState<number | null>(null)
   const [sizeAbsYFull, setSizeAbsYFull] = useState<number | null>(null)
-  const [isReady, setIsReady] = useState(false)
+  const [idState, setIdState] =
+    useState<keyof typeof recordStateImage>('LOADING')
   const $wrapper = useRef<HTMLDivElement>(null)
   const quantityPixelMin = 50
   const quantityPixel = useMemo(() => {
@@ -76,24 +83,17 @@ export default (props: { idImage: string }) => {
     setSizeAbsYFull(getSizeY(boundingClientRectWrapper))
   }, [boundingClientRectWrapper])
 
-  useEffect(() => {
-    if (imageFunction === null) {
-      return
-    }
-    resize()
-    setIsReady(true)
-  }, [imageFunction])
-
-  const setQuantityPixel = (quantityPixel) => {
+  const setQuantityPixel = (quantityPixel: number) => {
     setSizePixel((sizeAbsXFull ?? 1) / quantityPixel)
   }
 
   useEffect(() => {
-    recordImage[props.idImage]
-      .getImage()
-      .then((imageFunctionExport) =>
-        setImageFunction(imageFunctionExport.default),
-      )
+    setIdState('LOADING')
+    recordImage[props.idImage]?.getImage().then((imageFunctionExport) => {
+      setIdState('RENDERING')
+      setImageFunction(imageFunctionExport.default)
+      resize()
+    })
   }, [props.idImage])
 
   const navigate = useNavigate()
@@ -113,21 +113,20 @@ export default (props: { idImage: string }) => {
         onMouseMove={(event) => onDrag({ isPassive: false, event })}
         onTouchMove={(event) => onDrag({ isPassive: true, event })}
       >
-        {isReady &&
-        imageFunction !== null &&
-        sizeAbsXFull !== null &&
-        sizeAbsYFull !== null ? (
-          <Canvas
-            imageFunction={imageFunction}
-            sizeAbsXFull={sizeAbsXFull}
-            sizeAbsYFull={sizeAbsYFull}
-            pixelSize={sizePixel}
-            sizeRelX={sizeRelX}
-            sizeRelY={sizeRelY}
-          />
-        ) : (
-          'Bild lädt ...'
-        )}
+        {idState !== 'LOADING' &&
+          imageFunction !== null &&
+          sizeAbsXFull !== null &&
+          sizeAbsYFull !== null && (
+            <Canvas
+              imageFunction={imageFunction}
+              sizeAbsXFull={sizeAbsXFull}
+              sizeAbsYFull={sizeAbsYFull}
+              pixelSize={sizePixel}
+              sizeRelX={sizeRelX}
+              sizeRelY={sizeRelY}
+              setIsDone={() => setIdState('DONE')}
+            />
+          )}
       </div>
       <form className="grid w-full grid-cols-3 lg:grid-cols-6 grid-rows-[repeat(3,min-content)] gap-x-4 gap-y-2 p-4">
         <label className="grid grid-rows-subgrid row-span-3">
@@ -148,6 +147,14 @@ export default (props: { idImage: string }) => {
               ))}
             </select>
           </div>
+          <span
+            className="text-xs font-mono font-light opacity-50"
+            data-test="image-state"
+            data-image-state={idState}
+            data-image={idState === 'DONE' ? props.idImage : undefined}
+          >
+            {recordStateImage[idState]}
+          </span>
         </label>
         <label className="grid grid-rows-subgrid row-span-3">
           <span className="inline-block pb-2 text-xs font-bold uppercase tracking-wide">

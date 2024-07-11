@@ -57,10 +57,10 @@ export const getRenderer = (options: {
     context.imageSmoothingEnabled = false
 
     // Render the Image Data to the Pixel Array
-    const drawing = drawer(countX, countY).pixelArray
+    const pixelArray = drawer(countX, countY).pixelArray
 
     // Render the Pixel Array to the Image
-    renderPixelToImage(countX, countY, drawing, image.data)
+    renderPixelToImage(countX, countY, pixelArray, image.data)
 
     // Place Image on the Context
     virtualContext.putImageData(image, 0, 0)

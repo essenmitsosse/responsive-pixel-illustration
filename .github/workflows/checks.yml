@@ -1,0 +1,97 @@
+name: Checks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  prettier:
+    name: 💅 Prettier
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - name: Install NPM dependencies
+        run: CYPRESS_INSTALL_BINARY=0 npm ci --prefer-offline --ignore-scripts
+      - name: Run Prettier
+        run: npm run prettierCheck
+
+  eslint:
+    name: 👔 ESLint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - name: Install NPM dependencies
+        run: CYPRESS_INSTALL_BINARY=0 npm ci --prefer-offline --ignore-scripts
+      - name: Run ESLint
+        run: npm run lint
+
+  cypress-component-screenshot:
+    name: 📸 Cypress
+    runs-on: ubuntu-latest
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # changed files back to the repository.
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          component: true
+          spec: '**/*.cy.*'
+        env:
+          # this is used to switch location of screenshot tests
+          DO_SCREENSHOTS_FOR_COMMIT: true
+      - name: Commit updated screenshots
+        uses: stefanzweifel/git-auto-commit-action@v5
+        id: commit-screenshots
+        with:
+          commit_message: |
+            🤖📸 UPDATE SCREENSHOTS
+
+            PLEASE MERGE THIS COMMIT MANUALLY INTO THE ON THAT CAUSED IT
+          file_pattern: 'cypress/screenshotsComponentAuto/*'
+      - name: Find screenshot Comment
+        uses: peter-evans/find-comment@v3
+        id: find-screenshot-comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: Screenshots have been automatically updated in this PR.
+        # Since this is supposed to update a PR comment, this step only makes
+        # sense on a PR.
+        if: github.event_name == 'pull_request'
+      - name: Add updated screenshot comment
+        if: github.event_name == 'pull_request' && steps.commit-screenshots.outputs.changes_detected == 'true'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{ steps.find-screenshot-comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: 🤖📸 Screenshots have been automatically updated in this PR. **Please review manually.** After reviewing merge the screenshot commit into the commit that caused the screenshot change.
+          edit-mode: replace
+      - name: Fail test if screenshots have changed
+        if: github.event_name == 'pull_request' && steps.commit-screenshots.outputs.changes_detected == 'true'
+        run: exit 1

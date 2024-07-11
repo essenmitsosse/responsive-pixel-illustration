@@ -1,24 +1,26 @@
-import { useLoaderData } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import RenderPixel from './RenderPixel'
-import type { LoaderDataPixel } from '../listConfigRouter'
-import type { ImageFunction } from 'src/responsivePixel/PixelGraphics/types'
+import type { ImageFunction } from '../responsivePixel/PixelGraphics/types'
 import { useEffect, useState } from 'react'
 
 const Image = () => {
-  const data = useLoaderData() as LoaderDataPixel
+  const params = useParams()
   const [imageFunction, setImageFunction] = useState<ImageFunction | null>(null)
+  const idImage = params.idImage ?? 'tantalos'
 
   useEffect(() => {
     setImageFunction(null)
     async function loadImage() {
-      const imageFunction = await data.promiseImageFunction
+      const imageFunction = (
+        await import(`../responsivePixel/images/${idImage}.ts`)
+      ).default
       setImageFunction(imageFunction)
     }
 
     loadImage()
-  }, [data.promiseImageFunction])
+  }, [idImage])
 
-  return <RenderPixel imageFunction={imageFunction} idImage={data.idImage} />
+  return <RenderPixel imageFunction={imageFunction} idImage={idImage} />
 }
 
 export default Image

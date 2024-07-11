@@ -1,5 +1,3 @@
-import { ImageFunction } from '../responsivePixel/PixelGraphics/types'
-
 export const recordImage: Record<string, { niceName: string }> = {
   argos: { niceName: 'Argos' },
   brothers: { niceName: 'Brothers' },

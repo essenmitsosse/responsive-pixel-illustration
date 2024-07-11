@@ -55,7 +55,7 @@ export type HandlerPixelArray = {
   pixelArray: PixelArray
 }
 
-export const getPixelArray = (
+export const getHandlerPixelArray = (
   canvasWidth: number,
   canvasHeight: number,
 ): HandlerPixelArray => {

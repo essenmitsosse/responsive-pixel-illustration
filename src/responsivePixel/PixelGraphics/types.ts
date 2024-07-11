@@ -1,3 +1,4 @@
+import { Drawer } from 'src/responsivePixel/PixelGraphics/getDrawer'
 import { Color } from './Color'
 
 export interface Variable {}
@@ -85,6 +86,9 @@ export interface ImageFunction {
   variableList?: Record<string, Variable>
   renderList: ReadonlyArray<Render>
   background: ColorRgb
+
+  /** Allow to cache and reuse drawer after first initialization. */
+  drawer?: Drawer
 }
 
 interface GetLength {

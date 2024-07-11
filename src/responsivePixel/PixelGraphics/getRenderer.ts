@@ -18,7 +18,11 @@ export const getRenderer = (options: {
   const context = options.divCanvas.getContext('2d')
   const virtualCanvas = document.createElement('canvas')
   const virtualContext = virtualCanvas.getContext('2d')
-  const drawer = getDrawer(options.imageFunction)
+
+  const drawer =
+    options.imageFunction.drawer ?? getDrawer(options.imageFunction)
+  options.imageFunction.drawer = drawer
+
   const renderPixelToImage = getRenderPixelToImage(
     options.imageFunction.background,
   )

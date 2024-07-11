@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 describe('<WrapperApp />', () => {
   it('renders', () => {
-    cy.DO_MOUNT_ROUTER()
+    cy.DO_MOUNT_ROUTER({ IS_STRICT_MODE: true })
 
     /** Make sure image loading is displayed */
     cy.GET('image-state').should('have.attr', 'data-image-state', 'LOADING')

@@ -4,7 +4,7 @@ import type { LoaderDataPixel } from '../listConfigRouter'
 import type { ImageFunction } from 'src/responsivePixel/PixelGraphics/types'
 import { useEffect, useState } from 'react'
 
-export default () => {
+const Image = () => {
   const data = useLoaderData() as LoaderDataPixel
   const [imageFunction, setImageFunction] = useState<ImageFunction | null>(null)
 
@@ -20,3 +20,5 @@ export default () => {
 
   return <RenderPixel imageFunction={imageFunction} idImage={data.idImage} />
 }
+
+export default Image

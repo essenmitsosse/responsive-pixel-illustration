@@ -24,7 +24,7 @@ const recordStateImage = {
   DONE: '',
 } as const
 
-export default (props: {
+const RenderPixel = (props: {
   imageFunction: ImageFunction | null
   idImage?: string
 }) => {
@@ -265,3 +265,5 @@ export default (props: {
     </div>
   )
 }
+
+export default RenderPixel

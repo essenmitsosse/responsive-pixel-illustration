@@ -322,11 +322,11 @@ const renderList: ReadonlyArray<RenderObject> = [
         list: treeLeaves({ r: 2 }),
       },
       {
-        sY: { r: 0.4 },
+        sY: { r: 0.1 },
         fX: true,
         sX: { add: ['imgWidth', mult(-1.2, 'teiresias')] },
         color: trees,
-        list: treeLeaves,
+        list: treeLeaves({ r: 2 }),
       },
 
       // Tree Right

@@ -1,13 +1,13 @@
 import { getSmallerDim, getBiggerDim, mult, sub } from '../helperPixelGraphics'
-import { ColorRgb, ImageFunction } from '../PixelGraphics/types'
+import { ColorRgb, ImageFunction, RenderObject } from '../PixelGraphics/types'
 
-const c1 = [255, 0, 0],
+const c1: ColorRgb = [255, 0, 0],
   g1: ColorRgb = [0, 0, 0],
-  g2 = [85, 85, 85],
-  g3 = [170, 170, 170],
-  g4 = [255, 255, 255],
+  g2: ColorRgb = [85, 85, 85],
+  g3: ColorRgb = [170, 170, 170],
+  g4: ColorRgb = [255, 255, 255],
   backgroundColor: ColorRgb = g1,
-  eye = [
+  eye: ReadonlyArray<RenderObject> = [
     {
       minX: 3,
       minY: 4,
@@ -51,7 +51,7 @@ const c1 = [255, 0, 0],
     { fX: true, y: { r: 0.5 } },
     { fX: true, fY: true, x: { r: 0.1 } },
   ],
-  renderList = [
+  renderList: ReadonlyArray<RenderObject> = [
     // MAIN IMAGE
     {
       m: 'border',

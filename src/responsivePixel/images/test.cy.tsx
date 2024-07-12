@@ -1,4 +1,5 @@
 import argos from './argos'
+import betterBuilder from './betterBuilder'
 import brothers from './brothers'
 import graien from './graien'
 import sparta from './sparta'
@@ -12,6 +13,21 @@ import zeus from './zeus'
 import { DO_SCREENSHOT_LIST_IMAGE } from './HELPER_SCREENSHOTS'
 
 DO_SCREENSHOT_LIST_IMAGE({ IMAGE_FUNCTION: argos, NAME: 'argos' })
+DO_SCREENSHOT_LIST_IMAGE({
+  IMAGE_FUNCTION: betterBuilder.getImageFunction({ id: 1 }),
+  NAME: 'better-builder',
+  LIST_SIZE: [{ SIZE_X: 100, SIZE_Y: 100 }],
+})
+DO_SCREENSHOT_LIST_IMAGE({
+  IMAGE_FUNCTION: betterBuilder.getImageFunction({ id: 2 }),
+  NAME: 'better-builder',
+  LIST_SIZE: [{ SIZE_X: 350, SIZE_Y: 180 }],
+})
+DO_SCREENSHOT_LIST_IMAGE({
+  IMAGE_FUNCTION: betterBuilder.getImageFunction({ id: 3 }),
+  NAME: 'better-builder',
+  LIST_SIZE: [{ SIZE_X: 200, SIZE_Y: 400 }],
+})
 DO_SCREENSHOT_LIST_IMAGE({ IMAGE_FUNCTION: brothers, NAME: 'brothers' })
 DO_SCREENSHOT_LIST_IMAGE({ IMAGE_FUNCTION: graien, NAME: 'graien' })
 DO_SCREENSHOT_LIST_IMAGE({ IMAGE_FUNCTION: sparta, NAME: 'sparta' })

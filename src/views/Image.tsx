@@ -12,7 +12,7 @@ const Image = () => {
     setImageFunction(null)
     async function loadImage() {
       const imageFunction = (
-        await import(`../responsivePixel/images/${idImage}.ts`)
+        await import(`../responsivePixel/images/${idImage}`)
       ).default
       setImageFunction(imageFunction)
     }

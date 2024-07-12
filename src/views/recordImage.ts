@@ -7,6 +7,7 @@ export const recordImage: Record<string, { niceName: string }> = {
   landscape: { niceName: 'Landscape' },
   sphinx: { niceName: 'Sphinx' },
   sparta: { niceName: 'Sparta' },
+  tableComic: { niceName: 'Table Comic' },
   tantalos: { niceName: 'Tantalos' },
   teiresias: { niceName: 'Teiresias' },
   trex: { niceName: 'T-Rex' },

@@ -15,7 +15,10 @@ import {
   getSizeX,
   getSizeY,
 } from './getDimension'
-import { ImageFunction } from '../responsivePixel/PixelGraphics/types'
+import {
+  ImageFunction,
+  ImageFunctionInput,
+} from '../responsivePixel/PixelGraphics/types'
 import Canvas from './Canvas'
 
 const recordStateImage = {
@@ -25,7 +28,7 @@ const recordStateImage = {
 } as const
 
 const RenderPixel = (props: {
-  imageFunction: ImageFunction | null
+  imageFunctionInput: ImageFunctionInput | null
   idImage?: string
 }) => {
   const [sizeRelX, setSizeRelX] = useState(1)
@@ -38,13 +41,24 @@ const RenderPixel = (props: {
   const [sizeAbsXFull, setSizeAbsXFull] = useState<number | null>(null)
   const [sizeAbsYFull, setSizeAbsYFull] = useState<number | null>(null)
   const [isDoneRendering, setIsDoneRendering] = useState<boolean>(true)
+  const [imageFunctionInputCurrent, setImageFunctionInputCurrent] =
+    useState<ImageFunctionInput | null>(null)
+  const [imageFunction, setImageFunctionFinal] = useState<ImageFunction | null>(
+    null,
+  )
+
+  if (imageFunctionInputCurrent !== props.imageFunctionInput) {
+    setImageFunctionInputCurrent(props.imageFunctionInput)
+    setImageFunctionFinal(
+      props.imageFunctionInput !== null &&
+        'getImageFunction' in props.imageFunctionInput
+        ? props.imageFunctionInput.getImageFunction({})
+        : props.imageFunctionInput,
+    )
+  }
 
   const idStateFinal: keyof typeof recordStateImage =
-    props.imageFunction === null
-      ? 'LOADING'
-      : isDoneRendering
-        ? 'DONE'
-        : 'RENDERING'
+    imageFunction === null ? 'LOADING' : isDoneRendering ? 'DONE' : 'RENDERING'
 
   const $wrapper = useRef<HTMLDivElement>(null)
   const quantityPixelMin = 50
@@ -98,7 +112,7 @@ const RenderPixel = (props: {
   useEffect(() => {
     setIsDoneRendering(false)
     resize()
-  }, [props.imageFunction])
+  }, [imageFunction])
 
   const navigate = useNavigate()
   const setIdImage = (idImageNew: string) => {
@@ -117,11 +131,11 @@ const RenderPixel = (props: {
         onMouseMove={(event) => onDrag({ isPassive: false, event })}
         onTouchMove={(event) => onDrag({ isPassive: true, event })}
       >
-        {props.imageFunction !== null &&
+        {imageFunction !== null &&
           sizeAbsXFull !== null &&
           sizeAbsYFull !== null && (
             <Canvas
-              imageFunction={props.imageFunction}
+              imageFunction={imageFunction}
               sizeAbsXFull={sizeAbsXFull}
               sizeAbsYFull={sizeAbsYFull}
               pixelSize={sizePixel}

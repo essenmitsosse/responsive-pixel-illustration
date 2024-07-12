@@ -1,6 +1,7 @@
 import argos from './argos'
 import betterBuilder from './betterBuilder'
 import brothers from './brothers'
+import comicBuilder from './comicBuilder'
 import graien from './graien'
 import sparta from './sparta'
 import sphinx from './sphinx'
@@ -29,6 +30,21 @@ DO_SCREENSHOT_LIST_IMAGE({
   LIST_SIZE: [{ SIZE_X: 200, SIZE_Y: 400 }],
 })
 DO_SCREENSHOT_LIST_IMAGE({ IMAGE_FUNCTION: brothers, NAME: 'brothers' })
+DO_SCREENSHOT_LIST_IMAGE({
+  IMAGE_FUNCTION: comicBuilder.getImageFunction({ id: 1 }),
+  NAME: 'comic-builder',
+  LIST_SIZE: [{ SIZE_X: 200, SIZE_Y: 200 }],
+})
+DO_SCREENSHOT_LIST_IMAGE({
+  IMAGE_FUNCTION: comicBuilder.getImageFunction({ id: 2 }),
+  NAME: 'comic-builder',
+  LIST_SIZE: [{ SIZE_X: 120, SIZE_Y: 250 }],
+})
+DO_SCREENSHOT_LIST_IMAGE({
+  IMAGE_FUNCTION: comicBuilder.getImageFunction({ id: 3 }),
+  NAME: 'comic-builder',
+  LIST_SIZE: [{ SIZE_X: 300, SIZE_Y: 190 }],
+})
 DO_SCREENSHOT_LIST_IMAGE({ IMAGE_FUNCTION: graien, NAME: 'graien' })
 DO_SCREENSHOT_LIST_IMAGE({ IMAGE_FUNCTION: sparta, NAME: 'sparta' })
 DO_SCREENSHOT_LIST_IMAGE({ IMAGE_FUNCTION: sphinx, NAME: 'sphinx' })

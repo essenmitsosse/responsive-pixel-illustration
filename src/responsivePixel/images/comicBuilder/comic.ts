@@ -1,9 +1,11 @@
+import { getRandom } from '../../../responsivePixel/helperPixelGraphics'
+
 const comicConfig = {
   maxPanels: 15,
 }
 
-const Comic = function Comic(init) {
-  const random = window.helper.random(init.id)
+export const Comic = function Comic(init) {
+  const random = getRandom(init.id)
   const rFl = random.getRandomFloat
   const rInt = random.getRandom
   const rIf = random.getIf

@@ -1,9 +1,9 @@
-var BB = function (init) {
+import { getRandom } from '../../../responsivePixel/helperPixelGraphics'
+
+const BB = function (init = {}) {
   const args = {}
   const ObjProto = BB.prototype.Obj.prototype
-  const random = window.helper.random(
-    init.id || Math.floor(Math.random() * 4294967296),
-  )
+  const random = getRandom(init.id || Math.floor(Math.random() * 4294967296))
 
   for (const attr in init) {
     args[attr] = init[attr]

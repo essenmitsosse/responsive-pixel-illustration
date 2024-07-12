@@ -141,7 +141,7 @@ export const getRandomInt = function (i) {
   return Math.floor(Math.random() * i)
 }
 
-export const random = function (seed) {
+export const getRandom = function (seed) {
   const denom = Math.pow(2, 31)
   const a = 11
   const b = 19

@@ -1,18 +1,24 @@
 import { useParams } from 'react-router-dom'
 import RenderPixel from './RenderPixel'
-import type { ImageFunction } from '../responsivePixel/PixelGraphics/types'
+import type {
+  ImageFunction,
+  ImageFunctionInput,
+} from '../responsivePixel/PixelGraphics/types'
 import { useEffect, useState } from 'react'
+import image from 'src/responsivePixel/images/argos'
 
 const Image = () => {
   const params = useParams()
-  const [imageFunction, setImageFunction] = useState<ImageFunction | null>(null)
+  const [imageFunction, setImageFunction] = useState<ImageFunctionInput | null>(
+    null,
+  )
   const idImage = params.idImage ?? 'tantalos'
 
   useEffect(() => {
     setImageFunction(null)
     async function loadImage() {
       const imageFunction = (
-        await import(`../responsivePixel/images/${idImage}.ts`)
+        await import(`../responsivePixel/images/${idImage}`)
       ).default
       setImageFunction(imageFunction)
     }
@@ -20,7 +26,7 @@ const Image = () => {
     loadImage()
   }, [idImage])
 
-  return <RenderPixel imageFunction={imageFunction} idImage={idImage} />
+  return <RenderPixel imageFunctionInput={imageFunction} idImage={idImage} />
 }
 
 export default Image

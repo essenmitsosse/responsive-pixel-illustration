@@ -1,4 +1,4 @@
-/* global Comic */
+import { Comic } from './comic'
 
 // BEGINN World /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 Comic.prototype.World = function World(args) {

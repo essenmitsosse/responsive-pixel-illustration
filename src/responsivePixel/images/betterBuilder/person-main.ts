@@ -1,4 +1,4 @@
-/* global BBProto, BBObj */
+import { BBObj, BBProto } from './bb'
 
 // PERSON MAIN  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 BBProto.PersonMain = function (args) {

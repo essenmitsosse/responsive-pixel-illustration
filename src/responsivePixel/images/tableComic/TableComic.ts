@@ -1,5 +1,21 @@
+import { RenderObject } from 'src/responsivePixel/PixelGraphics/types'
+import {
+  getLinkListPusher,
+  getRandom,
+  multiplyColor,
+} from '../../../responsivePixel/helperPixelGraphics'
+
 // BEGINN TableComic /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-var TableComic = (window.renderer = function (init, slide, createSlider) {
+var TableComic = (window.renderer = function (
+  init: {
+    id?: number
+    debug?: boolean
+    faceVersion?: boolean
+    altVersion?: boolean
+  } = {},
+  slide: { debug?: boolean; faceVersion?: boolean } = {},
+  createSlider,
+) {
   let sX
   let sY
   let square
@@ -12,14 +28,20 @@ var TableComic = (window.renderer = function (init, slide, createSlider) {
   let innerSquareAverage
   let controlerX
   let controlerY
-  const { helper } = window
-  const random = helper.random(init.id)
+  const random = getRandom(init.id)
   const rFl = random.getRandomFloat
   const rInt = random.getRandom
   const rIf = random.getIf
 
   const debug = init.debug || slide.debug
-  const hover = helper.getHoverChangers()
+  const hover = {
+    list: [],
+    pushRelativeStandardAutomatic: () => {},
+    changersRelativeCustomList: [],
+    pushColorStandard: [],
+    pushRelativeStandard: () => {},
+    changersCustomList: [],
+  }
   const faceVersion = init.faceVersion || slide.faceVersion
 
   const linkList = [
@@ -43,8 +65,6 @@ var TableComic = (window.renderer = function (init, slide, createSlider) {
     (controlerX = { r: 0, useSize: sX }),
     (controlerY = { r: 0, useSize: sY }),
   ]
-
-  let renderList
 
   hover.list.push(
     {
@@ -77,7 +97,7 @@ var TableComic = (window.renderer = function (init, slide, createSlider) {
       current.rInt = rInt
       current.rFl = rFl
       current.linkList = linkList
-      current.pushLinkList = window.helper.getLinkListPusher(linkList)
+      current.pushLinkList = getLinkListPusher(linkList)
 
       current.pushRelativeStandardAutomatic = pushRelativeStandardAutomatic
       current.changersRelativeCustomList = changersRelativeCustomList
@@ -97,7 +117,7 @@ var TableComic = (window.renderer = function (init, slide, createSlider) {
       current.getPosY = comicPrototype.getPosY
       current.getSizeSwitch = comicPrototype.getSizeSwitch
 
-      current.multiplyColor = helper.multiplyColor
+      current.multiplyColor = multiplyColor
       current.getColorShades = comicPrototype.getColorShades
 
       current.debug = debug
@@ -111,7 +131,7 @@ var TableComic = (window.renderer = function (init, slide, createSlider) {
       : new this.getTableComic(init) // !!!! REMOVE ONE OF THEM !!!!!
   this.paperColor = this.stripInfo.paperColor || [255, 255, 255]
 
-  renderList = [
+  const renderList: ReadonlyArray<RenderObject> = [
     {
       c: true,
       sX: innerSX,
@@ -578,3 +598,5 @@ TableComic.prototype.getColorShades = function (color) {
     this.multiplyColor(color, 0.5),
   ]
 }
+
+export default TableComic

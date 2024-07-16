@@ -81,7 +81,8 @@ export type Render = RenderObject | ReadonlyArray<RenderObject | undefined>
 export type ColorRgb = readonly [number, number, number]
 
 export type PixelArray = ReadonlyArray<ReadonlyArray<Color>>
-export interface ImageFunction {
+
+export type ImageFunction = {
   linkList?: ReadonlyArray<Size | ReadonlyArray<Size>>
   variableList?: Record<string, Variable>
   renderList: ReadonlyArray<Render>
@@ -90,6 +91,11 @@ export interface ImageFunction {
   /** Allow to cache and reuse drawer after first initialization. */
   drawer?: Drawer
 }
+
+export type ImageFunctionGetter = {
+  getImageFunction: (args: unknown) => ImageFunction
+}
+export type ImageFunctionInput = ImageFunction | ImageFunctionGetter
 
 interface GetLength {
   getLength: [Size, Size]

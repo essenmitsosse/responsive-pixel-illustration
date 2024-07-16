@@ -1,4 +1,5 @@
-/* global TableComic */
+import TableComic from './TableComic'
+
 // BEGINN Background /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 TableComic.prototype.Background = function Background(args) {
   const floorFactor = 0.8

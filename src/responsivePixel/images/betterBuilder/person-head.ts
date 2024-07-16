@@ -1,4 +1,4 @@
-/* global BBProto, BBObj */
+import { BBObj, BBProto } from './bb'
 
 // HEAD MAIN  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 BBProto.Head = function (args) {

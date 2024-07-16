@@ -1,3 +1,4 @@
+import { RenderObject } from 'src/responsivePixel/PixelGraphics/types'
 import {
   getLinkListPusher,
   getRandom,
@@ -6,8 +7,13 @@ import {
 
 // BEGINN TableComic /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 var TableComic = (window.renderer = function (
-  init = {},
-  slide = {},
+  init: {
+    id?: number
+    debug?: boolean
+    faceVersion?: boolean
+    altVersion?: boolean
+  } = {},
+  slide: { debug?: boolean; faceVersion?: boolean } = {},
   createSlider,
 ) {
   let sX
@@ -59,8 +65,6 @@ var TableComic = (window.renderer = function (
     (controlerX = { r: 0, useSize: sX }),
     (controlerY = { r: 0, useSize: sY }),
   ]
-
-  let renderList
 
   hover.list.push(
     {
@@ -127,7 +131,7 @@ var TableComic = (window.renderer = function (
       : new this.getTableComic(init) // !!!! REMOVE ONE OF THEM !!!!!
   this.paperColor = this.stripInfo.paperColor || [255, 255, 255]
 
-  renderList = [
+  const renderList: ReadonlyArray<RenderObject> = [
     {
       c: true,
       sX: innerSX,

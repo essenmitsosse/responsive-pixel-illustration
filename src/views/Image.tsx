@@ -13,7 +13,15 @@ const Image = () => {
   useEffect(() => {
     setImageFunction(null)
     async function loadImage() {
-      import(`../responsivePixel/images/${idImage}`)
+      import(
+        /**
+         * Disable warning about this dynamic import not having a file format.
+         * This is due to the fact, that some file are imported directly, while
+         * some are imported via a folders index file */
+
+        /* @vite-ignore */
+        `../responsivePixel/images/${idImage}`
+      )
         .catch((error) => {
           setImageFunction(`${error}`)
         })

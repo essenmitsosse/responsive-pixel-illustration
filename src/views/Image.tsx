@@ -1,11 +1,7 @@
 import { useParams } from 'react-router-dom'
 import RenderPixel from './RenderPixel'
-import type {
-  ImageFunction,
-  ImageFunctionInput,
-} from '../responsivePixel/PixelGraphics/types'
+import type { ImageFunctionInput } from '../responsivePixel/PixelGraphics/types'
 import { useEffect, useState } from 'react'
-import image from 'src/responsivePixel/images/argos'
 
 const Image = () => {
   const params = useParams()

@@ -5,22 +5,33 @@ import { useEffect, useState } from 'react'
 
 const Image = () => {
   const params = useParams()
-  const [imageFunction, setImageFunction] = useState<ImageFunctionInput | null>(
-    null,
-  )
+  const [imageFunction, setImageFunction] = useState<
+    ImageFunctionInput | null | string
+  >(null)
   const idImage = params.idImage ?? 'tantalos'
 
   useEffect(() => {
     setImageFunction(null)
     async function loadImage() {
-      const imageFunction = (
-        await import(`../responsivePixel/images/${idImage}`)
-      ).default
-      setImageFunction(imageFunction)
+      import(`../responsivePixel/images/${idImage}`)
+        .catch((error) => {
+          setImageFunction(`${error}`)
+        })
+        .then((imageFunction) => setImageFunction(imageFunction.default))
     }
 
     loadImage()
   }, [idImage])
+
+  if (typeof imageFunction === 'string') {
+    return (
+      <>
+        Error while loading:
+        <br />
+        {imageFunction}
+      </>
+    )
+  }
 
   return <RenderPixel imageFunctionInput={imageFunction} idImage={idImage} />
 }

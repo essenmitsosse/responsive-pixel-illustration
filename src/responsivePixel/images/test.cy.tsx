@@ -3,6 +3,7 @@ import betterBuilder from './betterBuilder'
 import brothers from './brothers'
 import comicBuilder from './comicBuilder'
 import graien from './graien'
+import relativity from './relativity'
 import sparta from './sparta'
 import sphinx from './sphinx'
 import stripes from './stripes'
@@ -47,6 +48,7 @@ DO_SCREENSHOT_LIST_IMAGE({
   LIST_SIZE: [{ SIZE_X: 300, SIZE_Y: 190 }],
 })
 DO_SCREENSHOT_LIST_IMAGE({ IMAGE_FUNCTION: graien, NAME: 'graien' })
+DO_SCREENSHOT_LIST_IMAGE({ IMAGE_FUNCTION: relativity, NAME: 'relativity' })
 DO_SCREENSHOT_LIST_IMAGE({ IMAGE_FUNCTION: sparta, NAME: 'sparta' })
 DO_SCREENSHOT_LIST_IMAGE({ IMAGE_FUNCTION: sphinx, NAME: 'sphinx' })
 DO_SCREENSHOT_LIST_IMAGE({

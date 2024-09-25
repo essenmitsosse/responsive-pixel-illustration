@@ -1,4 +1,4 @@
-import { ColorRgb } from './PixelGraphics/types'
+import { ColorRgb, Size, SizeObject } from './PixelGraphics/types'
 
 export const getSmallerDim = function (x) {
   const o = { r: x.r }
@@ -138,12 +138,17 @@ export const setValueNew = function (what, value) {
 }
 
 export const getHoverChangers = function () {
-  const changersRelativeStandardList = []
-  const changersRelativeCustomList = []
-  const changersColorStandardList = []
-  const changersCustomList = []
+  const changersRelativeStandardList: Array<SizeObject> = []
+  const changersRelativeCustomList: Array<Size> = []
+  const changersColorStandardList: Array<Size> = []
+  const changersCustomList: Array<Size> = []
 
-  const pushRelativeStandard = function (min, max, map, variable) {
+  const pushRelativeStandard = (
+    min: number,
+    max: number,
+    map: unknown,
+    variable: SizeObject,
+  ) => {
     changersRelativeStandardList.push({
       change: max - min,
       min,
@@ -151,7 +156,11 @@ export const getHoverChangers = function () {
       variable,
     })
   }
-  const changeColor = function (value, map) {
+
+  const changeColor = (
+    value: number,
+    map: { max: ColorRgb; min: ColorRgb; color: ColorRgb },
+  ) => {
     const maxColor = map.max
     const minColor = map.min
     const maxR = maxColor[0]
@@ -168,6 +177,8 @@ export const getHoverChangers = function () {
     color[2] = minB * valueNeg + maxB * value
   }
 
+  let setValueInner = setValue
+
   return {
     list: changersRelativeStandardList,
     changersRelativeCustomList,
@@ -178,10 +189,10 @@ export const getHoverChangers = function () {
 
     // Takes an object, where the keys have the names of dimensions from the object which called it
     // This dimension "r" is linked to the variables max, min and can be changed by what is defined by map
-    pushRelativeStandardAutomatic(info) {
-      let key
-      let currentInfo
-      let currentSize
+    pushRelativeStandardAutomatic(info?: Record<string, SizeObject>) {
+      let key: string
+      let currentInfo: Size | undefined
+      let currentSize: Size | undefined
 
       if (info) {
         for (key in info) {
@@ -209,15 +220,11 @@ export const getHoverChangers = function () {
       }
     },
 
-    hover(args) {
-      const changersRelativeStandard = changersRelativeStandardList
-      const changersRelativeCustom = changersRelativeCustomList
-      const changersColorStandard = changersColorStandardList
-      const changersCustom = changersCustomList
-      let l
-      let current
-      let currentValue
-      let key
+    hover(args: Record<string, unknown>) {
+      let l: number
+      let current: unknown
+      let currentValue: unknown
+      let key: unknown
       let somethingToChange = false
 
       for (key in args) {
@@ -229,12 +236,12 @@ export const getHoverChangers = function () {
 
       if (somethingToChange) {
         // Change the RELATIVE VALUE of the variable, by the STANDARD map scheme
-        if ((l = changersRelativeStandard.length)) {
+        if ((l = changersRelativeStandardList.length)) {
           while (l--) {
-            current = changersRelativeStandard[l]
+            current = changersRelativeStandardList[l]
 
             if (args[current.map] !== undefined) {
-              setValue(
+              setValueInner(
                 current.variable,
                 current.min + current.change * args[current.map],
               )
@@ -243,20 +250,20 @@ export const getHoverChangers = function () {
         }
 
         // Change the RELATIVE VALUE of the variable, by a CUSTOM map scheme
-        if ((l = changersRelativeCustom.length)) {
+        if ((l = changersRelativeCustomList.length)) {
           while (l--) {
-            current = changersRelativeCustom[l]
+            current = changersRelativeCustomList[l]
 
             if ((currentValue = current[1](args)) !== undefined) {
-              setValue(current[0], currentValue)
+              setValueInner(current[0], currentValue)
             }
           }
         }
 
         // Change a COLOR, by a STANDARD map scheme
-        if ((l = changersColorStandard.length)) {
+        if ((l = changersColorStandardList.length)) {
           while (l--) {
-            current = changersColorStandard[l]
+            current = changersColorStandardList[l]
             if (args[current.map] !== undefined) {
               changeColor(args[current.map], current)
             }
@@ -264,9 +271,9 @@ export const getHoverChangers = function () {
         }
 
         // Execute a CUSTOM FUNCTION
-        if ((l = changersCustom.length)) {
+        if ((l = changersCustomList.length)) {
           while (l--) {
-            changersCustom[l](args)
+            changersCustomList[l](args)
           }
         }
 
@@ -275,7 +282,7 @@ export const getHoverChangers = function () {
     },
 
     ready() {
-      setValue = setValueNew
+      setValueInner = setValueNew
     },
   }
 }

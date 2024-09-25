@@ -138,148 +138,147 @@ export const setValueNew = function (what, value) {
 }
 
 export const getHoverChangers = function () {
-	const changersRelativeStandardList = [];
-	const changersRelativeCustomList = [];
-	const changersColorStandardList = [];
-	const changersCustomList = [];
+  const changersRelativeStandardList = []
+  const changersRelativeCustomList = []
+  const changersColorStandardList = []
+  const changersCustomList = []
 
-	const pushRelativeStandard = function (min, max, map, variable) {
-		changersRelativeStandardList.push({
-			change: max - min,
-			min,
-			map,
-			variable,
-		});
-	};
-	const changeColor = function (value, map) {
-		const maxColor = map.max;
-		const minColor = map.min;
-		const maxR = maxColor[0];
-		const maxG = maxColor[1];
-		const maxB = maxColor[2];
-		const minR = minColor[0];
-		const minG = minColor[1];
-		const minB = minColor[2];
-		const { color } = map;
-		const valueNeg = 1 - value;
+  const pushRelativeStandard = function (min, max, map, variable) {
+    changersRelativeStandardList.push({
+      change: max - min,
+      min,
+      map,
+      variable,
+    })
+  }
+  const changeColor = function (value, map) {
+    const maxColor = map.max
+    const minColor = map.min
+    const maxR = maxColor[0]
+    const maxG = maxColor[1]
+    const maxB = maxColor[2]
+    const minR = minColor[0]
+    const minG = minColor[1]
+    const minB = minColor[2]
+    const { color } = map
+    const valueNeg = 1 - value
 
-		color[0] = minR * valueNeg + maxR * value;
-		color[1] = minG * valueNeg + maxG * value;
-		color[2] = minB * valueNeg + maxB * value;
-	};
+    color[0] = minR * valueNeg + maxR * value
+    color[1] = minG * valueNeg + maxG * value
+    color[2] = minB * valueNeg + maxB * value
+  }
 
-	return {
-		list: changersRelativeStandardList,
-		changersRelativeCustomList,
-		changersCustomList,
-		pushColorStandard: changersColorStandardList,
+  return {
+    list: changersRelativeStandardList,
+    changersRelativeCustomList,
+    changersCustomList,
+    pushColorStandard: changersColorStandardList,
 
-		pushRelativeStandard,
+    pushRelativeStandard,
 
-		// Takes an object, where the keys have the names of dimensions from the object which called it
-		// This dimension "r" is linked to the variables max, min and can be changed by what is defined by map
-		pushRelativeStandardAutomatic(info) {
-			let key;
-			let currentInfo;
-			let currentSize;
+    // Takes an object, where the keys have the names of dimensions from the object which called it
+    // This dimension "r" is linked to the variables max, min and can be changed by what is defined by map
+    pushRelativeStandardAutomatic(info) {
+      let key
+      let currentInfo
+      let currentSize
 
-			if (info) {
-				for (key in info) {
-					if ((currentSize = this[key])) {
-						// Assignment
-						currentInfo = info[key];
-						if (typeof currentInfo === "object") {
-							if (currentInfo.map !== undefined) {
-								pushRelativeStandard(
-									currentInfo.min, // max
-									currentInfo.max, // min
-									currentInfo.map, // map
-									currentSize // variable
-								);
-							} else {
-								// Just assign the max or min value
-								currentSize =
-									currentInfo.max || currentInfo.min;
-							}
-						} else {
-							// Just assign the value
-							currentSize.r = currentInfo;
-						}
-					}
-				}
-			}
-		},
+      if (info) {
+        for (key in info) {
+          if ((currentSize = this[key])) {
+            // Assignment
+            currentInfo = info[key]
+            if (typeof currentInfo === 'object') {
+              if (currentInfo.map !== undefined) {
+                pushRelativeStandard(
+                  currentInfo.min, // max
+                  currentInfo.max, // min
+                  currentInfo.map, // map
+                  currentSize, // variable
+                )
+              } else {
+                // Just assign the max or min value
+                currentSize = currentInfo.max || currentInfo.min
+              }
+            } else {
+              // Just assign the value
+              currentSize.r = currentInfo
+            }
+          }
+        }
+      }
+    },
 
-		hover(args) {
-			const changersRelativeStandard = changersRelativeStandardList;
-			const changersRelativeCustom = changersRelativeCustomList;
-			const changersColorStandard = changersColorStandardList;
-			const changersCustom = changersCustomList;
-			let l;
-			let current;
-			let currentValue;
-			let key;
-			let somethingToChange = false;
+    hover(args) {
+      const changersRelativeStandard = changersRelativeStandardList
+      const changersRelativeCustom = changersRelativeCustomList
+      const changersColorStandard = changersColorStandardList
+      const changersCustom = changersCustomList
+      let l
+      let current
+      let currentValue
+      let key
+      let somethingToChange = false
 
-			for (key in args) {
-				if (key !== "width" && key !== "height" && key !== "isServer") {
-					somethingToChange = true;
-					break;
-				}
-			}
+      for (key in args) {
+        if (key !== 'width' && key !== 'height' && key !== 'isServer') {
+          somethingToChange = true
+          break
+        }
+      }
 
-			if (somethingToChange) {
-				// Change the RELATIVE VALUE of the variable, by the STANDARD map scheme
-				if ((l = changersRelativeStandard.length)) {
-					while (l--) {
-						current = changersRelativeStandard[l];
+      if (somethingToChange) {
+        // Change the RELATIVE VALUE of the variable, by the STANDARD map scheme
+        if ((l = changersRelativeStandard.length)) {
+          while (l--) {
+            current = changersRelativeStandard[l]
 
-						if (args[current.map] !== undefined) {
-							setValue(
-								current.variable,
-								current.min + current.change * args[current.map]
-							);
-						}
-					}
-				}
+            if (args[current.map] !== undefined) {
+              setValue(
+                current.variable,
+                current.min + current.change * args[current.map],
+              )
+            }
+          }
+        }
 
-				// Change the RELATIVE VALUE of the variable, by a CUSTOM map scheme
-				if ((l = changersRelativeCustom.length)) {
-					while (l--) {
-						current = changersRelativeCustom[l];
+        // Change the RELATIVE VALUE of the variable, by a CUSTOM map scheme
+        if ((l = changersRelativeCustom.length)) {
+          while (l--) {
+            current = changersRelativeCustom[l]
 
-						if ((currentValue = current[1](args)) !== undefined) {
-							setValue(current[0], currentValue);
-						}
-					}
-				}
+            if ((currentValue = current[1](args)) !== undefined) {
+              setValue(current[0], currentValue)
+            }
+          }
+        }
 
-				// Change a COLOR, by a STANDARD map scheme
-				if ((l = changersColorStandard.length)) {
-					while (l--) {
-						current = changersColorStandard[l];
-						if (args[current.map] !== undefined) {
-							changeColor(args[current.map], current);
-						}
-					}
-				}
+        // Change a COLOR, by a STANDARD map scheme
+        if ((l = changersColorStandard.length)) {
+          while (l--) {
+            current = changersColorStandard[l]
+            if (args[current.map] !== undefined) {
+              changeColor(args[current.map], current)
+            }
+          }
+        }
 
-				// Execute a CUSTOM FUNCTION
-				if ((l = changersCustom.length)) {
-					while (l--) {
-						changersCustom[l](args);
-					}
-				}
+        // Execute a CUSTOM FUNCTION
+        if ((l = changersCustom.length)) {
+          while (l--) {
+            changersCustom[l](args)
+          }
+        }
 
-				// TODO: Set Color after adding;
-			}
-		},
+        // TODO: Set Color after adding;
+      }
+    },
 
-		ready() {
-			setValue = setValueNew;
-		},
-	};
-};
+    ready() {
+      setValue = setValueNew
+    },
+  }
+}
 
 export const getRandomInt = function (i) {
   return Math.floor(Math.random() * i)

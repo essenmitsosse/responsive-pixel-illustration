@@ -14,6 +14,7 @@ export const recordImage: Record<string, { niceName: string }> = {
   trex: { niceName: 'T-Rex' },
   typo: { niceName: 'Typo' },
   stripes: { niceName: 'Stripes' },
+  stripes2: { niceName: 'Stripes 2' },
   zeus: { niceName: 'Zeus' },
 }
 export const listPairImage = Object.entries(recordImage)

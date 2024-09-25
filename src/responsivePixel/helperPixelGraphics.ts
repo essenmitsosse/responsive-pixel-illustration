@@ -220,7 +220,7 @@ export const getHoverChangers = function () {
       }
     },
 
-    hover(args: Record<string, unknown>) {
+    hover(args: Record<string, unknown>): void {
       let l: number
       let current: unknown
       let currentValue: unknown

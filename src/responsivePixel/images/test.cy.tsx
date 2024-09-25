@@ -7,6 +7,7 @@ import relativity from './relativity'
 import sparta from './sparta'
 import sphinx from './sphinx'
 import stripes from './stripes'
+import stripes2 from './stripes2'
 import tableComic from './tableComic'
 import tantalos from './tantalos'
 import teiresias from './teiresias'
@@ -54,6 +55,15 @@ DO_SCREENSHOT_LIST_IMAGE({ IMAGE_FUNCTION: sphinx, NAME: 'sphinx' })
 DO_SCREENSHOT_LIST_IMAGE({
   IMAGE_FUNCTION: stripes,
   NAME: 'stripes',
+  LIST_SIZE: [
+    { SIZE_X: 50, SIZE_Y: 50 },
+    { SIZE_X: 60, SIZE_Y: 120 },
+    { SIZE_X: 100, SIZE_Y: 60 },
+  ],
+})
+DO_SCREENSHOT_LIST_IMAGE({
+  IMAGE_FUNCTION: stripes2.getImageFunction({}),
+  NAME: 'stripes2',
   LIST_SIZE: [
     { SIZE_X: 50, SIZE_Y: 50 },
     { SIZE_X: 60, SIZE_Y: 120 },

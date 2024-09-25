@@ -90,13 +90,27 @@ export type ImageFunction = {
   variableList?: Record<string, Variable>
   renderList: ReadonlyArray<Render>
   background: ColorRgb
+  hover?: (args: Record<string, unknown>) => void
+  changeValueSetter?: () => void
+  recommendedPixelSize: number
 
   /** Allow to cache and reuse drawer after first initialization. */
   drawer?: Drawer
 }
 
 export type ImageFunctionGetter = {
-  getImageFunction: (args: unknown) => ImageFunction
+  getImageFunction: (
+    args: unknown,
+    init?: unknown,
+    createSlider?: {
+      slider: (args: {
+        niceName: string
+        valueName: string
+        defaultValue: number
+        input: { min: number; max: number; step: number }
+      }) => void
+    },
+  ) => ImageFunction
 }
 export type ImageFunctionInput = ImageFunction | ImageFunctionGetter
 

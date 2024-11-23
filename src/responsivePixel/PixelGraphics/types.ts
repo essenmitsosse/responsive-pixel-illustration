@@ -92,7 +92,7 @@ export type ImageFunction = {
   background: ColorRgb
   hover?: (args: Record<string, unknown>) => void
   changeValueSetter?: () => void
-  recommendedPixelSize: number
+  recommendedPixelSize?: number
 
   /** Allow to cache and reuse drawer after first initialization. */
   drawer?: Drawer

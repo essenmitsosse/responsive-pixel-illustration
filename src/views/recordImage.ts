@@ -1,15 +1,20 @@
 export const recordImage: Record<string, { niceName: string }> = {
   argos: { niceName: 'Argos' },
+  betterBuilder: { niceName: 'Better Builder' },
   brothers: { niceName: 'Brothers' },
+  comicBuilder: { niceName: 'Comic Builder' },
   graien: { niceName: 'Graien' },
   landscape: { niceName: 'Landscape' },
+  relativity: { niceName: 'Relativity' },
   sphinx: { niceName: 'Sphinx' },
   sparta: { niceName: 'Sparta' },
+  tableComic: { niceName: 'Table Comic' },
   tantalos: { niceName: 'Tantalos' },
   teiresias: { niceName: 'Teiresias' },
   trex: { niceName: 'T-Rex' },
   typo: { niceName: 'Typo' },
   stripes: { niceName: 'Stripes' },
+  stripes2: { niceName: 'Stripes 2' },
   zeus: { niceName: 'Zeus' },
 }
 export const listPairImage = Object.entries(recordImage)

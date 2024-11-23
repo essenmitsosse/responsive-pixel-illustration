@@ -1,4 +1,4 @@
-import { ColorRgb } from './PixelGraphics/types'
+import { ColorRgb, Size, SizeObject } from './PixelGraphics/types'
 
 export const getSmallerDim = function (x) {
   const o = { r: x.r }
@@ -137,11 +137,161 @@ export const setValueNew = function (what, value) {
   what.s.rele = value
 }
 
+export const getHoverChangers = function () {
+  const changersRelativeStandardList: Array<SizeObject> = []
+  const changersRelativeCustomList: Array<Size> = []
+  const changersColorStandardList: Array<Size> = []
+  const changersCustomList: Array<Size> = []
+
+  const pushRelativeStandard = (
+    min: number,
+    max: number,
+    map: unknown,
+    variable: SizeObject,
+  ) => {
+    changersRelativeStandardList.push({
+      change: max - min,
+      min,
+      map,
+      variable,
+    })
+  }
+
+  const changeColor = (
+    value: number,
+    map: { max: ColorRgb; min: ColorRgb; color: ColorRgb },
+  ) => {
+    const maxColor = map.max
+    const minColor = map.min
+    const maxR = maxColor[0]
+    const maxG = maxColor[1]
+    const maxB = maxColor[2]
+    const minR = minColor[0]
+    const minG = minColor[1]
+    const minB = minColor[2]
+    const { color } = map
+    const valueNeg = 1 - value
+
+    color[0] = minR * valueNeg + maxR * value
+    color[1] = minG * valueNeg + maxG * value
+    color[2] = minB * valueNeg + maxB * value
+  }
+
+  let setValueInner = setValue
+
+  return {
+    list: changersRelativeStandardList,
+    changersRelativeCustomList,
+    changersCustomList,
+    pushColorStandard: changersColorStandardList,
+
+    pushRelativeStandard,
+
+    // Takes an object, where the keys have the names of dimensions from the object which called it
+    // This dimension "r" is linked to the variables max, min and can be changed by what is defined by map
+    pushRelativeStandardAutomatic(info?: Record<string, SizeObject>) {
+      let key: string
+      let currentInfo: Size | undefined
+      let currentSize: Size | undefined
+
+      if (info) {
+        for (key in info) {
+          if ((currentSize = this[key])) {
+            // Assignment
+            currentInfo = info[key]
+            if (typeof currentInfo === 'object') {
+              if (currentInfo.map !== undefined) {
+                pushRelativeStandard(
+                  currentInfo.min, // max
+                  currentInfo.max, // min
+                  currentInfo.map, // map
+                  currentSize, // variable
+                )
+              } else {
+                // Just assign the max or min value
+                currentSize = currentInfo.max || currentInfo.min
+              }
+            } else {
+              // Just assign the value
+              currentSize.r = currentInfo
+            }
+          }
+        }
+      }
+    },
+
+    hover(args: Record<string, unknown>): void {
+      let l: number
+      let current: unknown
+      let currentValue: unknown
+      let key: unknown
+      let somethingToChange = false
+
+      for (key in args) {
+        if (key !== 'width' && key !== 'height' && key !== 'isServer') {
+          somethingToChange = true
+          break
+        }
+      }
+
+      if (somethingToChange) {
+        // Change the RELATIVE VALUE of the variable, by the STANDARD map scheme
+        if ((l = changersRelativeStandardList.length)) {
+          while (l--) {
+            current = changersRelativeStandardList[l]
+
+            if (args[current.map] !== undefined) {
+              setValueInner(
+                current.variable,
+                current.min + current.change * args[current.map],
+              )
+            }
+          }
+        }
+
+        // Change the RELATIVE VALUE of the variable, by a CUSTOM map scheme
+        if ((l = changersRelativeCustomList.length)) {
+          while (l--) {
+            current = changersRelativeCustomList[l]
+
+            if ((currentValue = current[1](args)) !== undefined) {
+              setValueInner(current[0], currentValue)
+            }
+          }
+        }
+
+        // Change a COLOR, by a STANDARD map scheme
+        if ((l = changersColorStandardList.length)) {
+          while (l--) {
+            current = changersColorStandardList[l]
+            if (args[current.map] !== undefined) {
+              changeColor(args[current.map], current)
+            }
+          }
+        }
+
+        // Execute a CUSTOM FUNCTION
+        if ((l = changersCustomList.length)) {
+          while (l--) {
+            changersCustomList[l](args)
+          }
+        }
+
+        // TODO: Set Color after adding;
+      }
+    },
+
+    ready() {
+      setValueInner = setValueNew
+    },
+  }
+}
+
 export const getRandomInt = function (i) {
   return Math.floor(Math.random() * i)
 }
 
-export const random = function (seed) {
+export const getRandom = function (seed) {
   const denom = Math.pow(2, 31)
   const a = 11
   const b = 19

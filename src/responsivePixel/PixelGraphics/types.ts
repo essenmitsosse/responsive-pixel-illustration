@@ -11,11 +11,14 @@ export interface SizeObject {
   useSize?: Size | ReadonlyArray<Size>
   max?: Size | ReadonlyArray<Size>
   min?: Size | ReadonlyArray<Size>
+  change?: number
+  map?: unknown
   main?: boolean
   height?: boolean
   random?: Size
   otherDim?: boolean
   save?: string
+  variable?: unknown
 }
 
 export type Size = number | string | GetLength | GetLinkedVariable | SizeObject
@@ -78,18 +81,38 @@ export interface RenderObject {
 
 export type Render = RenderObject | ReadonlyArray<RenderObject | undefined>
 
-export type ColorRgb = readonly [number, number, number]
+export type ColorRgb = [number, number, number]
 
 export type PixelArray = ReadonlyArray<ReadonlyArray<Color>>
-export interface ImageFunction {
+
+export type ImageFunction = {
   linkList?: ReadonlyArray<Size | ReadonlyArray<Size>>
   variableList?: Record<string, Variable>
   renderList: ReadonlyArray<Render>
   background: ColorRgb
+  hover?: (args: Record<string, unknown>) => void
+  changeValueSetter?: () => void
+  recommendedPixelSize: number
 
   /** Allow to cache and reuse drawer after first initialization. */
   drawer?: Drawer
 }
+
+export type ImageFunctionGetter = {
+  getImageFunction: (
+    args: unknown,
+    init?: unknown,
+    createSlider?: {
+      slider: (args: {
+        niceName: string
+        valueName: string
+        defaultValue: number
+        input: { min: number; max: number; step: number }
+      }) => void
+    },
+  ) => ImageFunction
+}
+export type ImageFunctionInput = ImageFunction | ImageFunctionGetter
 
 interface GetLength {
   getLength: [Size, Size]

@@ -1118,6 +1118,7 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
       current = mainSteps[currentNr]
 
       if (
+        current &&
         current.absLength > 0 &&
         (panelsLeft > 0
           ? current.priority >= lowestPriority

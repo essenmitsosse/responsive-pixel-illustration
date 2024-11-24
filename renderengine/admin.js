@@ -329,7 +329,7 @@ Admin.prototype.setupBasicControls = function (hasRandom) {
 	// createButton( { text: "Fullscreen <span class='shortcut'>CTRL+F</span>", functionName: "makeFullScreen", args: undefined } );
 	if (hasRandom) {
 		createButton({
-			text: "Zufallsgenerator <span class='shortcut'>CTRL+R</span>",
+			text: "Random Image <span class='shortcut'>CTRL+R</span>",
 			functionName: "getNewId",
 			args: undefined,
 		});

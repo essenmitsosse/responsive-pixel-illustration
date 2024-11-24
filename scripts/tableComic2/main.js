@@ -243,15 +243,14 @@ var TableComic = (window.renderer = function (init, slide, createSlider) {
 		} else {
 			createSlider.title({ title: "Layout" });
 			createSlider.number({
-				niceName: "Panel Anzahl",
+				niceName: "Panel Count",
 				valueName: "panels",
 				defaultValue: 3,
 				input: { min: 1, max: 20, step: 1 },
 				forceRedraw: true,
 			});
 			createSlider.slider({
-				niceName: "Seitenverhältnis",
-				dontShow: true,
+				niceName: "Image Ration",
 				valueName: "imgRatio",
 				defaultValue: 1,
 				input: { min: 0.01, max: 4, step: 0.01 },
@@ -259,88 +258,86 @@ var TableComic = (window.renderer = function (init, slide, createSlider) {
 			});
 			createSlider.slider({
 				niceName: "Gutter Width",
-				dontShow: true,
 				valueName: "gutter-width",
 				defaultValue: 0.25,
 				input: { min: 0, max: 1, step: 0.02 },
 			});
 			createSlider.slider({
 				niceName: "Gutter Height",
-				dontShow: true,
 				valueName: "gutter-height",
 				defaultValue: 0.25,
 				input: { min: 0, max: 1, step: 0.02 },
 			});
 
-			createSlider.title({ title: "Geschichte" });
+			createSlider.title({ title: "Content" });
 			createSlider.slider({
-				niceName: "Anfang",
+				niceName: "Story Beginn",
 				valueName: "a",
 				defaultValue: 0,
 				input: { min: -1, max: 1, step: 0.02 },
 			});
 			createSlider.slider({
-				niceName: "Ende",
+				niceName: "Story End",
 				valueName: "b",
 				defaultValue: 0,
 				input: { min: -1, max: 1, step: 0.02 },
 			});
 
-			createSlider.title({ title: "Kamera" });
+			createSlider.title({ title: "Camera" });
 			createSlider.slider({
-				niceName: "Kamera Stärke",
+				niceName: "Camera",
 				valueName: "camera",
 				defaultValue: 0,
 				input: { min: 0, max: 1, step: 0.02 },
 			});
 			createSlider.slider({
-				niceName: "Kamera Alternative",
+				niceName: "Camera Alternative",
 				valueName: "altCamera",
 				defaultValue: 0,
 				input: { min: 0, max: 1, step: 0.02 },
 			});
 
-			createSlider.title({ title: "Akteure" });
+			createSlider.title({ title: "Actors" });
 			createSlider.slider({
-				niceName: "Figur Größe",
+				niceName: "Actors Size",
 				valueName: "actor-size",
 				defaultValue: 0.5,
 				input: { min: -1, max: 1, step: 0.02 },
 			});
 			createSlider.slider({
-				niceName: "Figuren Farbunterschied",
+				niceName: "Actors Color",
 				valueName: "actor-color",
 				defaultValue: 0,
 				input: { min: 0, max: 1, step: 0.02 },
 			});
 			createSlider.slider({
-				niceName: "Figuren Proportionen",
+				niceName: "Actors Proportion",
 				valueName: "actor-features",
 				defaultValue: 0,
 				input: { min: 0, max: 1, step: 0.02 },
 			});
 			createSlider.slider({
-				niceName: "Figuren Kleidungsunterschied",
+				niceName: "Actors Cloth",
 				valueName: "actor-accessoirs",
 				defaultValue: 0,
 				input: { min: 0, max: 1, step: 0.02 },
 			});
 			createSlider.slider({
-				niceName: "Emotionen",
+				niceName: "Emotions",
 				valueName: "emotions",
 				defaultValue: 0,
 				input: { min: 0, max: 1, step: 0.02 },
 			});
 
-			createSlider.title({ title: "Umgebung" });
+			createSlider.title({ title: "Environment" });
 			createSlider.slider({
-				niceName: "Hintergrund",
+				niceName: "Background",
 				valueName: "set",
 				defaultValue: 0,
 				input: { min: 0, max: 1, step: 0.02 },
 			});
 			createSlider.slider({
-				niceName: "Requisiten",
+				niceName: "Props",
 				valueName: "props",
 				defaultValue: 0,
 				input: { min: 0, max: 1, step: 0.02 },
@@ -354,7 +351,7 @@ var TableComic = (window.renderer = function (init, slide, createSlider) {
 		background: this.paperColor,
 		hover: hover.hover,
 		changeValueSetter: hover.ready,
-		recommendedPixelSize: -3,
+		recommendedPixelSize: 3,
 	};
 });
 

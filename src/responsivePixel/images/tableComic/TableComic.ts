@@ -6,7 +6,7 @@ import {
 } from '../../../responsivePixel/helperPixelGraphics'
 
 // BEGINN TableComic /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-var TableComic = (window.renderer = function (
+var TableComic = function (
   init: {
     id?: number
     debug?: boolean
@@ -384,7 +384,7 @@ var TableComic = (window.renderer = function (
     changeValueSetter: hover.ready,
     recommendedPixelSize: 3,
   }
-})
+}
 
 TableComic.prototype.getSizeWithRatio = function (args) {
   const ratio = args.ratio || this.ratio

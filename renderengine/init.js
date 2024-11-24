@@ -1,97 +1,106 @@
 "use strict";
-var InitPixel = function( args ) {
+var InitPixel = function (args) {
 	var queryString = this.getQueryString(),
-		showcase = this.showcase = queryString.showcase || true,
-
+		showcase = (this.showcase = queryString.showcase || true),
 		forceName = args.imageName || window.location.hash.substr(1),
 		slides = this.slides,
-		currentSlide = !forceName && slides[ queryString.slide || 0 ],
+		currentSlide = !forceName && slides[queryString.slide || 0],
 		imageName = forceName || currentSlide.name || "tantalos",
-
 		admin,
 		sliders = queryString.sliders || currentSlide.sliders,
 		socket = !showcase && window.io ? this.connectToIo() : false,
-
 		div = args.div,
 		canvasDataList = false, // change for multiple Canvases
-		canvasRenderer = !currentSlide.staticImage && this.createSingleCanvas( canvasDataList, div ),
-
+		canvasRenderer =
+			!currentSlide.staticImage &&
+			this.createSingleCanvas(canvasDataList, div),
 		callback,
-		require = this.require[ imageName ],
+		require = this.require[imageName],
 		body = document.getElementsByTagName("body")[0],
-		main = document.getElementById( "main" );
+		main = document.getElementById("main");
 
 	queryString.resizeable = true;
 	this.defaultValues = { isServer: true };
 	this.parent = queryString.admin || queryString.parent;
 	// Admin
-	if( queryString.admin || showcase || sliders ) {
-		admin = new window.Admin( {
+	if (queryString.admin || showcase || sliders) {
+		admin = new window.Admin({
 			body: body,
 			showcase: showcase,
 			admin: queryString.admin,
 			sliders: sliders,
 			slides: slides,
 			pixel: this,
-			socket: socket
-		} );
+			socket: socket,
+		});
 	}
 
-	callback = this.getCallback( 
+	callback = this.getCallback(
 		canvasRenderer,
 		queryString,
 		imageName,
 		socket,
 		currentSlide,
-		this.info( queryString )
+		this.info(queryString),
 	);
 
-	if ( currentSlide.staticImage ) {
-		this.getStaticImage( currentSlide, main );
-	} else if( require ) {
-		this.loadMultipleScripts( callback, imageName, require );
+	if (currentSlide.staticImage) {
+		this.getStaticImage(currentSlide, main);
+	} else if (require) {
+		this.loadMultipleScripts(callback, imageName, require);
 	} else {
-		this.loadScript( callback, imageName );
+		this.loadScript(callback, imageName);
 	}
 
-	this.getDocumentTitle( imageName, queryString );
-	window.onkeydown = this.getShortcuts( queryString );
+	this.getDocumentTitle(imageName, queryString);
+	window.onkeydown = this.getShortcuts(queryString);
 
-	if( currentSlide.timer || queryString.timer ) {
-		this.timerAnimation = this.getTimerAnimation( currentSlide.timer );
+	if (currentSlide.timer || queryString.timer) {
+		this.timerAnimation = this.getTimerAnimation(currentSlide.timer);
 	}
 };
 
 InitPixel.prototype.connectToIo = function () {
-	var socket = this.socket = window.io( window.location.protocol + "//" + ( window.location.host.split( ":" )[0] ) ),
+	var socket = (this.socket = window.io(
+			window.location.protocol +
+				"//" +
+				window.location.host.split(":")[0],
+		)),
 		that = this;
 
-	if( socket ) { 
+	if (socket) {
 		// get a unique Id for this socket
-		socket.on( "newId", function( data ) {
-			that.getNewId( data * 1, true );
-		} );
+		socket.on("newId", function (data) {
+			that.getNewId(data * 1, true);
+		});
 
-		socket.on( "newValues", function ( data, imageData ) {
-			that.addToQueryString( JSON.parse( data ) );
-			that.receiveImageData( JSON.parse( imageData ) );
-		} );
+		socket.on("newValues", function (data, imageData) {
+			that.addToQueryString(JSON.parse(data));
+			that.receiveImageData(JSON.parse(imageData));
+		});
 
-		socket.on( "redrawImage", function( imageData ) {
-			that.receiveImageData( JSON.parse( imageData ) );
-		} );
+		socket.on("redrawImage", function (imageData) {
+			that.receiveImageData(JSON.parse(imageData));
+		});
 
-		socket.emit( "connected", 
-			JSON.stringify({ 
-				name: "<span class='screensize'>" + window.screen.width + "/" + window.screen.height + "</span> " + navigator.platform, 
-				admin: that.queryString.admin 
-			})
+		socket.emit(
+			"connected",
+			JSON.stringify({
+				name:
+					"<span class='screensize'>" +
+					window.screen.width +
+					"/" +
+					window.screen.height +
+					"</span> " +
+					navigator.platform,
+				admin: that.queryString.admin,
+			}),
 		);
 
 		return socket;
 	} else {
 		return false;
-	}	
+	}
 };
 
 InitPixel.prototype.getQueryString = function () {
@@ -100,17 +109,21 @@ InitPixel.prototype.getQueryString = function () {
 		i = 0,
 		l = vars.length,
 		pair,
-		convert = function ( value ) {
-			if ( value === "true" ) { value = true; }
-			else if ( value === "false" ) { value = false; }
-			else { value = value * 1; }
+		convert = function (value) {
+			if (value === "true") {
+				value = true;
+			} else if (value === "false") {
+				value = false;
+			} else {
+				value = value * 1;
+			}
 			return value;
 		};
 
-	while( i < l ) {
-		pair = vars[ i ].split("=");
-		if( pair[ 0 ] ) {
-			list[ pair[ 0 ] ] = convert( pair[ 1 ] );
+	while (i < l) {
+		pair = vars[i].split("=");
+		if (pair[0]) {
+			list[pair[0]] = convert(pair[1]);
 		}
 		i += 1;
 	}
@@ -118,8 +131,8 @@ InitPixel.prototype.getQueryString = function () {
 	// if( !list.slide ) { list.slide = "0"; }
 	// else { list.slide = list.slide.toString(); }
 	// if( !list.id ) { list.id = 666; }
-	
-	return ( this.queryString = list );
+
+	return (this.queryString = list);
 };
 
 // // If there is a List of Canvases, cycle through the list
@@ -145,53 +158,57 @@ InitPixel.prototype.getQueryString = function () {
 // };
 
 // Create a new Canvas, add it to the div and return it
-InitPixel.prototype.createSingleCanvas = function( canvasData, div ) {
-	var canvas = document.createElement( "canvas" ),
+InitPixel.prototype.createSingleCanvas = function (canvasData, div) {
+	var canvas = document.createElement("canvas"),
 		key;
-	
+
 	canvas.resize = true;
 	canvas.keepalive = true;
 	// canvas.style.position = "absolute";
 
-	if( canvasData ) {
-		for( key in canvasData ) {
-			canvas.style[ key ] = canvasData[ key ];
+	if (canvasData) {
+		for (key in canvasData) {
+			canvas.style[key] = canvasData[key];
 		}
 	}
 
-	div.appendChild( canvas );
+	div.appendChild(canvas);
 
-	return function ( renderer ) {
-		return new window.PixelGraphics( renderer )( canvas );
+	return function (renderer) {
+		return new window.PixelGraphics(renderer)(canvas);
 	};
 };
 
-InitPixel.prototype.loadScript = function( callback, imageName ) {
-	var script = document.createElement( "script" ),
-		head = document.getElementsByTagName( "head" )[0];
+InitPixel.prototype.loadScript = function (callback, imageName) {
+	var script = document.createElement("script"),
+		head = document.getElementsByTagName("head")[0];
 
 	script.type = "text/javascript";
 	script.src = "scripts/" + imageName + ".px";
 
 	script.onreadystatechange = callback;
 	script.onload = callback;
-	script.onerror = function () { throw imageName + " can not be loaded."; };
+	script.onerror = function () {
+		throw imageName + " can not be loaded.";
+	};
 
-	head.appendChild( script );
-
+	head.appendChild(script);
 };
 
-InitPixel.prototype.loadMultipleScripts = function ( callback, imageName, require ) {
+InitPixel.prototype.loadMultipleScripts = function (
+	callback,
+	imageName,
+	require,
+) {
 	var l = require.length,
 		count = 0,
 		loadFile = this.loadFile,
-		head = document.getElementsByTagName( "head" )[0],
+		head = document.getElementsByTagName("head")[0],
 		loadNext = function () {
-
-			if( count === l ) {
+			if (count === l) {
 				callback();
 			} else {
-				loadFile( require[ count ], head, loadNext );
+				loadFile(require[count], head, loadNext);
 				count += 1;
 			}
 		};
@@ -199,8 +216,8 @@ InitPixel.prototype.loadMultipleScripts = function ( callback, imageName, requir
 	loadNext();
 };
 
-InitPixel.prototype.loadFile = function ( filePath, head, onLoadFunction ) {
-	var script = document.createElement( "script" );
+InitPixel.prototype.loadFile = function (filePath, head, onLoadFunction) {
+	var script = document.createElement("script");
 
 	script.type = "text/javascript";
 	script.src = filePath;
@@ -211,78 +228,98 @@ InitPixel.prototype.loadFile = function ( filePath, head, onLoadFunction ) {
 		throw filePath + " can not be loaded.";
 	};
 
-	head.appendChild( script );
+	head.appendChild(script);
 };
 
 // Create the Callback Function, when the script is loaded
-InitPixel.prototype.getCallback = function( rendererInit, queryString, imageName, socket, currentSlide, info ) {
+InitPixel.prototype.getCallback = function (
+	rendererInit,
+	queryString,
+	imageName,
+	socket,
+	currentSlide,
+	info,
+) {
 	var that = this;
-	return function callback () {
-		var ImageFunction = window[ imageName ] || window.renderer, // use Function of the given imageName if it exists, else use the standard renderer
+	return function callback() {
+		var ImageFunction = window[imageName] || window.renderer, // use Function of the given imageName if it exists, else use the standard renderer
 			imageFunction,
 			renderObject;
 
-		if( ImageFunction ) {
-
-			if( that.createSlider ) {
+		if (ImageFunction) {
+			if (that.createSlider) {
 				// that.createSlider.title( { title: "Image Size" } );
 				// that.createSlider.slider( { niceName: "Width", valueName: "width", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
 				// that.createSlider.slider( { niceName: "Height", 	 valueName: "height", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
 			}
 
-			imageFunction = new ImageFunction( queryString, currentSlide, that.createSlider );	
+			imageFunction = new ImageFunction(
+				queryString,
+				currentSlide,
+				that.createSlider,
+			);
 
-			that.hover = imageFunction.hover;		
+			that.hover = imageFunction.hover;
 
 			renderObject = {
-				showInfos : false,
+				showInfos: false,
 				slide: currentSlide,
-				imageFunction : imageFunction,
+				imageFunction: imageFunction,
 				queryString: queryString,
-				pixelSize: ( queryString.p || currentSlide.p || imageFunction.recommendedPixelSize || 5 ) * 1 + ( queryString.pAdd || 0 ) * 1,
+				pixelSize:
+					(queryString.p ||
+						currentSlide.p ||
+						imageFunction.recommendedPixelSize ||
+						5) *
+						1 +
+					(queryString.pAdd || 0) * 1,
 				socket: socket,
 				sliderObject: that.sliderObject,
 				sliderValues: that.sliderValues,
 				info: info,
 				defaultValues: that.defaultValues,
-				init: that
+				init: that,
 			};
 
-			that.renderer = rendererInit( renderObject );
+			that.renderer = rendererInit(renderObject);
 
-			if( that.timerAnimation ) {
+			if (that.timerAnimation) {
 				that.timerAnimation();
 			}
-
 		} else {
 			throw imageName + " was loaded but is not a function!";
 		}
 	};
 };
 
-InitPixel.prototype.info = function( options ) {
+InitPixel.prototype.info = function (options) {
 	var logs = [],
 		initString,
 		d = document,
 		body = d.getElementsByTagName("body")[0],
 		info = d.createElement("div"),
 		show = options.showInfos,
-		swap = function() {
-			if( ( show = !show ) ) { body.appendChild( info ); }
-			else { body.removeChild( info ); } 
+		swap = function () {
+			if ((show = !show)) {
+				body.appendChild(info);
+			} else {
+				body.removeChild(info);
+			}
 		},
-		change = function( name, value ) {
-			logs[ name ] = value;
+		change = function (name, value) {
+			logs[name] = value;
 		};
 
-	info.setAttribute( "id", "infos" );
-	if( show ) { body.appendChild( info ); }
+	info.setAttribute("id", "infos");
+	if (show) {
+		body.appendChild(info);
+	}
 
 	document.onkeydown = function () {
 		var k = event.keyCode;
 
-		if( event.ctrlKey ) {
-			if( k === 73 ) {
+		if (event.ctrlKey) {
+			if (k === 73) {
 				event.preventDefault();
 				swap();
 			}
@@ -290,248 +327,292 @@ InitPixel.prototype.info = function( options ) {
 	};
 
 	return {
-		swap : swap,
-		change : change,
-		logInitTime : function( initTime ) {
-			initString = ["<span class='init' style='width:", initTime * 5, "px;'>", initTime, "ms<br>Init</span>"].join("");
+		swap: swap,
+		change: change,
+		logInitTime: function (initTime) {
+			initString = [
+				"<span class='init' style='width:",
+				initTime * 5,
+				"px;'>",
+				initTime,
+				"ms<br>Init</span>",
+			].join("");
 		},
-		logRenderTime : function( draw, fullDuration ) {
+		logRenderTime: function (draw, fullDuration) {
 			var what,
 				lo = logs,
 				render = fullDuration - draw,
 				string = [];
 
-			if( show ) {
-				change( "Duration", fullDuration + "ms" );
-				change( "fps", Math.floor( 1000 / fullDuration ) + "fps" );
-				change( "Average-Time", "false" );
+			if (show) {
+				change("Duration", fullDuration + "ms");
+				change("fps", Math.floor(1000 / fullDuration) + "fps");
+				change("Average-Time", "false");
 
-				for( what in lo ) {
-					string.push( "<p><strong>", what, ":</strong> ", lo[what], "</p>" );
+				for (what in lo) {
+					string.push(
+						"<p><strong>",
+						what,
+						":</strong> ",
+						lo[what],
+						"</p>",
+					);
 				}
 
-				string.push( "<p>",
+				string.push(
+					"<p>",
 					initString,
-					"<span class='drawing' style='width:", draw * 5, "px;'>", draw, "ms<br>Drawing</span>",
-					"<span style='width:", render * 5, "px;'>", render, "ms<br>Render</span>",
-					"</p>" );
+					"<span class='drawing' style='width:",
+					draw * 5,
+					"px;'>",
+					draw,
+					"ms<br>Drawing</span>",
+					"<span style='width:",
+					render * 5,
+					"px;'>",
+					render,
+					"ms<br>Render</span>",
+					"</p>",
+				);
 
 				info.innerHTML = string.join("");
 			}
-		}
+		},
 	};
 };
 
-InitPixel.prototype.receiveImageData = function ( imageData ) {
+InitPixel.prototype.receiveImageData = function (imageData) {
 	var d = this.defaultValues,
 		key;
 
-	if( this.renderer && this.renderer.redraw ) {
-
+	if (this.renderer && this.renderer.redraw) {
 		imageData.forceSliders = true;
 		imageData.isServer = true;
 
-		this.renderer.redraw( imageData );
-
+		this.renderer.redraw(imageData);
 	} else {
-
-		for( key in imageData ) {
-			d[ key ] = imageData[ key ];
+		for (key in imageData) {
+			d[key] = imageData[key];
 		}
-
 	}
 };
 
-InitPixel.prototype.addToQueryString = function ( newObj, dontRefresh ) {
+InitPixel.prototype.addToQueryString = function (newObj, dontRefresh) {
 	var key,
 		q = this.queryString,
 		somethingChanged = false;
 
-	for ( key in newObj ) {
-		if( q[ key ] !== newObj[ key ] ) {
+	for (key in newObj) {
+		if (q[key] !== newObj[key]) {
 			somethingChanged = true;
 		}
 
-		q[ key ] = newObj[ key ];
+		q[key] = newObj[key];
 	}
 
-	if( !dontRefresh && somethingChanged ) {
+	if (!dontRefresh && somethingChanged) {
 		this.refresh();
 	}
-	
 };
 
-InitPixel.prototype.refresh = function ( event ) {
+InitPixel.prototype.refresh = function (event) {
 	var newString = [],
 		key,
 		q = this.queryString;
 
-	if( event ) { event.preventDefault(); }
+	if (event) {
+		event.preventDefault();
+	}
 
-	for ( key in q ) {
-		if( q[key] !== undefined ){
-			newString.push( key + "=" + q[key] );
+	for (key in q) {
+		if (q[key] !== undefined) {
+			newString.push(key + "=" + q[key]);
 		}
 	}
 
-	if( this.socket ) {
+	if (this.socket) {
 		this.socket.disconnect();
 	}
 
 	location.search = newString.join("&");
 };
 
-InitPixel.prototype.nextSlide = function ( next ) {
+InitPixel.prototype.nextSlide = function (next) {
 	var slide = this.queryString.slide;
 
-	if( !slide ) { slide = 0; }
-	slide = slide * 1 + ( next ? 1 : -1 );
+	if (!slide) {
+		slide = 0;
+	}
+	slide = slide * 1 + (next ? 1 : -1);
 
-	if( slide > this.slides.length - 1 ) {
+	if (slide > this.slides.length - 1) {
 		slide = this.slides.length - 1;
-	} else if( slide < 0 ) {
+	} else if (slide < 0) {
 		slide = 0;
 	}
 
 	this.changeForceRedraw({ slide: slide });
 };
 
-InitPixel.prototype.getNewId = function ( id, isServer ) {
-	this.changeForceRedraw( { id: id || Math.floor( Math.random() * Math.pow( 2, 32 ) ) }, isServer );
+InitPixel.prototype.getNewId = function (id, isServer) {
+	this.changeForceRedraw(
+		{ id: id || Math.floor(Math.random() * Math.pow(2, 32)) },
+		isServer,
+	);
 };
 
 InitPixel.prototype.seedNewId = function () {
-	if( this.socket ) { 
-		this.socket.emit( "seedId" );
+	if (this.socket) {
+		this.socket.emit("seedId");
 	}
 };
 
-InitPixel.prototype.sliderChange = function ( obj ) {
-
-	if( this.renderer ) {
-
-		this.renderer.redraw( obj );
-
+InitPixel.prototype.sliderChange = function (obj) {
+	if (this.renderer) {
+		this.renderer.redraw(obj);
 	} else {
-
-		for( var key in obj ) {
-			this.defaultValues[ key ] = obj[ key ];
+		for (var key in obj) {
+			this.defaultValues[key] = obj[key];
 		}
-
-	}	
+	}
 };
 
-InitPixel.prototype.changeForceRedraw = function ( obj, isServer ) {
-	if( !isServer && this.socket ) {
-		if( this.parent ) {
-			this.socket.emit( "updateValue", JSON.stringify( obj ) );
+InitPixel.prototype.changeForceRedraw = function (obj, isServer) {
+	if (!isServer && this.socket) {
+		if (this.parent) {
+			this.socket.emit("updateValue", JSON.stringify(obj));
 		} else {
-			window.alert( "Du bist Client, du kannst das nicht ändern." );
+			window.alert("Du bist Client, du kannst das nicht ändern.");
 		}
-		
 	} else {
-		if( !this.socket && obj.slide && obj.slide !== this.queryString.slide && this.showcase ) {
-			this.queryString = { showcase: true, id: this.queryString.id, slide: obj.slide };
+		if (
+			!this.socket &&
+			obj.slide &&
+			obj.slide !== this.queryString.slide &&
+			this.showcase
+		) {
+			this.queryString = {
+				showcase: true,
+				id: this.queryString.id,
+				slide: obj.slide,
+			};
 			this.refresh();
 		} else {
-			this.addToQueryString( obj );
-		}		
+			this.addToQueryString(obj);
+		}
 	}
 };
 
 InitPixel.prototype.makeFullScreen = function () {
-	this.toggleResizability( false ); 
-	this.renderer.redraw( { width: 1, height: 1, forceSliders: true } );
+	this.toggleResizability(false);
+	this.renderer.redraw({ width: 1, height: 1, forceSliders: true });
 };
 
-InitPixel.prototype.setupToggleResizabilityLinkButton = function ( button ) {
+InitPixel.prototype.setupToggleResizabilityLinkButton = function (button) {
 	this.toggleResizabilityButton = button;
-	this.toggleResizability( this.queryString.resizeable ? true : false );
+	this.toggleResizability(this.queryString.resizeable ? true : false);
 };
 
-InitPixel.prototype.toggleResizability = function ( value ) {
-	var resizeable = this.queryString.resizeable = value === undefined ? 
-			!this.queryString.resizeable 
-			: value;
+InitPixel.prototype.toggleResizability = function (value) {
+	var resizeable = (this.queryString.resizeable =
+		value === undefined ? !this.queryString.resizeable : value);
 
-	if( this.toggleResizabilityButton ) {
-		this.toggleResizabilityButton.innerHTML = ( resizeable ? "scaleable" : "not scaleable" ) + "<span class='shortcut'>CTRL+S</span>";
+	if (this.toggleResizabilityButton) {
+		this.toggleResizabilityButton.innerHTML =
+			(resizeable ? "scaleable" : "not scaleable") +
+			"<span class='shortcut'>CTRL+S</span>";
 	}
-
 };
 
-InitPixel.prototype.getDocumentTitle = function ( imageName, queryString ) {
+InitPixel.prototype.getDocumentTitle = function (imageName, queryString) {
 	var name = imageName;
 
 	// add resizeable to the title
-	if( queryString.resizeable ) { name += " resizeable"; }
+	if (queryString.resizeable) {
+		name += " resizeable";
+	}
 
 	// Display the id for the Seedable Random Number Generator in the title;
-	if( queryString.id ) { name += " (" + queryString.id + ")"; }
+	if (queryString.id) {
+		name += " (" + queryString.id + ")";
+	}
 
 	// Display the imageName as the title
 	document.title = name;
 };
 
-InitPixel.prototype.getShortcuts = function ( q ) {
+InitPixel.prototype.getShortcuts = function (q) {
 	var that = this;
 
-	return function ( event ) {
-		var	keyCode = event.keyCode;
+	return function (event) {
+		var keyCode = event.keyCode;
 
-		if ( event.ctrlKey ) {
-			if ( keyCode === 82 ) { // CTRL + R // new id
+		if (event.ctrlKey) {
+			if (keyCode === 82) {
+				// CTRL + R // new id
 				that.getNewId();
-			} else if ( keyCode === 81 ) { // CTRL + Q // seed new id
+			} else if (keyCode === 81) {
+				// CTRL + Q // seed new id
 				that.seedNewId();
-			} else if ( keyCode === 83 ) { // CTRL + S // toggle scalability
+			} else if (keyCode === 83) {
+				// CTRL + S // toggle scalability
 				that.toggleResizability();
-
-			} else if ( keyCode === 70 ) { // CTRL + F // make Fullscreen
+			} else if (keyCode === 70) {
+				// CTRL + F // make Fullscreen
 
 				that.makeFullScreen();
+			} else if (keyCode === 67) {
+				// CTRL + C // toggle Color sheme
 
-			} else if ( keyCode === 67 ) { // CTRL + C // toggle Color sheme
-
-				q.cs = ( q.cs !== true ) ? true : undefined;
+				q.cs = q.cs !== true ? true : undefined;
 				that.refresh();
+			} else if (keyCode === 68) {
+				// CTRL + D // toggle debugging
 
-			} else if ( keyCode === 68 ) { // CTRL + D // toggle debugging
-
-				q.debug = ( q.debug !== true ) ? true : undefined;
+				q.debug = q.debug !== true ? true : undefined;
 				that.refresh();
-			}
-
-			else if ( keyCode === 187 ) { // CTRL + "+" // zoom In
-				if( !q.p ) { q.p = 5; }
+			} else if (keyCode === 187) {
+				// CTRL + "+" // zoom In
+				if (!q.p) {
+					q.p = 5;
+				}
 				q.p = q.p * 1 + 1;
 				that.refresh();
-			} else if ( keyCode === 189 ) { // CTRL + "-" // zoom Out
-				if( !q.p ) { q.p = 5; }
+			} else if (keyCode === 189) {
+				// CTRL + "-" // zoom Out
+				if (!q.p) {
+					q.p = 5;
+				}
 				q.p = q.p * 1 - 1;
-				if( q.p < 1 ) { q.p = 1; }
+				if (q.p < 1) {
+					q.p = 1;
+				}
 				that.refresh();
 			}
-		}
-		else if ( event.altKey ) {
-			if ( keyCode === 38 ) {  // Arrow Keys Up/Down // Add Rows
-				if( !q.panels ) { q.panels = 1; }
+		} else if (event.altKey) {
+			if (keyCode === 38) {
+				// Arrow Keys Up/Down // Add Rows
+				if (!q.panels) {
+					q.panels = 1;
+				}
 				q.panels = q.panels * 1 + 1;
-				that.refresh(); 
-			}
-			else if ( keyCode === 40 ) { 
-				if( !q.panels ) { q.panels = 1; }
+				that.refresh();
+			} else if (keyCode === 40) {
+				if (!q.panels) {
+					q.panels = 1;
+				}
 				q.panels = q.panels * 1 - 1;
-				if( q.panels < 1 ) { q.panels = 1; }
-				that.refresh(); 
+				if (q.panels < 1) {
+					q.panels = 1;
+				}
+				that.refresh();
+			} else if (keyCode === 39) {
+				// Arrow Keys Left/Right // Next / Prev Image
+				that.nextSlide(true);
+			} else if (keyCode === 37) {
+				that.nextSlide(false);
 			}
-			else if ( keyCode === 39 ) { // Arrow Keys Left/Right // Next / Prev Image
-				that.nextSlide( true );
-			}
-			else if ( keyCode === 37 ) { 
-				that.nextSlide( false );
-			}
-		} 
+		}
 		// else if ( event.shiftKey ) {
 		// 	if ( keyCode === 49 ) { q.p = 11; that.refresh(); } // Number Keys 1 — 9 // Set resolution
 		// 	else if ( keyCode === 222 ) { q.p = 12; that.refresh(); }
@@ -560,8 +641,8 @@ InitPixel.prototype.getShortcuts = function ( q ) {
 	};
 };
 
-// Displays 
-InitPixel.prototype.getStaticImage = function ( args, main ) {
+// Displays
+InitPixel.prototype.getStaticImage = function (args, main) {
 	var imageList = args.staticImage,
 		img = document.createElement("img"),
 		width = window.innerWidth,
@@ -569,29 +650,34 @@ InitPixel.prototype.getStaticImage = function ( args, main ) {
 		count = 0,
 		found = false;
 
-	if( main ) {
-		main.setAttribute( "class", ( main.getAttribute( "class" ) || "" ) + " screenshot" );
+	if (main) {
+		main.setAttribute(
+			"class",
+			(main.getAttribute("class") || "") + " screenshot",
+		);
 
-
-		while( count < l ) {
-			if( imageList[ count ].width <= width ) {
-				if( imageList[ count ].max && imageList[ count ].max <= width ) {
+		while (count < l) {
+			if (imageList[count].width <= width) {
+				if (imageList[count].max && imageList[count].max <= width) {
 					found = false;
 				} else {
 					found = count;
-				}				
+				}
 			}
 			count += 1;
 		}
 
-		if( found !== false && imageList[ found ].url ) {
-			main.appendChild( img );
-			img.setAttribute( "class", "screenshot " + ( imageList[ found ].className || "" )  );
-			img.setAttribute( "src", imageList[ found ].url );
+		if (found !== false && imageList[found].url) {
+			main.appendChild(img);
+			img.setAttribute(
+				"class",
+				"screenshot " + (imageList[found].className || ""),
+			);
+			img.setAttribute("src", imageList[found].url);
 		}
 
-		if ( args.color ) {
-			main.setAttribute( "style", "background-color: " + args.color + ";" );
+		if (args.color) {
+			main.setAttribute("style", "background-color: " + args.color + ";");
 		}
 	}
 	// this.list.setAttribute( "id", name );
@@ -600,88 +686,84 @@ InitPixel.prototype.getStaticImage = function ( args, main ) {
 InitPixel.prototype.getTimerAnimation = function () {
 	var that = this,
 		fps = 20,
-
 		waitTimer = fps * 0.5, // how often per second should the chance be checked
-
 		animations = {
 			camera: { duration: 6, chance: 0.1 },
-			side: 	{ duration: 3, chance: 0.3 },
-			a: 		{ duration: 2, chance: 0.3 },
-			b: 		{ duration: 2, chance: 0.3 },
-			c: 		{ duration: 2, chance: 0.3 },
-			d: 		{ duration: 2, chance: 0.1 }, // eye open
-			e: 		{ duration: 2, chance: 0.1 }, // eye open
-			f: 		{ duration: 2, chance: 0.3 },
-			g: 		{ duration: 2, chance: 0.3 },
-			h: 		{ duration: 2, chance: 0.3 },
-			k: 		{ duration: 2, chance: 0.3 },
-			l: 		{ duration: 2, chance: 0.3 },
-			m: 		{ duration: 2, chance: 0.3 },
-			n: 		{ duration: 2, chance: 0.3 }
+			side: { duration: 3, chance: 0.3 },
+			a: { duration: 2, chance: 0.3 },
+			b: { duration: 2, chance: 0.3 },
+			c: { duration: 2, chance: 0.3 },
+			d: { duration: 2, chance: 0.1 }, // eye open
+			e: { duration: 2, chance: 0.1 }, // eye open
+			f: { duration: 2, chance: 0.3 },
+			g: { duration: 2, chance: 0.3 },
+			h: { duration: 2, chance: 0.3 },
+			k: { duration: 2, chance: 0.3 },
+			l: { duration: 2, chance: 0.3 },
+			m: { duration: 2, chance: 0.3 },
+			n: { duration: 2, chance: 0.3 },
 		},
 		key,
 		current,
-
 		getFrame = function () {
 			var renderObject = {
 					isServer: true,
-					forceSliders: true
+					forceSliders: true,
 				},
 				current,
 				key;
-			
-			for ( key in animations ) {
-				current = animations[ key ];
-				if( current.move ) {
-					current.pos += current.step * ( current.forward ? 1 : -1 );
-					if( current.pos > 1 ) {
+
+			for (key in animations) {
+				current = animations[key];
+				if (current.move) {
+					current.pos += current.step * (current.forward ? 1 : -1);
+					if (current.pos > 1) {
 						current.pos = 1;
 						current.move = false;
 						current.forward = false;
-					} else if ( current.pos < 0 ) {
+					} else if (current.pos < 0) {
 						current.pos = 0;
 						current.move = false;
 						current.forward = true;
 					}
 
-
 					// randomly stopp in the middle
-					if( current.waitTimer > 0 ) {
+					if (current.waitTimer > 0) {
 						current.waitTimer -= 1;
 					} else {
 						current.waitTimer = waitTimer;
-						if ( current.middleChance > Math.random() ) {
+						if (current.middleChance > Math.random()) {
 							current.forward = !current.forward;
 							current.move = false;
 						}
 					}
 
-					renderObject[ key ] = current.pos;
+					renderObject[key] = current.pos;
 				} else {
-					if( current.waitTimer > 0 ) {
+					if (current.waitTimer > 0) {
 						current.waitTimer -= 1;
 					} else {
 						current.waitTimer = waitTimer;
-						if ( current.chance > Math.random() ) {
+						if (current.chance > Math.random()) {
 							current.move = true;
 						}
-					}					
+					}
 				}
 			}
 
 			// console.log( animations.camera.pos );
 
-			setTimeout( getFrame, 1000 / fps );
-			
-			that.renderer.redraw( renderObject );
+			setTimeout(getFrame, 1000 / fps);
+
+			that.renderer.redraw(renderObject);
 		};
 
-	for ( key in animations ) {
-		current = animations[ key ];
-		current.chance = ( waitTimer * current.chance ) / fps;
-		current.middleChance = waitTimer / ( fps * current.duration );
+	for (key in animations) {
+		current = animations[key];
+		current.chance = (waitTimer * current.chance) / fps;
+		current.middleChance = waitTimer / (fps * current.duration);
 
-		current.step = 1 / ( fps * current.duration );
+		current.step = 1 / (fps * current.duration);
 
 		current.pos = 0;
 		current.forward = true;
@@ -701,5 +783,5 @@ InitPixel.prototype.slides = [
 	{ name: "brothers", niceName: "Brothers" },
 	{ name: "zeus", niceName: "Zeus" },
 	{ name: "argos", niceName: "The Argos" },
-	{ name: "sphinx", niceName: "The Sphinx" }
+	{ name: "sphinx", niceName: "The Sphinx" },
 ];

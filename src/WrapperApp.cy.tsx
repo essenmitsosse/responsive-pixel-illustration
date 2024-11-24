@@ -1,9 +1,6 @@
-import { createElement } from 'react'
-import WrapperApp from './WrapperApp'
-import { BrowserRouter } from 'react-router-dom'
-
 describe('<WrapperApp />', () => {
   it('renders', () => {
+    cy.viewport(1024, 800)
     cy.DO_MOUNT_ROUTER({ IS_STRICT_MODE: true })
 
     /** Make sure image loading is displayed */
@@ -13,7 +10,6 @@ describe('<WrapperApp />', () => {
     cy.GET('image-state').should('have.attr', 'data-image', 'tantalos')
 
     cy.DO_FORCE_DARK_MODE()
-    cy.viewport(1024, 800)
     cy.screenshot('main-1024-800-dark-start', { overwrite: true })
 
     cy.DO_FORCE_LIGHT_MODE()

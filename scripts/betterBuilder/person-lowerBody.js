@@ -1,14 +1,18 @@
 // LOWER BODY  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-BBProto.LowerBody = function ( args ) {
+BBProto.LowerBody = function (args) {
 	this.color = args.color;
 	this.colorDark = args.colorDark;
-} // End LowerBody
+}; // End LowerBody
 
 BBProto.LowerBody.prototype = new BBObj();
-BBProto.LowerBody.prototype.draw = function ( args, front, right ) {
+BBProto.LowerBody.prototype.draw = function (args, front, right) {
 	return [
 		{
-			color:[front ? 150 : 100, right ? 150 : 100, front || right ? 0 : 0]
-		}
-	]
-} // End LowerBody Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+			color: [
+				front ? 150 : 100,
+				right ? 150 : 100,
+				front || right ? 0 : 0,
+			],
+		},
+	];
+}; // End LowerBody Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

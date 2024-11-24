@@ -1178,9 +1178,12 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
     while (cameraCount < camerasLength) {
       currentCam = cameras[cameraCount]
 
-      if (innerCount >= currentCam.minPanels) {
-        panels[Math.round(currentStart + currentCam.pos * totalCount)].camera =
-          currentCam.camera
+      if (currentCam && innerCount >= currentCam.minPanels) {
+        const panel =
+          panels[Math.round(currentStart + currentCam.pos * totalCount)]
+        if (panel) {
+          panel.camera = currentCam.camera
+        }
       }
 
       cameraCount += 1

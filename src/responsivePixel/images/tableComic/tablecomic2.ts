@@ -946,7 +946,6 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
   let relArcEnd = 0
 
   let panelsLeft = totalPanelCount
-  let arcLength = mainSteps.length
 
   const panels = []
 
@@ -978,7 +977,7 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
     var biggestArc
     var currentNr
 
-    arcLength = mainSteps.length
+    let arcLength = mainSteps.length
 
     while (arcLength) {
       if (forward) {

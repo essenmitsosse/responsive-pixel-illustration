@@ -15,6 +15,7 @@ time, mark, audio, video {
   padding: 0;
   border: 0;
   font-size: 100%;
+  font-weight: normal;
   font: inherit;
   vertical-align: baseline;
   text-decoration: none;
@@ -22,14 +23,17 @@ time, mark, audio, video {
 
 html {
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  font-size: 16px;
+  line-height: 1.4rem; }
 
 body {
-  background-color: #333;
+  background-color: #222;
   width: 100%;
   height: 100%;
   overflow-x: hidden;
-  /* this will style the thumb, ignoring the track */ }
+  /* this will style the thumb, ignoring the track */
+  font-family: "Avenir Next LT Pro", "Helvetica", "arial"; }
   body::-webkit-scrollbar {
     background-color: #222;
     width: 7px; }
@@ -49,7 +53,8 @@ canvas {
   height: 100%;
   background-color: #ccc;
   position: relative;
-  z-index: 10000; }
+  z-index: 10000;
+  background-color: #999; }
 
 div#main {
   width: 100%;
@@ -57,127 +62,42 @@ div#main {
   box-sizing: border-box;
   position: fixed; }
   .showcase div#main {
-    padding-right: 200px; }
+    padding-bottom: 4.4rem; }
     @media (max-device-width: 600px) {
       .showcase div#main {
         padding-right: 0; } }
-  .admin div#main {
-    padding-right: 20%;
-    padding-bottom: 200px; }
-    @media (max-device-width: 600px) {
-      .admin div#main {
-        display: none; } }
-  div#main.screenshot {
-    background-color: #fff; }
+  .withSliders div#main {
+    padding-right: 200px; }
 
 #mainAdmin {
   color: #ddd;
-  height: 100%;
-  font-family: Helvetica;
-  font-size: 14px;
-  line-height: 1.4em; }
+  height: 100%; }
   @media (max-device-width: 600px) {
     #mainAdmin {
       font-size: 18px;
       height: auto; } }
   #mainAdmin div#sidebar {
-    background-color: #333;
-    width: 200px;
-    right: 0;
-    border-left: 1px solid #000;
-    box-sizing: border-box;
-    padding-top: 20px;
-    position: absolute;
-    z-index: 10;
-    min-height: 100%;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none; }
-    @media (max-device-width: 600px) {
-      #mainAdmin div#sidebar {
-        display: none;
-        position: relative; } }
     #mainAdmin div#sidebar div.inner {
       float: left;
-      width: 100%; }
-    .admin #mainAdmin div#sidebar {
-      width: 20%; }
-      @media (max-device-width: 600px) {
-        .admin #mainAdmin div#sidebar {
-          width: 100%;
-          display: block;
-          padding-bottom: 100px;
-          position: relative;
-          float: left; } }
+      width: 100%;
+      padding-bottom: 10em; }
     #mainAdmin div#sidebar ul {
       padding-bottom: 20px;
       clear: both;
       float: left;
       width: 100%; }
-  #mainAdmin div#infobar {
-    background-color: #333;
-    position: fixed;
-    bottom: 0;
-    height: 200px;
-    width: 100%;
-    padding-right: 20%;
-    box-sizing: border-box;
-    border-top: 1px solid #000; }
-    @media (max-device-width: 600px) {
-      #mainAdmin div#infobar {
-        bottom: 0;
-        width: 100%;
-        height: auto;
-        position: fixed;
-        z-index: 20; } }
-    #mainAdmin div#infobar #serverLog {
-      float: left;
-      width: 70%;
-      height: 100%;
-      overflow-x: hidden;
-      /* this will style the thumb, ignoring the track */
-      padding: 20px;
-      box-sizing: border-box;
-      border-right: 1px solid #000; }
-      #mainAdmin div#infobar #serverLog::-webkit-scrollbar {
-        background-color: #222;
-        width: 7px; }
-      #mainAdmin div#infobar #serverLog::-webkit-scrollbar-thumb {
-        background-color: #444; }
-      @media (max-device-width: 600px) {
-        #mainAdmin div#infobar #serverLog {
-          display: none; } }
-    #mainAdmin div#infobar #connectionLog {
-      float: right;
-      width: 30%;
-      height: 100%;
-      overflow-x: hidden;
-      /* this will style the thumb, ignoring the track */
-      box-sizing: border-box;
-      border-left: 1px solid #000; }
-      #mainAdmin div#infobar #connectionLog::-webkit-scrollbar {
-        background-color: #222;
-        width: 7px; }
-      #mainAdmin div#infobar #connectionLog::-webkit-scrollbar-thumb {
-        background-color: #444; }
-      #mainAdmin div#infobar #connectionLog h1, #mainAdmin div#infobar #connectionLog div {
-        padding-left: 20px;
-        padding-right: 20px; }
-      #mainAdmin div#infobar #connectionLog h1 {
-        padding-top: 20px; }
-      @media (max-device-width: 600px) {
-        #mainAdmin div#infobar #connectionLog {
-          width: 100%;
-          height: auto;
-          bottom: 0;
-          z-index: 10000;
-          position: fixed;
-          background-color: #555; }
-          #mainAdmin div#infobar #connectionLog div {
-            display: none; } }
+
+#mainControls {
+  position: fixed;
+  top: 25px;
+  right: 225px;
+  width: 200px !important; }
 
 .red {
   color: #f00; }
@@ -216,17 +136,22 @@ h1 {
 
 .button {
   display: block;
-  background-color: #888;
-  color: #333;
-  position: relative;
-  border-radius: 3px;
-  padding: 5px 10px;
-  margin-bottom: 10px;
   cursor: pointer;
+  padding: 0.5rem 0;
+  border-radius: 3px;
+  background-color: #555;
   box-sizing: border-box;
-  width: 90%;
-  margin-left: 5%;
-  float: left; }
+  border: 2px solid #111;
+  border-top: none;
+  border-left: none;
+  font-weight: normal;
+  color: #bbb;
+  text-align: center; }
+  .button:hover, .button.current {
+    color: #fff;
+    background-color: #888; }
+    .button:hover strong, .button.current strong {
+      color: #fff; }
   .button:hover {
     background-color: #bbb; }
   .button:active {
@@ -250,32 +175,62 @@ h1 {
     color: #666;
     float: right;
     float: right;
-    font-size: 12px;
-    font-family: Courier; }
+    font-size: 1em;
+    font-family: Courier;
+    display: none; }
 
 #slides {
   color: #777;
-  font-weight: bold; }
+  font-weight: bold;
+  background-color: #222;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  padding: 0 !important;
+  z-index: 10000;
+  text-align: center; }
+  #slides:before {
+    content: "Bildauswahl: ";
+    font-weight: normal; }
   #slides li {
     clear: both;
-    padding: 0 5%;
-    cursor: pointer; }
-    #slides li:hover, #slides li.current {
-      color: #fff; }
-      #slides li:hover strong, #slides li.current strong {
-        color: #fff;
-        text-decoration: underline; }
-  #slides strong {
     display: inline-block;
-    float: right;
-    width: 80%;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    border-radius: 3px;
+    background-color: #555;
+    box-sizing: border-box;
+    border: 2px solid #111;
+    border-top: none;
+    border-left: none;
     font-weight: normal;
-    color: #bbb; }
+    color: #bbb;
+    text-align: center;
+    width: 6.14286%;
+    margin: 1rem 1%; }
+    #slides li:hover, #slides li.current {
+      color: #fff;
+      background-color: #888; }
+      #slides li:hover strong, #slides li.current strong {
+        color: #fff; }
+    #slides li:hover {
+      background-color: #bbb; }
+    #slides li:active {
+      background-color: #ddd;
+      color: #999; }
+    #slides li strong {
+      font-weight: normal; }
 
 #sliders {
   width: 100%;
   overflow: hidden;
-  background-color: #222; }
+  background-color: #222;
+  display: none;
+  position: fixed;
+  right: 0;
+  width: 200px !important; }
+  .withSliders #sliders {
+    display: block; }
   #sliders h2 {
     color: #aaa;
     text-transform: uppercase;
@@ -283,7 +238,7 @@ h1 {
     padding-top: 0.7em;
     margin-top: 1.4em;
     letter-spacing: 0.2em;
-    font-size: 13px;
+    font-size: 1em;
     background-color: #444;
     text-align: center;
     margin: 1.4em 2.5% 0;
@@ -295,7 +250,7 @@ h1 {
     border-top-left-radius: 3px;
     border-top-right-radius: 3px; }
   #sliders label {
-    font-size: 13px;
+    font-size: 1em;
     padding-left: 0.5em; }
 
 .slider {
@@ -363,25 +318,5 @@ input {
           margin-top: -10px; } }
       input[type=range]::-webkit-slider-thumb:hover {
         background-color: #fff; }
-
-img.screenshot {
-  width: 100%;
-  display: block;
-  position: relative;
-  top: 0;
-  left: 0; }
-  img.screenshot.fit {
-    width: auto;
-    margin: auto;
-    max-width: 100%;
-    max-height: 100%; }
-  img.screenshot.stretch {
-    height: 100%; }
-
-div.screenshot {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background-color: #000; }
 
 /*# sourceMappingURL=style.css.map */

@@ -26,7 +26,6 @@ dist-ssr
 *.sw?
 
 graph.*
-.sass-cache
 
 # TypeScript build output
 tsbuild

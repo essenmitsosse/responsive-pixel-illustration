@@ -145,12 +145,12 @@ var renderer = function( init, slide, createSlider ){
 		];
 
 	if( showPerson && createSlider ) {
-		createSlider.number( { niceName: "Person Count", 	valueName: "panelCount",	    defaultValue: 6, 	input: { min: 1, 	max: 20, step: 1 }, forceRedraw: true } );
-		createSlider.slider( { niceName: "Headsize", 		valueName: "head-size",		defaultValue: 0.5, 	input: { min: 0, max: 1, step: 0.01 } } );
-		createSlider.slider( { niceName: "Body Width", 		valueName: "body-width",	defaultValue: 0.5, 	input: { min: 0, max: 1, step: 0.01 } } );
-		createSlider.slider( { niceName: "Body Height", 	valueName: "body-height",	defaultValue: 0.75, input: { min: 0, max: 1, step: 0.01 } } );
-		createSlider.slider( { niceName: "Arm Length", 		valueName: "arm-length",	defaultValue: 0.5, 	input: { min: 0, max: 1, step: 0.01 } } );
-		createSlider.slider( { niceName: "Leg Length", 		valueName: "leg-length",	defaultValue: 0.5, 	input: { min: 0, max: 1, step: 0.01 } } );
+		createSlider.number( { niceName: "Personen Anzahl",	valueName: "panelCount",	    defaultValue: 6, 	input: { min: 1, 	max: 20, step: 1 }, forceRedraw: true } );
+		createSlider.slider( { niceName: "Kopfgröße", 		valueName: "head-size",		defaultValue: 0.5, 	input: { min: 0, max: 1, step: 0.01 } } );
+		createSlider.slider( { niceName: "Körper Breite", 	valueName: "body-width",	defaultValue: 0.5, 	input: { min: 0, max: 1, step: 0.01 } } );
+		createSlider.slider( { niceName: "Körper Höhe", 	valueName: "body-height",	defaultValue: 0.75, input: { min: 0, max: 1, step: 0.01 } } );
+		createSlider.slider( { niceName: "Arm Länge", 		valueName: "arm-length",	defaultValue: 0.5, 	input: { min: 0, max: 1, step: 0.01 } } );
+		createSlider.slider( { niceName: "Bein Länge", 		valueName: "leg-length",	defaultValue: 0.5, 	input: { min: 0, max: 1, step: 0.01 } } );
 	}
 
 	return {

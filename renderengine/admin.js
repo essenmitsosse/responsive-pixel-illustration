@@ -20,14 +20,14 @@ var Admin = function ( args ) {
 	this.sideBarDiv.appendChild( this.sideBarInnerDiv );
 	this.mainAdmin.appendChild( this.sideBarDiv );
 
-	// this.setupSlider();
-
-	// Setup sidebar content
-	this.setupBasicControls();
-	
 	if( this.showcase || this.admin ) {
 		this.setupSlides( args.slides );
 	}
+
+	// Setup sidebar content
+	this.setupBasicControls( args.hasRandom );
+
+	this.setupSlider();
 	
 	// Setup admin log
 	if ( args.admin && args.socket ) {
@@ -51,7 +51,7 @@ Admin.prototype.setupLog = function ( socket ) {
 	// socket.emit( "iAmAdmin" );
 
 	socket.on( "initMessageList", function ( data ) { 
-		serverLog.init( data );
+		serverLog.init( data ); 
 	} );
 
 	socket.on( "initClientList", function ( data ) {
@@ -71,7 +71,7 @@ Admin.prototype.setupSlides = function ( slides) {
 	while( count < l ) {
 
 		sideBarContentUl.addMessage( 
-			count + ". <strong>" + this.getSlideName( slides[ count ] ) + "</strong>",
+			"<strong>" + this.getSlideName( slides[ count ] ) + "</strong>",
 			count === currentSlide ? "current slideLink" : "slideLink",
 			this.getClicker( count )
 		);
@@ -96,7 +96,9 @@ Admin.prototype.setupSlider = function () {
 		slidersDivList = slidersDiv.list,
 		sliderObject = {},
 		sliderValues = {},
+		hasSliders = false,
 		getSliderControl = this.getSliderControlGetter(),
+		body = document.getElementsByTagName("body")[0],
 		getBasicWrapper = function ( objects, name, labelName ) {
 			var wrap = document.createElement( "li" ),
 				innerWrap = document.createElement( "div" ),
@@ -121,6 +123,12 @@ Admin.prototype.setupSlider = function () {
 			wrap.appendChild( innerWrap );
 			slidersDivList.appendChild( wrap );
 				
+		},
+		activateSliders = function () {
+			if ( !hasSliders ) {
+				hasSliders = true;
+				body.className = [ body.className, "withSliders" ].join( " " );
+			}
 		};
 	
 	this.pixel.sliderObject = sliderObject;
@@ -136,28 +144,19 @@ Admin.prototype.setupSlider = function () {
 				// sliderId = "slider-" + args.valueName,
 				key;
 
+			activateSliders();
+
 			slider.setAttribute( "type", "range" );
 
 			for( key in args.input ) {
 				slider.setAttribute( key, args.input[ key ] );
 			}
 
-			// slider.setAttribute( "list", sliderId );
+			if( !args.dontShow  ) {
+				getBasicWrapper( [ slider, /* datalist, */ span ], "slider", args.niceName );
+				sliderObject[ args.valueName ] = getSliderControl.slider( slider, span, args );
+			}
 
-			// dataList.setAttribute( "id", sliderId );
-
-			// option1 = document.createElement( "option" );
-			// option2 = document.createElement( "option" );
-			
-			// option1.innerHTML = 0;
-			// option2.innerHTML = 1;
-
-			// dataList.appendChild( option1 );
-			// dataList.appendChild( option2 );
-
-			getBasicWrapper( [ slider, /* datalist, */ span ], "slider", args.niceName );
-
-			sliderObject[ args.valueName ] = getSliderControl.slider( slider, span, args );
 			sliderValues[ args.valueName ] = args.defaultValue;
 		},
 
@@ -289,15 +288,14 @@ Admin.prototype.getSliderControlGetter = function () {
 	};
 };
 
-Admin.prototype.setupBasicControls = function () {
-	var	sideBarContentDiv = new this.List( { id: "mainControls", container: this.sideBarInnerDiv, atBeginning: true } ),
+Admin.prototype.setupBasicControls = function ( hasRandom ) {
+	var	sideBarContentDiv = new this.List( { id: "mainControls", container: this.sideBarInnerDiv } ),
 		createButton = this.getButtonCreater( sideBarContentDiv );
 
-	if( this.showcase || this.admin ) {
-
-		createButton( { text: "◀", functionName: "nextSlide", args: false, className: "important slideControl narrow newrow" } );
-		createButton( { text: "▶︎︎", functionName: "nextSlide", args: true, className: "important slideControl narrow" } );	
-	}	
+	// if( this.showcase || this.admin ) {
+	// 	createButton( { text: "◀", functionName: "nextSlide", args: false, className: "important slideControl narrow newrow" } );
+	// 	createButton( { text: "▶︎︎", functionName: "nextSlide", args: true, className: "important slideControl narrow" } );	
+	// }	
 
 	// createButton( {
 	// 	text : "",
@@ -307,7 +305,9 @@ Admin.prototype.setupBasicControls = function () {
 	// });
 
 	// createButton( { text: "Fullscreen <span class='shortcut'>CTRL+F</span>", functionName: "makeFullScreen", args: undefined } );
-	// createButton( { text: "Random Image <span class='shortcut'>CTRL+R</span>", functionName: "getNewId", args: undefined } );
+	if( hasRandom ) {
+		createButton( { text: "Zufallsgenerator <span class='shortcut'>CTRL+R</span>", functionName: "getNewId", args: undefined } );
+	}
 
 };
 

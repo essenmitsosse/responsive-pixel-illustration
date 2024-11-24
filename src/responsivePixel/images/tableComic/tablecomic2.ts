@@ -179,7 +179,7 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
     posX: 0.1,
     posY: 0,
   }
-  const mainSteps: ReadonlyArray<Step> = [
+  const mainStepsPre: ReadonlyArray<Step> = [
     {
       // - - -  START step 0 - - - - - - - - - - - - - SITTING
       list: {
@@ -1069,28 +1069,26 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
   let count
   let panelCount = 0
   let current
-  let removePanels
-
-  let panelsLeft = totalPanelCount
 
   const panels = []
 
-  const totalArcLength = mainSteps
+  const totalArcLength = mainStepsPre
     .map((step) => step.lengthAbs)
     .reduce(getSumForReduce, 0)
 
-  mainSteps.forEach((step) => {
-    step.relLength = step.lengthAbs / totalArcLength
-
-    step.absFloatLength = totalPanelCount * step.relLength
-    step.absLength = Math.round(step.absFloatLength)
-    if (step.absLength <= 0) {
-      step.absLength = 1
+  const mainSteps = mainStepsPre.map((step) => {
+    const relLength = step.lengthAbs / totalArcLength
+    return {
+      ...step,
+      absLength: Math.max(1, Math.round(totalPanelCount * relLength)),
     }
-    panelsLeft -= step.absLength
   })
 
-  removePanels = panelsLeft > 0 ? 1 : -1
+  let panelsLeft =
+    totalPanelCount -
+    mainSteps.map((step) => step.absLength).reduce(getSumForReduce, 0)
+
+  const removePanels = panelsLeft > 0 ? 1 : -1
 
   while (panelsLeft) {
     let arcStart = 0

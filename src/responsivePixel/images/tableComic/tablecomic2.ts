@@ -1066,11 +1066,8 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
       priority: 12,
     }, // - - -  END step 4 - - - - - - - - - - - - -
   ]
-  let count
   let panelCount = 0
   let current
-
-  const panels = []
 
   const totalArcLength = mainStepsPre
     .map((step) => step.lengthAbs)
@@ -1139,11 +1136,15 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
   // Main
   // relPosition
 
-  count = 0
+  const panels: Array<{
+    main: Step
+    arc: number
+    relPosition: number
+    camera?: any
+    dontRender?: boolean
+  }> = []
 
-  while (count < mainSteps.length) {
-    current = mainSteps[count]
-
+  mainSteps.forEach((current, count) => {
     const totalCount = current.absLength
     let innerCount = 0
     const { cameras } = current
@@ -1184,9 +1185,7 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
 
       cameraCount += 1
     }
-
-    count += 1
-  }
+  })
 
   panels[0].relPosition = 0
 

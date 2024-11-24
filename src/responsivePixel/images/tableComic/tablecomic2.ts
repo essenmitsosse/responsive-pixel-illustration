@@ -26,7 +26,7 @@ TableComic.prototype.getStory = function getStory() {
 }
 
 TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
-  totalPanelCount,
+  totalPanelCount: number,
 ) {
   const actor0StandUp = 0.1
   const { stage } = this
@@ -940,7 +940,6 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
   ]
   let count
   let panelCount = 0
-  let totalArcLength = 0
   let current
   let removePanels
 
@@ -951,31 +950,23 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
 
   const panels = []
 
-  // get the total Length of all Story Arcs
-  count = 0
-  while (count < arcLength) {
-    mainSteps[count].endLengthAbs = totalArcLength += mainSteps[count].lengthAbs
-    count += 1
-  }
+  const totalArcLength = mainSteps.reduce(
+    (accumulator, step) => accumulator + step.lengthAbs,
+    0,
+  )
 
-  // get the relative Length for each Arc
-  count = 0
+  mainSteps.forEach((step) => {
+    step.relLength = step.lengthAbs / totalArcLength
+    step.relStart = relArcEnd
+    step.relEnd = relArcEnd += step.relLength
 
-  count = 0
-  while (count < arcLength) {
-    mainSteps[count].relLength = mainSteps[count].lengthAbs / totalArcLength
-    mainSteps[count].relStart = relArcEnd
-    mainSteps[count].relEnd = relArcEnd += mainSteps[count].relLength
-
-    mainSteps[count].absFloatLength =
-      totalPanelCount * mainSteps[count].relLength
-    mainSteps[count].absLength = Math.round(mainSteps[count].absFloatLength)
-    if (mainSteps[count].absLength <= 0) {
-      mainSteps[count].absLength = 1
+    step.absFloatLength = totalPanelCount * step.relLength
+    step.absLength = Math.round(step.absFloatLength)
+    if (step.absLength <= 0) {
+      step.absLength = 1
     }
-    panelsLeft -= mainSteps[count].absLength
-    count += 1
-  }
+    panelsLeft -= step.absLength
+  })
 
   removePanels = panelsLeft > 0 ? 1 : -1
 

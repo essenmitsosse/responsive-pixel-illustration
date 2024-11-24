@@ -805,15 +805,6 @@ InitPixel.prototype.require = {
 		"scripts/builder-old/init-panels.js",
 	],
 
-	Comic: [
-		"scripts/comicBuilder/comic.js",
-		"scripts/comicBuilder/comic-world.js",
-		"scripts/comicBuilder/comic-actors.js",
-		"scripts/comicBuilder/comic-actor.js",
-		"scripts/comicBuilder/comic-background.js",
-		"scripts/comicBuilder/finish.js",
-	],
-
 	turnaround: [
 		"scripts/betterBuilder/bb.js",
 		"scripts/betterBuilder/rotation.js",
@@ -823,18 +814,6 @@ InitPixel.prototype.require = {
 		"scripts/betterBuilder/person-lowerBody.js",
 
 		"scripts/betterBuilder/init.js",
-	],
-
-	table: [
-		"scripts/tableComic/main.js",
-		"scripts/tableComic/strip.js",
-		"scripts/tableComic/stage.js",
-		"scripts/tableComic/actor.js",
-		"scripts/tableComic/accessoir.js",
-
-		"scripts/tableComic/tablecomic-1.js",
-
-		"scripts/tableComic/init.js",
 	],
 
 	table2: [

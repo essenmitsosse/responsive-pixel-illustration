@@ -1071,8 +1071,6 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
   let current
   let removePanels
 
-  let relArcEnd = 0
-
   let panelsLeft = totalPanelCount
 
   const panels = []
@@ -1083,8 +1081,6 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
 
   mainSteps.forEach((step) => {
     step.relLength = step.lengthAbs / totalArcLength
-
-    relArcEnd += step.relLength
 
     step.absFloatLength = totalPanelCount * step.relLength
     step.absLength = Math.round(step.absFloatLength)

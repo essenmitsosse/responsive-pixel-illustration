@@ -1,3 +1,4 @@
+import getSumForReduce from '../../../lib/getSumForReduce'
 import TableComic from './TableComic'
 
 // BEGINN getTableComic /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
@@ -949,10 +950,9 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
 
   const panels = []
 
-  const totalArcLength = mainSteps.reduce(
-    (accumulator, step) => accumulator + step.lengthAbs,
-    0,
-  )
+  const totalArcLength = mainSteps
+    .map((step) => step.lengthAbs)
+    .reduce(getSumForReduce, 0)
 
   mainSteps.forEach((step) => {
     step.relLength = step.lengthAbs / totalArcLength

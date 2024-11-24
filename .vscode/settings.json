@@ -1,15 +1,15 @@
 {
-	"editor.rulers": [80],
-	"editor.minimap.maxColumn": 80,
-	"eslint.format.enable": true,
-	"typescript.preferences.importModuleSpecifier": "non-relative",
-	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	"css.customData": [".vscode/cssCustom.json"],
-	"editor.quickSuggestions": {
-		"strings": true
-	},
-	"files.associations": {
-		"*.xml": "html",
-		"*.svg": "html"
-	}
+  "editor.rulers": [80],
+  "editor.minimap.maxColumn": 80,
+  "eslint.format.enable": true,
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "css.customData": [".vscode/cssCustom.json"],
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "files.associations": {
+    "*.xml": "html",
+    "*.svg": "html"
+  }
 }

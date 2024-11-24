@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": " http-server -p 8000",
+    "play": "playwright test",
     "prettier": "prettier --write .",
     "prettierCheck": "prettier --check ."
   },
@@ -19,6 +20,12 @@
   },
   "homepage": "https://github.com/essenmitsosse/responsive-pixel-illustration#readme",
   "dependencies": {
+    "playwright": "^1.49.0",
     "prettier": "^3.3.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^22.9.3",
+    "http-server": "^14.1.1"
   }
 }

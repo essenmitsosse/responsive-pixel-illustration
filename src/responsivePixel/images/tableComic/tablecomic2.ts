@@ -1133,7 +1133,6 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
     }
 
     mainSteps[biggestArc].absLength += removePanels
-    mainSteps[biggestArc].absFloatLength += removePanels
 
     panelsLeft -= removePanels
   }

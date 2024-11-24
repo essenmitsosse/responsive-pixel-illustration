@@ -1,0 +1,136 @@
+"use strict";
+var renderer = function(){
+	var help = helper,
+		getSmallerDim = help.getSmallerDim,
+		getBiggerDim = help.getBiggerDim,
+		mult = help.mult,
+		sub = help.sub,
+
+		white = [255,255,255],
+		water = [36,44,53],
+		waterLight = [74,81,88],
+		ground = [72,71,68],
+		groundDark = [65,54,57],
+		tree = [100,118,64],
+		treeShadow = [90,90,53],
+		treeLight = [113,132,78],
+		treeBackground = [49,45,35],
+		fruit = [123,35,35],
+		fruitShadow = [60,30,30],
+		trunk = [82,76,68],
+		trunkShadow = [74,58,58],
+		skin = [193,180,163],
+		skinWater = [69,74,79],
+		skinShadow = [162,146,129],
+		eyes = [111,94,83],
+		border = [111,67,29],
+		borderDetailColor = [123,87,35],
+		shorts = [139,146,154],
+		shortsWater = [60,68,77],
+
+		c1 = [255,0,0],
+		c2 = [0,255,0],
+		c3 = [0,0,255],
+		c4 = [255,255,0],
+		c5 = [0,255,255],
+		c5 = [255,0,255],
+		c6 = [255,255,255],
+		c7 = [0,0,0],
+
+		i = 0,
+
+		// Variables
+		linkList = [],
+
+		linkListPush = function ( obj ) {
+			linkList.push( obj );
+
+			return obj;
+		},
+
+		sXMain = linkListPush( { main: true } ),
+		sYMain = linkListPush( { main: true, height: true } ),
+
+		fullRect = linkListPush( linkListPush( { add:[ sXMain ], max: sYMain } ) ),
+		borderSX = linkListPush( mult(0.05, fullRect) ),
+		borderDetail = linkListPush( mult(0.08, fullRect) ),
+		borderBottomDetail = linkListPush( mult(0.06, fullRect) ),
+		borderBottomMargin = linkListPush( [ {r:.5}, mult(-.5, borderDetail) ] ),
+		frameDetailSize = linkListPush( [borderSX, -2] ),
+
+		motiveSX = linkListPush( { add:[ { r:1 }, mult(-2,borderSX) ] } ),
+		motiveSY = linkListPush( [ {r:1, height:true}, mult(-2,borderSX) ] ),
+
+		motiveSqu = linkListPush( getSmallerDim({ r:1, useSize:[ motiveSX, motiveSY ] }) ),
+		motiveSquBigger = linkListPush( getBiggerDim({ r:1, useSize:[ motiveSX, motiveSY ] }) ),
+
+		// End Variables
+
+		borderEdgeTop = [
+			{},
+			{ m:1, color:borderDetailColor, list:[
+				{ s:{r:.7} },
+				{ s:{r:.3}, fX:true, fY:true }
+			] }
+		],
+
+		borderEdgeBottom = [
+			{},
+			{ m:1, color:borderDetailColor }
+		],
+
+		borderVert = [
+			{},
+			{ stripes:{ gap:1, strip:frameDetailSize }, sY:frameDetailSize, color:borderDetailColor, sX:{r:.5}, cY:true },
+			{ stripes:{ gap:1, strip:frameDetailSize }, sY:frameDetailSize, color:borderDetailColor, sX:{r:.5}, fX:true, cY:true },
+			{ x:1, stripes:{ gap:frameDetailSize, strip:1 }, sY:[frameDetailSize,-1], sX:{r:.5}, cY:true },
+			{ x:[sub(frameDetailSize),2], stripes:{ gap:frameDetailSize, strip:1 }, sY:[frameDetailSize,-1], sX:{r:.5}, cY:true, fX:true },
+		],
+
+		borderHor = [
+			{ },
+			{ stripes:{ gap:1, strip:frameDetailSize, horizontal:true }, sX:frameDetailSize, color:borderDetailColor, cX:true },
+			{ y:1, stripes:{ gap:frameDetailSize, strip:1, horizontal:true }, sX:frameDetailSize,  mX:1,  cX:true }
+		],
+
+		renderList = [
+			// Image
+			{ m:borderSX, list:[
+				{
+					color:[255,0,0]
+				}
+			] },
+
+			{ sY:borderSX, color:border, list:borderVert },
+			{ sY:borderSX, fY:true, color:border, rY:true, list:borderVert },
+			{ sX:borderSX, color:border, list:borderHor },
+			{ sX:borderSX, fX:true, color:border, rX:true, list:borderHor },
+
+			{ s:borderDetail, color:border, list:borderEdgeTop },
+			{ s:borderDetail, color:border, fX:true, rX:true, list:borderEdgeTop },
+
+			{ s:borderBottomDetail, color:border, list:borderEdgeBottom, fY:true },
+			{ s:borderBottomDetail, color:border, list:borderEdgeBottom, fY:true, fX:true, rX:true },
+
+			{ sY:borderBottomDetail, color:border, mX:borderBottomMargin, list:[
+				{},
+				{ m:1, color:borderDetailColor }
+			] },
+			{ sY:borderBottomDetail, color:border, mX:borderBottomMargin, fY:true, list:[
+				{},
+				{ m:1, color:borderDetailColor, list:[
+					{ sX:1},
+					{ sX:1, fX:true }
+				] }
+			] },
+		],
+
+
+		backgroundColor = [31,29,29];
+
+	return {
+		renderList : renderList, 
+		linkList : linkList,
+		background: backgroundColor
+	};
+};

@@ -1,0 +1,484 @@
+"use strict";
+var renderer = function(){
+	var help = helper,
+		getSmallerDim = help.getSmallerDim,
+		getBiggerDim = help.getBiggerDim,
+		mult = help.mult,
+		sub = help.sub,
+
+		white = [255,255,255],
+		water = [36,44,53],
+		waterLight = [74,81,88],
+		ground = [72,71,68],
+		groundDark = [65,54,57],
+		tree = [100,118,64],
+		treeShadow = [90,90,53],
+		treeLight = [113,132,78],
+		treeBackground = [49,45,35],
+		fruit = [123,35,35],
+		fruitShadow = [60,30,30],
+		trunk = [82,76,68],
+		trunkShadow = [74,58,58],
+		skin = [193,180,163],
+		skinWater = [69,74,79],
+		skinShadow = [162,146,129],
+		eyes = [111,94,83],
+		border = [111,67,29],
+		borderDetailColor = [123,87,35],
+		shorts = [139,146,154],
+		shortsWater = [60,68,77],
+
+		c1 = [255,0,0],
+		c2 = [0,255,0],
+		c3 = [0,0,255],
+		c4 = [255,255,0],
+		c5 = [0,255,255],
+		c5 = [255,0,255],
+		c6 = [255,255,255],
+		c7 = [0,0,0],
+
+		i = 0,
+
+		// Variables
+		linkList = [],
+
+		linkListPush = function ( obj ) {
+			linkList.push( obj );
+
+			return obj;
+		},
+
+		sXMain = linkListPush( { main: true } ),
+		sYMain = linkListPush( { main: true, height: true } ),
+
+		fullRect = linkListPush( linkListPush( { add:[ sXMain ], max: sYMain } ) ),
+		borderSX = linkListPush( mult(0.05, fullRect) ),
+		borderDetail = linkListPush( mult(0.08, fullRect) ),
+		borderBottomDetail = linkListPush( mult(0.06, fullRect) ),
+		borderBottomMargin = linkListPush( [ {r:.5}, mult(-.5, borderDetail) ] ),
+		frameDetailSize = linkListPush( [borderSX, -2] ),
+
+		motiveSX = linkListPush( { add:[ { r:1 }, mult(-2,borderSX) ] } ),
+		motiveSY = linkListPush( [ {r:1, height:true}, mult(-2,borderSX) ] ),
+
+		motiveSqu = linkListPush( getSmallerDim({ r:1, useSize:[ motiveSX, motiveSY ] }) ),
+		motiveSquBigger = linkListPush( getBiggerDim({ r:1, useSize:[ motiveSX, motiveSY ] }) ),
+
+		restSX = linkListPush( [motiveSX,sub(motiveSqu)] ),
+		restSXSuper = linkListPush( { add:[restSX, mult(-.5,motiveSqu)], min:{a:0} } ),
+		restSXMega = linkListPush( { add:[restSX, mult(-1.5,motiveSqu)], min:{a:0} } ),
+
+		restSY = linkListPush( [motiveSY,sub(motiveSqu)] ),
+		restSYSuper = linkListPush( { add:[restSY, mult(-.5,motiveSqu)], min:{a:0} } ),
+		restSYMega = linkListPush( { add:[restSY, mult(-1.5,motiveSqu)], min:{a:0} } ),
+
+		restSquBigger = linkListPush( getBiggerDim({ r:1, useSize:[restSX,restSY] }) ),
+
+		squary = linkListPush( { add:[motiveSqu,sub(restSquBigger)], min:{a:0} } ),
+		squarySuper = linkListPush(  { add:[squary, mult(-.5,motiveSqu)], min:{a:0} } ),
+
+		// IMAGE
+		groundSY = linkListPush( { r:.3, useSize:motiveSY } ),
+		waterSY = linkListPush( { r:.9, a:-1, useSize:groundSY } ),
+
+		islandSX = linkListPush( { add:[mult(.4, motiveSX ), mult( .8, motiveSY) ], max:{r:.8, useSize:motiveSX} } ),
+		islandSY = linkListPush( mult( .4, waterSY ) ),
+		islandBottom = linkListPush( mult( .25, groundSY) ),
+
+		tantalosSize = linkListPush( { add:[ mult(.2,motiveSqu), mult(.05,motiveSquBigger) ] } ),
+		tantalosFromRight = linkListPush( { r:.5, useSize:islandSX, add:[sub(tantalosSize)], min:{ r:.1, useSize:islandSX} } ),
+
+		tantalosBottom = linkListPush( {r:.45, useSize:islandSY, a:-1, min:1 } ),
+		tantalosBottomFull = linkListPush( [ tantalosBottom, islandBottom ] ),
+
+		armMinSize = linkListPush( mult(.6,tantalosSize) ),
+
+		armSX = linkListPush( { add:[mult(.1,restSX),mult(-.1,restSY),armMinSize], min:1 } ),
+		armSY = linkListPush( { add:[mult(.1,restSY),mult(-.1,restSX),armMinSize], min:1 } ),
+
+		armSmallestDim = linkListPush( getSmallerDim( {r:1, useSize:[armSX,armSY]}) ),
+		armBiggestDim = linkListPush( getBiggerDim( {r:1, useSize:[armSX,armSY]}) ),
+
+		tantalosSX = linkListPush( [mult(.5,armSX),tantalosSize ] ),
+		tantalosSY = linkListPush( [mult(.5,armSY),tantalosSize ] ),
+
+		tantalosFromLeft = linkListPush( [motiveSX,sub(tantalosSX),sub(tantalosFromRight)] ),
+
+		tantalosSquare = linkListPush( getSmallerDim({ r:1, useSize:[tantalosSX,tantalosSY] }) ),
+		tantalosSquareBigger = linkListPush( getBiggerDim({ r:1, useSize:[tantalosSX,tantalosSY] }) ),
+
+		tantalosSXRest = linkListPush( [tantalosSX, sub(tantalosSquare)] ),
+		tantalosSYRest = linkListPush( [tantalosSY, sub(tantalosSquare)] ),
+
+		tantalosFromTop = linkListPush( [ motiveSY, sub(tantalosSY), sub(tantalosBottomFull) ] ),
+
+		// HEAD
+		headSY = linkListPush( {r:.3, useSize:tantalosSquareBigger, min:4} ),
+		headSX = linkListPush( {r:.2, useSize:tantalosSquareBigger, min:3} ),
+		headLeft = linkListPush( { r:-1, useSize:tantalosSXRest, min:mult(-.5, headSX) } ),
+		headBottom = linkListPush( mult(.3,tantalosSXRest) ),
+		headTop = linkListPush( [tantalosFromTop,sub(headSY),headBottom] ),
+
+		neckPos = linkListPush( {r:.1, useSize:headSX } ),
+
+		// ARM
+		armWeight = linkListPush( mult(.05, armSmallestDim, 1) ),
+
+		armMin = linkListPush( mult(2,armWeight) ),
+		handSX = linkListPush( { add:[ armMin, mult(.15, armSX) ] } ),
+		handSY = linkListPush( { add:[ armMin, mult(.15, armSY) ] } ),
+		handSqu = linkListPush( getBiggerDim({ r:1, useSize:[handSX,handSY] }) ),
+
+		fingerSX = linkListPush( handSqu ),
+		fingerSY = linkListPush( mult(.4,fingerSX) ),
+
+		fingerFromRight = linkListPush( [ tantalosFromRight, tantalosSX, armSX, handSX ] ),
+		fingerFromBottom = linkListPush( [ tantalosBottomFull, tantalosSY, armSY, handSY ] ),
+
+		handRight = linkListPush( [ motiveSX, sub(fingerFromRight), mult(-.2, handSX, -1) ] ),
+		handBottom = linkListPush( [ motiveSY, sub(fingerFromBottom), mult(-.2, handSX, -1) ] ),
+
+		fruitRight = linkListPush( { add:[handRight,mult(.1,restSY)], max:mult(1.5,tantalosFromLeft) } ),
+		fruitBottom = linkListPush( { add:[handBottom,mult(.1,restSX)], max:mult(1.2,tantalosFromTop) } ),
+
+		leaveSX = linkListPush( mult( .1, motiveSX ) ),
+
+		fruitSize = linkListPush( { r:.5, useSize:handSqu, min:2 } ),
+
+		branchSmall = linkListPush( { r:.015, min:1, useSize:motiveSqu} ),
+		branchMedium = linkListPush( { r:.02, min:1, useSize:motiveSqu} ),
+		branchBig = linkListPush( { r:.04, min:2, useSize:motiveSqu} ),
+
+		leavesSX = linkListPush( {r:.8, useSize: fruitRight, max:{r:1, otherDim:true} } ),
+		leavesSY = linkListPush( { r:.2, useSize: fruitBottom, min:[fruitSize,2]} ),
+		branchSX = linkListPush( { r:1, useSize: leavesSX } ),
+		branchSY = linkListPush( { r:1, useSize:leavesSY, min:{r:.5, useSize:branchSX} } ),
+
+		// End Variables
+
+
+
+		treeLeaves = function() {
+			i += 1;
+			return [
+				{ color:treeShadow, stripes:{ strip:2, random:{r:.4} } },
+				{ use:"trees"+i },
+				{ use:"treeSpots"+i, color:treeLight, chance:.2 },
+				{ use:"trees"+i, color:fruit, s:2, chance:.02 },
+				{ use:"trees"+i, s:5, chance:.3, mask:true, save:"treeSpots"+i },
+				{ sY:{r:.9, a:-3}, stripes:{ strip:2, random:{r:.3} }, save:"trees"+i },
+			]
+		},
+
+		borderEdgeTop = [
+			{},
+			{ m:1, color:borderDetailColor, list:[
+				{ s:{r:.7} },
+				{ s:{r:.3}, fX:true, fY:true }
+			] }
+		],
+
+		borderEdgeBottom = [
+			{},
+			{ m:1, color:borderDetailColor }
+		],
+
+		borderVert = [
+			{},
+			{ stripes:{ gap:1, strip:frameDetailSize }, sY:frameDetailSize, color:borderDetailColor, sX:{r:.5}, cY:true },
+			{ stripes:{ gap:1, strip:frameDetailSize }, sY:frameDetailSize, color:borderDetailColor, sX:{r:.5}, fX:true, cY:true },
+			{ x:1, stripes:{ gap:frameDetailSize, strip:1 }, sY:[frameDetailSize,-1], sX:{r:.5}, cY:true },
+			{ x:[sub(frameDetailSize),2], stripes:{ gap:frameDetailSize, strip:1 }, sY:[frameDetailSize,-1], sX:{r:.5}, cY:true, fX:true },
+		],
+
+		borderHor = [
+			{ },
+			{ stripes:{ gap:1, strip:frameDetailSize, horizontal:true }, sX:frameDetailSize, color:borderDetailColor, cX:true },
+			{ y:1, stripes:{ gap:frameDetailSize, strip:1, horizontal:true }, sX:frameDetailSize,  mX:1,  cX:true }
+		],
+
+		leg = [
+			{},
+			{ sY:armWeight, tX:true, fY:true, fX:true, sX:getSmallerDim({r:.6, useSize:[tantalosSY,tantalosSX] }), list:[
+				{},
+				{ fX:true, fY:true, tY:true, sX:armWeight }
+			] }
+		],
+
+		branches = [ // Trunks
+			{ sY:branchBig, fY: true },
+			{ sX:branchMedium, sY:{r:2}, fY: true, fX: true },
+			{ sX:branchMedium, sY:{r:1.5}, y:{r:.4, a:1}, fY: true, fX: true , color: trunkShadow },
+			{ sY:branchSmall, color:trunkShadow, sX:{r:.6, max:{r:.6, otherDim:true}}, y:{r:.2}, fX:true },
+			{ sY:branchSmall, color:trunkShadow, sX:{r:.6, max:{r:.6, otherDim:true}}, y:{r:.5}, fX: true, tX: true },
+
+			{ sX:branchMedium, sY:{r:2}, fY: true, x:{r:.2, a:1} },
+			{ sX:branchMedium, sY:{r:1.5}, y:{r:.3, a:1}, fY: true, x:{r:.2, a:1}, color: trunkShadow },
+			{ sY:branchSmall, color:trunkShadow, sX:{r:.5, max:{r:.5, otherDim:true}}, y:{r:.3}, x:{r:.2, a:1} },
+			{ sY:branchSmall, color:trunkShadow, sX:{r:.8, max:{r:.8, otherDim:true}}, y:{r:.5}, x:{r:.2, a:1}, tX: true },
+		],
+
+		tantalos = function( real ) {
+			var shortsColor = real ? shorts : shortsWater,
+			 	eyesColor = real ? eyes : skinWater;
+
+			return [
+				{ color:[255,0,0]},
+				// Arm to Fruit
+				{ sX:armSX, sY:armSY, x:1, y:1, tY:true, tX:true, list:[
+					{ name:"Line", weight:armWeight, points:[
+						{},
+						{ fY:true, fX:true }
+					]},
+					{ sX:[handSX], sY:[handSY], x:armWeight, y:armWeight, tX:true, tY:true }
+				]},
+
+				// Body
+				{ sY:{r:.4, min:3}, list:[
+					{ points:[
+						{},
+						{ x:{r:.4}},
+						{ fX:true, fY:true },
+						{ x:{r:.4}, fX:true, fY:true },
+						{ y:{r:.2}}
+					]},
+
+					{ sY:1, sX:headSX, mX:neckPos,  x:[ neckPos, headLeft], },
+
+					// Head
+					{ sX:headSX, sY:headSY, tY:true, x:headLeft, y:headBottom, list:[
+						{},
+						{ color:skinShadow, sY:{r:.17, min:1}, fY:true },
+						{ color:skinShadow, sX:{r:.17, min:1}, sY:{r:.4}, fY:true },
+						{ color:skinShadow, sX:{r:.17, min:1}, sY:{r:.4}, fY:true, fX:true },
+
+						// Mouth
+						{ color: eyesColor, mX:{r:.1}, sY:{r:.2}, y:{r:.15}, fY:true, list:[
+							{ sY:{r:.75, min:1 }, mX:1 },
+							{ sX:{r:.33}, sY:{r:1, a:-1}, fY:true },
+							{ sX:{r:.33}, sY:{r:1, a:-1}, fY:true, fX:true }
+						] },
+
+						// Eyes
+						{ color: eyesColor, sY:1, y:{r:.2}, sX:{r:.55, min:3}, x:{r:.2}, list:[
+							{ sX:{r:.3, min:1} },
+							{ sX:{r:.3, min:1}, fX:true }
+						] },
+
+
+					] },
+				] },
+
+				// Legs
+				{ sX:{r:.4}, fX:true, sY:{r:.6}, fY:true, list:[
+					{ sX:armWeight, sY:{r:.7}, list:leg },
+					{ sX:armWeight, fX:true, list:leg },
+					{ sY:{r:.2}, list:[
+						{ sY:{r:1, a:1}, y:-1 },
+						{ fY:true, sY:1, color:shortsColor }
+					] },
+					{ stripes:{ random:{r:-.4}, }, y:{r:.2}, mX:{r:.3}, sY:{r:.6},  color:shortsColor }
+				] },
+
+				// Arm on Ground
+				{ sX:armWeight, x:{r:.4}, list:[
+					{ sY:{r:1, a:-1}, y:1, list:[
+						{
+							weight: 1,
+							points:[
+								{},
+								{ x:{ r:0.2, otherDim: true}, y:{r:0.5}},
+								{fY:true }
+							]
+						}
+					] },
+					{ fY:true, sY:fingerSY, sX:fingerSX, tX:true, list: [
+						{ stripes:{ horizontal: true, change:{r:-0.4} }, fX:true, fY: true }
+					] },
+				] },
+			];
+
+		},
+
+		renderList = [
+			// Image
+			{ m:borderSX, list:[
+				// Ground
+				{ fY:true, sY:groundSY, list:[
+					
+					// Water					
+					{ fY:true, sY:waterSY, list:[
+						{ use:"water4", color:water },
+						{ use:"water4", color:waterLight, chance:.02 },
+						{ save:"water4" },
+
+						{ use:"water5", color:water },
+						{ use:"water5", color:waterLight, chance:2, sX:3 },
+						{ sY:1, save:"water5"},
+					]},
+
+					{ use:"water3", color:water },
+					{ use:"water3", color:waterLight, chance:.03, sX:2 },
+					{ fY:true, sY:mult(.8,waterSY), save:"water3" },
+
+					{ use:"water2", color:water },
+					{ use:"water2", color:waterLight, chance:.05, sX:6 },
+					{ fY:true, sY:mult(.5,waterSY), save:"water2" },
+
+					{ use:water, color:water },
+
+					{ color:ground, sY:islandSY, fY:true, y:islandBottom, sX:islandSX, fX:true, list:[
+						// Tantalos Reflection
+						{ color: skinWater, sX:tantalosSX, sY:tantalosSY, x:tantalosFromRight, y:[tantalosBottom,sub(tantalosSY),5], rY:true, fY:true, fX:true, list:tantalos() },
+					]},
+
+					{ use:water, color:waterLight, chance:.07, sX:15 },
+					{ fY:true, sY:mult(.3,waterSY), save:water },
+
+					// Shore
+					{ color:ground, sY:{r:1, add:[sub(waterSY)]}, list:[
+						{},
+						{ color: groundDark, fY:true, sY:1 }
+					] },
+				] },
+
+
+			// 	// Tree Background
+			// 	{ use:treeBackground, color:treeBackground },
+			// 	{ use:treeBackground, color:fruitShadow, chance:.01 },
+			// 	{ sY:{r:.75}, stripes:{ strip:1, random:{r:-.1}, change:{r:-.6} }, save:treeBackground,fX:true  },
+			// 	{ sY:{r:.7}, stripes:{ strip:1, random:{r:-.2}, change:{r:-.8} }, save:treeBackground  },
+
+			// 	// Tree Right
+			// 	{ color:tree, sX:{ r:-.2, add:[tantalosFromRight, tantalosSX] }, sY:{ r:.8, add:[sub(groundSY)] }, fX:true,  list:[
+			// 		{ list:branches, fY:true, tY:true, color:trunk, rX:true, sY:{r:.5}, sX:{r:.5}, fX:true },
+			// 		{ stripes:{ strip:{a:1, random:leaveSX}, random:{r:.2}, change:{r:-.4} }, fX:true, list:treeLeaves() }
+			// 	] },
+
+				// Island
+				{ color:ground, sY:islandSY, fY:true, y:islandBottom, sX:islandSX, fX:true, list:[
+					
+
+					{ use:ground },
+					{ use:ground, color:groundDark, chance:.02 },
+					{ save:ground, points:[
+						{ fX:true },
+						{ x:{r:.5}},
+						{ y:{r:.2}, x:{r:.2} },
+						{ y:{r:.5} },
+						{ y:{r:.8}, x:{r:.1 } },
+						{ y:{r:.1}, x:{r:.4}, fY:true}, 
+						{ fX:true, fY:true }
+					]},
+					{ name:"Line", color:groundDark, points:[
+						{ y:{r:.5} },
+						{ y:{r:.8}, x:{r:.1 } },
+						{ y:{r:.1}, x:{r:.4}, fY:true}, 
+						{ fX:true, fY:true }
+					]},
+					{ name:"Line", color:waterLight, points:[
+						{ y:{r:.5, a:1} },
+						{ y:{r:.8, a:1}, x:{r:.1 } },
+						{ y:{r:.1, a:-1}, x:{r:.4}, fY:true}, 
+						{ y:{a:-1}, fX:true, fY:true }
+					]},
+
+					// Tantalos
+					{ color: skin, sX:tantalosSX, sY:tantalosSY, x:tantalosFromRight, y:tantalosBottom, fY:true, fX:true, list:tantalos(true) },
+				] },
+
+
+
+				// Fruit Tree
+				{ sX:fruitRight, sY:fruitBottom, list:[
+
+					{ color:[0,255,0]},
+					// Leaves
+					{ color:tree, fY:true, fX:true, sY: leavesSY, sX:leavesSX, list:[
+						// Branch
+						{ color:trunk, fX:true, x:{r:.5}, tY:true, sY:branchSY, sX:branchSX, list:[
+							{ sX:branchSmall, fX:true },
+							{ sY:branchSmall, sX:{r:.4}, fX:true, list:[
+								{},
+								{ sX:branchSmall, sY:{r:.5, a:1, useSize:branchSY}, list:[
+									{},
+									{ fX:true, fY:true, sY:branchMedium, sX:{r:.5, useSize:branchSX}, list:[
+										{},
+										{ color:trunkShadow, sX:{r:.5} },
+										{ fY:true, sX:branchMedium, sY:{r:2, useSize:branchSY}, color:trunkShadow }
+									] }
+								]}
+							] }
+						] },
+
+						// Leaves
+						{ use:"fruitTree" },
+						{ use:"fruitTreeSpots", color:treeLight, chance:.2 },
+						{ use:"fruitTree", s:4, chance:.3, mask:true, save:"fruitTreeSpots" },
+
+						{ sY:{r:.55}, list:[
+							{ stripes:{ strip:2, random:{r:.2}, change:{r:.4} }, fY:true, sX:{r:.55, a:2},save: "fruitTree" },
+							{ stripes:{ strip:2, random:{r:.2}, change:{r:.4} }, fY:true, sX:{r:.5}, fX:true, save: "fruitTree" },
+
+						] },
+						{ fY:true, sY:{r:.55}, list:[
+							{ stripes:{ strip:2, random:{r:.5}, change:{r:.8} }, sY:{a:1}, sX:{r:.55}, save: "fruitTree" },
+							{ stripes:{ strip:2, random:{r:.5}, change:{r:.8} }, sY:{a:1}, sX:{r:.55}, fX:true, save: "fruitTree" }
+						] },
+
+						// Fruits
+						{ color:fruit, s:fruitSize, c:true },
+
+					] },
+				] },
+
+			// 	// Tree Middle
+			// 	{ color:tree, sY:{ useSize:headTop, r:.33 }, stripes:{ strip:{a:1, random:leaveSX},  change:{r:-.1}, random:{r:.05, otherDim:true} }, list:treeLeaves(), fX:true },
+
+			// 	// Tree Left
+			// 	{ color:tree, sY:{ r:.6 }, sX:{ add:[ handRight ], r:-.1 }, list:[
+			// 		{ list:branches, fY:true, tY:true, color:trunk, sX:{r:.3}, sY:{r:.5}, y:{r:.2} },
+			// 		{ stripes:{ strip:{a:1, random:leaveSX}, change:{r:-1.2}, random:{r:.2} }, list:treeLeaves() },
+			// 	] },
+
+			// 	// Tree Right Right
+			// 	{ color:tree, sX:{ r:-.1, add:[tantalosFromRight, tantalosSX] }, sY:{ r:.15 }, fX:true, list:[
+			// 		{ list:branches, fY:true, tY:true, color:trunk, rX:true, sX:{r:.7}, fX:true },
+			// 		{ stripes:{ strip:{a:1, random:leaveSX}, random:{r:.2} }, list:treeLeaves() },
+			// 	] },
+				
+			] },
+
+			{ sY:borderSX, color:border, list:borderVert },
+			{ sY:borderSX, fY:true, color:border, rY:true, list:borderVert },
+			{ sX:borderSX, color:border, list:borderHor },
+			{ sX:borderSX, fX:true, color:border, rX:true, list:borderHor },
+
+			{ s:borderDetail, color:border, list:borderEdgeTop },
+			{ s:borderDetail, color:border, fX:true, rX:true, list:borderEdgeTop },
+
+			{ s:borderBottomDetail, color:border, list:borderEdgeBottom, fY:true },
+			{ s:borderBottomDetail, color:border, list:borderEdgeBottom, fY:true, fX:true, rX:true },
+
+			{ sY:borderBottomDetail, color:border, mX:borderBottomMargin, list:[
+				{},
+				{ m:1, color:borderDetailColor }
+			] },
+			{ sY:borderBottomDetail, color:border, mX:borderBottomMargin, fY:true, list:[
+				{},
+				{ m:1, color:borderDetailColor, list:[
+					{ sX:1},
+					{ sX:1, fX:true }
+				] }
+			] },
+		],
+
+
+		backgroundColor = [31,29,29];
+
+	return {
+		renderList : renderList, 
+		linkList : linkList,
+		background: backgroundColor
+	};
+};

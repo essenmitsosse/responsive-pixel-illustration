@@ -1,0 +1,9 @@
+"use strict";
+var renderer = function() {
+
+	return {
+		renderList : ???, 
+		linkList : ???,
+		background:  [160,200,200]
+	};
+};

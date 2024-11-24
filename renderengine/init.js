@@ -189,7 +189,7 @@ InitPixel.prototype.loadScript = function (callback, imageName) {
 		head = document.getElementsByTagName("head")[0];
 
 	script.type = "text/javascript";
-	script.src = "scripts/" + imageName + ".px";
+	script.src = "scripts/" + imageName + ".js";
 
 	script.onreadystatechange = callback;
 	script.onload = callback;

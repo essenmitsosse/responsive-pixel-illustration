@@ -2,7 +2,9 @@ import getSumForReduce from '../../../lib/getSumForReduce'
 import TableComic from './TableComic'
 
 // BEGINN getTableComic /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.getTableComic = function getTableComic(args) {
+TableComic.prototype.getTableComic = function getTableComic(args: {
+  panels: number
+}) {
   this.panel = new this.basic.Panel()
   this.story = new this.basic.getStory(args)
 
@@ -24,6 +26,131 @@ TableComic.prototype.getStory = function getStory() {
   this.stage = new this.basic.Stage()
   this.colors = new this.basic.getColorScheme()
   this.actorsList = new this.basic.getActors(this)
+}
+
+type Rotate = 0 | 90 | -90
+
+type SizeObj =
+  | number
+  | { obj: unknown; posX?: number; posY?: number }
+  | { angle: number }
+  | { target: SizeObj }
+type SizeVariable = number | { map: string; min: SizeObj; max: SizeObj }
+
+type Chair = {
+  start?: {
+    pos: SizeObj
+    rotate?: number
+    z?: number
+  }
+  end?: {
+    pos: { posX: any; posY: any }
+    rotate?: { relPos: number; value: number }
+  }
+}
+
+type Eye = {
+  pupilPosXrel?: SizeVariable
+  pupilPosYrel?: SizeVariable
+  eyeBrowMove?: SizeVariable | {}
+  pupilS?: SizeVariable
+  pupilPosX?: SizeVariable
+  pupilPosY?: SizeVariable
+  openSY?: SizeVariable
+  sY?: SizeVariable
+  a?: boolean
+}
+
+type Arm = {
+  pos: SizeVariable | SizeObj | { ellbow: boolean }
+  hand: SizeVariable | { angle?: number; target?: SizeObj }
+  flip?: boolean
+  x?: number
+  z?: number
+  maxStraight?: number
+}
+
+type Actor = {
+  start?: {
+    pos?: unknown
+    body: {
+      lean?: SizeVariable | { relPos: number; value: number }
+      side?: SizeVariable
+    }
+    eyes?: boolean | Eye
+    eyeLeft?: Eye
+    eyeRight?: Eye
+    mouth?: {
+      sY?: SizeVariable
+      sX?: SizeVariable
+      curveSY?: SizeVariable
+      posY?: SizeVariable
+      teethTopSY?: SizeVariable
+      teethBottomSY?: SizeVariable
+    }
+    armLeft: Arm
+    armRight: Arm
+    sitting?: boolean
+    rotate?: Rotate
+    z?: number
+  }
+  end?: any
+}
+
+type Emotion = {
+  start?: {
+    pos?: { obj?: any; posX?: number; posY?: number }
+    size?: number
+    right?: boolean
+    rotate?: Rotate
+    level?: SizeVariable
+    heart?: boolean
+    thunder?: boolean
+  }
+  end?: any
+}
+
+type Step = {
+  list: {
+    table: {
+      z?: number
+      pos?: SizeObj
+      rotate?: Rotate
+      level?: number
+    }
+    chair0: Chair
+    chair1: Chair
+    actor0: Actor
+    actor1: Actor
+    glass: {
+      pos?: SizeObj
+      rotate?: Rotate
+      start?: {
+        pos?: SizeObj
+        rotate?: Rotate
+        level: SizeVariable
+      }
+    }
+    emotion0?: Emotion
+    emotion1?: Emotion
+  }
+  cameras: {
+    minPanels: number
+    pos: number
+    camera: {
+      zoom: SizeVariable
+      focus: {
+        obj?: any
+        map?: string
+        min?: any
+        max?: any
+        posX?: number
+        posY?: number
+      }
+    }
+  }[]
+  lengthAbs: number
+  priority: number
 }
 
 TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
@@ -52,7 +179,7 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
     posX: 0.1,
     posY: 0,
   }
-  const mainSteps = [
+  const mainSteps: ReadonlyArray<Step> = [
     {
       // - - -  START step 0 - - - - - - - - - - - - - SITTING
       list: {

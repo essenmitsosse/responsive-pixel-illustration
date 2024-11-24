@@ -864,6 +864,13 @@ InitPixel.prototype.showcaseSlides = [
 		hasRandom: true,
 	},
 	{
+		name: "turnaround",
+		niceName: "Turnaround",
+		unchangeable: true,
+		sliders: true,
+		hasRandom: true,
+	},
+	{
 		name: "table2",
 		niceName: "Comic 2",
 		unchangeable: true,

@@ -889,4 +889,5 @@ InitPixel.prototype.showcaseSlides = [
 	{ name: "sparta", niceName: "Sparta", resizeable: true },
 	{ name: "trex", niceName: "T-Rex", resizeable: true },
 	{ name: "typo", niceName: "Typo", resizeable: true },
+	{ name: "random-distribution", niceName: "Random", resizeable: true },
 ];

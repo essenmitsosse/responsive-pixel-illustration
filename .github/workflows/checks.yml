@@ -20,6 +20,6 @@ jobs:
           node-version-file: ".nvmrc"
           cache: "npm"
       - name: Install NPM dependencies
-        run: CYPRESS_INSTALL_BINARY=0 npm ci --prefer-offline --ignore-scripts
+        run: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm ci --prefer-offline --ignore-scripts
       - name: Run Prettier
         run: npm run prettierCheck

@@ -1083,7 +1083,8 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
 
   mainSteps.forEach((step) => {
     step.relLength = step.lengthAbs / totalArcLength
-    step.relEnd = relArcEnd += step.relLength
+
+    relArcEnd += step.relLength
 
     step.absFloatLength = totalPanelCount * step.relLength
     step.absLength = Math.round(step.absFloatLength)

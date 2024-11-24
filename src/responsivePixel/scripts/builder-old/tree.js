@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import Builder from './builder'
 // TREE FAMILY
 Builder.prototype.TreeFamily = function (args) {

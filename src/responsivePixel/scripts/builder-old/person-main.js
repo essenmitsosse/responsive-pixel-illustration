@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import Builder from './builder'
 // PERSON --------------------------------------------------------------------------------
 Builder.prototype.Person = function (args) {

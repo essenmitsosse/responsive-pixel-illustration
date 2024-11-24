@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import Builder from './builder'
 // HEAD --------------------------------------------------------------------------------
 Builder.prototype.Head = function (args) {

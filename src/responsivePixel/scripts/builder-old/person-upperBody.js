@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import Builder from './builder'
 // UPPER BODY --------------------------------------------------------------------------------
 Builder.prototype.UpperBody = function (args) {

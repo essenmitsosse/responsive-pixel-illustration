@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": " http-server -p 8000",
     "play": "playwright test",
     "prettier": "prettier --write .",
     "prettierCheck": "prettier --check ."
@@ -24,6 +25,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.49.0",
-    "@types/node": "^22.9.3"
+    "@types/node": "^22.9.3",
+    "http-server": "^14.1.1"
   }
 }

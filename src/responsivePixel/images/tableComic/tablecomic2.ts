@@ -1190,7 +1190,11 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
     }
   })
 
-  panels[0].relPosition = 0
+  const [panelFirst] = panels
+
+  if (panelFirst !== undefined) {
+    panelFirst.relPosition = 0
+  }
 
   // Check if last displays the very end
   if (current.relPosition < 1) {

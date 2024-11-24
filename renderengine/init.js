@@ -862,7 +862,7 @@ InitPixel.prototype.showcaseSlides = [
 		unchangeable: true,
 		sliders: true,
 	},
-	{ name: "tantalos-2", niceName: "Tantalos", resizeable: true },
+	{ name: "tantalos", niceName: "Tantalos", resizeable: true },
 	{ name: "teiresias", niceName: "Teiresias", resizeable: true },
 	{ name: "brothers", niceName: "Brothers", resizeable: true },
 	{ name: "zeus", niceName: "Zeus", resizeable: true },

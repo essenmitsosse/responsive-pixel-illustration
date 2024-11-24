@@ -35,3 +35,5 @@ cypress/screenshotsComponentLocal
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+*-darwin.png

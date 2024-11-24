@@ -1,27 +1,31 @@
-module.exports = {
-  root: true,
-  env: {
-    node: true,
-    browser: true,
-  },
-  plugins: ['@typescript-eslint'],
-  extends: ['eslint:recommended', 'prettier'],
-  parserOptions: {
-    ecmaVersion: 2022,
-    sourceType: 'module',
-  },
-  overrides: [
-    // This makes sure typescript rules are only used for typescript files
-    // https://stackoverflow.com/questions/58510287/parseroptions-project-has-been-set-for-typescript-eslint-parser
-    {
-      files: ['*.ts', '*.vue'],
-      extends: [
-        'plugin:@typescript-eslint/recommended',
-        // "plugin:@typescript-eslint/recommended-requiring-type-checking",
-      ],
-      parserOptions: {
-        project: ['./tsconfig.json', './tsconfig.node.json'],
+import typescript from '@typescript-eslint/eslint-plugin'
+import prettier from 'eslint-config-prettier'
+import js from '@eslint/js'
+
+/** @type {ReadonlyArray<import('eslint').Linter.Config>} */
+const eslintConfig = [
+  {
+    rules: js.configs.recommended.rules,
+    languageOptions: {
+      globals: {
+        window: true,
       },
     },
-  ],
-}
+  },
+  prettier,
+  {
+    plugins: {
+      '@typescript-eslint': typescript,
+    },
+    files: ['*.ts', '*.vue'],
+    rules: {
+      ...typescript.configs['eslint-recommended'].rules,
+      // "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    },
+    parserOptions: {
+      project: ['./tsconfig.json', './tsconfig.node.json'],
+    },
+  },
+]
+
+export default eslintConfig

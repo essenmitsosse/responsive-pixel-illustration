@@ -1126,7 +1126,12 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
       arcLength -= 1
     }
 
-    mainSteps[biggestArc].absLength += removePanels
+    if (biggestArc !== undefined) {
+      const step = mainSteps[biggestArc]
+      if (step) {
+        step.absLength += removePanels
+      }
+    }
 
     panelsLeft -= removePanels
   }

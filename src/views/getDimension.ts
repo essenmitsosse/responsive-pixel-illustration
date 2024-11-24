@@ -23,7 +23,7 @@ const getPosClient = (axis: Axis, event: MouseEvent | TouchEvent): number => {
   return (
     (getIsMouseEvent(event)
       ? event[nameDimClient]
-      : event.touches[0][nameDimClient]) || 0
+      : event.touches?.[0]?.[nameDimClient]) || 0
   )
 }
 

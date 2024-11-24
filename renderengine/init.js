@@ -1,9 +1,9 @@
 "use strict";
 var InitPixel = function (args) {
 	var queryString = this.getQueryString(),
-		showcase = (this.showcase = queryString.showcase || true),
+		showcase = (this.showcase = true),
 		forceName = args.imageName || window.location.hash.substr(1),
-		slides = this.slides,
+		slides = showcase ? this.showcaseSlides : this.slides,
 		currentSlide = !forceName && slides[queryString.slide || 0],
 		imageName = forceName || currentSlide.name || "tantalos",
 		admin,
@@ -19,9 +19,13 @@ var InitPixel = function (args) {
 		body = document.getElementsByTagName("body")[0],
 		main = document.getElementById("main");
 
-	queryString.resizeable = true;
-	this.defaultValues = { isServer: true };
+	this.defaultValues = { isServer: false };
 	this.parent = queryString.admin || queryString.parent;
+
+	if (currentSlide.resizeable) {
+		queryString.resizeable = true;
+	}
+
 	// Admin
 	if (queryString.admin || showcase || sliders) {
 		admin = new window.Admin({
@@ -32,6 +36,7 @@ var InitPixel = function (args) {
 			slides: slides,
 			pixel: this,
 			socket: socket,
+			hasRandom: currentSlide.hasRandom || false,
 		});
 	}
 
@@ -267,12 +272,11 @@ InitPixel.prototype.getCallback = function (
 				imageFunction: imageFunction,
 				queryString: queryString,
 				pixelSize:
-					(queryString.p ||
-						currentSlide.p ||
+					(queryString.p || currentSlide.p || 7) * 1 +
+					(queryString.pAdd ||
 						imageFunction.recommendedPixelSize ||
-						5) *
-						1 +
-					(queryString.pAdd || 0) * 1,
+						0) *
+						1,
 				socket: socket,
 				sliderObject: that.sliderObject,
 				sliderValues: that.sliderValues,
@@ -774,14 +778,124 @@ InitPixel.prototype.getTimerAnimation = function () {
 	return getFrame;
 };
 
-InitPixel.prototype.require = {};
+InitPixel.prototype.require = {
+	persons_lessrandom: [
+		"scripts/builder/builder.js",
+		"scripts/builder/person-main.js",
+		"scripts/builder/person-lowerBody.js",
+		"scripts/builder/person-upperBody.js",
+		"scripts/builder/person-arm.js",
+		"scripts/builder/person-head.js",
+		"scripts/builder/tree.js",
+		"scripts/builder/comic.js",
 
-InitPixel.prototype.slides = [
-	{ name: "graien", niceName: "The Three Graeae" },
-	{ name: "tantalos", niceName: "Tantalos" },
-	{ name: "teiresias", niceName: "Teiresias" },
-	{ name: "brothers", niceName: "Brothers" },
-	{ name: "zeus", niceName: "Zeus" },
-	{ name: "argos", niceName: "The Argos" },
-	{ name: "sphinx", niceName: "The Sphinx" },
+		"scripts/builder/init.js",
+	],
+
+	panels: [
+		"scripts/builder-old/builder.js",
+		"scripts/builder-old/person-main.js",
+		"scripts/builder-old/person-lowerBody.js",
+		"scripts/builder-old/person-upperBody.js",
+		"scripts/builder-old/person-arm.js",
+		"scripts/builder-old/person-head.js",
+		"scripts/builder-old/tree.js",
+		"scripts/builder-old/comic.js",
+
+		"scripts/builder-old/init-panels.js",
+	],
+
+	Comic: [
+		"scripts/comicBuilder/comic.js",
+		"scripts/comicBuilder/comic-world.js",
+		"scripts/comicBuilder/comic-actors.js",
+		"scripts/comicBuilder/comic-actor.js",
+		"scripts/comicBuilder/comic-background.js",
+		"scripts/comicBuilder/finish.js",
+	],
+
+	turnaround: [
+		"scripts/betterBuilder/bb.js",
+		"scripts/betterBuilder/rotation.js",
+		"scripts/betterBuilder/person-main.js",
+		"scripts/betterBuilder/person-head.js",
+		"scripts/betterBuilder/person-upperBody.js",
+		"scripts/betterBuilder/person-lowerBody.js",
+
+		"scripts/betterBuilder/init.js",
+	],
+
+	table: [
+		"scripts/tableComic/main.js",
+		"scripts/tableComic/strip.js",
+		"scripts/tableComic/stage.js",
+		"scripts/tableComic/actor.js",
+		"scripts/tableComic/accessoir.js",
+
+		"scripts/tableComic/tablecomic-1.js",
+
+		"scripts/tableComic/init.js",
+	],
+
+	table2: [
+		"scripts/tableComic2/main.js",
+		"scripts/tableComic2/strip.js",
+		"scripts/tableComic2/stage.js",
+		"scripts/tableComic2/actor.js",
+		"scripts/tableComic2/actor-head.js",
+		"scripts/tableComic2/actor-arm.js",
+		"scripts/tableComic2/actor-legs.js",
+		"scripts/tableComic2/accessoir.js",
+
+		"scripts/tableComic2/tablecomic-1.js",
+		"scripts/tableComic2/tablecomic-2.js",
+
+		"scripts/tableComic2/init.js",
+	],
+};
+
+InitPixel.prototype.showcaseSlides = [
+	{
+		name: "graien",
+		niceName: "The Three Graeae",
+		resizeable: true,
+		unchangeable: true,
+		sliders: true,
+	},
+	{ name: "tantalos", niceName: "Tantalos", resizeable: true },
+	{ name: "teiresias", niceName: "Teiresias", resizeable: true },
+	{ name: "brothers", niceName: "Brothers", resizeable: true },
+	{ name: "zeus", niceName: "Zeus", resizeable: true },
+	{ name: "argos", niceName: "The Argos", resizeable: true },
+	{ name: "sphinx", niceName: "The Sphinx", resizeable: true },
+	{ name: "letter", niceName: "Letter", unchangeable: true, both: true },
+	{ name: "persons_lessrandom", niceName: "Trees", hasRandom: true },
+	{
+		name: "persons_lessrandom",
+		niceName: "Persons",
+		sliders: true,
+		showPerson: true,
+		hasRandom: true,
+	},
+	{
+		name: "panels",
+		niceName: "Panels",
+		unchangeable: true,
+		sliders: true,
+		hasRandom: true,
+	},
+	{
+		name: "table2",
+		niceName: "Comic 2",
+		unchangeable: true,
+		sliders: true,
+		hasRandom: true,
+	},
+	{ name: "relativity", niceName: "Relativity", resizeable: true },
+	{ name: "stripes", niceName: "Stripe", resizeable: true },
+	{ name: "stripes-2", niceName: "Stripe2", resizeable: true },
+	{ name: "landscape", niceName: "Landscape", resizeable: true, hasRandom: true, },
+	{ name: "sparta", niceName: "Sparta", resizeable: true },
+	{ name: "trex", niceName: "T-Rex", resizeable: true },
+	{ name: "typo", niceName: "Typo", resizeable: true },
 ];

@@ -226,36 +226,36 @@ var renderer = function( args, slide, createSlider ){
 				graienValues( graie2HeadHeight, b, 0.8 );
 			}
 
-			// if( c || d ) {
+			if( c || d ) {
 
-			// 	if ( c ) {
-			// 		graie1[ 0 ] = c * 227; 
-			// 		graie2[ 0 ] = c * 192;
-			// 		graie3[ 0 ] = c * 232;
-			// 	}
+				if ( c ) {
+					graie1[ 0 ] = c * 227; 
+					graie2[ 0 ] = c * 192;
+					graie3[ 0 ] = c * 232;
+				}
 
-			// 	if ( d ) {
-			// 		graie1[ 1 ] = d * 200;
-			// 		graie2[ 1 ] = d * 176; 
-			// 		graie3[ 1 ] = d * 204;  
-			// 	}
+				if ( d ) {
+					graie1[ 1 ] = d * 200;
+					graie2[ 1 ] = d * 176; 
+					graie3[ 1 ] = d * 204;  
+				}
 
-			// 	if ( c && d ) {
-			// 		graie1[ 2 ] = ( 0.5 + ( c * d ) * 0.5 ) * 190;
-			// 		graie2[ 2 ] = ( 0.5 + ( c * d ) * 0.5 ) * 133; 
-			// 		graie3[ 2 ] = ( 0.5 + ( c * d ) * 0.5 ) * 152;
-			// 	}
+				if ( c && d ) {
+					graie1[ 2 ] = ( 0.5 + ( c * d ) * 0.5 ) * 190;
+					graie2[ 2 ] = ( 0.5 + ( c * d ) * 0.5 ) * 133; 
+					graie3[ 2 ] = ( 0.5 + ( c * d ) * 0.5 ) * 152;
+				}
 
-			// 	graie1Shadow = shadow( graie1, graie1Shadow );
-			// 	graie1Detail = detail( graie1, graie1Detail );
+				graie1Shadow = shadow( graie1, graie1Shadow );
+				graie1Detail = detail( graie1, graie1Detail );
 
-			// 	graie2Shadow = shadow( graie2, graie2Shadow );
-			// 	graie2Detail = detail( graie2, graie2Detail );
+				graie2Shadow = shadow( graie2, graie2Shadow );
+				graie2Detail = detail( graie2, graie2Detail );
 
-			// 	graie3Shadow = shadow( graie3, graie3Shadow );
-			// 	graie3Detail = detail( graie3, graie3Detail );
+				graie3Shadow = shadow( graie3, graie3Shadow );
+				graie3Detail = detail( graie3, graie3Detail );
 			
-			// }		
+			}		
 		},
 
 		getShadow = function ( nr ) { return nr === 1 ? graie1Shadow : nr === 2 ? graie2Shadow : graie3Shadow; },
@@ -990,23 +990,23 @@ var renderer = function( args, slide, createSlider ){
 			]},
 		];
 
-	if( createSlider ) {
-		// createSlider.title( { title: "Graeae" } );
-		// createSlider.slider( { niceName: "Thickness", 		valueName: "a",	defaultValue: 0.5, 	input: { min: 0, max: 1, step: 0.01 } } );
-		// createSlider.slider( { niceName: "Headsize",	valueName: "b",	defaultValue: 0.5, 	input: { min: 0, max: 1, step: 0.01 } } );
+	// if( createSlider ) {
+	// 	createSlider.title( { title: "Graien" } );
+	// 	createSlider.slider( { niceName: "Dicke", 		valueName: "a",	defaultValue: 0.5, 	input: { min: 0, max: 1, step: 0.01 } } );
+	// 	createSlider.slider( { niceName: "Kopfgröße",	valueName: "b",	defaultValue: 0.5, 	input: { min: 0, max: 1, step: 0.01 } } );
 		
-		// createSlider.title( { title: "Farbe" } );
-		// createSlider.slider( { niceName: "Farbe 1", 	valueName: "c",	defaultValue: 1, 	input: { min: 0, max: 1, step: 0.01 } } );
-		// createSlider.slider( { niceName: "Farbe 2", 	valueName: "d",	defaultValue: 1, 	input: { min: 0, max: 1, step: 0.01 } } );
-	}
+	// 	// createSlider.title( { title: "Farbe" } );
+	// 	// createSlider.slider( { niceName: "Farbe 1", 	valueName: "c",	defaultValue: 1, 	input: { min: 0, max: 1, step: 0.01 } } );
+	// 	// createSlider.slider( { niceName: "Farbe 2", 	valueName: "d",	defaultValue: 1, 	input: { min: 0, max: 1, step: 0.01 } } );
+	// }
 
 	return {
 		renderList : renderList,
 		background: background,
 		linkList : linkList,
-		// hover: hover,
-		// changeValueSetter: function () {
-		// 	setValue = helper.setValueNew;
-		// }
+		hover: hover,
+		changeValueSetter: function () {
+			setValue = helper.setValueNew;
+		}
 	};
 };

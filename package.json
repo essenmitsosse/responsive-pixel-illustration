@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "play": "playwright test",
     "prettier": "prettier --write .",
     "prettierCheck": "prettier --check ."
   },

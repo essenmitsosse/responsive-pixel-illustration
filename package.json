@@ -1,0 +1,11 @@
+{
+  "name": "Pixel",
+  "version": "0.1.0",
+  "description": "pixel app",
+  "main": "io-server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Marcus",
+  "license": "ISC"
+}

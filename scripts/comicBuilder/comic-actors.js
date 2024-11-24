@@ -141,7 +141,6 @@ Comic.prototype.Actors.prototype = {
 				useSize: actorsMaxDistance,
 				min: 1,
 			}),
-
 			(actor1PosX = { r: this.actor1.posX_, useSize: actorsMaxDistance }),
 			(actor2PosX = [
 				actorsMaxDistance,

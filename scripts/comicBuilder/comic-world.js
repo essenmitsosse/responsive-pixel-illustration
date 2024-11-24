@@ -99,7 +99,6 @@ Comic.prototype.World.prototype = {
 			// Stage Position
 			(stageDoubleX = { add: [args.sX, { r: -1, useSize: stageSX }] }),
 			(stageDoubleY = { add: [args.sY, { r: -1, useSize: stageSY }] }),
-
 			(stageCenterX = { r: 0.5, useSize: stageDoubleX }),
 			(stageCenterY = { r: 0.5, useSize: stageDoubleY }),
 		);

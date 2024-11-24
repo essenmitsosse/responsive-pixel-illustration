@@ -251,7 +251,6 @@ Comic.prototype.Actor.prototype = {
 				{ r: this.topHeadSY_, useSize: headSY }),
 			(this.bottomHeadSY = bottomHeadSY =
 				[headSY, { r: -1, useSize: topHeadSY }]),
-
 			(faceSX = { r: this.faceSX, useSize: sX }),
 		);
 

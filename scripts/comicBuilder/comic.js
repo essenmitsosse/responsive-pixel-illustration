@@ -145,7 +145,6 @@ Comic.prototype.Strip = function Strip(args) {
 		(smallesPanelSquare = { add: [smallesPanelSX], max: smallesPanelSY }),
 		(borderS = { r: 0.03, useSize: smallesPanelSquare }),
 		(subBorderS = { r: -2, useSize: borderS }),
-
 		// Find smalles Stage
 		(stageSmallestMaxSX = [smallesPanelSX, subBorderS]),
 		(stageSmallestMaxFullSY = [smallesPanelSY, subBorderS]),

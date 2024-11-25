@@ -1,13 +1,23 @@
 {
-  "name": "my-vue-app-ts",
+  "name": "responsive-pixel-illustration-ts",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/essenmitsosse/responsive-pixel-illustration.git"
+  },
+  "author": "Marcus Blättermann <marcus@essenmitsosse.de>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/essenmitsosse/responsive-pixel-illustration/issues"
+  },
+  "homepage": "https://github.com/essenmitsosse/responsive-pixel-illustration#readme",
   "devDependencies": {
     "typescript": "~5.6.2",
     "vite": "^6.0.1"

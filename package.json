@@ -20,7 +20,7 @@
   "homepage": "https://github.com/essenmitsosse/responsive-pixel-illustration#readme",
   "devDependencies": {
     "@playwright/test": "^1.49.0",
-    "@types/node": "^22.9.3",
+    "@types/node": "^22.9.4",
     "http-server": "^14.1.1",
     "playwright": "^1.49.0",
     "prettier": "^3.3.3"

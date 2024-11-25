@@ -878,8 +878,7 @@ InitPixel.prototype.showcaseSlides = [
 		hasRandom: true,
 	},
 	{ name: "relativity", niceName: "Relativity", resizeable: true },
-	{ name: "stripes-1", niceName: "Stripe1", resizeable: true },
-	{ name: "stripes-2", niceName: "Stripe2", resizeable: true },
+	{ name: "stripes", niceName: "Stripe", resizeable: true },
 	{
 		name: "landscape",
 		niceName: "Landscape",

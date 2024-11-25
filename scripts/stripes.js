@@ -31,53 +31,55 @@ var renderer = function (args, init, createSlider) {
 			add: [width, -count],
 			min: [height, -count],
 		}),
-		stripMaxSX = linkListPush({ r: 1, useSize: biggerSide }),
 		singleSY = linkListPush({ r: 1 / count, useSize: smallerSide }),
 		innerSingleSY = linkListPush({ add: [singleSY, -2] }),
-		stripSX_ = 0.2,
-		stripSX = linkListPush({ r: 0.2, useSize: innerSingleSY }),
-		whiteSX = linkListPush({
-			add: [innerSingleSY, { r: -2, useSize: stripSX }],
+		stripMinSX = singleSY,
+		stripMaxSX = biggerSide,
+		stripRealRelSX = linkListPush({ r: 1, useSize: biggerSide }),
+		stripRealSX = linkListPush({ add: [stripRealRelSX], min: stripMinSX }),
+		redSX_ = 0.2,
+		redSXrel = linkListPush({ r: redSX_, useSize: stripRealSX }),
+		redSXabs = linkListPush({ r: redSX_, useSize: stripMinSX }),
+		redSXmin = redSXabs,
+		redSXmax = linkListPush({ r: redSX_, useSize: stripMaxSX }),
+		redSXminMaxDiff = linkListPush({
+			a: 100,
+			add: [
+				{ add: [redSXrel, { r: -1, useSize: redSXmin }, -100], min: 0 },
+			],
 		}),
+		redSXa = redSXrel,
+		redSXb = linkListPush([redSXabs, redSXminMaxDiff]),
 		versions = function (size) {
 			return [
 				[
 					{ color: white },
-					{ color: red, sX: { r: stripSX_ } },
-					{ color: red, sX: { r: stripSX_ }, fX: true },
+					{ color: red, sX: redSXa },
+					{ color: red, sX: redSXa, fX: true },
 				],
 				[
 					{ color: white },
-					{ color: red, sX: stripSX },
-					{ color: red, sX: stripSX, fX: true },
+					{ color: red, sX: redSXb },
+					{ color: red, sX: redSXb, fX: true },
 				],
-				[{ color: red }, { color: white, sX: whiteSX, cX: true }],
-				[
-					{ color: white },
-					{
-						stripes: { strip: [whiteSX, stripSX] },
-						list: [{ sX: stripSX, color: red }],
-					},
-				],
-				[
-					{ color: [0, 255, 0] },
-					{
-						color: red,
-						sX: { r: 0.3, min: { r: 4, useSize: innerSingleSY } },
-					},
-					{
-						color: white,
-						x: stripSX,
-						sX: {
-							add: [
-								{ r: 0.4, useSize: innerSingleSY },
-								{ r: 0.4, useSize: size },
-								-20,
-							],
-							min: whiteSX,
-						},
-					},
-				],
+				// [
+				// 	{ color: red },
+				// 	{ color: white, sX: whiteSX, cX: true }
+				// ],
+				// [
+				// 	{ color: white },
+				// 	{
+				// 		stripes: { strip: [ whiteSX, stripSX ] },
+				// 		list: [
+				// 			{ sX: stripSX, color: red },
+				// 		]
+				// 	}
+				// ],
+				// [
+				// 	{ color: [ 0,255,0] },
+				// 	{ color: red, sX: { r: 0.3, min: { r: 4, useSize: innerSingleSY } } },
+				// 	{ color: white, x: stripSX, sX: { add: [ { r: 0.4, useSize: innerSingleSY }, { r: 0.4, useSize: size }, -20 ], min: whiteSX } }
+				// ],
 			];
 		},
 		sizes = (function (count) {
@@ -85,11 +87,7 @@ var renderer = function (args, init, createSlider) {
 				obj = {};
 
 			while (i < count) {
-				obj["s" + i] = linkListPush({
-					r: 0,
-					useSize: stripMaxSX,
-					min: singleSY,
-				});
+				obj["s" + i] = stripRealSX;
 				i += 1;
 			}
 
@@ -149,7 +147,7 @@ var renderer = function (args, init, createSlider) {
 	// 	letterSquare
 	// );
 
-	pushChanger(0, 1, "master", stripMaxSX);
+	pushChanger(0, 1, "master", stripRealRelSX);
 	if (createSlider) {
 		createSlider.slider({
 			niceName: "Steifen Master",
@@ -157,20 +155,6 @@ var renderer = function (args, init, createSlider) {
 			defaultValue: 1,
 			input: { min: 0, max: 1, step: 0.01 },
 		});
-	}
-
-	var i = 0;
-	while (i < count) {
-		pushChanger(0, 1, "stripSX" + i, sizes["s" + i]);
-		if (createSlider) {
-			createSlider.slider({
-				niceName: "Streifen " + i + " Breite",
-				valueName: "stripSX" + i,
-				defaultValue: 0,
-				input: { min: 0, max: 1, step: 0.01 },
-			});
-		}
-		i += 1;
 	}
 
 	// console.log( serifeSX_ );

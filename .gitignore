@@ -31,3 +31,9 @@ tsbuild
 
 # default Cypress screenshots (automated screenshots are in a separate folder)
 cypress/screenshotsComponentLocal
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+*-darwin.png

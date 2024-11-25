@@ -18,13 +18,11 @@
     "url": "https://github.com/essenmitsosse/responsive-pixel-illustration/issues"
   },
   "homepage": "https://github.com/essenmitsosse/responsive-pixel-illustration#readme",
-  "dependencies": {
-    "playwright": "^1.49.0",
-    "prettier": "^3.3.3"
-  },
   "devDependencies": {
     "@playwright/test": "^1.49.0",
     "@types/node": "^22.9.3",
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "playwright": "^1.49.0",
+    "prettier": "^3.3.3"
   }
 }

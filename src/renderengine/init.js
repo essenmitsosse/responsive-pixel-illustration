@@ -189,7 +189,7 @@ InitPixel.prototype.loadScript = function (callback, imageName) {
 		head = document.getElementsByTagName("head")[0];
 
 	script.type = "text/javascript";
-	script.src = "scripts/" + imageName + ".js";
+	script.src = "src/scripts/" + imageName + ".js";
 
 	script.onreadystatechange = callback;
 	script.onload = callback;
@@ -780,56 +780,56 @@ InitPixel.prototype.getTimerAnimation = function () {
 
 InitPixel.prototype.require = {
 	persons_lessrandom: [
-		"scripts/builder/builder.js",
-		"scripts/builder/person-main.js",
-		"scripts/builder/person-lowerBody.js",
-		"scripts/builder/person-upperBody.js",
-		"scripts/builder/person-arm.js",
-		"scripts/builder/person-head.js",
-		"scripts/builder/tree.js",
-		"scripts/builder/comic.js",
+		"src/scripts/builder/builder.js",
+		"src/scripts/builder/person-main.js",
+		"src/scripts/builder/person-lowerBody.js",
+		"src/scripts/builder/person-upperBody.js",
+		"src/scripts/builder/person-arm.js",
+		"src/scripts/builder/person-head.js",
+		"src/scripts/builder/tree.js",
+		"src/scripts/builder/comic.js",
 
-		"scripts/builder/init.js",
+		"src/scripts/builder/init.js",
 	],
 
 	panels: [
-		"scripts/builder-old/builder.js",
-		"scripts/builder-old/person-main.js",
-		"scripts/builder-old/person-lowerBody.js",
-		"scripts/builder-old/person-upperBody.js",
-		"scripts/builder-old/person-arm.js",
-		"scripts/builder-old/person-head.js",
-		"scripts/builder-old/tree.js",
-		"scripts/builder-old/comic.js",
+		"src/scripts/builder-old/builder.js",
+		"src/scripts/builder-old/person-main.js",
+		"src/scripts/builder-old/person-lowerBody.js",
+		"src/scripts/builder-old/person-upperBody.js",
+		"src/scripts/builder-old/person-arm.js",
+		"src/scripts/builder-old/person-head.js",
+		"src/scripts/builder-old/tree.js",
+		"src/scripts/builder-old/comic.js",
 
-		"scripts/builder-old/init-panels.js",
+		"src/scripts/builder-old/init-panels.js",
 	],
 
 	turnaround: [
-		"scripts/betterBuilder/bb.js",
-		"scripts/betterBuilder/rotation.js",
-		"scripts/betterBuilder/person-main.js",
-		"scripts/betterBuilder/person-head.js",
-		"scripts/betterBuilder/person-upperBody.js",
-		"scripts/betterBuilder/person-lowerBody.js",
+		"src/scripts/betterBuilder/bb.js",
+		"src/scripts/betterBuilder/rotation.js",
+		"src/scripts/betterBuilder/person-main.js",
+		"src/scripts/betterBuilder/person-head.js",
+		"src/scripts/betterBuilder/person-upperBody.js",
+		"src/scripts/betterBuilder/person-lowerBody.js",
 
-		"scripts/betterBuilder/init.js",
+		"src/scripts/betterBuilder/init.js",
 	],
 
 	table2: [
-		"scripts/tableComic2/main.js",
-		"scripts/tableComic2/strip.js",
-		"scripts/tableComic2/stage.js",
-		"scripts/tableComic2/actor.js",
-		"scripts/tableComic2/actor-head.js",
-		"scripts/tableComic2/actor-arm.js",
-		"scripts/tableComic2/actor-legs.js",
-		"scripts/tableComic2/accessoir.js",
+		"src/scripts/tableComic2/main.js",
+		"src/scripts/tableComic2/strip.js",
+		"src/scripts/tableComic2/stage.js",
+		"src/scripts/tableComic2/actor.js",
+		"src/scripts/tableComic2/actor-head.js",
+		"src/scripts/tableComic2/actor-arm.js",
+		"src/scripts/tableComic2/actor-legs.js",
+		"src/scripts/tableComic2/accessoir.js",
 
-		"scripts/tableComic2/tablecomic-1.js",
-		"scripts/tableComic2/tablecomic-2.js",
+		"src/scripts/tableComic2/tablecomic-1.js",
+		"src/scripts/tableComic2/tablecomic-2.js",
 
-		"scripts/tableComic2/init.js",
+		"src/scripts/tableComic2/init.js",
 	],
 };
 

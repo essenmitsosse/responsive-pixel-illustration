@@ -61,7 +61,7 @@ jobs:
           path: playwright-report/
           retention-days: 30
       - name: Commit updated screenshots
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         id: commit-screenshots
         with:
           commit_message: |

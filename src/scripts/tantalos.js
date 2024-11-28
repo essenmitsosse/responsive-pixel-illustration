@@ -1,7 +1,7 @@
 import { helper as helperGlobal } from "../renderengine/helper.js";
 
 /* global helper */
-window.tantalos = function () {
+export default function () {
 	var help = helperGlobal,
 		getSmallerDim = help.getSmallerDim,
 		getBiggerDim = help.getBiggerDim,
@@ -1049,4 +1049,4 @@ window.tantalos = function () {
 		linkList: linkList,
 		background: backgroundColor,
 	};
-};
+}

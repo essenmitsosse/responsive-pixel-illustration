@@ -1,6 +1,6 @@
 import { helper } from "../renderengine/helper.js";
 
-window["random-distribution"] = function (init) {
+export default function (init) {
 	var help = helper,
 		getSmallerDim = help.getSmallerDim,
 		getBiggerDim = help.getBiggerDim,
@@ -98,4 +98,4 @@ window["random-distribution"] = function (init) {
 		linkList: linkList,
 		background: backgroundColor,
 	};
-};
+}

@@ -14,7 +14,6 @@ export const InitPixel = function (args) {
 		canvasDataList = false, // change for multiple Canvases
 		canvasRenderer = this.createSingleCanvas(canvasDataList, div),
 		callback,
-		require = this.require[imageName],
 		body = document.getElementsByTagName("body")[0],
 		main = document.getElementById("main");
 
@@ -48,11 +47,7 @@ export const InitPixel = function (args) {
 		this.info(queryString),
 	);
 
-	if (require) {
-		this.loadMultipleScripts(callback, imageName, require);
-	} else {
-		this.loadScript(callback, imageName);
-	}
+	loadScript(callback, currentSlide);
 
 	this.getDocumentTitle(imageName, queryString);
 	window.onkeydown = this.getShortcuts(queryString);
@@ -181,32 +176,10 @@ InitPixel.prototype.createSingleCanvas = function (canvasData, div) {
 	};
 };
 
-InitPixel.prototype.loadScript = function (callback, imageName) {
-	import(`../scripts/${imageName}.js`).then(callback);
-};
-
-InitPixel.prototype.loadMultipleScripts = function (
-	callback,
-	imageName,
-	require,
-) {
-	var l = require.length,
-		count = 0,
-		loadFile = this.loadFile,
-		loadNext = function () {
-			if (count === l) {
-				callback();
-			} else {
-				loadFile(require[count], loadNext);
-				count += 1;
-			}
-		};
-
-	loadNext();
-};
-
-InitPixel.prototype.loadFile = function (importCallback, onLoadFunction) {
-	importCallback().then(onLoadFunction);
+export const loadScript = function (callback, currentSlide) {
+	currentSlide.import().then((imageImport) => {
+		callback(imageImport.default);
+	});
 };
 
 // Create the Callback Function, when the script is loaded
@@ -219,10 +192,8 @@ InitPixel.prototype.getCallback = function (
 	info,
 ) {
 	var that = this;
-	return function callback() {
-		var ImageFunction = window[imageName] || window.renderer, // use Function of the given imageName if it exists, else use the standard renderer
-			imageFunction,
-			renderObject;
+	return function callback(ImageFunction) {
+		var imageFunction, renderObject;
 
 		if (ImageFunction) {
 			if (that.createSlider) {
@@ -709,35 +680,68 @@ InitPixel.prototype.getTimerAnimation = function () {
 	return getFrame;
 };
 
-InitPixel.prototype.require = {
-	persons_lessrandom: [() => import("../scripts/builder/init.js")],
-
-	panels: [() => import("../scripts/builder-old/init-panels.js")],
-
-	turnaround: [() => import("../scripts/betterBuilder/init.js")],
-
-	table2: [() => import("../scripts/tableComic2/init.js")],
-};
-
 InitPixel.prototype.showcaseSlides = [
 	{
 		name: "graien",
 		niceName: "The Three Graeae",
+		import: () => import("../scripts/graien.js"),
 		resizeable: true,
 		unchangeable: true,
 		sliders: true,
 	},
-	{ name: "tantalos", niceName: "Tantalos", resizeable: true },
-	{ name: "teiresias", niceName: "Teiresias", resizeable: true },
-	{ name: "brothers", niceName: "Brothers", resizeable: true },
-	{ name: "zeus", niceName: "Zeus", resizeable: true },
-	{ name: "argos", niceName: "The Argos", resizeable: true },
-	{ name: "sphinx", niceName: "The Sphinx", resizeable: true },
-	{ name: "letter", niceName: "Letter", unchangeable: true, both: true },
-	{ name: "persons_lessrandom", niceName: "Trees", hasRandom: true },
+	{
+		name: "tantalos",
+		niceName: "Tantalos",
+		import: () => import("../scripts/tantalos.js"),
+		resizeable: true,
+	},
+	{
+		name: "teiresias",
+		niceName: "Teiresias",
+		import: () => import("../scripts/teiresias.js"),
+		resizeable: true,
+	},
+	{
+		name: "brothers",
+		niceName: "Brothers",
+		import: () => import("../scripts/brothers.js"),
+		resizeable: true,
+	},
+	{
+		name: "zeus",
+		niceName: "Zeus",
+		import: () => import("../scripts/zeus.js"),
+		resizeable: true,
+	},
+	{
+		name: "argos",
+		niceName: "The Argos",
+		import: () => import("../scripts/argos.js"),
+		resizeable: true,
+	},
+	{
+		name: "sphinx",
+		niceName: "The Sphinx",
+		import: () => import("../scripts/sphinx.js"),
+		resizeable: true,
+	},
+	{
+		name: "letter",
+		niceName: "Letter",
+		import: () => import("../scripts/letter.js"),
+		unchangeable: true,
+		both: true,
+	},
+	{
+		name: "persons_lessrandom",
+		niceName: "Trees",
+		import: () => import("../scripts/builder/init.js"),
+		hasRandom: true,
+	},
 	{
 		name: "persons_lessrandom",
 		niceName: "Persons",
+		import: () => import("../scripts/builder/init.js"),
 		sliders: true,
 		showPerson: true,
 		hasRandom: true,
@@ -745,6 +749,7 @@ InitPixel.prototype.showcaseSlides = [
 	{
 		name: "panels",
 		niceName: "Panels",
+		import: () => import("../scripts/builder-old/init-panels.js"),
 		unchangeable: true,
 		sliders: true,
 		hasRandom: true,
@@ -752,6 +757,7 @@ InitPixel.prototype.showcaseSlides = [
 	{
 		name: "turnaround",
 		niceName: "Turnaround",
+		import: () => import("../scripts/betterBuilder/init.js"),
 		unchangeable: true,
 		sliders: true,
 		hasRandom: true,
@@ -759,25 +765,53 @@ InitPixel.prototype.showcaseSlides = [
 	{
 		name: "table2",
 		niceName: "Comic 2",
+		import: () => import("../scripts/tableComic2/init.js"),
 		unchangeable: true,
 		sliders: true,
 		hasRandom: true,
 	},
-	{ name: "relativity", niceName: "Relativity", resizeable: true },
-	{ name: "stripes", niceName: "Stripe", resizeable: true },
+	{
+		name: "relativity",
+		niceName: "Relativity",
+		import: () => import("../scripts/relativity.js"),
+		resizeable: true,
+	},
+	{
+		name: "stripes",
+		niceName: "Stripe",
+		import: () => import("../scripts/stripes.js"),
+		resizeable: true,
+	},
 	{
 		name: "landscape",
 		niceName: "Landscape",
+		import: () => import("../scripts/landscape.js"),
 		resizeable: true,
 		hasRandom: true,
 	},
-	{ name: "sparta", niceName: "Sparta", resizeable: true },
-	{ name: "trex", niceName: "T-Rex", resizeable: true },
-	{ name: "typo", niceName: "Typo", resizeable: true },
+	{
+		name: "sparta",
+		niceName: "Sparta",
+		import: () => import("../scripts/sparta.js"),
+		resizeable: true,
+	},
+	{
+		name: "trex",
+		niceName: "T-Rex",
+		import: () => import("../scripts/trex.js"),
+		resizeable: true,
+	},
+	{
+		name: "typo",
+		niceName: "Typo",
+		import: () => import("../scripts/typo.js"),
+		resizeable: true,
+	},
 	{
 		name: "random-distribution",
 		niceName: "Random",
 		hasRandom: true,
+		import: () => import("../scripts/random-distribution.js"),
 		resizeable: true,
 	},
 ];

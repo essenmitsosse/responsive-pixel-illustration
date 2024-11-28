@@ -1,6 +1,6 @@
 import { helper as helperGlobal } from "../renderengine/helper.js";
 
-window.graien = function (args, slide, createSlider) {
+export default function (args, slide, createSlider) {
 	var helper = helperGlobal,
 		getSmallerDim = helper.getSmallerDim,
 		getBiggerDim = helper.getBiggerDim,
@@ -3082,4 +3082,4 @@ window.graien = function (args, slide, createSlider) {
 			setValue = helper.setValueNew;
 		},
 	};
-};
+}

@@ -1,6 +1,6 @@
 import { helper } from "../renderengine/helper.js";
 
-window.landscape = function (args) {
+export default function (args) {
 	args = args || {};
 
 	var help = helper,
@@ -207,4 +207,4 @@ window.landscape = function (args) {
 		variableList: variableList,
 		background: backgroundColor,
 	};
-};
+}

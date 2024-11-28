@@ -22,11 +22,7 @@ import {
 } from "./tablecomic-2.js";
 
 // BEGINN TableComic /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-export const TableComic = (window.renderer = function (
-	init,
-	slide,
-	createSlider,
-) {
+export const TableComic = function (init, slide, createSlider) {
 	var sX,
 		sY,
 		square,
@@ -379,7 +375,7 @@ export const TableComic = (window.renderer = function (
 		changeValueSetter: hover.ready,
 		recommendedPixelSize: 3,
 	};
-});
+};
 
 TableComic.prototype.getSizeWithRatio = function (args) {
 	var ratio = args.ratio || this.ratio,

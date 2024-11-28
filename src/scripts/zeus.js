@@ -1,6 +1,6 @@
 import { helper } from "../renderengine/helper.js";
 
-window.zeus = function () {
+export default function () {
 	var help = helper,
 		getSmallerDim = help.getSmallerDim,
 		getBiggerDim = help.getBiggerDim,
@@ -1450,4 +1450,4 @@ window.zeus = function () {
 		variableList: variableList,
 		background: backgroundColor,
 	};
-};
+}

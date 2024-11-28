@@ -1,6 +1,6 @@
 import { BB } from "./bb.js";
 
-window.renderer = function (init) {
+export default function (init) {
 	var bb = new BB(init);
 
 	return {
@@ -8,4 +8,4 @@ window.renderer = function (init) {
 		linkList: bb.ll,
 		background: bb.background || [160, 200, 200],
 	};
-};
+}

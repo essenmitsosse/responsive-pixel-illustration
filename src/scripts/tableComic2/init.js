@@ -5,3 +5,5 @@ import { TableComic } from "./main.js";
 		tablePrototype[key].prototype.basic = tablePrototype;
 	}
 })(TableComic.prototype);
+
+export default TableComic;

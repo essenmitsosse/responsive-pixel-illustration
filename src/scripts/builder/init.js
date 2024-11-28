@@ -1,6 +1,6 @@
 import { Builder } from "./builder.js";
 
-window.renderer = function (init, slide, createSlider) {
+export default function (init, slide, createSlider) {
 	var builder = new Builder(init),
 		hover = builder.hover,
 		pushLinkList = builder.pushLinkList,
@@ -289,4 +289,4 @@ window.renderer = function (init, slide, createSlider) {
 		hoverAlt: builder.hoverAlt,
 		changeValueSetter: hover.ready,
 	};
-};
+}

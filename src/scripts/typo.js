@@ -1,6 +1,6 @@
 import { helper as helperGlobal } from "../renderengine/helper.js";
 
-window.typo = function () {
+export default function () {
 	var help = helperGlobal,
 		getSmallerDim = help.getSmallerDim,
 		getBiggerDim = help.getBiggerDim,
@@ -512,9 +512,9 @@ window.typo = function () {
 			},
 		};
 
-	return (window.typo = {
+	return {
 		renderList: renderList,
 		background: backgroundColor,
 		variableList: variableList,
-	});
-};
+	};
+}

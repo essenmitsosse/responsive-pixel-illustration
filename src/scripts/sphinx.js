@@ -1,6 +1,6 @@
 import { helper } from "../renderengine/helper.js";
 
-window.sphinx = function () {
+export default function () {
 	var help = helper,
 		getSmallerDim = help.getSmallerDim,
 		getBiggerDim = help.getBiggerDim,
@@ -1241,4 +1241,4 @@ window.sphinx = function () {
 		variableList: variableList,
 		background: backgroundColor,
 	};
-};
+}

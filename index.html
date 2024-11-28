@@ -39,7 +39,9 @@
   </head>
   <body>
     <div id="main"></div>
+    <script type="module" src="/src/main.js"></script>
 
+    <!-- Vercel Analytics Script -->
     <script>
       window.va =
         window.va ||
@@ -48,16 +50,5 @@
         };
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
-
-    <script>
-      "use strict";
-
-      (function () {
-        new window.InitPixel({
-          div: document.getElementById("main"),
-          // imageName: window.location.hash.substr(1)
-        });
-      })();
-    </script>
   </body>
 </html>

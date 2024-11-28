@@ -1,4 +1,3 @@
-"use strict";
 window.trex = function () {
 	var white = [255, 255, 255],
 		grey = [160, 160, 160],

@@ -1,4 +1,3 @@
-"use strict";
 // ARM --------------------------------------------------------------------------------
 Builder.prototype.Arm = function (args) {
 	// Form & Sizes

@@ -1,4 +1,3 @@
-"use strict";
 window.renderer = function (init) {
 	var bb = new BB(init);
 

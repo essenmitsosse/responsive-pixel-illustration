@@ -1,5 +1,3 @@
-"use strict";
-
 // HEAD --------------------------------------------------------------------------------
 Builder.prototype.Head = function (args) {
 	var hairNext = this.IF(0.7);

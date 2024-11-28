@@ -1,4 +1,3 @@
-"use strict";
 PixelGraphics.prototype.getPixelUnits = function () {
 	var old = [],
 		variableListLink,

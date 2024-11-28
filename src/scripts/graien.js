@@ -1,4 +1,3 @@
-"use strict";
 window.graien = function (args, slide, createSlider) {
 	var helper = window.helper,
 		getSmallerDim = helper.getSmallerDim,

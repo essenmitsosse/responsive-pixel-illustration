@@ -1,4 +1,3 @@
-"use strict";
 window["random-distribution"] = function (init) {
 	var help = helper,
 		getSmallerDim = help.getSmallerDim,

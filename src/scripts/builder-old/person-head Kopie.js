@@ -1,5 +1,3 @@
-"use strict";
-
 // HEAD --------------------------------------------------------------------------------
 Builder.prototype.Head = function (args) {
 	// Form & Sizes

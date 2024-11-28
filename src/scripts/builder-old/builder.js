@@ -1,4 +1,3 @@
-"use strict";
 window.Builder = function (init) {
 	var help = helper,
 		getSmallerDim = help.getSmallerDim,

@@ -1,4 +1,3 @@
-"use strict";
 window.relativity = function () {
 	var c1 = [255, 0, 0],
 		c2 = [0, 255, 0],

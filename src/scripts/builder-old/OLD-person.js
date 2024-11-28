@@ -1,4 +1,3 @@
-"use strict";
 // PERSON
 Builder.prototype.Person = function (args) {
 	var that = this,

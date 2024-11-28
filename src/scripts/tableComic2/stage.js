@@ -1,4 +1,3 @@
-"use strict";
 /* global TableComic */
 // BEGINN Background /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 TableComic.prototype.Background = function Background(args) {

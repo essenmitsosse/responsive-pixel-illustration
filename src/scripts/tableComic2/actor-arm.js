@@ -1,4 +1,4 @@
-"use strict"; /* global TableComic */
+/* global TableComic */
 
 // BEGINN Arm /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 TableComic.prototype.Arm = function Arm(args) {

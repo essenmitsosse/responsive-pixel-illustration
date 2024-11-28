@@ -1,4 +1,4 @@
-"use strict"; /* global TableComic */
+/* global TableComic */
 
 // BEGINN Legs /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 TableComic.prototype.Legs = function Legs(args) {

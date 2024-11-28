@@ -1,4 +1,3 @@
-"use strict";
 window.InitPixel = function (args) {
 	var queryString = this.getQueryString(),
 		showcase = (this.showcase = true),

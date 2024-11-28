@@ -1,4 +1,3 @@
-"use strict";
 window.Renderer = function (canvas, info, options, pixelStarter) {
 	// Render Engine to convert basic image into absolute Pixels
 	var context = canvas.getContext("2d"),

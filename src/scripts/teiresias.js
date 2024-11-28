@@ -1,4 +1,3 @@
-"use strict";
 window.teiresias = function () {
 	var help = helper,
 		getSmallerDim = help.getSmallerDim,

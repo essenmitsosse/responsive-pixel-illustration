@@ -1,4 +1,3 @@
-"use strict";
 window.helper = new (function () {
 	var that = this;
 	this.getSmallerDim = function (x) {

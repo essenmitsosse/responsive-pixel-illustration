@@ -1,4 +1,3 @@
-"use strict";
 window.zeus = function () {
 	var help = helper,
 		getSmallerDim = help.getSmallerDim,

@@ -1,4 +1,3 @@
-"use strict";
 // BEGINN TableComic /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 window.TableComic = window.renderer = function (init, slide, createSlider) {
 	var sX,

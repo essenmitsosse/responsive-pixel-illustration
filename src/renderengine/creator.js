@@ -1,4 +1,3 @@
-"use strict";
 PixelGraphics.prototype.DrawingTools = function (pixelUnit, getRandom) {
 	var drawingTool = this;
 

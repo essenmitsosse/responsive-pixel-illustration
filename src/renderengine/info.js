@@ -1,5 +1,3 @@
-"use strict";
-
 var startTime = Date.now();
 window.PixelGraphics = function (options) {
 	var that = this,

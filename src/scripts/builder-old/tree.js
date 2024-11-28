@@ -1,4 +1,3 @@
-"use strict";
 // TREE FAMILY
 Builder.prototype.TreeFamily = function (args) {
 	this.chance = this.R();

@@ -1,4 +1,3 @@
-"use strict";
 window.sphinx = function () {
 	var help = helper,
 		getSmallerDim = help.getSmallerDim,

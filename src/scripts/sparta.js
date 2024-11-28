@@ -1,5 +1,3 @@
-"use strict";
-
 window.sparta = function () {
 	var help = helper,
 		getSmallerDim = help.getSmallerDim,

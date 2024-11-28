@@ -1,5 +1,3 @@
-"use strict";
-
 window.BB = function (init) {
 	var args = {},
 		ObjProto = BB.prototype.Obj.prototype,

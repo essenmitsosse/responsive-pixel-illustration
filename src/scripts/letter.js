@@ -1,4 +1,3 @@
-"use strict";
 window.letter = function (args, init, createSlider) {
 	var helper = window.helper,
 		hover = helper.getHoverChangers(),

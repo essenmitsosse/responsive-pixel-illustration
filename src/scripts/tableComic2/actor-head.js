@@ -1,4 +1,4 @@
-"use strict"; /* global TableComic */
+/* global TableComic */
 
 // BEGINN Head /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 TableComic.prototype.Head = function (args) {

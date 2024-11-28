@@ -1,4 +1,3 @@
-"use strict";
 window.brothers = function () {
 	var help = helper,
 		getSmallerDim = help.getSmallerDim,

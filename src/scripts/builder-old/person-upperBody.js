@@ -1,5 +1,3 @@
-"use strict";
-
 // UPPER BODY --------------------------------------------------------------------------------
 Builder.prototype.UpperBody = function (args) {
 	var shirtColor = args.firstColor.getBr();

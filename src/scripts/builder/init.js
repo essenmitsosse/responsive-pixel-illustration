@@ -1,4 +1,3 @@
-"use strict";
 window.renderer = function (init, slide, createSlider) {
 	var builder = new window.Builder(init),
 		hover = builder.hover,

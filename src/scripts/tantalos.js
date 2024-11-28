@@ -1,4 +1,3 @@
-"use strict";
 /* global helper */
 window.tantalos = function () {
 	var help = helper,

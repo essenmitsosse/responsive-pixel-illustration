@@ -5,7 +5,6 @@ import "./renderengine/helper.js";
 import "./renderengine/pixel.js";
 import "./renderengine/creator.js";
 import "./renderengine/renderer.js";
-import "./renderengine/admin.js";
 
 inject();
 

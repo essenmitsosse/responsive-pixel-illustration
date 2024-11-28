@@ -1,4 +1,4 @@
-window.Admin = function (args) {
+export const Admin = function (args) {
 	var body = args.body;
 
 	this.pixel = args.pixel;

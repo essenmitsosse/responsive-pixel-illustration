@@ -1,3 +1,4 @@
+import { Admin } from "./admin.js";
 export const InitPixel = function (args) {
 	var queryString = this.getQueryString(),
 		showcase = (this.showcase = true),
@@ -27,7 +28,7 @@ export const InitPixel = function (args) {
 
 	// Admin
 	if (queryString.admin || showcase || sliders) {
-		admin = new window.Admin({
+		admin = new Admin({
 			body: body,
 			showcase: showcase,
 			admin: queryString.admin,

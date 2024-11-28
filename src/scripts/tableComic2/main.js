@@ -1,6 +1,28 @@
-"use strict";
+import { helper as helperGlobal } from "../../renderengine/helper.js";
+import { Chair, Emotion, Glass, Table } from "./accessoir.js";
+import { Arm } from "./actor-arm.js";
+import { Eye, Eyes, Hair, Hat, Head, Mouth } from "./actor-head.js";
+import { Legs } from "./actor-legs.js";
+import { Actor, Body, Torso } from "./actor.js";
+import { Stage, Background, Floor } from "./stage.js";
+import { Strip, Panel } from "./strip.js";
+import {
+	getCombiner,
+	getFace,
+	getStrip,
+	getStripInfo,
+} from "./tablecomic-1.js";
+import {
+	RenderObjectContainer,
+	getActors,
+	getAnimation,
+	getColorScheme,
+	getStory,
+	getTableComic,
+} from "./tablecomic-2.js";
+
 // BEGINN TableComic /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-window.TableComic = window.renderer = function (init, slide, createSlider) {
+export const TableComic = function (init, slide, createSlider) {
 	var sX,
 		sY,
 		square,
@@ -15,7 +37,7 @@ window.TableComic = window.renderer = function (init, slide, createSlider) {
 		controlerSY,
 		controlerX,
 		controlerY,
-		helper = window.helper,
+		helper = helperGlobal,
 		random = helper.random(init.id),
 		rFl = random.getRandomFloat,
 		rInt = random.getRandom,
@@ -65,7 +87,7 @@ window.TableComic = window.renderer = function (init, slide, createSlider) {
 			current.rInt = rInt;
 			current.rFl = rFl;
 			current.linkList = linkList;
-			current.pushLinkList = window.helper.getLinkListPusher(linkList);
+			current.pushLinkList = helperGlobal.getLinkListPusher(linkList);
 
 			current.pushRelativeStandardAutomatic =
 				pushRelativeStandardAutomatic;
@@ -564,3 +586,34 @@ TableComic.prototype.getColorShades = function (color) {
 		];
 	}
 };
+
+TableComic.prototype.Chair = Chair;
+TableComic.prototype.Emotion = Emotion;
+TableComic.prototype.Glass = Glass;
+TableComic.prototype.Table = Table;
+TableComic.prototype.Arm = Arm;
+TableComic.prototype.Eye = Eye;
+TableComic.prototype.Eyes = Eyes;
+TableComic.prototype.Hair = Hair;
+TableComic.prototype.Hat = Hat;
+TableComic.prototype.Head = Head;
+TableComic.prototype.Mouth = Mouth;
+TableComic.prototype.Legs = Legs;
+TableComic.prototype.Actor = Actor;
+TableComic.prototype.Body = Body;
+TableComic.prototype.Torso = Torso;
+TableComic.prototype.Stage = Stage;
+TableComic.prototype.Background = Background;
+TableComic.prototype.Floor = Floor;
+TableComic.prototype.Strip = Strip;
+TableComic.prototype.Panel = Panel;
+TableComic.prototype.getCombiner = getCombiner;
+TableComic.prototype.getFace = getFace;
+TableComic.prototype.getStrip = getStrip;
+TableComic.prototype.getStripInfo = getStripInfo;
+TableComic.prototype.RenderObjectContainer = RenderObjectContainer;
+TableComic.prototype.getActors = getActors;
+TableComic.prototype.getAnimation = getAnimation;
+TableComic.prototype.getColorScheme = getColorScheme;
+TableComic.prototype.getStory = getStory;
+TableComic.prototype.getTableComic = getTableComic;

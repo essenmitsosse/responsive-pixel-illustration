@@ -1,5 +1,6 @@
-"use strict";
-window.brothers = function () {
+import { helper } from "../renderengine/helper.js";
+
+export default function () {
 	var help = helper,
 		getSmallerDim = help.getSmallerDim,
 		getBiggerDim = help.getBiggerDim,
@@ -1530,4 +1531,4 @@ window.brothers = function () {
 		variableList: variableList,
 		background: backgroundColor,
 	};
-};
+}

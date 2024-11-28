@@ -1,7 +1,6 @@
-"use strict";
 /* global TableComic */
 // BEGINN Background /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.Background = function Background(args) {
+export const Background = function Background(args) {
 	var floorFactor = 0.8,
 		borderFactor = 0.9;
 
@@ -24,7 +23,7 @@ TableComic.prototype.Background = function Background(args) {
 	});
 };
 
-TableComic.prototype.Background.prototype.draw = function BackgroundDraw(args) {
+Background.prototype.draw = function BackgroundDraw(args) {
 	var borderSY = this.pushLinkList({
 			r: 0.05,
 			min: 1,
@@ -106,7 +105,7 @@ TableComic.prototype.Background.prototype.draw = function BackgroundDraw(args) {
 // END Background \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Floor /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.Floor = function Floor(args) {
+export const Floor = function Floor(args) {
 	var darkFactor = 0.9;
 
 	this.color = args.color;
@@ -117,7 +116,7 @@ TableComic.prototype.Floor = function Floor(args) {
 	];
 };
 
-TableComic.prototype.Floor.prototype.draw = function FloorDraw(args) {
+Floor.prototype.draw = function FloorDraw(args) {
 	if (args.horizontal) {
 		return {
 			color: this.color,
@@ -177,7 +176,7 @@ TableComic.prototype.Floor.prototype.draw = function FloorDraw(args) {
 // END Floor \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Stage /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.Stage = function Stage(args) {
+export const Stage = function Stage(args) {
 	if (!args) {
 		args = {};
 	}
@@ -189,7 +188,7 @@ TableComic.prototype.Stage = function Stage(args) {
 	this.y = this.pushLinkList({ a: 0 });
 };
 
-TableComic.prototype.Stage.prototype.draw = function StageDraw(args) {
+Stage.prototype.draw = function StageDraw(args) {
 	this.sX = args.stageSX;
 	this.sY = args.stageSY;
 

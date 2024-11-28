@@ -1,6 +1,7 @@
-"use strict";
-window.renderer = function (init, slide, createSlider) {
-	var builder = new window.Builder(init),
+import { Builder } from "./builder.js";
+
+export default function (init, slide, createSlider) {
+	var builder = new Builder(init),
 		hover = builder.hover,
 		pushLinkList = builder.pushLinkList,
 		width = pushLinkList({ main: true }),
@@ -288,4 +289,4 @@ window.renderer = function (init, slide, createSlider) {
 		hoverAlt: builder.hoverAlt,
 		changeValueSetter: hover.ready,
 	};
-};
+}

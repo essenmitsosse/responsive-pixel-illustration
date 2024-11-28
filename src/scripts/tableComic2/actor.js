@@ -1,8 +1,7 @@
-"use strict";
 /* global TableComic */
 
 // BEGINN Actor /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.Actor = function (args) {
+export const Actor = function (args) {
 	if (!args) {
 		args = {};
 	}
@@ -46,7 +45,7 @@ TableComic.prototype.Actor = function (args) {
 	});
 };
 
-TableComic.prototype.Actor.prototype.getSize = function (args) {
+Actor.prototype.getSize = function (args) {
 	var sY = (this.maxSize = this.pushLinkList({
 		r: 1,
 		useSize: args.stageSY,
@@ -77,7 +76,7 @@ TableComic.prototype.Actor.prototype.getSize = function (args) {
 	});
 };
 
-TableComic.prototype.Actor.prototype.getSizeFromHead = function (args) {
+Actor.prototype.getSizeFromHead = function (args) {
 	var mapper = this.headScaling,
 		map,
 		min,
@@ -136,7 +135,7 @@ TableComic.prototype.Actor.prototype.getSizeFromHead = function (args) {
 	}
 };
 
-TableComic.prototype.Actor.prototype.getBetterPosX = function (rel) {
+Actor.prototype.getBetterPosX = function (rel) {
 	var add = [];
 
 	if (!this.isRotated) {
@@ -148,7 +147,7 @@ TableComic.prototype.Actor.prototype.getBetterPosX = function (rel) {
 	return this.pushLinkList({ add: add });
 };
 
-TableComic.prototype.Actor.prototype.getBetterPosY = function (rel) {
+Actor.prototype.getBetterPosY = function (rel) {
 	var add = [{ r: -1, useSize: this.y }];
 
 	if (!this.isRotated) {
@@ -166,11 +165,7 @@ TableComic.prototype.Actor.prototype.getBetterPosY = function (rel) {
 	return this.pushLinkList({ add: add });
 };
 
-TableComic.prototype.Actor.prototype.getFocus = function (
-	zoomSX,
-	zoomSY,
-	focus,
-) {
+Actor.prototype.getFocus = function (zoomSX, zoomSY, focus) {
 	var x = this.pushLinkList({
 			add: [
 				{ r: 0.5, useSize: zoomSX }, // normalize pan
@@ -212,7 +207,7 @@ TableComic.prototype.Actor.prototype.getFocus = function (
 	};
 };
 
-TableComic.prototype.Actor.prototype.draw = function (args) {
+Actor.prototype.draw = function (args) {
 	var info = args.info;
 
 	// Decide which size calculation method to use and use it.
@@ -297,7 +292,7 @@ TableComic.prototype.Actor.prototype.draw = function (args) {
 	];
 };
 
-TableComic.prototype.Actor.prototype.finishRendering = function () {
+Actor.prototype.finishRendering = function () {
 	this.renderObject.list[0].list.push({
 		y: this.headSY,
 		list: [
@@ -324,7 +319,7 @@ TableComic.prototype.Actor.prototype.finishRendering = function () {
 // END Actor \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Body /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.Body = function Body(args) {
+export const Body = function Body(args) {
 	this.actor = args.actor;
 
 	// Forms & Sizes
@@ -342,7 +337,7 @@ TableComic.prototype.Body = function Body(args) {
 	});
 };
 
-TableComic.prototype.Body.prototype.getSize = function BodyGetSize(args) {
+Body.prototype.getSize = function BodyGetSize(args) {
 	this.legSY = this.getSizeSwitch(
 		{ r: this.legBaseSY_, useSize: args.sY },
 		{ r: this.legRelSY_ },
@@ -364,7 +359,7 @@ TableComic.prototype.Body.prototype.getSize = function BodyGetSize(args) {
 	});
 };
 
-TableComic.prototype.Body.prototype.draw = function BodyDraw(args) {
+Body.prototype.draw = function BodyDraw(args) {
 	this.sY = args.sY;
 	this.sX = args.sX;
 
@@ -391,7 +386,7 @@ TableComic.prototype.Body.prototype.draw = function BodyDraw(args) {
 // END Body \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Torso /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.Torso = function Torso(args) {
+export const Torso = function Torso(args) {
 	this.actor = args.actor;
 
 	// Colors
@@ -402,11 +397,11 @@ TableComic.prototype.Torso = function Torso(args) {
 	this.zipperSY = this.rIf(0.6) ? 1 : this.rFl(0, 1);
 };
 
-TableComic.prototype.Torso.prototype.getSize = function TorsoDraw(args) {
+Torso.prototype.getSize = function TorsoDraw(args) {
 	this.x = this.pushLinkList({ r: 0.2, useSize: args.sX });
 };
 
-TableComic.prototype.Torso.prototype.draw = function TorsoDraw(args) {
+Torso.prototype.draw = function TorsoDraw(args) {
 	this.sX = args.sX;
 	this.sY = args.sY;
 

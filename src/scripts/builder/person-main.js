@@ -1,8 +1,9 @@
-"use strict";
+import { Object } from "./object.js";
+
 /* global Builder */
 
 // PERSON --------------------------------------------------------------------------------
-Builder.prototype.Person = function (args) {
+export const Person = function (args) {
 	if (!args) {
 		args = args || {};
 	}
@@ -12,8 +13,8 @@ Builder.prototype.Person = function (args) {
 	this.id = this.basic.objectCount += 1;
 }; // END Person
 
-Builder.prototype.Person.prototype = new Builder.prototype.Object();
-Builder.prototype.Person.prototype.draw = function (args, z) {
+Person.prototype = new Object();
+Person.prototype.draw = function (args, z) {
 	var nr = (args.nr = this.basic.objectCount += 1),
 		backView = (args.backView = args.view === "backView"),
 		sideView = (args.sideView = !backView && args.view ? true : false);
@@ -47,7 +48,7 @@ Builder.prototype.Person.prototype.draw = function (args, z) {
 }; // END Person draw
 
 // BASICBODY --------------------------------------------------------------------------------
-Builder.prototype.BasicBody = function (args) {
+export const BasicBody = function (args) {
 	// var nextFirstColor = this.IF(0.5),
 	// 	nextSecondColor = this.IF(0.2),
 
@@ -105,8 +106,8 @@ Builder.prototype.BasicBody = function (args) {
 	this.upperBody = new this.basic.UpperBody(args);
 	this.lowerBody = new this.basic.LowerBody(args);
 }; // END BasicBody
-Builder.prototype.BasicBody.prototype = new Builder.prototype.Object();
-Builder.prototype.BasicBody.prototype.draw = function (args, right) {
+BasicBody.prototype = new Object();
+BasicBody.prototype.draw = function (args, right) {
 	var nr = args.nr,
 		sideView = args.sideView;
 
@@ -207,7 +208,7 @@ Builder.prototype.BasicBody.prototype.draw = function (args, right) {
 }; // END BasicBody draw
 
 // LOGO --------------------------------------------------------------------------------
-Builder.prototype.Logo = function (args, right, symetrical, logoColor) {
+export const Logo = function (args, right, symetrical, logoColor) {
 	var color = !logoColor && this.IF(0.5);
 
 	this.name = symetrical ? (right ? "right" : "left") : "chest";
@@ -243,9 +244,9 @@ Builder.prototype.Logo = function (args, right, symetrical, logoColor) {
 		});
 	// Assets
 }; // END Logo
-Builder.prototype.Logo.prototype = new Builder.prototype.Object();
+Logo.prototype = new Object();
 
-Builder.prototype.Logo.prototype.draw = function (args) {
+Logo.prototype.draw = function (args) {
 	var nr = args.nr,
 		nrName = nr + this.name,
 		sideView = args.sideView;

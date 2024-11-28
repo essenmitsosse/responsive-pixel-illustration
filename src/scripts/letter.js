@@ -1,6 +1,7 @@
-"use strict";
-window.letter = function (args, init, createSlider) {
-	var helper = window.helper,
+import { helper as helperGlobal } from "../renderengine/helper.js";
+
+export default function (args, init, createSlider) {
+	var helper = helperGlobal,
 		hover = helper.getHoverChangers(),
 		pushChanger = hover.pushRelativeStandard,
 		backgroundColor = [200, 200, 240],
@@ -179,4 +180,4 @@ window.letter = function (args, init, createSlider) {
 		changeValueSetter: hover.ready,
 		recommendedPixelSize: 16,
 	};
-};
+}

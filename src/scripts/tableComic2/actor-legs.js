@@ -1,7 +1,7 @@
-"use strict"; /* global TableComic */
+/* global TableComic */
 
 // BEGINN Legs /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.Legs = function Legs(args) {
+export const Legs = function Legs(args) {
 	this.actor = args.actor;
 
 	// Forms & Sizes
@@ -21,7 +21,7 @@ TableComic.prototype.Legs = function Legs(args) {
 	this.shoeSY_ = this.rFl(-0.5, 1);
 };
 
-TableComic.prototype.Legs.prototype.getSize = function LegsGetSize(args) {
+Legs.prototype.getSize = function LegsGetSize(args) {
 	this.legSX = this.pushLinkList({ r: this.legSX_, useSize: args.sX });
 	this.hipSY = this.pushLinkList({
 		r: this.hipSY_,
@@ -31,13 +31,13 @@ TableComic.prototype.Legs.prototype.getSize = function LegsGetSize(args) {
 	this.legY = this.pushLinkList([this.hipSY, { r: -1, useSize: this.legSX }]);
 };
 
-TableComic.prototype.Legs.prototype.getBetterPosX = function (rel) {
+Legs.prototype.getBetterPosX = function (rel) {
 	return this.pushLinkList({
 		add: [this.actor.x, { r: rel, useSize: this.sX }],
 	});
 };
 
-TableComic.prototype.Legs.prototype.getBetterPosY = function (rel) {
+Legs.prototype.getBetterPosY = function (rel) {
 	return this.pushLinkList({
 		add: [
 			{ r: -1, useSize: this.actor.y },
@@ -51,7 +51,7 @@ TableComic.prototype.Legs.prototype.getBetterPosY = function (rel) {
 	});
 };
 
-TableComic.prototype.Legs.prototype.draw = function LegsDraw(args) {
+Legs.prototype.draw = function LegsDraw(args) {
 	var sitting = (this.sitting = args.info.sitting),
 		bendLeg = sitting || args.info.bendLeg,
 		leg;

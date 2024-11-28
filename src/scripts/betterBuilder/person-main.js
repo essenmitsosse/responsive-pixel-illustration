@@ -1,8 +1,9 @@
-"use strict";
+import { BBObj } from "./object.js";
+
 /* global BBProto, BBObj */
 
 // PERSON MAIN  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-BBProto.PersonMain = function (args) {
+export const PersonMain = function (args) {
 	// Sizes and Forms
 	this._headSY = this.R(0.1, 0.4);
 
@@ -18,8 +19,8 @@ BBProto.PersonMain = function (args) {
 	this.bodyMain = new this.basic.BodyMain(args);
 }; // End PersonMain
 
-BBProto.PersonMain.prototype = new BBObj();
-BBProto.PersonMain.prototype.draw = function (args) {
+PersonMain.prototype = new BBObj();
+PersonMain.prototype.draw = function (args) {
 	this.ll.push((this.headSY = { r: this._headSY, useSize: args.sY }));
 	this.ll.push((this.neckSY = { a: 5 }));
 	this.ll.push(
@@ -84,7 +85,7 @@ BBProto.PersonMain.prototype.draw = function (args) {
 }; // End PersonMain Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // BODY MAIN  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-BBProto.BodyMain = function (args) {
+export const BodyMain = function (args) {
 	// Forms & Sizes
 	this._sX = this.R(0.4, 1);
 	this._chestSY = this.R(0.1, 0.3);
@@ -102,8 +103,8 @@ BBProto.BodyMain = function (args) {
 	this.lowerBody = new this.basic.LowerBody(args);
 }; // End BodyMain
 
-BBProto.BodyMain.prototype = new BBObj();
-BBProto.BodyMain.prototype.draw = function (args) {
+BodyMain.prototype = new BBObj();
+BodyMain.prototype.draw = function (args) {
 	this.ll.push((this.sX = { r: this._sX, useSize: args.sY }));
 
 	this.ll.push((this.chestSY = { r: this._chestSY, useSize: args.sY }));

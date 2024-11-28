@@ -1,6 +1,6 @@
-"use strict";
+import { helper } from "../renderengine/helper.js";
 
-window.sparta = function () {
+export default function () {
 	var help = helper,
 		getSmallerDim = help.getSmallerDim,
 		getBiggerDim = help.getBiggerDim,
@@ -264,4 +264,4 @@ window.sparta = function () {
 		background: backgroundColor,
 		variableList: variableList,
 	};
-};
+}

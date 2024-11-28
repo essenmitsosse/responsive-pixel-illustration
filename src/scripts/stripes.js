@@ -1,6 +1,7 @@
-"use strict";
-window.stripes = function (args, init, createSlider) {
-	var helper = window.helper,
+import { helper as helperGlobal } from "../renderengine/helper.js";
+
+export default function (args, init, createSlider) {
+	var helper = helperGlobal,
 		hover = helper.getHoverChangers(),
 		pushChanger = hover.pushRelativeStandard,
 		backgroundColor = [100, 100, 120],
@@ -167,4 +168,4 @@ window.stripes = function (args, init, createSlider) {
 		changeValueSetter: hover.ready,
 		recommendedPixelSize: 6,
 	};
-};
+}

@@ -1,5 +1,4 @@
-"use strict";
-window.trex = function () {
+export default function () {
 	var white = [255, 255, 255],
 		grey = [160, 160, 160],
 		ground = [90, 60, 50],
@@ -178,4 +177,4 @@ window.trex = function () {
 		renderList: renderList,
 		background: backgroundColor,
 	};
-};
+}

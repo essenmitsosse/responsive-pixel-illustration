@@ -1,8 +1,7 @@
-"use strict";
 /* global TableComic */
 
 // BEGINN getStrip /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.getFace = function () {
+export const getFace = function () {
 	var backgroundColor = [0, 0, 0],
 		basic = this.basic,
 		that = this,
@@ -81,7 +80,7 @@ TableComic.prototype.getFace = function () {
 	};
 };
 
-TableComic.prototype.getStrip = function getStrip() {
+export const getStrip = function getStrip() {
 	var stripInfo = new this.getStripInfo(),
 		basicPanels = stripInfo.panels,
 		length = basicPanels.length,
@@ -112,7 +111,7 @@ TableComic.prototype.getStrip = function getStrip() {
 	return stripInfo;
 };
 
-TableComic.prototype.getCombiner = function (finals, defaults, inventory) {
+export const getCombiner = function (finals, defaults, inventory) {
 	return function (panel) {
 		var panelList = panel.list || {},
 			newList = [],
@@ -186,7 +185,7 @@ TableComic.prototype.getCombiner = function (finals, defaults, inventory) {
 	};
 };
 
-TableComic.prototype.getStripInfo = function () {
+export const getStripInfo = function () {
 	var background = new this.basic.Background({}),
 		basicPanel = new this.basic.Panel({
 			background: background,

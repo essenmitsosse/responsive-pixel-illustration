@@ -1,7 +1,8 @@
-"use strict";
+import { helper as helperGlobal } from "../renderengine/helper.js";
+
 /* global helper */
-window.tantalos = function () {
-	var help = helper,
+export default function () {
+	var help = helperGlobal,
 		getSmallerDim = help.getSmallerDim,
 		getBiggerDim = help.getBiggerDim,
 		white = [255, 255, 255],
@@ -1048,4 +1049,4 @@ window.tantalos = function () {
 		linkList: linkList,
 		background: backgroundColor,
 	};
-};
+}

@@ -1,5 +1,4 @@
-"use strict";
-window.relativity = function () {
+export default function () {
 	var c1 = [255, 0, 0],
 		c2 = [0, 255, 0],
 		c3 = [0, 0, 255],
@@ -58,4 +57,4 @@ window.relativity = function () {
 		background: backgroundColor,
 		variableList: variableList,
 	};
-};
+}

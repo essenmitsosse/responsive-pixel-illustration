@@ -1,5 +1,7 @@
-"use strict";
-window.renderer = function (init) {
+import { helper } from "../../renderengine/helper.js";
+import { Builder } from "./builder.js";
+
+export default function (init) {
 	var help = helper,
 		getSmallerDim = help.getSmallerDim,
 		getBiggerDim = help.getBiggerDim,
@@ -15,4 +17,4 @@ window.renderer = function (init) {
 		variableList: builder.joinVariableList,
 		background: builder.backgroundColor,
 	};
-};
+}

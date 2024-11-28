@@ -1,5 +1,4 @@
-"use strict";
-PixelGraphics.prototype.DrawingTools = function (pixelUnit, getRandom) {
+export const DrawingTools = function (pixelUnit, getRandom) {
 	var drawingTool = this;
 
 	this.seed = (function (getRandom) {
@@ -366,7 +365,7 @@ PixelGraphics.prototype.DrawingTools = function (pixelUnit, getRandom) {
 						isNaN(p1.x) ||
 						isNaN(p1.y)
 					) {
-						window.console.log(
+						console.log(
 							"Line with NaN found!",
 							p0.x,
 							p0.y,

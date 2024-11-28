@@ -1,8 +1,9 @@
-"use strict";
+import { Object } from "./object.js";
+
 /*jshint -W008 */
 /* global Builder */
 // COMIC --------------------------------------------------------------------------------
-Builder.prototype.Comic = function (init) {
+export const Comic = function (init) {
 	var list = [],
 		args = {},
 		panels = this.IF(0.05) ? 1 : this.GR(3, 6),
@@ -223,12 +224,12 @@ Builder.prototype.Comic = function (init) {
 	];
 }; // END Comic
 
-Builder.prototype.Comic.prototype = new Builder.prototype.Object();
-// Builder.prototype.Comic.prototype.draw = function () {
+Comic.prototype = new Object();
+// Comic.prototype.draw = function () {
 // }// END Comic draw
 
 // PANEL --------------------------------------------------------------------------------
-Builder.prototype.Panel = function (args) {
+export const Panel = function (args) {
 	// Forms & Sizes
 	this.horizont = this.IF(0.6) ? this.R(0.1, 0.6) : this.R(0, 1);
 
@@ -282,8 +283,8 @@ Builder.prototype.Panel = function (args) {
 	this.forrest = this.IF(0.4) && new this.basic.Forrest(args);
 }; // END Panel
 
-Builder.prototype.Panel.prototype = new Builder.prototype.Object();
-Builder.prototype.Panel.prototype.draw = function (args) {
+Panel.prototype = new Object();
+Panel.prototype.draw = function (args) {
 	var nr = args.i,
 		closeUp = this.IF(0.1),
 		wideShot = !closeUp && this.IF(0.2),
@@ -494,12 +495,12 @@ Builder.prototype.Panel.prototype.draw = function (args) {
 }; // END Panel draw
 
 // ACTOR --------------------------------------------------------------------------------
-Builder.prototype.Actor = function (args) {
+export const Actor = function (args) {
 	this.person = new this.basic.Person(args);
 }; // END Actor
 
-Builder.prototype.Actor.prototype = new Builder.prototype.Object();
-Builder.prototype.Actor.prototype.draw = function (args, z, size) {
+Actor.prototype = new Object();
+Actor.prototype.draw = function (args, z, size) {
 	var eyeLookVert = ["", "", "", "left", "right"],
 		eyeLookHor = [
 			"",
@@ -632,7 +633,7 @@ Builder.prototype.Actor.prototype.draw = function (args, z, size) {
 }; // END Actor draw
 
 // GROUND --------------------------------------------------------------------------------
-Builder.prototype.Ground = function (args) {
+export const Ground = function (args) {
 	// Form & Sizes
 
 	// Colors
@@ -646,8 +647,8 @@ Builder.prototype.Ground = function (args) {
 
 	// Assets
 }; // END Ground
-Builder.prototype.Ground.prototype = new Builder.prototype.Object();
-Builder.prototype.Ground.prototype.draw = function (args, z) {
+Ground.prototype = new Object();
+Ground.prototype.draw = function (args, z) {
 	var nr = args.nr;
 
 	return {

@@ -1,7 +1,7 @@
-"use strict"; /* global TableComic */
+/* global TableComic */
 
 // BEGINN Arm /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.Arm = function Arm(args) {
+export const Arm = function Arm(args) {
 	this.actor = args.actor;
 
 	// Forms
@@ -21,7 +21,7 @@ TableComic.prototype.Arm = function Arm(args) {
 	this.lowerArmColor = this.shortSleaves ? this.skinColor : this.color;
 };
 
-TableComic.prototype.Arm.prototype.draw = function ArmDraw(args) {
+Arm.prototype.draw = function ArmDraw(args) {
 	var info = args.info,
 		armSY = this.getSizeSwitch(
 			{ r: this.armBaseSY_, useSize: args.torsoSY },
@@ -145,7 +145,7 @@ TableComic.prototype.Arm.prototype.draw = function ArmDraw(args) {
 	};
 };
 
-TableComic.prototype.Arm.prototype.getHandTarget = function (target, name) {
+Arm.prototype.getHandTarget = function (target, name) {
 	var x = name + "X",
 		y = name + "Y";
 
@@ -171,7 +171,7 @@ TableComic.prototype.Arm.prototype.getHandTarget = function (target, name) {
 	}
 };
 
-TableComic.prototype.Arm.prototype.getTarget = function (target, name) {
+Arm.prototype.getTarget = function (target, name) {
 	var xAdd = [],
 		yAdd = [];
 
@@ -216,11 +216,7 @@ TableComic.prototype.Arm.prototype.getTarget = function (target, name) {
 	this[name + "Y"] = this.pushLinkList({ add: yAdd });
 };
 
-TableComic.prototype.Arm.prototype.getMoveableTarget = function (
-	name,
-	targetFunc,
-	info,
-) {
+Arm.prototype.getMoveableTarget = function (name, targetFunc, info) {
 	var mainX = name + "X",
 		mainY = name + "Y",
 		moveXName = name + "moveX",

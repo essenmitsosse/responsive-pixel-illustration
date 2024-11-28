@@ -1,6 +1,7 @@
-"use strict";
-window.graien = function (args, slide, createSlider) {
-	var helper = window.helper,
+import { helper as helperGlobal } from "../renderengine/helper.js";
+
+export default function (args, slide, createSlider) {
+	var helper = helperGlobal,
 		getSmallerDim = helper.getSmallerDim,
 		getBiggerDim = helper.getBiggerDim,
 		mult = helper.mult,
@@ -3081,4 +3082,4 @@ window.graien = function (args, slide, createSlider) {
 			setValue = helper.setValueNew;
 		},
 	};
-};
+}

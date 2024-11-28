@@ -1,6 +1,7 @@
-"use strict";
-window.typo = function () {
-	var help = helper,
+import { helper as helperGlobal } from "../renderengine/helper.js";
+
+export default function () {
+	var help = helperGlobal,
 		getSmallerDim = help.getSmallerDim,
 		getBiggerDim = help.getBiggerDim,
 		mult = help.mult,
@@ -511,9 +512,9 @@ window.typo = function () {
 			},
 		};
 
-	return (window.typo = {
+	return {
 		renderList: renderList,
 		background: backgroundColor,
 		variableList: variableList,
-	});
-};
+	};
+}

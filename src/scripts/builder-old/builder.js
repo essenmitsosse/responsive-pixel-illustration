@@ -1,5 +1,34 @@
-"use strict";
-window.Builder = function (init) {
+import { helper } from "../../renderengine/helper.js";
+import { Object } from "./object.js";
+import { Actor, Comic, Ground, Panel } from "./comic.js";
+import { Arm, Shield, ShoulderPad, Sword, Tool } from "./person-arm.js";
+import {
+	Beard,
+	Eye,
+	Hair,
+	Hat,
+	Head,
+	HeadBand,
+	Helm,
+	Horns,
+	Mouth,
+} from "./person-head.js";
+import { Belt, Leg, LowerBody, Skirt } from "./person-lowerBody.js";
+import { Person, BasicBody, Logo } from "./person-main.js";
+import {
+	Buttons,
+	Cape,
+	Cleavage,
+	Collar,
+	Nipples,
+	Strap,
+	Stripes,
+	Suspenders,
+	UpperBody,
+} from "./person-upperBody.js";
+import { TreeFamily, Forrest, Tree } from "./tree.js";
+
+export const Builder = function (init) {
 	var help = helper,
 		getSmallerDim = help.getSmallerDim,
 		getBiggerDim = help.getBiggerDim,
@@ -64,7 +93,7 @@ window.Builder = function (init) {
 	};
 };
 
-Builder.prototype.buildColors = function (info) {
+export const buildColors = function (info) {
 	var R = this.R,
 		i = info.colors,
 		colors = [],
@@ -121,7 +150,7 @@ Builder.prototype.buildColors = function (info) {
 	return colors;
 };
 
-Builder.prototype.colorScheme = function () {
+export const colorScheme = function () {
 	var colors = this.Color,
 		info = this.colorInfo,
 		i = info.colors,
@@ -147,12 +176,12 @@ Builder.prototype.colorScheme = function () {
 	return { z: 1000000, list: list };
 };
 
-Builder.prototype.Color = function (nr, br) {
+export const Color = function (nr, br) {
 	this.nr = nr;
 	this.br = br;
 };
 
-Builder.prototype.Color.prototype.copy = function (args) {
+Color.prototype.copy = function (args) {
 	args = args || {};
 
 	var color = new this.Color(
@@ -188,21 +217,21 @@ Builder.prototype.Color.prototype.copy = function (args) {
 	return color;
 };
 
-Builder.prototype.Color.prototype.nextColor = function () {
+Color.prototype.nextColor = function () {
 	this.nr += 1;
 	if (this.nr > 2) {
 		this.nr = 0;
 	}
 };
 
-Builder.prototype.Color.prototype.prevColor = function () {
+Color.prototype.prevColor = function () {
 	this.nr -= 1;
 	if (this.nr < 0) {
 		this.nr = 2;
 	}
 };
 
-Builder.prototype.Color.prototype.brightnessAdd = function (add) {
+Color.prototype.brightnessAdd = function (add) {
 	this.br += add;
 
 	if (this.br < 0) {
@@ -212,7 +241,7 @@ Builder.prototype.Color.prototype.brightnessAdd = function (add) {
 	}
 };
 
-Builder.prototype.Color.prototype.brightnessSet = function (set) {
+Color.prototype.brightnessSet = function (set) {
 	this.br = set;
 
 	if (this.br < 0) {
@@ -222,11 +251,7 @@ Builder.prototype.Color.prototype.brightnessSet = function (set) {
 	}
 };
 
-Builder.prototype.Color.prototype.brightnessContrast = function (
-	add,
-	min,
-	max,
-) {
+Color.prototype.brightnessContrast = function (add, min, max) {
 	min = min || 0;
 	max = max || 5;
 
@@ -243,7 +268,7 @@ Builder.prototype.Color.prototype.brightnessContrast = function (
 	}
 };
 
-Builder.prototype.Color.prototype.getNormal = function () {
+Color.prototype.getNormal = function () {
 	if (!this.finalColor) {
 		return (this.finalColor = this.colors[this.nr][this.br] || [
 			200, 0, 155,
@@ -253,15 +278,14 @@ Builder.prototype.Color.prototype.getNormal = function () {
 	return this.finalColor;
 };
 
-Builder.prototype.Color.prototype.get =
-	Builder.prototype.Color.prototype.getNormal;
+Color.prototype.get = Color.prototype.getNormal;
 
-Builder.prototype.Color.prototype.getBr = function () {
+Color.prototype.getBr = function () {
 	return this.br;
 };
 
 Builder.prototype.getDark = function (darkness) {
-	Builder.prototype.Color.prototype.get = function () {
+	Color.prototype.get = function () {
 		var br = this.dontChange ? this.br : this.br + darkness;
 
 		if (br < 0) {
@@ -275,8 +299,46 @@ Builder.prototype.getDark = function (darkness) {
 };
 
 Builder.prototype.getNormalColor = function () {
-	Builder.prototype.Color.prototype.get =
-		Builder.prototype.Color.prototype.getNormal;
+	Color.prototype.get = Color.prototype.getNormal;
 };
 
-Builder.prototype.Object = function () {};
+Builder.prototype.Color = Color;
+Builder.prototype.buildColors = buildColors;
+Builder.prototype.Object = Object;
+Builder.prototype.Person = Person;
+Builder.prototype.BasicBody = BasicBody;
+Builder.prototype.Logo = Logo;
+Builder.prototype.TreeFamily = TreeFamily;
+Builder.prototype.Forrest = Forrest;
+Builder.prototype.Tree = Tree;
+Builder.prototype.Arm = Arm;
+Builder.prototype.Shield = Shield;
+Builder.prototype.ShoulderPad = ShoulderPad;
+Builder.prototype.Sword = Sword;
+Builder.prototype.Tool = Tool;
+Builder.prototype.Beard = Beard;
+Builder.prototype.Eye = Eye;
+Builder.prototype.Hair = Hair;
+Builder.prototype.Hat = Hat;
+Builder.prototype.Head = Head;
+Builder.prototype.HeadBand = HeadBand;
+Builder.prototype.Helm = Helm;
+Builder.prototype.Horns = Horns;
+Builder.prototype.Mouth = Mouth;
+Builder.prototype.Belt = Belt;
+Builder.prototype.Leg = Leg;
+Builder.prototype.LowerBody = LowerBody;
+Builder.prototype.Skirt = Skirt;
+Builder.prototype.Buttons = Buttons;
+Builder.prototype.Cape = Cape;
+Builder.prototype.Cleavage = Cleavage;
+Builder.prototype.Collar = Collar;
+Builder.prototype.Nipples = Nipples;
+Builder.prototype.Strap = Strap;
+Builder.prototype.Stripes = Stripes;
+Builder.prototype.Suspenders = Suspenders;
+Builder.prototype.UpperBody = UpperBody;
+Builder.prototype.Actor = Actor;
+Builder.prototype.Comic = Comic;
+Builder.prototype.Ground = Ground;
+Builder.prototype.Panel = Panel;

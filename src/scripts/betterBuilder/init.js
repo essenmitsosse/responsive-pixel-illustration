@@ -1,5 +1,6 @@
-"use strict";
-window.renderer = function (init) {
+import { BB } from "./bb.js";
+
+export default function (init) {
 	var bb = new BB(init);
 
 	return {
@@ -7,4 +8,4 @@ window.renderer = function (init) {
 		linkList: bb.ll,
 		background: bb.background || [160, 200, 200],
 	};
-};
+}

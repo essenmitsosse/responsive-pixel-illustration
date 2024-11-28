@@ -1,5 +1,6 @@
-"use strict";
-window.landscape = function (args) {
+import { helper } from "../renderengine/helper.js";
+
+export default function (args) {
 	args = args || {};
 
 	var help = helper,
@@ -206,4 +207,4 @@ window.landscape = function (args) {
 		variableList: variableList,
 		background: backgroundColor,
 	};
-};
+}

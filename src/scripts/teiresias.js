@@ -1,5 +1,6 @@
-"use strict";
-window.teiresias = function () {
+import { helper } from "../renderengine/helper.js";
+
+export default function () {
 	var help = helper,
 		getSmallerDim = help.getSmallerDim,
 		getBiggerDim = help.getBiggerDim,
@@ -1478,4 +1479,4 @@ window.teiresias = function () {
 		variableList: variableList,
 		background: backgroundColor,
 	};
-};
+}

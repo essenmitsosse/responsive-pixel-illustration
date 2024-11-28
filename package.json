@@ -28,5 +28,8 @@
     "playwright": "^1.49.0",
     "prettier": "^3.3.3",
     "vite": "^6.0.1"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^1.4.1"
   }
 }

@@ -1,5 +1,5 @@
 // @ts-check
-const { test, expect } = require("@playwright/test");
+import { test, expect } from "@playwright/test";
 
 const listScreenshots = [
 	{ index: 0, niceName: "The Three Graeae" },

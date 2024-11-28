@@ -1,11 +1,13 @@
 {
   "name": "responsive-pixel-illustration",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
   "scripts": {
-    "dev": " http-server -p 8000",
+    "dev": "vite --port 8000",
+    "build": "vite build",
     "play": "playwright test",
+    "preview": "vite preview",
     "prettier": "prettier --write .",
     "prettierCheck": "prettier --check ."
   },
@@ -19,13 +21,12 @@
     "url": "https://github.com/essenmitsosse/responsive-pixel-illustration/issues"
   },
   "homepage": "https://github.com/essenmitsosse/responsive-pixel-illustration#readme",
-  "dependencies": {
-    "playwright": "^1.49.0",
-    "prettier": "^3.3.3"
-  },
   "devDependencies": {
     "@playwright/test": "^1.49.0",
-    "@types/node": "^22.9.3",
-    "http-server": "^14.1.1"
+    "@types/node": "^22.9.4",
+    "http-server": "^14.1.1",
+    "playwright": "^1.49.0",
+    "prettier": "^3.3.3",
+    "vite": "^6.0.1"
   }
 }

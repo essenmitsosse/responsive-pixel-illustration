@@ -1,6 +1,6 @@
 "use strict";
 // BEGINN TableComic /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-var TableComic = (window.renderer = function (init, slide, createSlider) {
+window.TableComic = window.renderer = function (init, slide, createSlider) {
 	var sX,
 		sY,
 		square,
@@ -353,7 +353,7 @@ var TableComic = (window.renderer = function (init, slide, createSlider) {
 		changeValueSetter: hover.ready,
 		recommendedPixelSize: 3,
 	};
-});
+};
 
 TableComic.prototype.getSizeWithRatio = function (args) {
 	var ratio = args.ratio || this.ratio,

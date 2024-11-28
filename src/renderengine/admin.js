@@ -1,5 +1,5 @@
 "use strict";
-var Admin = function (args) {
+window.Admin = function (args) {
 	var body = args.body;
 
 	this.pixel = args.pixel;

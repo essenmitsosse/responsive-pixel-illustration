@@ -1,6 +1,6 @@
 "use strict";
 
-var BB = function (init) {
+window.BB = function (init) {
 	var args = {},
 		ObjProto = BB.prototype.Obj.prototype,
 		random = window.helper.random(
@@ -43,9 +43,9 @@ var BB = function (init) {
 
 BB.prototype.Obj = function () {};
 
-var BBProto = BB.prototype,
-	BBObj = BBProto.Obj,
-	BBObjProto = BBObj.prototype;
+window.BBProto = BB.prototype;
+window.BBObj = BBProto.Obj;
+window.BBObjProto = BBObj.prototype;
 
 // OVERVIEW
 BBProto.Overview = function (init) {

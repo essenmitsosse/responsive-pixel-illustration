@@ -1,5 +1,5 @@
 "use strict";
-var helper = new (function () {
+window.helper = new (function () {
 	var that = this;
 	this.getSmallerDim = function (x) {
 		var o = { r: x.r },

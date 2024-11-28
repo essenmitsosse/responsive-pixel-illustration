@@ -1,67 +1,57 @@
 "use strict";
 
-var startTime = Date.now(),
-	PixelGraphics = function (options) {
-		var that = this,
-			pU = this.getPixelUnits(); // Initialize PixelUnits with Variables
+var startTime = Date.now();
+window.PixelGraphics = function (options) {
+	var that = this,
+		pU = this.getPixelUnits(); // Initialize PixelUnits with Variables
 
-		this.pixelUnits = pU;
-		this.socket = options.socket;
+	this.pixelUnits = pU;
+	this.socket = options.socket;
 
-		this.createVariableList(options.imageFunction.variableList || []);
-		if (options.imageFunction.linkList) {
-			this.prepareVariableList(options.imageFunction.linkList);
-		}
+	this.createVariableList(options.imageFunction.variableList || []);
+	if (options.imageFunction.linkList) {
+		this.prepareVariableList(options.imageFunction.linkList);
+	}
 
-		if (options.imageFunction.changeValueSetter) {
-			options.imageFunction.changeValueSetter();
-		}
+	if (options.imageFunction.changeValueSetter) {
+		options.imageFunction.changeValueSetter();
+	}
 
-		return function (canvas) {
-			var info = options.info,
-				isParent = options.queryString.parent,
-				finalRenderer = new window.Renderer(
-					canvas,
-					info,
-					options,
-					that,
-				),
-				rescaleWindow = finalRenderer.rescaleWindow,
-				resize = that.getResize(options, info, finalRenderer.resize),
-				redraw = that.getRedraw(options, resize, isParent);
+	return function (canvas) {
+		var info = options.info,
+			isParent = options.queryString.parent,
+			finalRenderer = new window.Renderer(canvas, info, options, that),
+			rescaleWindow = finalRenderer.rescaleWindow,
+			resize = that.getResize(options, info, finalRenderer.resize),
+			redraw = that.getRedraw(options, resize, isParent);
 
-			info.logInitTime(Date.now() - startTime);
+		info.logInitTime(Date.now() - startTime);
 
+		rescaleWindow();
+
+		redraw(
+			that.joinObjects(
+				options.sliderValues,
+				options.queryString,
+				options.defaultValues,
+				{ dontHighlight: true, forceSliders: true },
+			),
+		);
+
+		window.onresize = function () {
 			rescaleWindow();
+			resize();
+		};
 
-			redraw(
-				that.joinObjects(
-					options.sliderValues,
-					options.queryString,
-					options.defaultValues,
-					{ dontHighlight: true, forceSliders: true },
-				),
-			);
+		// Make Canvas resizeable by mouse
+		that.initUserInput(options, redraw, canvas, options.slide.unchangeable);
 
-			window.onresize = function () {
-				rescaleWindow();
-				resize();
-			};
-
-			// Make Canvas resizeable by mouse
-			that.initUserInput(
-				options,
-				redraw,
-				canvas,
-				options.slide.unchangeable,
-			);
-
-			return {
-				resize: resize,
-				redraw: redraw,
-			};
+		return {
+			resize: resize,
+			redraw: redraw,
 		};
 	};
+};
 
 PixelGraphics.prototype.getResize = function (options, info, render) {
 	var that = this,

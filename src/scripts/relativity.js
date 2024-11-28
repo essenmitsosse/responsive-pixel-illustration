@@ -1,5 +1,5 @@
 "use strict";
-var renderer = function () {
+window.relativity = function () {
 	var c1 = [255, 0, 0],
 		c2 = [0, 255, 0],
 		c3 = [0, 0, 255],

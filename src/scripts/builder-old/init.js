@@ -1,5 +1,5 @@
 "use strict";
-var renderer = function (init) {
+window.renderer = function (init) {
 	init = init || {};
 
 	var help = helper,

@@ -1,5 +1,5 @@
 "use strict";
-var renderer = function () {
+window.brothers = function () {
 	var help = helper,
 		getSmallerDim = help.getSmallerDim,
 		getBiggerDim = help.getBiggerDim,

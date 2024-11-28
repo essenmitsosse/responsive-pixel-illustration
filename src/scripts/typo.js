@@ -1,5 +1,5 @@
 "use strict";
-var renderer = function () {
+window.typo = function () {
 	var help = helper,
 		getSmallerDim = help.getSmallerDim,
 		getBiggerDim = help.getBiggerDim,
@@ -511,7 +511,7 @@ var renderer = function () {
 			},
 		};
 
-	return (renderer = {
+	return (window.typo = {
 		renderList: renderList,
 		background: backgroundColor,
 		variableList: variableList,

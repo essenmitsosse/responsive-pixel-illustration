@@ -1,6 +1,6 @@
 "use strict";
 /* global helper */
-var renderer = function () {
+window.tantalos = function () {
 	var help = helper,
 		getSmallerDim = help.getSmallerDim,
 		getBiggerDim = help.getBiggerDim,

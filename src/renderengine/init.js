@@ -1,5 +1,5 @@
 "use strict";
-var InitPixel = function (args) {
+window.InitPixel = function (args) {
 	var queryString = this.getQueryString(),
 		showcase = (this.showcase = true),
 		forceName = args.imageName || window.location.hash.substr(1),
@@ -185,19 +185,7 @@ InitPixel.prototype.createSingleCanvas = function (canvasData, div) {
 };
 
 InitPixel.prototype.loadScript = function (callback, imageName) {
-	var script = document.createElement("script"),
-		head = document.getElementsByTagName("head")[0];
-
-	script.type = "text/javascript";
-	script.src = "src/scripts/" + imageName + ".js";
-
-	script.onreadystatechange = callback;
-	script.onload = callback;
-	script.onerror = function () {
-		throw imageName + " can not be loaded.";
-	};
-
-	head.appendChild(script);
+	import(`../scripts/${imageName}.js`).then(callback);
 };
 
 InitPixel.prototype.loadMultipleScripts = function (
@@ -208,12 +196,11 @@ InitPixel.prototype.loadMultipleScripts = function (
 	var l = require.length,
 		count = 0,
 		loadFile = this.loadFile,
-		head = document.getElementsByTagName("head")[0],
 		loadNext = function () {
 			if (count === l) {
 				callback();
 			} else {
-				loadFile(require[count], head, loadNext);
+				loadFile(require[count], loadNext);
 				count += 1;
 			}
 		};
@@ -221,19 +208,8 @@ InitPixel.prototype.loadMultipleScripts = function (
 	loadNext();
 };
 
-InitPixel.prototype.loadFile = function (filePath, head, onLoadFunction) {
-	var script = document.createElement("script");
-
-	script.type = "text/javascript";
-	script.src = filePath;
-
-	script.onreadystatechange = onLoadFunction;
-	script.onload = onLoadFunction;
-	script.onerror = function () {
-		throw filePath + " can not be loaded.";
-	};
-
-	head.appendChild(script);
+InitPixel.prototype.loadFile = function (importCallback, onLoadFunction) {
+	importCallback().then(onLoadFunction);
 };
 
 // Create the Callback Function, when the script is loaded
@@ -780,56 +756,56 @@ InitPixel.prototype.getTimerAnimation = function () {
 
 InitPixel.prototype.require = {
 	persons_lessrandom: [
-		"src/scripts/builder/builder.js",
-		"src/scripts/builder/person-main.js",
-		"src/scripts/builder/person-lowerBody.js",
-		"src/scripts/builder/person-upperBody.js",
-		"src/scripts/builder/person-arm.js",
-		"src/scripts/builder/person-head.js",
-		"src/scripts/builder/tree.js",
-		"src/scripts/builder/comic.js",
+		() => import("../scripts/builder/builder.js"),
+		() => import("../scripts/builder/person-main.js"),
+		() => import("../scripts/builder/person-lowerBody.js"),
+		() => import("../scripts/builder/person-upperBody.js"),
+		() => import("../scripts/builder/person-arm.js"),
+		() => import("../scripts/builder/person-head.js"),
+		() => import("../scripts/builder/tree.js"),
+		() => import("../scripts/builder/comic.js"),
 
-		"src/scripts/builder/init.js",
+		() => import("../scripts/builder/init.js"),
 	],
 
 	panels: [
-		"src/scripts/builder-old/builder.js",
-		"src/scripts/builder-old/person-main.js",
-		"src/scripts/builder-old/person-lowerBody.js",
-		"src/scripts/builder-old/person-upperBody.js",
-		"src/scripts/builder-old/person-arm.js",
-		"src/scripts/builder-old/person-head.js",
-		"src/scripts/builder-old/tree.js",
-		"src/scripts/builder-old/comic.js",
+		() => import("../scripts/builder-old/builder.js"),
+		() => import("../scripts/builder-old/person-main.js"),
+		() => import("../scripts/builder-old/person-lowerBody.js"),
+		() => import("../scripts/builder-old/person-upperBody.js"),
+		() => import("../scripts/builder-old/person-arm.js"),
+		() => import("../scripts/builder-old/person-head.js"),
+		() => import("../scripts/builder-old/tree.js"),
+		() => import("../scripts/builder-old/comic.js"),
 
-		"src/scripts/builder-old/init-panels.js",
+		() => import("../scripts/builder-old/init-panels.js"),
 	],
 
 	turnaround: [
-		"src/scripts/betterBuilder/bb.js",
-		"src/scripts/betterBuilder/rotation.js",
-		"src/scripts/betterBuilder/person-main.js",
-		"src/scripts/betterBuilder/person-head.js",
-		"src/scripts/betterBuilder/person-upperBody.js",
-		"src/scripts/betterBuilder/person-lowerBody.js",
+		() => import("../scripts/betterBuilder/bb.js"),
+		() => import("../scripts/betterBuilder/rotation.js"),
+		() => import("../scripts/betterBuilder/person-main.js"),
+		() => import("../scripts/betterBuilder/person-head.js"),
+		() => import("../scripts/betterBuilder/person-upperBody.js"),
+		() => import("../scripts/betterBuilder/person-lowerBody.js"),
 
-		"src/scripts/betterBuilder/init.js",
+		() => import("../scripts/betterBuilder/init.js"),
 	],
 
 	table2: [
-		"src/scripts/tableComic2/main.js",
-		"src/scripts/tableComic2/strip.js",
-		"src/scripts/tableComic2/stage.js",
-		"src/scripts/tableComic2/actor.js",
-		"src/scripts/tableComic2/actor-head.js",
-		"src/scripts/tableComic2/actor-arm.js",
-		"src/scripts/tableComic2/actor-legs.js",
-		"src/scripts/tableComic2/accessoir.js",
+		() => import("../scripts/tableComic2/main.js"),
+		() => import("../scripts/tableComic2/strip.js"),
+		() => import("../scripts/tableComic2/stage.js"),
+		() => import("../scripts/tableComic2/actor.js"),
+		() => import("../scripts/tableComic2/actor-head.js"),
+		() => import("../scripts/tableComic2/actor-arm.js"),
+		() => import("../scripts/tableComic2/actor-legs.js"),
+		() => import("../scripts/tableComic2/accessoir.js"),
 
-		"src/scripts/tableComic2/tablecomic-1.js",
-		"src/scripts/tableComic2/tablecomic-2.js",
+		() => import("../scripts/tableComic2/tablecomic-1.js"),
+		() => import("../scripts/tableComic2/tablecomic-2.js"),
 
-		"src/scripts/tableComic2/init.js",
+		() => import("../scripts/tableComic2/init.js"),
 	],
 };
 

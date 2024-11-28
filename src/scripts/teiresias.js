@@ -1,5 +1,5 @@
 "use strict";
-var renderer = function () {
+window.teiresias = function () {
 	var help = helper,
 		getSmallerDim = help.getSmallerDim,
 		getBiggerDim = help.getBiggerDim,

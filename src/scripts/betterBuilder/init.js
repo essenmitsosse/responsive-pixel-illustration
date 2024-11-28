@@ -1,5 +1,5 @@
 "use strict";
-var renderer = function (init) {
+window.renderer = function (init) {
 	var bb = new BB(init);
 
 	return {

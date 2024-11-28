@@ -1,5 +1,5 @@
 "use strict";
-var renderer = function (args, slide, createSlider) {
+window.graien = function (args, slide, createSlider) {
 	var helper = window.helper,
 		getSmallerDim = helper.getSmallerDim,
 		getBiggerDim = helper.getBiggerDim,

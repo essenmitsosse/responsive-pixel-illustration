@@ -1,5 +1,5 @@
 "use strict";
-var Builder = function (init) {
+window.Builder = function (init) {
 	var helper = (this.helper = window.helper),
 		getSmallerDim = helper.getSmallerDim,
 		getBiggerDim = helper.getBiggerDim,

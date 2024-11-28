@@ -1,5 +1,5 @@
 "use strict";
-var renderer = function () {
+window.trex = function () {
 	var white = [255, 255, 255],
 		grey = [160, 160, 160],
 		ground = [90, 60, 50],

@@ -1,5 +1,5 @@
 "use strict";
-var renderer = function (init) {
+window["random-distribution"] = function (init) {
 	var help = helper,
 		getSmallerDim = help.getSmallerDim,
 		getBiggerDim = help.getBiggerDim,

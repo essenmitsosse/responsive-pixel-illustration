@@ -1,5 +1,5 @@
 "use strict";
-var renderer = function (args, init, createSlider) {
+window.stripes = function (args, init, createSlider) {
 	var helper = window.helper,
 		hover = helper.getHoverChangers(),
 		pushChanger = hover.pushRelativeStandard,

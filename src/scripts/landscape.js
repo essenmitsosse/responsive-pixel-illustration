@@ -1,5 +1,5 @@
 "use strict";
-var renderer = function (args) {
+window.landscape = function (args) {
 	args = args || {};
 
 	var help = helper,

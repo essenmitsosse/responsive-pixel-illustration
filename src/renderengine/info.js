@@ -1,3 +1,5 @@
+import { Renderer } from "./renderer.js";
+
 import { getPixelUnits } from "./pixel.js";
 import { DrawingTools } from "./creator.js";
 
@@ -21,7 +23,7 @@ export const PixelGraphics = function (options) {
 	return function (canvas) {
 		var info = options.info,
 			isParent = options.queryString.parent,
-			finalRenderer = new window.Renderer(canvas, info, options, that),
+			finalRenderer = new Renderer(canvas, info, options, that),
 			rescaleWindow = finalRenderer.rescaleWindow,
 			resize = that.getResize(options, info, finalRenderer.resize),
 			redraw = that.getRedraw(options, resize, isParent);

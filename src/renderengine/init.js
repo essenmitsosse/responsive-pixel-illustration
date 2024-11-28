@@ -12,9 +12,7 @@ export const InitPixel = function (args) {
 		socket = !showcase && window.io ? this.connectToIo() : false,
 		div = args.div,
 		canvasDataList = false, // change for multiple Canvases
-		canvasRenderer =
-			!currentSlide.staticImage &&
-			this.createSingleCanvas(canvasDataList, div),
+		canvasRenderer = this.createSingleCanvas(canvasDataList, div),
 		callback,
 		require = this.require[imageName],
 		body = document.getElementsByTagName("body")[0],
@@ -50,9 +48,7 @@ export const InitPixel = function (args) {
 		this.info(queryString),
 	);
 
-	if (currentSlide.staticImage) {
-		this.getStaticImage(currentSlide, main);
-	} else if (require) {
+	if (require) {
 		this.loadMultipleScripts(callback, imageName, require);
 	} else {
 		this.loadScript(callback, imageName);
@@ -620,48 +616,6 @@ InitPixel.prototype.getShortcuts = function (q) {
 		// 	else if ( keyCode === 48 ) { q.p = 10; that.refresh(); }
 		// }
 	};
-};
-
-// Displays
-InitPixel.prototype.getStaticImage = function (args, main) {
-	var imageList = args.staticImage,
-		img = document.createElement("img"),
-		width = window.innerWidth,
-		l = imageList.length,
-		count = 0,
-		found = false;
-
-	if (main) {
-		main.setAttribute(
-			"class",
-			(main.getAttribute("class") || "") + " screenshot",
-		);
-
-		while (count < l) {
-			if (imageList[count].width <= width) {
-				if (imageList[count].max && imageList[count].max <= width) {
-					found = false;
-				} else {
-					found = count;
-				}
-			}
-			count += 1;
-		}
-
-		if (found !== false && imageList[found].url) {
-			main.appendChild(img);
-			img.setAttribute(
-				"class",
-				"screenshot " + (imageList[found].className || ""),
-			);
-			img.setAttribute("src", imageList[found].url);
-		}
-
-		if (args.color) {
-			main.setAttribute("style", "background-color: " + args.color + ";");
-		}
-	}
-	// this.list.setAttribute( "id", name );
 };
 
 InitPixel.prototype.getTimerAnimation = function () {

@@ -1,3 +1,7 @@
+import { inject } from "@vercel/analytics";
+
+inject();
+
 (() =>
 	new window.InitPixel({
 		div: document.getElementById("main"),

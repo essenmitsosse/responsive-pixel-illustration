@@ -1,4 +1,4 @@
-window.InitPixel = function (args) {
+export const InitPixel = function (args) {
 	var queryString = this.getQueryString(),
 		showcase = (this.showcase = true),
 		forceName = args.imageName || window.location.hash.substr(1),

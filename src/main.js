@@ -1,5 +1,5 @@
 import { inject } from "@vercel/analytics";
-import "./renderengine/init.js";
+import { InitPixel } from "./renderengine/init.js";
 import "./renderengine/info.js";
 import "./renderengine/helper.js";
 import "./renderengine/pixel.js";
@@ -10,7 +10,7 @@ import "./renderengine/admin.js";
 inject();
 
 (() =>
-	new window.InitPixel({
+	new InitPixel({
 		div: document.getElementById("main"),
 		// imageName: window.location.hash.substr(1)
 	}))();

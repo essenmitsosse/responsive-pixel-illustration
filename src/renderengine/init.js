@@ -1,4 +1,5 @@
 import { Admin } from "./admin.js";
+import { PixelGraphics } from "./info.js";
 export const InitPixel = function (args) {
 	var queryString = this.getQueryString(),
 		showcase = (this.showcase = true),
@@ -180,7 +181,7 @@ InitPixel.prototype.createSingleCanvas = function (canvasData, div) {
 	div.appendChild(canvas);
 
 	return function (renderer) {
-		return new window.PixelGraphics(renderer)(canvas);
+		return new PixelGraphics(renderer)(canvas);
 	};
 };
 

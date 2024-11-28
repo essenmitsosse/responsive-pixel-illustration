@@ -1,9 +1,6 @@
 import { inject } from "@vercel/analytics";
 import { InitPixel } from "./renderengine/init.js";
-import "./renderengine/info.js";
 import "./renderengine/helper.js";
-import "./renderengine/pixel.js";
-import "./renderengine/creator.js";
 import "./renderengine/renderer.js";
 
 inject();

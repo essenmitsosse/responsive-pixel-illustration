@@ -1,4 +1,4 @@
-PixelGraphics.prototype.getPixelUnits = function () {
+export const getPixelUnits = function () {
 	var old = [],
 		variableListLink,
 		variableListCreate,

@@ -1,4 +1,4 @@
-PixelGraphics.prototype.DrawingTools = function (pixelUnit, getRandom) {
+export const DrawingTools = function (pixelUnit, getRandom) {
 	var drawingTool = this;
 
 	this.seed = (function (getRandom) {

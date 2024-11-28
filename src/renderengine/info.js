@@ -1,5 +1,8 @@
+import { getPixelUnits } from "./pixel.js";
+import { DrawingTools } from "./creator.js";
+
 var startTime = Date.now();
-window.PixelGraphics = function (options) {
+export const PixelGraphics = function (options) {
 	var that = this,
 		pU = this.getPixelUnits(); // Initialize PixelUnits with Variables
 
@@ -527,3 +530,6 @@ PixelGraphics.prototype.joinObjects = function () {
 
 	return newObj;
 };
+
+PixelGraphics.prototype.getPixelUnits = getPixelUnits;
+PixelGraphics.prototype.DrawingTools = DrawingTools;

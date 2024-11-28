@@ -1,7 +1,7 @@
 /* global TableComic */
 
 // BEGINN Strip /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.Strip = function (args) {
+export const Strip = function (args) {
 	var stripInfo = args.stripInfo,
 		panelsInfo = stripInfo.panels,
 		count = panelsInfo.length,
@@ -121,7 +121,7 @@ TableComic.prototype.Strip = function (args) {
 // END Strip \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Panel /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.Panel = function (args) {
+export const Panel = function (args) {
 	if (!args) {
 		args = {};
 	}
@@ -134,10 +134,7 @@ TableComic.prototype.Panel = function (args) {
 	this.ratio = args.ratio || 1.5;
 };
 
-TableComic.prototype.Panel.prototype.setStage = function (
-	minPanelSX,
-	minPanelSY,
-) {
+Panel.prototype.setStage = function (minPanelSX, minPanelSY) {
 	this.getSizeWithRatio({
 		sX: (this.minPanelSX = minPanelSX),
 		sY: (this.minPanelSY = minPanelSY),
@@ -146,7 +143,7 @@ TableComic.prototype.Panel.prototype.setStage = function (
 	});
 };
 
-TableComic.prototype.Panel.prototype.draw = function (args) {
+Panel.prototype.draw = function (args) {
 	var info = args.info || {},
 		cameraFocus = info.camera && info.camera.focus;
 
@@ -516,13 +513,13 @@ TableComic.prototype.Panel.prototype.draw = function (args) {
 	};
 };
 
-TableComic.prototype.Panel.prototype.cameraZoomFunction = function (args) {
+Panel.prototype.cameraZoomFunction = function (args) {
 	if (args.camera !== undefined) {
 		return Math.pow(args.camera, 3);
 	}
 };
 
-TableComic.prototype.Panel.prototype.cameraPanFunction = function (args) {
+Panel.prototype.cameraPanFunction = function (args) {
 	if (args.camera !== undefined) {
 		return Math.pow(args.camera, 0.333);
 	}

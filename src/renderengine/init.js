@@ -762,21 +762,7 @@ InitPixel.prototype.require = {
 
 	turnaround: [() => import("../scripts/betterBuilder/init.js")],
 
-	table2: [
-		() => import("../scripts/tableComic2/main.js"),
-		() => import("../scripts/tableComic2/strip.js"),
-		() => import("../scripts/tableComic2/stage.js"),
-		() => import("../scripts/tableComic2/actor.js"),
-		() => import("../scripts/tableComic2/actor-head.js"),
-		() => import("../scripts/tableComic2/actor-arm.js"),
-		() => import("../scripts/tableComic2/actor-legs.js"),
-		() => import("../scripts/tableComic2/accessoir.js"),
-
-		() => import("../scripts/tableComic2/tablecomic-1.js"),
-		() => import("../scripts/tableComic2/tablecomic-2.js"),
-
-		() => import("../scripts/tableComic2/init.js"),
-	],
+	table2: [() => import("../scripts/tableComic2/init.js")],
 };
 
 InitPixel.prototype.showcaseSlides = [

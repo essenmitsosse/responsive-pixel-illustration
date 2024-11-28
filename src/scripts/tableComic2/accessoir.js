@@ -1,7 +1,7 @@
 /* global TableComic */
 
 // BEGINN Table /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.Table = function Table(args) {
+export const Table = function Table(args) {
 	if (!args) {
 		args = {};
 	}
@@ -14,7 +14,7 @@ TableComic.prototype.Table = function Table(args) {
 	this.colorDetail = args.colorDetail || [225, 210, 225];
 };
 
-TableComic.prototype.Table.prototype.draw = function TableDraw(args) {
+Table.prototype.draw = function TableDraw(args) {
 	this.sX = this.pushLinkList({ r: this.sX_, useSize: args.stageSX });
 	this.sY = this.pushLinkList({ r: this.sY_, useSize: args.stageSY });
 
@@ -72,9 +72,7 @@ TableComic.prototype.Table.prototype.draw = function TableDraw(args) {
 	]);
 };
 
-TableComic.prototype.Table.prototype.getPosition = function TableGetPosition(
-	id,
-) {
+Table.prototype.getPosition = function TableGetPosition(id) {
 	return {
 		x: id === 0 ? this.x : this.pushLinkList([this.x, this.sX]),
 		y: this.sY,
@@ -83,7 +81,7 @@ TableComic.prototype.Table.prototype.getPosition = function TableGetPosition(
 // END Table \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Chair /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.Chair = function Chair(args) {
+export const Chair = function Chair(args) {
 	if (!args) {
 		args = {};
 	}
@@ -98,7 +96,7 @@ TableComic.prototype.Chair = function Chair(args) {
 	this.colorDetail = args.colorDetail || [180, 180, 180];
 };
 
-TableComic.prototype.Chair.prototype.draw = function ChairDraw(args) {
+Chair.prototype.draw = function ChairDraw(args) {
 	this.sX = this.pushLinkList({ r: this.sX_, useSize: args.stageSX });
 	this.sY = this.pushLinkList({ r: this.sY_, useSize: args.stageSY });
 
@@ -166,7 +164,7 @@ TableComic.prototype.Chair.prototype.draw = function ChairDraw(args) {
 // END Chair \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Glass /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.Glass = function Glass(args) {
+export const Glass = function Glass(args) {
 	if (!args) {
 		args = {};
 	}
@@ -184,7 +182,7 @@ TableComic.prototype.Glass = function Glass(args) {
 	];
 };
 
-TableComic.prototype.Glass.prototype.draw = function GlassDraw(args) {
+Glass.prototype.draw = function GlassDraw(args) {
 	var normalGlass;
 
 	this.sX = this.pushLinkList({ r: this.sX_, useSize: args.square, min: 1 });
@@ -223,7 +221,7 @@ TableComic.prototype.Glass.prototype.draw = function GlassDraw(args) {
 // END Glass \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Emotion /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.Emotion = function Emotion(args) {
+export const Emotion = function Emotion(args) {
 	if (!args) {
 		args = {};
 	}
@@ -238,7 +236,7 @@ TableComic.prototype.Emotion = function Emotion(args) {
 	});
 };
 
-TableComic.prototype.Emotion.prototype.draw = function EmotionDraw(args) {
+Emotion.prototype.draw = function EmotionDraw(args) {
 	if (!args.info.pos) {
 		return;
 	}

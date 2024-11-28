@@ -1,7 +1,7 @@
 /* global TableComic */
 
 // BEGINN getTableComic /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.getTableComic = function getTableComic(args) {
+export const getTableComic = function getTableComic(args) {
 	this.panel = new this.basic.Panel();
 	this.story = new this.basic.getStory(args);
 
@@ -21,15 +21,13 @@ TableComic.prototype.getTableComic = function getTableComic(args) {
 // END getTableComic \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN getStory /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.getStory = function getStory() {
+export const getStory = function getStory() {
 	this.stage = new this.basic.Stage();
 	this.colors = new this.basic.getColorScheme();
 	this.actorsList = new this.basic.getActors(this);
 };
 
-TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
-	totalPanelCount,
-) {
+getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
 	var actor0StandUp = 0.1,
 		stage = this.stage,
 		actorsList = this.actorsList,
@@ -1136,9 +1134,7 @@ TableComic.prototype.getStory.prototype.getStoryFrameWork = function (
 	return panels;
 };
 
-TableComic.prototype.getStory.prototype.getPanels = function getStoryPanels(
-	totalPanelCount,
-) {
+getStory.prototype.getPanels = function getStoryPanels(totalPanelCount) {
 	var panels = [],
 		currentPanelNumber = 0,
 		lastPanelNumber,
@@ -1174,7 +1170,7 @@ TableComic.prototype.getStory.prototype.getPanels = function getStoryPanels(
 	return panels;
 };
 
-TableComic.prototype.getStory.prototype.getPanel = function (frame, rel) {
+getStory.prototype.getPanel = function (frame, rel) {
 	var main = frame.main.list,
 		actorsList = this.actorsList,
 		list = [{ what: this.stage }],
@@ -1196,7 +1192,7 @@ TableComic.prototype.getStory.prototype.getPanel = function (frame, rel) {
 // END getStory \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN getAnimation /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.getAnimation = function getAnimation(args) {
+export const getAnimation = function getAnimation(args) {
 	var steps = args.endPanelNumber - args.startPanelNumber || 1,
 		process = (args.currentPanelNumber - args.startPanelNumber) / steps;
 
@@ -1218,7 +1214,7 @@ TableComic.prototype.getAnimation = function getAnimation(args) {
 // END getAnimation \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN getActors /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.getActors = function (story) {
+export const getActors = function (story) {
 	var colorSchemes = [
 			[0, 1, 2, 1, 2, 1],
 			[0, 1, 1, 1, 2, 2],
@@ -1280,7 +1276,7 @@ TableComic.prototype.getActors = function (story) {
 	);
 };
 
-TableComic.prototype.getActors.prototype.getNewActor = function (args) {
+getActors.prototype.getNewActor = function (args) {
 	return new this.basic.RenderObjectContainer(
 		new this.basic.Actor({
 			color: this.colors.getColorMap({
@@ -1305,13 +1301,11 @@ TableComic.prototype.getActors.prototype.getNewActor = function (args) {
 // END getActors \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN RenderObjectConteiner /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.RenderObjectContainer = function (renderObject) {
+export const RenderObjectContainer = function (renderObject) {
 	this.renderObject = renderObject;
 };
 
-TableComic.prototype.RenderObjectContainer.prototype.getAction = function (
-	args,
-) {
+RenderObjectContainer.prototype.getAction = function (args) {
 	var obj = {},
 		info = args.info,
 		start = (info && info.start) || info,
@@ -1330,10 +1324,7 @@ TableComic.prototype.RenderObjectContainer.prototype.getAction = function (
 	return obj;
 };
 
-TableComic.prototype.RenderObjectContainer.prototype.joinObject = function (
-	main,
-	defaults,
-) {
+RenderObjectContainer.prototype.joinObject = function (main, defaults) {
 	var key;
 
 	for (key in defaults) {
@@ -1345,12 +1336,11 @@ TableComic.prototype.RenderObjectContainer.prototype.joinObject = function (
 	return main;
 };
 
-TableComic.prototype.RenderObjectContainer.prototype.getActionProcessor =
-	function (rel) {
-		this.rel = rel;
-	};
+RenderObjectContainer.prototype.getActionProcessor = function (rel) {
+	this.rel = rel;
+};
 
-TableComic.prototype.RenderObjectContainer.prototype.getActionProcessor.prototype.processObject =
+RenderObjectContainer.prototype.getActionProcessor.prototype.processObject =
 	function (obj, start, end) {
 		var key;
 
@@ -1364,7 +1354,7 @@ TableComic.prototype.RenderObjectContainer.prototype.getActionProcessor.prototyp
 
 		return obj;
 	};
-TableComic.prototype.RenderObjectContainer.prototype.getActionProcessor.prototype.processValue =
+RenderObjectContainer.prototype.getActionProcessor.prototype.processValue =
 	function (obj, start, end) {
 		if (end !== undefined) {
 			if (typeof start === "number" && typeof end === "number") {
@@ -1380,7 +1370,7 @@ TableComic.prototype.RenderObjectContainer.prototype.getActionProcessor.prototyp
 			return start;
 		}
 	};
-TableComic.prototype.RenderObjectContainer.prototype.getActionProcessor.prototype.checkIfObject =
+RenderObjectContainer.prototype.getActionProcessor.prototype.checkIfObject =
 	function (obj, start, end) {
 		// console.log( "check", ( ( end && end.relPos ) ), end );
 
@@ -1393,7 +1383,7 @@ TableComic.prototype.RenderObjectContainer.prototype.getActionProcessor.prototyp
 // END RenderObjectConteiner \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN getColorScheme /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.getColorScheme = function getColorScheme() {
+export const getColorScheme = function getColorScheme() {
 	var colors = [
 			[this.rInt(150, 200), this.rInt(50, 100), this.rInt(100, 150)],
 			[this.rInt(50, 100), this.rInt(100, 150), this.rInt(150, 200)],
@@ -1408,7 +1398,7 @@ TableComic.prototype.getColorScheme = function getColorScheme() {
 	];
 };
 
-TableComic.prototype.getColorScheme.prototype.getColor = function (args) {
+getColorScheme.prototype.getColor = function (args) {
 	var shade = args.maxShade ? this.rFl(args.maxShade, 1) : args.shade,
 		baseColor =
 			this.colors[
@@ -1422,7 +1412,7 @@ TableComic.prototype.getColorScheme.prototype.getColor = function (args) {
 	return shade ? this.multiplyColor(baseColor, shade) : baseColor;
 };
 
-TableComic.prototype.getColorScheme.prototype.getColorMap = function (args) {
+getColorScheme.prototype.getColorMap = function (args) {
 	return args.main
 		? this.getColor(args.min)
 		: {

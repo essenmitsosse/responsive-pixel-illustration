@@ -1,7 +1,7 @@
 /* global TableComic */
 
 // BEGINN Head /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.Head = function (args) {
+export const Head = function (args) {
 	this.actor = this.parent = args.actor;
 
 	// Forms and Sizes
@@ -46,7 +46,7 @@ TableComic.prototype.Head = function (args) {
 		});
 };
 
-TableComic.prototype.Head.prototype.getBetterPosX = function (rel) {
+Head.prototype.getBetterPosX = function (rel) {
 	var add = [this.actor.getBetterPosX(0), this.x];
 
 	if (!this.rotate) {
@@ -58,7 +58,7 @@ TableComic.prototype.Head.prototype.getBetterPosX = function (rel) {
 	return this.pushLinkList({ add: add });
 };
 
-TableComic.prototype.Head.prototype.getBetterPosY = function (rel) {
+Head.prototype.getBetterPosY = function (rel) {
 	var add = [];
 
 	if (!this.rotate) {
@@ -77,7 +77,7 @@ TableComic.prototype.Head.prototype.getBetterPosY = function (rel) {
 	return this.pushLinkList({ add: add });
 };
 
-TableComic.prototype.Head.prototype.draw = function (args) {
+Head.prototype.draw = function (args) {
 	var side = (args.info.body && args.info.body.side) || args.info.side || 0,
 		sX = (this.sX = this.getSizeSwitch(
 			{ r: this.baseSX_, useSize: args.sX || args.stageSX },
@@ -201,7 +201,7 @@ TableComic.prototype.Head.prototype.draw = function (args) {
 // END Head \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Eyes /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.Eyes = function (args) {
+export const Eyes = function (args) {
 	this.actor = args.actor;
 
 	// Forms & Sizes
@@ -248,7 +248,7 @@ TableComic.prototype.Eyes = function (args) {
 	});
 };
 
-TableComic.prototype.Eyes.prototype.draw = function (args) {
+Eyes.prototype.draw = function (args) {
 	var maxEyesSX = this.pushLinkList([args.sX, -1]),
 		maxEyesCombinedSX = this.getSizeSwitch(
 			{ r: this.eyeBaseSX_, useSize: maxEyesSX },
@@ -322,7 +322,7 @@ TableComic.prototype.Eyes.prototype.draw = function (args) {
 // END Eyes \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Eye /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.Eye = function Eye(args) {
+export const Eye = function Eye(args) {
 	this.actor = args.actor;
 
 	// Forms && Sizes
@@ -339,7 +339,7 @@ TableComic.prototype.Eye = function Eye(args) {
 	this.color = args.color;
 };
 
-TableComic.prototype.Eye.prototype.draw = function EyeDraw(args) {
+Eye.prototype.draw = function EyeDraw(args) {
 	// sYNormal is the normal eye height, sY can be changed for smaller or bigger eyes, but is recommended to only be used for bigger eyes.
 	// for closed eyes use openSY;
 	// use eyeLidTopSY to change percentage of lower and upper eye;
@@ -569,12 +569,12 @@ TableComic.prototype.Eye.prototype.draw = function EyeDraw(args) {
 // END Eye \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Mouth /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.Mouth = function Mouth(args) {
+export const Mouth = function Mouth(args) {
 	// Colors
 	this.color = args.color;
 };
 
-TableComic.prototype.Mouth.prototype.draw = function MouthDraw(args) {
+Mouth.prototype.draw = function MouthDraw(args) {
 	var cutOff = (this.cutOff = this.pushLinkList({ r: 1, useSize: args.sX })),
 		/*0_1 */ sX = (this.sX = this.pushLinkList({
 			r: 1,
@@ -748,7 +748,7 @@ TableComic.prototype.Mouth.prototype.draw = function MouthDraw(args) {
 // END Mouth \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Hair /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.Hair = function Hair(args) {
+export const Hair = function Hair(args) {
 	// Forms & Sizes
 	this.sY_ = 0.3;
 
@@ -756,7 +756,7 @@ TableComic.prototype.Hair = function Hair(args) {
 	this.color = [50, 30, 20];
 };
 
-TableComic.prototype.Hair.prototype.draw = function HairDraw(args) {
+Hair.prototype.draw = function HairDraw(args) {
 	this.sY = this.pushLinkList({ r: this.sY_, useSize: args.sY });
 
 	this.pushRelativeStandardAutomatic({
@@ -804,7 +804,7 @@ TableComic.prototype.Hair.prototype.draw = function HairDraw(args) {
 // END Hair \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Hat /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-TableComic.prototype.Hat = function Hat(args) {
+export const Hat = function Hat(args) {
 	this.actor = args.actor;
 
 	this.rim = this.rIf(0.7);
@@ -822,7 +822,7 @@ TableComic.prototype.Hat = function Hat(args) {
 	this.detailColor = this.colorScheme[3];
 };
 
-TableComic.prototype.Hat.prototype.draw = function HatDraw(args) {
+Hat.prototype.draw = function HatDraw(args) {
 	this.sY = this.pushLinkList({ r: 0, useSize: args.sY });
 	this.topSY = this.pushLinkList({ r: 0, useSize: args.sY });
 

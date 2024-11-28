@@ -31,41 +31,8 @@ export const Admin = function (args) {
 
 	this.setupSlider();
 
-	// Setup admin log
-	if (args.admin && args.socket) {
-		this.pixel.queryString.parent = true;
-		this.setupLog(args.socket);
-		body.setAttribute(
-			"class",
-			(body.getAttribute("class") || "") + " admin",
-		);
-	}
-
 	body.appendChild(this.mainAdmin);
 	this.mainAdmin.setAttribute("id", "mainAdmin");
-};
-
-Admin.prototype.setupLog = function (socket) {
-	var infoBarDiv = document.createElement("div"),
-		serverLog = new this.List({ id: "serverLog", container: infoBarDiv }),
-		connectionLogList = new this.List({
-			id: "connectionLog",
-			container: infoBarDiv,
-			tagName: "div",
-		});
-
-	this.mainAdmin.appendChild(infoBarDiv);
-	infoBarDiv.setAttribute("id", "infobar");
-
-	// socket.emit( "iAmAdmin" );
-
-	socket.on("initMessageList", function (data) {
-		serverLog.init(data);
-	});
-
-	socket.on("initClientList", function (data) {
-		connectionLogList.init(data);
-	});
 };
 
 Admin.prototype.setupSlides = function (slides) {

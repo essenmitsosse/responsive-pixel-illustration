@@ -23,7 +23,7 @@ const listScreenshots = [
 	{
 		index: 9,
 		niceName: "Persons (alt)",
-		query: "id=362604470&p=2&panelCount=6&head-size=1&body-width=0.94&body-height=1&arm-length=0.26&leg-length=0.6&isServer=false&dontHighlight=true&forceSliders=true&a=0.9645569620253165&b=0.08994708994708994",
+		query: "id=362604470&p=2&panelCount=6&head-size=1&body-width=0.94&body-height=1&arm-length=0.26&leg-length=0.6&dontHighlight=true&forceSliders=true&a=0.9645569620253165&b=0.08994708994708994",
 	},
 	{ index: 10, niceName: "Panels", query: "id=3381513778&p=3" },
 	{

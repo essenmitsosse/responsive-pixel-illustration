@@ -9,7 +9,6 @@ export const InitPixel = function (args) {
 		imageName = forceName || currentSlide.name || "tantalos",
 		admin,
 		sliders = queryString.sliders || currentSlide.sliders,
-		socket = !showcase && window.io ? this.connectToIo() : false,
 		div = args.div,
 		canvasDataList = false, // change for multiple Canvases
 		canvasRenderer = this.createSingleCanvas(canvasDataList, div),
@@ -17,7 +16,6 @@ export const InitPixel = function (args) {
 		body = document.getElementsByTagName("body")[0],
 		main = document.getElementById("main");
 
-	this.defaultValues = { isServer: false };
 	this.parent = queryString.admin || queryString.parent;
 
 	if (currentSlide.resizeable) {
@@ -33,7 +31,6 @@ export const InitPixel = function (args) {
 			sliders: sliders,
 			slides: slides,
 			pixel: this,
-			socket: socket,
 			hasRandom: currentSlide.hasRandom || false,
 		});
 	}
@@ -42,7 +39,6 @@ export const InitPixel = function (args) {
 		canvasRenderer,
 		queryString,
 		imageName,
-		socket,
 		currentSlide,
 		this.info(queryString),
 	);
@@ -54,49 +50,6 @@ export const InitPixel = function (args) {
 
 	if (currentSlide.timer || queryString.timer) {
 		this.timerAnimation = this.getTimerAnimation(currentSlide.timer);
-	}
-};
-
-InitPixel.prototype.connectToIo = function () {
-	var socket = (this.socket = window.io(
-			window.location.protocol +
-				"//" +
-				window.location.host.split(":")[0],
-		)),
-		that = this;
-
-	if (socket) {
-		// get a unique Id for this socket
-		socket.on("newId", function (data) {
-			that.getNewId(data * 1, true);
-		});
-
-		socket.on("newValues", function (data, imageData) {
-			that.addToQueryString(JSON.parse(data));
-			that.receiveImageData(JSON.parse(imageData));
-		});
-
-		socket.on("redrawImage", function (imageData) {
-			that.receiveImageData(JSON.parse(imageData));
-		});
-
-		socket.emit(
-			"connected",
-			JSON.stringify({
-				name:
-					"<span class='screensize'>" +
-					window.screen.width +
-					"/" +
-					window.screen.height +
-					"</span> " +
-					navigator.platform,
-				admin: that.queryString.admin,
-			}),
-		);
-
-		return socket;
-	} else {
-		return false;
 	}
 };
 
@@ -187,7 +140,6 @@ InitPixel.prototype.getCallback = function (
 	rendererInit,
 	queryString,
 	imageName,
-	socket,
 	currentSlide,
 	info,
 ) {
@@ -221,7 +173,6 @@ InitPixel.prototype.getCallback = function (
 						imageFunction.recommendedPixelSize ||
 						0) *
 						1,
-				socket: socket,
 				sliderObject: that.sliderObject,
 				sliderValues: that.sliderValues,
 				info: info,
@@ -329,22 +280,6 @@ InitPixel.prototype.info = function (options) {
 	};
 };
 
-InitPixel.prototype.receiveImageData = function (imageData) {
-	var d = this.defaultValues,
-		key;
-
-	if (this.renderer && this.renderer.redraw) {
-		imageData.forceSliders = true;
-		imageData.isServer = true;
-
-		this.renderer.redraw(imageData);
-	} else {
-		for (key in imageData) {
-			d[key] = imageData[key];
-		}
-	}
-};
-
 InitPixel.prototype.addToQueryString = function (newObj, dontRefresh) {
 	var key,
 		q = this.queryString,
@@ -378,10 +313,6 @@ InitPixel.prototype.refresh = function (event) {
 		}
 	}
 
-	if (this.socket) {
-		this.socket.disconnect();
-	}
-
 	location.search = newString.join("&");
 };
 
@@ -402,17 +333,10 @@ InitPixel.prototype.nextSlide = function (next) {
 	this.changeForceRedraw({ slide: slide });
 };
 
-InitPixel.prototype.getNewId = function (id, isServer) {
-	this.changeForceRedraw(
-		{ id: id || Math.floor(Math.random() * Math.pow(2, 32)) },
-		isServer,
-	);
-};
-
-InitPixel.prototype.seedNewId = function () {
-	if (this.socket) {
-		this.socket.emit("seedId");
-	}
+InitPixel.prototype.getNewId = function (id) {
+	this.changeForceRedraw({
+		id: id || Math.floor(Math.random() * Math.pow(2, 32)),
+	});
 };
 
 InitPixel.prototype.sliderChange = function (obj) {
@@ -425,35 +349,22 @@ InitPixel.prototype.sliderChange = function (obj) {
 	}
 };
 
-InitPixel.prototype.changeForceRedraw = function (obj, isServer) {
-	if (!isServer && this.socket) {
-		if (this.parent) {
-			this.socket.emit("updateValue", JSON.stringify(obj));
-		} else {
-			window.alert("Du bist Client, du kannst das nicht ändern.");
-		}
+InitPixel.prototype.changeForceRedraw = function (obj) {
+	if (obj.slide && obj.slide !== this.queryString.slide && this.showcase) {
+		this.queryString = {
+			showcase: true,
+			id: this.queryString.id,
+			slide: obj.slide,
+		};
+		this.refresh();
 	} else {
-		if (
-			!this.socket &&
-			obj.slide &&
-			obj.slide !== this.queryString.slide &&
-			this.showcase
-		) {
-			this.queryString = {
-				showcase: true,
-				id: this.queryString.id,
-				slide: obj.slide,
-			};
-			this.refresh();
-		} else {
-			this.addToQueryString(obj);
-		}
+		this.addToQueryString(obj);
 	}
 };
 
 InitPixel.prototype.makeFullScreen = function () {
 	this.toggleResizability(false);
-	this.renderer.redraw({ width: 1, height: 1, forceSliders: true });
+	this.renderer.redraw({ width: 1, height: 1 });
 };
 
 InitPixel.prototype.setupToggleResizabilityLinkButton = function (button) {
@@ -499,9 +410,6 @@ InitPixel.prototype.getShortcuts = function (q) {
 			if (keyCode === 82) {
 				// CTRL + R // new id
 				that.getNewId();
-			} else if (keyCode === 81) {
-				// CTRL + Q // seed new id
-				that.seedNewId();
 			} else if (keyCode === 83) {
 				// CTRL + S // toggle scalability
 				that.toggleResizability();
@@ -612,10 +520,7 @@ InitPixel.prototype.getTimerAnimation = function () {
 		key,
 		current,
 		getFrame = function () {
-			var renderObject = {
-					isServer: true,
-					forceSliders: true,
-				},
+			var renderObject = {},
 				current,
 				key;
 

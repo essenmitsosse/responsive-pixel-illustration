@@ -229,12 +229,7 @@ export const helper = new (function () {
 					somethingToChange = false;
 
 				for (key in args) {
-					if (
-						key !== "width" &&
-						key !== "height" &&
-						key !== "forceSliders" &&
-						key !== "isServer"
-					) {
+					if (key !== "width" && key !== "height") {
 						somethingToChange = true;
 						break;
 					}

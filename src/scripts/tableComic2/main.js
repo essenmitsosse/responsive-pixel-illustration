@@ -1,3 +1,5 @@
+import { helper as helperGlobal } from "../../renderengine/helper.js";
+
 // BEGINN TableComic /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 window.TableComic = window.renderer = function (init, slide, createSlider) {
 	var sX,
@@ -14,7 +16,7 @@ window.TableComic = window.renderer = function (init, slide, createSlider) {
 		controlerSY,
 		controlerX,
 		controlerY,
-		helper = window.helper,
+		helper = helperGlobal,
 		random = helper.random(init.id),
 		rFl = random.getRandomFloat,
 		rInt = random.getRandom,
@@ -64,7 +66,7 @@ window.TableComic = window.renderer = function (init, slide, createSlider) {
 			current.rInt = rInt;
 			current.rFl = rFl;
 			current.linkList = linkList;
-			current.pushLinkList = window.helper.getLinkListPusher(linkList);
+			current.pushLinkList = helperGlobal.getLinkListPusher(linkList);
 
 			current.pushRelativeStandardAutomatic =
 				pushRelativeStandardAutomatic;

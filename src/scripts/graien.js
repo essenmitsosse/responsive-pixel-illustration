@@ -1,5 +1,7 @@
+import { helper as helperGlobal } from "../renderengine/helper.js";
+
 window.graien = function (args, slide, createSlider) {
-	var helper = window.helper,
+	var helper = helperGlobal,
 		getSmallerDim = helper.getSmallerDim,
 		getBiggerDim = helper.getBiggerDim,
 		mult = helper.mult,

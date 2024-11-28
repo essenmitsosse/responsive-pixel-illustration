@@ -1,5 +1,7 @@
+import { helper as helperGlobal } from "../../renderengine/helper.js";
+
 window.Builder = function (init) {
-	var helper = (this.helper = window.helper),
+	var helper = (this.helper = helperGlobal),
 		getSmallerDim = helper.getSmallerDim,
 		getBiggerDim = helper.getBiggerDim,
 		mult = helper.mult,

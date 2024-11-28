@@ -1,3 +1,5 @@
+import { helper } from "../renderengine/helper.js";
+
 window.zeus = function () {
 	var help = helper,
 		getSmallerDim = help.getSmallerDim,

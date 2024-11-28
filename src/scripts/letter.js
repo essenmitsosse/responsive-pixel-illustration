@@ -1,5 +1,7 @@
+import { helper as helperGlobal } from "../renderengine/helper.js";
+
 window.letter = function (args, init, createSlider) {
-	var helper = window.helper,
+	var helper = helperGlobal,
 		hover = helper.getHoverChangers(),
 		pushChanger = hover.pushRelativeStandard,
 		backgroundColor = [200, 200, 240],

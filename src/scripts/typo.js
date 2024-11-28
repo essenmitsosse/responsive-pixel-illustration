@@ -1,5 +1,7 @@
+import { helper as helperGlobal } from "../renderengine/helper.js";
+
 window.typo = function () {
-	var help = helper,
+	var help = helperGlobal,
 		getSmallerDim = help.getSmallerDim,
 		getBiggerDim = help.getBiggerDim,
 		mult = help.mult,

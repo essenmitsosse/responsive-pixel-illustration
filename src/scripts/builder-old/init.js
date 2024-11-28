@@ -1,3 +1,5 @@
+import { helper } from "../renderengine/helper.js";
+
 window.renderer = function (init) {
 	init = init || {};
 

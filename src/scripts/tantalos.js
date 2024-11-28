@@ -1,6 +1,8 @@
+import { helper as helperGlobal } from "../renderengine/helper.js";
+
 /* global helper */
 window.tantalos = function () {
-	var help = helper,
+	var help = helperGlobal,
 		getSmallerDim = help.getSmallerDim,
 		getBiggerDim = help.getBiggerDim,
 		white = [255, 255, 255],

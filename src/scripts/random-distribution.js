@@ -1,3 +1,5 @@
+import { helper } from "../renderengine/helper.js";
+
 window["random-distribution"] = function (init) {
 	var help = helper,
 		getSmallerDim = help.getSmallerDim,

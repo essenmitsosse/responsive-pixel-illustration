@@ -1,4 +1,4 @@
-window.helper = new (function () {
+export const helper = new (function () {
 	var that = this;
 	this.getSmallerDim = function (x) {
 		var o = { r: x.r },

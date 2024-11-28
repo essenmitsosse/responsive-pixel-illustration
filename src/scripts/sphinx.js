@@ -1,3 +1,5 @@
+import { helper } from "../renderengine/helper.js";
+
 window.sphinx = function () {
 	var help = helper,
 		getSmallerDim = help.getSmallerDim,

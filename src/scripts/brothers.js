@@ -1,3 +1,5 @@
+import { helper } from "../renderengine/helper.js";
+
 window.brothers = function () {
 	var help = helper,
 		getSmallerDim = help.getSmallerDim,

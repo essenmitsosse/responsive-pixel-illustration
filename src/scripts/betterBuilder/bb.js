@@ -1,7 +1,9 @@
+import { helper } from "../../renderengine/helper.js";
+
 window.BB = function (init) {
 	var args = {},
 		ObjProto = BB.prototype.Obj.prototype,
-		random = window.helper.random(
+		random = helper.random(
 			init.id || Math.floor(Math.random() * 4294967296),
 		);
 

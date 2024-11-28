@@ -1,5 +1,7 @@
+import { helper as helperGlobal } from "../renderengine/helper.js";
+
 window.stripes = function (args, init, createSlider) {
-	var helper = window.helper,
+	var helper = helperGlobal,
 		hover = helper.getHoverChangers(),
 		pushChanger = hover.pushRelativeStandard,
 		backgroundColor = [100, 100, 120],

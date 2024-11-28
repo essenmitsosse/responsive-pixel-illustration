@@ -1,4 +1,5 @@
 import { helper } from "../../renderengine/helper.js";
+import { Builder } from "./builder.js";
 
 window.renderer = function (init) {
 	var help = helper,

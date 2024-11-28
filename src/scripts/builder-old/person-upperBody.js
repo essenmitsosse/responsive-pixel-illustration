@@ -1,5 +1,6 @@
+import { Object } from "./object.js";
 // UPPER BODY --------------------------------------------------------------------------------
-Builder.prototype.UpperBody = function (args) {
+export const UpperBody = function (args) {
 	var shirtColor = args.firstColor.getBr();
 
 	// Form & Sizes
@@ -51,8 +52,8 @@ Builder.prototype.UpperBody = function (args) {
 
 	this.IF(0.1) && (this.logo = new this.basic.Logo(args));
 }; // END UpperBody
-Builder.prototype.UpperBody.prototype = new Builder.prototype.Object();
-Builder.prototype.UpperBody.prototype.draw = function (args) {
+UpperBody.prototype = new Object();
+UpperBody.prototype.draw = function (args) {
 	var nr = args.nr,
 		sideView = args.sideView,
 		backView = args.backView;
@@ -162,7 +163,7 @@ Builder.prototype.UpperBody.prototype.draw = function (args) {
 }; // END UpperBody draw
 
 // STRIPES --------------------------------------------------------------------------------
-Builder.prototype.Stripes = function (args) {
+export const Stripes = function (args) {
 	// Form & Sizes
 	this.gap = this.R(0.05, 0.2);
 	this.strip = this.R(0.05, 0.2);
@@ -180,8 +181,8 @@ Builder.prototype.Stripes = function (args) {
 
 	// Assets
 }; // END Stripes
-Builder.prototype.Stripes.prototype = new Builder.prototype.Object();
-Builder.prototype.Stripes.prototype.draw = function (args, z) {
+Stripes.prototype = new Object();
+Stripes.prototype.draw = function (args, z) {
 	var nr = args.nr,
 		sideView = args.sideView;
 
@@ -227,7 +228,7 @@ Builder.prototype.Stripes.prototype.draw = function (args, z) {
 }; // END Stripes draw
 
 // BUTTONS --------------------------------------------------------------------------------
-Builder.prototype.Buttons = function (args, color) {
+export const Buttons = function (args, color) {
 	// Form & Sizes
 	this.buttonSX = this.R(-0.2, 0.2);
 	this.zipper = this.IF(0.1);
@@ -239,8 +240,8 @@ Builder.prototype.Buttons = function (args, color) {
 
 	// Assets
 }; // END Buttons
-Builder.prototype.Buttons.prototype = new Builder.prototype.Object();
-Builder.prototype.Buttons.prototype.draw = function (args, z) {
+Buttons.prototype = new Object();
+Buttons.prototype.draw = function (args, z) {
 	var nr = args.nr,
 		sideView = args.sideView;
 
@@ -274,7 +275,7 @@ Builder.prototype.Buttons.prototype.draw = function (args, z) {
 }; // END Buttons draw
 
 // SUSPENDERS --------------------------------------------------------------------------------
-Builder.prototype.Suspenders = function (args) {
+export const Suspenders = function (args) {
 	// Form & Sizes
 	this.strapSX = this.R(-0.8, 0.5);
 	this.strapX = this.R(0.5, 1);
@@ -292,8 +293,8 @@ Builder.prototype.Suspenders = function (args) {
 
 	// Assets
 }; // END Suspenders
-Builder.prototype.Suspenders.prototype = new Builder.prototype.Object();
-Builder.prototype.Suspenders.prototype.draw = function (args, z) {
+Suspenders.prototype = new Object();
+Suspenders.prototype.draw = function (args, z) {
 	var nr = args.nr,
 		sideView = args.sideView,
 		detail = this.detail && [
@@ -350,7 +351,7 @@ Builder.prototype.Suspenders.prototype.draw = function (args, z) {
 }; // END Suspenders draw
 
 // COLLAR --------------------------------------------------------------------------------
-Builder.prototype.Collar = function (args, cleavage, sleeveless) {
+export const Collar = function (args, cleavage, sleeveless) {
 	// Form & Sizes
 	this.collarSY = this.R(0.1, 0.5);
 	this.open = this.IF(0.2);
@@ -367,8 +368,8 @@ Builder.prototype.Collar = function (args, cleavage, sleeveless) {
 		this.IF(0.3) &&
 		(this.buttons = new this.basic.Buttons(args, this.shirtColor));
 }; // END Collar
-Builder.prototype.Collar.prototype = new Builder.prototype.Object();
-Builder.prototype.Collar.prototype.draw = function (args, z) {
+Collar.prototype = new Object();
+Collar.prototype.draw = function (args, z) {
 	var nr = args.nr,
 		sideView = args.sideView;
 
@@ -417,7 +418,7 @@ Builder.prototype.Collar.prototype.draw = function (args, z) {
 }; // END Collar Shirt draw
 
 // CLEAVAGE --------------------------------------------------------------------------------
-Builder.prototype.Cleavage = function (args, cleavage, sleeveless) {
+export const Cleavage = function (args, cleavage, sleeveless) {
 	// Form & Sizes
 	this.sleeveless = !args.sleeves && this.IF(0.5);
 	this.strapSX = this.sleeveless && this.R(-1, 0);
@@ -432,9 +433,9 @@ Builder.prototype.Cleavage = function (args, cleavage, sleeveless) {
 
 	// Assets
 }; // END Cleavage
-Builder.prototype.Cleavage.prototype = new Builder.prototype.Object();
+Cleavage.prototype = new Object();
 
-Builder.prototype.Cleavage.prototype.draw = function (args, z) {
+Cleavage.prototype.draw = function (args, z) {
 	var nr = args.nr,
 		sideView = args.sideView;
 
@@ -496,7 +497,7 @@ Builder.prototype.Cleavage.prototype.draw = function (args, z) {
 }; // END Cleavage draw
 
 // NIPPLES --------------------------------------------------------------------------------
-Builder.prototype.Nipples = function (args) {
+export const Nipples = function (args) {
 	// Form & Sizes
 	this.nippleSize = this.R(0.01, 0.3);
 	this.nipplePos = this.R(0.15, 0.4);
@@ -506,8 +507,8 @@ Builder.prototype.Nipples = function (args) {
 
 	// Assets
 }; // END Nipples
-Builder.prototype.Nipples.prototype = new Builder.prototype.Object();
-Builder.prototype.Nipples.prototype.draw = function (args, z) {
+Nipples.prototype = new Object();
+Nipples.prototype.draw = function (args, z) {
 	var nr = args.nr,
 		sideView = args.sideView;
 
@@ -529,7 +530,7 @@ Builder.prototype.Nipples.prototype.draw = function (args, z) {
 }; // END Nipples draw
 
 // CAPE --------------------------------------------------------------------------------
-Builder.prototype.Cape = function (args) {
+export const Cape = function (args) {
 	// Form & Sizes
 	this.capeFrontSY = this.R(0.1, 0.8);
 	this.capeSY = this.R(0.3, 1);
@@ -539,9 +540,9 @@ Builder.prototype.Cape = function (args) {
 
 	// Assets
 }; // END Cape
-Builder.prototype.Cape.prototype = new Builder.prototype.Object();
+Cape.prototype = new Object();
 
-Builder.prototype.Cape.prototype.draw = function (args) {
+Cape.prototype.draw = function (args) {
 	var nr = args.nr,
 		sideView = args.sideView;
 
@@ -568,7 +569,7 @@ Builder.prototype.Cape.prototype.draw = function (args) {
 	};
 }; // END Cape Back draw
 
-Builder.prototype.Cape.prototype.drawFront = function (args) {
+Cape.prototype.drawFront = function (args) {
 	var nr = args.nr,
 		sideView = args.sideView;
 
@@ -581,7 +582,7 @@ Builder.prototype.Cape.prototype.drawFront = function (args) {
 }; // END Cape draw
 
 // STRAP --------------------------------------------------------------------------------
-Builder.prototype.Strap = function (args) {
+export const Strap = function (args) {
 	// Form & Sizes
 	this.thickness = this.R(0.01, 0.05);
 
@@ -594,9 +595,9 @@ Builder.prototype.Strap = function (args) {
 
 	// Assets
 }; // END Strap
-Builder.prototype.Strap.prototype = new Builder.prototype.Object();
+Strap.prototype = new Object();
 
-Builder.prototype.Strap.prototype.draw = function (args, z) {
+Strap.prototype.draw = function (args, z) {
 	var nr = args.nr,
 		sideView = args.sideView;
 

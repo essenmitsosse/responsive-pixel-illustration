@@ -1,5 +1,6 @@
+import { Object } from "./object.js";
 // LOWER BODY --------------------------------------------------------------------------------
-Builder.prototype.LowerBody = function (args) {
+export const LowerBody = function (args) {
 	// Form & Sizes
 	this.sideSYFak = this.R(0.6, 1.6);
 	this.crotchSY = this.R(1, 3);
@@ -21,8 +22,8 @@ Builder.prototype.LowerBody = function (args) {
 		new this.basic.Skirt(args);
 	!args.animal && this.IF(0.3) && (this.belt = new this.basic.Belt(args));
 }; // END LowerBody
-Builder.prototype.LowerBody.prototype = new Builder.prototype.Object();
-Builder.prototype.LowerBody.prototype.draw = function (args, z) {
+LowerBody.prototype = new Object();
+LowerBody.prototype.draw = function (args, z) {
 	var nr = args.nr,
 		sideView = args.sideView,
 		list;
@@ -80,7 +81,7 @@ Builder.prototype.LowerBody.prototype.draw = function (args, z) {
 }; // END LowerBody draw
 
 // Belt --------------------------------------------------------------------------------
-Builder.prototype.Belt = function (args) {
+export const Belt = function (args) {
 	// Form & Sizes
 	this.beltSY = this.R(0.1, 0.7);
 	this.buckle = this.IF(0.5);
@@ -98,8 +99,8 @@ Builder.prototype.Belt = function (args) {
 
 	// Assets
 }; // END Belt
-Builder.prototype.Belt.prototype = new Builder.prototype.Object();
-Builder.prototype.Belt.prototype.draw = function (args, z) {
+Belt.prototype = new Object();
+Belt.prototype.draw = function (args, z) {
 	var nr = args.nr,
 		sideView = args.sideView;
 
@@ -140,7 +141,7 @@ Builder.prototype.Belt.prototype.draw = function (args, z) {
 }; // END Belt draw
 
 // SKIRT --------------------------------------------------------------------------------
-Builder.prototype.Skirt = function (args) {
+export const Skirt = function (args) {
 	// Form & Sizes
 	this.skirtSY = this.R(0.3, 1.2);
 	this.stripes = this.IF();
@@ -158,8 +159,8 @@ Builder.prototype.Skirt = function (args) {
 
 	// Assets
 }; // END Skirt
-Builder.prototype.Skirt.prototype = new Builder.prototype.Object();
-Builder.prototype.Skirt.prototype.draw = function (args, z) {
+Skirt.prototype = new Object();
+Skirt.prototype.draw = function (args, z) {
 	var nr = args.nr,
 		sideView = args.sideView;
 
@@ -200,7 +201,7 @@ Builder.prototype.Skirt.prototype.draw = function (args, z) {
 }; // END Skirt draw
 
 // LEG --------------------------------------------------------------------------------
-Builder.prototype.Leg = function (args, right) {
+export const Leg = function (args, right) {
 	// Form & Sizes
 
 	this.legSX = this.IF(0.1) ? this.R(0.05, 0.5) : 0.05;
@@ -219,8 +220,8 @@ Builder.prototype.Leg = function (args, right) {
 
 	// Assets
 }; // END Leg
-Builder.prototype.Leg.prototype = new Builder.prototype.Object();
-Builder.prototype.Leg.prototype.draw = function (args, z, rightSide, behind) {
+Leg.prototype = new Object();
+Leg.prototype.draw = function (args, z, rightSide, behind) {
 	var nr = args.nr,
 		sideView = args.sideView,
 		legUp = false,

@@ -1,5 +1,6 @@
+import { Object } from "./object.js";
 // HEAD --------------------------------------------------------------------------------
-Builder.prototype.Head = function (args) {
+export const Head = function (args) {
 	var hairNext = this.IF(0.7);
 
 	// Form & Sizes
@@ -59,8 +60,8 @@ Builder.prototype.Head = function (args) {
 					: this.basic.Hat)(args);
 	this.hair = this.IF(0.9) && new this.basic.Hair(args);
 }; // END Head
-Builder.prototype.Head.prototype = new Builder.prototype.Object();
-Builder.prototype.Head.prototype.draw = function (args) {
+Head.prototype = new Object();
+Head.prototype.draw = function (args) {
 	var nr = args.nr,
 		sideView = args.sideView,
 		list;
@@ -277,7 +278,7 @@ Builder.prototype.Head.prototype.draw = function (args) {
 };
 
 // EYE --------------------------------------------------------------------------------
-Builder.prototype.Eye = function (args) {
+export const Eye = function (args) {
 	// Form & Sizes
 	this.eyeBrow = this.IF(0.7);
 	this.monoBrow = this.eyeBrow && this.IF(0.05);
@@ -317,8 +318,8 @@ Builder.prototype.Eye = function (args) {
 
 	// Assets
 }; // END Eye
-Builder.prototype.Eye.prototype = new Builder.prototype.Object();
-Builder.prototype.Eye.prototype.draw = function (args) {
+Eye.prototype = new Object();
+Eye.prototype.draw = function (args) {
 	var nr = args.nr,
 		sideView = args.sideView,
 		thisEye = args.eye || {},
@@ -628,7 +629,7 @@ Builder.prototype.Eye.prototype.draw = function (args) {
 }; // END Eye draw
 
 // MOUTH --------------------------------------------------------------------------------
-Builder.prototype.Mouth = function (args) {
+export const Mouth = function (args) {
 	// Form & Sizes
 	this.mouthSX = this.R(0.4, 0.6);
 	this.mouthSY = this.R(0.2, 0.4);
@@ -642,8 +643,8 @@ Builder.prototype.Mouth = function (args) {
 
 	// Assets
 }; // END Mouth
-Builder.prototype.Mouth.prototype = new Builder.prototype.Object();
-Builder.prototype.Mouth.prototype.draw = function (args) {
+Mouth.prototype = new Object();
+Mouth.prototype.draw = function (args) {
 	var nr = args.nr,
 		sideView = args.sideView,
 		thisMouth = args.mouth || {},
@@ -747,7 +748,7 @@ Builder.prototype.Mouth.prototype.draw = function (args) {
 }; // END Mouth draw
 
 // HAIR --------------------------------------------------------------------------------
-Builder.prototype.Hair = function (args) {
+export const Hair = function (args) {
 	// Form & Sizes
 	this.curly = args.headGear && this.IF();
 
@@ -767,8 +768,8 @@ Builder.prototype.Hair = function (args) {
 
 	// Assets
 }; // END Hair
-Builder.prototype.Hair.prototype = new Builder.prototype.Object();
-Builder.prototype.Hair.prototype.draw = function (args) {
+Hair.prototype = new Object();
+Hair.prototype.draw = function (args) {
 	var nr = args.nr,
 		sideView = args.sideView,
 		backView = args.backView,
@@ -938,7 +939,7 @@ Builder.prototype.Hair.prototype.draw = function (args) {
 }; // END Hair draw
 
 // BEARD --------------------------------------------------------------------------------
-Builder.prototype.Beard = function (args) {
+export const Beard = function (args) {
 	// Form & Sizes
 	this.threeOClok = this.IF(0.1);
 	this.mainBeard = this.IF(0.5);
@@ -959,8 +960,8 @@ Builder.prototype.Beard = function (args) {
 
 	// Assets
 }; // END Beard
-Builder.prototype.Beard.prototype = new Builder.prototype.Object();
-Builder.prototype.Beard.prototype.draw = function (args) {
+Beard.prototype = new Object();
+Beard.prototype.draw = function (args) {
 	var nr = args.nr,
 		sideView = args.sideView;
 
@@ -1048,7 +1049,7 @@ Builder.prototype.Beard.prototype.draw = function (args) {
 }; // END Beard draw
 
 // HAT --------------------------------------------------------------------------------
-Builder.prototype.Hat = function (args) {
+export const Hat = function (args) {
 	// Form & Sizes
 	this.hatSY = this.R(0, 1);
 
@@ -1087,8 +1088,8 @@ Builder.prototype.Hat = function (args) {
 
 	// Assets
 }; // END Hat
-Builder.prototype.Hat.prototype = new Builder.prototype.Object();
-Builder.prototype.Hat.prototype.draw = function (args) {
+Hat.prototype = new Object();
+Hat.prototype.draw = function (args) {
 	var nr = args.nr,
 		sideView = args.sideView;
 
@@ -1192,7 +1193,7 @@ Builder.prototype.Hat.prototype.draw = function (args) {
 }; // END Hat draw
 
 // HELM --------------------------------------------------------------------------------
-Builder.prototype.Helm = function (args) {
+export const Helm = function (args) {
 	// Form & Sizes
 	this.helmSY = this.IF(0.5) ? 1 : this.R(0.1, 1.5);
 	this.nosePiece = this.IF(0.5);
@@ -1215,8 +1216,8 @@ Builder.prototype.Helm = function (args) {
 	// Assets
 	this.horns = this.IF(0.1) && new this.basic.Horns(args);
 }; // END Helm
-Builder.prototype.Helm.prototype = new Builder.prototype.Object();
-Builder.prototype.Helm.prototype.draw = function (args) {
+Helm.prototype = new Object();
+Helm.prototype.draw = function (args) {
 	var nr = args.nr,
 		sideView = args.sideView;
 
@@ -1322,7 +1323,7 @@ Builder.prototype.Helm.prototype.draw = function (args) {
 }; // END Helm draw
 
 // HEADBAND --------------------------------------------------------------------------------
-Builder.prototype.HeadBand = function (args) {
+export const HeadBand = function (args) {
 	// Form & Sizes
 
 	// Colors
@@ -1330,8 +1331,8 @@ Builder.prototype.HeadBand = function (args) {
 
 	// Assets
 }; // END HeadBand
-Builder.prototype.HeadBand.prototype = new Builder.prototype.Object();
-Builder.prototype.HeadBand.prototype.draw = function (args, z) {
+HeadBand.prototype = new Object();
+HeadBand.prototype.draw = function (args, z) {
 	var nr = args.nr,
 		sideView = args.sideView;
 
@@ -1355,7 +1356,7 @@ Builder.prototype.HeadBand.prototype.draw = function (args, z) {
 }; // END HeadBand draw
 
 // HORNS --------------------------------------------------------------------------------
-Builder.prototype.Horns = function (args) {
+export const Horns = function (args) {
 	// Form & Sizes
 	this.hornsSX = this.R(0.05, 2);
 	this.hornsSY = this.R(0.05, 0.3);
@@ -1368,8 +1369,8 @@ Builder.prototype.Horns = function (args) {
 
 	// Assets
 }; // END Horns
-Builder.prototype.Horns.prototype = new Builder.prototype.Object();
-Builder.prototype.Horns.prototype.draw = function (args, z) {
+Horns.prototype = new Object();
+Horns.prototype.draw = function (args, z) {
 	var nr = args.nr,
 		sideView = args.sideView;
 

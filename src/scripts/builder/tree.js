@@ -1,7 +1,9 @@
+import { Object } from "./object.js";
+
 /* global Builder */
 
 // TREE FAMILY
-Builder.prototype.TreeFamily = function (args) {
+export const TreeFamily = function (args) {
 	this.chance = this.R();
 	// Forms & Sizes
 	this.minFoliagePos = (this.R(0, 1) + 0.4) * 0.5;
@@ -59,10 +61,10 @@ Builder.prototype.TreeFamily = function (args) {
 };
 
 // END TreeFamily
-Builder.prototype.TreeFamily.prototype = new Builder.prototype.Object();
+TreeFamily.prototype = new Object();
 
 // TREE
-Builder.prototype.Tree = function (args) {
+export const Tree = function (args) {
 	if (!args) {
 		args = args || {};
 	}
@@ -103,8 +105,8 @@ Builder.prototype.Tree = function (args) {
 	// Copy
 }; // END Tree
 
-Builder.prototype.Tree.prototype = new Builder.prototype.Object();
-Builder.prototype.Tree.prototype.draw = function (args, z, size) {
+Tree.prototype = new Object();
+Tree.prototype.draw = function (args, z, size) {
 	var code = (this.code = this.id + "_" + (this.nr += 1));
 	this.zInd = z;
 
@@ -287,13 +289,7 @@ Builder.prototype.Tree.prototype.draw = function (args, z, size) {
 	];
 }; // END Tree draw
 
-Builder.prototype.Tree.prototype.addBranches = function (
-	args,
-	hor,
-	parentLeft,
-	count,
-	level,
-) {
+Tree.prototype.addBranches = function (args, hor, parentLeft, count, level) {
 	var list = [],
 		i = Math.floor(count),
 		step = (1 / i) * this.minFoliagePos,
@@ -418,7 +414,7 @@ Builder.prototype.Tree.prototype.addBranches = function (
 	return list;
 };
 
-Builder.prototype.Tree.prototype.getRandom = function () {
+Tree.prototype.getRandom = function () {
 	this.randomCount += 1;
 	if (this.randomCount > this.random.length) {
 		this.randomCount = 0;
@@ -428,7 +424,7 @@ Builder.prototype.Tree.prototype.getRandom = function () {
 };
 
 // FORREST
-Builder.prototype.Forrest = function () {
+export const Forrest = function () {
 	var i = (this.treeKindsCount = this.IF(0.8) ? 1 : this.IF(0.8) ? 2 : 3),
 		// trees,
 		family,
@@ -455,9 +451,9 @@ Builder.prototype.Forrest = function () {
 };
 
 // END Forrest
-Builder.prototype.Forrest.prototype = new Builder.prototype.Object();
+Forrest.prototype = new Object();
 
-Builder.prototype.Forrest.prototype.draw = function (args, z, size) {
+Forrest.prototype.draw = function (args, z, size) {
 	var list = [],
 		i = this.treeCount,
 		thisTree;

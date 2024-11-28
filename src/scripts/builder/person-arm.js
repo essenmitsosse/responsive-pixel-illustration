@@ -1,7 +1,9 @@
+import { Object } from "./object.js";
+
 /* global Builder */
 
 // ARM --------------------------------------------------------------------------------
-Builder.prototype.Arm = function (args) {
+export const Arm = function (args) {
 	// Form & Sizes
 	this.armSX = this.IF(0.8) ? 0.04 : this.R(0, 0.1);
 
@@ -49,8 +51,8 @@ Builder.prototype.Arm = function (args) {
 
 	this.headGear = args.headGear;
 }; // END Arm
-Builder.prototype.Arm.prototype = new Builder.prototype.Object();
-Builder.prototype.Arm.prototype.draw = function (args, rightSide, behind) {
+Arm.prototype = new Object();
+Arm.prototype.draw = function (args, rightSide, behind) {
 	var nr = args.nr,
 		sideView = args.sideView,
 		name = rightSide ? "right" : "left",
@@ -398,7 +400,7 @@ Builder.prototype.Arm.prototype.draw = function (args, rightSide, behind) {
 }; // END Arm draw
 
 // SHOULDER PAD --------------------------------------------------------------------------------
-Builder.prototype.ShoulderPad = function (args) {
+export const ShoulderPad = function (args) {
 	// Form & Sizes
 	this.X = this.R(-1, 0);
 	this.Y = this.R(-1, 0.5);
@@ -438,8 +440,8 @@ Builder.prototype.ShoulderPad = function (args) {
 
 	// Assets
 }; // END ShoulderPad
-Builder.prototype.ShoulderPad.prototype = new Builder.prototype.Object();
-Builder.prototype.ShoulderPad.prototype.draw = function (args, z) {
+ShoulderPad.prototype = new Object();
+ShoulderPad.prototype.draw = function (args, z) {
 	var nr = args.nr;
 
 	return {
@@ -535,12 +537,12 @@ Builder.prototype.ShoulderPad.prototype.draw = function (args, z) {
 }; // END ShoulderPad draw
 
 // TOOL --------------------------------------------------------------------------------
-Builder.prototype.Tool = function () {
+export const Tool = function () {
 	// Form & Sizes
 	// Assets
 }; // END Tool
-Builder.prototype.Tool.prototype = new Builder.prototype.Object();
-Builder.prototype.Tool.prototype.draw = function (args) {
+Tool.prototype = new Object();
+Tool.prototype.draw = function (args) {
 	var nr = args.nr;
 
 	return {
@@ -557,7 +559,7 @@ Builder.prototype.Tool.prototype.draw = function (args) {
 }; // END Tool draw
 
 // SWORD --------------------------------------------------------------------------------
-Builder.prototype.Sword = function (args, right) {
+export const Sword = function (args, right) {
 	// Form & Sizes
 	this.rightSide = right;
 	this.bladeSY = this.R(0, 1.5);
@@ -584,8 +586,8 @@ Builder.prototype.Sword = function (args, right) {
 	// Assets
 }; // END Sword
 
-Builder.prototype.Sword.prototype = new Builder.prototype.Object();
-Builder.prototype.Sword.prototype.draw = function (args, z) {
+Sword.prototype = new Object();
+Sword.prototype.draw = function (args, z) {
 	var nr = args.nr,
 		name = this.rightSide ? "right" : "left",
 		nrName = name + nr;
@@ -688,7 +690,7 @@ Builder.prototype.Sword.prototype.draw = function (args, z) {
 }; // END Sword draw
 
 // SHIELD --------------------------------------------------------------------------------
-Builder.prototype.Shield = function (args, right) {
+export const Shield = function (args, right) {
 	// Form & Sizes
 	this.name = right ? "right" : "left";
 	this.shieldSX = this.IF() ? this.R(0.4, 0.8) : this.R(0, 0.4);
@@ -721,8 +723,8 @@ Builder.prototype.Shield = function (args, right) {
 	}
 }; // END Shield
 
-Builder.prototype.Shield.prototype = new Builder.prototype.Object();
-Builder.prototype.Shield.prototype.draw = function (args, z) {
+Shield.prototype = new Object();
+Shield.prototype.draw = function (args, z) {
 	var nr = args.nr,
 		nrName = this.name + nr,
 		logo = [this.logo.draw(args, z + 805)];

@@ -756,18 +756,7 @@ InitPixel.prototype.getTimerAnimation = function () {
 };
 
 InitPixel.prototype.require = {
-	persons_lessrandom: [
-		() => import("../scripts/builder/builder.js"),
-		() => import("../scripts/builder/person-main.js"),
-		() => import("../scripts/builder/person-lowerBody.js"),
-		() => import("../scripts/builder/person-upperBody.js"),
-		() => import("../scripts/builder/person-arm.js"),
-		() => import("../scripts/builder/person-head.js"),
-		() => import("../scripts/builder/tree.js"),
-		() => import("../scripts/builder/comic.js"),
-
-		() => import("../scripts/builder/init.js"),
-	],
+	persons_lessrandom: [() => import("../scripts/builder/init.js")],
 
 	panels: [
 		() => import("../scripts/builder-old/builder.js"),

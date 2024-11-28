@@ -1,5 +1,7 @@
+import { Builder } from "./builder.js";
+
 window.renderer = function (init, slide, createSlider) {
-	var builder = new window.Builder(init),
+	var builder = new Builder(init),
 		hover = builder.hover,
 		pushLinkList = builder.pushLinkList,
 		width = pushLinkList({ main: true }),

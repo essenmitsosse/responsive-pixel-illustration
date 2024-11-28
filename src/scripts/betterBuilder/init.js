@@ -1,3 +1,5 @@
+import { BB } from "./bb.js";
+
 window.renderer = function (init) {
 	var bb = new BB(init);
 

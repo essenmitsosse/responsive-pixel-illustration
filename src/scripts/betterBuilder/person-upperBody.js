@@ -1,11 +1,13 @@
+import { BBObj } from "./object.js";
+
 // CHEST  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-BBProto.Chest = function (args) {
+export const Chest = function (args) {
 	this.color = args.color;
 	this.colorDark = args.colorDark;
 }; // End Chest
 
-BBProto.Chest.prototype = new BBObj();
-BBProto.Chest.prototype.draw = function (args, front, right) {
+Chest.prototype = new BBObj();
+Chest.prototype.draw = function (args, front, right) {
 	return [
 		{
 			color: [

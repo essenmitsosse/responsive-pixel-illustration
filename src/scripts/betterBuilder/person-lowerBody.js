@@ -1,11 +1,13 @@
+import { BBObj } from "./object.js";
+
 // LOWER BODY  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-BBProto.LowerBody = function (args) {
+export const LowerBody = function (args) {
 	this.color = args.color;
 	this.colorDark = args.colorDark;
 }; // End LowerBody
 
-BBProto.LowerBody.prototype = new BBObj();
-BBProto.LowerBody.prototype.draw = function (args, front, right) {
+LowerBody.prototype = new BBObj();
+LowerBody.prototype.draw = function (args, front, right) {
 	return [
 		{
 			color: [

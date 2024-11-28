@@ -1,6 +1,11 @@
 import { helper } from "../../renderengine/helper.js";
+import { BBObj, Rotater, RotateInfo } from "./object.js";
+import { PersonMain, BodyMain } from "./person-main.js";
+import { Chest } from "./person-upperBody.js";
+import { LowerBody } from "./person-lowerBody.js";
+import { Head, HeadTop, HeadBottom, Nose, Neck } from "./person-head.js";
 
-window.BB = function (init) {
+export const BB = function (init) {
 	var args = {},
 		ObjProto = BB.prototype.Obj.prototype,
 		random = helper.random(
@@ -41,14 +46,10 @@ window.BB = function (init) {
 	ObjProto.R = random.getRandomFloat;
 };
 
-BB.prototype.Obj = function () {};
-
-window.BBProto = BB.prototype;
-window.BBObj = BBProto.Obj;
-window.BBObjProto = BBObj.prototype;
+BB.prototype.Obj = BBObj;
 
 // OVERVIEW
-BBProto.Overview = function (init) {
+BB.prototype.Overview = function (init) {
 	var list = [],
 		rotations = [],
 		rows = init.rows || 2,
@@ -124,4 +125,16 @@ BBProto.Overview = function (init) {
 	return list;
 };
 
-BBProto.Overview.prototype = new BBObj();
+BB.prototype.Overview.prototype = new BBObj();
+
+BB.prototype.PersonMain = PersonMain;
+BB.prototype.BodyMain = BodyMain;
+BB.prototype.Chest = Chest;
+BB.prototype.LowerBody = LowerBody;
+BB.prototype.Head = Head;
+BB.prototype.HeadTop = HeadTop;
+BB.prototype.HeadBottom = HeadBottom;
+BB.prototype.Nose = Nose;
+BB.prototype.Neck = Neck;
+BB.prototype.Rotater = Rotater;
+BB.prototype.RotateInfo = RotateInfo;

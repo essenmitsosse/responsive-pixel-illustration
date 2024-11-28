@@ -782,16 +782,7 @@ InitPixel.prototype.require = {
 		() => import("../scripts/builder-old/init-panels.js"),
 	],
 
-	turnaround: [
-		() => import("../scripts/betterBuilder/bb.js"),
-		() => import("../scripts/betterBuilder/rotation.js"),
-		() => import("../scripts/betterBuilder/person-main.js"),
-		() => import("../scripts/betterBuilder/person-head.js"),
-		() => import("../scripts/betterBuilder/person-upperBody.js"),
-		() => import("../scripts/betterBuilder/person-lowerBody.js"),
-
-		() => import("../scripts/betterBuilder/init.js"),
-	],
+	turnaround: [() => import("../scripts/betterBuilder/init.js")],
 
 	table2: [
 		() => import("../scripts/tableComic2/main.js"),

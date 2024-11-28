@@ -1,5 +1,7 @@
+export const BBObj = function () {};
+
 // GET ROTATION
-BBObjProto.calcRotation = function (rotate) {
+BBObj.prototype.calcRotation = function (rotate) {
 	var realRotation = rotate - 45,
 		rad,
 		sin,
@@ -38,7 +40,7 @@ BBObjProto.calcRotation = function (rotate) {
 	};
 };
 
-BBObjProto.calcRotation.prototype.getRotation = function (rotate) {
+BBObj.prototype.calcRotation.prototype.getRotation = function (rotate) {
 	var abs;
 
 	if (rotate > 180) {
@@ -54,7 +56,7 @@ BBObjProto.calcRotation.prototype.getRotation = function (rotate) {
 };
 
 // Rotater
-BBProto.Rotater = function (args) {
+export const Rotater = function (args) {
 	var drawer = args.drawer,
 		rotate = args.rotate;
 
@@ -132,8 +134,8 @@ BBProto.Rotater = function (args) {
 		y: this.y,
 	};
 };
-BBProto.Rotater.prototype = new BBObj();
-BBProto.Rotater.prototype.pusher = function (rotate, list, reflect) {
+Rotater.prototype = new BBObj();
+Rotater.prototype.pusher = function (rotate, list, reflect) {
 	var front = rotate.abs > 0;
 
 	this.list.push({
@@ -145,7 +147,7 @@ BBProto.Rotater.prototype.pusher = function (rotate, list, reflect) {
 	});
 };
 
-BBObjProto.moveOut = function (args, rotate) {
+BBObj.prototype.moveOut = function (args, rotate) {
 	// Takes arguments:
 	//	sXBase, xBase,
 	//	xAdd,
@@ -200,7 +202,7 @@ BBObjProto.moveOut = function (args, rotate) {
 	return X;
 };
 
-BBObjProto.mover = function (what, move) {
+BBObj.prototype.mover = function (what, move) {
 	var x;
 
 	move.sX = what.sX;
@@ -225,7 +227,7 @@ BBObjProto.mover = function (what, move) {
 	return what;
 };
 
-BBObjProto.merge = function (what, args) {
+BBObj.prototype.merge = function (what, args) {
 	for (var attr in args) {
 		what[attr] = args[attr];
 	}
@@ -233,7 +235,7 @@ BBObjProto.merge = function (what, args) {
 	return what;
 };
 
-BBProto.RotateInfo = function (rotate) {
+export const RotateInfo = function (rotate) {
 	var s = { a: 5 };
 
 	this.ll.push(s);
@@ -277,4 +279,4 @@ BBProto.RotateInfo = function (rotate) {
 	};
 };
 
-BBProto.RotateInfo.prototype = new BBObj();
+RotateInfo.prototype = new BBObj();

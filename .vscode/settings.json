@@ -12,6 +12,10 @@
   // easier to separate from TypeScript errors
   "eslint.rules.customizations": [{ "rule": "*", "severity": "warn" }],
 
+  // Make sure to use the same max subject length for commit messages as is
+  // used in GitHub actions check
+  "git.inputValidationSubjectLength": 72,
+
   // This ensures the correct workspace TypeScript version is used
   "typescript.tsdk": "node_modules/typescript/lib",
 

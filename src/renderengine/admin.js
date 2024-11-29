@@ -235,12 +235,6 @@ Admin.prototype.getSliderControlGetter = function () {
 						value = slider.value =
 							(setValue - outputMin) / outputFactor + min;
 						if (single) {
-							parentNode.setAttribute(
-								"style",
-								"color: #000; background-color: #fff;",
-							);
-							window.scrollTo(0, parentNode.offsetTop - 200);
-
 							if (
 								lastValueName !== valueName &&
 								lastSliderParent

@@ -6,6 +6,7 @@
   // easier to separate from TypeScript errors
   "eslint.rules.customizations": [{ "rule": "*", "severity": "warn" }],
 
+  "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "css.customData": [".vscode/cssCustom.json"],

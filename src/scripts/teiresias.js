@@ -1,4 +1,4 @@
-import { helper } from "../renderengine/helper.js"
+import { helper } from '../renderengine/helper.js'
 
 export default function () {
     var help = helper,
@@ -37,33 +37,33 @@ export default function () {
                 minY: 1,
                 list: [
                     {
-                        x: "borderWidth",
+                        x: 'borderWidth',
                         stripes: { strip: 8 },
                         list: [
                             {
                                 sX: 1,
-                                sY: "dekoheight",
+                                sY: 'dekoheight',
                                 fY: true,
                                 x: 2,
                                 color: trees,
                             },
                             {
                                 sX: 1,
-                                sY: "dekoheight",
+                                sY: 'dekoheight',
                                 fY: true,
                                 x: 6,
                                 color: trees,
                             },
 
-                            { sX: 1, sY: "dekoheight" }, // dark
+                            { sX: 1, sY: 'dekoheight' }, // dark
                             { sY: 1, sX: 4 }, // dark
-                            { sX: 1, sY: "dekoheight", x: 4 }, // dark
-                            { sY: 1, sX: 4, fY: true, y: "dekoOffset", x: 4 }, // dark
+                            { sX: 1, sY: 'dekoheight', x: 4 }, // dark
+                            { sY: 1, sX: 4, fY: true, y: 'dekoOffset', x: 4 }, // dark
 
                             {
                                 sY: 1,
                                 sX: 4,
-                                y: "dekoOffset",
+                                y: 'dekoOffset',
                                 x: 2,
                                 color: trees,
                             },
@@ -72,8 +72,8 @@ export default function () {
                             {
                                 minY: 6,
                                 list: [
-                                    { name: "Dot", x: 6, color: trees },
-                                    { name: "Dot", x: 4, fY: true },
+                                    { name: 'Dot', x: 6, color: trees },
+                                    { name: 'Dot', x: 4, fY: true },
                                 ],
                             },
                         ],
@@ -95,7 +95,7 @@ export default function () {
                 m: 1,
                 list: [
                     {
-                        name: "Line",
+                        name: 'Line',
                         closed: true,
                         color: frameDark,
                         points: [
@@ -106,7 +106,7 @@ export default function () {
                             { fY: true },
                         ],
                     },
-                    { name: "Dot", color: trees, fY: true, x: 2, y: 2 },
+                    { name: 'Dot', color: trees, fY: true, x: 2, y: 2 },
                 ],
             },
         ],
@@ -114,12 +114,12 @@ export default function () {
         shadowColor = treesDark,
         i = 0,
         snake = function (nr, vert) {
-            var x = !vert ? ["snakeWeight", -1] : undefined,
-                y = vert ? ["snakeWeight", -1] : undefined,
-                s = { r: 1, add: [sub("snakeWeight")] }
+            var x = !vert ? ['snakeWeight', -1] : undefined,
+                y = vert ? ['snakeWeight', -1] : undefined,
+                s = { r: 1, add: [sub('snakeWeight')] }
 
             return nr === 2
-                ? [{ save: "snake2" }]
+                ? [{ save: 'snake2' }]
                 : [
                       { color: snake1Detail },
                       { sX: 1 },
@@ -129,7 +129,7 @@ export default function () {
                       {
                           stripes: {
                               strip: 1,
-                              gap: "snakeDetailSize",
+                              gap: 'snakeDetailSize',
                               horizontal: vert,
                           },
                           x: x,
@@ -140,7 +140,7 @@ export default function () {
                   ]
         },
         treeTrunk = function () {
-            var name = "treeBark" + (i += 1)
+            var name = 'treeBark' + (i += 1)
 
             return [
                 { use: name },
@@ -149,7 +149,7 @@ export default function () {
                 {
                     sY: { r: 0.45 },
                     color: stickDarkest,
-                    stripes: { random: "treeRandom", strip: 2 },
+                    stripes: { random: 'treeRandom', strip: 2 },
                 },
                 {
                     sY: 1,
@@ -161,12 +161,12 @@ export default function () {
             ]
         },
         treeLeaves = function (random) {
-            var name = "treeLeaves" + (i += 1),
-                name2 = "treesSpots" + i
+            var name = 'treeLeaves' + (i += 1),
+                name2 = 'treesSpots' + i
             return [
                 {
                     sY: { r: 1.2 },
-                    stripes: { strip: 2, random: "treeRandom" },
+                    stripes: { strip: 2, random: 'treeRandom' },
                     color: treesDark,
                     change: random,
                 },
@@ -174,8 +174,8 @@ export default function () {
                 { use: name2, color: treesDark, chance: 0.2, sY: 2 },
                 { use: name, save: name2, chance: 0.4, s: 4, mask: true },
                 {
-                    stripes: { strip: 2, random: "treeRandom", change: random },
-                    save: "treeLeaves" + i,
+                    stripes: { strip: 2, random: 'treeRandom', change: random },
+                    save: 'treeLeaves' + i,
                 },
             ]
         },
@@ -197,11 +197,11 @@ export default function () {
         renderList = [
             // IMAGE
             {
-                m: "borderWidth",
+                m: 'borderWidth',
                 list: [
                     {
                         sX: {
-                            add: ["imgWidth", mult(-3, "teiresias")],
+                            add: ['imgWidth', mult(-3, 'teiresias')],
                             min: { r: 0.15 },
                         },
                         color: treesDark,
@@ -220,7 +220,7 @@ export default function () {
                     {
                         fX: true,
                         sX: {
-                            add: ["imgWidth", mult(-1.5, "teiresias")],
+                            add: ['imgWidth', mult(-1.5, 'teiresias')],
                             min: { r: 0.15 },
                         },
                         sY: { r: 2 },
@@ -243,7 +243,7 @@ export default function () {
                     // Tree Trunks
                     {
                         color: stickDark,
-                        sX: { add: ["imgWidth", mult(-2, "teiresias")] },
+                        sX: { add: ['imgWidth', mult(-2, 'teiresias')] },
                         fX: true,
                         list: treeTrunk(),
                     },
@@ -251,8 +251,8 @@ export default function () {
                         color: stickDark,
                         sX: {
                             add: [
-                                mult(0.2, "imgWidth"),
-                                mult(-0.5, "teiresias"),
+                                mult(0.2, 'imgWidth'),
+                                mult(-0.5, 'teiresias'),
                             ],
                         },
                         list: treeTrunk(),
@@ -263,7 +263,7 @@ export default function () {
                         sY: { r: 0.05 },
                         fX: true,
                         sX: {
-                            add: ["imgWidth", mult(-0.5, "teiresias")],
+                            add: ['imgWidth', mult(-0.5, 'teiresias')],
                             min: { r: 0.3, otherDim: true },
                         },
                         color: trees,
@@ -272,7 +272,7 @@ export default function () {
                     {
                         sY: { r: 0.4 },
                         fX: true,
-                        sX: { add: ["imgWidth", mult(-1.2, "teiresias")] },
+                        sX: { add: ['imgWidth', mult(-1.2, 'teiresias')] },
                         color: trees,
                         list: treeLeaves,
                     },
@@ -282,8 +282,8 @@ export default function () {
                         sY: { r: 0.3 },
                         sX: {
                             add: [
-                                mult(0.2, "imgWidth"),
-                                mult(-0.3, "teiresias"),
+                                mult(0.2, 'imgWidth'),
+                                mult(-0.3, 'teiresias'),
                             ],
                             min: { r: 0.1, otherDim: true },
                         },
@@ -292,8 +292,8 @@ export default function () {
                     },
 
                     // Ground
-                    { use: "ground", color: trees },
-                    { use: "ground", chance: 0.01, color: treesDark },
+                    { use: 'ground', color: trees },
+                    { use: 'ground', chance: 0.01, color: treesDark },
                     {
                         sY: { r: 0.2 },
                         fY: true,
@@ -305,7 +305,7 @@ export default function () {
                                     random: { r: 0.1 },
                                 },
                                 fY: true,
-                                save: "ground",
+                                save: 'ground',
                             },
                             {
                                 stripes: {
@@ -315,30 +315,30 @@ export default function () {
                                 },
                                 fX: true,
                                 fY: true,
-                                save: "ground",
+                                save: 'ground',
                             },
                         ],
                     },
 
                     // MOTIVE
                     {
-                        m: "imgPadding",
+                        m: 'imgPadding',
                         list: [
                             {
-                                y: mult(0.5, "imgPadding"),
+                                y: mult(0.5, 'imgPadding'),
                                 list: [
                                     // TEIRESIAS Shadow
                                     {
                                         color: shadowColor,
-                                        sX: "teiresias",
-                                        sY: "imgPadding",
-                                        x: "teiresiasX",
+                                        sX: 'teiresias',
+                                        sY: 'imgPadding',
+                                        x: 'teiresiasX',
                                         fY: true,
                                         list: [
                                             {
                                                 mX: {
                                                     r: 0.6,
-                                                    useSize: "torsoMargin",
+                                                    useSize: 'torsoMargin',
                                                 },
                                                 x: { r: 0.1 },
                                                 list: shadowGround,
@@ -349,11 +349,11 @@ export default function () {
                                     // SNAKES Shadow
                                     {
                                         color: shadowColor,
-                                        sX: "snakeWidth",
-                                        sY: "imgPadding",
+                                        sX: 'snakeWidth',
+                                        sY: 'imgPadding',
                                         fY: true,
                                         fX: true,
-                                        mX: "snakeWeight",
+                                        mX: 'snakeWeight',
                                         list: shadowGround,
                                     },
                                 ],
@@ -362,42 +362,42 @@ export default function () {
                             // TEIRESIAS
                             {
                                 color: teiresias,
-                                s: "teiresias",
-                                x: "teiresiasX",
-                                y: "teiresiasY",
+                                s: 'teiresias',
+                                x: 'teiresiasX',
+                                y: 'teiresiasY',
                                 list: [
                                     // STICK
-                                    { use: "stick", color: stick },
+                                    { use: 'stick', color: stick },
                                     {
-                                        use: "stick",
+                                        use: 'stick',
                                         color: stickDark,
                                         chance: 0.2,
-                                        sX: "stickWeight",
+                                        sX: 'stickWeight',
                                         mask: true,
                                     },
                                     {
-                                        name: "Line",
-                                        save: "stick",
-                                        weight: "stickWeight",
+                                        name: 'Line',
+                                        save: 'stick',
+                                        weight: 'stickWeight',
                                         points: [
-                                            { y: ["stickLeft", "stickWeight"] },
-                                            { x: { r: 0.2 }, y: "handLeft" },
+                                            { y: ['stickLeft', 'stickWeight'] },
+                                            { x: { r: 0.2 }, y: 'handLeft' },
                                             {
                                                 x: { r: 0.5 },
                                                 y: [
-                                                    mult(0.4, "stickLeft"),
-                                                    mult(0.4, "stickRight"),
+                                                    mult(0.4, 'stickLeft'),
+                                                    mult(0.4, 'stickRight'),
                                                 ],
                                             },
                                             {
                                                 x: { r: 0.2 },
-                                                y: "handRight",
+                                                y: 'handRight',
                                                 fX: true,
                                             },
                                             {
                                                 y: [
-                                                    "stickRight",
-                                                    sub("stickWeight"),
+                                                    'stickRight',
+                                                    sub('stickWeight'),
                                                 ],
                                                 fX: true,
                                             },
@@ -405,55 +405,55 @@ export default function () {
                                     },
 
                                     {
-                                        name: "Line",
-                                        save: "stick",
-                                        weight: mult(0.7, "stickWeight"),
+                                        name: 'Line',
+                                        save: 'stick',
+                                        weight: mult(0.7, 'stickWeight'),
                                         points: [
-                                            { x: { r: 0.15 }, y: "stickPoint" },
+                                            { x: { r: 0.15 }, y: 'stickPoint' },
                                             {
                                                 x: { r: 0.01 },
                                                 y: [
-                                                    "stickPoint",
-                                                    "stickWeight",
+                                                    'stickPoint',
+                                                    'stickWeight',
                                                 ],
                                             },
                                         ],
                                     },
 
                                     {
-                                        name: "Line",
-                                        weight: "armWeight",
+                                        name: 'Line',
+                                        weight: 'armWeight',
                                         color: skin,
                                         points: [
-                                            { x: { r: 0.2 }, y: "handLeft" },
+                                            { x: { r: 0.2 }, y: 'handLeft' },
                                             {
                                                 x: { r: 0.18 },
-                                                y: ["handLeft", "armLength"],
+                                                y: ['handLeft', 'armLength'],
                                             },
                                             {
-                                                x: "torsoMargin",
+                                                x: 'torsoMargin',
                                                 y: { r: torsoTop },
                                             },
                                         ],
                                     },
 
                                     {
-                                        name: "Line",
-                                        weight: "armWeight",
+                                        name: 'Line',
+                                        weight: 'armWeight',
                                         color: skin,
                                         points: [
                                             {
                                                 x: { r: 0.2 },
-                                                y: "handRight",
+                                                y: 'handRight',
                                                 fX: true,
                                             },
                                             {
                                                 x: { r: 0.18 },
-                                                y: ["handRight", "armLength"],
+                                                y: ['handRight', 'armLength'],
                                                 fX: true,
                                             },
                                             {
-                                                x: "torsoMargin",
+                                                x: 'torsoMargin',
                                                 y: { r: torsoTop },
                                                 fX: true,
                                             },
@@ -463,51 +463,51 @@ export default function () {
                                     // HANDS
                                     {
                                         color: skin,
-                                        s: "handSize",
+                                        s: 'handSize',
                                         x: { r: 0.2 },
-                                        y: ["handLeft", "halfHandSizeNeg"],
+                                        y: ['handLeft', 'halfHandSizeNeg'],
                                     },
                                     {
                                         color: skin,
-                                        s: "handSize",
+                                        s: 'handSize',
                                         x: { r: 0.2 },
-                                        y: ["handRight", "halfHandSizeNeg"],
+                                        y: ['handRight', 'halfHandSizeNeg'],
                                         fX: true,
                                     },
 
                                     // LEGS
                                     {
-                                        name: "Line",
-                                        weight: "armWeight",
+                                        name: 'Line',
+                                        weight: 'armWeight',
                                         color: skin,
                                         points: [
                                             {
-                                                x: "feetLeftX",
-                                                y: ["feetLeftY", "handSize"],
+                                                x: 'feetLeftX',
+                                                y: ['feetLeftY', 'handSize'],
                                                 fY: true,
                                             }, // Left Foot
                                             {
-                                                x: "kneeLeftX",
-                                                y: "kneeLeftY",
+                                                x: 'kneeLeftX',
+                                                y: 'kneeLeftY',
                                                 fY: true,
                                             }, // Left Knee
                                         ],
                                     },
 
                                     {
-                                        name: "Line",
-                                        weight: "armWeight",
+                                        name: 'Line',
+                                        weight: 'armWeight',
                                         color: skin,
                                         points: [
                                             {
-                                                x: "feetRightX",
-                                                y: ["feetRightY", "handSize"],
+                                                x: 'feetRightX',
+                                                y: ['feetRightY', 'handSize'],
                                                 fX: true,
                                                 fY: true,
                                             }, // Right Foot
                                             {
-                                                x: "kneeRightX",
-                                                y: "kneeRightY",
+                                                x: 'kneeRightX',
+                                                y: 'kneeRightY',
                                                 fX: true,
                                                 fY: true,
                                             }, // Right Knee
@@ -517,16 +517,16 @@ export default function () {
                                     // FEETS
                                     {
                                         color: skin,
-                                        s: "handSize",
-                                        x: "feetLeftX",
-                                        y: "feetLeftY",
+                                        s: 'handSize',
+                                        x: 'feetLeftX',
+                                        y: 'feetLeftY',
                                         fY: true,
                                     },
                                     {
                                         color: skin,
-                                        s: "handSize",
-                                        x: "feetRightX",
-                                        y: "feetRightY",
+                                        s: 'handSize',
+                                        x: 'feetRightX',
+                                        y: 'feetRightY',
                                         fY: true,
                                         fX: true,
                                         tX: true,
@@ -536,72 +536,72 @@ export default function () {
                                     {
                                         points: [
                                             {
-                                                x: "torsoMargin",
-                                                y: "torsoBottom",
+                                                x: 'torsoMargin',
+                                                y: 'torsoBottom',
                                             }, // Left Hip
                                             {
-                                                x: "torsoMargin",
-                                                y: "torsoBottom",
+                                                x: 'torsoMargin',
+                                                y: 'torsoBottom',
                                                 fX: true,
                                             }, // Right Hip
                                             {
                                                 x: [
-                                                    "kneeRightX",
-                                                    sub("armWeight"),
+                                                    'kneeRightX',
+                                                    sub('armWeight'),
                                                 ],
-                                                y: ["kneeRightY", "armWeight"],
+                                                y: ['kneeRightY', 'armWeight'],
                                                 fX: true,
                                                 fY: true,
                                             }, // Right Knee
                                             {
                                                 x: [
-                                                    "skirtRightX",
-                                                    sub("armWeight"),
+                                                    'skirtRightX',
+                                                    sub('armWeight'),
                                                 ],
-                                                y: "skirtRightY",
+                                                y: 'skirtRightY',
                                                 fX: true,
                                                 fY: true,
                                             }, // Middle Right
                                             {
                                                 x: [
-                                                    "skirtLeftX",
-                                                    sub("armWeight"),
+                                                    'skirtLeftX',
+                                                    sub('armWeight'),
                                                 ],
-                                                y: "skirtLeftY",
+                                                y: 'skirtLeftY',
                                                 fY: true,
                                             }, // Middle Left
                                             {
                                                 x: [
-                                                    "kneeLeftX",
-                                                    sub("armWeight"),
+                                                    'kneeLeftX',
+                                                    sub('armWeight'),
                                                 ],
-                                                y: ["kneeLeftY", "armWeight"],
+                                                y: ['kneeLeftY', 'armWeight'],
                                                 fY: true,
                                             }, // Left Knee
                                         ],
                                     },
 
                                     {
-                                        name: "Line",
+                                        name: 'Line',
                                         color: teiresiasShadow,
                                         points: [
                                             {
                                                 x: [
-                                                    "skirtLeftX",
-                                                    mult(2, "armWeight"),
+                                                    'skirtLeftX',
+                                                    mult(2, 'armWeight'),
                                                 ],
                                                 y: [
-                                                    "skirtLeftY",
-                                                    mult(2, "armWeight"),
+                                                    'skirtLeftY',
+                                                    mult(2, 'armWeight'),
                                                 ],
                                                 fY: true,
                                             },
                                             {
                                                 x: [
-                                                    "skirtRightX",
-                                                    mult(4, "armWeight"),
+                                                    'skirtRightX',
+                                                    mult(4, 'armWeight'),
                                                 ],
-                                                y: ["skirtRightY"],
+                                                y: ['skirtRightY'],
                                                 fX: true,
                                                 fY: true,
                                             },
@@ -609,28 +609,28 @@ export default function () {
                                     },
 
                                     {
-                                        name: "Line",
+                                        name: 'Line',
                                         color: teiresiasShadow,
                                         points: [
                                             {
                                                 x: [
-                                                    "skirtLeftX",
-                                                    mult(4, "armWeight"),
+                                                    'skirtLeftX',
+                                                    mult(4, 'armWeight'),
                                                 ],
                                                 y: [
-                                                    "skirtLeftY",
-                                                    mult(5, "armWeight"),
+                                                    'skirtLeftY',
+                                                    mult(5, 'armWeight'),
                                                 ],
                                                 fY: true,
                                             },
                                             {
                                                 x: [
-                                                    "skirtRightX",
-                                                    mult(2, "armWeight"),
+                                                    'skirtRightX',
+                                                    mult(2, 'armWeight'),
                                                 ],
                                                 y: [
-                                                    "skirtRightY",
-                                                    mult(2.5, "armWeight"),
+                                                    'skirtRightY',
+                                                    mult(2.5, 'armWeight'),
                                                 ],
                                                 fX: true,
                                                 fY: true,
@@ -640,9 +640,9 @@ export default function () {
 
                                     // TORSO
                                     {
-                                        mX: "torsoMargin",
-                                        sY: "torsoheight",
-                                        y: "torsoY",
+                                        mX: 'torsoMargin',
+                                        sY: 'torsoheight',
+                                        y: 'torsoY',
                                         list: [
                                             {
                                                 sY: { r: 1, a: 1 },
@@ -669,11 +669,11 @@ export default function () {
                                                         sY: { r: 0.25 },
                                                         sX: {
                                                             r: 0.02,
-                                                            useSize: "sXRest",
+                                                            useSize: 'sXRest',
                                                             max: {
                                                                 r: 0.05,
                                                                 useSize:
-                                                                    "teiresias",
+                                                                    'teiresias',
                                                             },
                                                         },
                                                     },
@@ -709,14 +709,14 @@ export default function () {
                                                 color: skin,
                                                 tY: true,
                                                 mX: { r: 0.25 },
-                                                id: "head",
+                                                id: 'head',
                                                 list: [
                                                     {
-                                                        name: "Dot",
+                                                        name: 'Dot',
                                                         clear: true,
                                                     },
                                                     {
-                                                        name: "Dot",
+                                                        name: 'Dot',
                                                         clear: true,
                                                         fX: true,
                                                     },
@@ -735,7 +735,7 @@ export default function () {
                                                             add: [
                                                                 mult(
                                                                     1,
-                                                                    "sXRest",
+                                                                    'sXRest',
                                                                 ),
                                                             ],
                                                             max: { r: 5 },
@@ -759,7 +759,7 @@ export default function () {
                                                             add: [
                                                                 mult(
                                                                     -0.5,
-                                                                    "sYRest",
+                                                                    'sYRest',
                                                                 ),
                                                             ],
                                                         },
@@ -788,7 +788,7 @@ export default function () {
                                                                 mX: { r: 0.2 },
                                                                 list: [
                                                                     {
-                                                                        name: "Line",
+                                                                        name: 'Line',
                                                                         points: [
                                                                             {
                                                                                 fY: true,
@@ -820,7 +820,7 @@ export default function () {
                                                                     add: [
                                                                         mult(
                                                                             -1.5,
-                                                                            "sXRest",
+                                                                            'sXRest',
                                                                         ),
                                                                     ],
                                                                 },
@@ -880,7 +880,7 @@ export default function () {
                                                                 tY: true,
                                                                 list: [
                                                                     {
-                                                                        name: "Line",
+                                                                        name: 'Line',
                                                                         points: [
                                                                             {},
                                                                             {
@@ -921,62 +921,62 @@ export default function () {
                             // Snakes
                             {
                                 color: snake1,
-                                sX: "snakeWidth",
-                                sY: "snakeheight",
+                                sX: 'snakeWidth',
+                                sY: 'snakeheight',
                                 fY: true,
                                 fX: true,
-                                mX: "snakeWeight",
-                                id: "snakes",
+                                mX: 'snakeWeight',
+                                id: 'snakes',
                                 list: [
                                     // ROUND EDGES
-                                    { name: "Dot", clear: true },
-                                    { name: "Dot", clear: true, fY: true },
+                                    { name: 'Dot', clear: true },
+                                    { name: 'Dot', clear: true, fY: true },
 
                                     {
-                                        x: mult(2, "snakePeriode"),
+                                        x: mult(2, 'snakePeriode'),
                                         minY: 5,
                                         sX: {
                                             r: 1,
-                                            add: [sub("snakePeriode")],
+                                            add: [sub('snakePeriode')],
                                         },
                                         stripes: {
-                                            strip: "snakePeriode",
-                                            gap: "snakePeriode",
+                                            strip: 'snakePeriode',
+                                            gap: 'snakePeriode',
                                             cut: true,
                                         },
                                         list: [
                                             {
-                                                name: "Dot",
+                                                name: 'Dot',
                                                 clear: true,
                                                 x: [
-                                                    "snakePeriodeHalf",
-                                                    "snakeWeight",
+                                                    'snakePeriodeHalf',
+                                                    'snakeWeight',
                                                     -1,
                                                 ],
-                                                y: "snakeOffset",
+                                                y: 'snakeOffset',
                                             },
                                             {
-                                                name: "Dot",
+                                                name: 'Dot',
                                                 clear: true,
-                                                x: "snakePeriodeHalf",
+                                                x: 'snakePeriodeHalf',
                                                 fY: true,
                                             },
-                                            { name: "Dot", clear: true },
+                                            { name: 'Dot', clear: true },
                                             {
-                                                name: "Dot",
+                                                name: 'Dot',
                                                 clear: true,
-                                                x: ["snakeWeight", -1],
-                                                y: "snakeOffset",
+                                                x: ['snakeWeight', -1],
+                                                y: 'snakeOffset',
                                                 fY: true,
                                             },
                                         ],
                                     },
 
                                     {
-                                        x: "snakePeriode",
+                                        x: 'snakePeriode',
                                         stripes: {
-                                            strip: "snakePeriode",
-                                            gap: "snakePeriode",
+                                            strip: 'snakePeriode',
+                                            gap: 'snakePeriode',
                                             cut: true,
                                         },
                                         list: [
@@ -984,31 +984,31 @@ export default function () {
                                                 minY: 5,
                                                 list: [
                                                     {
-                                                        name: "Dot",
+                                                        name: 'Dot',
                                                         clear: true,
-                                                        x: ["snakeWeight", -1],
+                                                        x: ['snakeWeight', -1],
                                                     },
                                                     {
-                                                        name: "Dot",
+                                                        name: 'Dot',
                                                         clear: true,
                                                         fY: true,
-                                                        y: "snakeOffset",
+                                                        y: 'snakeOffset',
                                                     },
                                                     {
-                                                        name: "Dot",
+                                                        name: 'Dot',
                                                         clear: true,
                                                         fY: true,
                                                         x: [
-                                                            "snakePeriodeHalf",
-                                                            "snakeWeight",
+                                                            'snakePeriodeHalf',
+                                                            'snakeWeight',
                                                             -1,
                                                         ],
                                                     },
                                                     {
-                                                        name: "Dot",
+                                                        name: 'Dot',
                                                         clear: true,
-                                                        x: "snakePeriodeHalf",
-                                                        y: "snakeOffset",
+                                                        x: 'snakePeriodeHalf',
+                                                        y: 'snakeOffset',
                                                     },
                                                 ],
                                             },
@@ -1016,33 +1016,33 @@ export default function () {
                                     },
 
                                     // COLOR SNAKE 2
-                                    { use: "snake2", color: snake2 },
+                                    { use: 'snake2', color: snake2 },
                                     {
-                                        use: "snake2",
+                                        use: 'snake2',
                                         color: snake2Detail,
-                                        sX: { a: "snakeDetailSize", min: 1 },
+                                        sX: { a: 'snakeDetailSize', min: 1 },
                                         mask: true,
                                         chance: 0.1,
                                     },
 
                                     // HEADS
                                     {
-                                        sY: "snakeWeight",
-                                        sX: "snakePeriode",
+                                        sY: 'snakeWeight',
+                                        sX: 'snakePeriode',
                                         list: snake(1),
                                     },
                                     {
-                                        sX: "snakeWeight",
+                                        sX: 'snakeWeight',
                                         list: [
                                             {
-                                                sY: "snakeHeadPos",
+                                                sY: 'snakeHeadPos',
                                                 list: snake(1, true),
                                             },
                                             {
-                                                y: "snakeHeadPos",
-                                                sY: "snakeHeadSize",
+                                                y: 'snakeHeadPos',
+                                                sY: 'snakeHeadSize',
                                                 cX: true,
-                                                sX: "snakeHeadSize",
+                                                sX: 'snakeHeadSize',
                                                 list: [
                                                     {},
                                                     {
@@ -1058,13 +1058,13 @@ export default function () {
                                                         y: { r: 0.4 },
                                                     },
                                                     {
-                                                        name: "Dot",
+                                                        name: 'Dot',
                                                         color: snakeEyes,
                                                         y: { r: 0.5 },
                                                         x: { r: 0.2 },
                                                     },
                                                     {
-                                                        name: "Dot",
+                                                        name: 'Dot',
                                                         color: snakeEyes,
                                                         y: { r: 0.5 },
                                                         x: { r: 0.2 },
@@ -1073,7 +1073,7 @@ export default function () {
                                                     {
                                                         sX: 1,
                                                         color: snakeTongue,
-                                                        sY: "snakeTongueLength",
+                                                        sY: 'snakeTongueLength',
                                                         fY: true,
                                                         x: { r: 0.45 },
                                                         tY: true,
@@ -1085,12 +1085,12 @@ export default function () {
                                                                 },
                                                             },
                                                             {
-                                                                name: "Dot",
+                                                                name: 'Dot',
                                                                 fY: true,
                                                                 x: -1,
                                                             },
                                                             {
-                                                                name: "Dot",
+                                                                name: 'Dot',
                                                                 fY: true,
                                                                 x: 1,
                                                             },
@@ -1102,35 +1102,35 @@ export default function () {
                                     },
 
                                     {
-                                        sY: "snakeWeight",
-                                        sX: ["snakePeriode", "snakeWeight", 1],
+                                        sY: 'snakeWeight',
+                                        sX: ['snakePeriode', 'snakeWeight', 1],
                                         list: snake(2),
                                         fY: true,
                                     },
                                     {
-                                        sX: "snakeWeight",
+                                        sX: 'snakeWeight',
                                         list: [
                                             {
-                                                sY: "snakeHeadPos",
+                                                sY: 'snakeHeadPos',
                                                 list: snake(2, true),
                                                 fY: true,
                                             },
                                             {
-                                                y: "snakeHeadPos",
-                                                sY: "snakeHeadSize",
+                                                y: 'snakeHeadPos',
+                                                sY: 'snakeHeadSize',
                                                 cX: true,
-                                                sX: "snakeHeadSize",
+                                                sX: 'snakeHeadSize',
                                                 fY: true,
                                                 list: [
-                                                    { save: "snake2" },
+                                                    { save: 'snake2' },
                                                     {
-                                                        name: "Dot",
+                                                        name: 'Dot',
                                                         color: snakeEyes,
                                                         y: { r: 0.5 },
                                                         x: { r: 0.2 },
                                                     },
                                                     {
-                                                        name: "Dot",
+                                                        name: 'Dot',
                                                         color: snakeEyes,
                                                         y: { r: 0.5 },
                                                         x: { r: 0.2 },
@@ -1139,19 +1139,19 @@ export default function () {
                                                     {
                                                         sX: 1,
                                                         color: snakeTongue,
-                                                        sY: "snakeTongueLength",
+                                                        sY: 'snakeTongueLength',
                                                         x: { r: 0.45 },
                                                         fX: true,
                                                         tY: true,
                                                         list: [
                                                             {},
                                                             {
-                                                                name: "Dot",
+                                                                name: 'Dot',
                                                                 tY: true,
                                                                 x: -1,
                                                             },
                                                             {
-                                                                name: "Dot",
+                                                                name: 'Dot',
                                                                 tY: true,
                                                                 x: 1,
                                                             },
@@ -1164,43 +1164,43 @@ export default function () {
 
                                     // SNAKE BODIES
                                     {
-                                        x: mult(2, "snakePeriode"),
+                                        x: mult(2, 'snakePeriode'),
                                         sX: {
                                             r: 1,
-                                            add: [sub("snakePeriode")],
+                                            add: [sub('snakePeriode')],
                                         },
                                         stripes: {
-                                            strip: "snakePeriode",
-                                            gap: "snakePeriode",
+                                            strip: 'snakePeriode',
+                                            gap: 'snakePeriode',
                                             cut: true,
                                         },
                                         list: [
                                             {
-                                                sX: "snakeWeight",
-                                                sY: "snakeheightReal",
+                                                sX: 'snakeWeight',
+                                                sY: 'snakeheightReal',
                                                 list: snake(1, true),
                                             },
                                             {
-                                                sY: "snakeWeight",
+                                                sY: 'snakeWeight',
                                                 list: snake(1),
                                             },
 
                                             {
-                                                use: "snake2",
-                                                save: "upperSnake2",
+                                                use: 'snake2',
+                                                save: 'upperSnake2',
                                             },
                                             {
-                                                sX: "snakeWeight",
-                                                sY: "snakeheightReal",
-                                                x: "snakePeriodeHalf",
+                                                sX: 'snakeWeight',
+                                                sY: 'snakeheightReal',
+                                                x: 'snakePeriodeHalf',
                                                 fY: true,
                                                 color: snake2,
                                                 list: snake(2, true),
                                             },
                                             {
-                                                sY: "snakeWeight",
+                                                sY: 'snakeWeight',
                                                 fY: true,
-                                                x: "snakePeriodeHalf",
+                                                x: 'snakePeriodeHalf',
                                                 color: snake2,
                                                 list: snake(2),
                                             },
@@ -1208,37 +1208,37 @@ export default function () {
                                     },
 
                                     {
-                                        x: "snakePeriode",
+                                        x: 'snakePeriode',
                                         stripes: {
-                                            strip: "snakePeriode",
-                                            gap: "snakePeriode",
+                                            strip: 'snakePeriode',
+                                            gap: 'snakePeriode',
                                             cut: true,
                                         },
                                         list: [
-                                            { use: "snake2", clear: true },
+                                            { use: 'snake2', clear: true },
                                             {
-                                                sX: "snakeWeight",
-                                                sY: "snakeheightReal",
-                                                x: "snakePeriodeHalf",
+                                                sX: 'snakeWeight',
+                                                sY: 'snakeheightReal',
+                                                x: 'snakePeriodeHalf',
                                                 fY: true,
                                                 color: snake2,
                                                 list: snake(2, true),
                                             },
                                             {
-                                                sY: "snakeWeight",
-                                                x: "snakePeriodeHalf",
-                                                y: "snakeOffset",
+                                                sY: 'snakeWeight',
+                                                x: 'snakePeriodeHalf',
+                                                y: 'snakeOffset',
                                                 color: snake2,
                                                 list: snake(2),
                                             },
                                             {
-                                                sX: "snakeWeight",
-                                                sY: "snakeheightReal",
+                                                sX: 'snakeWeight',
+                                                sY: 'snakeheightReal',
                                                 list: snake(1, true),
                                             },
                                             {
-                                                sY: "snakeWeight",
-                                                y: "snakeOffset",
+                                                sY: 'snakeWeight',
+                                                y: 'snakeOffset',
                                                 fY: true,
                                                 list: snake(1),
                                             },
@@ -1258,17 +1258,17 @@ export default function () {
             {
                 color: frame,
                 list: [
-                    { sY: "borderWidth", list: getFrame },
-                    { sY: "borderWidth", fY: true, list: getFrame },
+                    { sY: 'borderWidth', list: getFrame },
+                    { sY: 'borderWidth', fY: true, list: getFrame },
                     {
-                        sX: "borderWidth",
+                        sX: 'borderWidth',
                         list: getFrame,
                         rotate: -90,
                         rX: true,
                     },
-                    { sX: "borderWidth", fX: true, list: getFrame, rotate: 90 },
+                    { sX: 'borderWidth', fX: true, list: getFrame, rotate: 90 },
                     {
-                        s: "borderWidth",
+                        s: 'borderWidth',
                         list: [
                             {},
                             {
@@ -1278,20 +1278,20 @@ export default function () {
                                     {
                                         sX: 1,
                                         fX: true,
-                                        x: "dekoOffset",
+                                        x: 'dekoOffset',
                                         fY: true,
                                         tY: true,
-                                        sY: "dekoheight",
-                                        y: ["dekoOffset", 1],
+                                        sY: 'dekoheight',
+                                        y: ['dekoOffset', 1],
                                     },
                                     {
                                         sY: 1,
                                         fX: true,
-                                        y: "dekoOffset",
+                                        y: 'dekoOffset',
                                         fY: true,
                                         tX: true,
-                                        sX: "dekoheight",
-                                        x: ["dekoOffset", 1],
+                                        sX: 'dekoheight',
+                                        x: ['dekoOffset', 1],
                                     },
                                     {
                                         sX: 1,
@@ -1310,17 +1310,17 @@ export default function () {
                                         sX: 5,
                                         x: 1,
                                     },
-                                    { name: "Dot", color: trees },
-                                    { name: "Dot", x: "dekoheight" },
-                                    { name: "Dot", y: "dekoheight" },
+                                    { name: 'Dot', color: trees },
+                                    { name: 'Dot', x: 'dekoheight' },
+                                    { name: 'Dot', y: 'dekoheight' },
                                 ],
                             },
                         ],
                     },
-                    { s: "bigEdgeSize", fY: true, list: bigEdge },
-                    { s: "bigEdgeSize", fX: true, list: bigEdge, rotate: 180 },
+                    { s: 'bigEdgeSize', fY: true, list: bigEdge },
+                    { s: 'bigEdgeSize', fX: true, list: bigEdge, rotate: 180 },
                     {
-                        s: "borderWidth",
+                        s: 'borderWidth',
                         fX: true,
                         fY: true,
                         list: [
@@ -1340,138 +1340,138 @@ export default function () {
                 ],
             },
         ],
-        imgDims = ["imgWidth", "imgheight"],
-        motiveDims = ["motiveWidth", "motiveheight"],
+        imgDims = ['imgWidth', 'imgheight'],
+        motiveDims = ['motiveWidth', 'motiveheight'],
         variableList = {
-            "fullRect": { r: 1, max: { r: 1, height: true } },
-            "borderWidth": { r: 0.06, a: 1, useSize: "fullRect", min: 1 },
-            "borderInner": ["borderWidth", -4],
-            "dekoOffset": mult(0.4, "borderInner"),
-            "dekoheight": ["borderWidth", -2, sub("dekoOffset")],
-            "bigEdgeSize": mult(2, "borderWidth"),
+            'fullRect': { r: 1, max: { r: 1, height: true } },
+            'borderWidth': { r: 0.06, a: 1, useSize: 'fullRect', min: 1 },
+            'borderInner': ['borderWidth', -4],
+            'dekoOffset': mult(0.4, 'borderInner'),
+            'dekoheight': ['borderWidth', -2, sub('dekoOffset')],
+            'bigEdgeSize': mult(2, 'borderWidth'),
 
-            "imgWidth": [{ r: 1 }, mult(-2, "borderWidth")],
-            "imgheight": [{ r: 1, height: true }, mult(-2, "borderWidth")],
+            'imgWidth': [{ r: 1 }, mult(-2, 'borderWidth')],
+            'imgheight': [{ r: 1, height: true }, mult(-2, 'borderWidth')],
 
-            "imgSqu": getSmallerDim({ r: 1, useSize: imgDims }),
-            "imgSquBigger": getBiggerDim({ r: 1, useSize: imgDims }),
+            'imgSqu': getSmallerDim({ r: 1, useSize: imgDims }),
+            'imgSquBigger': getBiggerDim({ r: 1, useSize: imgDims }),
 
-            "imgPadding": mult(0.05, "imgSqu"),
+            'imgPadding': mult(0.05, 'imgSqu'),
 
-            "motiveWidth": ["imgWidth", mult(-2, "imgPadding")],
-            "motiveheight": ["imgheight", mult(-2, "imgPadding")],
+            'motiveWidth': ['imgWidth', mult(-2, 'imgPadding')],
+            'motiveheight': ['imgheight', mult(-2, 'imgPadding')],
 
-            "motiveSqu": getSmallerDim({ r: 1, useSize: motiveDims }),
-            "motiveSquBigger": getBiggerDim({ r: 1, useSize: motiveDims }),
+            'motiveSqu': getSmallerDim({ r: 1, useSize: motiveDims }),
+            'motiveSquBigger': getBiggerDim({ r: 1, useSize: motiveDims }),
 
-            "sXRest": { add: ["motiveWidth", sub("motiveSqu")], min: 0 },
-            "sYRest": { add: ["motiveheight", sub("motiveSqu")], min: 0 },
+            'sXRest': { add: ['motiveWidth', sub('motiveSqu')], min: 0 },
+            'sYRest': { add: ['motiveheight', sub('motiveSqu')], min: 0 },
 
-            "teiresias": { a: "motiveSqu", max: mult(0.6, "motiveSquBigger") },
-            "teiresiasX": mult(0.1, "sXRest"),
-            "teiresiasY": mult(0.1, "sYRest"),
+            'teiresias': { a: 'motiveSqu', max: mult(0.6, 'motiveSquBigger') },
+            'teiresiasX': mult(0.1, 'sXRest'),
+            'teiresiasY': mult(0.1, 'sYRest'),
 
-            "armLength": mult(0.2, "teiresias"),
-            "armWeight": { r: 0.025, useSize: "teiresias", min: 1 },
+            'armLength': mult(0.2, 'teiresias'),
+            'armWeight': { r: 0.025, useSize: 'teiresias', min: 1 },
 
-            "maxStick": mult(0.3, "teiresias"),
-            "stickLeft": { r: 0.5, useSize: "sXRest", max: "maxStick" },
-            "stickRight": { r: 0.5, useSize: "sYRest", max: "maxStick" },
-            "stickWeight": { r: 0.03, useSize: "teiresias", min: 1 },
-            "stickPoint": [mult(0.85, "stickLeft"), mult(0.15, "stickRight")],
+            'maxStick': mult(0.3, 'teiresias'),
+            'stickLeft': { r: 0.5, useSize: 'sXRest', max: 'maxStick' },
+            'stickRight': { r: 0.5, useSize: 'sYRest', max: 'maxStick' },
+            'stickWeight': { r: 0.03, useSize: 'teiresias', min: 1 },
+            'stickPoint': [mult(0.85, 'stickLeft'), mult(0.15, 'stickRight')],
 
-            "torsoY": { r: torsoTop, useSize: "teiresias" },
-            "torsoheight": { r: 0.2, useSize: "teiresias" },
-            "torsoBottom": ["torsoY", "torsoheight"],
+            'torsoY': { r: torsoTop, useSize: 'teiresias' },
+            'torsoheight': { r: 0.2, useSize: 'teiresias' },
+            'torsoBottom': ['torsoY', 'torsoheight'],
 
-            "legLength": mult(1.3, "armLength"),
+            'legLength': mult(1.3, 'armLength'),
 
-            "handSize": mult(1.5, "stickWeight", 1),
-            "halfHandSizeNeg": mult(-0.5, "handSize"),
-            "handLeft": [mult(0.8, "stickLeft"), mult(0.2, "stickRight")],
-            "handRight": [mult(0.2, "stickLeft"), mult(0.8, "stickRight")],
+            'handSize': mult(1.5, 'stickWeight', 1),
+            'halfHandSizeNeg': mult(-0.5, 'handSize'),
+            'handLeft': [mult(0.8, 'stickLeft'), mult(0.2, 'stickRight')],
+            'handRight': [mult(0.2, 'stickLeft'), mult(0.8, 'stickRight')],
 
-            "torsoMargin": { r: torsoMargin, useSize: "teiresias" },
+            'torsoMargin': { r: torsoMargin, useSize: 'teiresias' },
 
-            "feetLeftX": "torsoMargin",
-            "feetRightX": { r: 0.2, useSize: "teiresias" },
+            'feetLeftX': 'torsoMargin',
+            'feetRightX': { r: 0.2, useSize: 'teiresias' },
 
-            "feetLeftY": { a: 0 },
-            "feetRightY": {
+            'feetLeftY': { a: 0 },
+            'feetRightY': {
                 r: 0.2,
-                useSize: "teiresias",
-                add: [sub("sYRest")],
+                useSize: 'teiresias',
+                add: [sub('sYRest')],
                 min: 2,
             },
 
-            "kneeRightX": [
-                "feetRightX",
-                { add: [mult(-0.5, "sYRest")], min: { r: -0.02 } },
+            'kneeRightX': [
+                'feetRightX',
+                { add: [mult(-0.5, 'sYRest')], min: { r: -0.02 } },
             ],
-            "kneeRightY": ["feetRightY", "legLength"],
+            'kneeRightY': ['feetRightY', 'legLength'],
 
-            "kneeLeftX": [
-                "feetLeftX",
-                { add: [mult(-0.5, "sYRest")], min: { r: -0.1 } },
+            'kneeLeftX': [
+                'feetLeftX',
+                { add: [mult(-0.5, 'sYRest')], min: { r: -0.1 } },
             ],
-            "kneeLeftY": ["feetLeftY", "legLength"],
+            'kneeLeftY': ['feetLeftY', 'legLength'],
 
-            "skirtRightX": [mult(0.5, "feetRightX"), mult(0.5, "kneeRightX")],
-            "skirtRightY": [mult(0.5, "feetRightY"), mult(0.5, "kneeRightY")],
+            'skirtRightX': [mult(0.5, 'feetRightX'), mult(0.5, 'kneeRightX')],
+            'skirtRightY': [mult(0.5, 'feetRightY'), mult(0.5, 'kneeRightY')],
 
-            "skirtLeftX": [mult(0.5, "feetLeftX"), mult(0.5, "kneeLeftX")],
-            "skirtLeftY": [mult(0.5, "feetLeftY"), mult(0.5, "kneeLeftY")],
+            'skirtLeftX': [mult(0.5, 'feetLeftX'), mult(0.5, 'kneeLeftX')],
+            'skirtLeftY': [mult(0.5, 'feetLeftY'), mult(0.5, 'kneeLeftY')],
 
-            "snakeheight": {
-                add: ["motiveheight", sub("teiresias"), sub("teiresiasY")],
+            'snakeheight': {
+                add: ['motiveheight', sub('teiresias'), sub('teiresiasY')],
                 min: {
-                    add: [mult(0.3, "motiveSquBigger")],
+                    add: [mult(0.3, 'motiveSquBigger')],
                     min: 6,
-                    max: mult(0.4, "motiveheight"),
+                    max: mult(0.4, 'motiveheight'),
                 },
-                max: mult(0.3, "motiveheight"),
+                max: mult(0.3, 'motiveheight'),
             },
-            "snakeWidth": {
-                add: ["motiveWidth", sub("teiresias"), sub("teiresiasX")],
+            'snakeWidth': {
+                add: ['motiveWidth', sub('teiresias'), sub('teiresiasX')],
                 min: {
-                    add: [mult(0.5, "motiveSquBigger")],
-                    max: { a: "motiveWidth" },
+                    add: [mult(0.5, 'motiveSquBigger')],
+                    max: { a: 'motiveWidth' },
                 },
             },
-            "snakeSqu": getSmallerDim({
+            'snakeSqu': getSmallerDim({
                 r: 1,
-                useSize: ["snakeheight", "snakeWidth"],
+                useSize: ['snakeheight', 'snakeWidth'],
             }),
-            "snakeWeight": { r: 0.07, useSize: "snakeSqu", min: 1 },
+            'snakeWeight': { r: 0.07, useSize: 'snakeSqu', min: 1 },
 
-            "snakeheightMargin": ["snakeheight"],
-            "snakeWidthMargin": ["snakeWidth", mult(-2, "snakeWeight")],
+            'snakeheightMargin': ['snakeheight'],
+            'snakeWidthMargin': ['snakeWidth', mult(-2, 'snakeWeight')],
 
-            "snakePeriode": [{ r: 2, useSize: "snakeWeight", a: 2 }],
-            "snakePeriodeHalf": mult(0.5, "snakePeriode"),
-            "snakeOffset": {
+            'snakePeriode': [{ r: 2, useSize: 'snakeWeight', a: 2 }],
+            'snakePeriodeHalf': mult(0.5, 'snakePeriode'),
+            'snakeOffset': {
                 r: 1,
-                useSize: "snakeWeight",
+                useSize: 'snakeWeight',
                 a: 1,
-                max: mult(0.1, "snakeheight"),
+                max: mult(0.1, 'snakeheight'),
             },
-            "snakeheightReal": ["snakeheightMargin", sub("snakeOffset")],
+            'snakeheightReal': ['snakeheightMargin', sub('snakeOffset')],
 
-            "snakeHeadSize": { r: 1.5, useSize: "snakeWeight", min: 2 },
-            "snakeTongueLength": { r: 0.7, useSize: "snakeHeadSize", min: 2 },
+            'snakeHeadSize': { r: 1.5, useSize: 'snakeWeight', min: 2 },
+            'snakeTongueLength': { r: 0.7, useSize: 'snakeHeadSize', min: 2 },
 
-            "snakeDetailSize": ["snakeWeight", -2],
-            "snakeHeadPos": {
+            'snakeDetailSize': ['snakeWeight', -2],
+            'snakeHeadPos': {
                 add: [
-                    mult(0.5, "snakeheight"),
-                    mult(-1.5, "snakeHeadSize"),
-                    sub("snakeTongueLength"),
+                    mult(0.5, 'snakeheight'),
+                    mult(-1.5, 'snakeHeadSize'),
+                    sub('snakeTongueLength'),
                     -2,
                 ],
                 min: { a: 0 },
             },
 
-            "treeRandom": mult(0.1, "imgheight"),
+            'treeRandom': mult(0.1, 'imgheight'),
         }
 
     return {

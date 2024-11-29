@@ -95,11 +95,11 @@ export const Rotater = function (args) {
             minX: 5,
             minY: 5,
             list: [
-                args.roundTop && { name: "Dot", clear: true },
-                args.roundTop && { name: "Dot", fX: true, clear: true },
-                args.roundBottom && { name: "Dot", fY: true, clear: true },
+                args.roundTop && { name: 'Dot', clear: true },
+                args.roundTop && { name: 'Dot', fX: true, clear: true },
+                args.roundBottom && { name: 'Dot', fY: true, clear: true },
                 args.roundBottom && {
-                    name: "Dot",
+                    name: 'Dot',
                     fX: true,
                     fY: true,
                     clear: true,

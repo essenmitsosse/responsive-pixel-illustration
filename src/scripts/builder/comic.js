@@ -1,4 +1,4 @@
-import { Object } from "./object.js"
+import { Object } from './object.js'
 
 /*jshint -W008 */
 /* global Builder */
@@ -25,146 +25,146 @@ export const Comic = function (init) {
         horRatio = this.R(1.1, 2),
         panel
 
-    this.vL["fullSqu"] = { r: 1, max: { r: 1, height: true } }
+    this.vL['fullSqu'] = { r: 1, max: { r: 1, height: true } }
 
     // BORDER
-    this.vL["borderX"] = { r: border, useSize: "fullSqu", min: 2 }
-    this.vL["borderY"] = {
+    this.vL['borderX'] = { r: border, useSize: 'fullSqu', min: 2 }
+    this.vL['borderY'] = {
         r: border * horRatio,
-        useSize: "fullSqu",
-        min: ["borderX", 1],
+        useSize: 'fullSqu',
+        min: ['borderX', 1],
     }
 
     // IMAGE
-    this.vL["imgSX"] = { add: [{ r: 1 }, this.mult(-2, "borderX")] }
-    this.vL["imgSY"] = [
+    this.vL['imgSX'] = { add: [{ r: 1 }, this.mult(-2, 'borderX')] }
+    this.vL['imgSY'] = [
         { r: 1, height: true },
-        this.mult(this.GR(-3.5, -2), "borderY"),
+        this.mult(this.GR(-3.5, -2), 'borderY'),
     ]
 
-    this.vL["imgSqu"] = { a: "imgSX", max: "imgSY" }
-    this.vL["imgSquBigger"] = { a: "imgSX", min: "imgSY" }
+    this.vL['imgSqu'] = { a: 'imgSX', max: 'imgSY' }
+    this.vL['imgSquBigger'] = { a: 'imgSX', min: 'imgSY' }
 
-    this.vL["_panelWid"] = { r: 1 / panelsCalc, useSize: "imgSX" }
-    this.vL["_panelOvershot2"] = {
-        add: ["imgSY", { r: this.R(-2.5, -1.5), useSize: "_panelWid" }],
+    this.vL['_panelWid'] = { r: 1 / panelsCalc, useSize: 'imgSX' }
+    this.vL['_panelOvershot2'] = {
+        add: ['imgSY', { r: this.R(-2.5, -1.5), useSize: '_panelWid' }],
         min: { a: 0 },
         max: 1,
     }
-    this.vL["_panelOvershot2IF"] = { r: 10000000, useSize: "_panelOvershot2" }
+    this.vL['_panelOvershot2IF'] = { r: 10000000, useSize: '_panelOvershot2' }
 
-    this.vL["_panelOvershot3"] = {
-        add: ["imgSY", { r: -8, useSize: "_panelWid" }],
+    this.vL['_panelOvershot3'] = {
+        add: ['imgSY', { r: -8, useSize: '_panelWid' }],
         min: { a: 0 },
         max: 1,
     }
-    this.vL["_panelOvershot3IF"] =
+    this.vL['_panelOvershot3IF'] =
         panels === 4
             ? { a: 0 }
-            : { r: 10000000, useSize: "_panelOvershot3", min: { a: 0 } }
+            : { r: 10000000, useSize: '_panelOvershot3', min: { a: 0 } }
 
-    this.vL["gutterX"] = {
+    this.vL['gutterX'] = {
         r: gutter,
-        useSize: "imgSqu",
+        useSize: 'imgSqu',
         min: 3,
-        max: ["borderX", -1],
+        max: ['borderX', -1],
     }
-    this.vL["gutterY"] = {
+    this.vL['gutterY'] = {
         r: gutter * horRatio,
-        useSize: "imgSqu",
-        min: ["gutterX", 1],
-        max: ["borderY", -1],
+        useSize: 'imgSqu',
+        min: ['gutterX', 1],
+        max: ['borderY', -1],
     }
-    ;(this.vL["gutterBorderS"] = {
+    ;(this.vL['gutterBorderS'] = {
         r: this.GR(-1, 1),
-        useSize: "gutterX",
+        useSize: 'gutterX',
         max: -1,
-        min: { r: -0.5, useSize: "gutterX", a: 0.5 },
+        min: { r: -0.5, useSize: 'gutterX', a: 0.5 },
     }),
-        (this.vL["_effectiveImgSX"] = {
-            max: { r: 3, useSize: "imgSX" },
+        (this.vL['_effectiveImgSX'] = {
+            max: { r: 3, useSize: 'imgSX' },
             add: [
-                "_panelOvershot3IF",
+                '_panelOvershot3IF',
                 {
-                    a: "_panelOvershot2IF",
-                    min: "imgSX",
-                    max: { r: 2, useSize: "imgSX" },
+                    a: '_panelOvershot2IF',
+                    min: 'imgSX',
+                    max: { r: 2, useSize: 'imgSX' },
                 },
             ],
         })
 
-    this.vL["panelRestSX"] = [
-        "_effectiveImgSX",
-        this.mult(-1 * panelsCalc, "gutterX"),
+    this.vL['panelRestSX'] = [
+        '_effectiveImgSX',
+        this.mult(-1 * panelsCalc, 'gutterX'),
     ]
-    this.vL["panelSX"] = this.mult(1 / panelsCalc, "panelRestSX")
+    this.vL['panelSX'] = this.mult(1 / panelsCalc, 'panelRestSX')
 
-    this.vL["panelRest2SY"] = ["imgSY", this.mult(-1, "gutterY")]
-    this.vL["panelRest3SY"] = ["imgSY", this.mult(-2, "gutterY")]
-    this.vL["panelSY"] = {
+    this.vL['panelRest2SY'] = ['imgSY', this.mult(-1, 'gutterY')]
+    this.vL['panelRest3SY'] = ['imgSY', this.mult(-2, 'gutterY')]
+    this.vL['panelSY'] = {
         add: [
             {
-                add: ["imgSY", this.mult(-1, "_panelOvershot2IF")],
-                min: this.mult(0.5, "panelRest2SY"),
+                add: ['imgSY', this.mult(-1, '_panelOvershot2IF')],
+                min: this.mult(0.5, 'panelRest2SY'),
             },
-            this.mult(-1, "_panelOvershot3IF"),
+            this.mult(-1, '_panelOvershot3IF'),
         ],
-        min: [this.mult(1 / 3, "panelRest3SY")],
+        min: [this.mult(1 / 3, 'panelRest3SY')],
     }
 
-    this.vL["panelSqu"] = { a: "panelSX", max: "panelSY" }
+    this.vL['panelSqu'] = { a: 'panelSX', max: 'panelSY' }
 
-    this.vL["2rowX"] = {
+    this.vL['2rowX'] = {
         r: -1,
-        useSize: "_panelOvershot2IF",
-        add: ["_panelOvershot3IF"],
+        useSize: '_panelOvershot2IF',
+        add: ['_panelOvershot3IF'],
         min: [
-            { r: -panelsCalc / 2, useSize: "panelSX" },
-            { r: -panelsCalc / 2, useSize: "gutterX" },
+            { r: -panelsCalc / 2, useSize: 'panelSX' },
+            { r: -panelsCalc / 2, useSize: 'gutterX' },
         ],
         max: { a: 0 },
     }
-    this.vL["2rowY"] = {
-        a: "_panelOvershot2IF",
-        add: [this.sub("_panelOvershot3IF")],
-        max: ["panelSY", "gutterY"],
+    this.vL['2rowY'] = {
+        a: '_panelOvershot2IF',
+        add: [this.sub('_panelOvershot3IF')],
+        max: ['panelSY', 'gutterY'],
         min: { a: 0 },
     }
 
-    this.vL["3rowX"] = {
+    this.vL['3rowX'] = {
         r: -1,
-        useSize: "_panelOvershot3IF",
+        useSize: '_panelOvershot3IF',
         min: [
-            { r: -panelsCalc / 3, useSize: "panelSX" },
-            { r: -panelsCalc / 3, useSize: "gutterX" },
+            { r: -panelsCalc / 3, useSize: 'panelSX' },
+            { r: -panelsCalc / 3, useSize: 'gutterX' },
         ],
     }
-    this.vL["3rowY"] = { a: "_panelOvershot3IF", max: ["panelSY", "gutterY"] }
+    this.vL['3rowY'] = { a: '_panelOvershot3IF', max: ['panelSY', 'gutterY'] }
 
-    this.vL["fullSX"] = [
-        { r: panelsCalc, useSize: "panelSX" },
-        { r: panelsCalc - 1, useSize: "gutterX" },
+    this.vL['fullSX'] = [
+        { r: panelsCalc, useSize: 'panelSX' },
+        { r: panelsCalc - 1, useSize: 'gutterX' },
         {
             r: -1,
-            useSize: "_panelOvershot2IF",
-            add: ["_panelOvershot3IF"],
+            useSize: '_panelOvershot2IF',
+            add: ['_panelOvershot3IF'],
             min: [
-                { r: -panelsCalc / 2, useSize: "panelSX" },
-                { r: -panelsCalc / 2, useSize: "gutterX" },
+                { r: -panelsCalc / 2, useSize: 'panelSX' },
+                { r: -panelsCalc / 2, useSize: 'gutterX' },
             ],
         },
         {
             r: -1,
-            useSize: "_panelOvershot3IF",
+            useSize: '_panelOvershot3IF',
             min: [
-                { r: (-2 * panelsCalc) / 3, useSize: "panelSX" },
-                { r: (-2 * panelsCalc) / 3, useSize: "gutterX" },
+                { r: (-2 * panelsCalc) / 3, useSize: 'panelSX' },
+                { r: (-2 * panelsCalc) / 3, useSize: 'gutterX' },
             ],
         },
     ]
 
     if (bigPanel !== false) {
-        this.vL["panelBigSX"] = [this.mult(2, "panelSX"), "gutterX"]
+        this.vL['panelBigSX'] = [this.mult(2, 'panelSX'), 'gutterX']
     }
 
     args.panels = panels
@@ -215,11 +215,11 @@ export const Comic = function (init) {
         },
         {
             cX: true,
-            sX: "fullSX",
-            mY: "borderY",
+            sX: 'fullSX',
+            mY: 'borderY',
             list: list,
         },
-        init.cs === "true" && this.basic.colorScheme(),
+        init.cs === 'true' && this.basic.colorScheme(),
     ]
 } // END Comic
 
@@ -342,15 +342,15 @@ Panel.prototype.draw = function (args) {
 
     args.groundShadowColor = this.groundShadowColor
 
-    this.vL["thingS" + nr] = this.mult(
+    this.vL['thingS' + nr] = this.mult(
         closeUp ? 2 : wideShot ? 0.5 : superWideShot ? 0.2 : 1,
-        "panelSqu",
+        'panelSqu',
     )
-    this.vL["horizont" + nr] = {
+    this.vL['horizont' + nr] = {
         r:
             this.horizont *
             (closeUp ? 0.6 : wideShot ? 1.25 : superWideShot ? 1.5 : 1),
-        useSize: "panelSY",
+        useSize: 'panelSY',
     }
 
     // Less Color Change on Actors
@@ -361,36 +361,36 @@ Panel.prototype.draw = function (args) {
     actors = {
         cX: true,
         fY: true,
-        sY: "thingS" + nr,
-        sX: this.mult(1.5, "thingS" + nr),
-        x: { r: this.IF(0.5) ? 0.2 : -0.2, useSize: "thingS" + nr },
+        sY: 'thingS' + nr,
+        sX: this.mult(1.5, 'thingS' + nr),
+        x: { r: this.IF(0.5) ? 0.2 : -0.2, useSize: 'thingS' + nr },
         y:
             wideShot || superWideShot
-                ? { r: 0.5, useSize: "horizont" + nr }
-                : { r: closeUp ? -0.5 : -0.1, useSize: "thingS" + nr },
+                ? { r: 0.5, useSize: 'horizont' + nr }
+                : { r: closeUp ? -0.5 : -0.1, useSize: 'thingS' + nr },
         list: [
             this.actor1 && {
-                s: "thingS" + nr,
+                s: 'thingS' + nr,
                 cY: true,
                 color: [100, 0, 0],
                 z: 10000000,
-                list: this.actor1.draw(args, 100000, "thingS" + nr),
+                list: this.actor1.draw(args, 100000, 'thingS' + nr),
             },
             this.actor2 && {
-                s: "thingS" + nr,
+                s: 'thingS' + nr,
                 fX: true,
                 cY: true,
                 color: [100, 0, 0],
                 z: 20000000,
-                list: this.actor2.draw(args, 200000, "thingS" + nr),
+                list: this.actor2.draw(args, 200000, 'thingS' + nr),
             },
             this.actor3 && {
-                s: "thingS" + nr,
+                s: 'thingS' + nr,
                 cX: true,
                 cY: true,
                 color: [100, 0, 0],
                 z: 30000000,
-                list: this.actor3.draw(args, 300000, "thingS" + nr),
+                list: this.actor3.draw(args, 300000, 'thingS' + nr),
             },
         ],
     }
@@ -404,49 +404,49 @@ Panel.prototype.draw = function (args) {
     return {
         list: [
             this.outerBorderColor && {
-                sX: args.big ? "panelBigSX" : "panelSX",
-                sY: "panelSY",
-                m: "gutterBorderS",
+                sX: args.big ? 'panelBigSX' : 'panelSX',
+                sY: 'panelSY',
+                m: 'gutterBorderS',
                 x: [
-                    this.mult(args.i, "panelSX"),
-                    this.mult(args.i, "gutterX"),
-                    args.row2 ? "2rowX" : { a: 0 },
-                    args.row3a ? "3rowX" : { a: 0 },
-                    args.row3b ? "3rowX" : { a: 0 },
+                    this.mult(args.i, 'panelSX'),
+                    this.mult(args.i, 'gutterX'),
+                    args.row2 ? '2rowX' : { a: 0 },
+                    args.row3a ? '3rowX' : { a: 0 },
+                    args.row3b ? '3rowX' : { a: 0 },
                 ],
                 y: [
-                    this.mult(args.row2 ? 1 : 0, "2rowY"),
-                    this.mult(args.row3a ? 1 : 0, "3rowY"),
-                    this.mult(args.row3b ? 1 : 0, "3rowY"),
+                    this.mult(args.row2 ? 1 : 0, '2rowY'),
+                    this.mult(args.row3a ? 1 : 0, '3rowY'),
+                    this.mult(args.row3b ? 1 : 0, '3rowY'),
                 ],
                 color: this.outerBorderColor.get(),
             },
             {
-                sX: args.big ? "panelBigSX" : "panelSX",
-                sY: "panelSY",
+                sX: args.big ? 'panelBigSX' : 'panelSX',
+                sY: 'panelSY',
                 x: [
-                    this.mult(args.i, "panelSX"),
-                    this.mult(args.i, "gutterX"),
-                    args.row2 ? "2rowX" : { a: 0 },
-                    args.row3a ? "3rowX" : { a: 0 },
-                    args.row3b ? "3rowX" : { a: 0 },
+                    this.mult(args.i, 'panelSX'),
+                    this.mult(args.i, 'gutterX'),
+                    args.row2 ? '2rowX' : { a: 0 },
+                    args.row3a ? '3rowX' : { a: 0 },
+                    args.row3b ? '3rowX' : { a: 0 },
                 ],
                 y: [
-                    this.mult(args.row2 ? 1 : 0, "2rowY"),
-                    this.mult(args.row3a ? 1 : 0, "3rowY"),
-                    this.mult(args.row3b ? 1 : 0, "3rowY"),
+                    this.mult(args.row2 ? 1 : 0, '2rowY'),
+                    this.mult(args.row3a ? 1 : 0, '3rowY'),
+                    this.mult(args.row3b ? 1 : 0, '3rowY'),
                 ],
                 mask: true,
                 list: [
                     // Sky
                     stars && {
-                        use: "sky" + nr,
+                        use: 'sky' + nr,
                         color: this.finalSkyColor.get(),
                     },
 
                     // Stars
                     stars && {
-                        use: "sky" + nr,
+                        use: 'sky' + nr,
                         chance: 0.01,
                         seed: 1201,
                         color: this.starColor.get(),
@@ -455,13 +455,13 @@ Panel.prototype.draw = function (args) {
                     // Actual Sky
                     {
                         color: this.finalSkyColor.get(),
-                        save: stars && "sky" + nr,
+                        save: stars && 'sky' + nr,
                     },
 
                     // Sun
                     this.sun &&
                         (wideShot || superWideShot) && {
-                            s: { r: 0.1, useSize: "panelSY" },
+                            s: { r: 0.1, useSize: 'panelSY' },
                             x: { r: 0.2 },
                             y: { r: 0.2 },
                             color: this.sunColor.get(),
@@ -472,11 +472,11 @@ Panel.prototype.draw = function (args) {
 
                     // Forrest
                     this.forrest && {
-                        y: "horizont" + nr,
-                        s: "thingS" + nr,
+                        y: 'horizont' + nr,
+                        s: 'thingS' + nr,
                         fY: true,
                         cX: true,
-                        list: this.forrest.draw(args, 10000, "thingS" + nr),
+                        list: this.forrest.draw(args, 10000, 'thingS' + nr),
                     },
 
                     actionBackground && {
@@ -498,82 +498,82 @@ export const Actor = function (args) {
 
 Actor.prototype = new Object()
 Actor.prototype.draw = function (args, z, size) {
-    var eyeLookVert = ["", "", "", "left", "right"],
+    var eyeLookVert = ['', '', '', 'left', 'right'],
         eyeLookHor = [
-            "",
-            "",
-            "",
-            "",
-            "",
-            "up",
-            "down",
-            "up",
-            "down",
-            "verDown",
+            '',
+            '',
+            '',
+            '',
+            '',
+            'up',
+            'down',
+            'up',
+            'down',
+            'verDown',
         ],
         eyeLids = [
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "halfClosed",
-            "halfClosed",
-            "halfClosed",
-            "closed",
-            "closed",
-            "wink",
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            'halfClosed',
+            'halfClosed',
+            'halfClosed',
+            'closed',
+            'closed',
+            'wink',
         ],
         eyeBrow = [
-            "",
-            "",
-            "",
-            "raised",
-            "low",
-            "sceptical",
-            "superSceptical",
-            "angry",
-            "sad",
+            '',
+            '',
+            '',
+            'raised',
+            'low',
+            'sceptical',
+            'superSceptical',
+            'angry',
+            'sad',
         ],
         mouthHeight = [
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "slight",
-            "slight",
-            "half",
-            "full",
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            'slight',
+            'slight',
+            'half',
+            'full',
         ],
-        mouthWid = ["", "", "", "narrow"],
-        mouthForm = ["", "", "", "sceptical", "grin", "D:"],
-        teethPos = ["", "top", "bottom", "both", "full"],
-        legPos = ["", "", "", "", "", "", "", "", "", "", "", "legRaise"],
+        mouthWid = ['', '', '', 'narrow'],
+        mouthForm = ['', '', '', 'sceptical', 'grin', 'D:'],
+        teethPos = ['', 'top', 'bottom', 'both', 'full'],
+        legPos = ['', '', '', '', '', '', '', '', '', '', '', 'legRaise'],
         views = [
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "rightView",
-            "leftView",
-            "rightView",
-            "leftView",
-            "rightView",
-            "leftView",
-            "rightView",
-            "leftView",
-            "backView",
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            'rightView',
+            'leftView',
+            'rightView',
+            'leftView',
+            'rightView',
+            'leftView',
+            'rightView',
+            'leftView',
+            'backView',
         ]
 
     args.size = size
@@ -621,7 +621,7 @@ Actor.prototype.draw = function (args, z, size) {
     }
 
     args.leg = {}
-    args.leg[this.IF(0.5) ? "right" : "left"] =
+    args.leg[this.IF(0.5) ? 'right' : 'left'] =
         legPos[this.GR(0, legPos.length)]
 
     args.hatDown = this.IF(0.02)
@@ -652,6 +652,6 @@ Ground.prototype.draw = function (args, z) {
         color: this.groundColor.get(),
         fY: true,
         z: z,
-        sY: "horizont" + nr,
+        sY: 'horizont' + nr,
     }
 } // END Ground draw

@@ -1,4 +1,4 @@
-import { Object } from "./object.js"
+import { Object } from './object.js'
 // PERSON --------------------------------------------------------------------------------
 export const Person = function (args) {
     if (!args) {
@@ -12,26 +12,26 @@ export const Person = function (args) {
 Person.prototype = new Object()
 Person.prototype.draw = function (args, z) {
     var nr = (args.nr = this.basic.objectCount += 1),
-        backView = (args.backView = args.view === "backView"),
+        backView = (args.backView = args.view === 'backView'),
         sideView = (args.sideView = !backView && args.view ? true : false)
 
     args.id = this.id
 
     z || (z = this.basic.objectCount * 10000)
 
-    this.vL["personHalfSX" + nr] = { r: 0.5, min: 5, useSize: args.size }
+    this.vL['personHalfSX' + nr] = { r: 0.5, min: 5, useSize: args.size }
 
     return sideView
-        ? [{ list: this.basicBody.draw(args, args.view === "rightView") }]
+        ? [{ list: this.basicBody.draw(args, args.view === 'rightView') }]
         : [
               {
-                  sX: "personHalfSX" + nr,
+                  sX: 'personHalfSX' + nr,
                   rX: true,
                   list: this.basicBody.draw(args, !backView),
               },
               {
-                  sX: "personHalfSX" + nr,
-                  x: ["personHalfSX" + nr, -1],
+                  sX: 'personHalfSX' + nr,
+                  x: ['personHalfSX' + nr, -1],
                   list: this.basicBody.draw(args, backView),
               },
           ]
@@ -109,54 +109,54 @@ BasicBody.prototype.draw = function (args, right) {
     args.calc = args.backView !== right || sideView
 
     if (args.calc) {
-        this.vL["personSX" + nr] = {
+        this.vL['personSX' + nr] = {
             r: this.sX,
-            useSize: "personHalfSX" + nr,
+            useSize: 'personHalfSX' + nr,
             a: 2,
         }
-        this.vL["personSY" + nr] = { r: this.sY, min: 5, useSize: args.size }
+        this.vL['personSY' + nr] = { r: this.sY, min: 5, useSize: args.size }
     }
 
     head = this.head.draw(args)
 
     if (args.calc) {
-        this.vL["bodyRestSY" + nr] = {
-            a: "personSY" + nr,
+        this.vL['bodyRestSY' + nr] = {
+            a: 'personSY' + nr,
             max: [
                 args.size,
-                this.sub("headMaxSY" + nr),
-                this.sub("neckSY" + nr),
+                this.sub('headMaxSY' + nr),
+                this.sub('neckSY' + nr),
             ],
         }
 
-        this.vL["lowerBodySY" + nr] = {
+        this.vL['lowerBodySY' + nr] = {
             r: this.lowerBodySY,
-            useSize: "bodyRestSY" + nr,
+            useSize: 'bodyRestSY' + nr,
             min: 1,
         }
-        this.vL["upperBodySY" + nr] = {
-            add: ["bodyRestSY" + nr, this.sub("lowerBodySY" + nr)],
+        this.vL['upperBodySY' + nr] = {
+            add: ['bodyRestSY' + nr, this.sub('lowerBodySY' + nr)],
             min: 1,
         }
 
-        this.vL["fullBodySY" + nr] = ["lowerBodySY" + nr, "upperBodySY" + nr]
+        this.vL['fullBodySY' + nr] = ['lowerBodySY' + nr, 'upperBodySY' + nr]
 
-        this.vL["personRealSX" + nr] = { a: "personSX" + nr }
-        this.vL["personRealMaxSY" + nr] = [
-            "fullBodySY" + nr,
-            "headMaxSY" + nr,
-            "neckSY" + nr,
+        this.vL['personRealSX' + nr] = { a: 'personSX' + nr }
+        this.vL['personRealMaxSY' + nr] = [
+            'fullBodySY' + nr,
+            'headMaxSY' + nr,
+            'neckSY' + nr,
         ]
-        this.vL["personRealMinSY" + nr] = [
-            "fullBodySY" + nr,
-            "headMinSY" + nr,
-            "neckSY" + nr,
+        this.vL['personRealMinSY' + nr] = [
+            'fullBodySY' + nr,
+            'headMinSY' + nr,
+            'neckSY' + nr,
         ]
     }
 
     return [
         {
-            sY: "personSY" + nr,
+            sY: 'personSY' + nr,
             cX: sideView,
             fY: true,
             rX: sideView && args.right,
@@ -169,7 +169,7 @@ BasicBody.prototype.draw = function (args, right) {
                     cX: sideView,
                     y: 1,
                     sY: 2,
-                    sX: "shoulderFullSX" + nr,
+                    sX: 'shoulderFullSX' + nr,
                     z: -1000,
                 },
 
@@ -190,7 +190,7 @@ BasicBody.prototype.draw = function (args, right) {
 export const Logo = function (args, right, symetrical, logoColor) {
     var color = !logoColor && this.IF(0.5)
 
-    this.name = symetrical ? (right ? "right" : "left") : "chest"
+    this.name = symetrical ? (right ? 'right' : 'left') : 'chest'
 
     // Form & Sizes
     this.sX = this.R(0, 1)
@@ -233,27 +233,27 @@ Logo.prototype.draw = function (args) {
             sX: { r: this.sX },
             sY: {
                 r: this.sY,
-                save: "logoSY" + nrName,
-                max: { r: 1, save: "logoMaxSY" + nrName },
+                save: 'logoSY' + nrName,
+                max: { r: 1, save: 'logoMaxSY' + nrName },
             },
             y: {
                 r: this.Y,
-                max: ["logoSY" + nrName, this.sub("logoSY" + nrName)],
+                max: ['logoSY' + nrName, this.sub('logoSY' + nrName)],
             },
             cX: args.oneSide || sideView,
             color: this.logoColor.get(),
-            id: "logo" + nrName,
+            id: 'logo' + nrName,
             z: 50,
             list: [
-                this.roundUp && { fX: true, name: "Dot", clear: true },
+                this.roundUp && { fX: true, name: 'Dot', clear: true },
                 this.roundDown && {
                     fX: true,
-                    name: "Dot",
+                    name: 'Dot',
                     fY: true,
                     clear: true,
                 },
-                this.dentUp && { name: "Dot", clear: true },
-                this.dentDown && { name: "Dot", fY: true, clear: true },
+                this.dentUp && { name: 'Dot', clear: true },
+                this.dentDown && { name: 'Dot', fY: true, clear: true },
                 this.stripUp && { sY: 1, y: 1, clear: true },
                 this.stripDown && { sY: 1, y: 1, fY: true, clear: true },
                 this.stripSide && { sX: 1, x: 1, fX: true, clear: true },

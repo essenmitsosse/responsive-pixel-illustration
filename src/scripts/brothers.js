@@ -1,4 +1,4 @@
-import { helper } from "../renderengine/helper.js"
+import { helper } from '../renderengine/helper.js'
 
 export default function () {
     var help = helper,
@@ -62,7 +62,7 @@ export default function () {
                             horizontal: true,
                             change: { r: -0.9 },
                             strip: 2,
-                            random: "beardSmallDetail",
+                            random: 'beardSmallDetail',
                         },
                         fY: true,
                     },
@@ -73,7 +73,7 @@ export default function () {
                             horizontal: true,
                             change: { r: -0.9 },
                             strip: 2,
-                            random: "beardDetail",
+                            random: 'beardDetail',
                         },
                         fY: true,
                     },
@@ -88,17 +88,17 @@ export default function () {
                         tX: true,
                         color: hair,
                         sX: [
-                            "leftSide",
-                            { r: center ? 0.5 : 0.1, save: "leftBottom" },
+                            'leftSide',
+                            { r: center ? 0.5 : 0.1, save: 'leftBottom' },
                         ],
-                        x: "leftBottom",
+                        x: 'leftBottom',
                         list: [
                             {
                                 stripes: {
                                     horizontal: true,
                                     change: { r: center ? -1 : -0.2 },
                                     strip: 2,
-                                    random: "beardDetail",
+                                    random: 'beardDetail',
                                 },
                                 fX: true,
                             },
@@ -111,17 +111,17 @@ export default function () {
                         tX: true,
                         color: hair,
                         sX: [
-                            "rightSide",
-                            { r: center ? 0.5 : 0.9, save: "rightBottom" },
+                            'rightSide',
+                            { r: center ? 0.5 : 0.9, save: 'rightBottom' },
                         ],
-                        x: "rightBottom",
+                        x: 'rightBottom',
                         list: [
                             {
                                 stripes: {
                                     horizontal: true,
                                     change: { r: -1 },
                                     strip: 2,
-                                    random: "beardDetail",
+                                    random: 'beardDetail',
                                 },
                             },
                         ],
@@ -139,8 +139,8 @@ export default function () {
                         fY: true,
                         tX: true,
                         sX: center
-                            ? { a: "rightSide", save: "leftSide" }
-                            : { r: 0.1, save: "leftSide" },
+                            ? { a: 'rightSide', save: 'leftSide' }
+                            : { r: 0.1, save: 'leftSide' },
                         color: hair,
                         rX: true,
                         list: beardOuter,
@@ -160,7 +160,7 @@ export default function () {
                         fX: true,
                         fY: true,
                         tX: true,
-                        sX: { r: 0.1, save: "rightSide" },
+                        sX: { r: 0.1, save: 'rightSide' },
                         color: hair,
                         list: beardOuter,
                     }, // to side
@@ -173,7 +173,7 @@ export default function () {
                                 sY: { r: 0.1 },
                                 color: hair,
                                 stripes: {
-                                    random: "beardDetail",
+                                    random: 'beardDetail',
                                     strip: 2,
                                     overflow: true,
                                 },
@@ -186,7 +186,7 @@ export default function () {
                                     {
                                         fY: true,
                                         stripes: {
-                                            random: "beardSmallDetail",
+                                            random: 'beardSmallDetail',
                                             strip: 2,
                                             overflow: true,
                                         },
@@ -209,14 +209,14 @@ export default function () {
                 {
                     y: { r: 0.5 },
                     sY: { r: 0.5 },
-                    stripes: { random: "beardSmallDetail", strip: 2 },
+                    stripes: { random: 'beardSmallDetail', strip: 2 },
                 },
             ]
 
             return [
-                { sX: "mustachHalf", fX: true, list: mustachHalf },
+                { sX: 'mustachHalf', fX: true, list: mustachHalf },
                 {
-                    sX: { r: hades ? 0.5 : 0.45, save: "mustachHalf" },
+                    sX: { r: hades ? 0.5 : 0.45, save: 'mustachHalf' },
                     rX: true,
                     list: mustachHalf,
                 },
@@ -233,7 +233,7 @@ export default function () {
                     sY: 1,
                     y: hades ? 1 : 0,
                     list: [
-                        { stripes: { random: "beardSmallDetail" }, fY: true },
+                        { stripes: { random: 'beardSmallDetail' }, fY: true },
                     ],
                 },
                 {
@@ -249,9 +249,9 @@ export default function () {
                 color: color,
                 sY: { r: hades ? 0.15 : 0.1, a: 1 },
                 list: [
-                    { sX: "eye", list: eye },
+                    { sX: 'eye', list: eye },
                     {
-                        sX: { r: hades ? 0.4 : 0.3, save: "eye" },
+                        sX: { r: hades ? 0.4 : 0.3, save: 'eye' },
                         fX: true,
                         rX: true,
                         list: eye,
@@ -275,13 +275,13 @@ export default function () {
                 ],
                 rightShoulder = { r: -0.3 },
                 headRatio = posei ? 1.2 : 0.8,
-                leftShoulder = { r: -1, useSize: "torsoSY" }
+                leftShoulder = { r: -1, useSize: 'torsoSY' }
 
             return [
                 { color: background },
                 posei
                     ? {
-                          use: "background",
+                          use: 'background',
                           sX: { r: 0.1 },
                           chance: 0.02,
                           color: shadowSoft(background),
@@ -290,34 +290,34 @@ export default function () {
                     : undefined,
                 posei
                     ? {
-                          use: "background",
+                          use: 'background',
                           s: 2,
                           chance: 0.02,
                           color: lightenSoft(background),
                           mask: true,
                       }
                     : {
-                          use: "background",
+                          use: 'background',
                           sY: { r: 0.2 },
                           chance: 0.4,
                           color: shadowSoft(background),
                           mask: true,
                       },
-                { save: "background" },
+                { save: 'background' },
 
                 // TORSO
                 {
                     color: posei ? cloth : shadow(cloth),
-                    sX: { r: 2.5, useSize: "headSY", save: "torsoSX" },
+                    sX: { r: 2.5, useSize: 'headSY', save: 'torsoSX' },
                     sY: {
-                        add: ["oSY", sub("headSY"), sub("oHeadTop")],
-                        save: "torsoSY",
+                        add: ['oSY', sub('headSY'), sub('oHeadTop')],
+                        save: 'torsoSY',
                     },
                     fY: true,
                     fX: true,
                     list: [
                         {
-                            sX: "torsoLeft",
+                            sX: 'torsoLeft',
                             list: [
                                 {
                                     fY: true,
@@ -329,7 +329,7 @@ export default function () {
                                     fX: true,
                                     stripes: {
                                         change: leftShoulder,
-                                        strip: "oClotherDetail",
+                                        strip: 'oClotherDetail',
                                         cut: true,
                                     },
                                     color: clothShadow,
@@ -341,14 +341,14 @@ export default function () {
                         {
                             x: {
                                 add: [
-                                    "torsoSX",
-                                    sub("headSX"),
-                                    sub("headRight"),
+                                    'torsoSX',
+                                    sub('headSX'),
+                                    sub('headRight'),
                                 ],
                                 debug: true,
-                                save: "torsoLeft",
+                                save: 'torsoLeft',
                             },
-                            sX: "headSX",
+                            sX: 'headSX',
                             fY: true,
                             list: [
                                 {},
@@ -356,7 +356,7 @@ export default function () {
                                     color: clothShadow,
                                     fY: true,
                                     stripes: {
-                                        strip: "oClotherDetail",
+                                        strip: 'oClotherDetail',
                                         cut: true,
                                     },
                                     list: clothDetail,
@@ -365,8 +365,8 @@ export default function () {
                         },
 
                         {
-                            sX: ["borderSmall", "headRight"],
-                            x: sub("borderSmall"),
+                            sX: ['borderSmall', 'headRight'],
+                            x: sub('borderSmall'),
                             fX: true,
                             list: [
                                 {
@@ -375,10 +375,10 @@ export default function () {
                                 },
                                 {
                                     fY: true,
-                                    sY: { r: 1, add: [sub("oClotherDetail")] },
+                                    sY: { r: 1, add: [sub('oClotherDetail')] },
                                     stripes: {
                                         change: rightShoulder,
-                                        strip: "oClotherDetail",
+                                        strip: 'oClotherDetail',
                                         cut: true,
                                     },
                                     color: clothShadow,
@@ -392,8 +392,8 @@ export default function () {
                 // TRI/DUODENT
                 {
                     color: skin,
-                    sX: ["oSX", sub("headSX"), sub("headRight")],
-                    mX: { r: 0.1, useSize: "oSY" },
+                    sX: ['oSX', sub('headSX'), sub('headRight')],
+                    mX: { r: 0.1, useSize: 'oSY' },
                     x: { r: -0.01 },
                     minX: 5,
                     fY: true,
@@ -407,17 +407,17 @@ export default function () {
                                     tY: true,
                                     sY: { r: 0.6 },
                                     list: [
-                                        { fY: true, sY: "staff" },
-                                        { sX: "staff" },
-                                        { sX: "staff", fX: true },
+                                        { fY: true, sY: 'staff' },
+                                        { sX: 'staff' },
+                                        { sX: 'staff', fX: true },
                                         posei
-                                            ? { sX: "staff", cX: true }
+                                            ? { sX: 'staff', cX: true }
                                             : undefined,
                                     ],
                                 },
                                 {
                                     cX: true,
-                                    sX: { r: 0.08, min: 1, save: "staff" },
+                                    sX: { r: 0.08, min: 1, save: 'staff' },
                                     fY: true,
                                 },
                             ],
@@ -429,17 +429,17 @@ export default function () {
                 {
                     sX: {
                         r: 0.6,
-                        useSize: "oSX",
-                        max: { r: 0.45 / headRatio, useSize: "oSY" },
-                        save: "headSX",
+                        useSize: 'oSX',
+                        max: { r: 0.45 / headRatio, useSize: 'oSY' },
+                        save: 'headSX',
                     },
-                    sY: { r: headRatio, useSize: "headSX", save: "headSY" },
+                    sY: { r: headRatio, useSize: 'headSX', save: 'headSY' },
                     fX: true,
                     x: {
-                        add: [mult(0.3, "oSX"), mult(-0.3, "headSX")],
-                        save: "headRight",
+                        add: [mult(0.3, 'oSX'), mult(-0.3, 'headSX')],
+                        save: 'headRight',
                     },
-                    y: "oHeadTop",
+                    y: 'oHeadTop',
                     list: [
                         {},
 
@@ -486,11 +486,11 @@ export default function () {
                                                 },
                                                 {
                                                     fY: true,
-                                                    sY: "noseBottom",
+                                                    sY: 'noseBottom',
                                                     list: [
                                                         {},
                                                         {
-                                                            name: "Dot",
+                                                            name: 'Dot',
                                                             fX: true,
                                                             fY: true,
                                                             color: hair,
@@ -505,7 +505,7 @@ export default function () {
                                                     sX: { r: 0.6 },
                                                     y: {
                                                         r: 0.15,
-                                                        save: "noseBottom",
+                                                        save: 'noseBottom',
                                                     },
                                                     list: [
                                                         {
@@ -529,7 +529,7 @@ export default function () {
                                     fY: true,
                                     sY: 1,
                                     color: hair,
-                                    stripes: { random: "beardSmallDetail" },
+                                    stripes: { random: 'beardSmallDetail' },
                                 },
                             ],
                         },
@@ -558,7 +558,7 @@ export default function () {
             {
                 stripes: {
                     change: { r: -1 },
-                    random: "beardDetail",
+                    random: 'beardDetail',
                     strip: 2,
                     horizontal: true,
                 },
@@ -567,42 +567,42 @@ export default function () {
             },
         ],
         outerStrip = {
-            gap: "gap",
-            strip: "strip",
+            gap: 'gap',
+            strip: 'strip',
             horizontal: true,
             overflow: true,
         },
         detail = [
             {},
             { color: backgroundColor, mY: 1, sX: 1, fX: true },
-            { color: backgroundColor, mY: 1, sX: "detail" },
+            { color: backgroundColor, mY: 1, sX: 'detail' },
         ],
         outerBorder = [
             { color: backgroundColor },
-            { sX: "borderOutline", x: "borderMargin" },
-            { sX: "borderOutline", x: "borderMargin", fX: true },
+            { sX: 'borderOutline', x: 'borderMargin' },
+            { sX: 'borderOutline', x: 'borderMargin', fX: true },
             {
-                sX: "borderInline",
-                x: "borderInner",
+                sX: 'borderInline',
+                x: 'borderInner',
                 stripes: outerStrip,
                 list: detail,
             },
             {
-                sX: "borderInline",
-                x: "borderInner",
+                sX: 'borderInline',
+                x: 'borderInner',
                 fX: true,
                 rX: true,
-                y: "strip",
+                y: 'strip',
                 stripes: outerStrip,
                 list: detail,
             },
         ],
         borderSmall = [
             { color: backgroundColor },
-            { sX: "borderSmallOutline", x: "borderSmallMargin" },
+            { sX: 'borderSmallOutline', x: 'borderSmallMargin' },
             {
-                sX: "borderSmallInline",
-                x: "borderSmallInner",
+                sX: 'borderSmallInline',
+                x: 'borderSmallInner',
                 stripes: outerStrip,
                 list: detail,
             },
@@ -610,44 +610,44 @@ export default function () {
         borderSmallCenter = [
             { color: backgroundColor },
             {
-                sX: "borderSmallInline",
-                x: "borderSmallInner",
+                sX: 'borderSmallInline',
+                x: 'borderSmallInner',
                 stripes: outerStrip,
                 list: detail,
             },
-            { sX: "borderSmallOutline", x: "borderSmallMargin" },
-            { sX: "borderSmallOutline", x: "borderSmallMargin", fX: true },
+            { sX: 'borderSmallOutline', x: 'borderSmallMargin' },
+            { sX: 'borderSmallOutline', x: 'borderSmallMargin', fX: true },
         ],
         edgeSmallOuter = [
             { color: backgroundColor },
-            { sX: "borderSmallOutline", x: "borderSmallMargin" },
+            { sX: 'borderSmallOutline', x: 'borderSmallMargin' },
             {
-                sY: "borderSmallOutline",
-                sX: ["borderSmallMargin", "borderSmallInner"],
-                y: "borderSmallMargin",
+                sY: 'borderSmallOutline',
+                sX: ['borderSmallMargin', 'borderSmallInner'],
+                y: 'borderSmallMargin',
                 fX: true,
             },
         ],
         edgeSmallInner = [
-            { sX: "borderSmallOutline", x: "borderSmallMargin", fX: true },
+            { sX: 'borderSmallOutline', x: 'borderSmallMargin', fX: true },
             {
-                sY: "borderSmallOutline",
-                sX: "borderSmallMargin",
-                y: "borderSmallMargin",
+                sY: 'borderSmallOutline',
+                sX: 'borderSmallMargin',
+                y: 'borderSmallMargin',
                 fX: true,
             },
         ],
         edgeSmallCenter = [
             {
-                sX: "borderSmallOutline",
-                sY: "borderSmallMargin",
-                x: "borderSmallMargin",
+                sX: 'borderSmallOutline',
+                sY: 'borderSmallMargin',
+                x: 'borderSmallMargin',
                 fY: true,
             },
             {
-                sX: "borderSmallOutline",
-                sY: "borderSmallMargin",
-                x: "borderSmallMargin",
+                sX: 'borderSmallOutline',
+                sY: 'borderSmallMargin',
+                x: 'borderSmallMargin',
                 fY: true,
                 fX: true,
             },
@@ -655,24 +655,24 @@ export default function () {
         edgeWide = function (center) {
             return [
                 { color: backgroundColor },
-                { sY: "borderSmallOutline", y: "borderSmallMargin", fY: true },
-                { sY: "borderSmallOutline", y: "borderSmallMargin" },
+                { sY: 'borderSmallOutline', y: 'borderSmallMargin', fY: true },
+                { sY: 'borderSmallOutline', y: 'borderSmallMargin' },
                 {
-                    mY: "borderMargin",
-                    mX: "borderSmallMargin",
+                    mY: 'borderMargin',
+                    mX: 'borderSmallMargin',
                     list: [{}, { m: 1, color: backgroundColor }],
                 },
                 {
-                    sX: "borderSmallOutline",
-                    sY: "borderMargin",
-                    x: "borderSmallMargin",
+                    sX: 'borderSmallOutline',
+                    sY: 'borderMargin',
+                    x: 'borderSmallMargin',
                     fY: true,
                 },
                 center
                     ? {
-                          sX: "borderSmallOutline",
-                          sY: "borderMargin",
-                          x: "borderSmallMargin",
+                          sX: 'borderSmallOutline',
+                          sY: 'borderMargin',
+                          x: 'borderSmallMargin',
                           fY: true,
                           fX: true,
                       }
@@ -683,61 +683,61 @@ export default function () {
             { color: backgroundColor },
             {
                 color: borderDetail,
-                sX: "borderOutline",
-                x: "borderMargin",
-                y: "borderMargin",
+                sX: 'borderOutline',
+                x: 'borderMargin',
+                y: 'borderMargin',
             },
             {
                 color: borderDetail,
-                sY: "borderOutline",
-                y: "borderMargin",
-                x: "borderMargin",
+                sY: 'borderOutline',
+                y: 'borderMargin',
+                x: 'borderMargin',
             },
             {
                 color: borderDetail,
-                sX: "borderOutline",
-                sY: ["borderMargin", "borderOutline"],
-                x: "borderMargin",
+                sX: 'borderOutline',
+                sY: ['borderMargin', 'borderOutline'],
+                x: 'borderMargin',
                 fX: true,
                 fY: true,
             },
             {
                 color: borderDetail,
-                sY: "borderOutline",
-                sX: ["borderMargin", "borderOutline"],
-                y: "borderMargin",
+                sY: 'borderOutline',
+                sX: ['borderMargin', 'borderOutline'],
+                y: 'borderMargin',
                 fX: true,
                 fY: true,
             },
             {
-                weight: "borderOutline",
+                weight: 'borderOutline',
                 points: [
-                    { x: "borderMargin", y: "borderMargin" },
+                    { x: 'borderMargin', y: 'borderMargin' },
                     {
-                        x: "borderMargin",
-                        y: "borderMargin",
+                        x: 'borderMargin',
+                        y: 'borderMargin',
                         fX: true,
                         fY: true,
                     },
                 ],
             },
         ],
-        areaStrip = { strip: "strip", gap: 1, horizontal: true },
+        areaStrip = { strip: 'strip', gap: 1, horizontal: true },
         areaPiece = function (who) {
-            var hades = who === "hades"
+            var hades = who === 'hades'
 
             return [
                 {},
-                { m: "borderOutline", color: backgroundColor },
+                { m: 'borderOutline', color: backgroundColor },
                 {
-                    m: "borderInner",
-                    stripes: { strip: mult(2, "strip"), overflow: true },
+                    m: 'borderInner',
+                    stripes: { strip: mult(2, 'strip'), overflow: true },
                     list: [
-                        { sX: "strip", stripes: areaStrip },
+                        { sX: 'strip', stripes: areaStrip },
                         {
-                            sX: "strip",
+                            sX: 'strip',
                             y: 1,
-                            sY: { r: 1, add: [sub("gap")] },
+                            sY: { r: 1, add: [sub('gap')] },
                             stripes: areaStrip,
                             fX: true,
                         },
@@ -747,10 +747,10 @@ export default function () {
                     color: backgroundColor,
                     fX: true,
                     sX: 1,
-                    x: "borderOutline",
-                    mY: "borderOutline",
+                    x: 'borderOutline',
+                    mY: 'borderOutline',
                 },
-                who === "zeus"
+                who === 'zeus'
                     ? {
                           mX: { r: 0.2 },
                           mY: { r: 0.2 },
@@ -759,10 +759,10 @@ export default function () {
                           color: backgroundColor,
                       }
                     : {
-                          x: "borderInner",
+                          x: 'borderInner',
                           minY: 10,
                           mY: { r: 0.2 },
-                          sX: { r: 0.5, save: "staffLength" },
+                          sX: { r: 0.5, save: 'staffLength' },
                           color: backgroundColor,
                           list: [
                               {
@@ -770,24 +770,24 @@ export default function () {
                                   list: [
                                       {
                                           fX: true,
-                                          sX: "staff",
+                                          sX: 'staff',
                                           list: [
                                               {},
                                               {
                                                   fX: true,
                                                   tX: true,
-                                                  sY: "staff",
-                                                  sX: "tipLength",
+                                                  sY: 'staff',
+                                                  sX: 'tipLength',
                                               },
                                               {
                                                   fX: true,
                                                   tX: true,
-                                                  sY: "staff",
+                                                  sY: 'staff',
                                                   fY: true,
                                                   sX: {
                                                       r: 0.6,
-                                                      useSize: "staffLength",
-                                                      save: "tipLength",
+                                                      useSize: 'staffLength',
+                                                      save: 'tipLength',
                                                   },
                                               },
                                           ],
@@ -795,8 +795,8 @@ export default function () {
                                       {
                                           sY: {
                                               r: 0.1,
-                                              useSize: "staffLength",
-                                              save: "staff",
+                                              useSize: 'staffLength',
+                                              save: 'staff',
                                           },
                                           sX: { r: hades ? 1 : 1.5 },
                                           cY: true,
@@ -809,16 +809,16 @@ export default function () {
         },
         sideBorder = [
             {
-                sX: "border",
-                sY: "borderSmall",
+                sX: 'border',
+                sY: 'borderSmall',
                 list: edgeWide(),
                 rotate: 90,
                 rX: true,
                 tX: true,
             },
             {
-                sX: "border",
-                sY: "borderSmall",
+                sX: 'border',
+                sY: 'borderSmall',
                 list: edgeWide(),
                 rotate: -90,
                 tX: true,
@@ -827,7 +827,7 @@ export default function () {
         ],
         oSideBorder = [
             {
-                s: "borderSmall",
+                s: 'borderSmall',
                 tX: true,
                 fX: true,
                 rX: true,
@@ -837,33 +837,33 @@ export default function () {
         renderList = [
             // MAIN IMAGE
             {
-                m: "border",
+                m: 'border',
                 list: [
                     // ZEUS
                     {
-                        sX: "zSX",
-                        sY: "zSY",
+                        sX: 'zSX',
+                        sY: 'zSY',
                         cX: true,
                         color: zSkin,
                         list: [
                             { color: zBackground },
                             {
-                                use: "background",
+                                use: 'background',
                                 chance: 0.005,
                                 color: flash,
                                 mask: true,
                             },
-                            { save: "background" },
+                            { save: 'background' },
 
                             {
                                 s: {
                                     add: [
-                                        mult(0.5, "zSX"),
-                                        mult(-0.5, "zHeadSX"),
+                                        mult(0.5, 'zSX'),
+                                        mult(-0.5, 'zHeadSX'),
                                     ],
-                                    max: ["zSY", sub("zHeadBottom")],
+                                    max: ['zSY', sub('zHeadBottom')],
                                 },
-                                m: mult(0.08, "zSquare"),
+                                m: mult(0.08, 'zSquare'),
                                 y: { r: -0.05 },
                                 x: { r: -0.008 },
                                 color: flash,
@@ -872,10 +872,10 @@ export default function () {
 
                             // HAIR
                             {
-                                sX: "zHeadSX",
-                                sY: "zHeadSY",
+                                sX: 'zHeadSX',
+                                sY: 'zHeadSY',
                                 cX: true,
-                                y: "zHeadTop",
+                                y: 'zHeadTop',
                                 list: [
                                     {
                                         color: zHair,
@@ -884,14 +884,14 @@ export default function () {
                                         list: [
                                             {
                                                 tX: true,
-                                                sX: "hair",
+                                                sX: 'hair',
                                                 list: hair,
                                             },
                                             {
                                                 fX: true,
                                                 tX: true,
                                                 rX: true,
-                                                sX: { r: 0.4, save: "hair" },
+                                                sX: { r: 0.4, save: 'hair' },
                                                 list: hair,
                                             },
                                         ],
@@ -901,14 +901,14 @@ export default function () {
 
                             // TORSO
                             {
-                                sX: { r: 3, useSize: "zHeadSY" },
-                                sY: "zHeadBottom",
+                                sX: { r: 3, useSize: 'zHeadSY' },
+                                sY: 'zHeadBottom',
                                 fY: true,
                                 cX: true,
                                 list: [
                                     {
                                         sX: { r: 0.5 },
-                                        stripes: { change: "shoulderChange" },
+                                        stripes: { change: 'shoulderChange' },
                                         fY: true,
                                     },
                                     {
@@ -917,19 +917,19 @@ export default function () {
                                         stripes: {
                                             change: {
                                                 r: 0.5,
-                                                save: "shoulderChange",
+                                                save: 'shoulderChange',
                                             },
                                         },
                                         fY: true,
                                     },
                                     {
-                                        use: "chest",
+                                        use: 'chest',
                                         chance: 0.1,
                                         sY: 2,
                                         color: zSkinShadow,
                                     },
                                     {
-                                        save: "chest",
+                                        save: 'chest',
                                         mX: { r: 0.1 },
                                         y: { r: 0.1 },
                                     },
@@ -950,10 +950,10 @@ export default function () {
 
                             // HEAD
                             {
-                                sX: "zHeadSX",
-                                sY: "zHeadSY",
+                                sX: 'zHeadSX',
+                                sY: 'zHeadSY',
                                 cX: true,
-                                y: "zHeadTop",
+                                y: 'zHeadTop',
                                 list: [
                                     {},
 
@@ -968,7 +968,7 @@ export default function () {
                                         sY: { r: 0.25 },
                                         color: zHair,
                                         stripes: {
-                                            random: "beardDetail",
+                                            random: 'beardDetail',
                                             strip: 2,
                                         },
                                     },
@@ -1005,15 +1005,15 @@ export default function () {
                                                     {
                                                         fY: true,
                                                         sY: { r: 0.2 },
-                                                        id: "noseW",
+                                                        id: 'noseW',
                                                         list: [
                                                             {
-                                                                name: "Dot",
+                                                                name: 'Dot',
                                                                 fY: true,
                                                                 clear: true,
                                                             },
                                                             {
-                                                                name: "Dot",
+                                                                name: 'Dot',
                                                                 fX: true,
                                                                 fY: true,
                                                                 clear: true,
@@ -1040,12 +1040,12 @@ export default function () {
                     {
                         color: c3,
                         fY: true,
-                        sY: "oSYboth",
+                        sY: 'oSYboth',
                         list: [
                             // HADES
                             {
-                                sX: "oSX",
-                                sY: "oSY",
+                                sX: 'oSX',
+                                sY: 'oSY',
                                 color: hSkin,
                                 list: getOthers(
                                     false,
@@ -1058,8 +1058,8 @@ export default function () {
 
                             // POSEIDON
                             {
-                                sX: "oSX",
-                                sY: "oSY",
+                                sX: 'oSX',
+                                sY: 'oSY',
                                 fX: true,
                                 fY: true,
                                 color: pSkin,
@@ -1083,19 +1083,19 @@ export default function () {
                 list: [
                     // BELOW HADES
                     {
-                        sY: "borderSmall",
-                        y: "centerBorder",
+                        sY: 'borderSmall',
+                        y: 'centerBorder',
                         fY: true,
-                        mX: "border",
+                        mX: 'border',
                         rotate: 90,
                         list: borderSmall,
                     },
 
                     // BELOW ZEUS
                     {
-                        sY: "borderSmall",
-                        sX: "zSX",
-                        y: ["border", "zSY"],
+                        sY: 'borderSmall',
+                        sX: 'zSX',
+                        y: ['border', 'zSY'],
                         cX: true,
                         rotate: 90,
                         rX: true,
@@ -1104,19 +1104,19 @@ export default function () {
                     },
 
                     {
-                        sY: "switchLayout",
+                        sY: 'switchLayout',
                         list: [
                             // BELOW ZEUS
                             {
-                                list: areaPiece("zeus"),
-                                sX: "zSX",
+                                list: areaPiece('zeus'),
+                                sX: 'zSX',
                                 sY: [
-                                    "motiveSY",
-                                    sub("zSY"),
-                                    sub("borderSmall"),
+                                    'motiveSY',
+                                    sub('zSY'),
+                                    sub('borderSmall'),
                                 ],
                                 fY: true,
-                                y: "border",
+                                y: 'border',
                                 cX: true,
                             },
 
@@ -1124,65 +1124,65 @@ export default function () {
                             {
                                 list: borderSmall,
                                 rotate: 90,
-                                sX: "oSX",
-                                sY: "borderSmall",
-                                y: "aboveBorder",
-                                x: "border",
+                                sX: 'oSX',
+                                sY: 'borderSmall',
+                                y: 'aboveBorder',
+                                x: 'border',
                             },
                             {
                                 list: borderSmall,
                                 rotate: 90,
                                 rY: true,
-                                sX: "oSX",
-                                sY: "borderSmall",
+                                sX: 'oSX',
+                                sY: 'borderSmall',
                                 fX: true,
                                 y: {
-                                    add: ["border", "aboveOther"],
-                                    save: "aboveBorder",
+                                    add: ['border', 'aboveOther'],
+                                    save: 'aboveBorder',
                                 },
-                                x: "border",
+                                x: 'border',
                             },
 
                             {
-                                list: areaPiece("hades"),
-                                sX: "oSX",
-                                sY: "aboveOther",
-                                y: "border",
-                                x: "border",
+                                list: areaPiece('hades'),
+                                sX: 'oSX',
+                                sY: 'aboveOther',
+                                y: 'border',
+                                x: 'border',
                             },
                             {
-                                list: areaPiece("poseidon"),
+                                list: areaPiece('poseidon'),
                                 rX: true,
-                                sX: "oSX",
-                                sY: "aboveOther",
+                                sX: 'oSX',
+                                sY: 'aboveOther',
                                 fX: true,
-                                y: "border",
-                                x: "border",
+                                y: 'border',
+                                x: 'border',
                             },
                         ],
                     },
 
                     // LEFT / RIGHT
-                    { sX: "border", mY: "border", list: outerBorder },
+                    { sX: 'border', mY: 'border', list: outerBorder },
                     {
-                        sX: "border",
+                        sX: 'border',
                         fX: true,
-                        mY: "border",
+                        mY: 'border',
                         rX: true,
                         list: outerBorder,
                     },
 
                     // TOP / BOTTOM
                     {
-                        sY: "border",
+                        sY: 'border',
                         fY: true,
-                        mX: "border",
+                        mX: 'border',
                         rotate: -90,
                         list: outerBorder,
                     },
                     {
-                        sY: "border",
-                        mX: "border",
+                        sY: 'border',
+                        mX: 'border',
                         rotate: 90,
                         rX: true,
                         list: outerBorder,
@@ -1191,50 +1191,50 @@ export default function () {
                     // BETWEEN OTHERS
                     {
                         list: borderSmallCenter,
-                        sX: "borderSmall",
-                        sY: "between",
+                        sX: 'borderSmall',
+                        sY: 'between',
                         fY: true,
                         cX: true,
-                        y: "border",
+                        y: 'border',
                     },
 
                     // OTHERS SIDE
                     {
                         list: borderSmall,
-                        sX: "borderSmall",
-                        sY: { a: "switch", max: "motiveSY" },
-                        y: "border",
-                        x: ["border", "oSX"],
+                        sX: 'borderSmall',
+                        sY: { a: 'switch', max: 'motiveSY' },
+                        y: 'border',
+                        x: ['border', 'oSX'],
                     },
                     {
                         list: borderSmall,
-                        sX: "borderSmall",
-                        sY: { a: "switch", max: "motiveSY" },
-                        y: "border",
+                        sX: 'borderSmall',
+                        sY: { a: 'switch', max: 'motiveSY' },
+                        y: 'border',
                         rX: true,
-                        x: ["border", "oSX"],
+                        x: ['border', 'oSX'],
                         fX: true,
                     },
 
                     // EDGES
                     // Below Zeus
                     {
-                        sY: "borderSmall",
-                        sX: "zSX",
-                        y: ["border", "zSY"],
+                        sY: 'borderSmall',
+                        sX: 'zSX',
+                        y: ['border', 'zSY'],
                         rY: true,
                         cX: true,
                         list: [
                             {
-                                sY: "switch",
+                                sY: 'switch',
                                 list: [
                                     {
-                                        s: "borderSmall",
+                                        s: 'borderSmall',
                                         list: edgeSmallOuter,
                                         tX: true,
                                     },
                                     {
-                                        s: "borderSmall",
+                                        s: 'borderSmall',
                                         list: edgeSmallOuter,
                                         rX: true,
                                         tX: true,
@@ -1243,7 +1243,7 @@ export default function () {
                                 ],
                             },
                             {
-                                sY: ["borderSmall", sub("switch")],
+                                sY: ['borderSmall', sub('switch')],
                                 list: sideBorder,
                             },
                         ],
@@ -1251,59 +1251,59 @@ export default function () {
 
                     {
                         sY: {
-                            a: "switch",
+                            a: 'switch',
                             max: { r: 1 },
-                            save: "switchLayout",
+                            save: 'switchLayout',
                         },
                         list: [
                             // above Others
                             {
-                                sX: "oSX",
-                                sY: "borderSmall",
-                                y: "aboveBorder",
-                                x: "border",
+                                sX: 'oSX',
+                                sY: 'borderSmall',
+                                y: 'aboveBorder',
+                                x: 'border',
                                 list: oSideBorder,
                             },
                             {
-                                sX: "oSX",
-                                sY: "borderSmall",
+                                sX: 'oSX',
+                                sY: 'borderSmall',
                                 fX: true,
                                 y: {
-                                    add: ["border", "aboveOther"],
-                                    save: "aboveBorder",
+                                    add: ['border', 'aboveOther'],
+                                    save: 'aboveBorder',
                                 },
-                                x: "border",
+                                x: 'border',
                                 rX: true,
                                 list: oSideBorder,
                             },
 
                             // Zeus Edges
                             {
-                                sX: "borderSmall",
-                                sY: "border",
-                                x: ["border", "oSX"],
+                                sX: 'borderSmall',
+                                sY: 'border',
+                                x: ['border', 'oSX'],
                                 list: edgeWide(),
                             },
                             {
-                                sX: "borderSmall",
-                                sY: "border",
-                                x: ["border", "oSX"],
+                                sX: 'borderSmall',
+                                sY: 'border',
+                                x: ['border', 'oSX'],
                                 rX: true,
                                 fX: true,
                                 list: edgeWide(),
                             },
                             {
-                                sX: "borderSmall",
-                                sY: "border",
-                                x: ["border", "oSX"],
+                                sX: 'borderSmall',
+                                sY: 'border',
+                                x: ['border', 'oSX'],
                                 rY: true,
                                 fY: true,
                                 list: edgeWide(),
                             },
                             {
-                                sX: "borderSmall",
-                                sY: "border",
-                                x: ["border", "oSX"],
+                                sX: 'borderSmall',
+                                sY: 'border',
+                                x: ['border', 'oSX'],
                                 rX: true,
                                 rY: true,
                                 fY: true,
@@ -1313,11 +1313,11 @@ export default function () {
                         ],
                     },
 
-                    { s: "border", list: edgeBig },
-                    { s: "border", list: edgeBig, rX: true, fX: true },
-                    { s: "border", list: edgeBig, rY: true, fY: true },
+                    { s: 'border', list: edgeBig },
+                    { s: 'border', list: edgeBig, rX: true, fX: true },
+                    { s: 'border', list: edgeBig, rY: true, fY: true },
                     {
-                        s: "border",
+                        s: 'border',
                         list: edgeBig,
                         rX: true,
                         rY: true,
@@ -1327,24 +1327,24 @@ export default function () {
 
                     // Betwenn Others
                     {
-                        sX: "borderSmall",
+                        sX: 'borderSmall',
                         sY: {
-                            add: ["oSY", sub("switch"), sub("switch2")],
-                            save: "between",
+                            add: ['oSY', sub('switch'), sub('switch2')],
+                            save: 'between',
                         },
                         fY: true,
                         cX: true,
-                        y: "border",
+                        y: 'border',
                         list: [
                             {
                                 tY: true,
-                                sY: "borderSmall",
+                                sY: 'borderSmall',
                                 list: edgeSmallCenter,
                             },
                             {
                                 tY: true,
                                 fY: true,
-                                sY: "border",
+                                sY: 'border',
                                 list: edgeWide(true),
                                 rY: true,
                             },
@@ -1353,10 +1353,10 @@ export default function () {
 
                     // below Hades
                     {
-                        sY: { a: "switch2", max: "borderSmall" },
-                        y: "centerBorder",
+                        sY: { a: 'switch2', max: 'borderSmall' },
+                        y: 'centerBorder',
                         fY: true,
-                        mX: "border",
+                        mX: 'border',
                         list: sideBorder,
                     },
                 ],
@@ -1376,153 +1376,153 @@ export default function () {
         ],
         headRatio = 1.33,
         variableList = {
-            "fullRect": { r: 1, max: { r: 1, height: true } },
+            'fullRect': { r: 1, max: { r: 1, height: true } },
 
             // BORDER
-            "border": mult(0.05, "fullRect"),
-            "borderSub": sub("border"),
-            "borderSmall": mult(0.02, "fullRect", 1),
-            "borderSmallSub": sub("borderSmall"),
+            'border': mult(0.05, 'fullRect'),
+            'borderSub': sub('border'),
+            'borderSmall': mult(0.02, 'fullRect', 1),
+            'borderSmallSub': sub('borderSmall'),
 
             // MOTIVE
-            "motiveSX": { add: [{ r: 1 }, mult(-2, "border")] },
-            "motiveSY": [{ r: 1, height: true }, mult(-2, "border")],
+            'motiveSX': { add: [{ r: 1 }, mult(-2, 'border')] },
+            'motiveSY': [{ r: 1, height: true }, mult(-2, 'border')],
 
-            "motiveSqu": getSmallerDim({
+            'motiveSqu': getSmallerDim({
                 r: 1,
-                useSize: ["motiveSX", "motiveSY"],
+                useSize: ['motiveSX', 'motiveSY'],
             }),
-            "motiveSquBigger": getBiggerDim({
+            'motiveSquBigger': getBiggerDim({
                 r: 1,
-                useSize: ["motiveSX", "motiveSY"],
+                useSize: ['motiveSX', 'motiveSY'],
             }),
 
-            "restSX": ["motiveSX", sub("motiveSqu")],
-            "restSY": ["motiveSY", sub("motiveSqu")],
+            'restSX': ['motiveSX', sub('motiveSqu')],
+            'restSY': ['motiveSY', sub('motiveSqu')],
 
-            "restSXSuper": {
-                add: ["restSX", mult(-0.2, "motiveSqu")],
+            'restSXSuper': {
+                add: ['restSX', mult(-0.2, 'motiveSqu')],
                 min: { a: 0 },
             },
-            "switch": mult(1000, "restSXSuper"),
+            'switch': mult(1000, 'restSXSuper'),
 
-            "restSYSuper": {
-                add: ["restSY", mult(-1.5, "motiveSqu")],
+            'restSYSuper': {
+                add: ['restSY', mult(-1.5, 'motiveSqu')],
                 min: { a: 0 },
             },
-            "switch2": mult(1000, "restSYSuper"),
+            'switch2': mult(1000, 'restSYSuper'),
 
             // MAINFRAMES
-            "zMX": {
-                a: "switch",
-                max: [mult(0.32, "motiveSX"), mult(-0.05, "restSX")],
+            'zMX': {
+                a: 'switch',
+                max: [mult(0.32, 'motiveSX'), mult(-0.05, 'restSX')],
             },
-            "zSYHor": {
-                add: [mult(0.6, "motiveSY"), mult(0.5, "restSX"), "switch2"],
-                max: "motiveSY",
+            'zSYHor': {
+                add: [mult(0.6, 'motiveSY'), mult(0.5, 'restSX'), 'switch2'],
+                max: 'motiveSY',
             },
-            "zSX": { add: ["motiveSX", mult(-2, "zMX")] },
-            "zSY": {
-                a: "switch",
-                max: "zSYHor",
+            'zSX': { add: ['motiveSX', mult(-2, 'zMX')] },
+            'zSY': {
+                a: 'switch',
+                max: 'zSYHor',
                 min: [
-                    mult(0.5, "motiveSY"),
-                    mult(0.2, "restSY"),
-                    mult(-0.3, "restSYSuper"),
+                    mult(0.5, 'motiveSY'),
+                    mult(0.2, 'restSY'),
+                    mult(-0.3, 'restSYSuper'),
                 ],
             },
-            "zSquare": getSmallerDim({ r: 1, useSize: ["zSX", "zSY"] }),
-            "zSquareBigger": getBiggerDim({ r: 1, useSize: ["zSX", "zSY"] }),
+            'zSquare': getSmallerDim({ r: 1, useSize: ['zSX', 'zSY'] }),
+            'zSquareBigger': getBiggerDim({ r: 1, useSize: ['zSX', 'zSY'] }),
 
-            "oBothSX": {
+            'oBothSX': {
                 add: [
-                    "motiveSX",
+                    'motiveSX',
                     {
-                        add: [sub("switch")],
-                        min: [sub("zSX"), "borderSmallSub"],
+                        add: [sub('switch')],
+                        min: [sub('zSX'), 'borderSmallSub'],
                     },
-                    "borderSmallSub",
+                    'borderSmallSub',
                 ],
             },
-            "oSYHor": {
-                add: [mult(0.6, "motiveSY"), mult(0.5, "restSX"), "switch2"],
-                max: "motiveSY",
+            'oSYHor': {
+                add: [mult(0.6, 'motiveSY'), mult(0.5, 'restSX'), 'switch2'],
+                max: 'motiveSY',
             },
-            "oSYboth": {
-                add: ["motiveSY", sub("zSY"), "borderSmallSub", "switch"],
-                max: "oSYHor",
+            'oSYboth': {
+                add: ['motiveSY', sub('zSY'), 'borderSmallSub', 'switch'],
+                max: 'oSYHor',
             },
-            "oSYwithoutBorder": ["oSYboth", "borderSmallSub"],
+            'oSYwithoutBorder': ['oSYboth', 'borderSmallSub'],
 
-            "oSX": {
+            'oSX': {
                 r: 0.5,
-                useSize: "oBothSX",
-                a: "switch2",
-                max: "motiveSX",
+                useSize: 'oBothSX',
+                a: 'switch2',
+                max: 'motiveSX',
             },
-            "oSY": {
-                add: [sub("switch2"), "oSYboth"],
-                min: mult(0.5, "oSYwithoutBorder"),
-                max: "oSYboth",
+            'oSY': {
+                add: [sub('switch2'), 'oSYboth'],
+                min: mult(0.5, 'oSYwithoutBorder'),
+                max: 'oSYboth',
             },
 
-            "oSquare": getSmallerDim({ r: 1, useSize: ["oSX", "oSY"] }),
-            "oSquareBigger": getBiggerDim({ r: 1, useSize: ["oSX", "oSY"] }),
+            'oSquare': getSmallerDim({ r: 1, useSize: ['oSX', 'oSY'] }),
+            'oSquareBigger': getBiggerDim({ r: 1, useSize: ['oSX', 'oSY'] }),
 
-            "centerBorder": { a: "switch2", max: ["border", "oSY"] },
-            "aboveOther": {
-                a: "switch",
-                max: ["motiveSY", sub("oSY"), sub("borderSmall")],
+            'centerBorder': { a: 'switch2', max: ['border', 'oSY'] },
+            'aboveOther': {
+                a: 'switch',
+                max: ['motiveSY', sub('oSY'), sub('borderSmall')],
             },
 
             // ZEUS
             // Head
-            "zHeadSX": getSmallerDim({
+            'zHeadSX': getSmallerDim({
                 r: 0.8,
                 r2: 0.6 / headRatio,
-                useSize: ["zSX", "zSY"],
+                useSize: ['zSX', 'zSY'],
             }),
-            "zHeadSY": mult(headRatio, "zHeadSX"),
-            "zHeadRestSX": ["zSY", sub("zHeadSY")],
-            "zHeadTop": [mult(0.2, "zHeadRestSX")],
-            "zHeadBottom": ["zSY", sub("zHeadSY"), sub("zHeadTop")],
+            'zHeadSY': mult(headRatio, 'zHeadSX'),
+            'zHeadRestSX': ['zSY', sub('zHeadSY')],
+            'zHeadTop': [mult(0.2, 'zHeadRestSX')],
+            'zHeadBottom': ['zSY', sub('zHeadSY'), sub('zHeadTop')],
 
             // OTHERS
             // Head
-            "oHeadTop": mult(0.1, "oSquare"),
-            "beardDetail": 2,
-            "beardSmallDetail": 1,
+            'oHeadTop': mult(0.1, 'oSquare'),
+            'beardDetail': 2,
+            'beardSmallDetail': 1,
 
             // Torso
-            "oClotherDetail": {
+            'oClotherDetail': {
                 r: 0.08,
                 a: 2,
-                useSize: "oSquare",
+                useSize: 'oSquare',
                 max: { r: 0.5 },
             },
 
             // BORDER
-            "borderMargin": 1,
-            "borderOutline": 1,
-            "borderGap": 1,
-            "borderInner": ["borderMargin", "borderOutline"],
-            "borderInlineBoth": [
-                "border",
-                mult(-2, "borderInner"),
-                sub("borderGap"),
+            'borderMargin': 1,
+            'borderOutline': 1,
+            'borderGap': 1,
+            'borderInner': ['borderMargin', 'borderOutline'],
+            'borderInlineBoth': [
+                'border',
+                mult(-2, 'borderInner'),
+                sub('borderGap'),
             ],
-            "borderInline": mult(0.5, "borderInlineBoth"),
-            "strip": { add: ["borderInline", 1], min: 1 },
-            "gap": { add: ["borderInline", -1], min: 1 },
-            "detail": ["strip", -3],
+            'borderInline': mult(0.5, 'borderInlineBoth'),
+            'strip': { add: ['borderInline', 1], min: 1 },
+            'gap': { add: ['borderInline', -1], min: 1 },
+            'detail': ['strip', -3],
 
-            "borderSmallOutline": 1,
-            "borderSmallMargin": 1,
-            "borderSmallInner": ["borderSmallMargin", "borderSmallOutline"],
-            "borderSmallInline": [
-                "borderSmall",
-                sub("borderSmallInner"),
-                sub("borderSmallMargin"),
+            'borderSmallOutline': 1,
+            'borderSmallMargin': 1,
+            'borderSmallInner': ['borderSmallMargin', 'borderSmallOutline'],
+            'borderSmallInline': [
+                'borderSmall',
+                sub('borderSmallInner'),
+                sub('borderSmallMargin'),
             ],
         }
 

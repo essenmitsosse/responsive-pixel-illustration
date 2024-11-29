@@ -1,4 +1,4 @@
-import { helper } from "../renderengine/helper.js"
+import { helper } from '../renderengine/helper.js'
 
 export default function () {
     var help = helper,
@@ -24,40 +24,40 @@ export default function () {
         teeth = hair,
         cloth = eyes,
         arm = [
-            { sX: "arm" },
-            { sY: "arm" },
+            { sX: 'arm' },
+            { sY: 'arm' },
             {
-                s: "arm",
+                s: 'arm',
                 list: [
                     {
-                        s: { r: 0.2, useSize: "restSYSuper", max: { r: 1.2 } },
+                        s: { r: 0.2, useSize: 'restSYSuper', max: { r: 1.2 } },
                         fX: true,
                         fY: true,
                     },
                 ],
             },
             {
-                sX: "arm",
-                y: ["bicepsPos", "biceps", 2],
+                sX: 'arm',
+                y: ['bicepsPos', 'biceps', 2],
                 sY: {
                     add: [
                         { r: 1, otherDim: true },
-                        sub("bicepsPos"),
-                        sub("biceps"),
+                        sub('bicepsPos'),
+                        sub('biceps'),
                         -2,
                     ],
-                    save: "forearm",
+                    save: 'forearm',
                 },
-                mX: { r: -0.015, useSize: "restSYSuper", min: -1 },
+                mX: { r: -0.015, useSize: 'restSYSuper', min: -1 },
             },
             {
-                sX: "arm",
-                y: { add: ["arm", 2], save: "bicepsPos" },
-                sY: { r: 0.4, save: "biceps" },
-                mX: { r: -0.02, useSize: "restSYSuper", min: -1 },
+                sX: 'arm',
+                y: { add: ['arm', 2], save: 'bicepsPos' },
+                sY: { r: 0.4, save: 'biceps' },
+                mX: { r: -0.02, useSize: 'restSYSuper', min: -1 },
             },
             {
-                s: { r: 1.4, useSize: "arm", max: { r: 1 } },
+                s: { r: 1.4, useSize: 'arm', max: { r: 1 } },
                 fY: true,
                 list: [{}],
             },
@@ -68,18 +68,18 @@ export default function () {
                 color: hair,
                 sX: { r: 1, a: 2 },
                 x: -1,
-                sY: mult(0.05, "restSY", -1),
+                sY: mult(0.05, 'restSY', -1),
             },
             {
                 sX: { r: 1, a: -1, min: 1 },
                 sY: { r: 1, a: -1, min: 1 },
-                y: { r: 0.5, useSize: "restSX", a: -10, min: { a: 0 }, max: 1 },
+                y: { r: 0.5, useSize: 'restSX', a: -10, min: { a: 0 }, max: 1 },
             },
             {
                 sX: { r: 1, a: -1 },
                 sY: { r: 1, a: -1 },
-                y: { r: 1, useSize: "restSX", max: 1 },
-                x: { r: 1, useSize: "squary", max: 1 },
+                y: { r: 1, useSize: 'restSX', max: 1 },
+                x: { r: 1, useSize: 'squary', max: 1 },
                 fX: true,
                 fY: true,
             },
@@ -89,7 +89,7 @@ export default function () {
                 sX: {
                     r: 0.5,
                     a: -2,
-                    add: [mult(0.01, "restSYSuper")],
+                    add: [mult(0.01, 'restSYSuper')],
                     max: { r: 0.5 },
                 },
                 x: 1,
@@ -101,8 +101,8 @@ export default function () {
                                 stripes: {
                                     change: {
                                         r: 0.1,
-                                        useSize: "restSYSuper",
-                                        max: mult(0.1, "headSY"),
+                                        useSize: 'restSYSuper',
+                                        max: mult(0.1, 'headSY'),
                                     },
                                 },
                                 fY: true,
@@ -182,31 +182,31 @@ export default function () {
         renderList = [
             // IMAGE
             {
-                m: "borderSX",
+                m: 'borderSX',
                 list: [
                     // MOTIVE ZEUS
                     {
-                        m: "imgPadding",
+                        m: 'imgPadding',
                         color: zeus,
                         list: [
                             {
-                                use: "background",
+                                use: 'background',
                                 color: frame,
                                 chance: 0.01,
                                 s: 1,
                             },
                             {
-                                use: "background",
+                                use: 'background',
                                 color: frame,
                                 chance: 0.01,
                                 s: 2,
                                 mask: true,
                             },
                             {
-                                save: "background",
+                                save: 'background',
                                 fY: true,
-                                sY: [{ r: 1, height: true }, "imgPadding"],
-                                mX: sub("imgPadding"),
+                                sY: [{ r: 1, height: true }, 'imgPadding'],
+                                mX: sub('imgPadding'),
                             },
 
                             {
@@ -218,83 +218,83 @@ export default function () {
 
                             // BODY
                             {
-                                sX: "bodySX",
-                                sY: "bodySY",
-                                x: "bodyRight",
-                                y: "bodyTop",
+                                sX: 'bodySX',
+                                sY: 'bodySY',
+                                x: 'bodyRight',
+                                y: 'bodyTop',
                                 fX: true,
                                 list: [
                                     // Body without Arms
                                     {
-                                        x: "torsoLeft",
-                                        sX: "torsoSX",
+                                        x: 'torsoLeft',
+                                        sX: 'torsoSX',
                                         fX: true,
                                         list: [
                                             // SNAKE
                                             {
-                                                sX: "snakeGap",
+                                                sX: 'snakeGap',
                                                 minX: 3,
                                                 list: [
                                                     {
-                                                        sX: "torsoSX",
+                                                        sX: 'torsoSX',
                                                         list: [
                                                             {
                                                                 stripes: {
-                                                                    strip: "snakePeriod",
+                                                                    strip: 'snakePeriod',
                                                                 },
-                                                                id: "torso",
+                                                                id: 'torso',
                                                                 fX: true,
                                                                 list: [
                                                                     {
-                                                                        name: "Dot",
+                                                                        name: 'Dot',
                                                                         clear: true,
-                                                                        x: "snakeEdge",
+                                                                        x: 'snakeEdge',
                                                                     },
                                                                     {
-                                                                        name: "Dot",
+                                                                        name: 'Dot',
                                                                         clear: true,
-                                                                        x: "halfPeriod",
+                                                                        x: 'halfPeriod',
                                                                     },
                                                                     {
-                                                                        name: "Dot",
+                                                                        name: 'Dot',
                                                                         clear: true,
                                                                         fY: true,
                                                                     },
                                                                     {
-                                                                        name: "Dot",
+                                                                        name: 'Dot',
                                                                         clear: true,
                                                                         fY: true,
                                                                         fX: true,
                                                                         x: [
-                                                                            "halfPeriod",
+                                                                            'halfPeriod',
                                                                             sub(
-                                                                                "snake",
+                                                                                'snake',
                                                                             ),
                                                                         ],
                                                                     },
 
                                                                     {
-                                                                        name: "Dot",
-                                                                        x: "snake",
-                                                                        y: "snakeInnerEdge",
+                                                                        name: 'Dot',
+                                                                        x: 'snake',
+                                                                        y: 'snakeInnerEdge',
                                                                     },
                                                                     {
-                                                                        name: "Dot",
-                                                                        x: "snakeInnerEdge2",
-                                                                        y: "snakeInnerEdge",
+                                                                        name: 'Dot',
+                                                                        x: 'snakeInnerEdge2',
+                                                                        y: 'snakeInnerEdge',
                                                                     },
                                                                     {
-                                                                        name: "Dot",
-                                                                        x: "snakeInnerEdge",
-                                                                        y: "snakeInnerEdge",
+                                                                        name: 'Dot',
+                                                                        x: 'snakeInnerEdge',
+                                                                        y: 'snakeInnerEdge',
                                                                         fX: true,
                                                                         fY: true,
                                                                     },
                                                                     {
-                                                                        name: "Dot",
+                                                                        name: 'Dot',
                                                                         fY: true,
                                                                         fX: true,
-                                                                        y: "snakeInnerEdge",
+                                                                        y: 'snakeInnerEdge',
                                                                     },
                                                                 ],
                                                             },
@@ -304,28 +304,28 @@ export default function () {
                                             },
 
                                             {
-                                                sX: "snakeGap",
+                                                sX: 'snakeGap',
                                                 list: [
                                                     {
-                                                        sX: "torsoSX",
+                                                        sX: 'torsoSX',
                                                         list: [
                                                             {
                                                                 stripes: {
-                                                                    strip: "snakePeriod",
+                                                                    strip: 'snakePeriod',
                                                                     overflow: true,
                                                                 },
-                                                                id: "torso",
+                                                                id: 'torso',
                                                                 fX: true,
                                                                 list: [
                                                                     {
                                                                         fY: true,
                                                                         fX: true,
-                                                                        s: "snakeGap",
+                                                                        s: 'snakeGap',
                                                                         clear: true,
                                                                     },
                                                                     {
-                                                                        x: "snake",
-                                                                        s: "snakeGap",
+                                                                        x: 'snake',
+                                                                        s: 'snakeGap',
                                                                         clear: true,
                                                                     },
                                                                 ],
@@ -337,8 +337,8 @@ export default function () {
 
                                             // TORSO
                                             {
-                                                sY: "torsoSY",
-                                                id: "torso",
+                                                sY: 'torsoSY',
+                                                id: 'torso',
                                                 list: [
                                                     {},
 
@@ -349,11 +349,11 @@ export default function () {
                                                             add: [
                                                                 mult(
                                                                     0.2,
-                                                                    "restSX",
+                                                                    'restSX',
                                                                 ),
                                                                 mult(
                                                                     -0.6,
-                                                                    "restSXMega",
+                                                                    'restSXMega',
                                                                 ),
                                                             ],
                                                             max: { r: 0.4 },
@@ -362,11 +362,11 @@ export default function () {
                                                             add: [
                                                                 mult(
                                                                     1,
-                                                                    "restSX",
+                                                                    'restSX',
                                                                 ),
                                                                 mult(
                                                                     -3,
-                                                                    "restSXMega",
+                                                                    'restSXMega',
                                                                 ),
                                                             ],
                                                             max: { r: 0.4 },
@@ -397,24 +397,24 @@ export default function () {
                                                     // CHEST
                                                     {
                                                         color: zeusShadow,
-                                                        sY: "chestSize",
+                                                        sY: 'chestSize',
                                                         mX: {
                                                             r: -0.2,
                                                             useSize:
-                                                                "restSYSuper",
+                                                                'restSYSuper',
                                                             a: 5,
                                                             min: { r: -0.05 },
                                                         },
                                                         list: [
                                                             {
-                                                                sX: "chest",
+                                                                sX: 'chest',
                                                                 list: chest,
                                                             },
                                                             {
                                                                 sX: {
                                                                     r: 0.5,
                                                                     a: -1,
-                                                                    save: "chest",
+                                                                    save: 'chest',
                                                                 },
                                                                 fX: true,
                                                                 rX: true,
@@ -429,14 +429,14 @@ export default function () {
                                                         mX: { r: 0.02, min: 1 },
                                                         y: {
                                                             r: 0.2,
-                                                            useSize: "restSY",
+                                                            useSize: 'restSY',
                                                             max: { r: 0.35 },
-                                                            save: "chestSize",
+                                                            save: 'chestSize',
                                                         },
                                                         sY: {
                                                             r: 0.4,
                                                             useSize:
-                                                                "restSYSuper",
+                                                                'restSYSuper',
                                                             a: -5,
                                                             max: { r: 0.3 },
                                                         },
@@ -472,14 +472,14 @@ export default function () {
                                                         sY: {
                                                             r: 0.5,
                                                             useSize:
-                                                                "restSYSuper",
+                                                                'restSYSuper',
                                                             max: { r: 0.6 },
                                                         },
                                                         sX: {
                                                             add: [
                                                                 mult(
                                                                     1,
-                                                                    "restSY",
+                                                                    'restSY',
                                                                 ),
                                                             ],
                                                             max: { r: 0.6 },
@@ -495,11 +495,11 @@ export default function () {
                                                                     strip: [
                                                                         mult(
                                                                             0.1,
-                                                                            "torsoSX",
+                                                                            'torsoSX',
                                                                         ),
                                                                         mult(
                                                                             0.1,
-                                                                            "torsoSY",
+                                                                            'torsoSY',
                                                                         ),
                                                                     ],
                                                                 },
@@ -509,7 +509,7 @@ export default function () {
                                                                             r: 1,
                                                                             add: [
                                                                                 sub(
-                                                                                    "abs",
+                                                                                    'abs',
                                                                                 ),
                                                                                 -1,
                                                                             ],
@@ -521,7 +521,7 @@ export default function () {
                                                                         sX: {
                                                                             r: 0.5,
                                                                             a: -1,
-                                                                            save: "abs",
+                                                                            save: 'abs',
                                                                         },
                                                                         list: abs,
                                                                     },
@@ -533,13 +533,13 @@ export default function () {
                                                     // NECK
                                                     {
                                                         tY: true,
-                                                        sY: "shoulder",
+                                                        sY: 'shoulder',
                                                     },
 
                                                     // CLOTH
                                                     {
                                                         color: cloth,
-                                                        y: sub("shoulder"),
+                                                        y: sub('shoulder'),
                                                         sY: [
                                                             {
                                                                 r: 1,
@@ -548,8 +548,8 @@ export default function () {
                                                             {
                                                                 r: 0.03,
                                                                 useSize:
-                                                                    "restSYSuper",
-                                                                save: "shoulder",
+                                                                    'restSYSuper',
+                                                                save: 'shoulder',
                                                             },
                                                         ],
                                                         list: [
@@ -558,7 +558,7 @@ export default function () {
                                                                 sX: {
                                                                     r: 0.95,
                                                                     useSize:
-                                                                        "restSYSuper",
+                                                                        'restSYSuper',
                                                                     max: {
                                                                         r: 1,
                                                                         otherDim: true,
@@ -578,33 +578,33 @@ export default function () {
 
                                             // LEGS
                                             {
-                                                sY: "legSY",
+                                                sY: 'legSY',
                                                 sX: {
-                                                    a: "legSX",
-                                                    max: "torsoSX",
+                                                    a: 'legSX',
+                                                    max: 'torsoSX',
                                                 },
                                                 fY: true,
                                                 list: [
-                                                    { sX: "leg", list: cowleg },
+                                                    { sX: 'leg', list: cowleg },
                                                     {
-                                                        sX: "leg",
+                                                        sX: 'leg',
                                                         x: {
                                                             r: 0.02,
-                                                            add: ["leg", 1],
+                                                            add: ['leg', 1],
                                                         },
                                                         list: cowleg,
                                                     },
                                                     {
-                                                        sX: "leg",
+                                                        sX: 'leg',
                                                         x: { r: 0.1 },
                                                         fX: true,
                                                         list: cowleg,
                                                     },
                                                     {
-                                                        sX: "leg",
+                                                        sX: 'leg',
                                                         x: {
                                                             r: 0.12,
-                                                            add: ["leg", 1],
+                                                            add: ['leg', 1],
                                                         },
                                                         fX: true,
                                                         list: cowleg,
@@ -614,12 +614,12 @@ export default function () {
 
                                             // HUMAN LEGS
                                             {
-                                                sY: "humanLegSY",
+                                                sY: 'humanLegSY',
                                                 fY: true,
                                                 list: [
-                                                    { sX: "leg", list: menLeg },
+                                                    { sX: 'leg', list: menLeg },
                                                     {
-                                                        sX: "leg",
+                                                        sX: 'leg',
                                                         fX: true,
                                                         rX: true,
                                                         list: menLeg,
@@ -638,8 +638,8 @@ export default function () {
                                             {
                                                 tY: true,
                                                 sY: {
-                                                    add: ["birdTop", "birdTop"],
-                                                    max: "bodyTop",
+                                                    add: ['birdTop', 'birdTop'],
+                                                    max: 'bodyTop',
                                                 },
                                                 sX: { r: 0.8 },
                                                 x: { r: 0.1 },
@@ -657,7 +657,7 @@ export default function () {
 
                                                     {
                                                         fX: true,
-                                                        x: "wingLeft",
+                                                        x: 'wingLeft',
                                                         stripes: {
                                                             random: { r: -0.2 },
                                                             strip: 2,
@@ -668,7 +668,7 @@ export default function () {
                                                     },
                                                     {
                                                         fX: true,
-                                                        x: "wingLeft",
+                                                        x: 'wingLeft',
                                                         sX: { r: 0.95 },
                                                         stripes: {
                                                             random: { r: -0.2 },
@@ -682,7 +682,7 @@ export default function () {
                                                         fX: true,
                                                         sX: {
                                                             r: 0.4,
-                                                            save: "wingLeft",
+                                                            save: 'wingLeft',
                                                         },
                                                         list: [
                                                             {
@@ -702,53 +702,53 @@ export default function () {
                                             // TAIL
                                             {
                                                 tX: true,
-                                                sX: "tailSX",
+                                                sX: 'tailSX',
                                                 sY: {
                                                     r: 1,
                                                     add: [
-                                                        mult(-1, "restSX"),
-                                                        mult(-1, "restSY"),
+                                                        mult(-1, 'restSX'),
+                                                        mult(-1, 'restSY'),
                                                     ],
                                                     min: {
                                                         add: [
-                                                            "arm",
+                                                            'arm',
                                                             mult(
                                                                 0.2,
-                                                                "restSXMega",
+                                                                'restSXMega',
                                                             ),
                                                         ],
-                                                        max: "bodySY",
+                                                        max: 'bodySY',
                                                     },
-                                                    max: "bodySY",
-                                                    save: "tailHeight",
+                                                    max: 'bodySY',
+                                                    save: 'tailHeight',
                                                 },
                                                 list: [
                                                     // BULL Tail
                                                     {
                                                         sY: [
                                                             1,
-                                                            sub("tailStart"),
+                                                            sub('tailStart'),
                                                         ],
                                                         list: [
                                                             {
                                                                 sX: {
                                                                     add: [
-                                                                        "tailHeight",
+                                                                        'tailHeight',
                                                                         -1,
                                                                     ],
                                                                     min: 1,
                                                                     max: [
-                                                                        "tailSX",
+                                                                        'tailSX',
                                                                         -1,
                                                                     ],
                                                                 },
                                                                 sY: {
                                                                     r: 0.4,
                                                                     useSize:
-                                                                        "restSX",
+                                                                        'restSX',
                                                                     max: mult(
                                                                         0.6,
-                                                                        "motiveSY",
+                                                                        'motiveSY',
                                                                     ),
                                                                 },
                                                                 list: [
@@ -763,7 +763,7 @@ export default function () {
                                                                         sY: {
                                                                             r: 0.2,
                                                                             useSize:
-                                                                                "restSXSuper",
+                                                                                'restSXSuper',
                                                                         },
                                                                         list: [
                                                                             {
@@ -779,7 +779,7 @@ export default function () {
                                                                 ],
                                                             },
                                                             {
-                                                                sY: "tailHeight",
+                                                                sY: 'tailHeight',
                                                             },
                                                         ],
                                                     },
@@ -794,26 +794,26 @@ export default function () {
                                                             add: [
                                                                 mult(
                                                                     0.5,
-                                                                    "squarySuper",
+                                                                    'squarySuper',
                                                                 ),
                                                             ],
                                                             min: { a: 0 },
-                                                            save: "tailStart",
+                                                            save: 'tailStart',
                                                         },
                                                         list: [
                                                             {
-                                                                sY: "tailHeight",
+                                                                sY: 'tailHeight',
                                                                 list: [
                                                                     {
                                                                         points: [
                                                                             {},
                                                                             {
                                                                                 fX: true,
-                                                                                y: "tailStart",
+                                                                                y: 'tailStart',
                                                                             },
                                                                             {
                                                                                 fX: true,
-                                                                                y: "tailStart",
+                                                                                y: 'tailStart',
                                                                                 fY: true,
                                                                             },
                                                                             {
@@ -825,7 +825,7 @@ export default function () {
                                                                         tX: true,
                                                                         sX: mult(
                                                                             0.1,
-                                                                            "squarySuper",
+                                                                            'squarySuper',
                                                                         ),
                                                                         list: [
                                                                             {
@@ -852,15 +852,15 @@ export default function () {
 
                                     // ARMS
                                     {
-                                        sY: "armSY",
+                                        sY: 'armSY',
                                         list: [
                                             {
-                                                x: "tailSX",
-                                                sX: "armSX",
+                                                x: 'tailSX',
+                                                sX: 'armSX',
                                                 list: arm,
                                             },
                                             {
-                                                sX: "armSX",
+                                                sX: 'armSX',
                                                 fX: true,
                                                 rX: true,
                                                 list: arm,
@@ -872,12 +872,12 @@ export default function () {
 
                             // HEAD
                             {
-                                sX: "headSX",
-                                sY: "headSY",
-                                x: "headRight",
-                                y: "headTop",
+                                sX: 'headSX',
+                                sY: 'headSY',
+                                x: 'headRight',
+                                y: 'headTop',
                                 fX: true,
-                                id: "head",
+                                id: 'head',
                                 list: [
                                     // TEETH
                                     {
@@ -886,19 +886,19 @@ export default function () {
                                         y: 1,
                                         sY: {
                                             r: 0.2,
-                                            useSize: "restSXMega",
-                                            max: ["headBottom", 1],
+                                            useSize: 'restSXMega',
+                                            max: ['headBottom', 1],
                                         },
                                         mX: { r: 0.15 },
                                         color: hair,
                                         list: [
                                             {
-                                                sX: "teeth",
+                                                sX: 'teeth',
                                                 rX: true,
                                                 list: teeth,
                                             },
                                             {
-                                                sX: { r: 0.2, save: "teeth" },
+                                                sX: { r: 0.2, save: 'teeth' },
                                                 fX: true,
                                                 list: teeth,
                                             },
@@ -915,7 +915,7 @@ export default function () {
                                                             r: 1,
                                                             add: [
                                                                 sub(
-                                                                    "toungeTip",
+                                                                    'toungeTip',
                                                                 ),
                                                             ],
                                                         },
@@ -925,12 +925,12 @@ export default function () {
                                                         sY: {
                                                             r: 0.8,
                                                             otherDim: true,
-                                                            save: "toungeTip",
+                                                            save: 'toungeTip',
                                                         },
                                                         list: [
                                                             {
                                                                 weight: 1,
-                                                                name: "Line",
+                                                                name: 'Line',
                                                                 points: [
                                                                     {
                                                                         fY: true,
@@ -958,23 +958,23 @@ export default function () {
                                         color: hair,
                                         fY: true,
                                         tY: true,
-                                        sY: "beardLength",
+                                        sY: 'beardLength',
                                         list: [
                                             {
-                                                y: [2, sub("headSY")],
+                                                y: [2, sub('headSY')],
                                                 sY: [
-                                                    "headSY",
-                                                    mult(0.6, "beardLength"),
+                                                    'headSY',
+                                                    mult(0.6, 'beardLength'),
                                                 ],
                                                 list: [
                                                     {
                                                         tX: true,
-                                                        sX: "beardWidth",
+                                                        sX: 'beardWidth',
                                                         list: beardSide,
                                                     },
                                                     {
                                                         tX: true,
-                                                        sX: "beardWidth",
+                                                        sX: 'beardWidth',
                                                         fX: true,
                                                         rX: true,
                                                         list: beardSide,
@@ -994,7 +994,7 @@ export default function () {
                                     // BEAK
                                     {
                                         fX: true,
-                                        sX: "beak",
+                                        sX: 'beak',
                                         cY: true,
                                         sY: { r: 0.5 },
                                         color: flesh,
@@ -1013,27 +1013,27 @@ export default function () {
 
                                     // EARS & HORNS
                                     {
-                                        sY: "earLength",
+                                        sY: 'earLength',
                                         list: [
                                             {
                                                 mX: {
                                                     r: -1,
-                                                    useSize: "earLength",
-                                                    min: mult(-1, "earLength"),
+                                                    useSize: 'earLength',
+                                                    min: mult(-1, 'earLength'),
                                                 },
-                                                id: "ears",
+                                                id: 'ears',
                                                 list: [
                                                     // EARS
                                                     {
                                                         mX: 2,
                                                         y: {
                                                             r: 0.2,
-                                                            useSize: "headSY",
+                                                            useSize: 'headSY',
                                                             a: -1,
                                                         },
                                                         sY: {
                                                             r: 0.1,
-                                                            useSize: "headSY",
+                                                            useSize: 'headSY',
                                                             min: 3,
                                                         },
                                                         list: [
@@ -1049,14 +1049,14 @@ export default function () {
                                                     {
                                                         y: {
                                                             r: 0.1,
-                                                            useSize: "headSY",
+                                                            useSize: 'headSY',
                                                             a: -1,
                                                         },
                                                         sY: {
                                                             r: 0.08,
-                                                            useSize: "headSY",
+                                                            useSize: 'headSY',
                                                         },
-                                                        id: "horns",
+                                                        id: 'horns',
                                                         color: hair,
                                                         list: [
                                                             {},
@@ -1083,7 +1083,7 @@ export default function () {
                                     },
 
                                     {
-                                        sX: { r: 1, add: [sub("beak")] },
+                                        sX: { r: 1, add: [sub('beak')] },
                                         list: [
                                             {
                                                 clear: true,
@@ -1120,22 +1120,22 @@ export default function () {
                                         sY: { r: 0.15 },
                                         y: { r: 0.3 },
                                         cX: true,
-                                        sX: { save: "eyeDist", r: 0.8 },
+                                        sX: { save: 'eyeDist', r: 0.8 },
                                         list: [
                                             {
                                                 x: {
                                                     r: 1,
-                                                    useSize: "squarySuper",
-                                                    max: mult(0.45, "eyeDist"),
+                                                    useSize: 'squarySuper',
+                                                    max: mult(0.45, 'eyeDist'),
                                                 },
-                                                sX: "singleEye",
+                                                sX: 'singleEye',
                                                 list: eye,
                                             },
                                             {
                                                 x: {
                                                     r: 1,
-                                                    useSize: "squarySuper",
-                                                    max: mult(0.45, "eyeDist"),
+                                                    useSize: 'squarySuper',
+                                                    max: mult(0.45, 'eyeDist'),
                                                 },
                                                 sX: {
                                                     r: 1,
@@ -1146,7 +1146,7 @@ export default function () {
                                                         otherDim: true,
                                                         a: -1,
                                                     },
-                                                    save: "singleEye",
+                                                    save: 'singleEye',
                                                 },
                                                 fX: true,
                                                 list: eye,
@@ -1159,21 +1159,21 @@ export default function () {
                                     {
                                         sY: {
                                             add: [
-                                                mult(0.15, "restSXSuper"),
-                                                mult(-0.3, "restSXMega"),
+                                                mult(0.15, 'restSXSuper'),
+                                                mult(-0.3, 'restSXMega'),
                                                 1,
                                             ],
                                         },
                                         fY: true,
                                         y: {
                                             r: 0.3,
-                                            add: [mult(-0.2, "restSXSuper")],
+                                            add: [mult(-0.2, 'restSXSuper')],
                                             min: zero,
                                         },
                                         mX: { r: 0.1 },
                                         x: {
                                             r: 0.1,
-                                            useSize: "squarySuper",
+                                            useSize: 'squarySuper',
                                             max: { r: 0.1 },
                                         },
                                         color: flesh,
@@ -1184,13 +1184,13 @@ export default function () {
                                                 m: { r: 0.07, a: 1 },
                                                 list: [
                                                     {
-                                                        sX: "noseHole",
+                                                        sX: 'noseHole',
                                                         fX: true,
                                                     },
                                                     {
                                                         sX: {
                                                             r: 0.3,
-                                                            save: "noseHole",
+                                                            save: 'noseHole',
                                                         },
                                                     },
                                                 ],
@@ -1200,7 +1200,7 @@ export default function () {
 
                                     // HAIR
                                     {
-                                        sY: { r: 0.1, useSize: "restSYSuper" },
+                                        sY: { r: 0.1, useSize: 'restSYSuper' },
                                         color: hair,
                                         list: [
                                             {
@@ -1215,7 +1215,7 @@ export default function () {
                                     // BEARD
                                     {
                                         y: { r: 0.6 },
-                                        sY: mult(0.2, "restSYSuper"),
+                                        sY: mult(0.2, 'restSYSuper'),
                                         color: hair,
                                         list: [
                                             { list: beard },
@@ -1233,15 +1233,15 @@ export default function () {
             {
                 color: frame,
                 list: [
-                    { sY: "borderSX" },
-                    { sY: "borderSX", fY: true },
-                    { sX: "borderSX" },
-                    { sX: "borderSX", fX: true },
+                    { sY: 'borderSX' },
+                    { sY: 'borderSX', fY: true },
+                    { sX: 'borderSX' },
+                    { sX: 'borderSX', fX: true },
 
-                    { sY: "borderSX", list: border },
-                    { sY: "borderSX", rY: true, fY: true, list: border },
-                    { sX: "borderSX", rotate: -90, list: border },
-                    { sX: "borderSX", rotate: 90, fX: true, list: border },
+                    { sY: 'borderSX', list: border },
+                    { sY: 'borderSX', rY: true, fY: true, list: border },
+                    { sX: 'borderSX', rotate: -90, list: border },
+                    { sX: 'borderSX', rotate: 90, fX: true, list: border },
                 ],
             },
 
@@ -1262,188 +1262,188 @@ export default function () {
             // { sY:2, y:2, fromBottom:true, sX:"squary", color:[255,255,0] },
             // { sY:2, y:2, fromBottom:true, sX:"squarySuper", color:[160,160,0] },
         ],
-        imgDims = ["imgSX", "imgSY"],
-        motiveDims = ["motiveSX", "motiveSY"],
+        imgDims = ['imgSX', 'imgSY'],
+        motiveDims = ['motiveSX', 'motiveSY'],
         variableList = {
-            "width": { r: 1 },
-            "height": { r: 1, height: true },
-            "squ": { a: "width", max: "height" },
+            'width': { r: 1 },
+            'height': { r: 1, height: true },
+            'squ': { a: 'width', max: 'height' },
 
-            "borderSX": { r: 0.03, a: 1, useSize: "squ", min: 1 },
+            'borderSX': { r: 0.03, a: 1, useSize: 'squ', min: 1 },
 
-            "imgSX": ["width", mult(-2, "borderSX")],
-            "imgSY": ["height", mult(-2, "borderSX")],
+            'imgSX': ['width', mult(-2, 'borderSX')],
+            'imgSY': ['height', mult(-2, 'borderSX')],
 
-            "imgSqu": getSmallerDim({ r: 1, useSize: imgDims }),
+            'imgSqu': getSmallerDim({ r: 1, useSize: imgDims }),
 
-            "imgPadding": mult(0.1, "imgSqu"),
+            'imgPadding': mult(0.1, 'imgSqu'),
 
-            "motiveSX": ["imgSX", mult(-2, "imgPadding")],
-            "motiveSY": ["imgSY", mult(-2, "imgPadding")],
+            'motiveSX': ['imgSX', mult(-2, 'imgPadding')],
+            'motiveSY': ['imgSY', mult(-2, 'imgPadding')],
 
-            "motiveSqu": getSmallerDim({ r: 1, useSize: motiveDims }),
-            "motiveSquBigger": getBiggerDim({ r: 1, useSize: motiveDims }),
+            'motiveSqu': getSmallerDim({ r: 1, useSize: motiveDims }),
+            'motiveSquBigger': getBiggerDim({ r: 1, useSize: motiveDims }),
 
-            "restSX": ["motiveSX", sub("motiveSqu")],
-            "restSXSuper": {
-                add: ["restSX", mult(-0.5, "motiveSqu")],
+            'restSX': ['motiveSX', sub('motiveSqu')],
+            'restSXSuper': {
+                add: ['restSX', mult(-0.5, 'motiveSqu')],
                 min: { a: 0 },
             },
-            "restSXMega": {
-                add: ["restSX", mult(-1.5, "motiveSqu")],
-                min: { a: 0 },
-            },
-
-            "restSY": ["motiveSY", sub("motiveSqu")],
-            "restSYSuper": {
-                add: ["restSY", mult(-0.5, "motiveSqu")],
-                min: { a: 0 },
-            },
-            "restSYMega": {
-                add: ["restSY", mult(-1.5, "motiveSqu")],
+            'restSXMega': {
+                add: ['restSX', mult(-1.5, 'motiveSqu')],
                 min: { a: 0 },
             },
 
-            "restSquBigger": getBiggerDim({
+            'restSY': ['motiveSY', sub('motiveSqu')],
+            'restSYSuper': {
+                add: ['restSY', mult(-0.5, 'motiveSqu')],
+                min: { a: 0 },
+            },
+            'restSYMega': {
+                add: ['restSY', mult(-1.5, 'motiveSqu')],
+                min: { a: 0 },
+            },
+
+            'restSquBigger': getBiggerDim({
                 r: 1,
-                useSize: ["restSX", "restSY"],
+                useSize: ['restSX', 'restSY'],
             }),
 
-            "squary": {
-                add: ["motiveSqu", sub("restSquBigger")],
+            'squary': {
+                add: ['motiveSqu', sub('restSquBigger')],
                 min: { a: 0 },
             },
-            "squarySuper": {
-                add: ["squary", mult(-0.5, "motiveSqu")],
+            'squarySuper': {
+                add: ['squary', mult(-0.5, 'motiveSqu')],
                 min: { a: 0 },
             },
 
             // EARS
-            "earLength": {
-                add: [mult(0.2, "restSXSuper"), mult(-0.4, "restSXMega")],
+            'earLength': {
+                add: [mult(0.2, 'restSXSuper'), mult(-0.4, 'restSXMega')],
                 min: zero,
             },
 
             // HEAD
-            "headSX": {
+            'headSX': {
                 add: [
-                    mult(0.2, "motiveSqu"),
-                    mult(0.15, "squarySuper"),
-                    mult(0.1, "restSXMega"),
+                    mult(0.2, 'motiveSqu'),
+                    mult(0.15, 'squarySuper'),
+                    mult(0.1, 'restSXMega'),
                     4,
                 ],
-                max: "motiveSX",
+                max: 'motiveSX',
             },
-            "headSY": {
+            'headSY': {
                 add: [
-                    mult(1.333, "headSX"),
-                    mult(-0.5, "squarySuper"),
-                    mult(0.3, "restSXSuper"),
+                    mult(1.333, 'headSX'),
+                    mult(-0.5, 'squarySuper'),
+                    mult(0.3, 'restSXSuper'),
                 ],
-                max: ["motiveSY", mult(-0.2, "motiveSY")],
+                max: ['motiveSY', mult(-0.2, 'motiveSY')],
             },
-            "headRight": {
+            'headRight': {
                 add: [
-                    mult(0.5, "motiveSX"),
-                    mult(-0.5, "headSX"),
+                    mult(0.5, 'motiveSX'),
+                    mult(-0.5, 'headSX'),
                     {
-                        add: [mult(-0.5, "motiveSX"), mult(0.5, "restSY")],
+                        add: [mult(-0.5, 'motiveSX'), mult(0.5, 'restSY')],
                         max: { a: 0 },
                     },
                 ],
-                min: "earLength",
+                min: 'earLength',
             },
-            "headTop": mult(1.5, "squarySuper"),
-            "headBottom": ["motiveSY", sub("headTop"), sub("headSY")],
+            'headTop': mult(1.5, 'squarySuper'),
+            'headBottom': ['motiveSY', sub('headTop'), sub('headSY')],
 
-            "beardLength": mult(0.5, "restSYSuper"),
-            "beardWidth": {
+            'beardLength': mult(0.5, 'restSYSuper'),
+            'beardWidth': {
                 r: 0.4,
-                useSize: "restSYSuper",
+                useSize: 'restSYSuper',
                 a: -2,
-                max: mult(0.05, "motiveSquBigger"),
+                max: mult(0.05, 'motiveSquBigger'),
             },
 
-            "beak": [mult(0.2, "squarySuper")],
+            'beak': [mult(0.2, 'squarySuper')],
 
             // BODY
-            "birdTop": mult(0.8, "squarySuper"),
-            "bodyRight": {
-                add: ["headSX", mult(-0.5, "restSY")],
-                min: "earLength",
+            'birdTop': mult(0.8, 'squarySuper'),
+            'bodyRight': {
+                add: ['headSX', mult(-0.5, 'restSY')],
+                min: 'earLength',
             },
-            "bodyTop": {
+            'bodyTop': {
                 add: [
-                    "headSY",
-                    mult(0.4, "squarySuper"),
-                    mult(-1, "restSX"),
-                    "birdTop",
+                    'headSY',
+                    mult(0.4, 'squarySuper'),
+                    mult(-1, 'restSX'),
+                    'birdTop',
                 ],
                 min: { a: 0 },
             },
-            "bodySX": ["motiveSX", sub("bodyRight")],
-            "bodySY": { add: ["motiveSY", sub("bodyTop")] },
+            'bodySX': ['motiveSX', sub('bodyRight')],
+            'bodySY': { add: ['motiveSY', sub('bodyTop')] },
 
             // LEGS
-            "legSY": {
-                a: "restSX",
+            'legSY': {
+                a: 'restSX',
                 max: [
-                    mult(-1.2, "squarySuper"),
-                    mult(0.5, "motiveSY"),
-                    mult(-2, "restSXMega"),
+                    mult(-1.2, 'squarySuper'),
+                    mult(0.5, 'motiveSY'),
+                    mult(-2, 'restSXMega'),
                 ],
                 min: { a: 0 },
             },
-            "legSX": {
+            'legSX': {
                 r: 1,
-                useSize: "bodySX",
-                add: [mult(-0.1, "restSXSuper")],
+                useSize: 'bodySX',
+                add: [mult(-0.1, 'restSXSuper')],
             },
-            "humanLegSY": {
+            'humanLegSY': {
                 r: -0.5,
-                useSize: "squarySuper",
-                a: "restSY",
-                max: [mult(0.5, "motiveSY")],
+                useSize: 'squarySuper',
+                a: 'restSY',
+                max: [mult(0.5, 'motiveSY')],
                 min: zero,
             },
 
             // SNAKE BODY
-            "snakeGap": {
-                add: [mult(0.15, "restSXMega")],
-                max: mult(0.7, "bodySY"),
+            'snakeGap': {
+                add: [mult(0.15, 'restSXMega')],
+                max: mult(0.7, 'bodySY'),
             },
-            "snake": { add: ["bodySY", sub("snakeGap")] },
-            "halfPeriod": ["snakeGap", "snake"],
-            "snakePeriod": mult(2, "halfPeriod"),
-            "snakeEdge": ["snake", -1],
-            "snakeInnerEdge": ["snakeGap", -1],
-            "snakeInnerEdge2": ["halfPeriod", -1],
+            'snake': { add: ['bodySY', sub('snakeGap')] },
+            'halfPeriod': ['snakeGap', 'snake'],
+            'snakePeriod': mult(2, 'halfPeriod'),
+            'snakeEdge': ['snake', -1],
+            'snakeInnerEdge': ['snakeGap', -1],
+            'snakeInnerEdge2': ['halfPeriod', -1],
 
             // ARM
-            "armSX": { add: [mult(0.2, "restSY")], max: mult(0.2, "bodySX") },
-            "armSY": ["restSY", mult(-1, "squary")],
-            "arm": mult(0.1, "motiveSqu"),
+            'armSX': { add: [mult(0.2, 'restSY')], max: mult(0.2, 'bodySX') },
+            'armSY': ['restSY', mult(-1, 'squary')],
+            'arm': mult(0.1, 'motiveSqu'),
 
             // LEG
-            "leg": mult(0.02, "motiveSquBigger"),
+            'leg': mult(0.02, 'motiveSquBigger'),
 
             // TORSO Y
-            "torsoSY": ["bodySY", sub("legSY"), sub("humanLegSY")],
+            'torsoSY': ['bodySY', sub('legSY'), sub('humanLegSY')],
 
             // TAIL
-            "tailSX": {
+            'tailSX': {
                 add: [
-                    mult(0.3, "squarySuper"),
-                    mult(0.1, "restSX"),
-                    mult(-0.5, "restSXMega"),
+                    mult(0.3, 'squarySuper'),
+                    mult(0.1, 'restSX'),
+                    mult(-0.5, 'restSXMega'),
                 ],
                 min: zero,
-                max: "torsoSY",
+                max: 'torsoSY',
             },
 
             // TORSO X
-            "torsoSX": ["bodySX", mult(-2, "armSX"), sub("tailSX")],
-            "torsoLeft": "armSX",
+            'torsoSX': ['bodySX', mult(-2, 'armSX'), sub('tailSX')],
+            'torsoLeft': 'armSX',
         }
     return {
         renderList: renderList,

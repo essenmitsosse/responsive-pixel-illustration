@@ -83,7 +83,7 @@ Head.prototype.draw = function (args) {
             { r: this.baseSX_, useSize: args.sX || args.stageSX },
             { r: this.relSX_ },
             { min: 4 },
-            "actor-features",
+            'actor-features',
             0,
         )),
         sY = (this.sY = args.sY || args.stageSY),
@@ -91,20 +91,20 @@ Head.prototype.draw = function (args) {
             { r: this.eyeAreaBaseSX_, useSize: sX },
             { r: this.eyeAreaRelSX_ },
             { min: 3, a: 1, max: sX, odd: true },
-            "actor-features",
+            'actor-features',
         ),
         eyeAreaSY = this.getSizeSwitch(
             { r: this.eyeAreaBaseSY_, useSize: sY },
             { r: this.eyeAreaRelSY_ },
             { min: 1 },
-            "actor-features",
+            'actor-features',
         ),
         eyeRestSX = this.pushLinkList([sX, { r: -1, useSize: eyeAreaSX }]),
         mouthAreaSX = this.getSizeSwitch(
             { r: this.mouthAreaBaseSX_, useSize: sX },
             { r: this.mouthAreaRelSX_ },
             { min: 1, odd: true },
-            "actor-features",
+            'actor-features',
         ),
         mouthAreaSY = this.pushLinkList({
             add: [sY, { r: -1, useSize: eyeAreaSY }, -2],
@@ -135,16 +135,16 @@ Head.prototype.draw = function (args) {
         list: [
             // main skull
             {
-                id: "head",
+                id: 'head',
                 list: [
                     {
                         minX: 4,
                         minY: 4,
                         list: [
-                            { name: "Dot", clear: true },
-                            { name: "Dot", clear: true, fX: true },
-                            { name: "Dot", clear: true, fY: true },
-                            { name: "Dot", clear: true, fX: true, fY: true },
+                            { name: 'Dot', clear: true },
+                            { name: 'Dot', clear: true, fX: true },
+                            { name: 'Dot', clear: true, fY: true },
+                            { name: 'Dot', clear: true, fX: true, fY: true },
                         ],
                     },
                     {},
@@ -254,13 +254,13 @@ Eyes.prototype.draw = function (args) {
             { r: this.eyeBaseSX_, useSize: maxEyesSX },
             { r: this.eyeSXRel_ },
             { a: 2, max: maxEyesSX, even: true },
-            "actor-features",
+            'actor-features',
         ),
         eyeSY = this.getSizeSwitch(
             { r: this.eyeBaseSY_, useSize: args.sY },
             { r: this.eyeSYRel_ },
             { min: 1 },
-            "actor-features",
+            'actor-features',
         ),
         square = this.pushLinkList({
             add: [{ r: 0.5, useSize: maxEyesCombinedSX }],
@@ -445,7 +445,7 @@ Eye.prototype.draw = function EyeDraw(args) {
         fY: true,
         rX: this.left,
         fX: !this.left,
-        id: "eye",
+        id: 'eye',
         list: [
             // Main Eye
             {
@@ -463,21 +463,21 @@ Eye.prototype.draw = function EyeDraw(args) {
                         fY: true,
                         x: pupilPosX,
                         y: pupilPosY,
-                        id: "pupil",
+                        id: 'pupil',
                         list: [
                             {
                                 minX: 4,
                                 minY: 4,
                                 list: [
-                                    { name: "Dot", clear: true, fX: true },
-                                    { name: "Dot", clear: true },
+                                    { name: 'Dot', clear: true, fX: true },
+                                    { name: 'Dot', clear: true },
                                     {
-                                        name: "Dot",
+                                        name: 'Dot',
                                         clear: true,
                                         fX: true,
                                         fY: true,
                                     },
-                                    { name: "Dot", clear: true, fY: true },
+                                    { name: 'Dot', clear: true, fY: true },
                                 ],
                             },
                             {},
@@ -523,7 +523,7 @@ Eye.prototype.draw = function EyeDraw(args) {
                         color: this.color[3],
                         weight: 1,
                         z: 10,
-                        id: "eyeLid",
+                        id: 'eyeLid',
                         points: [
                             { y: eyeBrowOuterY },
                             { y: eyeBrowInnerY, fX: true },
@@ -545,19 +545,19 @@ Eye.prototype.draw = function EyeDraw(args) {
                 minY: 5,
                 list: [
                     this.roundInner && {
-                        name: "Dot",
+                        name: 'Dot',
                         color: this.color[0],
                         fY: true,
                     },
                     this.roundOuter && {
-                        name: "Dot",
+                        name: 'Dot',
                         color: this.color[0],
                         fY: true,
                         fX: true,
                     },
-                    this.roundInner && { name: "Dot", color: this.color[0] },
+                    this.roundInner && { name: 'Dot', color: this.color[0] },
                     this.roundOuter && {
-                        name: "Dot",
+                        name: 'Dot',
                         color: this.color[0],
                         fX: true,
                     },
@@ -760,7 +760,7 @@ Hair.prototype.draw = function HairDraw(args) {
     this.sY = this.pushLinkList({ r: this.sY_, useSize: args.sY })
 
     this.pushRelativeStandardAutomatic({
-        sY: { map: "actor-accessoirs", min: 0, max: this.sY_ },
+        sY: { map: 'actor-accessoirs', min: 0, max: this.sY_ },
     })
 
     return {
@@ -827,8 +827,8 @@ Hat.prototype.draw = function HatDraw(args) {
     this.topSY = this.pushLinkList({ r: 0, useSize: args.sY })
 
     this.pushRelativeStandardAutomatic({
-        sY: { map: "actor-accessoirs", min: 0, max: this.sY_ },
-        topSY: { map: "actor-accessoirs", min: 0, max: this.topSY_ },
+        sY: { map: 'actor-accessoirs', min: 0, max: this.sY_ },
+        topSY: { map: 'actor-accessoirs', min: 0, max: this.topSY_ },
     })
 
     return {

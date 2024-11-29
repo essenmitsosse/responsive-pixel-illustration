@@ -1,4 +1,4 @@
-import { helper as helperGlobal } from "../renderengine/helper.js"
+import { helper as helperGlobal } from '../renderengine/helper.js'
 
 export default function () {
     var help = helperGlobal,
@@ -11,7 +11,7 @@ export default function () {
         letterWidth = 8,
         letterCount = 0,
         spacingCount = 0,
-        word = "MAUTZN",
+        word = 'MAUTZN',
         contrast = 0.4,
         serif = true,
         roundSerif = true,
@@ -22,15 +22,15 @@ export default function () {
                   args = args || {}
                   return args.hor
                       ? {
-                            sX: "serifheight",
+                            sX: 'serifheight',
                             sY: args.c
-                                ? "serifCenterHorheight"
-                                : "serifHorheight",
+                                ? 'serifCenterHorheight'
+                                : 'serifHorheight',
                             cY: args.c,
                             x: args.c
                                 ? {
                                       r: 1 - middleStemLength,
-                                      a: "serifheight",
+                                      a: 'serifheight',
                                   }
                                 : undefined,
                             fX: args.right,
@@ -58,7 +58,7 @@ export default function () {
                                     : [
                                           {
                                               fY: args.bottom,
-                                              sY: "stemVert",
+                                              sY: 'stemVert',
                                           },
                                           {
                                               sY: { a: 0 },
@@ -72,9 +72,9 @@ export default function () {
                                 : [{}],
                         }
                       : {
-                            sX: args.half ? "serifWidthHalf" : "serifWidth",
-                            sY: "serifheight",
-                            x: args.half || args.c ? { a: 0 } : "serifOut",
+                            sX: args.half ? 'serifWidthHalf' : 'serifWidth',
+                            sY: 'serifheight',
+                            x: args.half || args.c ? { a: 0 } : 'serifOut',
                             fX: args.right,
                             fY: args.bottom,
                             cX: args.c,
@@ -82,12 +82,12 @@ export default function () {
                                 ? [
                                       roundSerif
                                           ? {
-                                                sX: "stemHalf",
+                                                sX: 'stemHalf',
                                                 fX: true,
                                                 fY: !args.bottom,
                                                 stripes: {
                                                     horizontal: true,
-                                                    change: "serifPadding",
+                                                    change: 'serifPadding',
                                                 },
                                             }
                                           : {},
@@ -97,24 +97,24 @@ export default function () {
                                         args.onlyLeft && !args.right
                                             ? undefined
                                             : {
-                                                  sX: "stemHalf",
+                                                  sX: 'stemHalf',
                                                   x: { r: 0.5 },
                                                   fY: !args.bottom,
                                                   stripes: {
                                                       horizontal: true,
-                                                      change: "serifPadding",
+                                                      change: 'serifPadding',
                                                   },
                                               },
                                         args.onlyLeft && args.right
                                             ? undefined
                                             : {
-                                                  sX: "stemHalf",
+                                                  sX: 'stemHalf',
                                                   fX: true,
                                                   x: { r: 0.5 },
                                                   fY: !args.bottom,
                                                   stripes: {
                                                       horizontal: true,
-                                                      change: "serifPadding",
+                                                      change: 'serifPadding',
                                                   },
                                               },
                                     ]
@@ -138,14 +138,14 @@ export default function () {
 
         getLetter = (function () {
             var Letters = new (function () {
-                var vertStem = { sY: "stemVert", cY: true }
+                var vertStem = { sY: 'stemVert', cY: true }
                 ;(this.missing = {
                     sX: 2,
                     list: [
                         {
                             stripes: {
                                 gap: 1,
-                                strip: "stemVert",
+                                strip: 'stemVert',
                                 horizontal: true,
                             },
                         },
@@ -166,8 +166,8 @@ export default function () {
                                 },
                                 fY: true,
                                 fX: true,
-                                sX: { r: 1, a: "stemNeg" },
-                                id: "A",
+                                sX: { r: 1, a: 'stemNeg' },
+                                id: 'A',
                                 clear: true,
                             },
                             {
@@ -177,11 +177,11 @@ export default function () {
                                 },
                                 fY: true,
                                 fX: true,
-                                id: "A",
+                                id: 'A',
                             },
 
                             {
-                                sY: "stemVert",
+                                sY: 'stemVert',
                                 y: { r: 0.6 },
                                 sX: { r: 0.5 },
                                 fX: true,
@@ -197,9 +197,9 @@ export default function () {
                 this.C = {
                     sX: 3,
                     list: [
-                        { sX: "stem" },
-                        { sY: "stemVert" },
-                        { sY: "stemVert", fY: true },
+                        { sX: 'stem' },
+                        { sY: 'stemVert' },
+                        { sY: 'stemVert', fY: true },
                         getSerif({ right: true, hor: true }),
                         getSerif({ right: true, bottom: true, hor: true }),
                     ],
@@ -208,14 +208,14 @@ export default function () {
                 this.E = {
                     sX: 2,
                     list: [
-                        { sX: "stem" },
+                        { sX: 'stem' },
                         {
-                            sY: "stemVert",
+                            sY: 'stemVert',
                             cY: true,
                             sX: { r: middleStemLength },
                         },
-                        { sY: "stemVert" },
-                        { sY: "stemVert", fY: true },
+                        { sY: 'stemVert' },
+                        { sY: 'stemVert', fY: true },
                         getSerif(),
                         getSerif({ bottom: true }),
                         getSerif({ bottom: true, right: true, hor: true }),
@@ -227,13 +227,13 @@ export default function () {
                 this.F = {
                     sX: 2,
                     list: [
-                        { sX: "stem" },
+                        { sX: 'stem' },
                         {
-                            sY: "stemVert",
+                            sY: 'stemVert',
                             cY: true,
                             sX: { r: middleStemLength },
                         },
-                        { sY: "stemVert" },
+                        { sY: 'stemVert' },
                         getSerif(),
                         getSerif({ bottom: true }),
                         getSerif({ right: true, hor: true }),
@@ -245,7 +245,7 @@ export default function () {
                     sX: 3,
                     half: true,
                     list: [
-                        { sX: "stem" },
+                        { sX: 'stem' },
                         vertStem,
                         getSerif(),
                         getSerif({ bottom: true }),
@@ -255,7 +255,7 @@ export default function () {
                 this.I = {
                     sX: 1,
                     list: [
-                        { sX: "stem", c: true },
+                        { sX: 'stem', c: true },
                         getSerif({ c: true }),
                         getSerif({ bottom: true, c: true }),
                     ],
@@ -264,9 +264,9 @@ export default function () {
                 this.J = {
                     sX: 2,
                     list: [
-                        { sX: "stem", fX: true },
-                        { sX: "stem", sY: { r: 0.2 }, fY: true },
-                        { sY: "stemVert", fY: true },
+                        { sX: 'stem', fX: true },
+                        { sX: 'stem', sY: { r: 0.2 }, fY: true },
+                        { sY: 'stemVert', fY: true },
                         getSerif({ right: true }),
                     ],
                 }
@@ -274,8 +274,8 @@ export default function () {
                 this.L = {
                     sX: 2,
                     list: [
-                        { sX: "stem" },
-                        { sY: "stemVert", fY: true },
+                        { sX: 'stem' },
+                        { sY: 'stemVert', fY: true },
                         getSerif(),
                         getSerif({ bottom: true }),
                         getSerif({ bottom: true, right: true, hor: true }),
@@ -285,8 +285,8 @@ export default function () {
                 this.M = {
                     sX: 4,
                     list: [
-                        { sX: "stem" },
-                        { sX: "stem", fX: true },
+                        { sX: 'stem' },
+                        { sX: 'stem', fX: true },
                         getSerif({ onlyLeft: true }),
                         getSerif({ right: true, onlyLeft: true }),
                         getSerif({ bottom: true }),
@@ -296,7 +296,7 @@ export default function () {
                             sX: { r: 0.5 },
                             stripes: { change: { r: -1 } },
                             fY: true,
-                            id: "M",
+                            id: 'M',
                             clear: true,
                         },
                         {
@@ -304,23 +304,23 @@ export default function () {
                             stripes: { change: { r: -1 } },
                             fY: true,
                             fX: true,
-                            id: "M",
+                            id: 'M',
                             clear: true,
                         },
                         {
-                            x: "stem",
+                            x: 'stem',
                             sX: { r: 0.5 },
                             stripes: { change: { r: -1 } },
                             fY: true,
-                            id: "M",
+                            id: 'M',
                         },
                         {
-                            x: "stem",
+                            x: 'stem',
                             sX: { r: 0.5 },
                             stripes: { change: { r: -1 } },
                             fY: true,
                             fX: true,
-                            id: "M",
+                            id: 'M',
                         },
                     ],
                 }
@@ -328,7 +328,7 @@ export default function () {
                 this.N = {
                     sX: 3,
                     list: [
-                        { sX: "stem" },
+                        { sX: 'stem' },
                         getSerif({ onlyLeft: true }),
                         getSerif({ bottom: true }),
                         getSerif({ right: true }),
@@ -337,45 +337,45 @@ export default function () {
                             fX: true,
                             sY: { a: 0 },
                             stripes: { change: { r: 1 } },
-                            id: "N",
+                            id: 'N',
                             clear: true,
                         },
                         {
-                            sX: "stem",
+                            sX: 'stem',
                             sY: { r: 0.5 },
                             fY: true,
                             fX: true,
                             tX: true,
                             clear: true,
-                            id: "N",
+                            id: 'N',
                         },
                         {
                             fY: true,
                             fX: true,
                             sY: { a: 0 },
-                            x: "stemNeg",
+                            x: 'stemNeg',
                             stripes: { change: { r: 1 } },
-                            id: "N",
+                            id: 'N',
                         },
-                        { sX: "stem", fX: true, id: "N" },
+                        { sX: 'stem', fX: true, id: 'N' },
                     ],
                 }
 
                 this.O = {
                     sX: 3,
                     list: [
-                        { sX: "stem" },
-                        { sX: "stem", fX: true },
-                        { sY: "stemVert" },
-                        { sY: "stemVert", fY: true },
+                        { sX: 'stem' },
+                        { sX: 'stem', fX: true },
+                        { sY: 'stemVert' },
+                        { sY: 'stemVert', fY: true },
                     ],
                 }
 
                 this.T = {
                     sX: 4,
                     list: [
-                        { sX: "stem", cX: true },
-                        { sY: "stemVert" },
+                        { sX: 'stem', cX: true },
+                        { sY: 'stemVert' },
                         getSerif({ hor: true }),
                         getSerif({ right: true, hor: true }),
                         getSerif({ bottom: true, c: true }),
@@ -385,9 +385,9 @@ export default function () {
                 this.U = {
                     sX: 3,
                     list: [
-                        { sX: "stem" },
-                        { sX: "stem", fX: true },
-                        { sY: "stemVert", fY: true },
+                        { sX: 'stem' },
+                        { sX: 'stem', fX: true },
+                        { sY: 'stemVert', fY: true },
                         getSerif(),
                         getSerif({ right: true }),
                     ],
@@ -396,27 +396,27 @@ export default function () {
                 this.Z = {
                     sX: 3,
                     list: [
-                        { sY: "stemVert" },
-                        { sY: "stemVert", fY: true },
+                        { sY: 'stemVert' },
+                        { sY: 'stemVert', fY: true },
                         getSerif({ bottom: true, right: true, hor: true }),
                         getSerif({ hor: true }),
-                        { clear: true, id: "N", tY: true },
+                        { clear: true, id: 'N', tY: true },
                         {
                             fY: true,
                             sY: { a: 0 },
-                            x: "stem",
-                            stripes: { change: { r: 1, a: "stem" } },
-                            id: "N",
+                            x: 'stem',
+                            stripes: { change: { r: 1, a: 'stem' } },
+                            id: 'N',
                             clear: true,
                         },
                         {
                             fY: true,
                             sY: { a: 0 },
-                            stripes: { change: { r: 1, a: "stem" } },
-                            id: "N",
+                            stripes: { change: { r: 1, a: 'stem' } },
+                            id: 'N',
                         },
                         serif
-                            ? { sY: "stemVert", sX: { r: 0.6 }, c: true }
+                            ? { sY: 'stemVert', sX: { r: 0.6 }, c: true }
                             : undefined,
                     ],
                 }
@@ -425,15 +425,15 @@ export default function () {
             return function (letter) {
                 var thisLetter =
                         Letters[letter] ||
-                        (letter === " "
-                            ? Letters["space"]
-                            : Letters["missing"]),
+                        (letter === ' '
+                            ? Letters['space']
+                            : Letters['missing']),
                     sX = thisLetter.sX,
                     letter = {
-                        sX: mult(sX, "wordUnit"),
+                        sX: mult(sX, 'wordUnit'),
                         x: [
-                            mult(letterCount, "wordUnit"),
-                            mult(spacingCount, "spacingUnit"),
+                            mult(letterCount, 'wordUnit'),
+                            mult(spacingCount, 'spacingUnit'),
                         ],
                         fX: true,
                         list: thisLetter.half
@@ -469,10 +469,10 @@ export default function () {
         })(),
         renderList = [
             {
-                mY: "border",
+                mY: 'border',
                 sX: [
-                    mult(letterCount, "wordUnit"),
-                    mult(spacingCount, "spacingUnit"),
+                    mult(letterCount, 'wordUnit'),
+                    mult(spacingCount, 'spacingUnit'),
                 ],
                 cX: true,
                 color: font,
@@ -481,34 +481,34 @@ export default function () {
             // { gap:{a:0}, color:[255,255,0], change:{r:-1} },
         ],
         variableList = {
-            "border": getSmallerDim({ r: 0.08 }),
-            "borderSide": { r: 0.04 },
-            "imgWidth": { r: 1, add: [mult(-2, "borderSide", -spacingCount)] },
-            "imgheight": { r: 1, height: true, add: [mult(-2, "border")] },
-            "wordUnit": mult(1 / (letterCount + spacingCount), "imgWidth"),
-            "spaces": ["imgWidth", mult(-letterCount, "wordUnit")],
-            "spacingUnit": {
+            'border': getSmallerDim({ r: 0.08 }),
+            'borderSide': { r: 0.04 },
+            'imgWidth': { r: 1, add: [mult(-2, 'borderSide', -spacingCount)] },
+            'imgheight': { r: 1, height: true, add: [mult(-2, 'border')] },
+            'wordUnit': mult(1 / (letterCount + spacingCount), 'imgWidth'),
+            'spaces': ['imgWidth', mult(-letterCount, 'wordUnit')],
+            'spacingUnit': {
                 r: 1 / spacingCount,
-                useSize: "spaces",
+                useSize: 'spaces',
                 min: 2,
-                max: ["wordUnit", -1],
+                max: ['wordUnit', -1],
             },
-            "stem": mult(0.8, "wordUnit"),
-            "stemVert": { r: contrast, useSize: "stem", min: 1 },
-            "stemHalf": mult(0.5, "stem"),
-            "stemNeg": sub("stem"),
-            "serifPadding": { r: serifWidth, useSize: "spacingUnit" },
-            "serifWidth": [mult(2, "serifPadding"), "stem"],
-            "serifWidthHalf": ["serifPadding", "stemHalf"],
-            "serifheight": "stemVert",
-            "serifOut": sub("serifPadding"),
-            "serifHorheight": {
-                add: ["stemVert", "serifPadding"],
-                max: mult(0.4, "imgheight"),
+            'stem': mult(0.8, 'wordUnit'),
+            'stemVert': { r: contrast, useSize: 'stem', min: 1 },
+            'stemHalf': mult(0.5, 'stem'),
+            'stemNeg': sub('stem'),
+            'serifPadding': { r: serifWidth, useSize: 'spacingUnit' },
+            'serifWidth': [mult(2, 'serifPadding'), 'stem'],
+            'serifWidthHalf': ['serifPadding', 'stemHalf'],
+            'serifheight': 'stemVert',
+            'serifOut': sub('serifPadding'),
+            'serifHorheight': {
+                add: ['stemVert', 'serifPadding'],
+                max: mult(0.4, 'imgheight'),
             },
-            "serifCenterHorheight": {
-                add: ["stemVert", mult(2, "serifPadding")],
-                max: mult(0.5, "imgheight"),
+            'serifCenterHorheight': {
+                add: ['stemVert', mult(2, 'serifPadding')],
+                max: mult(0.5, 'imgheight'),
             },
         }
 

@@ -1,4 +1,4 @@
-import { helper as helperGlobal } from "../renderengine/helper.js"
+import { helper as helperGlobal } from '../renderengine/helper.js'
 
 /* global helper */
 export default function () {
@@ -525,7 +525,7 @@ export default function () {
                         sY: shoulderSY,
                         x: shoulderX,
                         y: shoulderY,
-                        id: "shoulder",
+                        id: 'shoulder',
                         list: [
                             {},
                             {
@@ -668,38 +668,38 @@ export default function () {
                     sY: waterSY,
                     y: waterY,
                     list: [
-                        { use: "water3" },
+                        { use: 'water3' },
                         {
-                            use: "water3",
+                            use: 'water3',
                             color: waterLight,
                             chance: 0.05,
                             sY: 1,
                             sX: { a: 4, random: 27 },
                             mask: true,
                         },
-                        { save: "water3" },
+                        { save: 'water3' },
 
-                        { use: "water2" },
+                        { use: 'water2' },
                         {
-                            use: "water2",
+                            use: 'water2',
                             color: waterLight,
                             chance: 0.05,
                             sY: 1,
                             sX: { a: 2, random: 9 },
                             mask: true,
                         },
-                        { save: "water2", sY: { r: 0.5 } },
+                        { save: 'water2', sY: { r: 0.5 } },
 
-                        { use: "water" },
+                        { use: 'water' },
                         {
-                            use: "water",
+                            use: 'water',
                             color: waterLight,
                             chance: 0.05,
                             sY: 1,
                             sX: { a: 1, random: 3 },
                             mask: true,
                         },
-                        { save: "water", sY: { r: 0.2 } },
+                        { save: 'water', sY: { r: 0.2 } },
                     ],
                 },
 
@@ -792,17 +792,17 @@ export default function () {
                 teiresias(),
 
                 // Main Tree
-                { use: "tree-main-background", color: treeShadow },
-                { use: "tree-main", color: tree },
+                { use: 'tree-main-background', color: treeShadow },
+                { use: 'tree-main', color: tree },
                 {
-                    use: "tree-main",
+                    use: 'tree-main',
                     color: treeShadow,
                     chance: 0.05,
                     sY: { a: 3, random: 10 },
                     mask: true,
                 },
                 {
-                    use: "tree-main",
+                    use: 'tree-main',
                     color: fruit,
                     chance: 0.06,
                     sY: { r: 0.6, useSize: fruitSY },
@@ -815,7 +815,7 @@ export default function () {
                     fX: true,
                     list: [
                         {
-                            id: "tree-main",
+                            id: 'tree-main',
                             sY: { r: 0.8 },
                             stripes: {
                                 strip: { a: 4, random: 4 },
@@ -823,7 +823,7 @@ export default function () {
                                 change: { r: 0.6 },
                             },
                             list: [
-                                { save: "tree-main", y: -1 },
+                                { save: 'tree-main', y: -1 },
                                 {
                                     fX: true,
                                     sX: 1,
@@ -836,14 +836,14 @@ export default function () {
                             ],
                         },
                         {
-                            id: "tree-main-background",
+                            id: 'tree-main-background',
                             sY: { r: 0.9 },
                             stripes: {
                                 strip: { a: 4, random: 4 },
                                 random: { r: -0.4 },
                                 change: { r: 0.6 },
                             },
-                            list: [{ save: "tree-main-background", y: -1 }],
+                            list: [{ save: 'tree-main-background', y: -1 }],
                         },
                     ],
                 },
@@ -982,18 +982,18 @@ export default function () {
                 color: borderColor,
                 z: 10000,
                 list: [
-                    { sY: borderSX, id: "borderTop", list: borderVert },
+                    { sY: borderSX, id: 'borderTop', list: borderVert },
                     {
                         sY: borderSX,
-                        id: "borderBottom",
+                        id: 'borderBottom',
                         fY: true,
                         rY: true,
                         list: borderVert,
                     },
-                    { sX: borderSX, id: "borderLeft", list: borderHor },
+                    { sX: borderSX, id: 'borderLeft', list: borderHor },
                     {
                         sX: borderSX,
-                        id: "borderRight",
+                        id: 'borderRight',
                         fX: true,
                         rX: true,
                         list: borderHor,

@@ -1,12 +1,12 @@
-import { helper as helperGlobal } from "../../renderengine/helper.js"
-import { Chair, Emotion, Glass, Table } from "./accessoir.js"
-import { Arm } from "./actor-arm.js"
-import { Eye, Eyes, Hair, Hat, Head, Mouth } from "./actor-head.js"
-import { Legs } from "./actor-legs.js"
-import { Actor, Body, Torso } from "./actor.js"
-import { Stage, Background, Floor } from "./stage.js"
-import { Strip, Panel } from "./strip.js"
-import { getCombiner, getFace, getStrip, getStripInfo } from "./tablecomic-1.js"
+import { helper as helperGlobal } from '../../renderengine/helper.js'
+import { Chair, Emotion, Glass, Table } from './accessoir.js'
+import { Arm } from './actor-arm.js'
+import { Eye, Eyes, Hair, Hat, Head, Mouth } from './actor-head.js'
+import { Legs } from './actor-legs.js'
+import { Actor, Body, Torso } from './actor.js'
+import { Stage, Background, Floor } from './stage.js'
+import { Strip, Panel } from './strip.js'
+import { getCombiner, getFace, getStrip, getStripInfo } from './tablecomic-1.js'
 import {
     RenderObjectContainer,
     getActors,
@@ -14,7 +14,7 @@ import {
     getColorScheme,
     getStory,
     getTableComic,
-} from "./tablecomic-2.js"
+} from './tablecomic-2.js'
 
 // BEGINN TableComic /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const TableComic = function (init, slide, createSlider) {
@@ -62,8 +62,8 @@ export const TableComic = function (init, slide, createSlider) {
         renderList
 
     hover.list.push(
-        { change: 1, min: 0, map: "a", variable: controlerX },
-        { change: 1, min: 0, map: "b", variable: controlerY },
+        { change: 1, min: 0, map: 'a', variable: controlerX },
+        { change: 1, min: 0, map: 'b', variable: controlerY },
     )
 
     // Assign global Functions to all Comic Constructors
@@ -161,201 +161,201 @@ export const TableComic = function (init, slide, createSlider) {
     if (createSlider) {
         if (faceVersion) {
             createSlider.slider({
-                niceName: "A",
-                valueName: "a",
+                niceName: 'A',
+                valueName: 'a',
                 defaultValue: 0.5,
                 input: { min: 0, max: 1, step: 0.02 },
             })
             createSlider.slider({
-                niceName: "B",
-                valueName: "b",
+                niceName: 'B',
+                valueName: 'b',
                 defaultValue: 0.5,
                 input: { min: 0, max: 1, step: 0.02 },
             })
             createSlider.slider({
-                niceName: "C",
-                valueName: "c",
+                niceName: 'C',
+                valueName: 'c',
                 defaultValue: 0.5,
                 input: { min: 0, max: 1, step: 0.02 },
             })
             createSlider.slider({
-                niceName: "D",
-                valueName: "d",
+                niceName: 'D',
+                valueName: 'd',
                 defaultValue: 0.5,
                 input: { min: 0, max: 1, step: 0.02 },
             })
             createSlider.slider({
-                niceName: "E",
-                valueName: "e",
+                niceName: 'E',
+                valueName: 'e',
                 defaultValue: 0.5,
                 input: { min: 0, max: 1, step: 0.02 },
             })
             createSlider.slider({
-                niceName: "F",
-                valueName: "f",
+                niceName: 'F',
+                valueName: 'f',
                 defaultValue: 0.5,
                 input: { min: 0, max: 1, step: 0.02 },
             })
             createSlider.slider({
-                niceName: "G",
-                valueName: "g",
+                niceName: 'G',
+                valueName: 'g',
                 defaultValue: 0.5,
                 input: { min: 0, max: 1, step: 0.02 },
             })
             createSlider.slider({
-                niceName: "H",
-                valueName: "h",
+                niceName: 'H',
+                valueName: 'h',
                 defaultValue: 0.5,
                 input: { min: 0, max: 1, step: 0.02 },
             })
             createSlider.slider({
-                niceName: "I",
-                valueName: "i",
+                niceName: 'I',
+                valueName: 'i',
                 defaultValue: 0.5,
                 input: { min: 0, max: 1, step: 0.02 },
             })
             createSlider.slider({
-                niceName: "J",
-                valueName: "j",
+                niceName: 'J',
+                valueName: 'j',
                 defaultValue: 0.5,
                 input: { min: 0, max: 1, step: 0.02 },
             })
             createSlider.slider({
-                niceName: "K",
-                valueName: "k",
+                niceName: 'K',
+                valueName: 'k',
                 defaultValue: 0.5,
                 input: { min: 0, max: 1, step: 0.02 },
             })
             createSlider.slider({
-                niceName: "L",
-                valueName: "l",
+                niceName: 'L',
+                valueName: 'l',
                 defaultValue: 0.5,
                 input: { min: 0, max: 1, step: 0.02 },
             })
             createSlider.slider({
-                niceName: "M",
-                valueName: "m",
+                niceName: 'M',
+                valueName: 'm',
                 defaultValue: 0.5,
                 input: { min: 0, max: 1, step: 0.02 },
             })
             createSlider.slider({
-                niceName: "N",
-                valueName: "n",
+                niceName: 'N',
+                valueName: 'n',
                 defaultValue: 0.5,
                 input: { min: 0, max: 1, step: 0.02 },
             })
 
             createSlider.slider({
-                niceName: "Side",
-                valueName: "side",
+                niceName: 'Side',
+                valueName: 'side',
                 defaultValue: 0.5,
                 input: { min: 0, max: 1, step: 0.02 },
             })
             createSlider.slider({
-                niceName: "Kamera",
-                valueName: "camera",
+                niceName: 'Kamera',
+                valueName: 'camera',
                 defaultValue: 0,
                 input: { min: 0, max: 1, step: 0.02 },
             })
         } else {
-            createSlider.title({ title: "Layout" })
+            createSlider.title({ title: 'Layout' })
             createSlider.number({
-                niceName: "Panel Count",
-                valueName: "panels",
+                niceName: 'Panel Count',
+                valueName: 'panels',
                 defaultValue: 3,
                 input: { min: 1, max: 20, step: 1 },
                 forceRedraw: true,
             })
             createSlider.slider({
-                niceName: "Image Ration",
-                valueName: "imgRatio",
+                niceName: 'Image Ration',
+                valueName: 'imgRatio',
                 defaultValue: 1,
                 input: { min: 0.01, max: 4, step: 0.01 },
                 output: { min: 0.01, max: 4 },
             })
             createSlider.slider({
-                niceName: "Gutter Width",
-                valueName: "gutter-width",
+                niceName: 'Gutter Width',
+                valueName: 'gutter-width',
                 defaultValue: 0.25,
                 input: { min: 0, max: 1, step: 0.02 },
             })
             createSlider.slider({
-                niceName: "Gutter Height",
-                valueName: "gutter-height",
+                niceName: 'Gutter Height',
+                valueName: 'gutter-height',
                 defaultValue: 0.25,
                 input: { min: 0, max: 1, step: 0.02 },
             })
 
-            createSlider.title({ title: "Content" })
+            createSlider.title({ title: 'Content' })
             createSlider.slider({
-                niceName: "Story Beginn",
-                valueName: "a",
+                niceName: 'Story Beginn',
+                valueName: 'a',
                 defaultValue: 0,
                 input: { min: -1, max: 1, step: 0.02 },
             })
             createSlider.slider({
-                niceName: "Story End",
-                valueName: "b",
+                niceName: 'Story End',
+                valueName: 'b',
                 defaultValue: 0,
                 input: { min: -1, max: 1, step: 0.02 },
             })
 
-            createSlider.title({ title: "Camera" })
+            createSlider.title({ title: 'Camera' })
             createSlider.slider({
-                niceName: "Camera",
-                valueName: "camera",
+                niceName: 'Camera',
+                valueName: 'camera',
                 defaultValue: 0,
                 input: { min: 0, max: 1, step: 0.02 },
             })
             createSlider.slider({
-                niceName: "Camera Alternative",
-                valueName: "altCamera",
+                niceName: 'Camera Alternative',
+                valueName: 'altCamera',
                 defaultValue: 0,
                 input: { min: 0, max: 1, step: 0.02 },
             })
 
-            createSlider.title({ title: "Actors" })
+            createSlider.title({ title: 'Actors' })
             createSlider.slider({
-                niceName: "Actors Size",
-                valueName: "actor-size",
+                niceName: 'Actors Size',
+                valueName: 'actor-size',
                 defaultValue: 0.5,
                 input: { min: -1, max: 1, step: 0.02 },
             })
             createSlider.slider({
-                niceName: "Actors Color",
-                valueName: "actor-color",
+                niceName: 'Actors Color',
+                valueName: 'actor-color',
                 defaultValue: 0,
                 input: { min: 0, max: 1, step: 0.02 },
             })
             createSlider.slider({
-                niceName: "Actors Proportion",
-                valueName: "actor-features",
+                niceName: 'Actors Proportion',
+                valueName: 'actor-features',
                 defaultValue: 0,
                 input: { min: 0, max: 1, step: 0.02 },
             })
             createSlider.slider({
-                niceName: "Actors Cloth",
-                valueName: "actor-accessoirs",
+                niceName: 'Actors Cloth',
+                valueName: 'actor-accessoirs',
                 defaultValue: 0,
                 input: { min: 0, max: 1, step: 0.02 },
             })
             createSlider.slider({
-                niceName: "Emotions",
-                valueName: "emotions",
+                niceName: 'Emotions',
+                valueName: 'emotions',
                 defaultValue: 0,
                 input: { min: 0, max: 1, step: 0.02 },
             })
 
-            createSlider.title({ title: "Environment" })
+            createSlider.title({ title: 'Environment' })
             createSlider.slider({
-                niceName: "Background",
-                valueName: "set",
+                niceName: 'Background',
+                valueName: 'set',
                 defaultValue: 0,
                 input: { min: 0, max: 1, step: 0.02 },
             })
             createSlider.slider({
-                niceName: "Props",
-                valueName: "props",
+                niceName: 'Props',
+                valueName: 'props',
                 defaultValue: 0,
                 input: { min: 0, max: 1, step: 0.02 },
             })
@@ -389,8 +389,8 @@ TableComic.prototype.getSizeWithRatio = function (args) {
         sX = this.pushLinkList({ r: ratio, useSize: sY })
     }
 
-    this[args.sXName || "sX"] = sX
-    this[args.sYName || "sY"] = sY
+    this[args.sXName || 'sX'] = sX
+    this[args.sYName || 'sY'] = sY
 }
 
 // TableComic.prototype.getSizeWithSizeXY = function ( args ) {
@@ -450,9 +450,9 @@ TableComic.prototype.getPosition = function (args) {
     this.x = false
     this.y = false
     if (info.pos) {
-        if (typeof info.pos === "number") {
+        if (typeof info.pos === 'number') {
             this.x = this.getRelativePosition(args.stageSX, info.pos)
-        } else if (typeof info.pos === "object") {
+        } else if (typeof info.pos === 'object') {
             obj = info.pos.obj
 
             this.x = this.pushLinkList({

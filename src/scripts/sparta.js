@@ -1,4 +1,4 @@
-import { helper } from "../renderengine/helper.js"
+import { helper } from '../renderengine/helper.js'
 
 export default function () {
     var help = helper,
@@ -23,13 +23,13 @@ export default function () {
         shieldShadow = shadow(shield),
         leftHalf = [
             {
-                sY: { r: 1, add: [sub("headHeight"), sub("legs"), -1] },
-                y: ["legs"],
+                sY: { r: 1, add: [sub('headHeight'), sub('legs'), -1] },
+                y: ['legs'],
                 sX: {
                     r: 0.6,
                     min: 2,
                     max: { r: 1, a: -1 },
-                    save: "torsoWidth",
+                    save: 'torsoWidth',
                 },
                 fY: true,
                 list: [
@@ -44,7 +44,7 @@ export default function () {
                             r: 0.5,
                             max: { r: 0.4, otherDim: true },
                             min: 1,
-                            save: "armWidth",
+                            save: 'armWidth',
                         },
                         sY: {
                             r: 1.5,
@@ -70,7 +70,7 @@ export default function () {
                     r: 0.8,
                     add: [{ r: -2, otherDim: true }],
                     min: { r: 0.4 },
-                    save: "legs",
+                    save: 'legs',
                 },
                 color: water,
                 fY: true,
@@ -111,7 +111,7 @@ export default function () {
                     add: [{ r: 2, otherDim: true }, { r: -0.1 }],
                     max: { r: 0.4 },
                     min: { r: 0.05, min: 3 },
-                    save: "headHeight",
+                    save: 'headHeight',
                 },
                 sX: { r: 0.5, min: 2 },
                 color: skin,
@@ -148,13 +148,13 @@ export default function () {
                         color: skinDetail,
                         x: { r: 0.1, min: 1 },
                         y: { r: 0.5 },
-                        sX: "eyeSize",
-                        sY: "eyeSize",
+                        sX: 'eyeSize',
+                        sY: 'eyeSize',
                     },
 
                     // Mouth
                     {
-                        sY: "mouthHeight",
+                        sY: 'mouthHeight',
                         color: skinDetail,
                         fY: true,
                         y: { r: 0.2 },
@@ -186,7 +186,7 @@ export default function () {
                         sY: 2,
                         y: -1,
                         cX: true,
-                        sX: [mult(2, "armWidth"), mult(2, "torsoWidth")],
+                        sX: [mult(2, 'armWidth'), mult(2, 'torsoWidth')],
                         fY: true,
                     },
                     { sX: { r: 0.5 }, rX: true, list: leftHalf },
@@ -228,7 +228,7 @@ export default function () {
         ],
         renderList = [
             {
-                m: "border",
+                m: 'border',
                 list: [
                     // { color:[255,0,0], gap:1, strip:{a:5, r:.005, random:{r:.1, add:[{r:.12, height:true}]} }, random:{r:-.9}, fY:true, list:person  }
                     {
@@ -244,19 +244,19 @@ export default function () {
             },
         ],
         variableList = {
-            "border": getSmallerDim({ r: 0.05 }),
-            "imgWidth": [{ r: 1 }, mult(-2, "border")],
-            "imgHeight": [{ r: 1, height: true }, mult(-2, "border")],
-            "imgSquare": getSmallerDim({
+            'border': getSmallerDim({ r: 0.05 }),
+            'imgWidth': [{ r: 1 }, mult(-2, 'border')],
+            'imgHeight': [{ r: 1, height: true }, mult(-2, 'border')],
+            'imgSquare': getSmallerDim({
                 r: 1,
-                useSize: ["imgWidth", "imgHeight"],
+                useSize: ['imgWidth', 'imgHeight'],
             }),
-            "imgSquareBigger": getBiggerDim({
+            'imgSquareBigger': getBiggerDim({
                 r: 1,
-                useSize: ["imgWidth", "imgHeight"],
+                useSize: ['imgWidth', 'imgHeight'],
             }),
-            "eyeSize": mult(0.002, "imgSquareBigger", 1),
-            "mouthHeight": "eyeSize",
+            'eyeSize': mult(0.002, 'imgSquareBigger', 1),
+            'mouthHeight': 'eyeSize',
         }
 
     return {

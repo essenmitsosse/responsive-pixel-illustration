@@ -1,4 +1,4 @@
-import { helper as helperGlobal } from "../renderengine/helper.js"
+import { helper as helperGlobal } from '../renderengine/helper.js'
 
 export default function (args, slide, createSlider) {
     var helper = helperGlobal,
@@ -562,7 +562,7 @@ export default function (args, slide, createSlider) {
                     list: [
                         {},
                         {
-                            use: "graieLeg" + i,
+                            use: 'graieLeg' + i,
                             chance: 0.1,
                             mask: true,
                             color: shadow,
@@ -570,7 +570,7 @@ export default function (args, slide, createSlider) {
                             sY: !hor ? (arm ? armSize : s) : undefined,
                         },
                         {
-                            save: "graieLeg" + i++,
+                            save: 'graieLeg' + i++,
                             minHeight: hor ? 3 : 0,
                             minX: hor ? 0 : 3,
                         },
@@ -667,7 +667,7 @@ export default function (args, slide, createSlider) {
                 },
             ]
         },
-        graie3butt = [{}, { name: "Dot", fY: true, color: graie3Shadow }],
+        graie3butt = [{}, { name: 'Dot', fY: true, color: graie3Shadow }],
         borderVert = [
             {},
             {
@@ -1209,13 +1209,13 @@ export default function (args, slide, createSlider) {
                                         c: true,
                                         list: [
                                             {
-                                                name: "RoundRect",
+                                                name: 'RoundRect',
                                                 x: -1,
                                                 sX: { r: 1, a: 1 },
                                                 sY: { r: 1, a: 1 },
                                                 color: breadDark,
                                             },
-                                            { name: "RoundRect" },
+                                            { name: 'RoundRect' },
                                             {
                                                 minX: breadHeight,
                                                 color: breadDark,
@@ -1777,11 +1777,11 @@ export default function (args, slide, createSlider) {
                                                                                     {},
                                                                                     {
                                                                                         chance: 0.05,
-                                                                                        use: "graie1Nose",
+                                                                                        use: 'graie1Nose',
                                                                                         color: graie1Shadow,
                                                                                     },
                                                                                     {
-                                                                                        save: "graie1Nose",
+                                                                                        save: 'graie1Nose',
                                                                                         minHeight: 3,
                                                                                     },
                                                                                 ],
@@ -2178,11 +2178,11 @@ export default function (args, slide, createSlider) {
                                                             {},
                                                             {
                                                                 chance: 0.2,
-                                                                use: "graie2Nose",
+                                                                use: 'graie2Nose',
                                                                 color: graie2Shadow,
                                                             },
                                                             {
-                                                                save: "graie2Nose",
+                                                                save: 'graie2Nose',
                                                             },
                                                             {
                                                                 sX: armShadow,
@@ -2274,11 +2274,11 @@ export default function (args, slide, createSlider) {
 
                                                     // Folds
                                                     {
-                                                        use: "graie2Folds",
+                                                        use: 'graie2Folds',
                                                         color: graie2Shadow,
                                                     },
                                                     {
-                                                        use: "graie2Folds",
+                                                        use: 'graie2Folds',
                                                         chance: 0.5,
                                                     },
                                                     {
@@ -2292,7 +2292,7 @@ export default function (args, slide, createSlider) {
                                                         color: graie2Shadow,
                                                         sY: { r: 0.3 },
                                                         y: { r: 0.4 },
-                                                        save: "graie2Folds",
+                                                        save: 'graie2Folds',
                                                     },
 
                                                     // Hair
@@ -2462,7 +2462,7 @@ export default function (args, slide, createSlider) {
                                                                                         fY: true,
                                                                                         tY: true,
                                                                                         cX: true,
-                                                                                        s: "graie3Breast",
+                                                                                        s: 'graie3Breast',
                                                                                     },
                                                                                 ],
                                                                             },
@@ -2514,11 +2514,11 @@ export default function (args, slide, createSlider) {
                                                                                             },
                                                                                             {
                                                                                                 color: graie3Detail,
-                                                                                                sY: "graie3Breast",
+                                                                                                sY: 'graie3Breast',
                                                                                                 sX: {
                                                                                                     r: 0.7,
                                                                                                     otherDim: true,
-                                                                                                    save: "graie3Breast",
+                                                                                                    save: 'graie3Breast',
                                                                                                 },
                                                                                                 x: -1,
                                                                                             },
@@ -2685,11 +2685,11 @@ export default function (args, slide, createSlider) {
                                                                                     {},
                                                                                     {
                                                                                         chance: 0.05,
-                                                                                        use: "graie3Nose",
+                                                                                        use: 'graie3Nose',
                                                                                         color: graie3Shadow,
                                                                                     },
                                                                                     {
-                                                                                        save: "graie3Nose",
+                                                                                        save: 'graie3Nose',
                                                                                     },
                                                                                     {
                                                                                         color: graie3Shadow,

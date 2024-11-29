@@ -47,9 +47,9 @@ Background.prototype.draw = function BackgroundDraw(args) {
     this.floorSY = this.pushLinkList({ r: 1, useSize: floorY })
 
     this.pushRelativeStandardAutomatic({
-        backgroundSY: { map: "set", min: 0, max: 1 },
-        borderFinalSY: { map: "set", min: 0, max: 1 },
-        floorSY: { map: "set", min: 0, max: 1 },
+        backgroundSY: { map: 'set', min: 0, max: 1 },
+        borderFinalSY: { map: 'set', min: 0, max: 1 },
+        floorSY: { map: 'set', min: 0, max: 1 },
     })
 
     this.borderFinalSY = this.pushLinkList({

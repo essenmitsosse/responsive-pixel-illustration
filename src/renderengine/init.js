@@ -1,20 +1,20 @@
-import { Admin } from "./admin.js"
-import { PixelGraphics } from "./info.js"
+import { Admin } from './admin.js'
+import { PixelGraphics } from './info.js'
 export const InitPixel = function (args) {
     var queryString = this.getQueryString(),
         showcase = (this.showcase = true),
         forceName = args.imageName || window.location.hash.substr(1),
         slides = showcase ? this.showcaseSlides : this.slides,
         currentSlide = !forceName && slides[queryString.slide || 0],
-        imageName = forceName || currentSlide.name || "tantalos",
+        imageName = forceName || currentSlide.name || 'tantalos',
         admin,
         sliders = queryString.sliders || currentSlide.sliders,
         div = args.div,
         canvasDataList = false, // change for multiple Canvases
         canvasRenderer = this.createSingleCanvas(canvasDataList, div),
         callback,
-        body = document.getElementsByTagName("body")[0],
-        main = document.getElementById("main")
+        body = document.getElementsByTagName('body')[0],
+        main = document.getElementById('main')
 
     this.parent = queryString.admin || queryString.parent
 
@@ -55,14 +55,14 @@ export const InitPixel = function (args) {
 
 InitPixel.prototype.getQueryString = function () {
     var list = {},
-        vars = location.search.substr(1).split("&"),
+        vars = location.search.substr(1).split('&'),
         i = 0,
         l = vars.length,
         pair,
         convert = function (value) {
-            if (value === "true") {
+            if (value === 'true') {
                 value = true
-            } else if (value === "false") {
+            } else if (value === 'false') {
                 value = false
             } else {
                 value = value * 1
@@ -71,7 +71,7 @@ InitPixel.prototype.getQueryString = function () {
         }
 
     while (i < l) {
-        pair = vars[i].split("=")
+        pair = vars[i].split('=')
         if (pair[0]) {
             list[pair[0]] = convert(pair[1])
         }
@@ -109,7 +109,7 @@ InitPixel.prototype.getQueryString = function () {
 
 // Create a new Canvas, add it to the div and return it
 InitPixel.prototype.createSingleCanvas = function (canvasData, div) {
-    var canvas = document.createElement("canvas"),
+    var canvas = document.createElement('canvas'),
         key
 
     canvas.resize = true
@@ -186,7 +186,7 @@ InitPixel.prototype.getCallback = function (
                 that.timerAnimation()
             }
         } else {
-            throw imageName + " was loaded but is not a function!"
+            throw imageName + ' was loaded but is not a function!'
         }
     }
 }
@@ -195,8 +195,8 @@ InitPixel.prototype.info = function (options) {
     var logs = [],
         initString,
         d = document,
-        body = d.getElementsByTagName("body")[0],
-        info = d.createElement("div"),
+        body = d.getElementsByTagName('body')[0],
+        info = d.createElement('div'),
         show = options.showInfos,
         swap = function () {
             if ((show = !show)) {
@@ -209,7 +209,7 @@ InitPixel.prototype.info = function (options) {
             logs[name] = value
         }
 
-    info.setAttribute("id", "infos")
+    info.setAttribute('id', 'infos')
     if (show) {
         body.appendChild(info)
     }
@@ -234,8 +234,8 @@ InitPixel.prototype.info = function (options) {
                 initTime * 5,
                 "px;'>",
                 initTime,
-                "ms<br>Init</span>",
-            ].join("")
+                'ms<br>Init</span>',
+            ].join('')
         },
         logRenderTime: function (draw, fullDuration) {
             var what,
@@ -244,37 +244,37 @@ InitPixel.prototype.info = function (options) {
                 string = []
 
             if (show) {
-                change("Duration", fullDuration + "ms")
-                change("fps", Math.floor(1000 / fullDuration) + "fps")
-                change("Average-Time", "false")
+                change('Duration', fullDuration + 'ms')
+                change('fps', Math.floor(1000 / fullDuration) + 'fps')
+                change('Average-Time', 'false')
 
                 for (what in lo) {
                     string.push(
-                        "<p><strong>",
+                        '<p><strong>',
                         what,
-                        ":</strong> ",
+                        ':</strong> ',
                         lo[what],
-                        "</p>",
+                        '</p>',
                     )
                 }
 
                 string.push(
-                    "<p>",
+                    '<p>',
                     initString,
                     "<span class='drawing' style='width:",
                     draw * 5,
                     "px;'>",
                     draw,
-                    "ms<br>Drawing</span>",
+                    'ms<br>Drawing</span>',
                     "<span style='width:",
                     render * 5,
                     "px;'>",
                     render,
-                    "ms<br>Render</span>",
-                    "</p>",
+                    'ms<br>Render</span>',
+                    '</p>',
                 )
 
-                info.innerHTML = string.join("")
+                info.innerHTML = string.join('')
             }
         },
     }
@@ -309,11 +309,11 @@ InitPixel.prototype.refresh = function (event) {
 
     for (key in q) {
         if (q[key] !== undefined) {
-            newString.push(key + "=" + q[key])
+            newString.push(key + '=' + q[key])
         }
     }
 
-    location.search = newString.join("&")
+    location.search = newString.join('&')
 }
 
 InitPixel.prototype.nextSlide = function (next) {
@@ -378,7 +378,7 @@ InitPixel.prototype.toggleResizability = function (value) {
 
     if (this.toggleResizabilityButton) {
         this.toggleResizabilityButton.innerHTML =
-            (resizeable ? "scaleable" : "not scaleable") +
+            (resizeable ? 'scaleable' : 'not scaleable') +
             "<span class='shortcut'>CTRL+S</span>"
     }
 }
@@ -388,12 +388,12 @@ InitPixel.prototype.getDocumentTitle = function (imageName, queryString) {
 
     // add resizeable to the title
     if (queryString.resizeable) {
-        name += " resizeable"
+        name += ' resizeable'
     }
 
     // Display the id for the Seedable Random Number Generator in the title;
     if (queryString.id) {
-        name += " (" + queryString.id + ")"
+        name += ' (' + queryString.id + ')'
     }
 
     // Display the imageName as the title
@@ -587,136 +587,136 @@ InitPixel.prototype.getTimerAnimation = function () {
 
 InitPixel.prototype.showcaseSlides = [
     {
-        name: "graien",
-        niceName: "The Three Graeae",
-        import: () => import("../scripts/graien.js"),
+        name: 'graien',
+        niceName: 'The Three Graeae',
+        import: () => import('../scripts/graien.js'),
         resizeable: true,
         unchangeable: true,
         sliders: true,
     },
     {
-        name: "tantalos",
-        niceName: "Tantalos",
-        import: () => import("../scripts/tantalos.js"),
+        name: 'tantalos',
+        niceName: 'Tantalos',
+        import: () => import('../scripts/tantalos.js'),
         resizeable: true,
     },
     {
-        name: "teiresias",
-        niceName: "Teiresias",
-        import: () => import("../scripts/teiresias.js"),
+        name: 'teiresias',
+        niceName: 'Teiresias',
+        import: () => import('../scripts/teiresias.js'),
         resizeable: true,
     },
     {
-        name: "brothers",
-        niceName: "Brothers",
-        import: () => import("../scripts/brothers.js"),
+        name: 'brothers',
+        niceName: 'Brothers',
+        import: () => import('../scripts/brothers.js'),
         resizeable: true,
     },
     {
-        name: "zeus",
-        niceName: "Zeus",
-        import: () => import("../scripts/zeus.js"),
+        name: 'zeus',
+        niceName: 'Zeus',
+        import: () => import('../scripts/zeus.js'),
         resizeable: true,
     },
     {
-        name: "argos",
-        niceName: "The Argos",
-        import: () => import("../scripts/argos.js"),
+        name: 'argos',
+        niceName: 'The Argos',
+        import: () => import('../scripts/argos.js'),
         resizeable: true,
     },
     {
-        name: "sphinx",
-        niceName: "The Sphinx",
-        import: () => import("../scripts/sphinx.js"),
+        name: 'sphinx',
+        niceName: 'The Sphinx',
+        import: () => import('../scripts/sphinx.js'),
         resizeable: true,
     },
     {
-        name: "letter",
-        niceName: "Letter",
-        import: () => import("../scripts/letter.js"),
+        name: 'letter',
+        niceName: 'Letter',
+        import: () => import('../scripts/letter.js'),
         unchangeable: true,
         both: true,
     },
     {
-        name: "persons_lessrandom",
-        niceName: "Trees",
-        import: () => import("../scripts/builder/init.js"),
+        name: 'persons_lessrandom',
+        niceName: 'Trees',
+        import: () => import('../scripts/builder/init.js'),
         hasRandom: true,
     },
     {
-        name: "persons_lessrandom",
-        niceName: "Persons",
-        import: () => import("../scripts/builder/init.js"),
+        name: 'persons_lessrandom',
+        niceName: 'Persons',
+        import: () => import('../scripts/builder/init.js'),
         sliders: true,
         showPerson: true,
         hasRandom: true,
     },
     {
-        name: "panels",
-        niceName: "Panels",
-        import: () => import("../scripts/builder-old/init-panels.js"),
+        name: 'panels',
+        niceName: 'Panels',
+        import: () => import('../scripts/builder-old/init-panels.js'),
         unchangeable: true,
         sliders: true,
         hasRandom: true,
     },
     {
-        name: "turnaround",
-        niceName: "Turnaround",
-        import: () => import("../scripts/betterBuilder/init.js"),
+        name: 'turnaround',
+        niceName: 'Turnaround',
+        import: () => import('../scripts/betterBuilder/init.js'),
         unchangeable: true,
         sliders: true,
         hasRandom: true,
     },
     {
-        name: "table2",
-        niceName: "Comic 2",
-        import: () => import("../scripts/tableComic2/init.js"),
+        name: 'table2',
+        niceName: 'Comic 2',
+        import: () => import('../scripts/tableComic2/init.js'),
         unchangeable: true,
         sliders: true,
         hasRandom: true,
     },
     {
-        name: "relativity",
-        niceName: "Relativity",
-        import: () => import("../scripts/relativity.js"),
+        name: 'relativity',
+        niceName: 'Relativity',
+        import: () => import('../scripts/relativity.js'),
         resizeable: true,
     },
     {
-        name: "stripes",
-        niceName: "Stripe",
-        import: () => import("../scripts/stripes.js"),
+        name: 'stripes',
+        niceName: 'Stripe',
+        import: () => import('../scripts/stripes.js'),
         resizeable: true,
     },
     {
-        name: "landscape",
-        niceName: "Landscape",
-        import: () => import("../scripts/landscape.js"),
+        name: 'landscape',
+        niceName: 'Landscape',
+        import: () => import('../scripts/landscape.js'),
         resizeable: true,
         hasRandom: true,
     },
     {
-        name: "sparta",
-        niceName: "Sparta",
-        import: () => import("../scripts/sparta.js"),
+        name: 'sparta',
+        niceName: 'Sparta',
+        import: () => import('../scripts/sparta.js'),
         resizeable: true,
     },
     {
-        name: "trex",
-        niceName: "T-Rex",
-        import: () => import("../scripts/trex.js"),
+        name: 'trex',
+        niceName: 'T-Rex',
+        import: () => import('../scripts/trex.js'),
         resizeable: true,
     },
     {
-        name: "typo",
-        niceName: "Typo",
-        import: () => import("../scripts/typo.js"),
+        name: 'typo',
+        niceName: 'Typo',
+        import: () => import('../scripts/typo.js'),
         resizeable: true,
     },
     {
-        name: "random-distribution",
-        niceName: "Random",
+        name: 'random-distribution',
+        niceName: 'Random',
         hasRandom: true,
-        import: () => import("../scripts/random-distribution.js"),
+        import: () => import('../scripts/random-distribution.js'),
         resizeable: true,
     },
 ]

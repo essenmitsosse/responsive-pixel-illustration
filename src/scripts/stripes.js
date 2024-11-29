@@ -1,4 +1,4 @@
-import { helper as helperGlobal } from "../renderengine/helper.js"
+import { helper as helperGlobal } from '../renderengine/helper.js'
 
 export default function (args, init, createSlider) {
     var helper = helperGlobal,
@@ -88,7 +88,7 @@ export default function (args, init, createSlider) {
                 obj = {}
 
             while (i < count) {
-                obj["s" + i] = stripRealSX
+                obj['s' + i] = stripRealSX
                 i += 1
             }
 
@@ -102,12 +102,12 @@ export default function (args, init, createSlider) {
             while (i < max) {
                 list.push({
                     sY: [singleSY, -1],
-                    sX: sizes["s" + i],
+                    sX: sizes['s' + i],
                     y: { r: i, useSize: singleSY, a: 1 },
                     x: 1,
                     list: [
                         { color: [50, 50, 60] },
-                        { m: 1, mask: true, list: versions(sizes["s" + i])[i] },
+                        { m: 1, mask: true, list: versions(sizes['s' + i])[i] },
                     ],
                 })
                 i += 1
@@ -148,11 +148,11 @@ export default function (args, init, createSlider) {
     // 	letterSquare
     // );
 
-    pushChanger(0, 1, "master", stripRealRelSX)
+    pushChanger(0, 1, 'master', stripRealRelSX)
     if (createSlider) {
         createSlider.slider({
-            niceName: "Steifen Master",
-            valueName: "master",
+            niceName: 'Steifen Master',
+            valueName: 'master',
             defaultValue: 1,
             input: { min: 0, max: 1, step: 0.01 },
         })

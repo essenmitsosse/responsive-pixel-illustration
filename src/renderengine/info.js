@@ -1,7 +1,7 @@
-import { Renderer } from "./renderer.js"
+import { Renderer } from './renderer.js'
 
-import { getPixelUnits } from "./pixel.js"
-import { DrawingTools } from "./creator.js"
+import { getPixelUnits } from './pixel.js'
+import { DrawingTools } from './creator.js'
 
 var startTime = Date.now()
 export const PixelGraphics = function (options) {
@@ -162,8 +162,8 @@ PixelGraphics.prototype.initUserInput = function (
             mouseMove(event.changedTouches[0], true)
         }
 
-    canvas.addEventListener("mousemove", mouseMove, false)
-    canvas.addEventListener("touchmove", touchMove, false)
+    canvas.addEventListener('mousemove', mouseMove, false)
+    canvas.addEventListener('touchmove', touchMove, false)
 
     if (
         !queryString.admin &&
@@ -264,73 +264,73 @@ PixelGraphics.prototype.getOrientation = function (
 
     for (key in sliderValues) {
         if (names.length < 4) {
-            if (key !== "width" && key !== "height" && key !== "panels") {
+            if (key !== 'width' && key !== 'height' && key !== 'panels') {
                 names.push(key)
             }
         }
     }
 
     if (names.length > 0) {
-        window.addEventListener("deviceorientation", realTilt, true)
+        window.addEventListener('deviceorientation', realTilt, true)
     }
 }
 
 PixelGraphics.prototype.getDebug = function () {
-    var info = document.createElement("div"),
-        text = document.createElement("div"),
-        center = document.createElement("div"),
-        oriX = document.createElement("div"),
-        oriY = document.createElement("div"),
-        oriZ = document.createElement("div"),
-        bonus = document.createElement("div")
+    var info = document.createElement('div'),
+        text = document.createElement('div'),
+        center = document.createElement('div'),
+        oriX = document.createElement('div'),
+        oriY = document.createElement('div'),
+        oriZ = document.createElement('div'),
+        bonus = document.createElement('div')
 
-    info.setAttribute("id", "infoField")
+    info.setAttribute('id', 'infoField')
 
-    center.setAttribute("id", "marker")
-    center.setAttribute("class", "center")
+    center.setAttribute('id', 'marker')
+    center.setAttribute('class', 'center')
     info.appendChild(center)
 
-    oriX.setAttribute("class", "marker acc")
-    oriX.innerHTML = "x: rotation"
+    oriX.setAttribute('class', 'marker acc')
+    oriX.innerHTML = 'x: rotation'
     info.appendChild(oriX)
 
-    oriY.setAttribute("class", "marker speed")
-    oriY.innerHTML = "y: back/forth"
+    oriY.setAttribute('class', 'marker speed')
+    oriY.innerHTML = 'y: back/forth'
     info.appendChild(oriY)
 
-    oriZ.setAttribute("class", "marker pos")
-    oriZ.innerHTML = "z: kippen"
+    oriZ.setAttribute('class', 'marker pos')
+    oriZ.innerHTML = 'z: kippen'
     info.appendChild(oriZ)
 
-    bonus.setAttribute("class", "marker bonus")
-    bonus.innerHTML = "."
+    bonus.setAttribute('class', 'marker bonus')
+    bonus.innerHTML = '.'
     info.appendChild(bonus)
 
     info.appendChild(text)
-    text.innerHTML = "init done."
+    text.innerHTML = 'init done.'
 
-    document.getElementsByTagName("body")[0].appendChild(info)
+    document.getElementsByTagName('body')[0].appendChild(info)
 
     return function (x, y, z, a) {
-        oriX.setAttribute("style", "left:" + x * 100 + "%;")
-        oriY.setAttribute("style", "top:" + y * 100 + "%;")
+        oriX.setAttribute('style', 'left:' + x * 100 + '%;')
+        oriY.setAttribute('style', 'top:' + y * 100 + '%;')
         oriZ.setAttribute(
-            "style",
-            "left:" + z * 100 + "%; top:" + z * 100 + "%;",
+            'style',
+            'left:' + z * 100 + '%; top:' + z * 100 + '%;',
         )
         // bonus.setAttribute( "style", "left:" + Math.floor( test * 100 ) + "%;" );
 
         text.innerHTML =
-            "X: " +
+            'X: ' +
             x +
-            ";</br>" +
-            "Y: " +
+            ';</br>' +
+            'Y: ' +
             y +
-            ";</br>" +
-            "Z: " +
+            ';</br>' +
+            'Z: ' +
             z +
-            ";</br>" +
-            "soften " +
+            ';</br>' +
+            'soften ' +
             a
     }
 }
@@ -348,7 +348,7 @@ PixelGraphics.prototype.prepareVariableList = function (vl) {
                 if (current.main) {
                     current.calculated = true
                     current.real =
-                        dimensions[current.height ? "height" : "width"]
+                        dimensions[current.height ? 'height' : 'width']
                 } else {
                     current.calculated = current.autoUpdate
                 }

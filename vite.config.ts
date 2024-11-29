@@ -1,12 +1,12 @@
-import { resolve } from "path"
+import { resolve } from 'path'
 
-import { defineConfig } from "vite"
+import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 const viteConfig = defineConfig({
     resolve: {
         alias: {
-            "@": resolve(__dirname, "./src"),
+            '@': resolve(__dirname, './src'),
         },
     },
 })

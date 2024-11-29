@@ -1,4 +1,4 @@
-import { helper } from "../renderengine/helper.js"
+import { helper } from '../renderengine/helper.js'
 
 export default function (args) {
     args = args || {}
@@ -49,32 +49,32 @@ export default function (args) {
         c4 = colorScheme[3],
         renderList = [
             {
-                m: "borderS",
+                m: 'borderS',
                 list: [
-                    { color: [c3, c4][dayNight], use: "sky" },
+                    { color: [c3, c4][dayNight], use: 'sky' },
                     clouds === 0
                         ? dayNight === 1
-                            ? { color: c2, use: "sky", chance: 0.01 }
+                            ? { color: c2, use: 'sky', chance: 0.01 }
                             : {
                                   color: c2,
-                                  use: "sky",
+                                  use: 'sky',
                                   chance: 0.02,
                                   sX: { a: 1, random: { r: 0.1 } },
                               }
                         : undefined,
-                    { save: "sky" },
+                    { save: 'sky' },
                     {
-                        s: "sunS",
+                        s: 'sunS',
                         color: c2,
-                        x: "sunPosX",
-                        y: "sunPosY",
-                        id: "sun",
+                        x: 'sunPosX',
+                        y: 'sunPosY',
+                        id: 'sun',
                         list: [
                             // Sun
-                            { name: "Dot", clear: true },
-                            { name: "Dot", clear: true, fX: true },
-                            { name: "Dot", clear: true, fY: true },
-                            { name: "Dot", clear: true, fX: true, fY: true },
+                            { name: 'Dot', clear: true },
+                            { name: 'Dot', clear: true, fX: true },
+                            { name: 'Dot', clear: true, fY: true },
+                            { name: 'Dot', clear: true, fX: true, fY: true },
                             dayNight === 1
                                 ? {
                                       s: { r: 0.4 },
@@ -88,9 +88,9 @@ export default function (args) {
                     },
                     {
                         color: [c2, c3][dayNight],
-                        y: "horizontSY",
+                        y: 'horizontSY',
                         fY: true,
-                        sY: "mountainSY",
+                        sY: 'mountainSY',
                         minY: 1,
                         list: [
                             // Mountains
@@ -108,7 +108,7 @@ export default function (args) {
                         ],
                     },
                     {
-                        sY: "horizontSY",
+                        sY: 'horizontSY',
                         fY: true,
                         color: [c2, c3, c2, c3][dayNight + sunPos],
                     }, // Ground
@@ -134,37 +134,37 @@ export default function (args) {
             {
                 color: c4,
                 list: [
-                    { sY: "borderS" },
-                    { sY: "borderS", fY: true },
-                    { sX: "borderS" },
-                    { sX: "borderS", fX: true },
+                    { sY: 'borderS' },
+                    { sY: 'borderS', fY: true },
+                    { sX: 'borderS' },
+                    { sX: 'borderS', fX: true },
                 ],
             },
         ],
         variableList = {
-            "width": { r: 1 },
-            "height": { r: 1, height: true },
-            "squ": { a: "width", max: "height" },
+            'width': { r: 1 },
+            'height': { r: 1, height: true },
+            'squ': { a: 'width', max: 'height' },
 
-            "borderS": { r: 0.03, a: 1, useSize: "squ", min: 1 },
+            'borderS': { r: 0.03, a: 1, useSize: 'squ', min: 1 },
 
-            "imgSX": ["width", mult(-2, "borderS")],
-            "imgSY": ["height", mult(-2, "borderS")],
+            'imgSX': ['width', mult(-2, 'borderS')],
+            'imgSY': ['height', mult(-2, 'borderS')],
 
-            "imgSqu": getSmallerDim({ r: 1, useSize: ["imgSX", "imgSY"] }),
+            'imgSqu': getSmallerDim({ r: 1, useSize: ['imgSX', 'imgSY'] }),
 
-            "horizontSY": {
+            'horizontSY': {
                 r: [0.1, 0.25, 0.5, 0.7][sunPos + clouds],
-                useSize: "imgSY",
+                useSize: 'imgSY',
             },
-            "mountainSY": { r: [0, 0.6][mountains], useSize: "imgSqu" },
+            'mountainSY': { r: [0, 0.6][mountains], useSize: 'imgSqu' },
 
-            "skySY": ["imgSY", sub("horizontSY")],
-            "skyMountainSY": ["skySY", mult(-0.5, "mountainSY")],
+            'skySY': ['imgSY', sub('horizontSY')],
+            'skyMountainSY': ['skySY', mult(-0.5, 'mountainSY')],
 
-            "sunPosX": { r: [0.2, 0.6][sunPos] },
-            "sunPosY": { r: [0.1, 0.5][sunPos], useSize: "skyMountainSY" },
-            "sunS": mult(0.15, "imgSqu"),
+            'sunPosX': { r: [0.2, 0.6][sunPos] },
+            'sunPosY': { r: [0.1, 0.5][sunPos], useSize: 'skyMountainSY' },
+            'sunS': mult(0.15, 'imgSqu'),
         }
 
     // ( function ( maxChance, count, variations ) {

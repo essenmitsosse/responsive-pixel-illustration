@@ -34,7 +34,7 @@ export const getPixelUnits = function () {
             Dimension.prototype.prepare = function (args) {
                 var objType = typeof args
 
-                if (objType === "object") {
+                if (objType === 'object') {
                     // is Object
 
                     if (args.constructor === Array) {
@@ -56,7 +56,7 @@ export const getPixelUnits = function () {
 
                     this.debug = args.debug
 
-                    if (typeof args.a === "string") {
+                    if (typeof args.a === 'string') {
                         variableListLink(args.a, this)
                     }
 
@@ -65,7 +65,7 @@ export const getPixelUnits = function () {
                     }
 
                     if (args.useSize) {
-                        if (typeof args.useSize === "string") {
+                        if (typeof args.useSize === 'string') {
                             variableListLink(args.useSize, (this.useVari = {}))
                         } else if (args.useSize.getLinkedVariable) {
                             this.useSize = args.useSize.getLinkedVariable
@@ -107,7 +107,7 @@ export const getPixelUnits = function () {
                 } else {
                     // Short Hand Variables
 
-                    if (objType === "number") {
+                    if (objType === 'number') {
                         if (this.dimension) {
                             // No calculation, just return Number
                             this.simplify(args)
@@ -116,7 +116,7 @@ export const getPixelUnits = function () {
                             this.abs = args
                             this.rele = 0
                         }
-                    } else if (objType === "string") {
+                    } else if (objType === 'string') {
                         // Linked to Variable ( old style )
                         variableListLink(args, this)
                         this.rele = 0
@@ -195,7 +195,7 @@ export const getPixelUnits = function () {
                     adder.push(new Size(add[l]))
                 }
 
-                this[onlyAdd ? "realPartCalculation" : "getRealDistance"] =
+                this[onlyAdd ? 'realPartCalculation' : 'getRealDistance'] =
                     onlyAdd
                         ? this.getRealDistanceWithCalcOnlyAdding
                         : this.getRealDistanceWithCalc
@@ -279,9 +279,9 @@ export const getPixelUnits = function () {
                     ? function () {
                           var a,
                               realMin =
-                                  typeof min === "number" ? min : min.getReal(),
+                                  typeof min === 'number' ? min : min.getReal(),
                               realMax =
-                                  typeof max === "number" ? max : max.getReal()
+                                  typeof max === 'number' ? max : max.getReal()
 
                           return (a = this.getRealDistance()) > realMax
                               ? realMax < realMin
@@ -295,7 +295,7 @@ export const getPixelUnits = function () {
                       ? function () {
                             var a,
                                 realMax =
-                                    typeof max === "number"
+                                    typeof max === 'number'
                                         ? max
                                         : max.getReal()
                             return (a = this.getRealDistance()) > realMax
@@ -305,7 +305,7 @@ export const getPixelUnits = function () {
                       : function () {
                             var a,
                                 realMin =
-                                    typeof min === "number"
+                                    typeof min === 'number'
                                         ? min
                                         : min.getReal()
                             return (a = this.getRealDistance()) < realMin

@@ -1,6 +1,6 @@
-import { helper as helperGlobal } from "../../renderengine/helper.js"
-import { Object } from "./object.js"
-import { Arm, Shield, ShoulderPad, Sword, Tool } from "./person-arm.js"
+import { helper as helperGlobal } from '../../renderengine/helper.js'
+import { Object } from './object.js'
+import { Arm, Shield, ShoulderPad, Sword, Tool } from './person-arm.js'
 import {
     Beard,
     Eye,
@@ -11,9 +11,9 @@ import {
     Helm,
     Horns,
     Mouth,
-} from "./person-head.js"
-import { Belt, Leg, LowerBody, Skirt } from "./person-lowerBody.js"
-import { Person, BasicBody, Logo } from "./person-main.js"
+} from './person-head.js'
+import { Belt, Leg, LowerBody, Skirt } from './person-lowerBody.js'
+import { Person, BasicBody, Logo } from './person-main.js'
 import {
     Buttons,
     Cape,
@@ -24,8 +24,8 @@ import {
     Stripes,
     Suspenders,
     UpperBody,
-} from "./person-upperBody.js"
-import { TreeFamily, Forrest, Tree } from "./tree.js"
+} from './person-upperBody.js'
+import { TreeFamily, Forrest, Tree } from './tree.js'
 
 export const Builder = function (init) {
     var helper = (this.helper = helperGlobal),

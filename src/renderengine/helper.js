@@ -195,7 +195,7 @@ export const helper = new (function () {
                         if ((currentSize = this[key])) {
                             // Assignment
                             currentInfo = info[key]
-                            if (typeof currentInfo === "object") {
+                            if (typeof currentInfo === 'object') {
                                 if (currentInfo.map !== undefined) {
                                     pushRelativeStandard(
                                         currentInfo.min, // max
@@ -229,7 +229,7 @@ export const helper = new (function () {
                     somethingToChange = false
 
                 for (key in args) {
-                    if (key !== "width" && key !== "height") {
+                    if (key !== 'width' && key !== 'height') {
                         somethingToChange = true
                         break
                     }

@@ -1,7 +1,11 @@
 {
   "editor.rulers": [80],
   "editor.minimap.maxColumn": 80,
-  "eslint.format.enable": true,
+
+  // This ensures all ESLint errors are displayed as warnings to make them
+  // easier to separate from TypeScript errors
+  "eslint.rules.customizations": [{ "rule": "*", "severity": "warn" }],
+
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "css.customData": [".vscode/cssCustom.json"],

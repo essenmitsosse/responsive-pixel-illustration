@@ -6,6 +6,9 @@
     // ESLint
     "dbaeumer.vscode-eslint",
 
+    // GitHub Actions
+    "formulahendry.github-actions",
+
     // Prettier
     "esbenp.prettier-vscode",
 

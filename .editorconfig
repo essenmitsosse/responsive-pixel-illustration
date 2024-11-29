@@ -6,6 +6,6 @@ insert_final_newline = true
 indent_style = space
 indent_size = 2
 
-[{*.js, *.ts, *.css, *.scss, *.html}]
+[{*.js,*.ts,*.css,*.scss,*.html}]
 indent_style = tab
 indent_size = 4

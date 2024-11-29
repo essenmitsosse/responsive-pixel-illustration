@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 8000",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "play": "playwright test",
     "preview": "vite preview",
     "prettier": "prettier --write .",
@@ -27,6 +27,7 @@
     "http-server": "^14.1.1",
     "playwright": "^1.49.0",
     "prettier": "^3.3.3",
+    "typescript": "~5.6.2",
     "vite": "^6.0.1"
   },
   "dependencies": {

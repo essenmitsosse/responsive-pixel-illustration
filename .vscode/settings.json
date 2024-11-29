@@ -8,13 +8,5 @@
 
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.preferences.importModuleSpecifier": "non-relative",
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "css.customData": [".vscode/cssCustom.json"],
-  "editor.quickSuggestions": {
-    "strings": true
-  },
-  "files.associations": {
-    "*.xml": "html",
-    "*.svg": "html"
-  }
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

@@ -142,29 +142,29 @@ export default function (args) {
             },
         ],
         variableList = {
-            'width': { r: 1 },
-            'height': { r: 1, height: true },
-            'squ': { a: 'width', max: 'height' },
+            width: { r: 1 },
+            height: { r: 1, height: true },
+            squ: { a: 'width', max: 'height' },
 
-            'borderS': { r: 0.03, a: 1, useSize: 'squ', min: 1 },
+            borderS: { r: 0.03, a: 1, useSize: 'squ', min: 1 },
 
-            'imgSX': ['width', mult(-2, 'borderS')],
-            'imgSY': ['height', mult(-2, 'borderS')],
+            imgSX: ['width', mult(-2, 'borderS')],
+            imgSY: ['height', mult(-2, 'borderS')],
 
-            'imgSqu': getSmallerDim({ r: 1, useSize: ['imgSX', 'imgSY'] }),
+            imgSqu: getSmallerDim({ r: 1, useSize: ['imgSX', 'imgSY'] }),
 
-            'horizontSY': {
+            horizontSY: {
                 r: [0.1, 0.25, 0.5, 0.7][sunPos + clouds],
                 useSize: 'imgSY',
             },
-            'mountainSY': { r: [0, 0.6][mountains], useSize: 'imgSqu' },
+            mountainSY: { r: [0, 0.6][mountains], useSize: 'imgSqu' },
 
-            'skySY': ['imgSY', sub('horizontSY')],
-            'skyMountainSY': ['skySY', mult(-0.5, 'mountainSY')],
+            skySY: ['imgSY', sub('horizontSY')],
+            skyMountainSY: ['skySY', mult(-0.5, 'mountainSY')],
 
-            'sunPosX': { r: [0.2, 0.6][sunPos] },
-            'sunPosY': { r: [0.1, 0.5][sunPos], useSize: 'skyMountainSY' },
-            'sunS': mult(0.15, 'imgSqu'),
+            sunPosX: { r: [0.2, 0.6][sunPos] },
+            sunPosY: { r: [0.1, 0.5][sunPos], useSize: 'skyMountainSY' },
+            sunS: mult(0.15, 'imgSqu'),
         }
 
     // ( function ( maxChance, count, variations ) {

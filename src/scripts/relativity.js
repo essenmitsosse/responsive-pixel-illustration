@@ -43,13 +43,13 @@ export default function () {
             },
         ],
         variableList = {
-            'border': { r: 0.1, height: true },
-            'imgHeight': {
+            border: { r: 0.1, height: true },
+            imgHeight: {
                 r: 1,
                 height: true,
                 add: [{ r: -2, useSize: 'border' }],
             },
-            's': { height: true, r: 0.15, useSize: 'imgHeight' },
+            s: { height: true, r: 0.15, useSize: 'imgHeight' },
         }
 
     return {

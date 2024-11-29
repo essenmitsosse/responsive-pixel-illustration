@@ -1265,67 +1265,67 @@ export default function () {
         imgDims = ['imgSX', 'imgSY'],
         motiveDims = ['motiveSX', 'motiveSY'],
         variableList = {
-            'width': { r: 1 },
-            'height': { r: 1, height: true },
-            'squ': { a: 'width', max: 'height' },
+            width: { r: 1 },
+            height: { r: 1, height: true },
+            squ: { a: 'width', max: 'height' },
 
-            'borderSX': { r: 0.03, a: 1, useSize: 'squ', min: 1 },
+            borderSX: { r: 0.03, a: 1, useSize: 'squ', min: 1 },
 
-            'imgSX': ['width', mult(-2, 'borderSX')],
-            'imgSY': ['height', mult(-2, 'borderSX')],
+            imgSX: ['width', mult(-2, 'borderSX')],
+            imgSY: ['height', mult(-2, 'borderSX')],
 
-            'imgSqu': getSmallerDim({ r: 1, useSize: imgDims }),
+            imgSqu: getSmallerDim({ r: 1, useSize: imgDims }),
 
-            'imgPadding': mult(0.1, 'imgSqu'),
+            imgPadding: mult(0.1, 'imgSqu'),
 
-            'motiveSX': ['imgSX', mult(-2, 'imgPadding')],
-            'motiveSY': ['imgSY', mult(-2, 'imgPadding')],
+            motiveSX: ['imgSX', mult(-2, 'imgPadding')],
+            motiveSY: ['imgSY', mult(-2, 'imgPadding')],
 
-            'motiveSqu': getSmallerDim({ r: 1, useSize: motiveDims }),
-            'motiveSquBigger': getBiggerDim({ r: 1, useSize: motiveDims }),
+            motiveSqu: getSmallerDim({ r: 1, useSize: motiveDims }),
+            motiveSquBigger: getBiggerDim({ r: 1, useSize: motiveDims }),
 
-            'restSX': ['motiveSX', sub('motiveSqu')],
-            'restSXSuper': {
+            restSX: ['motiveSX', sub('motiveSqu')],
+            restSXSuper: {
                 add: ['restSX', mult(-0.5, 'motiveSqu')],
                 min: { a: 0 },
             },
-            'restSXMega': {
+            restSXMega: {
                 add: ['restSX', mult(-1.5, 'motiveSqu')],
                 min: { a: 0 },
             },
 
-            'restSY': ['motiveSY', sub('motiveSqu')],
-            'restSYSuper': {
+            restSY: ['motiveSY', sub('motiveSqu')],
+            restSYSuper: {
                 add: ['restSY', mult(-0.5, 'motiveSqu')],
                 min: { a: 0 },
             },
-            'restSYMega': {
+            restSYMega: {
                 add: ['restSY', mult(-1.5, 'motiveSqu')],
                 min: { a: 0 },
             },
 
-            'restSquBigger': getBiggerDim({
+            restSquBigger: getBiggerDim({
                 r: 1,
                 useSize: ['restSX', 'restSY'],
             }),
 
-            'squary': {
+            squary: {
                 add: ['motiveSqu', sub('restSquBigger')],
                 min: { a: 0 },
             },
-            'squarySuper': {
+            squarySuper: {
                 add: ['squary', mult(-0.5, 'motiveSqu')],
                 min: { a: 0 },
             },
 
             // EARS
-            'earLength': {
+            earLength: {
                 add: [mult(0.2, 'restSXSuper'), mult(-0.4, 'restSXMega')],
                 min: zero,
             },
 
             // HEAD
-            'headSX': {
+            headSX: {
                 add: [
                     mult(0.2, 'motiveSqu'),
                     mult(0.15, 'squarySuper'),
@@ -1334,7 +1334,7 @@ export default function () {
                 ],
                 max: 'motiveSX',
             },
-            'headSY': {
+            headSY: {
                 add: [
                     mult(1.333, 'headSX'),
                     mult(-0.5, 'squarySuper'),
@@ -1342,7 +1342,7 @@ export default function () {
                 ],
                 max: ['motiveSY', mult(-0.2, 'motiveSY')],
             },
-            'headRight': {
+            headRight: {
                 add: [
                     mult(0.5, 'motiveSX'),
                     mult(-0.5, 'headSX'),
@@ -1353,26 +1353,26 @@ export default function () {
                 ],
                 min: 'earLength',
             },
-            'headTop': mult(1.5, 'squarySuper'),
-            'headBottom': ['motiveSY', sub('headTop'), sub('headSY')],
+            headTop: mult(1.5, 'squarySuper'),
+            headBottom: ['motiveSY', sub('headTop'), sub('headSY')],
 
-            'beardLength': mult(0.5, 'restSYSuper'),
-            'beardWidth': {
+            beardLength: mult(0.5, 'restSYSuper'),
+            beardWidth: {
                 r: 0.4,
                 useSize: 'restSYSuper',
                 a: -2,
                 max: mult(0.05, 'motiveSquBigger'),
             },
 
-            'beak': [mult(0.2, 'squarySuper')],
+            beak: [mult(0.2, 'squarySuper')],
 
             // BODY
-            'birdTop': mult(0.8, 'squarySuper'),
-            'bodyRight': {
+            birdTop: mult(0.8, 'squarySuper'),
+            bodyRight: {
                 add: ['headSX', mult(-0.5, 'restSY')],
                 min: 'earLength',
             },
-            'bodyTop': {
+            bodyTop: {
                 add: [
                     'headSY',
                     mult(0.4, 'squarySuper'),
@@ -1381,11 +1381,11 @@ export default function () {
                 ],
                 min: { a: 0 },
             },
-            'bodySX': ['motiveSX', sub('bodyRight')],
-            'bodySY': { add: ['motiveSY', sub('bodyTop')] },
+            bodySX: ['motiveSX', sub('bodyRight')],
+            bodySY: { add: ['motiveSY', sub('bodyTop')] },
 
             // LEGS
-            'legSY': {
+            legSY: {
                 a: 'restSX',
                 max: [
                     mult(-1.2, 'squarySuper'),
@@ -1394,12 +1394,12 @@ export default function () {
                 ],
                 min: { a: 0 },
             },
-            'legSX': {
+            legSX: {
                 r: 1,
                 useSize: 'bodySX',
                 add: [mult(-0.1, 'restSXSuper')],
             },
-            'humanLegSY': {
+            humanLegSY: {
                 r: -0.5,
                 useSize: 'squarySuper',
                 a: 'restSY',
@@ -1408,30 +1408,30 @@ export default function () {
             },
 
             // SNAKE BODY
-            'snakeGap': {
+            snakeGap: {
                 add: [mult(0.15, 'restSXMega')],
                 max: mult(0.7, 'bodySY'),
             },
-            'snake': { add: ['bodySY', sub('snakeGap')] },
-            'halfPeriod': ['snakeGap', 'snake'],
-            'snakePeriod': mult(2, 'halfPeriod'),
-            'snakeEdge': ['snake', -1],
-            'snakeInnerEdge': ['snakeGap', -1],
-            'snakeInnerEdge2': ['halfPeriod', -1],
+            snake: { add: ['bodySY', sub('snakeGap')] },
+            halfPeriod: ['snakeGap', 'snake'],
+            snakePeriod: mult(2, 'halfPeriod'),
+            snakeEdge: ['snake', -1],
+            snakeInnerEdge: ['snakeGap', -1],
+            snakeInnerEdge2: ['halfPeriod', -1],
 
             // ARM
-            'armSX': { add: [mult(0.2, 'restSY')], max: mult(0.2, 'bodySX') },
-            'armSY': ['restSY', mult(-1, 'squary')],
-            'arm': mult(0.1, 'motiveSqu'),
+            armSX: { add: [mult(0.2, 'restSY')], max: mult(0.2, 'bodySX') },
+            armSY: ['restSY', mult(-1, 'squary')],
+            arm: mult(0.1, 'motiveSqu'),
 
             // LEG
-            'leg': mult(0.02, 'motiveSquBigger'),
+            leg: mult(0.02, 'motiveSquBigger'),
 
             // TORSO Y
-            'torsoSY': ['bodySY', sub('legSY'), sub('humanLegSY')],
+            torsoSY: ['bodySY', sub('legSY'), sub('humanLegSY')],
 
             // TAIL
-            'tailSX': {
+            tailSX: {
                 add: [
                     mult(0.3, 'squarySuper'),
                     mult(0.1, 'restSX'),
@@ -1442,8 +1442,8 @@ export default function () {
             },
 
             // TORSO X
-            'torsoSX': ['bodySX', mult(-2, 'armSX'), sub('tailSX')],
-            'torsoLeft': 'armSX',
+            torsoSX: ['bodySX', mult(-2, 'armSX'), sub('tailSX')],
+            torsoLeft: 'armSX',
         }
     return {
         renderList: renderList,

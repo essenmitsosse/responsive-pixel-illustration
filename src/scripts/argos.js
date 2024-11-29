@@ -1088,63 +1088,63 @@ export default function () {
             },
         ],
         variableList = {
-            'fullRect': { r: 1, max: { r: 1, height: true } },
+            fullRect: { r: 1, max: { r: 1, height: true } },
 
             // BORDER
-            'border': { a: 0 },
-            'borderSub': sub('border'),
+            border: { a: 0 },
+            borderSub: sub('border'),
 
             // MOTIVE
-            'motiveSX': { add: [{ r: 1 }, mult(-2, 'border')] },
-            'motiveSY': [{ r: 1, height: true }, mult(-2, 'border')],
+            motiveSX: { add: [{ r: 1 }, mult(-2, 'border')] },
+            motiveSY: [{ r: 1, height: true }, mult(-2, 'border')],
 
-            'motiveSqu': getSmallerDim({
+            motiveSqu: getSmallerDim({
                 r: 1,
                 useSize: ['motiveSX', 'motiveSY'],
             }),
-            'motiveSquBigger': getBiggerDim({
+            motiveSquBigger: getBiggerDim({
                 r: 1,
                 useSize: ['motiveSX', 'motiveSY'],
             }),
 
-            'gridY': {
+            gridY: {
                 add: [
                     { r: 0.04, useSize: 'motiveSqu' },
                     { r: 0.04, useSize: 'motiveSquBigger' },
                 ],
                 min: 5,
             },
-            'gridYReal': ['gridY', -1],
-            'gridYNeg': sub('gridYReal'),
-            'gridX': { r: 2, useSize: 'gridY' },
+            gridYReal: ['gridY', -1],
+            gridYNeg: sub('gridYReal'),
+            gridX: { r: 2, useSize: 'gridY' },
 
-            'waterSY': { a: 20, max: mult(0.2, 'motiveSY'), min: 1 },
-            'airSY': ['motiveSY', sub('waterSY')],
+            waterSY: { a: 20, max: mult(0.2, 'motiveSY'), min: 1 },
+            airSY: ['motiveSY', sub('waterSY')],
 
             // BOAT
-            'boatSX': ['motiveSX', -2],
-            'boatSY': { r: 0.4, useSize: 'airSY', min: 1, max: ['airSY', -8] },
-            'deckTarget': 10,
-            'deckSY': { r: 0.75, useSize: 'boatSY', max: 'deckTarget' },
+            boatSX: ['motiveSX', -2],
+            boatSY: { r: 0.4, useSize: 'airSY', min: 1, max: ['airSY', -8] },
+            deckTarget: 10,
+            deckSY: { r: 0.75, useSize: 'boatSY', max: 'deckTarget' },
 
-            'mastSY': { add: ['airSY', sub('boatSY'), -1] },
-            'mastSX': 2,
+            mastSY: { add: ['airSY', sub('boatSY'), -1] },
+            mastSX: 2,
 
-            'backSX': { r: 0.1, a: 5, useSize: 'boatSX' },
-            'frontSX': [
+            backSX: { r: 0.1, a: 5, useSize: 'boatSX' },
+            frontSX: [
                 { r: 0.2, a: 5, useSize: 'boatSX' },
                 { r: 0.2, useSize: 'boatSY' },
             ],
-            'innerShipSX': ['boatSX', sub('frontSX'), sub('backSX')],
+            innerShipSX: ['boatSX', sub('frontSX'), sub('backSX')],
 
-            'ramFullSX': {
+            ramFullSX: {
                 r: 0.5,
                 add: [mult(0.2, 'boatSY')],
                 useSize: 'frontSX',
             },
-            'ramDiag': { r: 0.6, useSize: 'ramFullSX' },
-            'ramUpperSX': ['ramFullSX', sub('ramDiag')],
-            'ramFaceSlopSX': ['ramFullSX', sub('ramUpperSX')],
+            ramDiag: { r: 0.6, useSize: 'ramFullSX' },
+            ramUpperSX: ['ramFullSX', sub('ramDiag')],
+            ramFaceSlopSX: ['ramFullSX', sub('ramUpperSX')],
         }
 
     return {

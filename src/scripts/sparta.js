@@ -244,19 +244,19 @@ export default function () {
             },
         ],
         variableList = {
-            'border': getSmallerDim({ r: 0.05 }),
-            'imgWidth': [{ r: 1 }, mult(-2, 'border')],
-            'imgHeight': [{ r: 1, height: true }, mult(-2, 'border')],
-            'imgSquare': getSmallerDim({
+            border: getSmallerDim({ r: 0.05 }),
+            imgWidth: [{ r: 1 }, mult(-2, 'border')],
+            imgHeight: [{ r: 1, height: true }, mult(-2, 'border')],
+            imgSquare: getSmallerDim({
                 r: 1,
                 useSize: ['imgWidth', 'imgHeight'],
             }),
-            'imgSquareBigger': getBiggerDim({
+            imgSquareBigger: getBiggerDim({
                 r: 1,
                 useSize: ['imgWidth', 'imgHeight'],
             }),
-            'eyeSize': mult(0.002, 'imgSquareBigger', 1),
-            'mouthHeight': 'eyeSize',
+            eyeSize: mult(0.002, 'imgSquareBigger', 1),
+            mouthHeight: 'eyeSize',
         }
 
     return {

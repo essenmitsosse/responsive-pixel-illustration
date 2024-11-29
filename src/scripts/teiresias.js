@@ -1343,86 +1343,86 @@ export default function () {
         imgDims = ['imgWidth', 'imgheight'],
         motiveDims = ['motiveWidth', 'motiveheight'],
         variableList = {
-            'fullRect': { r: 1, max: { r: 1, height: true } },
-            'borderWidth': { r: 0.06, a: 1, useSize: 'fullRect', min: 1 },
-            'borderInner': ['borderWidth', -4],
-            'dekoOffset': mult(0.4, 'borderInner'),
-            'dekoheight': ['borderWidth', -2, sub('dekoOffset')],
-            'bigEdgeSize': mult(2, 'borderWidth'),
+            fullRect: { r: 1, max: { r: 1, height: true } },
+            borderWidth: { r: 0.06, a: 1, useSize: 'fullRect', min: 1 },
+            borderInner: ['borderWidth', -4],
+            dekoOffset: mult(0.4, 'borderInner'),
+            dekoheight: ['borderWidth', -2, sub('dekoOffset')],
+            bigEdgeSize: mult(2, 'borderWidth'),
 
-            'imgWidth': [{ r: 1 }, mult(-2, 'borderWidth')],
-            'imgheight': [{ r: 1, height: true }, mult(-2, 'borderWidth')],
+            imgWidth: [{ r: 1 }, mult(-2, 'borderWidth')],
+            imgheight: [{ r: 1, height: true }, mult(-2, 'borderWidth')],
 
-            'imgSqu': getSmallerDim({ r: 1, useSize: imgDims }),
-            'imgSquBigger': getBiggerDim({ r: 1, useSize: imgDims }),
+            imgSqu: getSmallerDim({ r: 1, useSize: imgDims }),
+            imgSquBigger: getBiggerDim({ r: 1, useSize: imgDims }),
 
-            'imgPadding': mult(0.05, 'imgSqu'),
+            imgPadding: mult(0.05, 'imgSqu'),
 
-            'motiveWidth': ['imgWidth', mult(-2, 'imgPadding')],
-            'motiveheight': ['imgheight', mult(-2, 'imgPadding')],
+            motiveWidth: ['imgWidth', mult(-2, 'imgPadding')],
+            motiveheight: ['imgheight', mult(-2, 'imgPadding')],
 
-            'motiveSqu': getSmallerDim({ r: 1, useSize: motiveDims }),
-            'motiveSquBigger': getBiggerDim({ r: 1, useSize: motiveDims }),
+            motiveSqu: getSmallerDim({ r: 1, useSize: motiveDims }),
+            motiveSquBigger: getBiggerDim({ r: 1, useSize: motiveDims }),
 
-            'sXRest': { add: ['motiveWidth', sub('motiveSqu')], min: 0 },
-            'sYRest': { add: ['motiveheight', sub('motiveSqu')], min: 0 },
+            sXRest: { add: ['motiveWidth', sub('motiveSqu')], min: 0 },
+            sYRest: { add: ['motiveheight', sub('motiveSqu')], min: 0 },
 
-            'teiresias': { a: 'motiveSqu', max: mult(0.6, 'motiveSquBigger') },
-            'teiresiasX': mult(0.1, 'sXRest'),
-            'teiresiasY': mult(0.1, 'sYRest'),
+            teiresias: { a: 'motiveSqu', max: mult(0.6, 'motiveSquBigger') },
+            teiresiasX: mult(0.1, 'sXRest'),
+            teiresiasY: mult(0.1, 'sYRest'),
 
-            'armLength': mult(0.2, 'teiresias'),
-            'armWeight': { r: 0.025, useSize: 'teiresias', min: 1 },
+            armLength: mult(0.2, 'teiresias'),
+            armWeight: { r: 0.025, useSize: 'teiresias', min: 1 },
 
-            'maxStick': mult(0.3, 'teiresias'),
-            'stickLeft': { r: 0.5, useSize: 'sXRest', max: 'maxStick' },
-            'stickRight': { r: 0.5, useSize: 'sYRest', max: 'maxStick' },
-            'stickWeight': { r: 0.03, useSize: 'teiresias', min: 1 },
-            'stickPoint': [mult(0.85, 'stickLeft'), mult(0.15, 'stickRight')],
+            maxStick: mult(0.3, 'teiresias'),
+            stickLeft: { r: 0.5, useSize: 'sXRest', max: 'maxStick' },
+            stickRight: { r: 0.5, useSize: 'sYRest', max: 'maxStick' },
+            stickWeight: { r: 0.03, useSize: 'teiresias', min: 1 },
+            stickPoint: [mult(0.85, 'stickLeft'), mult(0.15, 'stickRight')],
 
-            'torsoY': { r: torsoTop, useSize: 'teiresias' },
-            'torsoheight': { r: 0.2, useSize: 'teiresias' },
-            'torsoBottom': ['torsoY', 'torsoheight'],
+            torsoY: { r: torsoTop, useSize: 'teiresias' },
+            torsoheight: { r: 0.2, useSize: 'teiresias' },
+            torsoBottom: ['torsoY', 'torsoheight'],
 
-            'legLength': mult(1.3, 'armLength'),
+            legLength: mult(1.3, 'armLength'),
 
-            'handSize': mult(1.5, 'stickWeight', 1),
-            'halfHandSizeNeg': mult(-0.5, 'handSize'),
-            'handLeft': [mult(0.8, 'stickLeft'), mult(0.2, 'stickRight')],
-            'handRight': [mult(0.2, 'stickLeft'), mult(0.8, 'stickRight')],
+            handSize: mult(1.5, 'stickWeight', 1),
+            halfHandSizeNeg: mult(-0.5, 'handSize'),
+            handLeft: [mult(0.8, 'stickLeft'), mult(0.2, 'stickRight')],
+            handRight: [mult(0.2, 'stickLeft'), mult(0.8, 'stickRight')],
 
-            'torsoMargin': { r: torsoMargin, useSize: 'teiresias' },
+            torsoMargin: { r: torsoMargin, useSize: 'teiresias' },
 
-            'feetLeftX': 'torsoMargin',
-            'feetRightX': { r: 0.2, useSize: 'teiresias' },
+            feetLeftX: 'torsoMargin',
+            feetRightX: { r: 0.2, useSize: 'teiresias' },
 
-            'feetLeftY': { a: 0 },
-            'feetRightY': {
+            feetLeftY: { a: 0 },
+            feetRightY: {
                 r: 0.2,
                 useSize: 'teiresias',
                 add: [sub('sYRest')],
                 min: 2,
             },
 
-            'kneeRightX': [
+            kneeRightX: [
                 'feetRightX',
                 { add: [mult(-0.5, 'sYRest')], min: { r: -0.02 } },
             ],
-            'kneeRightY': ['feetRightY', 'legLength'],
+            kneeRightY: ['feetRightY', 'legLength'],
 
-            'kneeLeftX': [
+            kneeLeftX: [
                 'feetLeftX',
                 { add: [mult(-0.5, 'sYRest')], min: { r: -0.1 } },
             ],
-            'kneeLeftY': ['feetLeftY', 'legLength'],
+            kneeLeftY: ['feetLeftY', 'legLength'],
 
-            'skirtRightX': [mult(0.5, 'feetRightX'), mult(0.5, 'kneeRightX')],
-            'skirtRightY': [mult(0.5, 'feetRightY'), mult(0.5, 'kneeRightY')],
+            skirtRightX: [mult(0.5, 'feetRightX'), mult(0.5, 'kneeRightX')],
+            skirtRightY: [mult(0.5, 'feetRightY'), mult(0.5, 'kneeRightY')],
 
-            'skirtLeftX': [mult(0.5, 'feetLeftX'), mult(0.5, 'kneeLeftX')],
-            'skirtLeftY': [mult(0.5, 'feetLeftY'), mult(0.5, 'kneeLeftY')],
+            skirtLeftX: [mult(0.5, 'feetLeftX'), mult(0.5, 'kneeLeftX')],
+            skirtLeftY: [mult(0.5, 'feetLeftY'), mult(0.5, 'kneeLeftY')],
 
-            'snakeheight': {
+            snakeheight: {
                 add: ['motiveheight', sub('teiresias'), sub('teiresiasY')],
                 min: {
                     add: [mult(0.3, 'motiveSquBigger')],
@@ -1431,37 +1431,37 @@ export default function () {
                 },
                 max: mult(0.3, 'motiveheight'),
             },
-            'snakeWidth': {
+            snakeWidth: {
                 add: ['motiveWidth', sub('teiresias'), sub('teiresiasX')],
                 min: {
                     add: [mult(0.5, 'motiveSquBigger')],
                     max: { a: 'motiveWidth' },
                 },
             },
-            'snakeSqu': getSmallerDim({
+            snakeSqu: getSmallerDim({
                 r: 1,
                 useSize: ['snakeheight', 'snakeWidth'],
             }),
-            'snakeWeight': { r: 0.07, useSize: 'snakeSqu', min: 1 },
+            snakeWeight: { r: 0.07, useSize: 'snakeSqu', min: 1 },
 
-            'snakeheightMargin': ['snakeheight'],
-            'snakeWidthMargin': ['snakeWidth', mult(-2, 'snakeWeight')],
+            snakeheightMargin: ['snakeheight'],
+            snakeWidthMargin: ['snakeWidth', mult(-2, 'snakeWeight')],
 
-            'snakePeriode': [{ r: 2, useSize: 'snakeWeight', a: 2 }],
-            'snakePeriodeHalf': mult(0.5, 'snakePeriode'),
-            'snakeOffset': {
+            snakePeriode: [{ r: 2, useSize: 'snakeWeight', a: 2 }],
+            snakePeriodeHalf: mult(0.5, 'snakePeriode'),
+            snakeOffset: {
                 r: 1,
                 useSize: 'snakeWeight',
                 a: 1,
                 max: mult(0.1, 'snakeheight'),
             },
-            'snakeheightReal': ['snakeheightMargin', sub('snakeOffset')],
+            snakeheightReal: ['snakeheightMargin', sub('snakeOffset')],
 
-            'snakeHeadSize': { r: 1.5, useSize: 'snakeWeight', min: 2 },
-            'snakeTongueLength': { r: 0.7, useSize: 'snakeHeadSize', min: 2 },
+            snakeHeadSize: { r: 1.5, useSize: 'snakeWeight', min: 2 },
+            snakeTongueLength: { r: 0.7, useSize: 'snakeHeadSize', min: 2 },
 
-            'snakeDetailSize': ['snakeWeight', -2],
-            'snakeHeadPos': {
+            snakeDetailSize: ['snakeWeight', -2],
+            snakeHeadPos: {
                 add: [
                     mult(0.5, 'snakeheight'),
                     mult(-1.5, 'snakeHeadSize'),
@@ -1471,7 +1471,7 @@ export default function () {
                 min: { a: 0 },
             },
 
-            'treeRandom': mult(0.1, 'imgheight'),
+            treeRandom: mult(0.1, 'imgheight'),
         }
 
     return {

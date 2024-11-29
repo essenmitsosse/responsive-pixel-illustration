@@ -1,6 +1,6 @@
 /** @type {import('prettier').Config} */
 const configPrettier = {
-  quoteProps: 'preserve',
+  quoteProps: 'consistent',
   semi: false,
   singleQuote: true,
   trailingComma: 'all',

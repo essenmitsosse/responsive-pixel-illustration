@@ -9,7 +9,6 @@ export const PixelGraphics = function (options) {
 		pU = this.getPixelUnits(); // Initialize PixelUnits with Variables
 
 	this.pixelUnits = pU;
-	this.socket = options.socket;
 
 	this.createVariableList(options.imageFunction.variableList || []);
 	if (options.imageFunction.linkList) {
@@ -37,7 +36,7 @@ export const PixelGraphics = function (options) {
 				options.sliderValues,
 				options.queryString,
 				options.defaultValues,
-				{ dontHighlight: true, forceSliders: true },
+				{ dontHighlight: true },
 			),
 		);
 
@@ -100,15 +99,14 @@ PixelGraphics.prototype.getResize = function (options, info, render) {
 };
 
 PixelGraphics.prototype.getRedraw = function redraw(options, resize, isParent) {
-	var socket = options.socket,
-		hoverEvent = options.imageFunction.hover,
+	var hoverEvent = options.imageFunction.hover,
 		sliderObject = options.sliderObject;
 
 	return function redraw(args) {
 		var key,
 			first = !args.dontHighlight;
 
-		if (args.forceSliders && sliderObject) {
+		if (sliderObject) {
 			for (key in args) {
 				if (sliderObject[key]) {
 					sliderObject[key](args[key], first);
@@ -117,12 +115,7 @@ PixelGraphics.prototype.getRedraw = function redraw(options, resize, isParent) {
 			}
 		}
 
-		// Send to other clients
-		if (socket && isParent && !args.isServer) {
-			socket.emit("redraw", JSON.stringify(args));
-		} else if (!socket) {
-			options.init.addToQueryString(args, true);
-		}
+		options.init.addToQueryString(args, true);
 
 		if (hoverEvent) {
 			hoverEvent(args);
@@ -150,10 +143,10 @@ PixelGraphics.prototype.initUserInput = function (
 
 			redraw(
 				size
-					? { width: x, height: y, forceSliders: true }
+					? { width: x, height: y }
 					: alt
-						? { c: x, d: y, forceSliders: true }
-						: { a: x, b: y, forceSliders: true },
+						? { c: x, d: y }
+						: { a: x, b: y },
 			);
 		},
 		mouseMove = function (event, size) {
@@ -197,9 +190,7 @@ PixelGraphics.prototype.getOrientation = function (
 				x = event.alpha,
 				y = event.beta,
 				z = event.gamma,
-				obj = {
-					forceSliders: true,
-				};
+				obj = {};
 
 			if ((x = Math.floor(x)) !== lastX) {
 				lastX = x;

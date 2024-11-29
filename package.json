@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 8000",
-    "build": "tsc && vite build",
+    "build": "vite build",
+    "ts": "tsc",
     "play": "playwright test",
     "preview": "vite preview",
     "prettier": "prettier --write .",

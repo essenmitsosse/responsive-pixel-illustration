@@ -1,4 +1,4 @@
-import { helper as helperGlobal } from "../renderengine/helper.js";
+import { helper as helperGlobal } from "../renderengine/helper.js"
 
 export default function (args, init, createSlider) {
     var helper = helperGlobal,
@@ -7,9 +7,9 @@ export default function (args, init, createSlider) {
         backgroundColor = [100, 100, 120],
         linkList = [],
         linkListPush = function (obj) {
-            linkList.push(obj);
+            linkList.push(obj)
 
-            return obj;
+            return obj
         },
         white = [220, 220, 255],
         red = [220, 50, 40],
@@ -81,23 +81,23 @@ export default function (args, init, createSlider) {
                 // 	{ color: red, sX: { r: 0.3, min: { r: 4, useSize: innerSingleSY } } },
                 // 	{ color: white, x: stripSX, sX: { add: [ { r: 0.4, useSize: innerSingleSY }, { r: 0.4, useSize: size }, -20 ], min: whiteSX } }
                 // ],
-            ];
+            ]
         },
         sizes = (function (count) {
             var i = 0,
-                obj = {};
+                obj = {}
 
             while (i < count) {
-                obj["s" + i] = stripRealSX;
-                i += 1;
+                obj["s" + i] = stripRealSX
+                i += 1
             }
 
-            return obj;
+            return obj
         })(count),
         getSquares = function (args) {
             var list = [],
                 i = 0,
-                max = count;
+                max = count
 
             while (i < max) {
                 list.push({
@@ -109,11 +109,11 @@ export default function (args, init, createSlider) {
                         { color: [50, 50, 60] },
                         { m: 1, mask: true, list: versions(sizes["s" + i])[i] },
                     ],
-                });
-                i += 1;
+                })
+                i += 1
             }
 
-            return list;
+            return list
         },
         renderList = [
             {
@@ -139,7 +139,7 @@ export default function (args, init, createSlider) {
                 color: [255, 0, 0],
                 list: getSquares({ horizontal: false }),
             },
-        ];
+        ]
 
     // pushChanger(
     // 	0,
@@ -148,14 +148,14 @@ export default function (args, init, createSlider) {
     // 	letterSquare
     // );
 
-    pushChanger(0, 1, "master", stripRealRelSX);
+    pushChanger(0, 1, "master", stripRealRelSX)
     if (createSlider) {
         createSlider.slider({
             niceName: "Steifen Master",
             valueName: "master",
             defaultValue: 1,
             input: { min: 0, max: 1, step: 0.01 },
-        });
+        })
     }
 
     // console.log( serifeSX_ );
@@ -167,5 +167,5 @@ export default function (args, init, createSlider) {
         hover: hover.hover,
         changeValueSetter: hover.ready,
         recommendedPixelSize: 6,
-    };
+    }
 }

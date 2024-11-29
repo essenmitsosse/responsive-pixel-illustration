@@ -1,4 +1,4 @@
-import { helper } from "../renderengine/helper.js";
+import { helper } from "../renderengine/helper.js"
 
 export default function () {
     var help = helper,
@@ -1234,11 +1234,11 @@ export default function () {
                 r: 0.02,
                 useSize: ["sBodySX", "sBodySY"],
             }),
-        };
+        }
 
     return {
         renderList: renderList,
         variableList: variableList,
         background: backgroundColor,
-    };
+    }
 }

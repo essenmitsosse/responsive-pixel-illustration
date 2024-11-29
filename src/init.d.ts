@@ -1,5 +1,5 @@
 declare module "@/renderengine/init" {
     export class InitPixel {
-        constructor(args: { div: HTMLElement | null });
+        constructor(args: { div: HTMLElement | null })
     }
 }

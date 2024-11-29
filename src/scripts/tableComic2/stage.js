@@ -2,26 +2,26 @@
 // BEGINN Background /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Background = function Background(args) {
     var floorFactor = 0.8,
-        borderFactor = 0.9;
+        borderFactor = 0.9
 
-    this.blank = args.blank;
+    this.blank = args.blank
 
-    this.backgroundColor = args.backgroundColor || [180, 190, 200];
+    this.backgroundColor = args.backgroundColor || [180, 190, 200]
     this.floorColor = [
         this.backgroundColor[0] * floorFactor,
         this.backgroundColor[1] * floorFactor,
         this.backgroundColor[2] * floorFactor,
-    ];
+    ]
     this.borderColor = [
         this.backgroundColor[0] * borderFactor,
         this.backgroundColor[1] * borderFactor,
         this.backgroundColor[2] * borderFactor,
-    ];
+    ]
 
     this.floor = new this.basic.Floor({
         color: this.floorColor,
-    });
-};
+    })
+}
 
 Background.prototype.draw = function BackgroundDraw(args) {
     var borderSY = this.pushLinkList({
@@ -41,28 +41,28 @@ Background.prototype.draw = function BackgroundDraw(args) {
         })),
         floorY = this.pushLinkList({
             add: [args.panY, { r: 0.2, useSize: args.stageSX }],
-        });
+        })
 
-    this.backgroundSY = this.pushLinkList({ r: 1, useSize: args.fullSY });
-    this.floorSY = this.pushLinkList({ r: 1, useSize: floorY });
+    this.backgroundSY = this.pushLinkList({ r: 1, useSize: args.fullSY })
+    this.floorSY = this.pushLinkList({ r: 1, useSize: floorY })
 
     this.pushRelativeStandardAutomatic({
         backgroundSY: { map: "set", min: 0, max: 1 },
         borderFinalSY: { map: "set", min: 0, max: 1 },
         floorSY: { map: "set", min: 0, max: 1 },
-    });
+    })
 
     this.borderFinalSY = this.pushLinkList({
         r: 1,
         useSize: this.borderFinalSY,
         min: 1,
-    });
+    })
 
     if (args.info) {
         this.pushRelativeStandardAutomatic({
             borderFinalSY: args.info.zoom,
             stripeFinalSX: args.info.zoom,
-        });
+        })
     }
 
     return {
@@ -100,21 +100,21 @@ Background.prototype.draw = function BackgroundDraw(args) {
                 ],
             },
         ],
-    };
-};
+    }
+}
 // END Background \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Floor /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Floor = function Floor(args) {
-    var darkFactor = 0.9;
+    var darkFactor = 0.9
 
-    this.color = args.color;
+    this.color = args.color
     this.darkColor = [
         this.color[0] * darkFactor,
         this.color[1] * darkFactor,
         this.color[2] * darkFactor,
-    ];
-};
+    ]
+}
 
 Floor.prototype.draw = function FloorDraw(args) {
     if (args.horizontal) {
@@ -131,14 +131,14 @@ Floor.prototype.draw = function FloorDraw(args) {
                     },
                 },
             ],
-        };
+        }
     } else {
         var stripes = {
                 center: true,
                 strip: args.sY || { r: 0.22, useSize: args.stageSX },
                 mask: true,
             },
-            list = [{ sX: 1 }];
+            list = [{ sX: 1 }]
 
         return {
             color: this.color,
@@ -170,27 +170,27 @@ Floor.prototype.draw = function FloorDraw(args) {
                     ],
                 },
             ],
-        };
+        }
     }
-};
+}
 // END Floor \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Stage /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Stage = function Stage(args) {
     if (!args) {
-        args = {};
+        args = {}
     }
 
-    this.show = args.show;
+    this.show = args.show
 
     // // Stage always has to be at 0 because it has nothing to be relative to. Use panX/panY to move camera.
-    this.x = this.pushLinkList({ a: 0 });
-    this.y = this.pushLinkList({ a: 0 });
-};
+    this.x = this.pushLinkList({ a: 0 })
+    this.y = this.pushLinkList({ a: 0 })
+}
 
 Stage.prototype.draw = function StageDraw(args) {
-    this.sX = args.stageSX;
-    this.sY = args.stageSY;
+    this.sX = args.stageSX
+    this.sY = args.stageSY
 
     return (
         this.debug && {
@@ -229,6 +229,6 @@ Stage.prototype.draw = function StageDraw(args) {
                 { sX: 1, fX: true },
             ],
         }
-    );
-};
+    )
+}
 // END Stage \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/

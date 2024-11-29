@@ -1,4 +1,4 @@
-import { helper as helperGlobal } from "../renderengine/helper.js";
+import { helper as helperGlobal } from "../renderengine/helper.js"
 
 /* global helper */
 export default function () {
@@ -38,9 +38,9 @@ export default function () {
         // Variables
         linkList = [],
         linkListPush = function (obj) {
-            linkList.push(obj);
+            linkList.push(obj)
 
-            return obj;
+            return obj
         },
         sXMain = linkListPush({ main: true }),
         sYMain = linkListPush({ main: true, height: true }),
@@ -110,7 +110,7 @@ export default function () {
                 r: rel,
                 useSize: height ? movementSY : movementSX,
                 min: min ? 1 : undefined,
-            });
+            })
         },
         handSX_ = getBodyPartSize(handRel, false, true),
         handSY_ = getBodyPartSize(handRel, true, true),
@@ -416,7 +416,7 @@ export default function () {
         teiresias = function (reflect) {
             var skinColor = reflect ? skinWater : skin,
                 skinShadowColor = reflect ? skinWater : skinShadow,
-                shortsColor = reflect ? shortsWater : shorts;
+                shortsColor = reflect ? shortsWater : shorts
 
             return {
                 color: skinColor,
@@ -616,7 +616,7 @@ export default function () {
                         ],
                     },
                 ],
-            };
+            }
         },
         trunkObj = function (shadowColor, hor, vert) {
             return [
@@ -632,7 +632,7 @@ export default function () {
                     list: [{}, { color: shadowColor, sY: { r: 0.9 } }],
                 },
                 { sY: 2, fY: true, color: shadowColor },
-            ];
+            ]
         },
         mainImage = function () {
             return [
@@ -856,7 +856,7 @@ export default function () {
                     x: fruitX,
                     y: fruitY,
                 },
-            ];
+            ]
         },
         border = function () {
             var edgeDetail = [
@@ -976,7 +976,7 @@ export default function () {
                             },
                         ],
                     },
-                ];
+                ]
 
             return {
                 color: borderColor,
@@ -1035,18 +1035,18 @@ export default function () {
                         ],
                     },
                 ],
-            };
+            }
         },
         renderList = [
             // Image
             { list: mainImage() },
             border(),
         ],
-        backgroundColor = [31, 29, 29];
+        backgroundColor = [31, 29, 29]
 
     return {
         renderList: renderList,
         linkList: linkList,
         background: backgroundColor,
-    };
+    }
 }

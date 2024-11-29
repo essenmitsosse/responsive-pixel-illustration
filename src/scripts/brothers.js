@@ -1,4 +1,4 @@
-import { helper } from "../renderengine/helper.js";
+import { helper } from "../renderengine/helper.js"
 
 export default function () {
     var help = helper,
@@ -77,7 +77,7 @@ export default function () {
                         },
                         fY: true,
                     },
-                ];
+                ]
             return {
                 list: [
                     // BEARD
@@ -196,7 +196,7 @@ export default function () {
                         ],
                     },
                 ],
-            };
+            }
         },
         mustach = function (hades) {
             var mustachHalf = [
@@ -211,7 +211,7 @@ export default function () {
                     sY: { r: 0.5 },
                     stripes: { random: "beardSmallDetail", strip: 2 },
                 },
-            ];
+            ]
 
             return [
                 { sX: "mustachHalf", fX: true, list: mustachHalf },
@@ -220,7 +220,7 @@ export default function () {
                     rX: true,
                     list: mustachHalf,
                 },
-            ];
+            ]
         },
         eyes = function (color, hair, hades) {
             var eye = [
@@ -243,7 +243,7 @@ export default function () {
                     y: -1,
                     sX: { r: 0.8 },
                 },
-            ];
+            ]
 
             return {
                 color: color,
@@ -257,7 +257,7 @@ export default function () {
                         list: eye,
                     },
                 ],
-            };
+            }
         },
         getOthers = function (posei, skin, hair, cloth, background) {
             var clothShadow = !posei ? cloth : shadow(cloth),
@@ -275,7 +275,7 @@ export default function () {
                 ],
                 rightShoulder = { r: -0.3 },
                 headRatio = posei ? 1.2 : 0.8,
-                leftShoulder = { r: -1, useSize: "torsoSY" };
+                leftShoulder = { r: -1, useSize: "torsoSY" }
 
             return [
                 { color: background },
@@ -552,7 +552,7 @@ export default function () {
                 },
 
                 // { fX:true, tX:true, color:backgroundColor, sX:["borderSmall",1] }
-            ];
+            ]
         },
         hair = [
             {
@@ -677,7 +677,7 @@ export default function () {
                           fX: true,
                       }
                     : undefined,
-            ];
+            ]
         },
         edgeBig = [
             { color: backgroundColor },
@@ -724,7 +724,7 @@ export default function () {
         ],
         areaStrip = { strip: "strip", gap: 1, horizontal: true },
         areaPiece = function (who) {
-            var hades = who === "hades";
+            var hades = who === "hades"
 
             return [
                 {},
@@ -805,7 +805,7 @@ export default function () {
                               },
                           ],
                       },
-            ];
+            ]
         },
         sideBorder = [
             {
@@ -1524,11 +1524,11 @@ export default function () {
                 sub("borderSmallInner"),
                 sub("borderSmallMargin"),
             ],
-        };
+        }
 
     return {
         renderList: renderList,
         variableList: variableList,
         background: backgroundColor,
-    };
+    }
 }

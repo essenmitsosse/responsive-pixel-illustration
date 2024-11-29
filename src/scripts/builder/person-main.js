@@ -1,35 +1,35 @@
-import { Object } from "./object.js";
+import { Object } from "./object.js"
 
 /* global Builder */
 
 // PERSON --------------------------------------------------------------------------------
 export const Person = function (args) {
     if (!args) {
-        args = args || {};
+        args = args || {}
     }
 
     // Assests
-    this.basicBody = new this.basic.BasicBody(args);
-    this.id = this.basic.objectCount += 1;
-}; // END Person
+    this.basicBody = new this.basic.BasicBody(args)
+    this.id = this.basic.objectCount += 1
+} // END Person
 
-Person.prototype = new Object();
+Person.prototype = new Object()
 Person.prototype.draw = function (args, z) {
     var nr = (args.nr = this.basic.objectCount += 1),
         backView = (args.backView = args.view === "backView"),
-        sideView = (args.sideView = !backView && args.view ? true : false);
+        sideView = (args.sideView = !backView && args.view ? true : false)
 
-    args.id = this.id;
+    args.id = this.id
 
     if (!z) {
-        z = this.basic.objectCount * 10000;
+        z = this.basic.objectCount * 10000
     }
 
     args.personHalfSX = this.pushLinkList({
         r: 0.5,
         min: 5,
         useSize: args.size,
-    });
+    })
 
     return sideView
         ? [{ list: this.basicBody.draw(args, args.view === "rightView") }]
@@ -44,8 +44,8 @@ Person.prototype.draw = function (args, z) {
                   x: [args.personHalfSX, -1],
                   list: this.basicBody.draw(args, backView),
               },
-          ];
-}; // END Person draw
+          ]
+} // END Person draw
 
 // BASICBODY --------------------------------------------------------------------------------
 export const BasicBody = function (args) {
@@ -58,76 +58,76 @@ export const BasicBody = function (args) {
         [0, 1, 1],
         [1, 0, 0],
         [2, 0, 1],
-    ][this.GR(0, 4)];
+    ][this.GR(0, 4)]
 
     // Form & Sizes
 
-    this.sY = this.IF() ? this.R(0.4, 1) : 1;
+    this.sY = this.IF() ? this.R(0.4, 1) : 1
     this.sX =
         (this.IF(0.1)
             ? this.R(0.3, 0.8)
             : this.IF(0.1)
               ? this.R(0.05, 0.15)
-              : this.R(0.15, 0.3)) * this.sY;
+              : this.R(0.15, 0.3)) * this.sY
 
-    this.lowerBodySY = this.IF(0.1) ? this.R(0.5, 0.9) : 0.7;
+    this.lowerBodySY = this.IF(0.1) ? this.R(0.5, 0.9) : 0.7
 
-    this.animal = args.animal = this.IF(0.02);
+    this.animal = args.animal = this.IF(0.02)
 
     // Color
-    this.skinColor = args.skinColor = new this.Color(hues[0], this.GR(1, 4));
+    this.skinColor = args.skinColor = new this.Color(hues[0], this.GR(1, 4))
 
     this.firstColor = args.firstColor = args.skinColor.copy({
         nr: hues[1],
         brContrast: (this.IF(0.5) ? -1 : 1) * (this.IF(0.8) ? 1 : 2),
         min: this.IF() ? 0 : 1,
         max: 4,
-    });
+    })
 
     this.secondColor = args.secondColor = args.skinColor.copy({
         nr: hues[2],
         brContrast: (this.IF(0.8) ? -1 : 1) * (hues[1] === hues[2] ? 1 : 2),
         max: 4,
-    });
+    })
 
     this.skinShadowColor = args.skinShadowColor = args.skinColor.copy({
         brAdd: -1,
-    });
+    })
     this.skinDetailColor = args.skinDetailColor = args.skinColor.copy({
         brAdd: -2,
-    });
+    })
 
-    this.groundShadowColor = args.groundShadowColor;
+    this.groundShadowColor = args.groundShadowColor
 
     // console.log( args, this.skinColor, this.firstColor, this.secondColor );
 
     // Assets
-    this.head = new this.basic.Head(args);
-    this.upperBody = new this.basic.UpperBody(args);
-    this.lowerBody = new this.basic.LowerBody(args);
-}; // END BasicBody
-BasicBody.prototype = new Object();
+    this.head = new this.basic.Head(args)
+    this.upperBody = new this.basic.UpperBody(args)
+    this.lowerBody = new this.basic.LowerBody(args)
+} // END BasicBody
+BasicBody.prototype = new Object()
 BasicBody.prototype.draw = function (args, right) {
     var nr = args.nr,
-        sideView = args.sideView;
+        sideView = args.sideView
 
-    args.right = right;
-    args.calc = args.backView !== right || sideView;
+    args.right = right
+    args.calc = args.backView !== right || sideView
 
     if (args.calc) {
-        args.basicSX = this.pushLinkList({ r: 0, useSize: args.personHalfSX });
+        args.basicSX = this.pushLinkList({ r: 0, useSize: args.personHalfSX })
         args.personSX = this.pushLinkList({
             r: this.sX,
             useSize: args.basicSX,
             a: 2,
-        });
+        })
 
-        args.basicSY = this.pushLinkList({ r: 0, useSize: args.size });
+        args.basicSY = this.pushLinkList({ r: 0, useSize: args.size })
         args.personSY = this.pushLinkList({
             r: this.sY,
             min: 5,
             useSize: args.basicSY,
-        });
+        })
 
         // this.simpleAddHoverChange(
         // 	0.1,
@@ -136,42 +136,42 @@ BasicBody.prototype.draw = function (args, right) {
         // 	args.personSY
         // );
 
-        this.simpleAddHoverChange(0.3, 1.7, "body-width", args.basicSX);
+        this.simpleAddHoverChange(0.3, 1.7, "body-width", args.basicSX)
 
-        this.simpleAddHoverChange(0.1, 1, "body-height", args.basicSY);
+        this.simpleAddHoverChange(0.1, 1, "body-height", args.basicSY)
     }
 
-    this.head.getSizes(args);
+    this.head.getSizes(args)
 
     if (args.calc) {
         args.bodyRestSY = this.pushLinkList({
             add: [args.personSY],
             max: [args.size, this.sub(args.headMaxSY), this.sub(args.neckSY)],
-        });
+        })
 
         args.lowerBodySY = this.pushLinkList({
             r: this.lowerBodySY,
             useSize: args.bodyRestSY,
             min: 1,
-        });
+        })
         args.upperBodySY = this.pushLinkList({
             add: [args.bodyRestSY, this.sub(args.lowerBodySY)],
             min: 1,
-        });
+        })
 
         args.fullBodySY = this.pushLinkList({
             add: [args.lowerBodySY, args.upperBodySY],
-        });
+        })
 
-        args.personRealSX = this.pushLinkList({ add: [args.personSX] });
+        args.personRealSX = this.pushLinkList({ add: [args.personSX] })
         args.personRealMaxSY = this.pushLinkList({
             add: [args.fullBodySY, args.headMaxSY, args.neckSY],
-        });
+        })
         args.personRealMinSY = this.pushLinkList({
             add: [args.fullBodySY, args.headMinSY, args.neckSY],
-        });
+        })
 
-        this.simpleAddHoverChange(0.1, 1, "leg-length", args.lowerBodySY);
+        this.simpleAddHoverChange(0.1, 1, "leg-length", args.lowerBodySY)
     }
 
     return [
@@ -204,34 +204,34 @@ BasicBody.prototype.draw = function (args, right) {
                 },
             ],
         },
-    ];
-}; // END BasicBody draw
+    ]
+} // END BasicBody draw
 
 // LOGO --------------------------------------------------------------------------------
 export const Logo = function (args, right, symetrical, logoColor) {
-    var color = !logoColor && this.IF(0.5);
+    var color = !logoColor && this.IF(0.5)
 
-    this.name = symetrical ? (right ? "right" : "left") : "chest";
+    this.name = symetrical ? (right ? "right" : "left") : "chest"
 
     // Form & Sizes
-    this.sX = this.R(0, 1);
-    this.sY = this.R(0, 1);
-    this.Y = this.R(0, 0.5);
+    this.sX = this.R(0, 1)
+    this.sY = this.R(0, 1)
+    this.Y = this.R(0, 0.5)
 
-    this.oneSide = !symetrical && this.IF(0.1);
+    this.oneSide = !symetrical && this.IF(0.1)
     if (this.oneSide) {
-        this.side = this.IF(0.5);
+        this.side = this.IF(0.5)
     }
 
-    this.roundUp = this.IF(0.3);
-    this.roundDown = this.IF(0.3);
-    this.dentUp = this.IF(0.3);
-    this.dentDown = this.IF(0.3);
-    this.stripUp = this.IF(0.1);
-    this.stripDown = this.IF(0.1);
-    this.stripSide = this.IF(0.1);
-    this.edgeUp = this.IF(0.2);
-    this.edgeDown = this.IF(0.2);
+    this.roundUp = this.IF(0.3)
+    this.roundDown = this.IF(0.3)
+    this.dentUp = this.IF(0.3)
+    this.dentDown = this.IF(0.3)
+    this.stripUp = this.IF(0.1)
+    this.stripDown = this.IF(0.1)
+    this.stripSide = this.IF(0.1)
+    this.edgeUp = this.IF(0.2)
+    this.edgeDown = this.IF(0.2)
 
     // Color
     this.logoColor =
@@ -241,15 +241,15 @@ export const Logo = function (args, right, symetrical, logoColor) {
             brSet:
                 args.clothColor.getBr() +
                 (this.IF(0.5) ? -1 : 1) * (!color || this.IF(0.2) ? 2 : 1),
-        });
+        })
     // Assets
-}; // END Logo
-Logo.prototype = new Object();
+} // END Logo
+Logo.prototype = new Object()
 
 Logo.prototype.draw = function (args) {
     var nr = args.nr,
         nrName = nr + this.name,
-        sideView = args.sideView;
+        sideView = args.sideView
 
     return (
         (!this.oneSide || args.right === this.side) && {
@@ -294,5 +294,5 @@ Logo.prototype.draw = function (args) {
                 {},
             ],
         }
-    );
-}; // END Logo Back draw
+    )
+} // END Logo Back draw

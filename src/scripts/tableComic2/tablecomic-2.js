@@ -2,8 +2,8 @@
 
 // BEGINN getTableComic /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const getTableComic = function getTableComic(args) {
-    this.panel = new this.basic.Panel();
-    this.story = new this.basic.getStory(args);
+    this.panel = new this.basic.Panel()
+    this.story = new this.basic.getStory(args)
 
     this.comic = {
         paperColor: [40, 40, 40],
@@ -14,18 +14,18 @@ export const getTableComic = function getTableComic(args) {
         panels: this.story.getPanels(
             args.panels !== undefined ? args.panels : 3,
         ),
-    };
+    }
 
-    return this.comic;
-};
+    return this.comic
+}
 // END getTableComic \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN getStory /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const getStory = function getStory() {
-    this.stage = new this.basic.Stage();
-    this.colors = new this.basic.getColorScheme();
-    this.actorsList = new this.basic.getActors(this);
-};
+    this.stage = new this.basic.Stage()
+    this.colors = new this.basic.getColorScheme()
+    this.actorsList = new this.basic.getActors(this)
+}
 
 getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
     var actor0StandUp = 0.1,
@@ -995,39 +995,36 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
         relArcEnd = 0,
         panelsLeft = totalPanelCount,
         arcLength = mainSteps.length,
-        panels = [];
+        panels = []
 
     // get the total Length of all Story Arcs
-    count = 0;
+    count = 0
     while (count < arcLength) {
         mainSteps[count].endLengthAbs = totalArcLength +=
-            mainSteps[count].lengthAbs;
-        count += 1;
+            mainSteps[count].lengthAbs
+        count += 1
     }
 
     // get the relative Length for each Arc
-    count = 0;
+    count = 0
 
-    count = 0;
+    count = 0
     while (count < arcLength) {
-        mainSteps[count].relLength =
-            mainSteps[count].lengthAbs / totalArcLength;
-        mainSteps[count].relStart = relArcEnd;
-        mainSteps[count].relEnd = relArcEnd += mainSteps[count].relLength;
+        mainSteps[count].relLength = mainSteps[count].lengthAbs / totalArcLength
+        mainSteps[count].relStart = relArcEnd
+        mainSteps[count].relEnd = relArcEnd += mainSteps[count].relLength
 
         mainSteps[count].absFloatLength =
-            totalPanelCount * mainSteps[count].relLength;
-        mainSteps[count].absLength = Math.round(
-            mainSteps[count].absFloatLength,
-        );
+            totalPanelCount * mainSteps[count].relLength
+        mainSteps[count].absLength = Math.round(mainSteps[count].absFloatLength)
         if (mainSteps[count].absLength <= 0) {
-            mainSteps[count].absLength = 1;
+            mainSteps[count].absLength = 1
         }
-        panelsLeft -= mainSteps[count].absLength;
-        count += 1;
+        panelsLeft -= mainSteps[count].absLength
+        count += 1
     }
 
-    removePanels = panelsLeft > 0 ? 1 : -1;
+    removePanels = panelsLeft > 0 ? 1 : -1
 
     while (panelsLeft) {
         var arcStart = 0,
@@ -1035,20 +1032,20 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
             forward = true,
             lowestPriority = panelsLeft > 0 ? -Infinity : Infinity,
             biggestArc,
-            currentNr;
+            currentNr
 
-        arcLength = mainSteps.length;
+        arcLength = mainSteps.length
 
         while (arcLength) {
             if (forward) {
-                currentNr = arcStart++;
+                currentNr = arcStart++
             } else {
-                currentNr = arcEnd--;
+                currentNr = arcEnd--
             }
 
-            forward = !forward;
+            forward = !forward
 
-            current = mainSteps[currentNr];
+            current = mainSteps[currentNr]
 
             if (
                 current.absLength > 0 &&
@@ -1056,27 +1053,27 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                     ? current.priority >= lowestPriority
                     : current.priority <= lowestPriority)
             ) {
-                lowestPriority = current.priority;
-                biggestArc = currentNr;
-                current.priority += panelsLeft;
+                lowestPriority = current.priority
+                biggestArc = currentNr
+                current.priority += panelsLeft
             }
 
-            arcLength -= 1;
+            arcLength -= 1
         }
 
-        mainSteps[biggestArc].absLength += removePanels;
-        mainSteps[biggestArc].absFloatLength += removePanels;
+        mainSteps[biggestArc].absLength += removePanels
+        mainSteps[biggestArc].absFloatLength += removePanels
 
-        panelsLeft -= removePanels;
+        panelsLeft -= removePanels
     }
 
     // Main
     // relPosition
 
-    count = 0;
+    count = 0
 
     while (count < mainSteps.length) {
-        current = mainSteps[count];
+        current = mainSteps[count]
 
         var totalCount = current.absLength,
             innerCount = 0,
@@ -1084,7 +1081,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
             camerasLength = cameras && cameras.length,
             cameraCount = 0,
             currentStart = panelCount,
-            currentCam;
+            currentCam
 
         if (totalCount === 0) {
             panels.push({
@@ -1092,7 +1089,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                 arc: count,
                 relPosition: 1,
                 dontRender: true,
-            });
+            })
         } else {
             while (innerCount < totalCount) {
                 // console.log( count, totalCount, innerCount, innerCount, ( totalCount - 1 ) );
@@ -1102,79 +1099,79 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                     arc: count,
                     relPosition:
                         totalCount === 1 ? 1 : innerCount / (totalCount - 1),
-                });
+                })
 
-                innerCount += 1;
-                panelCount += 1;
+                innerCount += 1
+                panelCount += 1
             }
         }
 
         while (cameraCount < camerasLength) {
-            currentCam = cameras[cameraCount];
+            currentCam = cameras[cameraCount]
 
             if (innerCount >= currentCam.minPanels) {
                 panels[
                     Math.round(currentStart + currentCam.pos * totalCount)
-                ].camera = currentCam.camera;
+                ].camera = currentCam.camera
             }
 
-            cameraCount += 1;
+            cameraCount += 1
         }
 
-        count += 1;
+        count += 1
     }
 
-    panels[0].relPosition = 0;
+    panels[0].relPosition = 0
 
     // Check if last displays the very end
     if (current.relPosition < 1) {
-        current.relPosition = 1;
+        current.relPosition = 1
     }
 
-    return panels;
-};
+    return panels
+}
 
 getStory.prototype.getPanels = function getStoryPanels(totalPanelCount) {
     var panels = [],
         currentPanelNumber = 0,
         lastPanelNumber,
-        currentFrame;
+        currentFrame
 
-    this.storyFramework = this.getStoryFrameWork(totalPanelCount);
+    this.storyFramework = this.getStoryFrameWork(totalPanelCount)
 
-    totalPanelCount = this.storyFramework.length;
+    totalPanelCount = this.storyFramework.length
 
     if (totalPanelCount < 1) {
-        totalPanelCount = 1;
+        totalPanelCount = 1
     }
 
-    lastPanelNumber = totalPanelCount - 1;
+    lastPanelNumber = totalPanelCount - 1
 
     while (currentPanelNumber < totalPanelCount) {
-        currentFrame = this.storyFramework[currentPanelNumber];
+        currentFrame = this.storyFramework[currentPanelNumber]
 
         if (currentFrame.dontRender) {
-            this.getPanel(currentFrame, 1);
+            this.getPanel(currentFrame, 1)
         } else {
             panels.push({
                 camera: currentFrame.camera,
                 list: this.getPanel(currentFrame),
-            });
+            })
 
-            this.getPanel(currentFrame, 1);
+            this.getPanel(currentFrame, 1)
         }
 
-        currentPanelNumber += 1;
+        currentPanelNumber += 1
     }
 
-    return panels;
-};
+    return panels
+}
 
 getStory.prototype.getPanel = function (frame, rel) {
     var main = frame.main.list,
         actorsList = this.actorsList,
         list = [{ what: this.stage }],
-        key;
+        key
 
     for (key in main) {
         list.push(
@@ -1183,24 +1180,24 @@ getStory.prototype.getPanel = function (frame, rel) {
                 info: main[key],
                 relPosition: rel || frame.relPosition,
             }),
-        );
+        )
     }
 
-    return list;
-};
+    return list
+}
 
 // END getStory \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN getAnimation /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const getAnimation = function getAnimation(args) {
     var steps = args.endPanelNumber - args.startPanelNumber || 1,
-        process = (args.currentPanelNumber - args.startPanelNumber) / steps;
+        process = (args.currentPanelNumber - args.startPanelNumber) / steps
 
     if (process < 0) {
-        process = 0;
+        process = 0
     }
     if (process > 1) {
-        process = 1;
+        process = 1
     }
 
     return typeof args.start === "number"
@@ -1209,8 +1206,8 @@ export const getAnimation = function getAnimation(args) {
               map: args.map,
               min: args.start.min + process * (args.end.min - args.start.min),
               max: args.start.max + process * (args.end.max - args.start.max),
-          };
-};
+          }
+}
 // END getAnimation \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN getActors /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
@@ -1220,61 +1217,61 @@ export const getActors = function (story) {
             [0, 1, 1, 1, 2, 2],
             [0, 2, 1, 2, 1, 0],
         ],
-        colorScheme = colorSchemes[this.rInt(0, colorSchemes.length - 1)];
+        colorScheme = colorSchemes[this.rInt(0, colorSchemes.length - 1)]
 
-    this.colors = story.colors;
-    this.stage = story.stage;
+    this.colors = story.colors
+    this.stage = story.stage
 
-    this.baseSkinColor = { nr: colorScheme[0] };
-    this.baseSkinColorAlt = { nr: colorScheme[3] };
+    this.baseSkinColor = { nr: colorScheme[0] }
+    this.baseSkinColorAlt = { nr: colorScheme[3] }
 
-    this.baseColor1 = { nr: colorScheme[1], shade: this.rFl(0.5, 1) };
-    this.baseColor2 = { nr: colorScheme[4], shade: this.rFl(0.5, 1) };
+    this.baseColor1 = { nr: colorScheme[1], shade: this.rFl(0.5, 1) }
+    this.baseColor2 = { nr: colorScheme[4], shade: this.rFl(0.5, 1) }
 
-    this.baseColor1Alt = { nr: colorScheme[2], shade: this.rFl(0.5, 1) };
-    this.baseColor2Alt = { nr: colorScheme[5], shade: this.rFl(0.5, 1) };
+    this.baseColor1Alt = { nr: colorScheme[2], shade: this.rFl(0.5, 1) }
+    this.baseColor2Alt = { nr: colorScheme[5], shade: this.rFl(0.5, 1) }
 
     this.furnitureColor = this.colors.getColor({
         nr: colorScheme[5],
         shade: 0.5,
-    });
+    })
     this.furnitureDetailColor = this.colors.getColor({
         nr: colorScheme[5],
         shade: 0.3,
-    });
+    })
 
-    this.actor0 = this.getNewActor({ main: true });
-    this.actor1 = this.getNewActor({});
+    this.actor0 = this.getNewActor({ main: true })
+    this.actor1 = this.getNewActor({})
 
     this.chair0 = new this.basic.RenderObjectContainer(
         new this.basic.Chair({
             color: this.furnitureColor,
             colorDetail: this.furnitureDetailColor,
         }),
-    );
+    )
     this.chair1 = new this.basic.RenderObjectContainer(
         new this.basic.Chair({
             toLeft: true,
             color: this.furnitureColor,
             colorDetail: this.furnitureDetailColor,
         }),
-    );
+    )
     this.table = new this.basic.RenderObjectContainer(
         new this.basic.Table({
             color: this.furnitureColor,
             colorDetail: this.furnitureDetailColor,
         }),
-    );
+    )
 
-    this.glass = new this.basic.RenderObjectContainer(new this.basic.Glass());
+    this.glass = new this.basic.RenderObjectContainer(new this.basic.Glass())
 
     this.emotion0 = new this.basic.RenderObjectContainer(
         new this.basic.Emotion(),
-    );
+    )
     this.emotion1 = new this.basic.RenderObjectContainer(
         new this.basic.Emotion(),
-    );
-};
+    )
+}
 
 getActors.prototype.getNewActor = function (args) {
     return new this.basic.RenderObjectContainer(
@@ -1296,90 +1293,90 @@ getActors.prototype.getNewActor = function (args) {
             }),
             main: args.main,
         }),
-    );
-};
+    )
+}
 // END getActors \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN RenderObjectConteiner /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const RenderObjectContainer = function (renderObject) {
-    this.renderObject = renderObject;
-};
+    this.renderObject = renderObject
+}
 
 RenderObjectContainer.prototype.getAction = function (args) {
     var obj = {},
         info = args.info,
         start = (info && info.start) || info,
         end = info && info.end,
-        actionProcessor = new this.getActionProcessor(args.relPosition);
+        actionProcessor = new this.getActionProcessor(args.relPosition)
 
     // Check if start or end is needed or a position inbetween
-    obj = actionProcessor.checkIfObject(obj, start, end);
+    obj = actionProcessor.checkIfObject(obj, start, end)
 
     // Add the render Object
-    obj.what = this.renderObject;
+    obj.what = this.renderObject
 
     // Get Default Values if existing
-    this.lastObject = obj = this.joinObject(obj, this.lastObject);
+    this.lastObject = obj = this.joinObject(obj, this.lastObject)
 
-    return obj;
-};
+    return obj
+}
 
 RenderObjectContainer.prototype.joinObject = function (main, defaults) {
-    var key;
+    var key
 
     for (key in defaults) {
         if (main[key] === undefined) {
-            main[key] = defaults[key];
+            main[key] = defaults[key]
         }
     }
 
-    return main;
-};
+    return main
+}
 
 RenderObjectContainer.prototype.getActionProcessor = function (rel) {
-    this.rel = rel;
-};
+    this.rel = rel
+}
 
 RenderObjectContainer.prototype.getActionProcessor.prototype.processObject =
     function (obj, start, end) {
-        var key;
+        var key
 
         for (key in start) {
             obj[key] = this.checkIfObject(
                 obj[key] || {},
                 start[key],
                 end && end[key],
-            );
+            )
         }
 
-        return obj;
-    };
+        return obj
+    }
 RenderObjectContainer.prototype.getActionProcessor.prototype.processValue =
     function (obj, start, end) {
         if (end !== undefined) {
             if (typeof start === "number" && typeof end === "number") {
-                return start + (end - start) * this.rel;
+                return start + (end - start) * this.rel
             } else {
                 if (end.relPos) {
-                    return this.rel > end.relPos ? end.value : start;
+                    return this.rel > end.relPos ? end.value : start
                 } else {
-                    return this.rel === 1 ? end : start;
+                    return this.rel === 1 ? end : start
                 }
             }
         } else {
-            return start;
+            return start
         }
-    };
+    }
 RenderObjectContainer.prototype.getActionProcessor.prototype.checkIfObject =
     function (obj, start, end) {
         // console.log( "check", ( ( end && end.relPos ) ), end );
 
         if ((end && end.relPos) || start.basic || typeof start !== "object") {
-            return this.processValue(obj, start, end);
+            return this.processValue(obj, start, end)
         } else {
-            return this.processObject(obj, start, end);
+            return this.processObject(obj, start, end)
         }
-    };
+    }
 // END RenderObjectConteiner \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN getColorScheme /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
@@ -1389,14 +1386,14 @@ export const getColorScheme = function getColorScheme() {
             [this.rInt(50, 100), this.rInt(100, 150), this.rInt(150, 200)],
             [this.rInt(100, 150), this.rInt(150, 200), this.rInt(50, 100)],
         ],
-        first = this.rInt(0, 2);
+        first = this.rInt(0, 2)
 
     this.colors = [
         colors[first],
         colors[first === 0 ? 1 : first === 1 ? 2 : 0],
         colors[first === 0 ? 2 : first === 1 ? 0 : 1],
-    ];
-};
+    ]
+}
 
 getColorScheme.prototype.getColor = function (args) {
     var shade = args.maxShade ? this.rFl(args.maxShade, 1) : args.shade,
@@ -1407,10 +1404,10 @@ getColorScheme.prototype.getColor = function (args) {
                     : args.random
                       ? this.rInt(0, this.colors.length - 1)
                       : args.nr || 0
-            ];
+            ]
 
-    return shade ? this.multiplyColor(baseColor, shade) : baseColor;
-};
+    return shade ? this.multiplyColor(baseColor, shade) : baseColor
+}
 
 getColorScheme.prototype.getColorMap = function (args) {
     return args.main
@@ -1419,6 +1416,6 @@ getColorScheme.prototype.getColorMap = function (args) {
               map: "actor-color",
               min: this.getColor(args.min),
               max: this.getColor(args.max),
-          };
-};
+          }
+}
 // END getColorScheme \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/

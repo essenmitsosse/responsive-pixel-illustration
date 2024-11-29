@@ -1,4 +1,4 @@
-import tsParser from "@typescript-eslint/parser";
+import tsParser from "@typescript-eslint/parser"
 
 /**
  * Basic setup to make sure TypeScript files can be linted and types are
@@ -32,6 +32,6 @@ const listConfigSetupTypescript = [
             },
         },
     },
-];
+]
 
-export default listConfigSetupTypescript;
+export default listConfigSetupTypescript

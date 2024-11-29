@@ -1,4 +1,4 @@
-import { helper } from "../renderengine/helper.js";
+import { helper } from "../renderengine/helper.js"
 
 export default function () {
     var help = helper,
@@ -177,7 +177,7 @@ export default function () {
                         { x: { r: 0.5 }, y: { r: down ? 0.3 : 0.7 } },
                     ],
                 },
-            ];
+            ]
         },
         renderList = [
             // IMAGE
@@ -1444,10 +1444,10 @@ export default function () {
             // TORSO X
             "torsoSX": ["bodySX", mult(-2, "armSX"), sub("tailSX")],
             "torsoLeft": "armSX",
-        };
+        }
     return {
         renderList: renderList,
         variableList: variableList,
         background: backgroundColor,
-    };
+    }
 }

@@ -1,102 +1,102 @@
-import { Object } from "./object.js";
+import { Object } from "./object.js"
 
 /* global Builder */
 
 // UPPER BODY --------------------------------------------------------------------------------
 export const UpperBody = function (args) {
-    var shirtColor = args.firstColor.getBr();
+    var shirtColor = args.firstColor.getBr()
 
     // Form & Sizes
-    this.thickShoulder = (this.IF() && this.R(1.5, 4)) || 1.5;
-    this.chestWide = this.IF(0.05);
-    this.chestSX = (this.chestWide && this.R(1, 1.3)) || 1;
-    this.chestSY = (this.chestWide && this.R(0.3, 0.8)) || 1;
-    this.chestStartSY = (this.chestWide && this.R(0.1, 0.5)) || 0;
+    this.thickShoulder = (this.IF() && this.R(1.5, 4)) || 1.5
+    this.chestWide = this.IF(0.05)
+    this.chestSX = (this.chestWide && this.R(1, 1.3)) || 1
+    this.chestSY = (this.chestWide && this.R(0.3, 0.8)) || 1
+    this.chestStartSY = (this.chestWide && this.R(0.1, 0.5)) || 0
 
-    this.topless = args.topless = args.animal || this.IF(0.02);
+    this.topless = args.topless = args.animal || this.IF(0.02)
 
-    this.waist = !this.chestWide && this.IF(0.05);
-    this.breast = this.IF(0.05);
+    this.waist = !this.chestWide && this.IF(0.05)
+    this.breast = this.IF(0.05)
 
-    this.hanky = !this.topless && this.IF(0.02);
+    this.hanky = !this.topless && this.IF(0.02)
 
     // Colors
     this.clothColor = args.clothColor = args.topless
         ? args.skinColor
-        : args.firstColor;
-    this.clothShadowColor = this.clothColor.copy({ brAdd: -1 });
-    this.skinColor = args.skinColor;
+        : args.firstColor
+    this.clothShadowColor = this.clothColor.copy({ brAdd: -1 })
+    this.skinColor = args.skinColor
     this.shirtColor = args.shirtColor = (
         this.IF(0.5) ? args.secondColor : args.clothColor
-    ).copy({ brSet: shirtColor === 4 ? 3 : shirtColor + 1, max: 4 });
+    ).copy({ brSet: shirtColor === 4 ? 3 : shirtColor + 1, max: 4 })
 
     // Assets
-    this.arm = new this.basic.Arm(args);
+    this.arm = new this.basic.Arm(args)
 
     if (this.IF(0.05)) {
-        this.cape = new this.basic.Cape(args);
+        this.cape = new this.basic.Cape(args)
     }
 
     if (this.topless && this.IF(0.8)) {
-        this.nipples = new this.basic.Nipples(args);
+        this.nipples = new this.basic.Nipples(args)
     }
 
     if (!args.animal) {
         if (this.IF(0.07)) {
-            this.suspenders = new this.basic.Suspenders(args);
+            this.suspenders = new this.basic.Suspenders(args)
         }
         if (this.IF(0.02)) {
-            this.strap = new this.basic.Strap(args);
+            this.strap = new this.basic.Strap(args)
         }
     }
 
     if (!this.topless) {
         if (!this.breast && !this.chestWide && this.IF(0.05)) {
-            this.stripes = new this.basic.Stripes(args);
+            this.stripes = new this.basic.Stripes(args)
         }
         if (this.IF(0.4)) {
             this.collar = this.IF()
                 ? new this.basic.Cleavage(args)
-                : new this.basic.Collar(args);
+                : new this.basic.Collar(args)
         }
         if (this.IF(0.3)) {
-            this.buttons = new this.basic.Buttons(args, this.clothColor);
+            this.buttons = new this.basic.Buttons(args, this.clothColor)
         }
     }
 
     if (this.IF(0.1)) {
-        this.logo = new this.basic.Logo(args);
+        this.logo = new this.basic.Logo(args)
     }
-}; // END UpperBody
-UpperBody.prototype = new Object();
+} // END UpperBody
+UpperBody.prototype = new Object()
 UpperBody.prototype.draw = function (args) {
     var nr = args.nr,
         sideView = args.sideView,
-        backView = args.backView;
+        backView = args.backView
 
     if (args.calc) {
-        args.upperBodySX = this.pushLinkList(args.personRealSX);
+        args.upperBodySX = this.pushLinkList(args.personRealSX)
         args.chestSX = this.pushLinkList({
             r: this.chestSX,
             useSize: args.upperBodySX,
             min: 1,
             max: [args.upperBodySX, 1],
-        });
+        })
         args.chestSY = this.pushLinkList({
             r: this.chestSY,
             useSize: args.upperBodySY,
             min: 1,
-        });
+        })
         if (this.chestWide) {
             args.stomachSY = this.pushLinkList({
                 add: [args.upperBodySY, this.sub(args.chestSY)],
-            });
+            })
         }
         args.trapSX = this.pushLinkList({
             add: [args.chestSX, this.mult(sideView ? -2 : -1, args.neckSX)],
-        });
+        })
 
-        args.collarSX = this.pushLinkList(this.shirt ? 1 : { a: 0 });
+        args.collarSX = this.pushLinkList(this.shirt ? 1 : { a: 0 })
     }
 
     return {
@@ -174,34 +174,34 @@ UpperBody.prototype.draw = function (args) {
             this.suspenders && this.suspenders.draw(args, 7),
             this.strap && this.strap.draw(args, 10),
         ],
-    };
-}; // END UpperBody draw
+    }
+} // END UpperBody draw
 
 // STRIPES --------------------------------------------------------------------------------
 export const Stripes = function (args) {
     // Form & Sizes
-    this.gap = this.R(0.05, 0.2);
-    this.strip = this.R(0.05, 0.2);
-    this.horizontal = this.IF(0.5);
-    this.randomDots = this.IF(0.05);
-    this.doted = !this.randomDots && this.IF(0.1);
+    this.gap = this.R(0.05, 0.2)
+    this.strip = this.R(0.05, 0.2)
+    this.horizontal = this.IF(0.5)
+    this.randomDots = this.IF(0.05)
+    this.doted = !this.randomDots && this.IF(0.1)
 
     if (this.doted) {
-        this.dotGap = this.R(0.05, 0.2);
-        this.dotStrip = this.R(0.05, 0.2);
+        this.dotGap = this.R(0.05, 0.2)
+        this.dotStrip = this.R(0.05, 0.2)
     }
 
     // Colors
     this.stripColor = (this.IF(0.5) ? args.secondColor : args.clothColor).copy({
         brSet: args.clothColor.getBr() - 1,
-    });
+    })
 
     // Assets
-}; // END Stripes
-Stripes.prototype = new Object();
+} // END Stripes
+Stripes.prototype = new Object()
 Stripes.prototype.draw = function (args, z) {
     var nr = args.nr,
-        sideView = args.sideView;
+        sideView = args.sideView
 
     return (
         (sideView || !args.right) && {
@@ -241,26 +241,26 @@ Stripes.prototype.draw = function (args, z) {
                       },
                   ],
         }
-    );
-}; // END Stripes draw
+    )
+} // END Stripes draw
 
 // BUTTONS --------------------------------------------------------------------------------
 export const Buttons = function (args, color) {
     // Form & Sizes
-    this.buttonSX = this.R(-0.2, 0.2);
-    this.zipper = this.IF(0.1);
-    this.buttonSY = !this.zipper && this.R(-0.1, 0.1);
-    this.buttonGapSY = !this.zipper && this.R(-0.1, 0.1);
+    this.buttonSX = this.R(-0.2, 0.2)
+    this.zipper = this.IF(0.1)
+    this.buttonSY = !this.zipper && this.R(-0.1, 0.1)
+    this.buttonGapSY = !this.zipper && this.R(-0.1, 0.1)
 
     // Colors
-    this.buttonsColor = color.copy({ brContrast: -1 });
+    this.buttonsColor = color.copy({ brContrast: -1 })
 
     // Assets
-}; // END Buttons
-Buttons.prototype = new Object();
+} // END Buttons
+Buttons.prototype = new Object()
 Buttons.prototype.draw = function (args, z) {
     var nr = args.nr,
-        sideView = args.sideView;
+        sideView = args.sideView
 
     return (
         !args.backView && {
@@ -288,30 +288,30 @@ Buttons.prototype.draw = function (args, z) {
                 },
             ],
         }
-    );
-}; // END Buttons draw
+    )
+} // END Buttons draw
 
 // SUSPENDERS --------------------------------------------------------------------------------
 export const Suspenders = function (args) {
     // Form & Sizes
-    this.strapSX = this.R(-0.8, 0.5);
-    this.strapX = this.R(0.5, 1);
+    this.strapSX = this.R(-0.8, 0.5)
+    this.strapX = this.R(0.5, 1)
 
-    this.detail = this.IF(0.5);
+    this.detail = this.IF(0.5)
 
     // Colors
     this.strapColor = (this.IF(0.5) ? args.firstColor : args.secondColor).copy({
         brContrast: -1,
-    });
+    })
     if (this.detail) {
         this.detailColor = args.clothColor.copy({
             brContrast: this.IF(0.5) ? 1 : -1,
-        });
+        })
     }
 
     // Assets
-}; // END Suspenders
-Suspenders.prototype = new Object();
+} // END Suspenders
+Suspenders.prototype = new Object()
 Suspenders.prototype.draw = function (args, z) {
     var nr = args.nr,
         sideView = args.sideView,
@@ -322,12 +322,12 @@ Suspenders.prototype.draw = function (args, z) {
                 sY: { r: 1, otherDim: true },
                 fY: true,
             },
-        ];
+        ]
 
     if (args.calc) {
         args.trapSX = this.pushLinkList({
             add: [args.upperBodySX, this.sub(args.neckSX)],
-        });
+        })
     }
 
     return {
@@ -367,33 +367,33 @@ Suspenders.prototype.draw = function (args, z) {
                 list: detail,
             },
         ],
-    };
-}; // END Suspenders draw
+    }
+} // END Suspenders draw
 
 // COLLAR --------------------------------------------------------------------------------
 export const Collar = function (args) {
     // Form & Sizes
-    this.collarSY = this.R(0.1, 0.5);
-    this.open = this.IF(0.2);
-    this.tie = this.IF();
-    this.fullTie = this.open || this.IF();
-    this.scarf = !this.tie && this.IF(0.05);
+    this.collarSY = this.R(0.1, 0.5)
+    this.open = this.IF(0.2)
+    this.tie = this.IF()
+    this.fullTie = this.open || this.IF()
+    this.scarf = !this.tie && this.IF(0.05)
 
     // Colors
     if (this.tie) {
-        this.tieColor = args.clothColor.copy({ brSet: 0 });
+        this.tieColor = args.clothColor.copy({ brSet: 0 })
     }
-    this.shirtColor = args.shirtColor;
+    this.shirtColor = args.shirtColor
 
     // Assets
     if (this.open && this.IF(0.3)) {
-        this.buttons = new this.basic.Buttons(args, this.shirtColor);
+        this.buttons = new this.basic.Buttons(args, this.shirtColor)
     }
-}; // END Collar
-Collar.prototype = new Object();
+} // END Collar
+Collar.prototype = new Object()
 Collar.prototype.draw = function (args, z) {
     var nr = args.nr,
-        sideView = args.sideView;
+        sideView = args.sideView
 
     return {
         z: 10,
@@ -436,37 +436,37 @@ Collar.prototype.draw = function (args, z) {
                     ],
                 },
         ],
-    };
-}; // END Collar Shirt draw
+    }
+} // END Collar Shirt draw
 
 // CLEAVAGE --------------------------------------------------------------------------------
 export const Cleavage = function (args) {
     // Form & Sizes
-    this.sleeveless = !args.sleeves && this.IF(0.5);
-    this.strapSX = this.sleeveless && this.R(-1, 0);
-    this.strapSY = this.sleeveless && this.R(0.05, 0.3);
+    this.sleeveless = !args.sleeves && this.IF(0.5)
+    this.strapSX = this.sleeveless && this.R(-1, 0)
+    this.strapSY = this.sleeveless && this.R(0.05, 0.3)
 
-    this.cleavage = !this.sleeveless || this.IF(0.5);
-    this.cleavageSX = this.cleavage ? this.cleavage && this.R(1, 2) : 1;
-    this.cleavageSY = this.cleavage && this.R(0.05, 0.3);
+    this.cleavage = !this.sleeveless || this.IF(0.5)
+    this.cleavageSX = this.cleavage ? this.cleavage && this.R(1, 2) : 1
+    this.cleavageSY = this.cleavage && this.R(0.05, 0.3)
 
     // Colors
-    this.skinColor = args.skinColor;
+    this.skinColor = args.skinColor
 
     // Assets
-}; // END Cleavage
-Cleavage.prototype = new Object();
+} // END Cleavage
+Cleavage.prototype = new Object()
 
 Cleavage.prototype.draw = function (args, z) {
     var nr = args.nr,
-        sideView = args.sideView;
+        sideView = args.sideView
 
     if (args.calc) {
         args.cleavageSX = this.pushLinkList({
             r: this.cleavageSX,
             useSize: args.neckSX,
             max: [args.chestSX, -2],
-        });
+        })
         args.cleavageX = this.pushLinkList(
             sideView
                 ? [
@@ -475,7 +475,7 @@ Cleavage.prototype.draw = function (args, z) {
                       this.sub(args.collarSX),
                   ]
                 : [args.chestSX, this.mult(-1, args.cleavageSX)],
-        );
+        )
 
         if (this.sleeveless) {
             if (sideView) {
@@ -485,13 +485,13 @@ Cleavage.prototype.draw = function (args, z) {
                         this.sub(args.cleavageX),
                         this.sub(args.cleavageSX),
                     ],
-                });
+                })
             }
             args.strapSX = this.pushLinkList({
                 r: this.strapSX,
                 useSize: args.cleavageX,
                 max: -1,
-            });
+            })
         }
     }
 
@@ -522,30 +522,30 @@ Cleavage.prototype.draw = function (args, z) {
                 fX: sideView,
             },
         ],
-    };
-}; // END Cleavage draw
+    }
+} // END Cleavage draw
 
 // NIPPLES --------------------------------------------------------------------------------
 export const Nipples = function (args) {
     // Form & Sizes
-    this.nippleSize = this.R(0.01, 0.3);
-    this.nipplePos = this.R(0.15, 0.4);
+    this.nippleSize = this.R(0.01, 0.3)
+    this.nipplePos = this.R(0.15, 0.4)
 
     // Colors
-    this.nippleColor = args.skinShadowColor;
+    this.nippleColor = args.skinShadowColor
 
     // Assets
-}; // END Nipples
-Nipples.prototype = new Object();
+} // END Nipples
+Nipples.prototype = new Object()
 Nipples.prototype.draw = function (args, z) {
     var nr = args.nr,
-        sideView = args.sideView;
+        sideView = args.sideView
 
     if (args.calc) {
         args.nippleS = this.pushLinkList({
             r: this.nippleSize,
             useSize: args.chestSX,
-        });
+        })
     }
 
     return {
@@ -555,37 +555,37 @@ Nipples.prototype.draw = function (args, z) {
         x: { r: 0.2, min: 1 },
         fX: !sideView,
         z: z,
-    };
-}; // END Nipples draw
+    }
+} // END Nipples draw
 
 // CAPE --------------------------------------------------------------------------------
 export const Cape = function (args) {
     // Form & Sizes
-    this.capeFrontSY = this.R(0.1, 0.8);
-    this.capeSY = this.R(0.3, 1);
+    this.capeFrontSY = this.R(0.1, 0.8)
+    this.capeSY = this.R(0.3, 1)
 
     // Color
-    this.capeColor = args.clothColor.copy({ nextColor: true, brContrast: -2 });
+    this.capeColor = args.clothColor.copy({ nextColor: true, brContrast: -2 })
 
     // Assets
-}; // END Cape
-Cape.prototype = new Object();
+} // END Cape
+Cape.prototype = new Object()
 
 Cape.prototype.draw = function (args) {
     var nr = args.nr,
-        sideView = args.sideView;
+        sideView = args.sideView
 
     if (args.calc) {
         args.capeFrontSY = this.pushLinkList({
             r: this.capeFrontSY,
             useSize: args.upperArmSY,
-        });
+        })
         args.capeSY = this.pushLinkList({
             r: this.capeSY,
             useSize: args.fullBodySY,
             max: [args.fullBodySY, -1],
             min: args.capeFrontSY,
-        });
+        })
     }
 
     return {
@@ -595,47 +595,47 @@ Cape.prototype.draw = function (args) {
         sY: args.capeSY,
         fX: sideView,
         x: sideView && this.sub(args.shoulderSX),
-    };
-}; // END Cape Back draw
+    }
+} // END Cape Back draw
 
 Cape.prototype.drawFront = function (args) {
     var nr = args.nr,
-        sideView = args.sideView;
+        sideView = args.sideView
 
     return {
         color: this.capeColor.get(),
         sX: args.shoulderFullSX,
         x: sideView && this.sub(args.shoulderSX),
         sY: args.capeFrontSY,
-    };
-}; // END Cape draw
+    }
+} // END Cape draw
 
 // STRAP --------------------------------------------------------------------------------
 export const Strap = function (args) {
     // Form & Sizes
-    this.thickness = this.R(0.01, 0.05);
+    this.thickness = this.R(0.01, 0.05)
 
     // Color
     this.strapColor =
         args.beltColor ||
         (args.beltColor = (
             this.IF(0.5) ? args.firstColor : args.secondColor
-        ).copy({ brContrast: this.IF() ? 2 : -2 }));
+        ).copy({ brContrast: this.IF() ? 2 : -2 }))
 
     // Assets
-}; // END Strap
-Strap.prototype = new Object();
+} // END Strap
+Strap.prototype = new Object()
 
 Strap.prototype.draw = function (args, z) {
     var nr = args.nr,
-        sideView = args.sideView;
+        sideView = args.sideView
 
     if (args.calc) {
         args.strapTickness = this.pushLinkList({
             r: this.thickness,
             useSize: args.personSY,
             min: 1,
-        });
+        })
     }
 
     return (
@@ -672,5 +672,5 @@ Strap.prototype.draw = function (args, z) {
                 },
             ],
         }
-    );
-}; // END Strap Back draw
+    )
+} // END Strap Back draw

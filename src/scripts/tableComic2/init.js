@@ -1,9 +1,8 @@
-import { TableComic } from "./main.js";
-
-(function (tablePrototype) {
+import { TableComic } from "./main.js"
+;(function (tablePrototype) {
     for (var key in tablePrototype) {
-        tablePrototype[key].prototype.basic = tablePrototype;
+        tablePrototype[key].prototype.basic = tablePrototype
     }
-})(TableComic.prototype);
+})(TableComic.prototype)
 
-export default TableComic;
+export default TableComic

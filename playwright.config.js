@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig, devices } from "@playwright/test";
+import { defineConfig, devices } from "@playwright/test"
 
 /**
  * Read environment variables from file.
@@ -71,4 +71,4 @@ export default defineConfig({
               url: "http://localhost:8000/",
               reuseExistingServer: true,
           },
-});
+})

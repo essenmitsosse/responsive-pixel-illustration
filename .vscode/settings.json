@@ -1,12 +1,20 @@
 {
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // This enables a ruler that corresponds with the `.editorconfig`/Prettier
+  // settings for line length
   "editor.rulers": [80],
+
+  // Make sure to only display the necessary columns in the minimap
   "editor.minimap.maxColumn": 80,
 
   // This ensures all ESLint errors are displayed as warnings to make them
   // easier to separate from TypeScript errors
   "eslint.rules.customizations": [{ "rule": "*", "severity": "warn" }],
 
+  // This ensures the correct workspace TypeScript version is used
   "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.preferences.importModuleSpecifier": "non-relative",
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+
+  // Preferred non-relative style for auto imports.
+  "typescript.preferences.importModuleSpecifier": "non-relative"
 }

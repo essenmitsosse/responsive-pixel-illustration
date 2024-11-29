@@ -1,8 +1,15 @@
 {
   "recommendations": [
+    // EditorConfig
     "editorconfig.editorconfig",
+
+    // ESLint
     "dbaeumer.vscode-eslint",
+
+    // Prettier
     "esbenp.prettier-vscode",
+
+    // Platwright
     "ms-playwright.playwright"
   ]
 }

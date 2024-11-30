@@ -39,15 +39,13 @@ Person.prototype.draw = function (args, z) {
 
 // BASICBODY --------------------------------------------------------------------------------
 export const BasicBody = function (args) {
-  var nextFirstColor = this.IF(0.5),
-    nextSecondColor = this.IF(0.2),
-    hues = [
-      [0, 1, 2],
-      [0, 2, 2],
-      [0, 1, 1],
-      [1, 0, 0],
-      [2, 0, 1],
-    ][this.GR(0, 4)]
+  var hues = [
+    [0, 1, 2],
+    [0, 2, 2],
+    [0, 1, 1],
+    [1, 0, 0],
+    [2, 0, 1],
+  ][this.GR(0, 4)]
 
   // Form & Sizes
 

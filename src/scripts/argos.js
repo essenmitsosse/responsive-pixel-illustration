@@ -803,7 +803,7 @@ export default function () {
                           round: true,
                           change: { r: -0.3 },
                         },
-                        list: [, mast()],
+                        list: [mast()],
                       },
                     ],
                   },

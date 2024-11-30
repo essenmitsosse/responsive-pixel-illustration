@@ -638,10 +638,10 @@ export const DrawingTools = function (pixelUnit, getRandom) {
           height +
           (randHeight =
             (heightRandom ? Math.floor(heightRandom * random()) : 0) + randSize)
-
+        odd = !odd
         currentX =
           (current = array[Math.floor(random() * l)])[0] -
-          ((odd = !odd) ? width + randWidth : 0)
+          (odd ? width + randWidth : 0)
         currentY = current[1] - (odd ? height + randHeight : 0)
 
         while (w--) {

@@ -7,7 +7,6 @@ export default function () {
     mult = help.mult,
     sub = help.sub,
     shadowColor = [255, 255, 255],
-    shadow = help.darken(shadowColor, 0.7),
     shadowSoft = help.darken(shadowColor, 0.9),
     detail = help.darken(shadowColor, 0.4),
     lighten = help.lighten(shadowColor, 0.3),

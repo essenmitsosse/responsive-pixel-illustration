@@ -21,7 +21,6 @@ export default function () {
     flesh = [190, 160, 160],
     fleshShadow = shadow(flesh),
     hair = zeusShadow,
-    teeth = hair,
     cloth = eyes,
     arm = [
       { sX: 'arm' },

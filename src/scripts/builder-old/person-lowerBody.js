@@ -104,9 +104,6 @@ Belt.prototype.draw = function (args, z) {
   var nr = args.nr,
     sideView = args.sideView
 
-  if (args.calc) {
-  }
-
   return {
     z: z + 115,
     sY: {

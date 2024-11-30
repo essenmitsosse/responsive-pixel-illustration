@@ -8,6 +8,7 @@ const listScreenshots = [
   { index: 3, niceName: 'Brothers' },
   { index: 4, niceName: 'Zeus' },
   { index: 5, niceName: 'The Argos' },
+  { index: 5, niceName: 'The Argos hires', query: 'p=1' },
   { index: 6, niceName: 'The Sphinx' },
   { index: 7, niceName: 'Letter' },
   {

@@ -8,6 +8,7 @@ const listConfigEslintBase = [
     rules: {
       ...js.configs.recommended.rules,
 
+      /**  */
       'no-unused-vars': 'off',
     },
   },

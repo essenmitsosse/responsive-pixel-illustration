@@ -50,11 +50,11 @@ export default function () {
         add: [{ r: -2, useSize: "border" }],
       },
       "s": { height: true, r: 0.15, useSize: "imgHeight" },
-    };
+    }
 
   return {
     renderList: renderList,
     background: backgroundColor,
     variableList: variableList,
-  };
+  }
 }

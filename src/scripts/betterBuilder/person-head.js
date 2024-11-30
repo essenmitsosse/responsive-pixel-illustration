@@ -1,32 +1,32 @@
-import { BBObj } from "./object.js";
+import { BBObj } from "./object.js"
 /* global BBProto, BBObj */
 
 // HEAD MAIN  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 export const Head = function (args) {
-  this.color = args.color || [255, 0, 0];
-  this.colorDark = args.colorDark || [150, 0, 0];
+  this.color = args.color || [255, 0, 0]
+  this.colorDark = args.colorDark || [150, 0, 0]
 
-  this._sX = this.R(0.4, 1.8);
-  this.headSideRatio = this.R(0.5, 1.5);
+  this._sX = this.R(0.4, 1.8)
+  this.headSideRatio = this.R(0.5, 1.5)
 
-  this.headTopFrontSX = this.R(0.5, 1.5);
-  this.headTopSideSX = this.headTopFrontSX + this.R(-0.2, 0.2);
+  this.headTopFrontSX = this.R(0.5, 1.5)
+  this.headTopSideSX = this.headTopFrontSX + this.R(-0.2, 0.2)
 
-  this.wideJaw = this.headSideRatio > this.headTopSideSX;
+  this.wideJaw = this.headSideRatio > this.headTopSideSX
 
-  this.headTopX = (this.wideJaw ? -1 : 1) * this.R(0, 1);
-  this.headTopSY = this.R(0.2, 0.8);
+  this.headTopX = (this.wideJaw ? -1 : 1) * this.R(0, 1)
+  this.headTopSY = this.R(0.2, 0.8)
 
-  this.headTop = new this.basic.HeadTop(args);
-  this.headBottom = new this.basic.HeadBottom(args);
-  this.nose = new this.basic.Nose(args);
-}; // End Head
+  this.headTop = new this.basic.HeadTop(args)
+  this.headBottom = new this.basic.HeadBottom(args)
+  this.nose = new this.basic.Nose(args)
+} // End Head
 
-Head.prototype = new BBObj();
+Head.prototype = new BBObj()
 Head.prototype.draw = function (args) {
-  var rotate = args.rotate;
+  var rotate = args.rotate
 
-  this.ll.push((this.sX = { r: this._sX, useSize: args.sY }));
+  this.ll.push((this.sX = { r: this._sX, useSize: args.sY }))
 
   var headBottom = new this.basic.Rotater({
       drawer: this.headBottom,
@@ -68,7 +68,7 @@ Head.prototype.draw = function (args) {
         xRel: 1,
         xAdd: this.wideJaw && headTop.x,
       },
-    });
+    })
 
   // this.ll.push(
   // 	sizes.headTopSY = { r:this.headTopSY, useSize:args.sY },
@@ -87,21 +87,21 @@ Head.prototype.draw = function (args) {
     sX: headBottom.sX,
     sY: args.sY,
     rotate: rotate,
-  };
-}; // End Head Main Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  }
+} // End Head Main Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // HEAD TOP - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 export const HeadTop = function (args) {
-  this.color = args.color;
-  this.colorDark = args.colorDark;
+  this.color = args.color
+  this.colorDark = args.colorDark
 
-  this.eyeSYLeft = this.R(0.2, 0.9);
+  this.eyeSYLeft = this.R(0.2, 0.9)
   this.eyeSYRight = this.IF(0.5)
     ? this.eyeSYLeft
-    : this.eyeSYLeft + this.R(-0.1, 0.1);
-}; // End HeadTop
+    : this.eyeSYLeft + this.R(-0.1, 0.1)
+} // End HeadTop
 
-HeadTop.prototype = new BBObj();
+HeadTop.prototype = new BBObj()
 
 HeadTop.prototype.draw = function (args, front, right) {
   return [
@@ -147,16 +147,16 @@ HeadTop.prototype.draw = function (args, front, right) {
         },
       ],
     },
-  ];
-}; // End Head Top Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  ]
+} // End Head Top Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // HEAD BOTTOM - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 export const HeadBottom = function (args) {
-  this.color = args.color;
-  this.colorDark = args.colorDark;
-}; // End Head Bottom
+  this.color = args.color
+  this.colorDark = args.colorDark
+} // End Head Bottom
 
-HeadBottom.prototype = new BBObj();
+HeadBottom.prototype = new BBObj()
 
 HeadBottom.prototype.draw = function (args, front, right) {
   return [
@@ -181,16 +181,16 @@ HeadBottom.prototype.draw = function (args, front, right) {
     // 	id:"beard",
     // 	color:this.black,
     // },
-  ];
-}; // End Head Bottom Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  ]
+} // End Head Bottom Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // NOSE MAIN  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 export const Nose = function (args) {
-  this.color = args.color;
-  this.colorDark = args.colorDark;
-}; // End Nose
+  this.color = args.color
+  this.colorDark = args.colorDark
+} // End Nose
 
-Nose.prototype = new BBObj();
+Nose.prototype = new BBObj()
 Nose.prototype.draw = function (args, front, right) {
   return [
     {
@@ -198,20 +198,20 @@ Nose.prototype.draw = function (args, front, right) {
       sY: !front && { r: 1, a: 1 },
       fY: true,
     },
-  ];
-}; // End Nose Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  ]
+} // End Nose Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // NECK MAIN  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 export const Neck = function (args) {
-  this.color = args.color;
-  this.colorDark = args.colorDark;
-}; // End Neck
+  this.color = args.color
+  this.colorDark = args.colorDark
+} // End Neck
 
-Neck.prototype = new BBObj();
+Neck.prototype = new BBObj()
 Neck.prototype.draw = function (args) {
   return [
     {
       color: this.colorDark,
     },
-  ];
-}; // End Neck Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  ]
+} // End Neck Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

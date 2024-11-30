@@ -1,4 +1,4 @@
-import { helper as helperGlobal } from "../renderengine/helper.js";
+import { helper as helperGlobal } from "../renderengine/helper.js"
 
 export default function () {
   var help = helperGlobal,
@@ -19,7 +19,7 @@ export default function () {
     serifWidth = 0.6,
     getSerif = serif
       ? function (args) {
-          args = args || {};
+          args = args || {}
           return args.hor
             ? {
                 sX: "serifheight",
@@ -127,17 +127,17 @@ export default function () {
                           ? undefined
                           : { sX: { r: 0.5 } },
                       ],
-              };
+              }
         }
       : function () {
-          return undefined;
+          return undefined
         },
     // letterCount * letterWidth + letterCount
 
     getLetter = (function () {
       var Letters = new (function () {
-        var vertStem = { sY: "stemVert", cY: true };
-        (this.missing = {
+        var vertStem = { sY: "stemVert", cY: true }
+        ;(this.missing = {
           sX: 2,
           list: [
             {
@@ -190,7 +190,7 @@ export default function () {
                 list: [getSerif({ half: true, right: true })],
               },
             ],
-          });
+          })
 
         this.C = {
           sX: 3,
@@ -201,7 +201,7 @@ export default function () {
             getSerif({ right: true, hor: true }),
             getSerif({ right: true, bottom: true, hor: true }),
           ],
-        };
+        }
 
         this.E = {
           sX: 2,
@@ -220,7 +220,7 @@ export default function () {
             getSerif({ right: true, hor: true }),
             getSerif({ c: true, right: true, hor: true }),
           ],
-        };
+        }
 
         this.F = {
           sX: 2,
@@ -237,7 +237,7 @@ export default function () {
             getSerif({ right: true, hor: true }),
             getSerif({ c: true, right: true, hor: true }),
           ],
-        };
+        }
 
         this.H = {
           sX: 3,
@@ -248,7 +248,7 @@ export default function () {
             getSerif(),
             getSerif({ bottom: true }),
           ],
-        };
+        }
 
         this.I = {
           sX: 1,
@@ -257,7 +257,7 @@ export default function () {
             getSerif({ c: true }),
             getSerif({ bottom: true, c: true }),
           ],
-        };
+        }
 
         this.J = {
           sX: 2,
@@ -267,7 +267,7 @@ export default function () {
             { sY: "stemVert", fY: true },
             getSerif({ right: true }),
           ],
-        };
+        }
 
         this.L = {
           sX: 2,
@@ -278,7 +278,7 @@ export default function () {
             getSerif({ bottom: true }),
             getSerif({ bottom: true, right: true, hor: true }),
           ],
-        };
+        }
 
         this.M = {
           sX: 4,
@@ -321,7 +321,7 @@ export default function () {
               id: "M",
             },
           ],
-        };
+        }
 
         this.N = {
           sX: 3,
@@ -357,7 +357,7 @@ export default function () {
             },
             { sX: "stem", fX: true, id: "N" },
           ],
-        };
+        }
 
         this.O = {
           sX: 3,
@@ -367,7 +367,7 @@ export default function () {
             { sY: "stemVert" },
             { sY: "stemVert", fY: true },
           ],
-        };
+        }
 
         this.T = {
           sX: 4,
@@ -378,7 +378,7 @@ export default function () {
             getSerif({ right: true, hor: true }),
             getSerif({ bottom: true, c: true }),
           ],
-        };
+        }
 
         this.U = {
           sX: 3,
@@ -389,7 +389,7 @@ export default function () {
             getSerif(),
             getSerif({ right: true }),
           ],
-        };
+        }
 
         this.Z = {
           sX: 3,
@@ -415,8 +415,8 @@ export default function () {
             },
             serif ? { sY: "stemVert", sX: { r: 0.6 }, c: true } : undefined,
           ],
-        };
-      })();
+        }
+      })()
 
       return function (letter) {
         var thisLetter =
@@ -441,25 +441,25 @@ export default function () {
                   },
                 ]
               : thisLetter.list,
-          };
+          }
 
-        letterCount += sX;
-        return letter;
-      };
+        letterCount += sX
+        return letter
+      }
     })(),
     letters = (function () {
       var list = [],
         l = word.length,
-        sX = 1 / l;
+        sX = 1 / l
 
       while (l--) {
-        list.push(getLetter(word[l]));
-        spacingCount += 1;
+        list.push(getLetter(word[l]))
+        spacingCount += 1
       }
 
-      spacingCount -= 1;
+      spacingCount -= 1
 
-      return list;
+      return list
     })(),
     renderList = [
       {
@@ -501,11 +501,11 @@ export default function () {
         add: ["stemVert", mult(2, "serifPadding")],
         max: mult(0.5, "imgheight"),
       },
-    };
+    }
 
   return {
     renderList: renderList,
     background: backgroundColor,
     variableList: variableList,
-  };
+  }
 }

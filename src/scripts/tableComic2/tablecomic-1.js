@@ -11,7 +11,7 @@ export const getFace = function () {
         }),
         pupilS = { map: "c", min: 0.5, max: 0.8 },
         pupilPosY = { map: "a", min: 0, max: 1 },
-        openSY = { map: "d", min: 0, max: 1 };
+        openSY = { map: "d", min: 0, max: 1 }
 
       return {
         camera: {
@@ -56,8 +56,8 @@ export const getFace = function () {
             },
           },
         ],
-      };
-    };
+      }
+    }
 
   return {
     paperColor: backgroundColor,
@@ -73,8 +73,8 @@ export const getFace = function () {
       // getPanel(),
       // getPanel()
     ],
-  };
-};
+  }
+}
 
 export const getStrip = function getStrip() {
   var stripInfo = new this.getStripInfo(),
@@ -87,25 +87,25 @@ export const getStrip = function getStrip() {
       finalPanels,
       stripInfo.defaultPanels,
       stripInfo.inventory,
-    );
+    )
 
   while (count < length) {
-    currentPanel = basicPanels[count];
+    currentPanel = basicPanels[count]
 
     if (currentPanel.draw === "faceDraw") {
-      finalPanels.push(currentPanel);
+      finalPanels.push(currentPanel)
     } else {
-      combiner(currentPanel);
+      combiner(currentPanel)
     }
 
-    count += 1;
+    count += 1
   }
 
-  delete stripInfo.defaultPanels;
-  delete stripInfo.inventory;
+  delete stripInfo.defaultPanels
+  delete stripInfo.inventory
 
-  return stripInfo;
-};
+  return stripInfo
+}
 
 export const getCombiner = function (finals, defaults, inventory) {
   return function (panel) {
@@ -115,11 +115,11 @@ export const getCombiner = function (finals, defaults, inventory) {
       listKey,
       defaultsList,
       copyDefaultObject = function (object, defaultObject) {
-        var valueKey;
+        var valueKey
 
         if (object === undefined) {
           // If no Info exist about Object, that is supposed to be there
-          return defaultObject;
+          return defaultObject
         } else {
           // If Info already exists about that object
           for (valueKey in defaultObject) {
@@ -127,24 +127,24 @@ export const getCombiner = function (finals, defaults, inventory) {
               // If no value exists, use default value
 
               if (defaultObject[valueKey].map !== undefined) {
-                object[valueKey] = defaultObject[valueKey];
+                object[valueKey] = defaultObject[valueKey]
               } else {
                 object[valueKey] = copyDefaultObject(
                   object[valueKey],
                   defaultObject[valueKey],
-                );
+                )
               }
             }
           }
         }
 
-        return object;
-      };
+        return object
+      }
 
     for (objectKey in defaults) {
       if (objectKey === "list") {
         if (!panel.noDefaults) {
-          defaultsList = defaults[objectKey];
+          defaultsList = defaults[objectKey]
 
           // fill the List with the defaults, needs special treatment
           // Use Default values if current has no values or not all important values are defined
@@ -152,31 +152,31 @@ export const getCombiner = function (finals, defaults, inventory) {
             panelList[listKey] = copyDefaultObject(
               panelList[listKey],
               defaultsList[listKey],
-            );
+            )
 
-            newList.push(panelList[listKey]);
+            newList.push(panelList[listKey])
           }
         } else {
           for (listKey in panelList) {
-            newList.push(panelList[listKey]);
+            newList.push(panelList[listKey])
           }
         }
       } else {
         // Fill the rest of the panel Information with defaults
-        panel[objectKey] = panel[objectKey] || defaults[objectKey];
+        panel[objectKey] = panel[objectKey] || defaults[objectKey]
       }
     }
 
     // Transform to finals form, so it can be used
     for (objectKey in panelList) {
-      panelList[objectKey].what = inventory[objectKey];
+      panelList[objectKey].what = inventory[objectKey]
     }
 
-    panel.list = newList;
+    panel.list = newList
 
-    finals.push(panel);
-  };
-};
+    finals.push(panel)
+  }
+}
 
 export const getStripInfo = function () {
   var background = new this.basic.Background({}),
@@ -190,7 +190,7 @@ export const getStripInfo = function () {
     }),
     actorBaseColor = [this.rInt(0, 255), this.rInt(0, 255), this.rInt(0, 255)],
     firstBaseColor = [this.rInt(0, 255), this.rInt(0, 255), this.rInt(0, 255)],
-    secondBaseColor = [this.rInt(0, 255), this.rInt(0, 255), this.rInt(0, 255)];
+    secondBaseColor = [this.rInt(0, 255), this.rInt(0, 255), this.rInt(0, 255)]
 
   var actor1 = new this.basic.Actor({
       color: {
@@ -241,25 +241,25 @@ export const getStripInfo = function () {
         max = min,
         zoomOut = -0.04,
         zoomIn = 0.1,
-        i = 0;
+        i = 0
 
       return function () {
-        var zoom = { map: "a", min: min, max: max };
+        var zoom = { map: "a", min: min, max: max }
 
         if (i > 0) {
           // min += zoomOut;
-          max += zoomIn;
+          max += zoomIn
 
           if (i === 4) {
-            min += 0.2;
-            max += 0.2;
+            min += 0.2
+            max += 0.2
           }
         }
 
-        i += 1;
+        i += 1
 
-        return noCameraMovement ? (zoom.max + zoom.min) / 2 : zoom;
-      };
+        return noCameraMovement ? (zoom.max + zoom.min) / 2 : zoom
+      }
     })(),
     panY = [
       -0.15, //0
@@ -1078,7 +1078,7 @@ export const getStripInfo = function () {
           glass: glassOnGround,
         },
       },
-    ];
+    ]
 
   return {
     paperColor: [220, 220, 220],
@@ -1141,6 +1141,6 @@ export const getStripInfo = function () {
       },
     },
     panels: panels,
-  };
-};
+  }
+}
 // END getStrip \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/

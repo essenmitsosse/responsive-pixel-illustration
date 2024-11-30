@@ -1,4 +1,4 @@
-import { helper as helperGlobal } from "../renderengine/helper.js";
+import { helper as helperGlobal } from "../renderengine/helper.js"
 
 export default function (args, init, createSlider) {
   var helper = helperGlobal,
@@ -7,9 +7,9 @@ export default function (args, init, createSlider) {
     backgroundColor = [200, 200, 240],
     linkList = [],
     linkListPush = function (obj) {
-      linkList.push(obj);
+      linkList.push(obj)
 
-      return obj;
+      return obj
     },
     width = linkListPush({ main: true }),
     height = linkListPush({ main: true, height: true }),
@@ -96,7 +96,7 @@ export default function (args, init, createSlider) {
             list: args.letter,
           },
         ],
-      };
+      }
     },
     renderList = [
       getLetter({
@@ -157,9 +157,9 @@ export default function (args, init, createSlider) {
             },
           ],
         }),
-    ];
+    ]
 
-  pushChanger(0, 1, "letterS", letterSquare);
+  pushChanger(0, 1, "letterS", letterSquare)
 
   if (createSlider) {
     createSlider.slider({
@@ -167,7 +167,7 @@ export default function (args, init, createSlider) {
       valueName: "letterS",
       defaultValue: 1,
       input: { min: 0, max: 1, step: 0.01 },
-    });
+    })
   }
 
   // console.log( serifeSX_ );
@@ -179,5 +179,5 @@ export default function (args, init, createSlider) {
     hover: hover.hover,
     changeValueSetter: hover.ready,
     recommendedPixelSize: 16,
-  };
+  }
 }

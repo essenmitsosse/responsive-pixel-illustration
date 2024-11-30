@@ -3,35 +3,35 @@
 // BEGINN Table /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Table = function Table(args) {
   if (!args) {
-    args = {};
+    args = {}
   }
   // Forms and Sizes
-  this.sX_ = args.sX || 0.6;
-  this.sY_ = args.sY || 0.6;
+  this.sX_ = args.sX || 0.6
+  this.sY_ = args.sY || 0.6
 
   // Colors
-  this.color = args.color || [200, 200, 200];
-  this.colorDetail = args.colorDetail || [225, 210, 225];
-};
+  this.color = args.color || [200, 200, 200]
+  this.colorDetail = args.colorDetail || [225, 210, 225]
+}
 
 Table.prototype.draw = function TableDraw(args) {
-  this.sX = this.pushLinkList({ r: this.sX_, useSize: args.stageSX });
-  this.sY = this.pushLinkList({ r: this.sY_, useSize: args.stageSY });
+  this.sX = this.pushLinkList({ r: this.sX_, useSize: args.stageSX })
+  this.sY = this.pushLinkList({ r: this.sY_, useSize: args.stageSY })
 
   this.topSY = this.pushLinkList({
     r: 0.1 * this.sY_,
     useSize: args.stageSY,
     max: this.sY,
     min: 1,
-  });
-  this.legSX = this.pushLinkList({ r: 0.1, useSize: this.sX });
-  this.footSX = this.pushLinkList({ r: 0.35, useSize: this.sX });
+  })
+  this.legSX = this.pushLinkList({ r: 0.1, useSize: this.sX })
+  this.footSX = this.pushLinkList({ r: 0.35, useSize: this.sX })
 
   this.pushRelativeStandardAutomatic({
     sY: { map: "props", min: 0, max: this.sY_ },
-  });
+  })
 
-  this.getPosition(args);
+  this.getPosition(args)
 
   return this.getObject([
     // Table Foot
@@ -69,51 +69,51 @@ Table.prototype.draw = function TableDraw(args) {
         },
       ],
     },
-  ]);
-};
+  ])
+}
 
 Table.prototype.getPosition = function TableGetPosition(id) {
   return {
     x: id === 0 ? this.x : this.pushLinkList([this.x, this.sX]),
     y: this.sY,
-  };
-};
+  }
+}
 // END Table \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Chair /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Chair = function Chair(args) {
   if (!args) {
-    args = {};
+    args = {}
   }
   // Forms and Sizes
-  this.sX_ = args.sX || 0.25;
-  this.sY_ = args.sY || 0.32;
+  this.sX_ = args.sX || 0.25
+  this.sY_ = args.sY || 0.32
 
-  this.reflect = args.toLeft;
+  this.reflect = args.toLeft
 
   // Colors
-  this.color = args.color || [200, 200, 200];
-  this.colorDetail = args.colorDetail || [180, 180, 180];
-};
+  this.color = args.color || [200, 200, 200]
+  this.colorDetail = args.colorDetail || [180, 180, 180]
+}
 
 Chair.prototype.draw = function ChairDraw(args) {
-  this.sX = this.pushLinkList({ r: this.sX_, useSize: args.stageSX });
-  this.sY = this.pushLinkList({ r: this.sY_, useSize: args.stageSY });
+  this.sX = this.pushLinkList({ r: this.sX_, useSize: args.stageSX })
+  this.sY = this.pushLinkList({ r: this.sY_, useSize: args.stageSY })
 
-  this.verticalElement = this.pushLinkList({ r: 0.1, useSize: this.sX });
+  this.verticalElement = this.pushLinkList({ r: 0.1, useSize: this.sX })
   this.horizontalElement = this.pushLinkList({
     r: 0.15,
     useSize: this.sX,
     max: this.sY,
-  });
-  this.legDistance = this.pushLinkList({ r: 0.3, useSize: this.sX });
-  this.backSY = this.pushLinkList({ r: 2, useSize: this.sY });
+  })
+  this.legDistance = this.pushLinkList({ r: 0.3, useSize: this.sX })
+  this.backSY = this.pushLinkList({ r: 2, useSize: this.sY })
 
   this.pushRelativeStandardAutomatic({
     sY: { map: "props", min: 0, max: this.sY_ },
-  });
+  })
 
-  this.getPosition(args);
+  this.getPosition(args)
 
   return this.getObject([
     // Front Leg
@@ -159,49 +159,49 @@ Chair.prototype.draw = function ChairDraw(args) {
       sX: this.verticalElement,
       tX: true,
     },
-  ]);
-};
+  ])
+}
 // END Chair \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Glass /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Glass = function Glass(args) {
   if (!args) {
-    args = {};
+    args = {}
   }
   // Forms & Sizes
-  this.sX_ = 0.1;
-  this.sY_ = 0.15;
+  this.sX_ = 0.1
+  this.sY_ = 0.15
 
   // Colors
-  this.color = args.color || [100, 100, 255];
-  this.glassColor = [255, 255, 255];
+  this.color = args.color || [100, 100, 255]
+  this.glassColor = [255, 255, 255]
   this.mixColor = [
     this.color[0] * 0.5 + this.glassColor[0] * 0.5,
     this.color[1] * 0.5 + this.glassColor[1] * 0.5,
     this.color[2] * 0.5 + this.glassColor[2] * 0.5,
-  ];
-};
+  ]
+}
 
 Glass.prototype.draw = function GlassDraw(args) {
-  var normalGlass;
+  var normalGlass
 
-  this.sX = this.pushLinkList({ r: this.sX_, useSize: args.square, min: 1 });
-  this.sY = this.pushLinkList({ r: this.sY_, useSize: args.square });
+  this.sX = this.pushLinkList({ r: this.sX_, useSize: args.square, min: 1 })
+  this.sY = this.pushLinkList({ r: this.sY_, useSize: args.square })
 
   this.pushRelativeStandardAutomatic({
     sY: { map: "props", min: 0, max: this.sY_ },
-  });
+  })
 
-  this.level = this.pushLinkList({ r: 0, useSize: this.sY });
+  this.level = this.pushLinkList({ r: 0, useSize: this.sY })
 
-  this.getPosition(args);
-  this.pushRelativeStandardAutomatic(args.info);
+  this.getPosition(args)
+  this.pushRelativeStandardAutomatic(args.info)
 
   normalGlass = [
     { sY: { r: 0.08, min: 1, useSize: this.sY }, fY: true },
     { sX: 1 },
     { sX: 1, fX: true },
-  ];
+  ]
 
   return this.getObject([
     // normal Glass
@@ -216,52 +216,52 @@ Glass.prototype.draw = function GlassDraw(args) {
         { color: this.mixColor, list: normalGlass },
       ],
     },
-  ]);
-};
+  ])
+}
 // END Glass \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Emotion /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Emotion = function Emotion(args) {
   if (!args) {
-    args = {};
+    args = {}
   }
-  this.color = args.color || [220, 220, 220];
-  this.heartColor = [-1, -1, -1];
+  this.color = args.color || [220, 220, 220]
+  this.heartColor = [-1, -1, -1]
 
   this.colorList.push({
     map: "a",
     min: [120, 120, 120],
     max: [200, 100, 100],
     color: this.heartColor,
-  });
-};
+  })
+}
 
 Emotion.prototype.draw = function EmotionDraw(args) {
   if (!args.info.pos) {
-    return;
+    return
   }
-  var actor = args.info.pos.obj;
+  var actor = args.info.pos.obj
 
   if (!actor) {
-    return;
+    return
   }
 
-  this.sY = this.sX = actor.head ? actor.head.square : 0;
+  this.sY = this.sX = actor.head ? actor.head.square : 0
 
-  this.innerS = this.pushLinkList({ r: 0.3, useSize: this.sX, a: 5 });
+  this.innerS = this.pushLinkList({ r: 0.3, useSize: this.sX, a: 5 })
   if (args.info.size) {
     this.innerS = this.pushLinkList({
       r: args.info.size,
       useSize: this.innerS,
-    });
+    })
   }
-  this.innerS = this.pushLinkList({ r: 1, useSize: this.innerS });
+  this.innerS = this.pushLinkList({ r: 1, useSize: this.innerS })
 
   this.pushRelativeStandardAutomatic({
     innerS: { map: "emotions", min: 0, max: 1 },
-  });
+  })
 
-  this.getPosition(args);
+  this.getPosition(args)
 
   if (actor.head) {
     this.x = this.pushLinkList({
@@ -272,22 +272,22 @@ Emotion.prototype.draw = function EmotionDraw(args) {
         { r: 0.5, useSize: actor.sX },
         -1,
       ],
-    });
+    })
   }
 
   if (args.info.heart) {
-    this.cloudBottomY = this.pushLinkList({ r: 0.6, useSize: this.innerS });
-    this.cloudLeftX = this.pushLinkList({ r: 0, useSize: this.innerS });
+    this.cloudBottomY = this.pushLinkList({ r: 0.6, useSize: this.innerS })
+    this.cloudLeftX = this.pushLinkList({ r: 0, useSize: this.innerS })
 
     if (args.info.thunder) {
-      this.thunderSY = this.pushLinkList({ r: 0, useSize: this.innerS });
+      this.thunderSY = this.pushLinkList({ r: 0, useSize: this.innerS })
     }
 
     this.pushRelativeStandardAutomatic({
       cloudBottomY: { map: "a", min: 0.0001, max: 0.6 },
       cloudLeftX: { map: "a", min: -0.5, max: 0 },
       thunderSY: { map: "a", min: 1, max: -4 },
-    });
+    })
   }
 
   return this.getObject([
@@ -443,6 +443,6 @@ Emotion.prototype.draw = function EmotionDraw(args) {
             },
           ],
     },
-  ]);
-};
+  ])
+}
 // END Emotion \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/

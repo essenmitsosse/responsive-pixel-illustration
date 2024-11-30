@@ -1,7 +1,7 @@
-import { helper } from "../renderengine/helper.js";
+import { helper } from "../renderengine/helper.js"
 
 export default function (args) {
-  args = args || {};
+  args = args || {}
 
   var help = helper,
     getSmallerDim = help.getSmallerDim,
@@ -165,7 +165,7 @@ export default function (args) {
       "sunPosX": { r: [0.2, 0.6][sunPos] },
       "sunPosY": { r: [0.1, 0.5][sunPos], useSize: "skyMountainSY" },
       "sunS": mult(0.15, "imgSqu"),
-    };
+    }
 
   // ( function ( maxChance, count, variations ) {
   // 	var singleDouble = Math.sqrt( maxChance ) / count,
@@ -206,5 +206,5 @@ export default function (args) {
     renderList: renderList,
     variableList: variableList,
     background: backgroundColor,
-  };
+  }
 }

@@ -1,4 +1,4 @@
-import { helper } from "../renderengine/helper.js";
+import { helper } from "../renderengine/helper.js"
 
 export default function () {
   var help = helper,
@@ -122,7 +122,7 @@ export default function () {
           },
           {},
         ],
-      };
+      }
     },
     fullOar = [
       { color: oar, weight: 1, points: [{ fY: true }, { fX: true }] },
@@ -1108,11 +1108,11 @@ export default function () {
       "ramDiag": { r: 0.6, useSize: "ramFullSX" },
       "ramUpperSX": ["ramFullSX", sub("ramDiag")],
       "ramFaceSlopSX": ["ramFullSX", sub("ramUpperSX")],
-    };
+    }
 
   return {
     renderList: renderList,
     variableList: variableList,
     background: backgroundColor,
-  };
+  }
 }

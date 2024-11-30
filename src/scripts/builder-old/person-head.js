@@ -1,28 +1,28 @@
-import { Object } from "./object.js";
+import { Object } from "./object.js"
 // HEAD --------------------------------------------------------------------------------
 export const Head = function (args) {
-  var hairNext = this.IF(0.7);
+  var hairNext = this.IF(0.7)
 
   // Form & Sizes
-  this.headSY = this.IF(0.01) ? this.R(0, 0.4) : this.R(0.1, 0.15);
+  this.headSY = this.IF(0.01) ? this.R(0, 0.4) : this.R(0.1, 0.15)
   if (args.demo && args.head) {
-    this.headSY = args.head;
+    this.headSY = args.head
   }
 
-  this.neckSY = this.R(0.05, 0.2);
-  this.neckSX = this.R(0.4, 0.9);
+  this.neckSY = this.R(0.05, 0.2)
+  this.neckSX = this.R(0.4, 0.9)
 
-  this.headSX = this.R(0.1, 0.7) * this.headSY;
-  this.headSideSYFak = this.R(1.6, 2.4);
+  this.headSX = this.R(0.1, 0.7) * this.headSY
+  this.headSideSYFak = this.R(1.6, 2.4)
 
-  this.lowerHeadSX = (this.IF(0.5) && this.R(0.8, 1.2)) || 1;
+  this.lowerHeadSX = (this.IF(0.5) && this.R(0.8, 1.2)) || 1
 
-  this.foreheadSY = this.R(0.1, 0.75);
+  this.foreheadSY = this.R(0.1, 0.75)
 
   // Colors
-  this.skinColor = args.skinColor;
-  this.skinShadowColor = args.skinShadowColor;
-  this.skinDetailColor = args.skinDetailColor;
+  this.skinColor = args.skinColor
+  this.skinShadowColor = args.skinShadowColor
+  this.skinDetailColor = args.skinDetailColor
 
   this.hairColor = args.hairColor =
     args.animal || this.IF(0.1)
@@ -33,21 +33,21 @@ export const Head = function (args) {
           nextColor: hairNext,
           prevColor: !hairNext,
           brContrast: -2,
-        });
+        })
   this.hairDetailColor = args.hairDetailColor = args.hairColor.copy({
     brContrast: -1,
-  });
+  })
 
   this.hatColor = args.hatColor = (
     this.IF(0.5) ? args.firstColor : args.secondColor
   ).copy({
     brAdd: this.IF(0.5) ? 0 : this.IF(0.7) ? -2 : 1,
-  });
+  })
 
   // Assets
-  this.eye = new this.basic.Eye(args);
-  this.mouth = new this.basic.Mouth(args);
-  this.beard = this.IF() && new this.basic.Beard(args);
+  this.eye = new this.basic.Eye(args)
+  this.mouth = new this.basic.Mouth(args)
+  this.beard = this.IF() && new this.basic.Beard(args)
   this.headGear = args.headGear =
     (args.demo || this.IF(0.3)) &&
     new (this.IF(0.01)
@@ -56,14 +56,14 @@ export const Head = function (args) {
         ? this.basic.Helm
         : this.IF(0.1)
           ? this.basic.HeadBand
-          : this.basic.Hat)(args);
-  this.hair = this.IF(0.9) && new this.basic.Hair(args);
-}; // END Head
-Head.prototype = new Object();
+          : this.basic.Hat)(args)
+  this.hair = this.IF(0.9) && new this.basic.Hair(args)
+} // END Head
+Head.prototype = new Object()
 Head.prototype.draw = function (args) {
   var nr = args.nr,
     sideView = args.sideView,
-    list;
+    list
 
   if (args.calc) {
     this.vL["headMinSY" + nr] = {
@@ -71,13 +71,13 @@ Head.prototype.draw = function (args) {
       useSize: args.size,
       a: 1,
       min: 1,
-    };
+    }
     this.vL["headMinSX" + nr] = {
       r: this.headSX,
       min: 1,
       useSize: args.size,
       a: 1.4,
-    };
+    }
 
     this.vL["neckSX" + nr] = sideView
       ? {
@@ -93,13 +93,13 @@ Head.prototype.draw = function (args) {
           useSize: "headMinSX" + nr,
           max: "personSX" + nr,
           min: 1,
-        };
+        }
     this.vL["neckSY" + nr] = {
       r: this.headSY * this.neckSY,
       useSize: args.size,
       a: -1,
       min: { a: 0 },
-    };
+    }
   }
 
   list = {
@@ -218,23 +218,19 @@ Head.prototype.draw = function (args) {
         ],
       },
     ],
-  };
+  }
 
   if (args.calc) {
     this.vL["faceMaxSY" + nr] = [
       "mouthMaxSY" + nr,
       "eyeSY" + nr,
       "eyeFullMaxY" + nr,
-    ];
+    ]
     this.vL["foreheadSY" + nr] = {
       r: this.foreheadSY,
       useSize: "headMinSY" + nr,
-    };
-    this.vL["upperHeadSY" + nr] = [
-      "foreheadSY" + nr,
-      "eyeSY" + nr,
-      "eyeY" + nr,
-    ];
+    }
+    this.vL["upperHeadSY" + nr] = ["foreheadSY" + nr, "eyeSY" + nr, "eyeY" + nr]
 
     this.vL["headSX" + nr] = {
       add: ["eyeSX" + nr, "eyeX" + nr],
@@ -243,81 +239,81 @@ Head.prototype.draw = function (args) {
         useSize: "headMinSX" + nr,
         min: ["mouthSX" + nr],
       },
-    };
+    }
 
     this.vL["headMaxSY" + nr] = {
       add: ["mouthTopMaxY" + nr, "upperHeadSY" + nr],
-    };
+    }
     this.vL["headSY" + nr] = {
       add: ["mouthTopY" + nr, "upperHeadSY" + nr],
       min: "headMinSY" + nr,
-    };
+    }
 
     this.vL["hairSX" + nr] = {
       add: ["headSX" + nr, !this.hair ? { a: 0 } : sideView ? 2 : 1],
       max: { r: 1.2, useSize: "headSX" + nr },
-    };
+    }
     this.vL["lowerHeadSY" + nr] = [
       "headSY" + nr,
       this.sub("upperHeadSY" + nr),
       1,
-    ];
+    ]
     this.vL["eyeOutX" + nr] = [
       "headSX" + nr,
       this.sub("eyeSX" + nr),
       this.sub("eyeX" + nr),
-    ];
+    ]
     this.vL["lowerHeadSX" + nr] = {
       r: this.lowerHeadSX,
       useSize: "headSX" + nr,
       min: "mouthSX" + nr,
-    };
+    }
   }
-  return list;
-};
+  return list
+}
 
 // EYE --------------------------------------------------------------------------------
 export const Eye = function (args) {
   // Form & Sizes
-  this.eyeBrow = this.IF(0.7);
-  this.monoBrow = this.eyeBrow && this.IF(0.05);
+  this.eyeBrow = this.IF(0.7)
+  this.monoBrow = this.eyeBrow && this.IF(0.05)
 
-  this.eyeLidsBottom = this.IF(0.7);
-  this.eyeLidsTop = this.IF(this.eyeBrow ? 0.3 : 0.7);
-  this.eyeLids = this.eyeLidsBottom || this.eyeLidsTop;
+  this.eyeLidsBottom = this.IF(0.7)
+  this.eyeLidsTop = this.IF(this.eyeBrow ? 0.3 : 0.7)
+  this.eyeLids = this.eyeLidsBottom || this.eyeLidsTop
 
-  this.eyeRoundTop = this.IF(0.5);
-  this.eyeRoundBottom = this.IF(0.5);
+  this.eyeRoundTop = this.IF(0.5)
+  this.eyeRoundBottom = this.IF(0.5)
 
-  this.eyeSX = this.R(0.2, 0.4);
-  this.eyeSY = this.R(0.2, 3);
+  this.eyeSX = this.R(0.2, 0.4)
+  this.eyeSY = this.R(0.2, 3)
 
-  this.eyeX = this.R(0.1, 0.7) - this.eyeSX;
-  this.eyeY = this.R(-0.2, 0.3);
+  this.eyeX = this.R(0.1, 0.7) - this.eyeSX
+  this.eyeY = this.R(-0.2, 0.3)
 
-  this.highPupil = this.IF(0.1);
+  this.highPupil = this.IF(0.1)
 
-  this.glasses = this.IF(0.02);
+  this.glasses = this.IF(0.02)
 
   // Colors
-  this.skinColor = args.skinColor;
-  this.skinShadowColor = args.skinShadowColor;
-  this.skinDetailColor = args.skinDetailColor;
-  this.hairColor = args.hairColor;
+  this.skinColor = args.skinColor
+  this.skinShadowColor = args.skinShadowColor
+  this.skinDetailColor = args.skinDetailColor
+  this.hairColor = args.hairColor
 
-  this.eyeColor = args.skinColor.copy({ brAdd: this.glasses ? 2 : 1 });
+  this.eyeColor = args.skinColor.copy({ brAdd: this.glasses ? 2 : 1 })
   this.pupilColor = this.glasses
     ? this.eyeColor.copy({ brAdd: -2 })
-    : args.skinDetailColor;
+    : args.skinDetailColor
 
   this.glassesColor = args.skinColor.copy({
     nextColor: this.IF(0.5),
     brAdd: -2,
-  });
+  })
 
   // Assets
-}; // END Eye
-Eye.prototype = new Object();
+} // END Eye
+Eye.prototype = new Object()
 Eye.prototype.draw = function (args) {
   var nr = args.nr,
     sideView = args.sideView,
@@ -346,40 +342,40 @@ Eye.prototype.draw = function (args) {
     eyeBrowAngry =
       eyeBrowSad ||
       brow === "angry" ||
-      (!args.right && brow === "superSceptical");
+      (!args.right && brow === "superSceptical")
 
   if (args.calc) {
     this.vL["eyeFullSX" + nr] = {
       r: this.eyeSX,
       useSize: "headMinSX" + nr,
       max: "headMinSX" + nr,
-    };
+    }
     this.vL["eyeSX" + nr] = {
       r: sideView ? 0.8 : 1,
       useSize: "eyeFullSX" + nr,
       min: { r: 0.3, useSize: "headMinSX" + nr, max: 1 },
-    };
+    }
     this.vL["eyeSY" + nr] = {
       r: this.eyeSX * this.eyeSY,
       useSize: "headMinSX" + nr,
       min: { r: 0.2, useSize: "headMinSY" + nr, max: 1 },
       max: { r: 2, useSize: "eyeSX" + nr, a: -1 },
-    };
+    }
 
     this.vL["eyeX" + nr] = {
       r: this.eyeX,
       useSize: "headMinSX" + nr,
       min: 1,
-    };
+    }
     this.vL["eyeY" + nr] = {
       r: this.eyeY,
       useSize: "headMinSY" + nr,
       min: { a: 0 },
-    };
-    this.vL["eyeFullY" + nr] = ["eyeY" + nr, "mouthTopY" + nr, 0.1];
-    this.vL["eyeFullMaxY" + nr] = ["eyeY" + nr, "mouthTopMaxY" + nr, 0.1];
+    }
+    this.vL["eyeFullY" + nr] = ["eyeY" + nr, "mouthTopY" + nr, 0.1]
+    this.vL["eyeFullMaxY" + nr] = ["eyeY" + nr, "mouthTopMaxY" + nr, 0.1]
 
-    this.vL["eyeBrowSY" + nr] = { r: 0.3, useSize: "eyeSY" + nr };
+    this.vL["eyeBrowSY" + nr] = { r: 0.3, useSize: "eyeSY" + nr }
   }
 
   return (
@@ -606,25 +602,25 @@ Eye.prototype.draw = function (args) {
         },
       ],
     }
-  );
-}; // END Eye draw
+  )
+} // END Eye draw
 
 // MOUTH --------------------------------------------------------------------------------
 export const Mouth = function (args) {
   // Form & Sizes
-  this.mouthSX = this.R(0.4, 0.6);
-  this.mouthSY = this.R(0.2, 0.4);
-  this.mouthY = this.R(0.1, 0.6);
+  this.mouthSX = this.R(0.4, 0.6)
+  this.mouthSY = this.R(0.2, 0.4)
+  this.mouthY = this.R(0.1, 0.6)
 
   // Colors
-  this.skinColor = args.skinColor;
-  this.skinDetailColor = args.skinDetailColor;
-  this.teethColor = this.skinColor.copy({ brAdd: 2 });
-  this.teethShadowColor = this.teethColor.copy({ brAdd: -1 });
+  this.skinColor = args.skinColor
+  this.skinDetailColor = args.skinDetailColor
+  this.teethColor = this.skinColor.copy({ brAdd: 2 })
+  this.teethShadowColor = this.teethColor.copy({ brAdd: -1 })
 
   // Assets
-}; // END Mouth
-Mouth.prototype = new Object();
+} // END Mouth
+Mouth.prototype = new Object()
 Mouth.prototype.draw = function (args) {
   var nr = args.nr,
     sideView = args.sideView,
@@ -645,7 +641,7 @@ Mouth.prototype.draw = function (args) {
       !mouthSlight && ((mouthOpen && teeth === "top") || teeth === "both"),
     teethBottom =
       !mouthSlight && ((mouthOpen && teeth === "bottom") || teeth === "both"),
-    smirk = thisMouth.smirk;
+    smirk = thisMouth.smirk
 
   if (args.calc) {
     this.vL["mouthSX" + nr] = {
@@ -653,11 +649,11 @@ Mouth.prototype.draw = function (args) {
       a: 0.5,
       useSize: "headMinSX" + nr,
       max: "headMinSX" + nr,
-    };
+    }
     this.vL["mouthMaxSY" + nr] = {
       r: this.mouthSY,
       useSize: "headMinSY" + nr,
-    };
+    }
     this.vL["mouthSY" + nr] =
       mouthSlight || mouthSmile
         ? { a: 2, max: "mouthMaxSY" + nr }
@@ -665,10 +661,10 @@ Mouth.prototype.draw = function (args) {
           ? mouthHalfOpen
             ? this.mult(0.5, "mouthMaxSY" + nr)
             : "mouthMaxSY" + nr
-          : { a: 1, max: "mouthMaxSY" + nr };
-    this.vL["mouthY" + nr] = { r: this.mouthY, useSize: "headMinSY" + nr };
-    this.vL["mouthTopMaxY" + nr] = ["mouthMaxSY" + nr, "mouthY" + nr];
-    this.vL["mouthTopY" + nr] = ["mouthSY" + nr, "mouthY" + nr];
+          : { a: 1, max: "mouthMaxSY" + nr }
+    this.vL["mouthY" + nr] = { r: this.mouthY, useSize: "headMinSY" + nr }
+    this.vL["mouthTopMaxY" + nr] = ["mouthMaxSY" + nr, "mouthY" + nr]
+    this.vL["mouthTopY" + nr] = ["mouthSY" + nr, "mouthY" + nr]
   }
 
   return (
@@ -722,54 +718,54 @@ Mouth.prototype.draw = function (args) {
             },
           ],
     }
-  );
-}; // END Mouth draw
+  )
+} // END Mouth draw
 
 // HAIR --------------------------------------------------------------------------------
 export const Hair = function (args) {
   // Form & Sizes
-  this.curly = args.headGear && this.IF();
+  this.curly = args.headGear && this.IF()
 
-  this.longHair = this.IF(0.1);
-  this.hairSY = this.R(0.1, 1) * (this.longHair ? 3 : 1);
-  this.hairSide = this.curly || this.IF(0.99);
-  this.hairSideSY = 0.8 || (this.hairSide && this.R(0.2, 0.8));
-  this.hairAccuracy = this.R(0.1, 0.3);
-  this.hairS = this.R(0.01, 0.1);
+  this.longHair = this.IF(0.1)
+  this.hairSY = this.R(0.1, 1) * (this.longHair ? 3 : 1)
+  this.hairSide = this.curly || this.IF(0.99)
+  this.hairSideSY = 0.8 || (this.hairSide && this.R(0.2, 0.8))
+  this.hairAccuracy = this.R(0.1, 0.3)
+  this.hairS = this.R(0.01, 0.1)
 
-  this.detailSY = this.R(0, 0.25);
-  this.detailChance = this.R(0, 0.5);
+  this.detailSY = this.R(0, 0.25)
+  this.detailChance = this.R(0, 0.5)
 
   // Colors
-  this.hairColor = args.hairColor;
-  this.hairDetailColor = args.hairDetailColor;
+  this.hairColor = args.hairColor
+  this.hairDetailColor = args.hairDetailColor
 
   // Assets
-}; // END Hair
-Hair.prototype = new Object();
+} // END Hair
+Hair.prototype = new Object()
 Hair.prototype.draw = function (args) {
   var nr = args.nr,
     sideView = args.sideView,
     backView = args.backView,
     rightSide = sideView || !args.right,
-    name = args.id + "_" + args.right + nr;
+    name = args.id + "_" + args.right + nr
 
   if (args.calc) {
     this.vL["hairS" + nr] = {
       r: this.hairS,
       useSize: "headMinSY" + nr,
       min: 1,
-    };
+    }
     this.vL["hairAccuracy" + nr] = {
       r: this.hairAccuracy * -1,
       useSize: "headMinSY" + nr,
       max: { a: 0 },
-    };
+    }
     this.vL["hairDetailSY" + nr] = {
       r: this.detailSY,
       useSize: "headMinSY" + nr,
       min: 1,
-    };
+    }
   }
 
   return {
@@ -909,42 +905,42 @@ Hair.prototype.draw = function (args) {
         ],
       },
     ],
-  };
-}; // END Hair draw
+  }
+} // END Hair draw
 
 // BEARD --------------------------------------------------------------------------------
 export const Beard = function (args) {
   // Form & Sizes
-  this.threeOClok = this.IF(0.1);
-  this.mainBeard = this.IF(0.5);
-  this.mustach = !this.mainBeard || this.IF(0.8);
-  this.goate = this.mustach && this.IF(this.mainBeard ? 0.8 : 0.05);
-  this.mustachGap = this.mustach && this.IF(0.5);
-  this.beardColor = args.hairColor;
-  this.chinBard = this.IF(0.05);
-  this.beardLength = this.R(0.2, 1.5);
+  this.threeOClok = this.IF(0.1)
+  this.mainBeard = this.IF(0.5)
+  this.mustach = !this.mainBeard || this.IF(0.8)
+  this.goate = this.mustach && this.IF(this.mainBeard ? 0.8 : 0.05)
+  this.mustachGap = this.mustach && this.IF(0.5)
+  this.beardColor = args.hairColor
+  this.chinBard = this.IF(0.05)
+  this.beardLength = this.R(0.2, 1.5)
 
-  this.detailSY = this.R(0, 0.25);
-  this.detailChance = this.R(0, 0.5);
+  this.detailSY = this.R(0, 0.25)
+  this.detailChance = this.R(0, 0.5)
 
   // Color
   this.threeOClok &&
-    (this.skinShadowColor = args.skinShadowColor.copy({ min: 1 }));
-  this.hairDetailColor = args.hairDetailColor;
+    (this.skinShadowColor = args.skinShadowColor.copy({ min: 1 }))
+  this.hairDetailColor = args.hairDetailColor
 
   // Assets
-}; // END Beard
-Beard.prototype = new Object();
+} // END Beard
+Beard.prototype = new Object()
 Beard.prototype.draw = function (args) {
   var nr = args.nr,
-    sideView = args.sideView;
+    sideView = args.sideView
 
   if (args.calc) {
     this.vL["beardDetailSY" + nr] = {
       r: this.detailSY,
       useSize: "headMinSY" + nr,
       min: 1,
-    };
+    }
   }
 
   return {
@@ -1019,53 +1015,53 @@ Beard.prototype.draw = function (args) {
         ],
       },
     ],
-  };
-}; // END Beard draw
+  }
+} // END Beard draw
 
 // HAT --------------------------------------------------------------------------------
 export const Hat = function (args) {
   // Form & Sizes
-  this.hatSY = this.R(0, 1);
+  this.hatSY = this.R(0, 1)
 
-  this.smallHat = this.IF(0.05) && this.R(0.3, 1);
+  this.smallHat = this.IF(0.05) && this.R(0.3, 1)
 
-  this.getSmaller = this.IF();
-  this.hatTopSX = this.getSmaller && this.R(-0.6, 1);
+  this.getSmaller = this.IF()
+  this.hatTopSX = this.getSmaller && this.R(-0.6, 1)
 
-  this.roundHat = !this.getSmaller && this.IF(0.5);
-  this.hatRim = this.IF(0.6);
-  this.baseCap = this.hatRim && this.IF(0.1);
-  this.thickRim = this.hatRim && this.IF(0.3);
+  this.roundHat = !this.getSmaller && this.IF(0.5)
+  this.hatRim = this.IF(0.6)
+  this.baseCap = this.hatRim && this.IF(0.1)
+  this.thickRim = this.hatRim && this.IF(0.3)
   this.hatBand = this.IF(
     0.3 + (this.hatRim ? 0.3 : 0) + (this.baseCap ? -0.4 : 0),
-  );
+  )
 
   this.dent = this.IF(
     0.2 + (this.hatRim ? 0.3 : 0) + (this.baseCap ? -0.49 : 0),
-  );
-  this.dentSX = this.dent && this.R(0, 0.5);
+  )
+  this.dentSX = this.dent && this.R(0, 0.5)
 
-  this.hatDepthY = this.R(0.1, 1) * (this.smallHat || 1);
-  this.hatRimSY = this.hatRim && this.R(1, 2);
+  this.hatDepthY = this.R(0.1, 1) * (this.smallHat || 1)
+  this.hatRimSY = this.hatRim && this.R(1, 2)
 
   // Colors
-  this.hatColor = args.hatColor;
+  this.hatColor = args.hatColor
   this.hatBandColor =
     this.hatBand &&
     !this.baseCap &&
     (this.IF(0.5) ? args.firstColor : args.secondColor).copy({
       brContrast: -1,
-    });
+    })
   this.hatRimColor = this.IF(this.baseCap ? 0.8 : 0.1)
     ? this.hatColor.copy({ nextColor: true, brContrast: -2 })
-    : this.hatColor;
+    : this.hatColor
 
   // Assets
-}; // END Hat
-Hat.prototype = new Object();
+} // END Hat
+Hat.prototype = new Object()
 Hat.prototype.draw = function (args) {
   var nr = args.nr,
-    sideView = args.sideView;
+    sideView = args.sideView
 
   // if( args.calc ) {
   // 	this.vL[ "hatDepthY"+nr ] = ;
@@ -1163,37 +1159,37 @@ Hat.prototype.draw = function (args) {
         color: this.hatRimColor.get(),
       },
     ],
-  };
-}; // END Hat draw
+  }
+} // END Hat draw
 
 // HELM --------------------------------------------------------------------------------
 export const Helm = function (args) {
   // Form & Sizes
-  this.helmSY = this.IF(0.5) ? 1 : this.R(0.1, 1.5);
-  this.nosePiece = this.IF(0.5);
-  this.topDetail = this.IF(0.3);
-  this.foreheadDetail = this.IF(0.3);
-  this.bottomDetail = this.IF(0.3);
-  this.sides = this.IF(0.8);
-  this.full = this.sides && this.IF(0.1);
+  this.helmSY = this.IF(0.5) ? 1 : this.R(0.1, 1.5)
+  this.nosePiece = this.IF(0.5)
+  this.topDetail = this.IF(0.3)
+  this.foreheadDetail = this.IF(0.3)
+  this.bottomDetail = this.IF(0.3)
+  this.sides = this.IF(0.8)
+  this.full = this.sides && this.IF(0.1)
 
-  this.foreheadDetailGap = this.GR(0, 3);
-  this.foreheadDetailSX = this.GR(0, 3);
-  this.foreheadDetailSY = this.R(0.1, 0.5);
+  this.foreheadDetailGap = this.GR(0, 3)
+  this.foreheadDetailSX = this.GR(0, 3)
+  this.foreheadDetailSY = this.R(0.1, 0.5)
 
   // Colors
   this.helmColor = (this.IF(0.5) ? args.firstColor : args.secondColor).copy({
     brContrast: this.IF(0.8) ? -2 : 0,
-  });
-  this.helmDetailColor = this.helmColor.copy({ brContrast: -1 });
+  })
+  this.helmDetailColor = this.helmColor.copy({ brContrast: -1 })
 
   // Assets
-  this.horns = this.IF(0.1) && new this.basic.Horns(args);
-}; // END Helm
-Helm.prototype = new Object();
+  this.horns = this.IF(0.1) && new this.basic.Horns(args)
+} // END Helm
+Helm.prototype = new Object()
 Helm.prototype.draw = function (args) {
   var nr = args.nr,
-    sideView = args.sideView;
+    sideView = args.sideView
 
   // if( args.calc ) {
   // 	this.vL[ "hatDepthY"+nr ] = ;
@@ -1293,22 +1289,22 @@ Helm.prototype.draw = function (args) {
         },
       },
     ],
-  };
-}; // END Helm draw
+  }
+} // END Helm draw
 
 // HEADBAND --------------------------------------------------------------------------------
 export const HeadBand = function (args) {
   // Form & Sizes
 
   // Colors
-  this.headBandColor = args.hatColor;
+  this.headBandColor = args.hatColor
 
   // Assets
-}; // END HeadBand
-HeadBand.prototype = new Object();
+} // END HeadBand
+HeadBand.prototype = new Object()
 HeadBand.prototype.draw = function (args, z) {
   var nr = args.nr,
-    sideView = args.sideView;
+    sideView = args.sideView
 
   return {
     z: z,
@@ -1326,27 +1322,27 @@ HeadBand.prototype.draw = function (args, z) {
       useSize: "foreheadSY" + nr,
       max: ["foreheadSY" + nr, this.sub("headBandSX" + nr)],
     },
-  };
-}; // END HeadBand draw
+  }
+} // END HeadBand draw
 
 // HORNS --------------------------------------------------------------------------------
 export const Horns = function (args) {
   // Form & Sizes
-  this.hornsSX = this.R(0.05, 2);
-  this.hornsSY = this.R(0.05, 0.3);
-  this.hornsY = this.R(0.1, 0.25);
+  this.hornsSX = this.R(0.05, 2)
+  this.hornsSY = this.R(0.05, 0.3)
+  this.hornsY = this.R(0.1, 0.25)
 
-  this.hornsBendSY = this.R(0.1, 1);
+  this.hornsBendSY = this.R(0.1, 1)
 
   // Colors
-  this.hornColor = this.IF() ? args.skinColor : args.hairColor;
+  this.hornColor = this.IF() ? args.skinColor : args.hairColor
 
   // Assets
-}; // END Horns
-Horns.prototype = new Object();
+} // END Horns
+Horns.prototype = new Object()
 Horns.prototype.draw = function (args, z) {
   var nr = args.nr,
-    sideView = args.sideView;
+    sideView = args.sideView
 
   // if( args.calc ) {
   // 	this.vL[ "hatDepthY"+nr ] = ;
@@ -1383,5 +1379,5 @@ Horns.prototype.draw = function (args, z) {
       // Main Horn
       {},
     ],
-  };
-}; // END Horns draw
+  }
+} // END Horns draw

@@ -1,4 +1,4 @@
-import { helper } from "../renderengine/helper.js";
+import { helper } from "../renderengine/helper.js"
 
 export default function () {
   var help = helper,
@@ -257,11 +257,11 @@ export default function () {
       }),
       "eyeSize": mult(0.002, "imgSquareBigger", 1),
       "mouthHeight": "eyeSize",
-    };
+    }
 
   return {
     renderList: renderList,
     background: backgroundColor,
     variableList: variableList,
-  };
+  }
 }

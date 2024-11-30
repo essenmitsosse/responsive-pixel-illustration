@@ -1,4 +1,4 @@
-export const BBObj = function () {};
+export const BBObj = function () {}
 
 // GET ROTATION
 BBObj.prototype.calcRotation = function (rotate) {
@@ -6,24 +6,24 @@ BBObj.prototype.calcRotation = function (rotate) {
     rad,
     sin,
     cos,
-    front;
+    front
 
   if (realRotation > 180) {
-    realRotation -= 360;
+    realRotation -= 360
   } else if (realRotation < -180) {
-    realRotation += 360;
+    realRotation += 360
   }
 
   if (rotate > 360) {
-    rotate -= 360;
+    rotate -= 360
   } else if (rotate < -360) {
-    rotate += 360;
+    rotate += 360
   }
 
-  rad = (realRotation * Math.PI) / 180;
-  sin = Math.sin(rad);
-  cos = Math.cos(rad);
-  front = Math.abs(Math.abs(rotate - 180) - 90) / 90;
+  rad = (realRotation * Math.PI) / 180
+  sin = Math.sin(rad)
+  cos = Math.cos(rad)
+  front = Math.abs(Math.abs(rotate - 180) - 90) / 90
 
   return {
     FL: this.getRotation(realRotation),
@@ -37,30 +37,30 @@ BBObj.prototype.calcRotation = function (rotate) {
     turnedAway: rotate > 90 && rotate < 270 ? -1 : 1,
     front: front,
     side: 1 - front,
-  };
-};
+  }
+}
 
 BBObj.prototype.calcRotation.prototype.getRotation = function (rotate) {
-  var abs;
+  var abs
 
   if (rotate > 180) {
-    rotate -= 360;
+    rotate -= 360
   } else if (rotate < -180) {
-    rotate += 360;
+    rotate += 360
   }
 
   return {
     real: (rotate = rotate / 90),
     abs: (abs = 1 - Math.abs(rotate)),
-  };
-};
+  }
+}
 
 // Rotater
 export const Rotater = function (args) {
   var drawer = args.drawer,
-    rotate = args.rotate;
+    rotate = args.rotate
 
-  this.list = [];
+  this.list = []
 
   this.ll.push(
     (this.sX = {
@@ -71,24 +71,24 @@ export const Rotater = function (args) {
       useSize: args.baseSX,
       odd: true,
     }),
-  );
+  )
 
   if (args.side) {
     if (!args.side.sX) {
-      args.side.sX = this.sX;
+      args.side.sX = this.sX
     }
-    this.x = this.moveOut(args.side, rotate);
+    this.x = this.moveOut(args.side, rotate)
   }
 
   if (args.sY) {
-    this.ll.push((this.sY = args.sY));
+    this.ll.push((this.sY = args.sY))
   }
 
   if (args.y) {
-    this.ll.push((this.y = args.y));
+    this.ll.push((this.y = args.y))
   }
 
-  (args.roundTop || args.roundBottom) &&
+  ;(args.roundTop || args.roundBottom) &&
     this.list.push({
       minX: 5,
       minY: 5,
@@ -103,12 +103,12 @@ export const Rotater = function (args) {
           clear: true,
         },
       ],
-    });
+    })
 
-  this.pusher(rotate.FL, drawer.draw(args, true, false));
-  this.pusher(rotate.FR, drawer.draw(args, true, true), true);
-  this.pusher(rotate.BR, drawer.draw(args, false, true));
-  this.pusher(rotate.BL, drawer.draw(args, false, false), true);
+  this.pusher(rotate.FL, drawer.draw(args, true, false))
+  this.pusher(rotate.FR, drawer.draw(args, true, true), true)
+  this.pusher(rotate.BR, drawer.draw(args, false, true))
+  this.pusher(rotate.BL, drawer.draw(args, false, false), true)
 
   return {
     get: {
@@ -129,11 +129,11 @@ export const Rotater = function (args) {
     sY: this.sY,
     x: this.X,
     y: this.y,
-  };
-};
-Rotater.prototype = new BBObj();
+  }
+}
+Rotater.prototype = new BBObj()
 Rotater.prototype.pusher = function (rotate, list, reflect) {
-  var front = rotate.abs > 0;
+  var front = rotate.abs > 0
 
   this.list.push({
     sX: { r: front ? rotate.abs : -rotate.abs },
@@ -141,8 +141,8 @@ Rotater.prototype.pusher = function (rotate, list, reflect) {
     z: front ? 50 : -50,
     list: list,
     rX: reflect,
-  });
-};
+  })
+}
 
 BBObj.prototype.moveOut = function (args, rotate) {
   // Takes arguments:
@@ -154,7 +154,7 @@ BBObj.prototype.moveOut = function (args, rotate) {
     add = [],
     X = {
       add: add,
-    };
+    }
 
   if (args.sXBase && args.xBase) {
     // Move out, relative to the Base
@@ -165,18 +165,18 @@ BBObj.prototype.moveOut = function (args, rotate) {
           { r: -0.5, useSize: args.sX },
         ],
       }),
-    );
+    )
 
     add.push({
       r: rotate.position * args.xBase,
       a: args.xBase > 0 && rotate.position * -1, // correct the 1 subtracted Pixel
       useSize: diff,
-    });
+    })
   }
 
   if (args.xAdd) {
     // Move Center Point to correct center
-    add.push(args.xAdd);
+    add.push(args.xAdd)
   }
 
   if (args.xRel) {
@@ -184,27 +184,27 @@ BBObj.prototype.moveOut = function (args, rotate) {
     add.push({
       r: rotate.position * args.xRel,
       useSize: args.sX,
-    });
+    })
   }
 
   if (args.max) {
-    this.ll.push((this.max = args.max));
+    this.ll.push((this.max = args.max))
 
-    X.max = this.max;
-    X.min = { r: -1, useSize: this.max };
+    X.max = this.max
+    X.min = { r: -1, useSize: this.max }
   }
 
-  this.ll.push(X);
+  this.ll.push(X)
 
-  return X;
-};
+  return X
+}
 
 BBObj.prototype.mover = function (what, move) {
-  var x;
+  var x
 
-  move.sX = what.sX;
+  move.sX = what.sX
 
-  what.x = x = this.moveOut(move, what.rotate);
+  what.x = x = this.moveOut(move, what.rotate)
 
   what.get = this.merge(what.get, {
     x: x,
@@ -219,23 +219,23 @@ BBObj.prototype.mover = function (what, move) {
           : 1) *
       (move.z || 50) *
       what.rotate.turnedAway,
-  });
+  })
 
-  return what;
-};
+  return what
+}
 
 BBObj.prototype.merge = function (what, args) {
   for (var attr in args) {
-    what[attr] = args[attr];
+    what[attr] = args[attr]
   }
 
-  return what;
-};
+  return what
+}
 
 export const RotateInfo = function (rotate) {
-  var s = { a: 5 };
+  var s = { a: 5 }
 
-  this.ll.push(s);
+  this.ll.push(s)
 
   return {
     color: this.black,
@@ -273,7 +273,7 @@ export const RotateInfo = function (rotate) {
         ],
       },
     ],
-  };
-};
+  }
+}
 
-RotateInfo.prototype = new BBObj();
+RotateInfo.prototype = new BBObj()

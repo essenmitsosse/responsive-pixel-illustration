@@ -1,40 +1,40 @@
-import { Object } from "./object.js";
+import { Object } from "./object.js"
 // UPPER BODY --------------------------------------------------------------------------------
 export const UpperBody = function (args) {
-  var shirtColor = args.firstColor.getBr();
+  var shirtColor = args.firstColor.getBr()
 
   // Form & Sizes
-  this.thickShoulder = (this.IF() && this.R(1.5, 4)) || 1.5;
-  this.chestWide = this.IF(0.05);
-  this.chestSX = (this.chestWide && this.R(1, 1.3)) || 1;
-  this.chestSY = (this.chestWide && this.R(0.3, 0.8)) || 1;
-  this.chestStartSY = (this.chestWide && this.R(0.1, 0.5)) || 0;
+  this.thickShoulder = (this.IF() && this.R(1.5, 4)) || 1.5
+  this.chestWide = this.IF(0.05)
+  this.chestSX = (this.chestWide && this.R(1, 1.3)) || 1
+  this.chestSY = (this.chestWide && this.R(0.3, 0.8)) || 1
+  this.chestStartSY = (this.chestWide && this.R(0.1, 0.5)) || 0
 
-  this.topless = args.topless = args.animal || this.IF(0.02);
+  this.topless = args.topless = args.animal || this.IF(0.02)
 
-  this.waist = !this.chestWide && this.IF(0.05);
-  this.breast = this.IF(0.05);
+  this.waist = !this.chestWide && this.IF(0.05)
+  this.breast = this.IF(0.05)
 
-  this.hanky = !this.topless && this.IF(0.02);
+  this.hanky = !this.topless && this.IF(0.02)
 
   // Colors
   this.clothColor = args.clothColor = args.topless
     ? args.skinColor
-    : args.firstColor;
-  this.clothShadowColor = this.clothColor.copy({ brAdd: -1 });
-  this.skinColor = args.skinColor;
+    : args.firstColor
+  this.clothShadowColor = this.clothColor.copy({ brAdd: -1 })
+  this.skinColor = args.skinColor
   this.shirtColor = args.shirtColor = (
     this.IF(0.5) ? args.secondColor : args.clothColor
-  ).copy({ brSet: shirtColor === 4 ? 3 : shirtColor + 1, max: 4 });
+  ).copy({ brSet: shirtColor === 4 ? 3 : shirtColor + 1, max: 4 })
 
   // Assets
-  this.arm = new this.basic.Arm(args);
-  this.IF(0.05) && (this.cape = new this.basic.Cape(args));
-  this.topless && this.IF(0.8) && (this.nipples = new this.basic.Nipples(args));
+  this.arm = new this.basic.Arm(args)
+  this.IF(0.05) && (this.cape = new this.basic.Cape(args))
+  this.topless && this.IF(0.8) && (this.nipples = new this.basic.Nipples(args))
 
   !args.animal &&
     (this.IF(0.07) && (this.suspenders = new this.basic.Suspenders(args)),
-    this.IF(0.02) && (this.strap = new this.basic.Strap(args)));
+    this.IF(0.02) && (this.strap = new this.basic.Strap(args)))
 
   !this.topless &&
     (!this.breast &&
@@ -46,40 +46,40 @@ export const UpperBody = function (args) {
         args,
       )),
     this.IF(0.3) &&
-      (this.buttons = new this.basic.Buttons(args, this.clothColor)));
+      (this.buttons = new this.basic.Buttons(args, this.clothColor)))
 
-  this.IF(0.1) && (this.logo = new this.basic.Logo(args));
-}; // END UpperBody
-UpperBody.prototype = new Object();
+  this.IF(0.1) && (this.logo = new this.basic.Logo(args))
+} // END UpperBody
+UpperBody.prototype = new Object()
 UpperBody.prototype.draw = function (args) {
   var nr = args.nr,
     sideView = args.sideView,
-    backView = args.backView;
+    backView = args.backView
 
   if (args.calc) {
-    this.vL["upperBodySX" + nr] = "personRealSX" + nr;
+    this.vL["upperBodySX" + nr] = "personRealSX" + nr
     this.vL["chestSX" + nr] = {
       r: this.chestSX,
       useSize: "upperBodySX" + nr,
       min: 1,
       max: ["upperBodySX" + nr, 1],
-    };
+    }
     this.vL["chestSY" + nr] = {
       r: this.chestSY,
       useSize: "upperBodySY" + nr,
       min: 1,
-    };
+    }
     this.chestWide &&
       (this.vL["stomachSY" + nr] = [
         "upperBodySY" + nr,
         this.sub("chestSY" + nr),
-      ]);
+      ])
     this.vL["trapSX" + nr] = [
       "chestSX" + nr,
       this.mult(sideView ? -2 : -1, "neckSX" + nr),
-    ];
+    ]
 
-    this.vL["collarSX" + nr] = this.shirt ? 1 : { a: 0 };
+    this.vL["collarSX" + nr] = this.shirt ? 1 : { a: 0 }
   }
 
   return {
@@ -157,31 +157,31 @@ UpperBody.prototype.draw = function (args) {
       this.suspenders && this.suspenders.draw(args, 7),
       this.strap && this.strap.draw(args, 10),
     ],
-  };
-}; // END UpperBody draw
+  }
+} // END UpperBody draw
 
 // STRIPES --------------------------------------------------------------------------------
 export const Stripes = function (args) {
   // Form & Sizes
-  this.gap = this.R(0.05, 0.2);
-  this.strip = this.R(0.05, 0.2);
-  this.horizontal = this.IF(0.5);
-  this.randomDots = this.IF(0.05);
-  this.doted = !this.randomDots && this.IF(0.1);
+  this.gap = this.R(0.05, 0.2)
+  this.strip = this.R(0.05, 0.2)
+  this.horizontal = this.IF(0.5)
+  this.randomDots = this.IF(0.05)
+  this.doted = !this.randomDots && this.IF(0.1)
   this.doted &&
-    ((this.dotGap = this.R(0.05, 0.2)), (this.dotStrip = this.R(0.05, 0.2)));
+    ((this.dotGap = this.R(0.05, 0.2)), (this.dotStrip = this.R(0.05, 0.2)))
 
   // Colors
   this.stripColor = (this.IF(0.5) ? args.secondColor : args.clothColor).copy({
     brSet: args.clothColor.getBr() - 1,
-  });
+  })
 
   // Assets
-}; // END Stripes
-Stripes.prototype = new Object();
+} // END Stripes
+Stripes.prototype = new Object()
 Stripes.prototype.draw = function (args, z) {
   var nr = args.nr,
-    sideView = args.sideView;
+    sideView = args.sideView
 
   return (
     (sideView || !args.right) && {
@@ -221,26 +221,26 @@ Stripes.prototype.draw = function (args, z) {
             },
           ],
     }
-  );
-}; // END Stripes draw
+  )
+} // END Stripes draw
 
 // BUTTONS --------------------------------------------------------------------------------
 export const Buttons = function (args, color) {
   // Form & Sizes
-  this.buttonSX = this.R(-0.2, 0.2);
-  this.zipper = this.IF(0.1);
-  this.buttonSY = !this.zipper && this.R(-0.1, 0.1);
-  this.buttonGapSY = !this.zipper && this.R(-0.1, 0.1);
+  this.buttonSX = this.R(-0.2, 0.2)
+  this.zipper = this.IF(0.1)
+  this.buttonSY = !this.zipper && this.R(-0.1, 0.1)
+  this.buttonGapSY = !this.zipper && this.R(-0.1, 0.1)
 
   // Colors
-  this.buttonsColor = color.copy({ brContrast: -1 });
+  this.buttonsColor = color.copy({ brContrast: -1 })
 
   // Assets
-}; // END Buttons
-Buttons.prototype = new Object();
+} // END Buttons
+Buttons.prototype = new Object()
 Buttons.prototype.draw = function (args, z) {
   var nr = args.nr,
-    sideView = args.sideView;
+    sideView = args.sideView
 
   return (
     !args.backView && {
@@ -268,29 +268,29 @@ Buttons.prototype.draw = function (args, z) {
         },
       ],
     }
-  );
-}; // END Buttons draw
+  )
+} // END Buttons draw
 
 // SUSPENDERS --------------------------------------------------------------------------------
 export const Suspenders = function (args) {
   // Form & Sizes
-  this.strapSX = this.R(-0.8, 0.5);
-  this.strapX = this.R(0.5, 1);
+  this.strapSX = this.R(-0.8, 0.5)
+  this.strapX = this.R(0.5, 1)
 
-  this.detail = this.IF(0.5);
+  this.detail = this.IF(0.5)
 
   // Colors
   this.strapColor = (this.IF(0.5) ? args.firstColor : args.secondColor).copy({
     brContrast: -1,
-  });
+  })
   this.detail &&
     (this.detailColor = args.clothColor.copy({
       brContrast: this.IF(0.5) ? 1 : -1,
-    }));
+    }))
 
   // Assets
-}; // END Suspenders
-Suspenders.prototype = new Object();
+} // END Suspenders
+Suspenders.prototype = new Object()
 Suspenders.prototype.draw = function (args, z) {
   var nr = args.nr,
     sideView = args.sideView,
@@ -301,10 +301,10 @@ Suspenders.prototype.draw = function (args, z) {
         sY: { r: 1, otherDim: true },
         fY: true,
       },
-    ];
+    ]
 
   if (args.calc) {
-    this.vL["trapSX" + nr] = ["upperBodySX" + nr, this.sub("neckSX" + nr)];
+    this.vL["trapSX" + nr] = ["upperBodySX" + nr, this.sub("neckSX" + nr)]
   }
 
   return {
@@ -344,31 +344,31 @@ Suspenders.prototype.draw = function (args, z) {
         list: detail,
       },
     ],
-  };
-}; // END Suspenders draw
+  }
+} // END Suspenders draw
 
 // COLLAR --------------------------------------------------------------------------------
 export const Collar = function (args, cleavage, sleeveless) {
   // Form & Sizes
-  this.collarSY = this.R(0.1, 0.5);
-  this.open = this.IF(0.2);
-  this.tie = this.IF();
-  this.fullTie = this.open || this.IF();
-  this.scarf = !this.tie && this.IF(0.05);
+  this.collarSY = this.R(0.1, 0.5)
+  this.open = this.IF(0.2)
+  this.tie = this.IF()
+  this.fullTie = this.open || this.IF()
+  this.scarf = !this.tie && this.IF(0.05)
 
   // Colors
-  this.tie && (this.tieColor = args.clothColor.copy({ brSet: 0 }));
-  this.shirtColor = args.shirtColor;
+  this.tie && (this.tieColor = args.clothColor.copy({ brSet: 0 }))
+  this.shirtColor = args.shirtColor
 
   // Assets
   this.open &&
     this.IF(0.3) &&
-    (this.buttons = new this.basic.Buttons(args, this.shirtColor));
-}; // END Collar
-Collar.prototype = new Object();
+    (this.buttons = new this.basic.Buttons(args, this.shirtColor))
+} // END Collar
+Collar.prototype = new Object()
 Collar.prototype.draw = function (args, z) {
   var nr = args.nr,
-    sideView = args.sideView;
+    sideView = args.sideView
 
   return {
     z: 10,
@@ -408,44 +408,44 @@ Collar.prototype.draw = function (args, z) {
           list: [{ name: "Dot", fY: true, fX: true, clear: true }, {}],
         },
     ],
-  };
-}; // END Collar Shirt draw
+  }
+} // END Collar Shirt draw
 
 // CLEAVAGE --------------------------------------------------------------------------------
 export const Cleavage = function (args, cleavage, sleeveless) {
   // Form & Sizes
-  this.sleeveless = !args.sleeves && this.IF(0.5);
-  this.strapSX = this.sleeveless && this.R(-1, 0);
-  this.strapSY = this.sleeveless && this.R(0.05, 0.3);
+  this.sleeveless = !args.sleeves && this.IF(0.5)
+  this.strapSX = this.sleeveless && this.R(-1, 0)
+  this.strapSY = this.sleeveless && this.R(0.05, 0.3)
 
-  this.cleavage = !this.sleeveless || this.IF(0.5);
-  this.cleavageSX = this.cleavage ? this.cleavage && this.R(1, 2) : 1;
-  this.cleavageSY = this.cleavage && this.R(0.05, 0.3);
+  this.cleavage = !this.sleeveless || this.IF(0.5)
+  this.cleavageSX = this.cleavage ? this.cleavage && this.R(1, 2) : 1
+  this.cleavageSY = this.cleavage && this.R(0.05, 0.3)
 
   // Colors
-  this.skinColor = args.skinColor;
+  this.skinColor = args.skinColor
 
   // Assets
-}; // END Cleavage
-Cleavage.prototype = new Object();
+} // END Cleavage
+Cleavage.prototype = new Object()
 
 Cleavage.prototype.draw = function (args, z) {
   var nr = args.nr,
-    sideView = args.sideView;
+    sideView = args.sideView
 
   if (args.calc) {
     this.vL["cleavageSX" + nr] = {
       r: this.cleavageSX,
       useSize: "neckSX" + nr,
       max: ["chestSX" + nr, -2],
-    };
+    }
     this.vL["cleavageX" + nr] = sideView
       ? [
           this.mult(0.5, "chestSX" + nr),
           this.mult(-0.5, "cleavageSX" + nr),
           this.sub("collarSX" + nr),
         ]
-      : ["chestSX" + nr, this.mult(-1, "cleavageSX" + nr)];
+      : ["chestSX" + nr, this.mult(-1, "cleavageSX" + nr)]
     this.sleeveless &&
       (sideView &&
         (this.vL["cleavageRightX" + nr] = [
@@ -457,7 +457,7 @@ Cleavage.prototype.draw = function (args, z) {
         r: this.strapSX,
         useSize: "cleavageX" + nr,
         max: -1,
-      }));
+      }))
   }
 
   return {
@@ -487,30 +487,30 @@ Cleavage.prototype.draw = function (args, z) {
         fX: sideView,
       },
     ],
-  };
-}; // END Cleavage draw
+  }
+} // END Cleavage draw
 
 // NIPPLES --------------------------------------------------------------------------------
 export const Nipples = function (args) {
   // Form & Sizes
-  this.nippleSize = this.R(0.01, 0.3);
-  this.nipplePos = this.R(0.15, 0.4);
+  this.nippleSize = this.R(0.01, 0.3)
+  this.nipplePos = this.R(0.15, 0.4)
 
   // Colors
-  this.nippleColor = args.skinShadowColor;
+  this.nippleColor = args.skinShadowColor
 
   // Assets
-}; // END Nipples
-Nipples.prototype = new Object();
+} // END Nipples
+Nipples.prototype = new Object()
 Nipples.prototype.draw = function (args, z) {
   var nr = args.nr,
-    sideView = args.sideView;
+    sideView = args.sideView
 
   if (args.calc) {
     this.vL["nippleS" + nr] = {
       r: this.nippleSize,
       useSize: "chestSX" + nr,
-    };
+    }
   }
 
   return {
@@ -520,37 +520,37 @@ Nipples.prototype.draw = function (args, z) {
     x: { r: 0.2, min: 1 },
     fX: !sideView,
     z: z,
-  };
-}; // END Nipples draw
+  }
+} // END Nipples draw
 
 // CAPE --------------------------------------------------------------------------------
 export const Cape = function (args) {
   // Form & Sizes
-  this.capeFrontSY = this.R(0.1, 0.8);
-  this.capeSY = this.R(0.3, 1);
+  this.capeFrontSY = this.R(0.1, 0.8)
+  this.capeSY = this.R(0.3, 1)
 
   // Color
-  this.capeColor = args.clothColor.copy({ nextColor: true, brContrast: -2 });
+  this.capeColor = args.clothColor.copy({ nextColor: true, brContrast: -2 })
 
   // Assets
-}; // END Cape
-Cape.prototype = new Object();
+} // END Cape
+Cape.prototype = new Object()
 
 Cape.prototype.draw = function (args) {
   var nr = args.nr,
-    sideView = args.sideView;
+    sideView = args.sideView
 
   if (args.calc) {
     this.vL["capeFrontSY" + nr] = {
       r: this.capeFrontSY,
       useSize: "upperArmSY" + nr,
-    };
+    }
     this.vL["capeSY" + nr] = {
       r: this.capeSY,
       useSize: "fullBodySY" + nr,
       max: ["fullBodySY" + nr, -1],
       min: "capeFrontSY" + nr,
-    };
+    }
   }
 
   return {
@@ -560,47 +560,47 @@ Cape.prototype.draw = function (args) {
     sY: "capeSY" + nr,
     fX: sideView,
     x: sideView && this.sub("shoulderSX" + nr),
-  };
-}; // END Cape Back draw
+  }
+} // END Cape Back draw
 
 Cape.prototype.drawFront = function (args) {
   var nr = args.nr,
-    sideView = args.sideView;
+    sideView = args.sideView
 
   return {
     color: this.capeColor.get(),
     sX: "shoulderFullSX" + nr,
     x: sideView && this.sub("shoulderSX" + nr),
     sY: "capeFrontSY" + nr,
-  };
-}; // END Cape draw
+  }
+} // END Cape draw
 
 // STRAP --------------------------------------------------------------------------------
 export const Strap = function (args) {
   // Form & Sizes
-  this.thickness = this.R(0.01, 0.05);
+  this.thickness = this.R(0.01, 0.05)
 
   // Color
   this.strapColor =
     args.beltColor ||
     (args.beltColor = (this.IF(0.5) ? args.firstColor : args.secondColor).copy({
       brContrast: this.IF() ? 2 : -2,
-    }));
+    }))
 
   // Assets
-}; // END Strap
-Strap.prototype = new Object();
+} // END Strap
+Strap.prototype = new Object()
 
 Strap.prototype.draw = function (args, z) {
   var nr = args.nr,
-    sideView = args.sideView;
+    sideView = args.sideView
 
   if (args.calc) {
     this.vL["strapTickness" + nr] = {
       r: this.thickness,
       useSize: "personSY" + nr,
       min: 1,
-    };
+    }
   }
 
   return (
@@ -637,5 +637,5 @@ Strap.prototype.draw = function (args, z) {
         },
       ],
     }
-  );
-}; // END Strap Back draw
+  )
+} // END Strap Back draw

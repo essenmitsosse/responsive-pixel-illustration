@@ -4,6 +4,6 @@ const configPrettier = {
   semi: false,
   singleQuote: false,
   trailingComma: "all",
-};
+}
 
-export default configPrettier;
+export default configPrettier

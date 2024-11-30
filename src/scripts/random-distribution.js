@@ -1,4 +1,4 @@
-import { helper } from "../renderengine/helper.js";
+import { helper } from "../renderengine/helper.js"
 
 export default function (init) {
   var help = helper,
@@ -32,10 +32,10 @@ export default function (init) {
     minG = rInt(0, 200),
     maxG = rInt(minG, 255),
     minB = rInt(0, 200),
-    maxB = rInt(minB, 255);
+    maxB = rInt(minB, 255)
 
   renderList = (function () {
-    console.log(random);
+    console.log(random)
     var count = rInt(5, 20),
       s_ = 1 / (count - 1),
       row = count,
@@ -43,7 +43,7 @@ export default function (init) {
       s,
       list = [],
       getSquare = function () {
-        var innerS;
+        var innerS
 
         linkList.push(
           (innerS = {
@@ -52,7 +52,7 @@ export default function (init) {
             odd: true,
             test: true,
           }),
-        );
+        )
 
         list.push({
           s: [s, -1],
@@ -65,10 +65,10 @@ export default function (init) {
               s: innerS,
             },
           ],
-        });
-      };
+        })
+      }
 
-    linkList.push((s = { r: s_, useSize: biggerSquare, odd: true }));
+    linkList.push((s = { r: s_, useSize: biggerSquare, odd: true }))
 
     // Background Grid
     if (backgroundGrid) {
@@ -80,22 +80,22 @@ export default function (init) {
             stripes: { gap: 1, horizontal: true },
           },
         ],
-      });
+      })
     }
 
     while (row--) {
-      col = count;
+      col = count
       while (col--) {
-        getSquare();
+        getSquare()
       }
     }
 
-    return list;
-  })();
+    return list
+  })()
 
   return {
     renderList: renderList,
     linkList: linkList,
     background: backgroundColor,
-  };
+  }
 }

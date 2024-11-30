@@ -2,40 +2,40 @@
 
 // BEGINN Head /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Head = function (args) {
-  this.actor = this.parent = args.actor;
+  this.actor = this.parent = args.actor
 
   // Forms and Sizes
-  this.eyeAreaBaseSX_ = 0.5;
-  this.eyeAreaRelSX_ = this.rFl(0.7, 1.4);
+  this.eyeAreaBaseSX_ = 0.5
+  this.eyeAreaRelSX_ = this.rFl(0.7, 1.4)
 
-  this.eyeAreaBaseSY_ = 0.5;
-  this.eyeAreaRelSY_ = this.rFl(0.7, 1.5);
+  this.eyeAreaBaseSY_ = 0.5
+  this.eyeAreaRelSY_ = this.rFl(0.7, 1.5)
 
-  this.mouthAreaBaseSX_ = 0.7;
-  this.mouthAreaRelSX_ = this.rFl(0.7, 1.4);
+  this.mouthAreaBaseSX_ = 0.7
+  this.mouthAreaRelSX_ = this.rFl(0.7, 1.4)
 
-  this.baseSX_ = args.baseSX_ || 0.8;
-  this.relSX_ = this.rFl(0.4, 1.2 / this.baseSX_);
+  this.baseSX_ = args.baseSX_ || 0.8
+  this.relSX_ = this.rFl(0.4, 1.2 / this.baseSX_)
 
   // Colors
-  this.color = this.actor.colors.skinColor;
+  this.color = this.actor.colors.skinColor
 
   // Assets
   this.eyes = new this.basic.Eyes({
     actor: this.actor,
     color: this.color,
-  });
+  })
   this.mouth = new this.basic.Mouth({
     actor: this.actor,
     color: this.color,
-  });
+  })
 
   this.hair =
     this.rIf(0.8) &&
     new this.basic.Hair({
       actor: this.actor,
       color: this.actor.colors,
-    });
+    })
 
   this.hat =
     !args.noHat &&
@@ -43,39 +43,39 @@ export const Head = function (args) {
     new this.basic.Hat({
       actor: this.actor,
       color: this.actor.colors,
-    });
-};
+    })
+}
 
 Head.prototype.getBetterPosX = function (rel) {
-  var add = [this.actor.getBetterPosX(0), this.x];
+  var add = [this.actor.getBetterPosX(0), this.x]
 
   if (!this.rotate) {
-    add.push(this.actor.sX, { r: -1 + rel, useSize: this.sX });
+    add.push(this.actor.sX, { r: -1 + rel, useSize: this.sX })
   } else {
-    add.push({ r: rel, useSize: this.sY });
+    add.push({ r: rel, useSize: this.sY })
   }
 
-  return this.pushLinkList({ add: add });
-};
+  return this.pushLinkList({ add: add })
+}
 
 Head.prototype.getBetterPosY = function (rel) {
-  var add = [];
+  var add = []
 
   if (!this.rotate) {
     add.push(
       this.actor.getBetterPosY(1),
       this.pushLinkList({ r: 1 - rel, useSize: this.sY }),
-    );
+    )
   } else {
     add.push(
       this.actor.getBetterPosY(0),
       { r: -1, useSize: this.actor.sX },
       { r: 1 - rel, useSize: this.sX },
-    );
+    )
   }
 
-  return this.pushLinkList({ add: add });
-};
+  return this.pushLinkList({ add: add })
+}
 
 Head.prototype.draw = function (args) {
   var side = (args.info.body && args.info.body.side) || args.info.side || 0,
@@ -110,20 +110,20 @@ Head.prototype.draw = function (args) {
       add: [sY, { r: -1, useSize: eyeAreaSY }, -2],
       min: 1,
     }),
-    info = args.info || {};
+    info = args.info || {}
 
-  this.square = this.pushLinkList({ add: [sX], max: sY });
+  this.square = this.pushLinkList({ add: [sX], max: sY })
 
-  this.rotate = this.actor.rotate;
+  this.rotate = this.actor.rotate
 
-  this.side = this.pushLinkList({ r: 0, useSize: sX });
+  this.side = this.pushLinkList({ r: 0, useSize: sX })
 
   // Check if there are hover changers and add them
   this.pushRelativeStandardAutomatic({
     side: side,
-  });
+  })
 
-  sY.odd = true;
+  sY.odd = true
 
   return {
     sY: { add: [sY], min: 4 },
@@ -196,30 +196,30 @@ Head.prototype.draw = function (args) {
           side: this.side,
         }),
     ],
-  };
-};
+  }
+}
 // END Head \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Eyes /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Eyes = function (args) {
-  this.actor = args.actor;
+  this.actor = args.actor
 
   // Forms & Sizes
-  this.eyeBaseSX_ = 0.6;
-  this.eyeBaseSY_ = 0.6;
+  this.eyeBaseSX_ = 0.6
+  this.eyeBaseSY_ = 0.6
 
-  this.eyeSXRel_ = this.rFl(0.6, 1.5);
-  this.eyeSYRel_ = this.rFl(0.5, 0.7);
+  this.eyeSXRel_ = this.rFl(0.6, 1.5)
+  this.eyeSYRel_ = this.rFl(0.5, 0.7)
 
-  this.roundInner = true;
-  this.roundOuter = true;
-  this.eyeBrow = this.rIf(0.5);
+  this.roundInner = true
+  this.roundOuter = true
+  this.eyeBrow = this.rIf(0.5)
 
-  this.pupilSX_ = 1;
-  this.pupilSY_ = 1;
+  this.pupilSX_ = 1
+  this.pupilSY_ = 1
 
   // Colors
-  this.color = args.color;
+  this.color = args.color
 
   // Assets
   this.eyeLeft = new this.basic.Eye({
@@ -233,7 +233,7 @@ export const Eyes = function (args) {
     pupilSX_: this.pupilSX_,
     pupilSY_: this.pupilSY_,
     actor: this.actor,
-  });
+  })
 
   this.eyeRight = new this.basic.Eye({
     roundInner: this.roundInner,
@@ -245,8 +245,8 @@ export const Eyes = function (args) {
     pupilSX_: this.pupilSX_,
     pupilSY_: this.pupilSY_,
     actor: this.actor,
-  });
-};
+  })
+}
 
 Eyes.prototype.draw = function (args) {
   var maxEyesSX = this.pushLinkList([args.sX, -1]),
@@ -268,33 +268,33 @@ Eyes.prototype.draw = function (args) {
     }),
     eyeLeftSX,
     eyeRightSX,
-    x;
+    x
 
-  this.side = this.pushLinkList({ r: 0, useSize: maxEyesCombinedSX });
+  this.side = this.pushLinkList({ r: 0, useSize: maxEyesCombinedSX })
   eyeLeftSX = this.pushLinkList({
     r: 0.5,
     useSize: maxEyesCombinedSX,
     add: [{ r: 0.5, useSize: this.side }],
-  });
+  })
   eyeRightSX = this.pushLinkList([
     maxEyesCombinedSX,
     { r: -1, useSize: eyeLeftSX },
-  ]);
+  ])
 
-  this.sideRestSX = this.pushLinkList({ r: 0, useSize: args.eyeRestSX });
+  this.sideRestSX = this.pushLinkList({ r: 0, useSize: args.eyeRestSX })
 
   x = this.pushLinkList({
     add: [
       { r: 0.5, useSize: args.eyeRestSX },
       { r: 0.5, useSize: this.sideRestSX },
     ],
-  });
+  })
 
   // Check if there are hover changers and add them
   this.pushRelativeStandardAutomatic({
     side: args.side,
     sideRestSX: args.side,
-  });
+  })
 
   return {
     x: x,
@@ -317,27 +317,27 @@ Eyes.prototype.draw = function (args) {
         // away: side < 0 && -side
       }),
     ],
-  };
-};
+  }
+}
 // END Eyes \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Eye /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Eye = function Eye(args) {
-  this.actor = args.actor;
+  this.actor = args.actor
 
   // Forms && Sizes
-  this.left = args.left;
+  this.left = args.left
 
-  this.roundInner = args.roundInner;
-  this.roundOuter = args.roundOuter;
-  this.eyeBrow = args.eyeBrow;
+  this.roundInner = args.roundInner
+  this.roundOuter = args.roundOuter
+  this.eyeBrow = args.eyeBrow
 
-  this.pupilSX_ = args.pupilSX_;
-  this.pupilSY_ = args.pupilSY_;
+  this.pupilSX_ = args.pupilSX_
+  this.pupilSY_ = args.pupilSY_
 
   // Colors
-  this.color = args.color;
-};
+  this.color = args.color
+}
 
 Eye.prototype.draw = function EyeDraw(args) {
   // sYNormal is the normal eye height, sY can be changed for smaller or bigger eyes, but is recommended to only be used for bigger eyes.
@@ -432,10 +432,10 @@ Eye.prototype.draw = function EyeDraw(args) {
       add: [pupilPosYrel],
     })),
     eyeLidOvershot = this.pushLinkList({ r: 0.1, max: 1, useSize: sX }),
-    rotate = this.actor.isRotated;
+    rotate = this.actor.isRotated
 
   // if( args.info ) { args.info.sY = false; }
-  this.pushRelativeStandardAutomatic(args.info);
+  this.pushRelativeStandardAutomatic(args.info)
 
   // this.pushRelativeStandardAutomatic( { pupilS: { map:"test", min:0, max:2 } } )
 
@@ -555,15 +555,15 @@ Eye.prototype.draw = function EyeDraw(args) {
         ],
       },
     ],
-  };
-};
+  }
+}
 // END Eye \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Mouth /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Mouth = function Mouth(args) {
   // Colors
-  this.color = args.color;
-};
+  this.color = args.color
+}
 
 Mouth.prototype.draw = function MouthDraw(args) {
   var cutOff = (this.cutOff = this.pushLinkList({ r: 1, useSize: args.sX })),
@@ -637,15 +637,15 @@ Mouth.prototype.draw = function MouthDraw(args) {
     })),
     smirkTop = this.pushLinkList({ r: 0.5, useSize: curveSY, max: 1 }),
     smirkBottom = this.pushLinkList({ r: -0.1, useSize: curveSY, max: 1 }),
-    mouthOuter;
+    mouthOuter
 
   if (!args.info) {
-    args.info = {};
+    args.info = {}
   }
   // Assign the side value to the info, so it can be added to the changers.
-  args.info.curveSideSX = args.info.cutOff = args.info.sideRestSX = args.side;
+  args.info.curveSideSX = args.info.cutOff = args.info.sideRestSX = args.side
 
-  this.pushRelativeStandardAutomatic(args.info);
+  this.pushRelativeStandardAutomatic(args.info)
 
   return {
     sX: args.headSX,
@@ -729,25 +729,25 @@ Mouth.prototype.draw = function MouthDraw(args) {
         ],
       },
     ],
-  };
-};
+  }
+}
 // END Mouth \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Hair /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Hair = function Hair(args) {
   // Forms & Sizes
-  this.sY_ = 0.3;
+  this.sY_ = 0.3
 
   // Colors
-  this.color = [50, 30, 20];
-};
+  this.color = [50, 30, 20]
+}
 
 Hair.prototype.draw = function HairDraw(args) {
-  this.sY = this.pushLinkList({ r: this.sY_, useSize: args.sY });
+  this.sY = this.pushLinkList({ r: this.sY_, useSize: args.sY })
 
   this.pushRelativeStandardAutomatic({
     sY: { map: "actor-accessoirs", min: 0, max: this.sY_ },
-  });
+  })
 
   return {
     color: this.color,
@@ -785,37 +785,37 @@ Hair.prototype.draw = function HairDraw(args) {
         },
       },
     ],
-  };
-};
+  }
+}
 // END Hair \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Hat /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Hat = function Hat(args) {
-  this.actor = args.actor;
+  this.actor = args.actor
 
-  this.rim = this.rIf(0.7);
-  this.baseCap = this.rim && this.rIf(0.5);
+  this.rim = this.rIf(0.7)
+  this.baseCap = this.rim && this.rIf(0.5)
 
   // Forms & Sizes
-  this.sY_ = 0.1;
-  this.topSY_ = this.rim ? this.rFl(0.1, 0.4) : 0;
+  this.sY_ = 0.1
+  this.topSY_ = this.rim ? this.rFl(0.1, 0.4) : 0
 
   this.colorScheme = this.rIf(0.5)
     ? this.actor.colors.color1
-    : this.actor.colors.color2;
+    : this.actor.colors.color2
 
-  this.color = this.colorScheme[2];
-  this.detailColor = this.colorScheme[3];
-};
+  this.color = this.colorScheme[2]
+  this.detailColor = this.colorScheme[3]
+}
 
 Hat.prototype.draw = function HatDraw(args) {
-  this.sY = this.pushLinkList({ r: 0, useSize: args.sY });
-  this.topSY = this.pushLinkList({ r: 0, useSize: args.sY });
+  this.sY = this.pushLinkList({ r: 0, useSize: args.sY })
+  this.topSY = this.pushLinkList({ r: 0, useSize: args.sY })
 
   this.pushRelativeStandardAutomatic({
     sY: { map: "actor-accessoirs", min: 0, max: this.sY_ },
     topSY: { map: "actor-accessoirs", min: 0, max: this.topSY_ },
-  });
+  })
 
   return {
     sY: [this.sY, this.topSY],
@@ -841,6 +841,6 @@ Hat.prototype.draw = function HatDraw(args) {
         x: this.baseCap && args.side,
       },
     ],
-  };
-};
+  }
+}
 // END Hat \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/

@@ -1,44 +1,44 @@
-import { Object } from "./object.js";
+import { Object } from "./object.js"
 
 /* global Builder */
 
 // LOWER BODY --------------------------------------------------------------------------------
 export const LowerBody = function (args) {
   // Form & Sizes
-  this.sideSYFak = this.R(0.6, 1.6);
-  this.crotchSY = this.R(1, 3);
+  this.sideSYFak = this.R(0.6, 1.6)
+  this.crotchSY = this.R(1, 3)
 
-  this.wideHips = this.IF(0.05);
+  this.wideHips = this.IF(0.05)
 
   this.pantless = args.pantless =
-    args.animal || this.IF(this.skirt ? 0.4 : 0.01);
+    args.animal || this.IF(this.skirt ? 0.4 : 0.01)
 
   // Colors
   this.pantsColor = args.pantsColor = this.pantless
     ? args.skinColor
-    : args.secondColor;
+    : args.secondColor
 
   // Assets
-  this.leg = new this.basic.Leg(args);
+  this.leg = new this.basic.Leg(args)
   this.skirt = args.skirt =
     (args.demo || this.wideHips || this.IF(args.animal ? 0.05 : 0.15)) &&
-    new this.basic.Skirt(args);
+    new this.basic.Skirt(args)
   if (!args.animal && this.IF(0.3)) {
-    this.belt = new this.basic.Belt(args);
+    this.belt = new this.basic.Belt(args)
   }
-}; // END LowerBody
-LowerBody.prototype = new Object();
+} // END LowerBody
+LowerBody.prototype = new Object()
 LowerBody.prototype.draw = function (args, z) {
   var nr = args.nr,
     sideView = args.sideView,
     list,
-    leg;
+    leg
 
   if (args.calc) {
-    args.lowerBodySX = this.pushLinkList(args.personRealSX);
+    args.lowerBodySX = this.pushLinkList(args.personRealSX)
   }
 
-  this.skirt = (!args.demo || args.skirt) && this.skirt;
+  this.skirt = (!args.demo || args.skirt) && this.skirt
 
   leg = {
     sY: this.skirt && args.feetRestSY,
@@ -46,7 +46,7 @@ LowerBody.prototype.draw = function (args, z) {
       // Check if Skirt is so long, that it covers all the feet
       this.leg.draw(args, z, args.right),
     ],
-  };
+  }
 
   if (args.calc) {
     args.crotchSY = this.pushLinkList({
@@ -54,7 +54,7 @@ LowerBody.prototype.draw = function (args, z) {
       useSize: args.legSX,
       max: this.mult(0.4, args.lowerBodySY),
       min: 1,
-    });
+    })
   }
 
   list = {
@@ -83,36 +83,36 @@ LowerBody.prototype.draw = function (args, z) {
       // Belt
       this.belt && this.belt.draw(args, z),
     ],
-  };
+  }
 
-  return list;
-}; // END LowerBody draw
+  return list
+} // END LowerBody draw
 
 // Belt --------------------------------------------------------------------------------
 export const Belt = function (args) {
   // Form & Sizes
-  this.beltSY = this.R(0.1, 0.7);
-  this.buckle = this.IF(0.5);
-  this.buckleSX = this.R(-0.3, 1);
-  this.strips = this.IF(0.3);
+  this.beltSY = this.R(0.1, 0.7)
+  this.buckle = this.IF(0.5)
+  this.buckleSX = this.R(-0.3, 1)
+  this.strips = this.IF(0.3)
 
   // Colors
-  this.beltColor = args.beltColor || args.pantsColor.copy({ brContrast: -1 });
+  this.beltColor = args.beltColor || args.pantsColor.copy({ brContrast: -1 })
   if (this.buckle) {
     this.buckleColor = this.beltColor.copy({
       brContrast: this.IF(0.5) ? -1 : 2,
-    });
+    })
   }
   if (this.strips) {
-    this.pantsColor = args.skirt ? args.skirtColor : args.pantsColor;
+    this.pantsColor = args.skirt ? args.skirtColor : args.pantsColor
   }
 
   // Assets
-}; // END Belt
-Belt.prototype = new Object();
+} // END Belt
+Belt.prototype = new Object()
 Belt.prototype.draw = function (args, z) {
   var nr = args.nr,
-    sideView = args.sideView;
+    sideView = args.sideView
 
   if (args.calc) {
   }
@@ -147,35 +147,35 @@ Belt.prototype.draw = function (args, z) {
           },
         },
     ],
-  };
-}; // END Belt draw
+  }
+} // END Belt draw
 
 // SKIRT --------------------------------------------------------------------------------
 export const Skirt = function (args) {
   // Form & Sizes
-  this.skirtSY = this.R(0.3, 1.2);
-  this.stripes = this.IF();
+  this.skirtSY = this.R(0.3, 1.2)
+  this.stripes = this.IF()
 
   if (this.stripes) {
-    this.gap = this.R(-0.1, 0.2);
-    this.strip = this.R(-0.1, 0.2);
-    this.hor = this.IF(0.08);
+    this.gap = this.R(-0.1, 0.2)
+    this.strip = this.R(-0.1, 0.2)
+    this.hor = this.IF(0.08)
   }
 
   // Colors
   this.skirtColor = args.skirtColor = this.IF()
     ? args.firstColor
-    : args.secondColor.copy({ brContrast: 1, max: 4 });
+    : args.secondColor.copy({ brContrast: 1, max: 4 })
   if (this.stripes) {
-    this.stripeColor = this.skirtColor.copy({ brContrast: -1 });
+    this.stripeColor = this.skirtColor.copy({ brContrast: -1 })
   }
 
   // Assets
-}; // END Skirt
-Skirt.prototype = new Object();
+} // END Skirt
+Skirt.prototype = new Object()
 Skirt.prototype.draw = function (args) {
   var nr = args.nr,
-    sideView = args.sideView;
+    sideView = args.sideView
 
   if (args.calc) {
     args.skirtSY = this.pushLinkList({
@@ -183,10 +183,10 @@ Skirt.prototype.draw = function (args) {
       useSize: args.lowerBodySY,
       min: 1,
       max: args.lowerBodySY,
-    });
+    })
     args.feetRestSY = this.pushLinkList({
       add: [args.lowerBodySY, this.sub(args.skirtSY)],
-    });
+    })
   }
 
   return (
@@ -209,37 +209,37 @@ Skirt.prototype.draw = function (args) {
         },
       ],
     }
-  );
-}; // END Skirt draw
+  )
+} // END Skirt draw
 
 // LEG --------------------------------------------------------------------------------
 export const Leg = function (args) {
   // Form & Sizes
 
-  this.legSX = this.IF(0.1) ? this.R(0.05, 0.5) : 0.05;
-  this.bootsSY = this.IF() && this.R(0.2, 1);
-  this.thights = this.IF() && this.R(1, 1.5) * this.legSX;
-  this.calves = this.IF() && this.R(1, 1.5) * this.legSX;
-  this.bootsSXBig = !this.calves && this.IF() && this.GR(1, 2);
-  this.bareFoot = this.IF(args.animal ? 0.8 : 0.05);
+  this.legSX = this.IF(0.1) ? this.R(0.05, 0.5) : 0.05
+  this.bootsSY = this.IF() && this.R(0.2, 1)
+  this.thights = this.IF() && this.R(1, 1.5) * this.legSX
+  this.calves = this.IF() && this.R(1, 1.5) * this.legSX
+  this.bootsSXBig = !this.calves && this.IF() && this.GR(1, 2)
+  this.bareFoot = this.IF(args.animal ? 0.8 : 0.05)
 
-  this.legsIn = this.IF(args.skirt ? 0.8 : 0.2);
+  this.legsIn = this.IF(args.skirt ? 0.8 : 0.2)
 
   // Colors
   this.shoeColor = this.bareFoot
     ? args.skinColor
-    : args.pantsColor.copy({ prevColor: this.IF(), brContrast: -2 });
+    : args.pantsColor.copy({ prevColor: this.IF(), brContrast: -2 })
 
   // Assets
-}; // END Leg
-Leg.prototype = new Object();
+} // END Leg
+Leg.prototype = new Object()
 Leg.prototype.draw = function (args, z, rightSide, behind) {
   var nr = args.nr,
     sideView = args.sideView,
     legPos = args.leg && args.leg[rightSide ? "right" : "left"],
     hipBend = legPos === "legHigh",
     legBend = hipBend || legPos === "kneeBend",
-    legRaise = !hipBend && !legBend && legPos === "legRaise";
+    legRaise = !hipBend && !legBend && legPos === "legRaise"
 
   if (args.calc) {
     args.legSX = this.pushLinkList({
@@ -247,20 +247,20 @@ Leg.prototype.draw = function (args, z, rightSide, behind) {
       useSize: args.personHalfSX,
       max: [args.lowerBodySX, this.legsIn ? -2 : -1],
       min: 1,
-    });
+    })
     args.upperLegSY = this.pushLinkList({
       r: 0.5,
       useSize: args.lowerBodySY,
-    });
+    })
     args.lowerLegSY = this.pushLinkList({
       add: [args.lowerBodySY, this.sub(args.upperLegSY)],
-    });
+    })
 
     args.shoeSY = this.pushLinkList(
       this.bootsSY
         ? { r: this.bootsSY, useSize: args.lowerLegSY, min: 1 }
         : { r: 0.8, useSize: args.legSX, min: 1 },
-    );
+    )
 
     args.legMaxSX = this.pushLinkList({
       r: sideView ? 0.8 : 1,
@@ -268,24 +268,24 @@ Leg.prototype.draw = function (args, z, rightSide, behind) {
       a: -2,
       max: [args.legSX, 2],
       min: args.legSX,
-    });
+    })
 
     args.thighsSX = this.pushLinkList({
       useSize: args.personHalfSX,
       r: this.thights || 1,
       max: args.legMaxSX,
       min: 1,
-    });
+    })
     args.calvesSX = this.pushLinkList({
       useSize: args.personHalfSX,
       r: this.calves || 1,
       max: args.legMaxSX,
       min: 1,
-    });
+    })
     args.legFullSX = this.pushLinkList({
       add: [args.thighsSX],
       min: args.calvesSX,
-    });
+    })
   }
 
   return {
@@ -383,5 +383,5 @@ Leg.prototype.draw = function (args, z, rightSide, behind) {
         ],
       },
     ],
-  };
-}; // END Leg draw
+  }
+} // END Leg draw

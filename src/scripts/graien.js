@@ -1,4 +1,4 @@
-import { helper as helperGlobal } from "../renderengine/helper.js";
+import { helper as helperGlobal } from "../renderengine/helper.js"
 
 export default function (args, slide, createSlider) {
   var helper = helperGlobal,
@@ -34,9 +34,9 @@ export default function (args, slide, createSlider) {
     imgDifference = 0.05,
     linkList = [],
     linkListPush = function (obj) {
-      linkList.push(obj);
+      linkList.push(obj)
 
-      return obj;
+      return obj
     },
     sXMain = linkListPush({ main: true }),
     sYMain = linkListPush({ main: true, height: true }),
@@ -338,60 +338,60 @@ export default function (args, slide, createSlider) {
     graie3EarPos = linkListPush(mult(0.1, graie3FaceHeight)),
     setValue = helper.setValue,
     graienValues = function (what, faktor, value) {
-      setValue(what, faktor * value * 2 + value * 0.2);
+      setValue(what, faktor * value * 2 + value * 0.2)
     },
     hover = function (args) {
       var a = args.a,
         b = args.b,
         c = args.c,
-        d = args.d;
+        d = args.d
 
       if (a) {
-        graienValues(handWidth, a, 0.07);
-        graienValues(armWidth, a, 0.05);
-        graienValues(legWidth, a, 0.15);
-        graienValues(legLowerWidth, a, 0.07);
+        graienValues(handWidth, a, 0.07)
+        graienValues(armWidth, a, 0.05)
+        graienValues(legWidth, a, 0.15)
+        graienValues(legLowerWidth, a, 0.07)
       }
 
       if (b) {
-        graienValues(graie1HeadSize, b, 0.18);
-        graienValues(graie2HeadHeight, b, 0.8);
+        graienValues(graie1HeadSize, b, 0.18)
+        graienValues(graie2HeadHeight, b, 0.8)
       }
 
       if (c || d) {
         if (c) {
-          graie1[0] = c * 227;
-          graie2[0] = c * 192;
-          graie3[0] = c * 232;
+          graie1[0] = c * 227
+          graie2[0] = c * 192
+          graie3[0] = c * 232
         }
 
         if (d) {
-          graie1[1] = d * 200;
-          graie2[1] = d * 176;
-          graie3[1] = d * 204;
+          graie1[1] = d * 200
+          graie2[1] = d * 176
+          graie3[1] = d * 204
         }
 
         if (c && d) {
-          graie1[2] = (0.5 + c * d * 0.5) * 190;
-          graie2[2] = (0.5 + c * d * 0.5) * 133;
-          graie3[2] = (0.5 + c * d * 0.5) * 152;
+          graie1[2] = (0.5 + c * d * 0.5) * 190
+          graie2[2] = (0.5 + c * d * 0.5) * 133
+          graie3[2] = (0.5 + c * d * 0.5) * 152
         }
 
-        graie1Shadow = shadow(graie1, graie1Shadow);
-        graie1Detail = detail(graie1, graie1Detail);
+        graie1Shadow = shadow(graie1, graie1Shadow)
+        graie1Detail = detail(graie1, graie1Detail)
 
-        graie2Shadow = shadow(graie2, graie2Shadow);
-        graie2Detail = detail(graie2, graie2Detail);
+        graie2Shadow = shadow(graie2, graie2Shadow)
+        graie2Detail = detail(graie2, graie2Detail)
 
-        graie3Shadow = shadow(graie3, graie3Shadow);
-        graie3Detail = detail(graie3, graie3Detail);
+        graie3Shadow = shadow(graie3, graie3Shadow)
+        graie3Detail = detail(graie3, graie3Detail)
       }
     },
     getShadow = function (nr) {
-      return nr === 1 ? graie1Shadow : nr === 2 ? graie2Shadow : graie3Shadow;
+      return nr === 1 ? graie1Shadow : nr === 2 ? graie2Shadow : graie3Shadow
     },
     getSkin = function (nr) {
-      return nr === 1 ? graie1 : nr === 2 ? graie2 : graie3;
+      return nr === 1 ? graie1 : nr === 2 ? graie2 : graie3
     },
     graie1Eye = [
       {
@@ -441,7 +441,7 @@ export default function (args, slide, createSlider) {
               color: graie1Shadow,
               sX: graie1BreastMargin,
             },
-      ];
+      ]
     },
     foot = function (hor, down, fX, nr) {
       var shadow = getShadow(nr),
@@ -449,7 +449,7 @@ export default function (args, slide, createSlider) {
         anklePos = { r: 0.5, useSize: legLowerWidth },
         ankleSize = { r: 0.6, useSize: legLowerWidth },
         ankleWidth = { r: 1, a: -1 },
-        ankleHeight = { r: 1, a: -2 };
+        ankleHeight = { r: 1, a: -2 }
 
       return [
         {
@@ -528,16 +528,16 @@ export default function (args, slide, createSlider) {
             },
           ],
         },
-      ];
+      ]
     },
     legStructure = (function () {
       var i = 0,
         s = { a: 0, random: legDetailWidth },
-        armSize = { a: 0, random: armDetailLength };
+        armSize = { a: 0, random: armDetailLength }
       return function (nr, hor, arm) {
-        var shadow = getShadow(nr);
+        var shadow = getShadow(nr)
 
-        hor = arm ? !hor : hor;
+        hor = arm ? !hor : hor
         return {
           list: [
             {},
@@ -555,11 +555,11 @@ export default function (args, slide, createSlider) {
               minX: hor ? 0 : 3,
             },
           ],
-        };
-      };
+        }
+      }
     })(),
     armToLeft = function (nr, down) {
-      var shadow = getShadow(nr);
+      var shadow = getShadow(nr)
       return [
         legStructure(nr, false, true),
         { sY: armShadow, color: shadow, fY: true },
@@ -615,22 +615,22 @@ export default function (args, slide, createSlider) {
             },
           ],
         },
-      ];
+      ]
     },
     skinPoint = function (nr, big, obj) {
       var shadow = getShadow(nr),
-        skin = getSkin(nr);
+        skin = getSkin(nr)
 
-      if (!obj) obj = {};
+      if (!obj) obj = {}
 
       obj.list = [
         { color: shadow },
         { s: { r: 1, a: -2 }, color: skin, c: true },
-      ];
-      obj.sY = big ? { r: 0.1, a: -1, max: 4 } : { r: 0.02, max: 1 };
-      obj.sX = big ? { r: 0.1, a: -1, otherDim: true, max: 4 } : 1;
+      ]
+      obj.sY = big ? { r: 0.1, a: -1, max: 4 } : { r: 0.02, max: 1 }
+      obj.sX = big ? { r: 0.1, a: -1, otherDim: true, max: 4 } : 1
 
-      return obj;
+      return obj
     },
     graieEyes = function () {
       return [
@@ -641,7 +641,7 @@ export default function (args, slide, createSlider) {
           fY: true,
           fX: true,
         },
-      ];
+      ]
     },
     graie3butt = [{}, { name: "Dot", fY: true, color: graie3Shadow }],
     borderVert = [
@@ -2847,7 +2847,7 @@ export default function (args, slide, createSlider) {
           },
         ],
       },
-    ];
+    ]
 
   // if( createSlider ) {
   // 	createSlider.title( { title: "Graien" } );
@@ -2865,7 +2865,7 @@ export default function (args, slide, createSlider) {
     linkList: linkList,
     hover: hover,
     changeValueSetter: function () {
-      setValue = helper.setValueNew;
+      setValue = helper.setValueNew
     },
-  };
+  }
 }

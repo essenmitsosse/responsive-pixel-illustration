@@ -1,4 +1,4 @@
-import { helper } from "../renderengine/helper.js";
+import { helper } from "../renderengine/helper.js"
 
 export default function () {
   var help = helper,
@@ -116,7 +116,7 @@ export default function () {
     snake = function (nr, vert) {
       var x = !vert ? ["snakeWeight", -1] : undefined,
         y = vert ? ["snakeWeight", -1] : undefined,
-        s = { r: 1, add: [sub("snakeWeight")] };
+        s = { r: 1, add: [sub("snakeWeight")] }
 
       return nr === 2
         ? [{ save: "snake2" }]
@@ -137,10 +137,10 @@ export default function () {
               sY: vert ? s : undefined,
               sX: !vert ? s : undefined,
             },
-          ];
+          ]
     },
     treeTrunk = function () {
-      var name = "treeBark" + (i += 1);
+      var name = "treeBark" + (i += 1)
 
       return [
         { use: name },
@@ -158,11 +158,11 @@ export default function () {
           sX: { r: 0.5, max: 5 },
           color: stickDarkest,
         },
-      ];
+      ]
     },
     treeLeaves = function (random) {
       var name = "treeLeaves" + (i += 1),
-        name2 = "treesSpots" + i;
+        name2 = "treesSpots" + i
       return [
         {
           sY: { r: 1.2 },
@@ -177,7 +177,7 @@ export default function () {
           stripes: { strip: 2, random: "treeRandom", change: random },
           save: "treeLeaves" + i,
         },
-      ];
+      ]
     },
     shadowGround = [
       {
@@ -1398,11 +1398,11 @@ export default function () {
       },
 
       "treeRandom": mult(0.1, "imgheight"),
-    };
+    }
 
   return {
     renderList: renderList,
     variableList: variableList,
     background: backgroundColor,
-  };
+  }
 }

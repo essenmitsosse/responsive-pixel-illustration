@@ -171,10 +171,10 @@ export default function () {
         list: trexsingle,
       },
     ],
-    backgroundColor = [170, 190, 230];
+    backgroundColor = [170, 190, 230]
 
   return {
     renderList: renderList,
     background: backgroundColor,
-  };
+  }
 }

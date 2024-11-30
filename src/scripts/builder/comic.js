@@ -1,4 +1,4 @@
-import { Object } from "./object.js";
+import { Object } from "./object.js"
 
 /*jshint -W008 */
 /* global Builder */
@@ -23,60 +23,59 @@ export const Comic = function (init) {
     border = this.R(0.01, 0.04),
     gutter = this.R(0.02, 0.05),
     horRatio = this.R(1.1, 2),
-    panel;
+    panel
 
-  this.vL["fullSqu"] = { r: 1, max: { r: 1, height: true } };
+  this.vL["fullSqu"] = { r: 1, max: { r: 1, height: true } }
 
   // BORDER
-  this.vL["borderX"] = { r: border, useSize: "fullSqu", min: 2 };
+  this.vL["borderX"] = { r: border, useSize: "fullSqu", min: 2 }
   this.vL["borderY"] = {
     r: border * horRatio,
     useSize: "fullSqu",
     min: ["borderX", 1],
-  };
+  }
 
   // IMAGE
-  this.vL["imgSX"] = { add: [{ r: 1 }, this.mult(-2, "borderX")] };
+  this.vL["imgSX"] = { add: [{ r: 1 }, this.mult(-2, "borderX")] }
   this.vL["imgSY"] = [
     { r: 1, height: true },
     this.mult(this.GR(-3.5, -2), "borderY"),
-  ];
+  ]
 
-  this.vL["imgSqu"] = { a: "imgSX", max: "imgSY" };
-  this.vL["imgSquBigger"] = { a: "imgSX", min: "imgSY" };
+  this.vL["imgSqu"] = { a: "imgSX", max: "imgSY" }
+  this.vL["imgSquBigger"] = { a: "imgSX", min: "imgSY" }
 
-  this.vL["_panelWid"] = { r: 1 / panelsCalc, useSize: "imgSX" };
+  this.vL["_panelWid"] = { r: 1 / panelsCalc, useSize: "imgSX" }
   this.vL["_panelOvershot2"] = {
     add: ["imgSY", { r: this.R(-2.5, -1.5), useSize: "_panelWid" }],
     min: { a: 0 },
     max: 1,
-  };
-  this.vL["_panelOvershot2IF"] = { r: 10000000, useSize: "_panelOvershot2" };
+  }
+  this.vL["_panelOvershot2IF"] = { r: 10000000, useSize: "_panelOvershot2" }
 
   this.vL["_panelOvershot3"] = {
     add: ["imgSY", { r: -8, useSize: "_panelWid" }],
     min: { a: 0 },
     max: 1,
-  };
+  }
   this.vL["_panelOvershot3IF"] =
     panels === 4
       ? { a: 0 }
-      : { r: 10000000, useSize: "_panelOvershot3", min: { a: 0 } };
+      : { r: 10000000, useSize: "_panelOvershot3", min: { a: 0 } }
 
   this.vL["gutterX"] = {
     r: gutter,
     useSize: "imgSqu",
     min: 3,
     max: ["borderX", -1],
-  };
+  }
   this.vL["gutterY"] = {
     r: gutter * horRatio,
     useSize: "imgSqu",
     min: ["gutterX", 1],
     max: ["borderY", -1],
-  };
-
-  (this.vL["gutterBorderS"] = {
+  }
+  ;(this.vL["gutterBorderS"] = {
     r: this.GR(-1, 1),
     useSize: "gutterX",
     max: -1,
@@ -92,16 +91,16 @@ export const Comic = function (init) {
           max: { r: 2, useSize: "imgSX" },
         },
       ],
-    });
+    })
 
   this.vL["panelRestSX"] = [
     "_effectiveImgSX",
     this.mult(-1 * panelsCalc, "gutterX"),
-  ];
-  this.vL["panelSX"] = this.mult(1 / panelsCalc, "panelRestSX");
+  ]
+  this.vL["panelSX"] = this.mult(1 / panelsCalc, "panelRestSX")
 
-  this.vL["panelRest2SY"] = ["imgSY", this.mult(-1, "gutterY")];
-  this.vL["panelRest3SY"] = ["imgSY", this.mult(-2, "gutterY")];
+  this.vL["panelRest2SY"] = ["imgSY", this.mult(-1, "gutterY")]
+  this.vL["panelRest3SY"] = ["imgSY", this.mult(-2, "gutterY")]
   this.vL["panelSY"] = {
     add: [
       {
@@ -111,9 +110,9 @@ export const Comic = function (init) {
       this.mult(-1, "_panelOvershot3IF"),
     ],
     min: [this.mult(1 / 3, "panelRest3SY")],
-  };
+  }
 
-  this.vL["panelSqu"] = { a: "panelSX", max: "panelSY" };
+  this.vL["panelSqu"] = { a: "panelSX", max: "panelSY" }
 
   this.vL["2rowX"] = {
     r: -1,
@@ -124,13 +123,13 @@ export const Comic = function (init) {
       { r: -panelsCalc / 2, useSize: "gutterX" },
     ],
     max: { a: 0 },
-  };
+  }
   this.vL["2rowY"] = {
     a: "_panelOvershot2IF",
     add: [this.sub("_panelOvershot3IF")],
     max: ["panelSY", "gutterY"],
     min: { a: 0 },
-  };
+  }
 
   this.vL["3rowX"] = {
     r: -1,
@@ -139,8 +138,8 @@ export const Comic = function (init) {
       { r: -panelsCalc / 3, useSize: "panelSX" },
       { r: -panelsCalc / 3, useSize: "gutterX" },
     ],
-  };
-  this.vL["3rowY"] = { a: "_panelOvershot3IF", max: ["panelSY", "gutterY"] };
+  }
+  this.vL["3rowY"] = { a: "_panelOvershot3IF", max: ["panelSY", "gutterY"] }
 
   this.vL["fullSX"] = [
     { r: panelsCalc, useSize: "panelSX" },
@@ -162,16 +161,16 @@ export const Comic = function (init) {
         { r: (-2 * panelsCalc) / 3, useSize: "gutterX" },
       ],
     },
-  ];
+  ]
 
   if (bigPanel !== false) {
-    this.vL["panelBigSX"] = [this.mult(2, "panelSX"), "gutterX"];
+    this.vL["panelBigSX"] = [this.mult(2, "panelSX"), "gutterX"]
   }
 
-  args.panels = panels;
-  args.outerBorderColor = outerBorderColor;
+  args.panels = panels
+  args.outerBorderColor = outerBorderColor
 
-  panel = new this.basic.Panel(args);
+  panel = new this.basic.Panel(args)
 
   for (i = 0; i < panelsCalc; i += 1) {
     list.push(
@@ -182,13 +181,13 @@ export const Comic = function (init) {
         row3b: (2 * panels) / 3 <= i,
         big: i === bigPanel,
       }),
-    );
+    )
 
     if (i === bigPanel) {
-      i += 1;
+      i += 1
     }
 
-    this.basic.getNormalColor();
+    this.basic.getNormalColor()
   }
 
   // // Debug Stuff
@@ -221,31 +220,31 @@ export const Comic = function (init) {
       list: list,
     },
     init.cs === "true" && this.basic.colorScheme(),
-  ];
-}; // END Comic
+  ]
+} // END Comic
 
-Comic.prototype = new Object();
+Comic.prototype = new Object()
 // Comic.prototype.draw = function () {
 // }// END Comic draw
 
 // PANEL --------------------------------------------------------------------------------
 export const Panel = function (args) {
   // Forms & Sizes
-  this.horizont = this.IF(0.6) ? this.R(0.1, 0.6) : this.R(0, 1);
+  this.horizont = this.IF(0.6) ? this.R(0.1, 0.6) : this.R(0, 1)
 
-  this.lightnessSwitched = this.IF(0.01 * args.panels);
+  this.lightnessSwitched = this.IF(0.01 * args.panels)
   this.colorChangeGradual =
-    !this.lightnessSwitched && this.IF(0.01 * args.panels);
+    !this.lightnessSwitched && this.IF(0.01 * args.panels)
 
   if (this.lightnessSwitched) {
-    this.lightnessSwitchPanel = this.R(1, args.panels - 1);
-    this.backWard = this.IF(0.5);
+    this.lightnessSwitchPanel = this.R(1, args.panels - 1)
+    this.backWard = this.IF(0.5)
     this.newLightness = args.newLightness =
-      args.newLightness || this.GR(1, 3) * (this.IF(0.7) ? -1 : 1);
+      args.newLightness || this.GR(1, 3) * (this.IF(0.7) ? -1 : 1)
   } else if (this.colorChangeGradual) {
     this.colorChangeStart = this.IF(0.5)
       ? 0
-      : (this.IF(0.8) ? -1 : 1) * this.R(0, 4);
+      : (this.IF(0.8) ? -1 : 1) * this.R(0, 4)
 
     this.colorChange =
       this.R(0, 0.5) *
@@ -255,35 +254,35 @@ export const Panel = function (args) {
           : 1
         : this.colorChangeStart > 0
           ? -1
-          : 1);
+          : 1)
   }
 
-  this.clearSky = this.IF(0.5);
+  this.clearSky = this.IF(0.5)
 
-  this.sun = this.clearSky && this.IF(0.5);
+  this.sun = this.clearSky && this.IF(0.5)
 
   // Colors
   this.skyColor = args.skyColor = args.borderColor.copy({
     nextColor: this.IF(0.1),
     brSet: this.sun ? 4 : 5,
-  });
+  })
   if (this.sun) {
-    this.sunColor = this.starColor || this.skyColor.copy({ brSet: 5 });
+    this.sunColor = this.starColor || this.skyColor.copy({ brSet: 5 })
   }
 
-  this.outerBorderColor = args.outerBorderColor;
+  this.outerBorderColor = args.outerBorderColor
 
   // Assets
-  this.ground = new this.basic.Ground(args);
+  this.ground = new this.basic.Ground(args)
 
-  this.actor1 = this.IF(0.99) && new this.basic.Actor(args);
-  this.actor2 = this.IF(0.9) && new this.basic.Actor(args);
-  this.actor3 = this.IF(0.1) && new this.basic.Actor(args);
+  this.actor1 = this.IF(0.99) && new this.basic.Actor(args)
+  this.actor2 = this.IF(0.9) && new this.basic.Actor(args)
+  this.actor3 = this.IF(0.1) && new this.basic.Actor(args)
 
-  this.forrest = this.IF(0.4) && new this.basic.Forrest(args);
-}; // END Panel
+  this.forrest = this.IF(0.4) && new this.basic.Forrest(args)
+} // END Panel
 
-Panel.prototype = new Object();
+Panel.prototype = new Object()
 Panel.prototype.draw = function (args) {
   var nr = args.i,
     closeUp = this.IF(0.1),
@@ -294,9 +293,9 @@ Panel.prototype.draw = function (args) {
       this.skyColor.copy({ nextColor: true, brSet: this.GR(0, 5) }),
     actors,
     stars,
-    darkness;
+    darkness
 
-  this.finalSkyColor = this.skyColor;
+  this.finalSkyColor = this.skyColor
 
   if (this.colorChangeGradual || this.lightnessSwitched) {
     if (this.lightnessSwitched) {
@@ -307,11 +306,11 @@ Panel.prototype.draw = function (args) {
             : 0
           : this.backWard
             ? this.newLightness
-            : 0;
+            : 0
     } else {
-      darkness = Math.round(this.colorChangeStart + this.colorChange * nr);
+      darkness = Math.round(this.colorChangeStart + this.colorChange * nr)
       if (darkness < -3) {
-        darkness = -3;
+        darkness = -3
       }
     }
 
@@ -321,42 +320,42 @@ Panel.prototype.draw = function (args) {
         brSet: 3,
         dontChange: true,
         nextColor: true,
-      });
+      })
     } else if (darkness < -1) {
       // Night
       this.finalSkyColor = this.skyColor.copy({
         brSet: 1,
         dontChange: true,
-      });
-      stars = darkness < -2 && this.clearSky;
+      })
+      stars = darkness < -2 && this.clearSky
       if (stars) {
         this.starColor = this.finalSkyColor.copy({
           brSet: 3,
           nextColor: true,
           dontChange: true,
-        });
+        })
       }
     }
   } else {
-    darkness = 0;
+    darkness = 0
   }
 
-  args.groundShadowColor = this.groundShadowColor;
+  args.groundShadowColor = this.groundShadowColor
 
   this.vL["thingS" + nr] = this.mult(
     closeUp ? 2 : wideShot ? 0.5 : superWideShot ? 0.2 : 1,
     "panelSqu",
-  );
+  )
   this.vL["horizont" + nr] = {
     r:
       this.horizont *
       (closeUp ? 0.6 : wideShot ? 1.25 : superWideShot ? 1.5 : 1),
     useSize: "panelSY",
-  };
+  }
 
   // Less Color Change on Actors
   if (darkness !== 0) {
-    this.basic.getDark(darkness < -2 ? -2 : darkness > 2 ? 2 : darkness);
+    this.basic.getDark(darkness < -2 ? -2 : darkness > 2 ? 2 : darkness)
   }
 
   actors = {
@@ -394,13 +393,13 @@ Panel.prototype.draw = function (args) {
         list: this.actor3.draw(args, 300000, "thingS" + nr),
       },
     ],
-  };
-
-  if (darkness !== 0) {
-    this.basic.getDark(darkness);
   }
 
-  args.nr = nr;
+  if (darkness !== 0) {
+    this.basic.getDark(darkness)
+  }
+
+  args.nr = nr
 
   return {
     list: [
@@ -489,15 +488,15 @@ Panel.prototype.draw = function (args) {
         ],
       },
     ],
-  };
-}; // END Panel draw
+  }
+} // END Panel draw
 
 // ACTOR --------------------------------------------------------------------------------
 export const Actor = function (args) {
-  this.person = new this.basic.Person(args);
-}; // END Actor
+  this.person = new this.basic.Person(args)
+} // END Actor
 
-Actor.prototype = new Object();
+Actor.prototype = new Object()
 Actor.prototype.draw = function (args, z, size) {
   var eyeLookVert = ["", "", "", "left", "right"],
     eyeLookHor = ["", "", "", "", "", "up", "down", "up", "down", "verDown"],
@@ -564,18 +563,18 @@ Actor.prototype.draw = function (args, z, size) {
       "rightView",
       "leftView",
       "backView",
-    ];
+    ]
 
-  args.size = size;
+  args.size = size
 
-  args.view = views[this.GR(0, views.length)];
+  args.view = views[this.GR(0, views.length)]
 
   args.eye = {
     lookVert: eyeLookVert[this.GR(0, eyeLookVert.length)],
     lookHor: eyeLookHor[this.GR(0, eyeLookHor.length)],
     lids: eyeLids[this.GR(0, eyeLids.length)],
     brow: eyeBrow[this.GR(0, eyeBrow.length)],
-  };
+  }
 
   args.mouth = {
     height: mouthHeight[this.GR(0, mouthHeight.length)],
@@ -583,12 +582,12 @@ Actor.prototype.draw = function (args, z, size) {
     form: mouthForm[this.GR(0, mouthForm.length)],
     teeth: teethPos[this.GR(0, teethPos.length)],
     smirk: this.IF(0.08),
-  };
+  }
 
   args.shoulder = {
     left: this.IF(0.7) && Math.pow(this.R(0, 1), 3),
     right: this.IF(0.7) && Math.pow(this.R(0, 1), 3),
-  };
+  }
 
   args.arm = {
     left:
@@ -603,20 +602,20 @@ Actor.prototype.draw = function (args, z, size) {
         : this.IF(0.7)
           ? this.R(-0.75, 0.75)
           : this.R(-0.25, 0.25),
-  };
+  }
 
   args.finger = {
     left: this.IF(0.1),
     right: this.IF(0.1),
-  };
+  }
 
-  args.leg = {};
-  args.leg[this.IF(0.5) ? "right" : "left"] = legPos[this.GR(0, legPos.length)];
+  args.leg = {}
+  args.leg[this.IF(0.5) ? "right" : "left"] = legPos[this.GR(0, legPos.length)]
 
-  args.hatDown = this.IF(0.02);
+  args.hatDown = this.IF(0.02)
 
-  return this.person.draw(args, z);
-}; // END Actor draw
+  return this.person.draw(args, z)
+} // END Actor draw
 
 // GROUND --------------------------------------------------------------------------------
 export const Ground = function (args) {
@@ -626,21 +625,21 @@ export const Ground = function (args) {
   this.groundColor = args.groundColor = args.skyColor.copy({
     nextColor: this.IF(),
     brContrast: this.GR(1, 4),
-  });
+  })
   this.groundShadowColor = args.groundShadowColor = this.groundColor.copy({
     brAdd: -1,
-  });
+  })
 
   // Assets
-}; // END Ground
-Ground.prototype = new Object();
+} // END Ground
+Ground.prototype = new Object()
 Ground.prototype.draw = function (args, z) {
-  var nr = args.nr;
+  var nr = args.nr
 
   return {
     color: this.groundColor.get(),
     fY: true,
     z: z,
     sY: "horizont" + nr,
-  };
-}; // END Ground draw
+  }
+} // END Ground draw

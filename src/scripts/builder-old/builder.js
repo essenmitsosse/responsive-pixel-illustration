@@ -37,7 +37,6 @@ export const Builder = function (init) {
     margin = help.margin,
     initID = init.id ? init.id : Math.floor(Math.random() * 4294967296),
     random = help.random(initID),
-    that = this,
     joinVariableList = {}
 
   this.help = help

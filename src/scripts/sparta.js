@@ -10,17 +10,10 @@ export default function () {
     shadow = help.darken(shadowColor, 0.5),
     detail = help.darken(shadowColor, 0.2),
     backgroundColor = [60, 60, 60],
-    tree = [100, 118, 64],
-    treeShadow = [90, 90, 53],
-    treeLight = [113, 132, 78],
     water = [36, 44, 53],
-    waterLight = [74, 81, 88],
-    fruit = [123, 35, 35],
     skin = [227, 200, 190],
     skinDetail = detail(skin),
     skinShadow = shadow(skin),
-    shield = [130, 70, 90],
-    shieldShadow = shadow(shield),
     leftHalf = [
       {
         sY: { r: 1, add: [sub('headHeight'), sub('legs'), -1] },

@@ -33,23 +33,20 @@ export default function (args, init, createSlider) {
       min: [height, -count],
     }),
     singleSY = linkListPush({ r: 1 / count, useSize: smallerSide }),
-    innerSingleSY = linkListPush({ add: [singleSY, -2] }),
     stripMinSX = singleSY,
-    stripMaxSX = biggerSide,
     stripRealRelSX = linkListPush({ r: 1, useSize: biggerSide }),
     stripRealSX = linkListPush({ add: [stripRealRelSX], min: stripMinSX }),
     redSX_ = 0.2,
     redSXrel = linkListPush({ r: redSX_, useSize: stripRealSX }),
     redSXabs = linkListPush({ r: redSX_, useSize: stripMinSX }),
     redSXmin = redSXabs,
-    redSXmax = linkListPush({ r: redSX_, useSize: stripMaxSX }),
     redSXminMaxDiff = linkListPush({
       a: 100,
       add: [{ add: [redSXrel, { r: -1, useSize: redSXmin }, -100], min: 0 }],
     }),
     redSXa = redSXrel,
     redSXb = linkListPush([redSXabs, redSXminMaxDiff]),
-    versions = function (size) {
+    versions = function () {
       return [
         [
           { color: white },
@@ -92,7 +89,7 @@ export default function (args, init, createSlider) {
 
       return obj
     })(count),
-    getSquares = function (args) {
+    getSquares = function () {
       var list = [],
         i = 0,
         max = count

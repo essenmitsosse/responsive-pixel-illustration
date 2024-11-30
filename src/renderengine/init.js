@@ -7,14 +7,12 @@ export const InitPixel = function (args) {
     slides = showcase ? this.showcaseSlides : this.slides,
     currentSlide = !forceName && slides[queryString.slide || 0],
     imageName = forceName || currentSlide.name || 'tantalos',
-    admin,
     sliders = queryString.sliders || currentSlide.sliders,
     div = args.div,
     canvasDataList = false, // change for multiple Canvases
     canvasRenderer = this.createSingleCanvas(canvasDataList, div),
     callback,
-    body = document.getElementsByTagName('body')[0],
-    main = document.getElementById('main')
+    body = document.getElementsByTagName('body')[0]
 
   this.parent = queryString.admin || queryString.parent
 
@@ -24,7 +22,7 @@ export const InitPixel = function (args) {
 
   // Admin
   if (queryString.admin || showcase || sliders) {
-    admin = new Admin({
+    new Admin({
       body: body,
       showcase: showcase,
       admin: queryString.admin,

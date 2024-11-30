@@ -3,12 +3,10 @@ import { helper as helperGlobal } from '../renderengine/helper.js'
 export default function () {
   var help = helperGlobal,
     getSmallerDim = help.getSmallerDim,
-    getBiggerDim = help.getBiggerDim,
     mult = help.mult,
     sub = help.sub,
     backgroundColor = [170, 190, 230],
     font = [30, 30, 30],
-    letterWidth = 8,
     letterCount = 0,
     spacingCount = 0,
     word = 'MAUTZN',
@@ -449,8 +447,7 @@ export default function () {
     })(),
     letters = (function () {
       var list = [],
-        l = word.length,
-        sX = 1 / l
+        l = word.length
 
       while (l--) {
         list.push(getLetter(word[l]))

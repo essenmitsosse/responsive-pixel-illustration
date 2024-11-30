@@ -107,8 +107,7 @@ export const BasicBody = function (args) {
 } // END BasicBody
 BasicBody.prototype = new Object()
 BasicBody.prototype.draw = function (args, right) {
-  var nr = args.nr,
-    sideView = args.sideView
+  var sideView = args.sideView
 
   args.right = right
   args.calc = args.backView !== right || sideView

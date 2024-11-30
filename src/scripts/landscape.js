@@ -1,16 +1,12 @@
 import { helper } from '../renderengine/helper.js'
 
-export default function (args) {
-  args = args || {}
-
+export default function () {
   var help = helper,
     getSmallerDim = help.getSmallerDim,
-    getBiggerDim = help.getBiggerDim,
     mult = help.mult,
     sub = help.sub,
     ranInt = help.getRandomInt,
     backgroundColor = [0, 0, 0],
-    width = [0.2, 0.5, 0.8],
     colorNr = ranInt(4),
     dayNight = ranInt(2),
     sunPos = ranInt(2),
@@ -43,7 +39,6 @@ export default function (args) {
         [40, 40, 0],
       ],
     ][colorNr],
-    c1 = colorScheme[0],
     c2 = colorScheme[1],
     c3 = colorScheme[2],
     c4 = colorScheme[3],

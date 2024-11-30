@@ -98,7 +98,7 @@ PixelGraphics.prototype.getResize = function (options, info, render) {
   }
 }
 
-PixelGraphics.prototype.getRedraw = function redraw(options, resize, isParent) {
+PixelGraphics.prototype.getRedraw = function redraw(options, resize) {
   var hoverEvent = options.imageFunction.hover,
     sliderObject = options.sliderObject
 

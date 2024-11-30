@@ -512,8 +512,6 @@ export const Tool = function () {
 } // END Tool
 Tool.prototype = new Object()
 Tool.prototype.draw = function (args) {
-  var nr = args.nr
-
   return {
     s: args.armSX,
     fY: true,

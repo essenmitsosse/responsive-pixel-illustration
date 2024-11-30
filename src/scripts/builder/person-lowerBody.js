@@ -27,8 +27,7 @@ export const LowerBody = function (args) {
 } // END LowerBody
 LowerBody.prototype = new Object()
 LowerBody.prototype.draw = function (args, z) {
-  var nr = args.nr,
-    sideView = args.sideView,
+  var sideView = args.sideView,
     list,
     leg
 
@@ -109,8 +108,7 @@ export const Belt = function (args) {
 } // END Belt
 Belt.prototype = new Object()
 Belt.prototype.draw = function (args, z) {
-  var nr = args.nr,
-    sideView = args.sideView
+  var sideView = args.sideView
 
   return {
     z: z + 115,
@@ -169,8 +167,7 @@ export const Skirt = function (args) {
 } // END Skirt
 Skirt.prototype = new Object()
 Skirt.prototype.draw = function (args) {
-  var nr = args.nr,
-    sideView = args.sideView
+  var sideView = args.sideView
 
   if (args.calc) {
     args.skirtSY = this.pushLinkList({
@@ -229,8 +226,7 @@ export const Leg = function (args) {
 } // END Leg
 Leg.prototype = new Object()
 Leg.prototype.draw = function (args, z, rightSide, behind) {
-  var nr = args.nr,
-    sideView = args.sideView,
+  var sideView = args.sideView,
     legPos = args.leg && args.leg[rightSide ? 'right' : 'left'],
     hipBend = legPos === 'legHigh',
     legBend = hipBend || legPos === 'kneeBend',

@@ -41,8 +41,6 @@ BBObj.prototype.calcRotation = function (rotate) {
 }
 
 BBObj.prototype.calcRotation.prototype.getRotation = function (rotate) {
-  var abs
-
   if (rotate > 180) {
     rotate -= 360
   } else if (rotate < -180) {
@@ -51,7 +49,7 @@ BBObj.prototype.calcRotation.prototype.getRotation = function (rotate) {
 
   return {
     real: (rotate = rotate / 90),
-    abs: (abs = 1 - Math.abs(rotate)),
+    abs: 1 - Math.abs(rotate),
   }
 }
 

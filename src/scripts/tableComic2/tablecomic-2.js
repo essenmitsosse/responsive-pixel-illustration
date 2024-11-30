@@ -1126,7 +1126,6 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
 getStory.prototype.getPanels = function getStoryPanels(totalPanelCount) {
   var panels = [],
     currentPanelNumber = 0,
-    lastPanelNumber,
     currentFrame
 
   this.storyFramework = this.getStoryFrameWork(totalPanelCount)
@@ -1136,8 +1135,6 @@ getStory.prototype.getPanels = function getStoryPanels(totalPanelCount) {
   if (totalPanelCount < 1) {
     totalPanelCount = 1
   }
-
-  lastPanelNumber = totalPanelCount - 1
 
   while (currentPanelNumber < totalPanelCount) {
     currentFrame = this.storyFramework[currentPanelNumber]

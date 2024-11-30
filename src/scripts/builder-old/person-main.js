@@ -100,7 +100,6 @@ BasicBody.prototype = new Object()
 BasicBody.prototype.draw = function (args, right) {
   var nr = args.nr,
     sideView = args.sideView,
-    list,
     head
 
   args.right = right

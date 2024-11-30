@@ -396,8 +396,7 @@ export const ShoulderPad = function (args) {
 } // END ShoulderPad
 ShoulderPad.prototype = new Object()
 ShoulderPad.prototype.draw = function (args, z) {
-  var nr = args.nr,
-    sideView = args.sideView
+  var nr = args.nr
 
   return {
     sX: {
@@ -489,14 +488,13 @@ ShoulderPad.prototype.draw = function (args, z) {
 } // END ShoulderPad draw
 
 // TOOL --------------------------------------------------------------------------------
-export const Tool = function (args) {
+export const Tool = function () {
   // Form & Sizes
   // Assets
 } // END Tool
 Tool.prototype = new Object()
-Tool.prototype.draw = function (args, z) {
-  var nr = args.nr,
-    sideView = args.sideView
+Tool.prototype.draw = function (args) {
+  var nr = args.nr
 
   return {
     s: 'armSX' + nr,
@@ -543,8 +541,7 @@ Sword.prototype = new Object()
 Sword.prototype.draw = function (args, z) {
   var nr = args.nr,
     name = this.rightSide ? 'right' : 'left',
-    nrName = name + nr,
-    side = args.side
+    nrName = name + nr
 
   this.vL['handleSY' + nrName] = { add: ['handSX' + nr, -2], min: 1 }
   this.vL['bladeSX' + nrName] = {
@@ -673,7 +670,6 @@ Shield.prototype = new Object()
 Shield.prototype.draw = function (args, z) {
   var nr = args.nr,
     nrName = this.name + nr,
-    side = args.side,
     logo = [this.logo.draw(args, z + 805)]
 
   this.vL['shieldSX' + nrName] = {

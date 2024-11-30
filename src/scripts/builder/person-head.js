@@ -63,8 +63,7 @@ export const Head = function (args) {
 } // END Head
 Head.prototype = new Object()
 Head.prototype.getSizes = function (args) {
-  var nr = args.nr,
-    sideView = args.sideView
+  var sideView = args.sideView
 
   if (args.calc) {
     args.headBaseSY = this.pushLinkList({ r: 1, useSize: args.size })
@@ -327,8 +326,7 @@ export const Eye = function (args) {
 } // END Eye
 Eye.prototype = new Object()
 Eye.prototype.getSizes = function (args) {
-  var nr = args.nr,
-    sideView = args.sideView
+  var sideView = args.sideView
 
   if (args.calc) {
     args.eyeFullSX = this.pushLinkList({
@@ -366,7 +364,6 @@ Eye.prototype.getSizes = function (args) {
 }
 Eye.prototype.draw = function (args) {
   var nr = args.nr,
-    sideView = args.sideView,
     thisEye = args.eye || {},
     lids = thisEye.lids,
     lookHor = thisEye.lookHor,

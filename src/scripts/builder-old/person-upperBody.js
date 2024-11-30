@@ -348,7 +348,7 @@ Suspenders.prototype.draw = function (args, z) {
 } // END Suspenders draw
 
 // COLLAR --------------------------------------------------------------------------------
-export const Collar = function (args, cleavage, sleeveless) {
+export const Collar = function (args) {
   // Form & Sizes
   this.collarSY = this.R(0.1, 0.5)
   this.open = this.IF(0.2)
@@ -412,7 +412,7 @@ Collar.prototype.draw = function (args, z) {
 } // END Collar Shirt draw
 
 // CLEAVAGE --------------------------------------------------------------------------------
-export const Cleavage = function (args, cleavage, sleeveless) {
+export const Cleavage = function (args) {
   // Form & Sizes
   this.sleeveless = !args.sleeves && this.IF(0.5)
   this.strapSX = this.sleeveless && this.R(-1, 0)

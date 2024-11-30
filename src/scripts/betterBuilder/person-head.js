@@ -157,7 +157,7 @@ export const HeadBottom = function (args) {
 
 HeadBottom.prototype = new BBObj()
 
-HeadBottom.prototype.draw = function (args, front, right) {
+HeadBottom.prototype.draw = function (args, front) {
   return [
     { color: !front && this.colorDark },
 
@@ -190,7 +190,7 @@ export const Nose = function (args) {
 } // End Nose
 
 Nose.prototype = new BBObj()
-Nose.prototype.draw = function (args, front, right) {
+Nose.prototype.draw = function (args, front) {
   return [
     {
       color: this.colorDark,
@@ -207,7 +207,7 @@ export const Neck = function (args) {
 } // End Neck
 
 Neck.prototype = new BBObj()
-Neck.prototype.draw = function (args) {
+Neck.prototype.draw = function () {
   return [
     {
       color: this.colorDark,

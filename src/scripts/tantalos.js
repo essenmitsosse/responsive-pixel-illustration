@@ -4,7 +4,6 @@ export default function () {
   var help = helperGlobal,
     getSmallerDim = help.getSmallerDim,
     getBiggerDim = help.getBiggerDim,
-    white = [255, 255, 255],
     water = [36, 44, 53],
     waterLight = [74, 81, 88],
     ground = [72, 71, 68],
@@ -12,27 +11,17 @@ export default function () {
     groundWater = [54, 58, 61],
     tree = [100, 118, 64],
     treeShadow = [90, 90, 53],
-    treeLight = [113, 132, 78],
     treeBackground = [49, 45, 35],
     fruit = [123, 35, 35],
-    fruitShadow = [60, 30, 30],
     trunk = [82, 76, 68],
     trunkShadow = [74, 58, 58],
     skin = [193, 180, 163],
     skinWater = [69, 74, 79],
     skinShadow = [162, 146, 129],
-    eyes = [111, 94, 83],
     borderColor = [111, 67, 29],
     borderDetailColor = [123, 87, 35],
     shorts = [139, 146, 154],
     shortsWater = [60, 68, 77],
-    c1 = [255, 0, 0],
-    c2 = [0, 255, 0],
-    c3 = [0, 0, 255],
-    c4 = [255, 255, 0],
-    c5 = [255, 0, 255],
-    c6 = [255, 255, 255],
-    c7 = [0, 0, 0],
     // Variables
     linkList = [],
     linkListPush = function (obj) {
@@ -138,7 +127,6 @@ export default function () {
       add: [handSY_],
       min: { r: handRatio, useSize: handSX_ },
     }),
-    handL = linkListPush({ getLength: [handSX, handSY] }),
     // Arm
     upperArmL = linkListPush({
       r: upperArmRel,
@@ -184,7 +172,6 @@ export default function () {
     legLowerS = foreArmS,
     legUpperS = upperArmS,
     kneeS = ellbowS,
-    kneeSHalf = linkListPush({ r: -0.5, useSize: kneeS }),
     // Shoulder
     shoulderSXRel = 0.1,
     shoulderSYRel = shoulderSXRel * 0.5,
@@ -259,8 +246,6 @@ export default function () {
     // knee1Y = { r: 0.5, useSize: legUpperS },
     // knee1Pos = { fX: true, fY: true, x: legFrontX, y: knee1Y },
 
-    //Feet
-    feetL = handL,
     // Head
     headSYRel = 0.3,
     headSXRel = headSYRel * 0.6,

@@ -1,6 +1,6 @@
 import { helper as helperGlobal } from '../renderengine/helper.js'
 
-export default function (args, slide, createSlider) {
+export default function () {
   var helper = helperGlobal,
     getSmallerDim = helper.getSmallerDim,
     getBiggerDim = helper.getBiggerDim,

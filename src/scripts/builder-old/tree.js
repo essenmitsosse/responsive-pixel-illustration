@@ -60,7 +60,7 @@ export const TreeFamily = function (args) {
 TreeFamily.prototype = new Object()
 
 // TREE
-export const Tree = function (args, z) {
+export const Tree = function (args) {
   if (!args) {
     args = args || {}
   }
@@ -403,9 +403,8 @@ Tree.prototype.getRandom = function () {
 }
 
 // FORREST
-export const Forrest = function (args) {
+export const Forrest = function () {
   var i = (this.treeKindsCount = this.IF(0.8) ? 1 : this.IF(0.8) ? 2 : 3),
-    trees,
     family,
     count
 

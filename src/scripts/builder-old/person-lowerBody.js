@@ -156,7 +156,7 @@ export const Skirt = function (args) {
   // Assets
 } // END Skirt
 Skirt.prototype = new Object()
-Skirt.prototype.draw = function (args, z) {
+Skirt.prototype.draw = function (args) {
   var nr = args.nr,
     sideView = args.sideView
 
@@ -194,7 +194,7 @@ Skirt.prototype.draw = function (args, z) {
 } // END Skirt draw
 
 // LEG --------------------------------------------------------------------------------
-export const Leg = function (args, right) {
+export const Leg = function (args) {
   // Form & Sizes
 
   this.legSX = this.IF(0.1) ? this.R(0.05, 0.5) : 0.05
@@ -217,7 +217,6 @@ Leg.prototype = new Object()
 Leg.prototype.draw = function (args, z, rightSide, behind) {
   var nr = args.nr,
     sideView = args.sideView,
-    legUp = false,
     legPos = args.leg && args.leg[rightSide ? 'right' : 'left'],
     hipBend = legPos === 'legHigh',
     legBend = hipBend || legPos === 'kneeBend',

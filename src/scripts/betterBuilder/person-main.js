@@ -120,7 +120,7 @@ BodyMain.prototype.draw = function (args) {
     })
 
   lowerBody = this.mover(lowerBody, {
-    xRel: -1 && 0,
+    xRel: 0,
     max: { a: 2 },
   })
 

@@ -79,396 +79,396 @@ time,
 mark,
 audio,
 video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font-weight: normal;
-    font: inherit;
-    vertical-align: baseline;
-    text-decoration: none;
-    list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-weight: normal;
+  font: inherit;
+  vertical-align: baseline;
+  text-decoration: none;
+  list-style: none;
 }
 
 html {
-    width: 100%;
-    height: 100%;
-    font-size: 12px;
-    line-height: 1.4rem;
+  width: 100%;
+  height: 100%;
+  font-size: 12px;
+  line-height: 1.4rem;
 }
 
 @media screen and (min-width: 1281px) {
-    html {
-        font-size: 16px;
-    }
+  html {
+    font-size: 16px;
+  }
 }
 
 body {
-    background-color: #222;
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    /* this will style the thumb, ignoring the track */
-    font-family: "Avenir Next LT Pro", "Helvetica", "arial";
+  background-color: #222;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  /* this will style the thumb, ignoring the track */
+  font-family: "Avenir Next LT Pro", "Helvetica", "arial";
 }
 body::-webkit-scrollbar {
-    background-color: #222;
-    width: 7px;
+  background-color: #222;
+  width: 7px;
 }
 body::-webkit-scrollbar-thumb {
-    background-color: #444;
+  background-color: #444;
 }
 
 canvas {
-    display: block;
-    position: relative;
-    image-rendering: optimizeSpeed;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: -o-crisp-edges;
-    image-rendering: optimize-contrast;
-    -ms-interpolation-mode: nearest-neighbor;
-    width: 100%;
-    height: 100%;
-    background-color: #ccc;
-    position: relative;
-    z-index: 10000;
-    background-color: #999;
+  display: block;
+  position: relative;
+  image-rendering: optimizeSpeed;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: -o-crisp-edges;
+  image-rendering: optimize-contrast;
+  -ms-interpolation-mode: nearest-neighbor;
+  width: 100%;
+  height: 100%;
+  background-color: #ccc;
+  position: relative;
+  z-index: 10000;
+  background-color: #999;
 }
 
 div#main {
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    position: fixed;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  position: fixed;
 }
 .showcase div#main {
-    padding-bottom: 4.4rem;
+  padding-bottom: 4.4rem;
 }
 @media (max-device-width: 600px) {
-    .showcase div#main {
-        padding-right: 0;
-    }
+  .showcase div#main {
+    padding-right: 0;
+  }
 }
 .withSliders div#main {
-    padding-right: 200px;
+  padding-right: 200px;
 }
 
 #mainAdmin {
-    color: #ddd;
-    height: 100%;
+  color: #ddd;
+  height: 100%;
 }
 @media (max-device-width: 600px) {
-    #mainAdmin {
-        font-size: 18px;
-        height: auto;
-    }
+  #mainAdmin {
+    font-size: 18px;
+    height: auto;
+  }
 }
 #mainAdmin div#sidebar {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 #mainAdmin div#sidebar div.inner {
-    float: left;
-    width: 100%;
-    padding-bottom: 10em;
+  float: left;
+  width: 100%;
+  padding-bottom: 10em;
 }
 #mainAdmin div#sidebar ul {
-    padding-bottom: 20px;
-    clear: both;
-    float: left;
-    width: 100%;
+  padding-bottom: 20px;
+  clear: both;
+  float: left;
+  width: 100%;
 }
 
 #mainControls {
-    position: fixed;
-    top: 25px;
-    right: 225px;
-    width: 200px !important;
+  position: fixed;
+  top: 25px;
+  right: 225px;
+  width: 200px !important;
 }
 
 .red {
-    color: #f00;
+  color: #f00;
 }
 
 .blue {
-    color: #0ff;
+  color: #0ff;
 }
 
 .green {
-    color: #0f0;
+  color: #0f0;
 }
 
 .yellow {
-    color: #ff0;
+  color: #ff0;
 }
 
 .grey {
-    color: #aaa;
+  color: #aaa;
 }
 
 .bold,
 strong {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .time,
 .screensize {
-    display: inline-block;
-    width: 100px;
-    font-weight: normal;
+  display: inline-block;
+  width: 100px;
+  font-weight: normal;
 }
 
 .warning {
-    color: #fff;
-    background-color: #f00;
-    font-weight: bold;
+  color: #fff;
+  background-color: #f00;
+  font-weight: bold;
 }
 
 h1 {
-    padding-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 .client {
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
 }
 
 .button {
-    display: block;
-    cursor: pointer;
-    padding: 0.5rem 0;
-    border-radius: 3px;
-    background-color: #555;
-    box-sizing: border-box;
-    border: 2px solid #111;
-    border-top: none;
-    border-left: none;
-    font-weight: normal;
-    color: #bbb;
-    text-align: center;
+  display: block;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  border-radius: 3px;
+  background-color: #555;
+  box-sizing: border-box;
+  border: 2px solid #111;
+  border-top: none;
+  border-left: none;
+  font-weight: normal;
+  color: #bbb;
+  text-align: center;
 }
 .button:hover,
 .button.current {
-    color: #fff;
-    background-color: #888;
+  color: #fff;
+  background-color: #888;
 }
 .button:hover strong,
 .button.current strong {
-    color: #fff;
+  color: #fff;
 }
 .button:hover {
-    background-color: #bbb;
+  background-color: #bbb;
 }
 .button:active {
-    background-color: #ddd;
-    color: #999;
+  background-color: #ddd;
+  color: #999;
 }
 .button.less {
-    opacity: 0.6;
+  opacity: 0.6;
 }
 @media (max-device-width: 600px) {
-    .button {
-        display: none;
-    }
+  .button {
+    display: none;
+  }
 }
 @media (max-device-width: 600px) {
-    .button.important {
-        display: block;
-    }
+  .button.important {
+    display: block;
+  }
 }
 .button.newrow {
-    clear: both;
+  clear: both;
 }
 .button.slideControl {
-    text-align: center;
+  text-align: center;
 }
 .button.narrow {
-    width: 42.5%;
+  width: 42.5%;
 }
 .button .shortcut {
-    color: #666;
-    float: right;
-    float: right;
-    font-size: 1em;
-    font-family: Courier;
-    display: none;
+  color: #666;
+  float: right;
+  float: right;
+  font-size: 1em;
+  font-family: Courier;
+  display: none;
 }
 
 #slides {
-    color: #777;
-    font-weight: bold;
-    background-color: #222;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    padding: 0 !important;
-    z-index: 10000;
-    text-align: center;
-    display: flex;
-    align-items: center;
+  color: #777;
+  font-weight: bold;
+  background-color: #222;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  padding: 0 !important;
+  z-index: 10000;
+  text-align: center;
+  display: flex;
+  align-items: center;
 }
 @media (min-width: 1500) {
-    #slides:before {
-        content: "Bildauswahl: ";
-        font-weight: normal;
-        padding: 0 1rem;
-    }
+  #slides:before {
+    content: "Bildauswahl: ";
+    font-weight: normal;
+    padding: 0 1rem;
+  }
 }
 #slides li {
-    clear: both;
-    display: block;
-    cursor: pointer;
-    padding: 0.5rem 0.5rem;
-    border-radius: 3px;
-    background-color: #555;
-    box-sizing: border-box;
-    border: 1px solid #111;
-    border-top: none;
-    border-left: none;
-    font-weight: normal;
-    color: #bbb;
-    text-align: center;
-    margin: 1rem 0;
+  clear: both;
+  display: block;
+  cursor: pointer;
+  padding: 0.5rem 0.5rem;
+  border-radius: 3px;
+  background-color: #555;
+  box-sizing: border-box;
+  border: 1px solid #111;
+  border-top: none;
+  border-left: none;
+  font-weight: normal;
+  color: #bbb;
+  text-align: center;
+  margin: 1rem 0;
 }
 
 #slides li:hover,
 #slides li.current {
-    color: #fff;
-    background-color: #888;
+  color: #fff;
+  background-color: #888;
 }
 #slides li:hover strong,
 #slides li.current strong {
-    color: #fff;
+  color: #fff;
 }
 #slides li:hover {
-    background-color: #bbb;
+  background-color: #bbb;
 }
 #slides li:active {
-    background-color: #ddd;
-    color: #999;
+  background-color: #ddd;
+  color: #999;
 }
 #slides li strong {
-    font-weight: normal;
+  font-weight: normal;
 }
 
 #sliders {
-    width: 100%;
-    overflow: hidden;
-    background-color: #222;
-    display: none;
-    position: fixed;
-    right: 0;
-    width: 200px !important;
+  width: 100%;
+  overflow: hidden;
+  background-color: #222;
+  display: none;
+  position: fixed;
+  right: 0;
+  width: 200px !important;
 }
 .withSliders #sliders {
-    display: block;
+  display: block;
 }
 #sliders h2 {
-    color: #aaa;
-    text-transform: uppercase;
-    padding-bottom: 0.7em;
-    padding-top: 0.7em;
-    margin-top: 1.4em;
-    letter-spacing: 0.2em;
-    font-size: 1em;
-    background-color: #444;
-    text-align: center;
-    margin: 1.4em 2.5% 0;
-    box-sizing: border-box;
-    font-weight: bold;
-    border-top: 1px solid #555;
-    border-left: 1px solid #555;
-    border-bottom: 1px solid #222;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
+  color: #aaa;
+  text-transform: uppercase;
+  padding-bottom: 0.7em;
+  padding-top: 0.7em;
+  margin-top: 1.4em;
+  letter-spacing: 0.2em;
+  font-size: 1em;
+  background-color: #444;
+  text-align: center;
+  margin: 1.4em 2.5% 0;
+  box-sizing: border-box;
+  font-weight: bold;
+  border-top: 1px solid #555;
+  border-left: 1px solid #555;
+  border-bottom: 1px solid #222;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
 }
 #sliders label {
-    font-size: 1em;
-    padding-left: 0.5em;
+  font-size: 1em;
+  padding-left: 0.5em;
 }
 
 .slider {
-    margin: 0 2.5%;
-    box-sizing: border-box;
-    width: 95%;
-    padding-left: 5%;
-    padding-right: 5%;
-    padding-top: 0.7em;
-    padding-bottom: 1.8em;
-    color: #888;
-    background-color: #282828;
-    border-top: 1px solid #444;
-    border-left: 1px solid #444;
+  margin: 0 2.5%;
+  box-sizing: border-box;
+  width: 95%;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 0.7em;
+  padding-bottom: 1.8em;
+  color: #888;
+  background-color: #282828;
+  border-top: 1px solid #444;
+  border-left: 1px solid #444;
 }
 .slider .sliderWrap {
-    position: relative;
+  position: relative;
 }
 .slider span {
-    width: 20%;
-    margin-left: 2px;
-    position: absolute;
-    top: 20px;
-    text-align: center;
-    color: #999;
-    display: none;
+  width: 20%;
+  margin-left: 2px;
+  position: absolute;
+  top: 20px;
+  text-align: center;
+  color: #999;
+  display: none;
 }
 .slider:hover {
-    color: #fff;
+  color: #fff;
 }
 .slider:hover input[type="range"]::-webkit-slider-runnable-track {
-    background: #888;
+  background: #888;
 }
 .slider:hover span {
-    display: block;
+  display: block;
 }
 
 input {
-    -webkit-appearance: none;
-    border-radius: 0;
-    border: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+  border: none;
 }
 input[type="text"] {
-    background-color: #f00;
+  background-color: #f00;
 }
 input[type="number"] {
-    font-size: 16px;
-    color: #222;
-    text-align: center;
-    position: relative;
-    background-color: #777;
-    width: 100%;
-    margin: auto;
-    display: block;
-    position: static;
+  font-size: 16px;
+  color: #222;
+  text-align: center;
+  position: relative;
+  background-color: #777;
+  width: 100%;
+  margin: auto;
+  display: block;
+  position: static;
 }
 input[type="range"] {
-    width: 100%;
-    cursor: col-resize;
+  width: 100%;
+  cursor: col-resize;
 }
 input[type="range"]::-webkit-slider-runnable-track {
-    height: 5px;
-    background: #555;
+  height: 5px;
+  background: #555;
 }
 input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    height: 12px;
-    width: 10%;
-    margin-top: -3px;
-    background-color: #aaa;
-    z-index: 100;
-    position: relative;
+  -webkit-appearance: none;
+  height: 12px;
+  width: 10%;
+  margin-top: -3px;
+  background-color: #aaa;
+  z-index: 100;
+  position: relative;
 }
 @media (max-device-width: 600px) {
-    input[type="range"]::-webkit-slider-thumb {
-        height: 20px;
-        margin-top: -10px;
-    }
+  input[type="range"]::-webkit-slider-thumb {
+    height: 20px;
+    margin-top: -10px;
+  }
 }
 input[type="range"]::-webkit-slider-thumb:hover {
-    background-color: #fff;
+  background-color: #fff;
 }

@@ -4,7 +4,7 @@ import { InitPixel } from "@/renderengine/init";
 inject();
 
 (() =>
-    new InitPixel({
-        div: document.getElementById("main"),
-        // imageName: window.location.hash.substr(1)
-    }))();
+  new InitPixel({
+    div: document.getElementById("main"),
+    // imageName: window.location.hash.substr(1)
+  }))();

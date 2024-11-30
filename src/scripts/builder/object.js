@@ -1,1 +1,1 @@
-export const Object = function () {};
+export const Object = function () {}

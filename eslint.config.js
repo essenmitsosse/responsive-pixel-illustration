@@ -1,13 +1,13 @@
-import listConfigBaseTypescript from "./eslint/listConfigBaseTypescript.js";
+import listConfigBaseTypescript from './eslint/listConfigBaseTypescript.js'
 
 /** @type {ReadonlyArray<import('eslint').Linter.Config>} */
 const listConfigEslint = [
-	...listConfigBaseTypescript,
+  ...listConfigBaseTypescript,
 
-	/** Global ignores */
-	{
-		ignores: ["tsbuild", "dist"],
-	},
-];
+  /** Global ignores */
+  {
+    ignores: ['tsbuild', 'dist'],
+  },
+]
 
-export default listConfigEslint;
+export default listConfigEslint

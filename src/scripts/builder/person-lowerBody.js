@@ -1,7 +1,5 @@
 import { Object } from './object.js'
 
-/* global Builder */
-
 // LOWER BODY --------------------------------------------------------------------------------
 export const LowerBody = function (args) {
   // Form & Sizes

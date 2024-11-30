@@ -1,7 +1,7 @@
 import { Object } from './object.js'
 
 /*jshint -W008 */
-/* global Builder */
+
 // COMIC --------------------------------------------------------------------------------
 export const Comic = function (init) {
   var list = [],

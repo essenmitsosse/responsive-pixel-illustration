@@ -1,5 +1,4 @@
 import { BBObj } from './object.js'
-/* global BBProto, BBObj */
 
 // HEAD MAIN  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 export const Head = function (args) {

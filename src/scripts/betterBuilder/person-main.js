@@ -1,7 +1,5 @@
 import { BBObj } from './object.js'
 
-/* global BBProto, BBObj */
-
 // PERSON MAIN  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 export const PersonMain = function (args) {
   // Sizes and Forms

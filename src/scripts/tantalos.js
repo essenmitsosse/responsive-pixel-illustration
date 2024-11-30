@@ -1,6 +1,5 @@
 import { helper as helperGlobal } from '../renderengine/helper.js'
 
-/* global helper */
 export default function () {
   var help = helperGlobal,
     getSmallerDim = help.getSmallerDim,

@@ -1,7 +1,5 @@
 import { Object } from './object.js'
 
-/* global Builder */
-
 // HEAD --------------------------------------------------------------------------------
 export const Head = function (args) {
   var hairNext = this.IF(0.7)

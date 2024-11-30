@@ -1,7 +1,5 @@
 import { Object } from './object.js'
 
-/* global Builder */
-
 // TREE FAMILY
 export const TreeFamily = function (args) {
   this.chance = this.R()

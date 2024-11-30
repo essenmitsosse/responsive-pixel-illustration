@@ -1,5 +1,3 @@
-/* global TableComic */
-
 // BEGINN Legs /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Legs = function Legs(args) {
   this.actor = args.actor

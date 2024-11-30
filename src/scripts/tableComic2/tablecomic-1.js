@@ -1,5 +1,3 @@
-/* global TableComic */
-
 // BEGINN getStrip /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const getFace = function () {
   var backgroundColor = [0, 0, 0],

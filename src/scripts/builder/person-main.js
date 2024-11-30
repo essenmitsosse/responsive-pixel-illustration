@@ -1,7 +1,5 @@
 import { Object } from './object.js'
 
-/* global Builder */
-
 // PERSON --------------------------------------------------------------------------------
 export const Person = function (args) {
   if (!args) {

@@ -1,7 +1,5 @@
 import { Object } from './object.js'
 
-/* global Builder */
-
 // ARM --------------------------------------------------------------------------------
 export const Arm = function (args) {
   // Form & Sizes

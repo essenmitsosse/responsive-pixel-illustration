@@ -1,5 +1,3 @@
-/* global TableComic */
-
 // BEGINN getTableComic /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const getTableComic = function getTableComic(args) {
   this.panel = new this.basic.Panel()

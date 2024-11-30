@@ -1,7 +1,5 @@
 import { Object } from './object.js'
 
-/* global Builder */
-
 // UPPER BODY --------------------------------------------------------------------------------
 export const UpperBody = function (args) {
   var shirtColor = args.firstColor.getBr()

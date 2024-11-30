@@ -1,5 +1,3 @@
-/* global TableComic */
-
 // BEGINN Head /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Head = function (args) {
   this.actor = this.parent = args.actor

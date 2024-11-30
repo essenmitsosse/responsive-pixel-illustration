@@ -1,5 +1,3 @@
-/* global TableComic */
-
 // BEGINN Arm /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Arm = function Arm(args) {
   this.actor = args.actor

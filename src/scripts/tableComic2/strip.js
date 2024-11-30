@@ -1,5 +1,3 @@
-/* global TableComic */
-
 // BEGINN Strip /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Strip = function (args) {
   var stripInfo = args.stripInfo,

@@ -2,8 +2,8 @@
 const configPrettier = {
   quoteProps: "preserve",
   semi: false,
-  singleQuote: false,
+  singleQuote: true,
   trailingComma: "all",
-}
+};
 
-export default configPrettier
+export default configPrettier;

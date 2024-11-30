@@ -1063,83 +1063,83 @@ export default function () {
     ],
     personRatio = 2.3,
     variableList = {
-      'fullRect': { r: 1, max: { r: 1, height: true } },
+      fullRect: { r: 1, max: { r: 1, height: true } },
 
       // BORDER
-      'border': 2,
+      border: 2,
 
       // IMAGE
-      'imageSX': { add: [{ r: 1 }, mult(-2, 'border')] },
-      'imageSY': [{ r: 1, height: true }, mult(-2, 'border')],
-      'margin': 1,
+      imageSX: { add: [{ r: 1 }, mult(-2, 'border')] },
+      imageSY: [{ r: 1, height: true }, mult(-2, 'border')],
+      margin: 1,
 
       // MOTIVE
-      'motiveSX': { add: ['imageSX', mult(-2, 'margin')] },
-      'motiveSY': ['imageSY', mult(-2, 'margin')],
+      motiveSX: { add: ['imageSX', mult(-2, 'margin')] },
+      motiveSY: ['imageSY', mult(-2, 'margin')],
 
-      'motiveSqu': getSmallerDim({
+      motiveSqu: getSmallerDim({
         r: 1,
         useSize: ['motiveSX', 'motiveSY'],
       }),
-      'motiveSquBigger': getBiggerDim({
+      motiveSquBigger: getBiggerDim({
         r: 1,
         useSize: ['motiveSX', 'motiveSY'],
       }),
 
-      'restSX': ['motiveSX', sub('motiveSqu')],
-      'restSY': ['motiveSY', sub('motiveSqu')],
+      restSX: ['motiveSX', sub('motiveSqu')],
+      restSY: ['motiveSY', sub('motiveSqu')],
 
-      'restSXSuper': {
+      restSXSuper: {
         add: ['restSX', mult(-0.2, 'motiveSqu')],
         min: { a: 0 },
       },
-      'switch': mult(1000, 'restSXSuper'),
+      switch: mult(1000, 'restSXSuper'),
 
-      'restSquBigger': getBiggerDim({
+      restSquBigger: getBiggerDim({
         r: 1,
         useSize: ['restSX', 'restSY'],
       }),
-      'squary': {
+      squary: {
         add: ['motiveSqu', sub('restSquBigger')],
         min: { a: 0 },
       },
-      'squarySuper': {
+      squarySuper: {
         add: ['squary', mult(-0.5, 'motiveSqu')],
         min: { a: 0 },
       },
 
       // GROUND
-      'groundSY': mult(0.2, 'motiveSqu'),
-      'skySY': ['motiveSY', sub('groundSY')],
-      'feetSY': mult(0.05, 'motiveSqu'),
-      'bottomSY': { add: ['groundSY', sub('feetSY'), -2], min: 1 },
+      groundSY: mult(0.2, 'motiveSqu'),
+      skySY: ['motiveSY', sub('groundSY')],
+      feetSY: mult(0.05, 'motiveSqu'),
+      bottomSY: { add: ['groundSY', sub('feetSY'), -2], min: 1 },
 
       //PERSON
-      'pSX': {
+      pSX: {
         r: 0.3,
         useSize: 'motiveSX',
         max: { r: 0.5 / personRatio, useSize: 'motiveSY' },
       },
-      'pSY': mult(personRatio, 'pSX'),
+      pSY: mult(personRatio, 'pSX'),
 
-      'pTorsoSX': mult(0.6, 'pSX'),
-      'pTorsoLeft': [mult(0.5, 'pSX'), mult(-0.5, 'pTorsoSX')],
-      'pMoveTorso': mult(0.1, 'restSY'),
-      'pUpperbodySY': { r: 0.5, useSize: 'pSY' },
-      'pTorsoSY': { r: 0.75, useSize: 'pUpperbodySY' },
-      'pHeadS': ['pUpperbodySY', sub('pTorsoSY')],
-      'pShoulderLeft': {
+      pTorsoSX: mult(0.6, 'pSX'),
+      pTorsoLeft: [mult(0.5, 'pSX'), mult(-0.5, 'pTorsoSX')],
+      pMoveTorso: mult(0.1, 'restSY'),
+      pUpperbodySY: { r: 0.5, useSize: 'pSY' },
+      pTorsoSY: { r: 0.75, useSize: 'pUpperbodySY' },
+      pHeadS: ['pUpperbodySY', sub('pTorsoSY')],
+      pShoulderLeft: {
         add: ['pTorsoLeft', 'pMoveTorso'],
         max: mult(2, 'pTorsoLeft'),
         min: 'pTorsoLeft',
       },
-      'pShoulderRight': {
+      pShoulderRight: {
         add: ['pTorsoLeft', sub('pMoveTorso')],
         min: { a: 0 },
         max: 'pTorsoLeft',
       },
 
-      'pArmSX': {
+      pArmSX: {
         add: [
           mult(1, 'pSX'),
           mult(-0.2, 'restSY'),
@@ -1148,7 +1148,7 @@ export default function () {
         ],
         min: 1,
       },
-      'pArmSY': {
+      pArmSY: {
         add: [
           mult(1, 'pSX'),
           mult(-0.2, 'restSX'),
@@ -1157,48 +1157,48 @@ export default function () {
         ],
         min: 1,
       },
-      'pArmWeight': { r: 0.12, useSize: 'pTorsoSX', min: 1 },
+      pArmWeight: { r: 0.12, useSize: 'pTorsoSX', min: 1 },
 
       //SPHINX
-      'sSX': mult(0.8, 'motiveSX'),
-      'sSY': ['motiveSY', sub('bottomSY')],
+      sSX: mult(0.8, 'motiveSX'),
+      sSY: ['motiveSY', sub('bottomSY')],
 
-      'psOvershotSX': [sub('motiveSX'), 'sSX', 'pSX'],
+      psOvershotSX: [sub('motiveSX'), 'sSX', 'pSX'],
 
-      'sSquare': getSmallerDim({ r: 1, useSize: ['sSX', 'sSY'] }),
-      'sHeadTop': mult(0.05, 'sSquare'),
-      'sHeadSX': mult(0.1, 'sSquare'),
-      'sHeadSY': mult(0.15, 'sSquare'),
-      'sHeadLeft': mult(0.3, 'sHeadSX'),
-      'sHeadRight': mult(0.25, 'sHeadSX'),
+      sSquare: getSmallerDim({ r: 1, useSize: ['sSX', 'sSY'] }),
+      sHeadTop: mult(0.05, 'sSquare'),
+      sHeadSX: mult(0.1, 'sSquare'),
+      sHeadSY: mult(0.15, 'sSquare'),
+      sHeadLeft: mult(0.3, 'sHeadSX'),
+      sHeadRight: mult(0.25, 'sHeadSX'),
 
-      'sTailSX': [mult(0.15, 'sSX'), mult(0.05, 'restSX')],
-      'sRightSX': {
+      sTailSX: [mult(0.15, 'sSX'), mult(0.05, 'restSX')],
+      sRightSX: {
         add: [mult(0.5, 'sHeadSX'), mult(0.15, 'restSX')],
         min: ['psOvershotSX', 1],
       },
 
-      'sBodySX': ['sSX', sub('sTailSX'), sub('sRightSX'), mult(-0.1, 'restSX')],
-      'sBodySY': ['sSY', mult(-0.5, 'sHeadSY'), mult(-0.3, 'restSY')],
-      'sBodyTop': ['sSY', sub('sBodySY')],
-      'sBodyRight': ['sSX', sub('sBodySX'), sub('sTailSX')],
+      sBodySX: ['sSX', sub('sTailSX'), sub('sRightSX'), mult(-0.1, 'restSX')],
+      sBodySY: ['sSY', mult(-0.5, 'sHeadSY'), mult(-0.3, 'restSY')],
+      sBodyTop: ['sSY', sub('sBodySY')],
+      sBodyRight: ['sSX', sub('sBodySX'), sub('sTailSX')],
 
-      'sHairSX': {
+      sHairSX: {
         r: 3,
         useSize: 'sHeadSX',
         min: mult(1.2, 'sBodyRight'),
       },
-      'sHairSY': {
+      sHairSY: {
         add: ['sBodyTop', mult(0.2, 'sBodySY')],
         min: ['sHeadTop', mult(2.5, 'sHeadSY')],
       },
-      'hairOvershotSX': ['sHairSX', sub('sBodyRight')],
-      'hairOvershotSY': [sub('sSY'), 'sBodySY', 'sHairSY'],
+      hairOvershotSX: ['sHairSX', sub('sBodyRight')],
+      hairOvershotSY: [sub('sSY'), 'sBodySY', 'sHairSY'],
 
-      'sWingSX': ['sSX', sub('sHairSX'), -1],
-      'sWingSY': { r: 1.8, useSize: 'sBodyTop', min: 3 },
+      sWingSX: ['sSX', sub('sHairSX'), -1],
+      sWingSY: { r: 1.8, useSize: 'sBodyTop', min: 3 },
 
-      'pointSize': getSmallerDim({
+      pointSize: getSmallerDim({
         r: 0.02,
         useSize: ['sBodySX', 'sBodySY'],
       }),

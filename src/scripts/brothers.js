@@ -1341,53 +1341,53 @@ export default function () {
     ],
     headRatio = 1.33,
     variableList = {
-      'fullRect': { r: 1, max: { r: 1, height: true } },
+      fullRect: { r: 1, max: { r: 1, height: true } },
 
       // BORDER
-      'border': mult(0.05, 'fullRect'),
-      'borderSub': sub('border'),
-      'borderSmall': mult(0.02, 'fullRect', 1),
-      'borderSmallSub': sub('borderSmall'),
+      border: mult(0.05, 'fullRect'),
+      borderSub: sub('border'),
+      borderSmall: mult(0.02, 'fullRect', 1),
+      borderSmallSub: sub('borderSmall'),
 
       // MOTIVE
-      'motiveSX': { add: [{ r: 1 }, mult(-2, 'border')] },
-      'motiveSY': [{ r: 1, height: true }, mult(-2, 'border')],
+      motiveSX: { add: [{ r: 1 }, mult(-2, 'border')] },
+      motiveSY: [{ r: 1, height: true }, mult(-2, 'border')],
 
-      'motiveSqu': getSmallerDim({
+      motiveSqu: getSmallerDim({
         r: 1,
         useSize: ['motiveSX', 'motiveSY'],
       }),
-      'motiveSquBigger': getBiggerDim({
+      motiveSquBigger: getBiggerDim({
         r: 1,
         useSize: ['motiveSX', 'motiveSY'],
       }),
 
-      'restSX': ['motiveSX', sub('motiveSqu')],
-      'restSY': ['motiveSY', sub('motiveSqu')],
+      restSX: ['motiveSX', sub('motiveSqu')],
+      restSY: ['motiveSY', sub('motiveSqu')],
 
-      'restSXSuper': {
+      restSXSuper: {
         add: ['restSX', mult(-0.2, 'motiveSqu')],
         min: { a: 0 },
       },
-      'switch': mult(1000, 'restSXSuper'),
+      switch: mult(1000, 'restSXSuper'),
 
-      'restSYSuper': {
+      restSYSuper: {
         add: ['restSY', mult(-1.5, 'motiveSqu')],
         min: { a: 0 },
       },
-      'switch2': mult(1000, 'restSYSuper'),
+      switch2: mult(1000, 'restSYSuper'),
 
       // MAINFRAMES
-      'zMX': {
+      zMX: {
         a: 'switch',
         max: [mult(0.32, 'motiveSX'), mult(-0.05, 'restSX')],
       },
-      'zSYHor': {
+      zSYHor: {
         add: [mult(0.6, 'motiveSY'), mult(0.5, 'restSX'), 'switch2'],
         max: 'motiveSY',
       },
-      'zSX': { add: ['motiveSX', mult(-2, 'zMX')] },
-      'zSY': {
+      zSX: { add: ['motiveSX', mult(-2, 'zMX')] },
+      zSY: {
         a: 'switch',
         max: 'zSYHor',
         min: [
@@ -1396,10 +1396,10 @@ export default function () {
           mult(-0.3, 'restSYSuper'),
         ],
       },
-      'zSquare': getSmallerDim({ r: 1, useSize: ['zSX', 'zSY'] }),
-      'zSquareBigger': getBiggerDim({ r: 1, useSize: ['zSX', 'zSY'] }),
+      zSquare: getSmallerDim({ r: 1, useSize: ['zSX', 'zSY'] }),
+      zSquareBigger: getBiggerDim({ r: 1, useSize: ['zSX', 'zSY'] }),
 
-      'oBothSX': {
+      oBothSX: {
         add: [
           'motiveSX',
           {
@@ -1409,57 +1409,57 @@ export default function () {
           'borderSmallSub',
         ],
       },
-      'oSYHor': {
+      oSYHor: {
         add: [mult(0.6, 'motiveSY'), mult(0.5, 'restSX'), 'switch2'],
         max: 'motiveSY',
       },
-      'oSYboth': {
+      oSYboth: {
         add: ['motiveSY', sub('zSY'), 'borderSmallSub', 'switch'],
         max: 'oSYHor',
       },
-      'oSYwithoutBorder': ['oSYboth', 'borderSmallSub'],
+      oSYwithoutBorder: ['oSYboth', 'borderSmallSub'],
 
-      'oSX': {
+      oSX: {
         r: 0.5,
         useSize: 'oBothSX',
         a: 'switch2',
         max: 'motiveSX',
       },
-      'oSY': {
+      oSY: {
         add: [sub('switch2'), 'oSYboth'],
         min: mult(0.5, 'oSYwithoutBorder'),
         max: 'oSYboth',
       },
 
-      'oSquare': getSmallerDim({ r: 1, useSize: ['oSX', 'oSY'] }),
-      'oSquareBigger': getBiggerDim({ r: 1, useSize: ['oSX', 'oSY'] }),
+      oSquare: getSmallerDim({ r: 1, useSize: ['oSX', 'oSY'] }),
+      oSquareBigger: getBiggerDim({ r: 1, useSize: ['oSX', 'oSY'] }),
 
-      'centerBorder': { a: 'switch2', max: ['border', 'oSY'] },
-      'aboveOther': {
+      centerBorder: { a: 'switch2', max: ['border', 'oSY'] },
+      aboveOther: {
         a: 'switch',
         max: ['motiveSY', sub('oSY'), sub('borderSmall')],
       },
 
       // ZEUS
       // Head
-      'zHeadSX': getSmallerDim({
+      zHeadSX: getSmallerDim({
         r: 0.8,
         r2: 0.6 / headRatio,
         useSize: ['zSX', 'zSY'],
       }),
-      'zHeadSY': mult(headRatio, 'zHeadSX'),
-      'zHeadRestSX': ['zSY', sub('zHeadSY')],
-      'zHeadTop': [mult(0.2, 'zHeadRestSX')],
-      'zHeadBottom': ['zSY', sub('zHeadSY'), sub('zHeadTop')],
+      zHeadSY: mult(headRatio, 'zHeadSX'),
+      zHeadRestSX: ['zSY', sub('zHeadSY')],
+      zHeadTop: [mult(0.2, 'zHeadRestSX')],
+      zHeadBottom: ['zSY', sub('zHeadSY'), sub('zHeadTop')],
 
       // OTHERS
       // Head
-      'oHeadTop': mult(0.1, 'oSquare'),
-      'beardDetail': 2,
-      'beardSmallDetail': 1,
+      oHeadTop: mult(0.1, 'oSquare'),
+      beardDetail: 2,
+      beardSmallDetail: 1,
 
       // Torso
-      'oClotherDetail': {
+      oClotherDetail: {
         r: 0.08,
         a: 2,
         useSize: 'oSquare',
@@ -1467,20 +1467,20 @@ export default function () {
       },
 
       // BORDER
-      'borderMargin': 1,
-      'borderOutline': 1,
-      'borderGap': 1,
-      'borderInner': ['borderMargin', 'borderOutline'],
-      'borderInlineBoth': ['border', mult(-2, 'borderInner'), sub('borderGap')],
-      'borderInline': mult(0.5, 'borderInlineBoth'),
-      'strip': { add: ['borderInline', 1], min: 1 },
-      'gap': { add: ['borderInline', -1], min: 1 },
-      'detail': ['strip', -3],
+      borderMargin: 1,
+      borderOutline: 1,
+      borderGap: 1,
+      borderInner: ['borderMargin', 'borderOutline'],
+      borderInlineBoth: ['border', mult(-2, 'borderInner'), sub('borderGap')],
+      borderInline: mult(0.5, 'borderInlineBoth'),
+      strip: { add: ['borderInline', 1], min: 1 },
+      gap: { add: ['borderInline', -1], min: 1 },
+      detail: ['strip', -3],
 
-      'borderSmallOutline': 1,
-      'borderSmallMargin': 1,
-      'borderSmallInner': ['borderSmallMargin', 'borderSmallOutline'],
-      'borderSmallInline': [
+      borderSmallOutline: 1,
+      borderSmallMargin: 1,
+      borderSmallInner: ['borderSmallMargin', 'borderSmallOutline'],
+      borderSmallInline: [
         'borderSmall',
         sub('borderSmallInner'),
         sub('borderSmallMargin'),

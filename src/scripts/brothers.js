@@ -9,7 +9,7 @@ export default function () {
     shadowColor = [255, 255, 255],
     shadow = help.darken(shadowColor, 0.7),
     shadowSoft = help.darken(shadowColor, 0.9),
-    detail = help.darken(shadowColor, 0.4),
+    darkenColor = help.darken(shadowColor, 0.4),
     lighten = help.lighten(shadowColor, 0.3),
     lightenSoft = help.lighten(shadowColor, 0.1),
     c1 = [255, 0, 0],
@@ -25,20 +25,20 @@ export default function () {
     zSkin = shadow(zBackground),
     zSkinShadow = shadow(zSkin),
     zHair = lighten(zBackground),
-    zCloth = detail(zBackground),
+    zCloth = darkenColor(zBackground),
     flash = [255, 220, 180],
     hBasic = [210, 100, 20],
     hSkin = shadow(hBasic),
     hHair = lighten(hBasic),
-    hCloth = detail(hBasic),
+    hCloth = darkenColor(hBasic),
     hBackground = hBasic,
     pBasic = [116, 150, 150],
     pSkin = shadow(pBasic),
     pHair = lighten(pBasic),
-    pCloth = detail(pBasic),
+    pCloth = darkenColor(pBasic),
     pBackground = pBasic,
     borderDetail = shadow(zCloth),
-    backgroundColor = detail(borderDetail),
+    backgroundColor = darkenColor(borderDetail),
     flashForm = [
       {
         points: [
@@ -557,7 +557,7 @@ export default function () {
       horizontal: true,
       overflow: true,
     },
-    detail = [
+    detailBorder = [
       {},
       { color: backgroundColor, mY: 1, sX: 1, fX: true },
       { color: backgroundColor, mY: 1, sX: 'detail' },
@@ -570,7 +570,7 @@ export default function () {
         sX: 'borderInline',
         x: 'borderInner',
         stripes: outerStrip,
-        list: detail,
+        list: detailBorder,
       },
       {
         sX: 'borderInline',
@@ -579,7 +579,7 @@ export default function () {
         rX: true,
         y: 'strip',
         stripes: outerStrip,
-        list: detail,
+        list: detailBorder,
       },
     ],
     borderSmall = [
@@ -589,7 +589,7 @@ export default function () {
         sX: 'borderSmallInline',
         x: 'borderSmallInner',
         stripes: outerStrip,
-        list: detail,
+        list: detailBorder,
       },
     ],
     borderSmallCenter = [
@@ -598,7 +598,7 @@ export default function () {
         sX: 'borderSmallInline',
         x: 'borderSmallInner',
         stripes: outerStrip,
-        list: detail,
+        list: detailBorder,
       },
       { sX: 'borderSmallOutline', x: 'borderSmallMargin' },
       { sX: 'borderSmallOutline', x: 'borderSmallMargin', fX: true },

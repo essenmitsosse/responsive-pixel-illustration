@@ -8,8 +8,6 @@ const listConfigEslintBase = [
     rules: {
       ...js.configs.recommended.rules,
 
-      'no-cond-assign': 'off',
-
       'no-constant-binary-expression': 'off',
 
       'no-empty': 'off',

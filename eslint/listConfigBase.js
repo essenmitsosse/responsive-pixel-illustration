@@ -8,8 +8,6 @@ const listConfigEslintBase = [
     rules: {
       ...js.configs.recommended.rules,
 
-      'no-sparse-arrays': 'off',
-
       'no-unused-vars': 'off',
     },
   },

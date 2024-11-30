@@ -80,7 +80,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
             start: {
               pos: actor0sitting,
               body: {
-                lean: { map: "a", min: -0.1, max: -0.1 },
+                lean: { map: 'a', min: -0.1, max: -0.1 },
                 side: 0.2,
               },
               eyeLeft: {
@@ -94,7 +94,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               mouth: {
                 sY: 0.3,
                 sX: 0.4,
-                curveSY: { map: "a", min: 0, max: 0 },
+                curveSY: { map: 'a', min: 0, max: 0 },
               },
               armLeft: {
                 pos: {
@@ -117,27 +117,27 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
             },
             end: {
               body: {
-                lean: { map: "a", min: -0.3, max: 0.3 },
+                lean: { map: 'a', min: -0.3, max: 0.3 },
                 side: 0.5,
               },
               eyeLeft: {
                 pupilPosXrel: 0,
                 eyeBrowMove: {
                   relPos: 0.8,
-                  value: { map: "a", min: -0.3, max: 0.3 },
+                  value: { map: 'a', min: -0.3, max: 0.3 },
                 },
               },
               eyeRight: {
                 pupilPosXrel: 1,
                 eyeBrowMove: {
                   relPos: 0.8,
-                  value: { map: "a", min: -0.3, max: 0.3 },
+                  value: { map: 'a', min: -0.3, max: 0.3 },
                 },
               },
               mouth: {
                 sY: 0.5,
                 sX: 0.8,
-                curveSY: { map: "a", min: -0.2, max: 0.2 },
+                curveSY: { map: 'a', min: -0.2, max: 0.2 },
               },
               armRight: {
                 relPos: 0.5,
@@ -161,17 +161,17 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                 side: 0.1,
               },
               eyeLeft: {
-                eyeBrowMove: { map: "a", min: 0, max: 0 },
+                eyeBrowMove: { map: 'a', min: 0, max: 0 },
                 pupilPosXrel: 0.2,
               },
               eyeRight: {
-                eyeBrowMove: { map: "a", min: 0, max: 0 },
+                eyeBrowMove: { map: 'a', min: 0, max: 0 },
                 pupilPosXrel: 0.8,
               },
               mouth: {
                 sY: 0,
                 sX: 0.5,
-                curveSY: { map: "a", min: 0, max: 0 },
+                curveSY: { map: 'a', min: 0, max: 0 },
               },
               armLeft: {
                 pos: { obj: table, posY: 1, posX: 0.5 },
@@ -191,17 +191,17 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                 side: -0.4,
               },
               eyeLeft: {
-                eyeBrowMove: { map: "a", min: -0.5, max: 0.5 },
+                eyeBrowMove: { map: 'a', min: -0.5, max: 0.5 },
                 pupilPosXrel: 1,
               },
               eyeRight: {
-                eyeBrowMove: { map: "a", min: -0.5, max: 0.5 },
+                eyeBrowMove: { map: 'a', min: -0.5, max: 0.5 },
                 pupilPosXrel: 0,
               },
               mouth: {
-                sY: { map: "a", min: 0.5, max: 0.25 },
+                sY: { map: 'a', min: 0.5, max: 0.25 },
                 sX: 0.9,
-                curveSY: { map: "a", min: -0.3, max: 0.3 },
+                curveSY: { map: 'a', min: -0.3, max: 0.3 },
               },
               armRight: {
                 relPos: 0.7,
@@ -221,7 +221,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                 posY: 1,
               },
               rotate: 0,
-              level: { map: "a", min: 0.15, max: 0.75 },
+              level: { map: 'a', min: 0.15, max: 0.75 },
             },
           },
 
@@ -269,7 +269,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
             camera: {
               zoom: 0.5,
               focus: {
-                map: "altCamera",
+                map: 'altCamera',
                 min: { obj: actor0, posX: 0.5, posY: 0.5 },
                 max: { obj: actor1, posX: 0.5, posY: 0.5 },
               },
@@ -281,7 +281,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
             camera: {
               zoom: 1,
               focus: {
-                map: "altCamera",
+                map: 'altCamera',
                 min: { obj: glass, posX: 0.5, posY: 0.6 },
                 max: { obj: actor1, posX: 0.5, posY: 0.5 },
               },
@@ -319,20 +319,20 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               pos: actor0sitting,
               body: {
                 side: 0.5,
-                lean: { map: "a", min: -0.3, max: 0.5 },
+                lean: { map: 'a', min: -0.3, max: 0.5 },
               },
               eyes: {
                 pupilPosXrel: 0,
-                eyeBrowMove: { map: "a", min: -0.7, max: 0.6 },
-                pupilS: { map: "a", min: 1, max: 1 },
+                eyeBrowMove: { map: 'a', min: -0.7, max: 0.6 },
+                pupilS: { map: 'a', min: 1, max: 1 },
               },
               mouth: {
-                sX: { map: "a", min: 0.3, max: 1 },
-                sY: { map: "a", min: 0.5, max: 0.5 },
-                posY: { map: "a", min: 1, max: 0 },
-                curveSY: { map: "a", min: -0.7, max: 0.7 },
-                teethTopSY: { map: "a", min: 0.3, max: 1 },
-                teethBottomSY: { map: "a", min: 0.3, max: 1 },
+                sX: { map: 'a', min: 0.3, max: 1 },
+                sY: { map: 'a', min: 0.5, max: 0.5 },
+                posY: { map: 'a', min: 1, max: 0 },
+                curveSY: { map: 'a', min: -0.7, max: 0.7 },
+                teethTopSY: { map: 'a', min: 0.3, max: 1 },
+                teethBottomSY: { map: 'a', min: 0.3, max: 1 },
               },
               armLeft: {
                 pos: {
@@ -358,19 +358,19 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                 },
               },
               eyes: {
-                eyeBrowMove: { map: "a", min: -1, max: 0.8 },
-                pupilS: { map: "a", min: 0.7, max: 1 },
+                eyeBrowMove: { map: 'a', min: -1, max: 0.8 },
+                pupilS: { map: 'a', min: 0.7, max: 1 },
               },
               mouth: {
-                sX: { map: "a", min: 1, max: 0.3 },
-                sY: { map: "a", min: 1, max: 0 },
+                sX: { map: 'a', min: 1, max: 0.3 },
+                sY: { map: 'a', min: 1, max: 0 },
               },
               body: { side: 0.7 },
               armLeft: {
                 relPos: actor0StandUp,
                 value: {
                   pos: {
-                    map: "a",
+                    map: 'a',
                     min: {
                       obj: actor1.head,
                       posX: 0.5,
@@ -383,7 +383,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                     },
                   },
                   hand: {
-                    map: "a",
+                    map: 'a',
                     min: {
                       target: {
                         obj: actor1.head,
@@ -401,7 +401,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                 relPos: actor0StandUp,
                 value: {
                   pos: {
-                    map: "a",
+                    map: 'a',
                     min: {
                       obj: actor1.head,
                       posX: 0.5,
@@ -414,7 +414,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                     },
                   },
                   hand: {
-                    map: "a",
+                    map: 'a',
                     min: {
                       target: {
                         obj: actor1.head,
@@ -436,7 +436,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               pos: { posX: 0.8, posY: 0, obj: stage },
               body: {
                 side: -0.7,
-                lean: { map: "a", min: -0.4, max: 0.3 },
+                lean: { map: 'a', min: -0.4, max: 0.3 },
               },
               armRight: {
                 pos: { obj: table, posY: 1, posX: 0.9 },
@@ -445,12 +445,12 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               },
               armLeft: {
                 pos: {
-                  map: "a",
+                  map: 'a',
                   min: { obj: actor0, posY: 0.5, posX: -0.2 },
                   max: { obj: actor0, posY: 0.5, posX: -0.2 },
                 },
                 hand: {
-                  map: "a",
+                  map: 'a',
                   min: {
                     target: {
                       obj: actor0,
@@ -471,7 +471,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                 relPos: 0.5,
                 value: {
                   pos: {
-                    map: "a",
+                    map: 'a',
                     min: {
                       obj: actor0.head,
                       posY: 0.5,
@@ -484,7 +484,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                     },
                   },
                   hand: {
-                    map: "a",
+                    map: 'a',
                     min: {
                       target: {
                         obj: actorsList.actor0.renderObject,
@@ -498,7 +498,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               },
               armLeft: {
                 pos: {
-                  map: "a",
+                  map: 'a',
                   min: { obj: actor1, posY: 0.6, posX: -1.5 },
                   max: { obj: actor1, posY: 1, posX: -1.2 },
                 },
@@ -545,7 +545,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
             camera: {
               zoom: 1,
               focus: {
-                map: "altCamera",
+                map: 'altCamera',
                 min: { obj: glass, posX: 0.5, posY: 0.6 },
                 max: { obj: actor1, posX: 0.5, posY: 0.5 },
               },
@@ -571,28 +571,28 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               body: { lean: -0.1, side: 1 },
               pos: { obj: table, posX: 1, posY: 1 },
               eyes: {
-                eyeBrowMove: { map: "a", min: 0.5, max: 0.8 },
-                pupilPosXrel: { map: "a", min: 0.5, max: 0 },
-                pupilPosYrel: { map: "a", min: 0.5, max: 0 },
-                pupilS: { map: "a", min: 0.1, max: 1 },
-                openSY: { map: "a", min: 2, max: 1 },
+                eyeBrowMove: { map: 'a', min: 0.5, max: 0.8 },
+                pupilPosXrel: { map: 'a', min: 0.5, max: 0 },
+                pupilPosYrel: { map: 'a', min: 0.5, max: 0 },
+                pupilS: { map: 'a', min: 0.1, max: 1 },
+                openSY: { map: 'a', min: 2, max: 1 },
                 a: true,
               },
               mouth: {
-                sY: { map: "a", min: 1, max: 0 },
-                posY: { map: "a", min: 1, max: 0 },
-                curveSY: { map: "a", min: -1, max: 0.7 },
-                sX: { map: "a", min: 1, max: 0.1 },
-                teethBottomSY: { map: "a", min: 1, max: 0 },
+                sY: { map: 'a', min: 1, max: 0 },
+                posY: { map: 'a', min: 1, max: 0 },
+                curveSY: { map: 'a', min: -1, max: 0.7 },
+                sX: { map: 'a', min: 1, max: 0.1 },
+                teethBottomSY: { map: 'a', min: 1, max: 0 },
               },
               armLeft: {
                 pos: {
-                  map: "a",
+                  map: 'a',
                   min: { obj: actor1, posX: 0.5, posY: 0.5 },
                   max: { obj: stage, posX: -0.6, posY: 0.3 },
                 },
                 hand: {
-                  map: "a",
+                  map: 'a',
                   min: { angle: -0.8 },
                   max: { angle: -0.3 },
                 },
@@ -600,12 +600,12 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               },
               armRight: {
                 pos: {
-                  map: "a",
+                  map: 'a',
                   min: { obj: actor1, posX: 0.5, posY: 0.5 },
                   max: { obj: stage, posX: -0.5, posY: 0.5 },
                 },
                 hand: {
-                  map: "a",
+                  map: 'a',
                   min: { angle: -0.5 },
                   max: { angle: -0.3 },
                 },
@@ -622,19 +622,19 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               pos: { obj: actor0, posX: 0, posY: 1 },
               body: {
                 side: -1,
-                lean: { map: "a", min: -1, max: -0.3 },
+                lean: { map: 'a', min: -1, max: -0.3 },
               },
               eyes: {
-                eyeBrowMove: { map: "a", min: -1, max: 0.8 },
+                eyeBrowMove: { map: 'a', min: -1, max: 0.8 },
                 pupilS: 1,
                 a: true,
               },
               mouth: {
-                sY: { map: "a", min: 1, max: 0 },
-                curveSY: { map: "a", min: -0.7, max: 0.7 },
-                sX: { map: "a", min: 1, max: 0.3 },
-                teethTopSY: { map: "a", min: 1, max: 0 },
-                teethBottomSY: { map: "a", min: 1, max: 0.2 },
+                sY: { map: 'a', min: 1, max: 0 },
+                curveSY: { map: 'a', min: -0.7, max: 0.7 },
+                sX: { map: 'a', min: 1, max: 0.3 },
+                teethTopSY: { map: 'a', min: 1, max: 0 },
+                teethBottomSY: { map: 'a', min: 1, max: 0.2 },
               },
               armLeft: {
                 pos: { obj: actor0.head, posX: 1, posY: 0.8 },
@@ -651,7 +651,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               },
               armRight: {
                 pos: {
-                  map: "a",
+                  map: 'a',
                   min: {
                     obj: actor0.head,
                     posX: 0.8,
@@ -665,7 +665,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                 },
                 x: 0.7,
                 hand: {
-                  map: "a",
+                  map: 'a',
                   min: {
                     target: {
                       obj: actor0.head,
@@ -680,7 +680,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               z: 3000,
             },
             end: {
-              body: { lean: { map: "a", min: -0.5, max: 0 } },
+              body: { lean: { map: 'a', min: -0.5, max: 0 } },
             },
           },
         },
@@ -690,7 +690,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
             minPanels: 1,
             pos: 0,
             camera: {
-              zoom: { map: "altCamera", min: 0.3, max: 0.6 },
+              zoom: { map: 'altCamera', min: 0.3, max: 0.6 },
               focus: { obj: actor1, posX: 0.5, posY: -0.2 },
             },
           },
@@ -698,7 +698,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
             minPanels: 2,
             pos: 0.5,
             camera: {
-              zoom: { map: "altCamera", min: 0.3, max: 0.6 },
+              zoom: { map: 'altCamera', min: 0.3, max: 0.6 },
               focus: { obj: glass, posX: 0.5, posY: 0.5 },
             },
           },
@@ -718,25 +718,25 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
             start: {
               body: {
                 lean: -0.1,
-                side: { map: "b", min: 0.2, max: 1 },
+                side: { map: 'b', min: 0.2, max: 1 },
               },
               eyes: false,
               eyeLeft: {
-                openSY: { map: "b", max: 0.2, min: 0.1 },
-                sY: { map: "b", max: 1, min: 0.8 },
-                pupilPosXrel: { map: "b", max: 0, min: 1 },
-                pupilPosY: { map: "b", max: 0, min: -0.65 },
+                openSY: { map: 'b', max: 0.2, min: 0.1 },
+                sY: { map: 'b', max: 1, min: 0.8 },
+                pupilPosXrel: { map: 'b', max: 0, min: 1 },
+                pupilPosY: { map: 'b', max: 0, min: -0.65 },
               },
               eyeRight: {
-                openSY: { map: "b", max: 0.2, min: 0.5 },
-                sY: { map: "b", max: 1, min: 0.8 },
-                pupilPosXrel: { map: "b", max: 0, min: 0.6 },
-                pupilPosYrel: { map: "b", max: 0, min: 0.5 },
-                pupilPosY: { map: "b", max: 0, min: 0.5 },
+                openSY: { map: 'b', max: 0.2, min: 0.5 },
+                sY: { map: 'b', max: 1, min: 0.8 },
+                pupilPosXrel: { map: 'b', max: 0, min: 0.6 },
+                pupilPosYrel: { map: 'b', max: 0, min: 0.5 },
+                pupilPosY: { map: 'b', max: 0, min: 0.5 },
               },
               mouth: {
-                sY: { map: "b", max: 0, min: 0.3 },
-                curveSY: { map: "b", max: 1, min: -0.75 },
+                sY: { map: 'b', max: 0, min: 0.3 },
+                curveSY: { map: 'b', max: 1, min: -0.75 },
               },
               armRight: {
                 pos: { obj: table, posY: 1, ellbow: true },
@@ -764,35 +764,35 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               pos: { obj: stage, posX: 1, posY: 0 },
               body: { lean: { relPos: 0.3, value: 0 } },
               eyeLeft: {
-                eyeBrowMove: { map: "b", max: 0.5, min: 0.3 },
-                pupilPosX: { map: "b", max: -0.2, min: 0 },
-                pupilPosY: { map: "b", max: -0.2, min: 0 },
-                pupilPosXrel: { map: "b", max: 0, min: 0.4 },
-                pupilPosYrel: { map: "b", max: 0, min: 0.5 },
-                pupilS: { map: "b", max: 1, min: 0.25 },
-                openSY: { map: "b", max: 1, min: 0.8 },
-                sY: { map: "b", max: 1, min: 2 },
+                eyeBrowMove: { map: 'b', max: 0.5, min: 0.3 },
+                pupilPosX: { map: 'b', max: -0.2, min: 0 },
+                pupilPosY: { map: 'b', max: -0.2, min: 0 },
+                pupilPosXrel: { map: 'b', max: 0, min: 0.4 },
+                pupilPosYrel: { map: 'b', max: 0, min: 0.5 },
+                pupilS: { map: 'b', max: 1, min: 0.25 },
+                openSY: { map: 'b', max: 1, min: 0.8 },
+                sY: { map: 'b', max: 1, min: 2 },
               },
               eyeRight: {
-                eyeBrowMove: { map: "b", max: -0, min: 0.3 },
-                pupilPosX: { map: "b", max: -0.2, min: 0 },
-                pupilPosY: { map: "b", max: -0.2, min: 0 },
-                pupilPosXrel: { map: "b", max: 0, min: 0.4 },
-                pupilPosYrel: { map: "b", max: 0, min: 0.5 },
-                pupilS: { map: "b", max: 1, min: 0.25 },
-                openSY: { map: "b", max: 0.9, min: 1 },
-                sY: { map: "b", max: 0.5, min: 2 },
+                eyeBrowMove: { map: 'b', max: -0, min: 0.3 },
+                pupilPosX: { map: 'b', max: -0.2, min: 0 },
+                pupilPosY: { map: 'b', max: -0.2, min: 0 },
+                pupilPosXrel: { map: 'b', max: 0, min: 0.4 },
+                pupilPosYrel: { map: 'b', max: 0, min: 0.5 },
+                pupilS: { map: 'b', max: 1, min: 0.25 },
+                openSY: { map: 'b', max: 0.9, min: 1 },
+                sY: { map: 'b', max: 0.5, min: 2 },
               },
               mouth: {
-                posY: { map: "b", max: 0.2, min: 0.5 },
-                sY: { map: "b", max: 0.4, min: 0.5 },
-                curveSY: { map: "b", max: 0.5, min: -1 },
-                teethTopSY: { map: "b", max: 1, min: 0 },
-                teethBottomSY: { map: "b", max: 1, min: 0.2 },
+                posY: { map: 'b', max: 0.2, min: 0.5 },
+                sY: { map: 'b', max: 0.4, min: 0.5 },
+                curveSY: { map: 'b', max: 0.5, min: -1 },
+                teethTopSY: { map: 'b', max: 1, min: 0 },
+                teethBottomSY: { map: 'b', max: 1, min: 0.2 },
               },
               armRight: {
                 pos: {
-                  map: "b",
+                  map: 'b',
                   min: { obj: actor1, posX: 1.5, posY: 0.5 },
                   max: {
                     obj: actor1.head,
@@ -801,7 +801,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                   },
                 },
                 hand: {
-                  map: "b",
+                  map: 'b',
                   min: { angle: 0.8 },
                   max: { angle: -0.9 },
                 },
@@ -810,7 +810,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               },
               armLeft: {
                 pos: {
-                  map: "b",
+                  map: 'b',
                   min: { obj: actor1, posX: -0.2, posY: 0 },
                   max: {
                     obj: actor1.head,
@@ -819,7 +819,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                   },
                 },
                 hand: {
-                  map: "b",
+                  map: 'b',
                   min: { angle: -0.9 },
                   max: { angle: 0.6 },
                 },
@@ -830,7 +830,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
             end: {
               armRight: {
                 pos: {
-                  map: "b",
+                  map: 'b',
                   min: { obj: actor1, posX: 1.5, posY: 0 },
                   max: {
                     obj: actor1.head,
@@ -839,7 +839,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                   },
                 },
                 hand: {
-                  map: "b",
+                  map: 'b',
                   min: { angle: 0.8 },
                   max: { angle: -0.9 },
                 },
@@ -848,7 +848,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               },
               armLeft: {
                 pos: {
-                  map: "b",
+                  map: 'b',
                   min: { obj: actor1, posX: -0.5, posY: 0.5 },
                   max: {
                     obj: actor1.head,
@@ -857,7 +857,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                   },
                 },
                 hand: {
-                  map: "b",
+                  map: 'b',
                   min: { angle: -0.9 },
                   max: { angle: 0.6 },
                 },
@@ -872,9 +872,9 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
             minPanels: 1,
             pos: 0,
             camera: {
-              zoom: { map: "altCamera", min: 1, max: 0.8 },
+              zoom: { map: 'altCamera', min: 1, max: 0.8 },
               focus: {
-                map: "altCamera",
+                map: 'altCamera',
                 min: { obj: actor1, posX: 0.5, posY: 0.5 },
                 max: { obj: actor0, posX: 0.5, posY: 0.5 },
               },
@@ -884,9 +884,9 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
             minPanels: 2,
             pos: 0.5,
             camera: {
-              zoom: { map: "altCamera", min: 0.8, max: 1 },
+              zoom: { map: 'altCamera', min: 0.8, max: 1 },
               focus: {
-                map: "altCamera",
+                map: 'altCamera',
                 min: { obj: actor0, posX: 0.5, posY: 0.5 },
                 max: { obj: actor1, posX: 0.5, posY: 0.5 },
               },
@@ -961,7 +961,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
             camera: {
               zoom: 0.8,
               focus: {
-                map: "altCamera",
+                map: 'altCamera',
                 min: { obj: actor1, posX: 0.5, posY: 0.5 },
                 max: { obj: glass, posX: 0.5, posY: 0.5 },
               },
@@ -973,7 +973,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
             camera: {
               zoom: 0.8,
               focus: {
-                map: "altCamera",
+                map: 'altCamera',
                 min: { obj: glass, posX: 0.5, posY: 0.5 },
                 max: { obj: actor1, posX: 0.5, posY: 0.5 },
               },
@@ -1194,7 +1194,7 @@ export const getAnimation = function getAnimation(args) {
     process = 1
   }
 
-  return typeof args.start === "number"
+  return typeof args.start === 'number'
     ? args.start + process * (args.end - args.start)
     : {
         map: args.map,
@@ -1340,7 +1340,7 @@ RenderObjectContainer.prototype.getActionProcessor.prototype.processObject =
 RenderObjectContainer.prototype.getActionProcessor.prototype.processValue =
   function (obj, start, end) {
     if (end !== undefined) {
-      if (typeof start === "number" && typeof end === "number") {
+      if (typeof start === 'number' && typeof end === 'number') {
         return start + (end - start) * this.rel
       } else {
         if (end.relPos) {
@@ -1357,7 +1357,7 @@ RenderObjectContainer.prototype.getActionProcessor.prototype.checkIfObject =
   function (obj, start, end) {
     // console.log( "check", ( ( end && end.relPos ) ), end );
 
-    if ((end && end.relPos) || start.basic || typeof start !== "object") {
+    if ((end && end.relPos) || start.basic || typeof start !== 'object') {
       return this.processValue(obj, start, end)
     } else {
       return this.processObject(obj, start, end)
@@ -1385,7 +1385,7 @@ getColorScheme.prototype.getColor = function (args) {
   var shade = args.maxShade ? this.rFl(args.maxShade, 1) : args.shade,
     baseColor =
       this.colors[
-        typeof args === "number"
+        typeof args === 'number'
           ? args
           : args.random
             ? this.rInt(0, this.colors.length - 1)
@@ -1399,7 +1399,7 @@ getColorScheme.prototype.getColorMap = function (args) {
   return args.main
     ? this.getColor(args.min)
     : {
-        map: "actor-color",
+        map: 'actor-color',
         min: this.getColor(args.min),
         max: this.getColor(args.max),
       }

@@ -1,4 +1,4 @@
-import { Object } from "./object.js"
+import { Object } from './object.js'
 
 /* global Builder */
 
@@ -16,7 +16,7 @@ export const Person = function (args) {
 Person.prototype = new Object()
 Person.prototype.draw = function (args, z) {
   var nr = (args.nr = this.basic.objectCount += 1),
-    backView = (args.backView = args.view === "backView"),
+    backView = (args.backView = args.view === 'backView'),
     sideView = (args.sideView = !backView && args.view ? true : false)
 
   args.id = this.id
@@ -32,7 +32,7 @@ Person.prototype.draw = function (args, z) {
   })
 
   return sideView
-    ? [{ list: this.basicBody.draw(args, args.view === "rightView") }]
+    ? [{ list: this.basicBody.draw(args, args.view === 'rightView') }]
     : [
         {
           sX: args.personHalfSX,
@@ -136,9 +136,9 @@ BasicBody.prototype.draw = function (args, right) {
     // 	args.personSY
     // );
 
-    this.simpleAddHoverChange(0.3, 1.7, "body-width", args.basicSX)
+    this.simpleAddHoverChange(0.3, 1.7, 'body-width', args.basicSX)
 
-    this.simpleAddHoverChange(0.1, 1, "body-height", args.basicSY)
+    this.simpleAddHoverChange(0.1, 1, 'body-height', args.basicSY)
   }
 
   this.head.getSizes(args)
@@ -171,7 +171,7 @@ BasicBody.prototype.draw = function (args, right) {
       add: [args.fullBodySY, args.headMinSY, args.neckSY],
     })
 
-    this.simpleAddHoverChange(0.1, 1, "leg-length", args.lowerBodySY)
+    this.simpleAddHoverChange(0.1, 1, 'leg-length', args.lowerBodySY)
   }
 
   return [
@@ -211,7 +211,7 @@ BasicBody.prototype.draw = function (args, right) {
 export const Logo = function (args, right, symetrical, logoColor) {
   var color = !logoColor && this.IF(0.5)
 
-  this.name = symetrical ? (right ? "right" : "left") : "chest"
+  this.name = symetrical ? (right ? 'right' : 'left') : 'chest'
 
   // Form & Sizes
   this.sX = this.R(0, 1)
@@ -256,27 +256,27 @@ Logo.prototype.draw = function (args) {
       sX: { r: this.sX },
       sY: {
         r: this.sY,
-        save: args["logoSY" + nrName],
-        max: { r: 1, save: args["logoMaxSY" + nrName] },
+        save: args['logoSY' + nrName],
+        max: { r: 1, save: args['logoMaxSY' + nrName] },
       },
       y: {
         r: this.Y,
-        max: [args["logoSY" + nrName], this.sub(args["logoSY" + nrName])],
+        max: [args['logoSY' + nrName], this.sub(args['logoSY' + nrName])],
       },
       cX: args.oneSide || sideView,
       color: this.logoColor.get(),
-      id: args["logo" + nrName],
+      id: args['logo' + nrName],
       z: 50,
       list: [
-        this.roundUp && { fX: true, name: "Dot", clear: true },
+        this.roundUp && { fX: true, name: 'Dot', clear: true },
         this.roundDown && {
           fX: true,
-          name: "Dot",
+          name: 'Dot',
           fY: true,
           clear: true,
         },
-        this.dentUp && { name: "Dot", clear: true },
-        this.dentDown && { name: "Dot", fY: true, clear: true },
+        this.dentUp && { name: 'Dot', clear: true },
+        this.dentDown && { name: 'Dot', fY: true, clear: true },
         this.stripUp && { sY: 1, y: 1, clear: true },
         this.stripDown && { sY: 1, y: 1, fY: true, clear: true },
         this.stripSide && { sX: 1, x: 1, fX: true, clear: true },

@@ -80,18 +80,18 @@ Legs.prototype.draw = function LegsDraw(args) {
 
   this.pushRelativeStandardAutomatic({
     side: args.info.body && args.info.body.side,
-    lowerLegSY: bendLeg && { map: "props", min: 1, max: 0.5 },
+    lowerLegSY: bendLeg && { map: 'props', min: 1, max: 0.5 },
     beltSY: this.belt && {
-      map: "actor-accessoirs",
+      map: 'actor-accessoirs',
       min: 0,
       max: this.beltSY_,
     },
     skirtSY: this.skirt && {
-      map: "actor-accessoirs",
+      map: 'actor-accessoirs',
       min: 0,
       max: this.skirtSY_,
     },
-    shoeSY: { map: "actor-accessoirs", min: 0, max: this.shoeSY_ },
+    shoeSY: { map: 'actor-accessoirs', min: 0, max: this.shoeSY_ },
   })
 
   leg = [

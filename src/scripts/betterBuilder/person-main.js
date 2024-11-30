@@ -1,4 +1,4 @@
-import { BBObj } from "./object.js"
+import { BBObj } from './object.js'
 
 /* global BBProto, BBObj */
 
@@ -10,8 +10,8 @@ export const PersonMain = function (args) {
   // Colors
   var color = this.GR(1, 6)
 
-  this.color = args.color = this["c" + color]
-  this.colorDark = args.colorDark = this["c" + color + "D"]
+  this.color = args.color = this['c' + color]
+  this.colorDark = args.colorDark = this['c' + color + 'D']
 
   // Assets
   this.head = new this.basic.Head(args)
@@ -55,7 +55,7 @@ PersonMain.prototype.draw = function (args) {
     false &&
     new this.basic.Rotater({
       drawer: this.neck,
-      id: "neck",
+      id: 'neck',
       rotate: args.rotate,
       baseSX: this.neckSX,
       sY: this.neckSY,
@@ -112,7 +112,7 @@ BodyMain.prototype.draw = function (args) {
 
   var lowerBody = new this.basic.Rotater({
       drawer: this.lowerBody,
-      id: "lowerBody",
+      id: 'lowerBody',
       rotate: args.rotate,
       baseSX: this.sX,
       sideSX: this.torsoSide,
@@ -122,7 +122,7 @@ BodyMain.prototype.draw = function (args) {
     }),
     chest = new this.basic.Rotater({
       drawer: this.chest,
-      id: "chest",
+      id: 'chest',
       rotate: args.rotate,
       baseSX: this.sX,
       sideSX: this.chestSideSX,

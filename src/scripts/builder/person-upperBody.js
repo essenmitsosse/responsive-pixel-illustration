@@ -1,4 +1,4 @@
-import { Object } from "./object.js"
+import { Object } from './object.js'
 
 /* global Builder */
 
@@ -106,7 +106,7 @@ UpperBody.prototype.draw = function (args) {
     cX: sideView,
     fY: true,
     color: this.clothColor.get(),
-    id: "upperBody" + nr,
+    id: 'upperBody' + nr,
     list: [
       !sideView &&
         this.waist && {
@@ -333,7 +333,7 @@ Suspenders.prototype.draw = function (args, z) {
   return {
     z: z,
     color: this.strapColor.get(),
-    id: "strap" + nr,
+    id: 'strap' + nr,
     fX: true,
     list: [
       {
@@ -428,9 +428,9 @@ Collar.prototype.draw = function (args, z) {
           sX: { r: 0.25, min: 1 },
           sY: this.fullTie && [args.upperBodySY, -1],
           minY: 4,
-          id: "tie" + nr,
+          id: 'tie' + nr,
           color: this.tieColor.get(),
-          list: [{ name: "Dot", fY: true, fX: true, clear: true }, {}],
+          list: [{ name: 'Dot', fY: true, fX: true, clear: true }, {}],
         },
     ],
   }
@@ -638,7 +638,7 @@ Strap.prototype.draw = function (args, z) {
   return (
     (sideView || args.right) && {
       rX: sideView && !args.right,
-      id: "strap" + nr,
+      id: 'strap' + nr,
       list: [
         {
           tY: true,

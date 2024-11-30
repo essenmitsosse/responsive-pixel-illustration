@@ -1,9 +1,9 @@
 /** @type {import('prettier').Config} */
 const configPrettier = {
-  quoteProps: "preserve",
+  quoteProps: 'preserve',
   semi: false,
   singleQuote: true,
-  trailingComma: "all",
-};
+  trailingComma: 'all',
+}
 
-export default configPrettier;
+export default configPrettier

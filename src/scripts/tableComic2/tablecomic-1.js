@@ -9,9 +9,9 @@ export const getFace = function () {
       var actor = new basic.Actor({
           color: [that.rInt(0, 255), that.rInt(0, 255), that.rInt(0, 255)],
         }),
-        pupilS = { map: "c", min: 0.5, max: 0.8 },
-        pupilPosY = { map: "a", min: 0, max: 1 },
-        openSY = { map: "d", min: 0, max: 1 }
+        pupilS = { map: 'c', min: 0.5, max: 0.8 },
+        pupilPosY = { map: 'a', min: 0, max: 1 },
+        openSY = { map: 'd', min: 0, max: 1 }
 
       return {
         camera: {
@@ -28,31 +28,31 @@ export const getFace = function () {
               noHat: true,
             }),
             side: that.rIf(0.5)
-              ? { map: "side", min: -0.5, max: 0.5 }
-              : { map: "side", min: 0.5, max: -0.5 },
+              ? { map: 'side', min: -0.5, max: 0.5 }
+              : { map: 'side', min: 0.5, max: -0.5 },
             eyeLeft: {
               openSY: openSY,
-              sY: { map: "e", min: 0.3, max: 1 },
+              sY: { map: 'e', min: 0.3, max: 1 },
               pupilS: pupilS,
-              pupilPosXrel: { map: "b", min: -0, max: 1 },
+              pupilPosXrel: { map: 'b', min: -0, max: 1 },
               pupilPosYrel: pupilPosY,
-              eyeBrowMove: { map: "g", max: -0.5, min: 0.5 },
+              eyeBrowMove: { map: 'g', max: -0.5, min: 0.5 },
             },
             eyeRight: {
               openSY: openSY,
-              sY: { map: "f", min: 0.3, max: 1 },
+              sY: { map: 'f', min: 0.3, max: 1 },
               pupilS: pupilS,
-              pupilPosXrel: { map: "b", max: -0, min: 1 },
+              pupilPosXrel: { map: 'b', max: -0, min: 1 },
               pupilPosYrel: pupilPosY,
-              eyeBrowMove: { map: "h", max: -0.5, min: 0.5 },
+              eyeBrowMove: { map: 'h', max: -0.5, min: 0.5 },
             },
             mouth: {
-              sY: { map: "i", min: 0, max: 1 },
-              posY: { map: "j", min: 0, max: 1 },
-              curveSY: { map: "k", min: -1, max: 1 },
-              sX: { map: "l", min: 0, max: 1 },
-              teethTopSY: { map: "m", min: 0, max: 1 },
-              teethBottomSY: { map: "n", min: 0, max: 1 },
+              sY: { map: 'i', min: 0, max: 1 },
+              posY: { map: 'j', min: 0, max: 1 },
+              curveSY: { map: 'k', min: -1, max: 1 },
+              sX: { map: 'l', min: 0, max: 1 },
+              teethTopSY: { map: 'm', min: 0, max: 1 },
+              teethBottomSY: { map: 'n', min: 0, max: 1 },
             },
           },
         ],
@@ -92,7 +92,7 @@ export const getStrip = function getStrip() {
   while (count < length) {
     currentPanel = basicPanels[count]
 
-    if (currentPanel.draw === "faceDraw") {
+    if (currentPanel.draw === 'faceDraw') {
       finalPanels.push(currentPanel)
     } else {
       combiner(currentPanel)
@@ -123,7 +123,7 @@ export const getCombiner = function (finals, defaults, inventory) {
         } else {
           // If Info already exists about that object
           for (valueKey in defaultObject) {
-            if (object[valueKey] === undefined || valueKey === "body") {
+            if (object[valueKey] === undefined || valueKey === 'body') {
               // If no value exists, use default value
 
               if (defaultObject[valueKey].map !== undefined) {
@@ -142,7 +142,7 @@ export const getCombiner = function (finals, defaults, inventory) {
       }
 
     for (objectKey in defaults) {
-      if (objectKey === "list") {
+      if (objectKey === 'list') {
         if (!panel.noDefaults) {
           defaultsList = defaults[objectKey]
 
@@ -194,11 +194,11 @@ export const getStripInfo = function () {
 
   var actor1 = new this.basic.Actor({
       color: {
-        map: "actor-color",
+        map: 'actor-color',
         min: actorBaseColor,
         max: [this.rInt(0, 255), this.rInt(0, 255), this.rInt(0, 255)],
       },
-      headScaling: { map: "features", min: 1, max: this.rFl(0.2, 2) },
+      headScaling: { map: 'features', min: 1, max: this.rFl(0.2, 2) },
       firstColor: firstBaseColor,
       secondColor: secondBaseColor,
       main: true,
@@ -206,18 +206,18 @@ export const getStripInfo = function () {
     actor2 = new this.basic.Actor({
       color: actorBaseColor,
       firstColor: {
-        map: "actor-color",
+        map: 'actor-color',
         min: firstBaseColor,
         max: [this.rInt(0, 255), this.rInt(0, 255), this.rInt(0, 255)],
       },
       secondColor: {
-        map: "actor-color",
+        map: 'actor-color',
         min: secondBaseColor,
         max: [this.rInt(0, 255), this.rInt(0, 255), this.rInt(0, 255)],
       },
       torso: {
         bodyScaling: {
-          map: "features",
+          map: 'features',
           min: 1,
           max: this.rFl(0.5, 1.5),
         },
@@ -244,7 +244,7 @@ export const getStripInfo = function () {
         i = 0
 
       return function () {
-        var zoom = { map: "a", min: min, max: max }
+        var zoom = { map: 'a', min: min, max: max }
 
         if (i > 0) {
           // min += zoomOut;
@@ -263,11 +263,11 @@ export const getStripInfo = function () {
     })(),
     panY = [
       -0.15, //0
-      { map: "a", min: -0.15, max: -0.18 }, //1
-      { map: "a", min: -0.15, max: -0.21 }, //2
-      { map: "a", min: -0.15, max: -0.25 }, //3
-      { map: "a", min: -0.15, max: -0.275 }, //4
-      { map: "a", min: 0.1, max: 0.1 }, // 5
+      { map: 'a', min: -0.15, max: -0.18 }, //1
+      { map: 'a', min: -0.15, max: -0.21 }, //2
+      { map: 'a', min: -0.15, max: -0.25 }, //3
+      { map: 'a', min: -0.15, max: -0.275 }, //4
+      { map: 'a', min: 0.1, max: 0.1 }, // 5
     ],
     panX = [
       0, //0
@@ -275,7 +275,7 @@ export const getStripInfo = function () {
       0, //2
       0, //3
       0, //4
-      noCameraMovement ? 0.2 : { map: "a", min: 0.3, max: 0.25 }, //5
+      noCameraMovement ? 0.2 : { map: 'a', min: 0.3, max: 0.25 }, //5
     ],
     actor1PosRel = 0.1,
     actor2PosRel = 0.85,
@@ -329,27 +329,27 @@ export const getStripInfo = function () {
     actor1OnTheGround = { obj: table, posX: 0, posY: 1 },
     actor1Dead = {
       body: {
-        side: { map: "b", min: 0.2, max: 1 },
+        side: { map: 'b', min: 0.2, max: 1 },
       },
       pos: actor1OnTheGround,
       rotate: -90,
       eyeLeft: {
-        openSY: { map: "b", max: 0.2, min: 0.1 },
-        sY: { map: "b", max: 1, min: 0.8 },
+        openSY: { map: 'b', max: 0.2, min: 0.1 },
+        sY: { map: 'b', max: 1, min: 0.8 },
 
-        pupilPosXrel: { map: "b", max: 0, min: 1 },
-        pupilPosY: { map: "b", max: 0, min: -0.65 },
+        pupilPosXrel: { map: 'b', max: 0, min: 1 },
+        pupilPosY: { map: 'b', max: 0, min: -0.65 },
       },
       eyeRight: {
-        openSY: { map: "b", max: 0.2, min: 0.5 },
-        sY: { map: "b", max: 1, min: 0.8 },
-        pupilPosXrel: { map: "b", max: 0, min: 0.6 },
-        pupilPosYrel: { map: "b", max: 0, min: 0.5 },
-        pupilPosY: { map: "b", max: 0, min: 0.5 },
+        openSY: { map: 'b', max: 0.2, min: 0.5 },
+        sY: { map: 'b', max: 1, min: 0.8 },
+        pupilPosXrel: { map: 'b', max: 0, min: 0.6 },
+        pupilPosYrel: { map: 'b', max: 0, min: 0.5 },
+        pupilPosY: { map: 'b', max: 0, min: 0.5 },
       },
       mouth: {
-        sY: { map: "b", max: 0, min: 0.3 },
-        curveSY: { map: "b", max: 1, min: -0.75 },
+        sY: { map: 'b', max: 0, min: 0.3 },
+        curveSY: { map: 'b', max: 1, min: -0.75 },
       },
       armRight: {
         pos: { obj: actor1.head, posX: -0.5, posY: 0 },
@@ -372,43 +372,43 @@ export const getStripInfo = function () {
         posX: 1,
       },
       body: {
-        side: { map: "b", max: -0.2, min: 0.2 },
+        side: { map: 'b', max: -0.2, min: 0.2 },
       },
       eyeLeft: {
-        eyeBrowMove: { map: "b", max: 0.5, min: 0.3 },
-        pupilPosX: { map: "b", max: -0.2, min: 0 },
-        pupilPosY: { map: "b", max: -0.2, min: 0 },
-        pupilPosXrel: { map: "b", max: 0, min: 0.4 },
-        pupilPosYrel: { map: "b", max: 0, min: 0.5 },
-        pupilS: { map: "b", max: 1, min: 0.25 },
-        openSY: { map: "b", max: 1, min: 0.8 },
-        sY: { map: "b", max: 1, min: 2 },
+        eyeBrowMove: { map: 'b', max: 0.5, min: 0.3 },
+        pupilPosX: { map: 'b', max: -0.2, min: 0 },
+        pupilPosY: { map: 'b', max: -0.2, min: 0 },
+        pupilPosXrel: { map: 'b', max: 0, min: 0.4 },
+        pupilPosYrel: { map: 'b', max: 0, min: 0.5 },
+        pupilS: { map: 'b', max: 1, min: 0.25 },
+        openSY: { map: 'b', max: 1, min: 0.8 },
+        sY: { map: 'b', max: 1, min: 2 },
       },
       eyeRight: {
-        eyeBrowMove: { map: "b", max: -0, min: 0.3 },
-        pupilPosX: { map: "b", max: -0.2, min: 0 },
-        pupilPosY: { map: "b", max: -0.2, min: 0 },
-        pupilPosXrel: { map: "b", max: 0, min: 0.4 },
-        pupilPosYrel: { map: "b", max: 0, min: 0.5 },
-        pupilS: { map: "b", max: 1, min: 0.25 },
-        openSY: { map: "b", max: 0.9, min: 1 },
-        sY: { map: "b", max: 0.5, min: 2 },
+        eyeBrowMove: { map: 'b', max: -0, min: 0.3 },
+        pupilPosX: { map: 'b', max: -0.2, min: 0 },
+        pupilPosY: { map: 'b', max: -0.2, min: 0 },
+        pupilPosXrel: { map: 'b', max: 0, min: 0.4 },
+        pupilPosYrel: { map: 'b', max: 0, min: 0.5 },
+        pupilS: { map: 'b', max: 1, min: 0.25 },
+        openSY: { map: 'b', max: 0.9, min: 1 },
+        sY: { map: 'b', max: 0.5, min: 2 },
       },
       mouth: {
-        posY: { map: "b", max: 0.2, min: 0.5 },
-        sY: { map: "b", max: 0.4, min: 0.5 },
-        curveSY: { map: "b", max: 0.5, min: -1 },
-        teethTopSY: { map: "b", max: 1, min: 0 },
-        teethBottomSY: { map: "b", max: 1, min: 0.2 },
+        posY: { map: 'b', max: 0.2, min: 0.5 },
+        sY: { map: 'b', max: 0.4, min: 0.5 },
+        curveSY: { map: 'b', max: 0.5, min: -1 },
+        teethTopSY: { map: 'b', max: 1, min: 0 },
+        teethBottomSY: { map: 'b', max: 1, min: 0.2 },
       },
       armRight: {
         pos: {
-          map: "b",
+          map: 'b',
           min: { obj: actor2, posX: 4, posY: 0.5 },
           max: { obj: actor2.head, posX: 1.2, posY: 1.2 },
         },
         hand: {
-          map: "b",
+          map: 'b',
           min: { angle: 0.8 },
           max: { angle: -0.9 },
         },
@@ -417,12 +417,12 @@ export const getStripInfo = function () {
       },
       armLeft: {
         pos: {
-          map: "b",
+          map: 'b',
           min: { obj: actor2, posX: -4, posY: 0.5 },
           max: { obj: actor2.head, posX: 0.1, posY: 1 },
         },
         hand: {
-          map: "b",
+          map: 'b',
           min: { angle: -0.9 },
           max: { angle: 0.6 },
         },
@@ -448,7 +448,7 @@ export const getStripInfo = function () {
     },
     glassBasic = {
       z: 11000,
-      level: { map: "a", min: 0.15, max: 0.75 },
+      level: { map: 'a', min: 0.15, max: 0.75 },
       pos: { obj: table, posX: 0.8, posY: 1 },
     },
     glassFallenOver = {
@@ -467,7 +467,7 @@ export const getStripInfo = function () {
         camera: {
           zoom: 0.5,
           focus: {
-            map: "a",
+            map: 'a',
             min: { obj: glass, posX: 0.5, posY: 0.6 },
             max: { obj: actor1, posX: 0.5, posY: 0.5 },
           },
@@ -552,7 +552,7 @@ export const getStripInfo = function () {
             // - - - - - - - - - - - ACTOR 2
             eyeLeft: {
               pupilPosXrel: 0.8,
-              eyeBrowMove: { map: "a", min: -0.2, max: 0.2 },
+              eyeBrowMove: { map: 'a', min: -0.2, max: 0.2 },
             },
             eyeRight: {
               pupilPosXrel: 0.2,
@@ -586,12 +586,12 @@ export const getStripInfo = function () {
           actor1: {
             // - - - - - - - - - - - ACTOR 1
             eyes: {
-              eyeBrowMove: { map: "a", min: -0.3, max: 0.3 },
+              eyeBrowMove: { map: 'a', min: -0.3, max: 0.3 },
               a: true,
             },
             mouth: {
               sY: 0.5,
-              curveSY: { map: "a", min: -0.2, max: 0.2 },
+              curveSY: { map: 'a', min: -0.2, max: 0.2 },
               sX: 0.8,
             },
 
@@ -602,14 +602,14 @@ export const getStripInfo = function () {
           actor2: {
             // - - - - - - - - - - - ACTOR 2
             eyes: {
-              eyeBrowMove: { map: "a", min: -0.5, max: 0.5 },
+              eyeBrowMove: { map: 'a', min: -0.5, max: 0.5 },
               a: true,
             },
             mouth: {
-              sY: { map: "a", min: 0.5, max: 0.25 },
-              curveSY: { map: "a", min: -0.3, max: 0.3 },
+              sY: { map: 'a', min: 0.5, max: 0.25 },
+              curveSY: { map: 'a', min: -0.3, max: 0.3 },
               sX: 0.9,
-              teethBottomSY: { map: "a", min: 0, max: 0.4 },
+              teethBottomSY: { map: 'a', min: 0, max: 0.4 },
             },
             armLeft: actor2LeftHandOnTable,
             armRight: {
@@ -650,23 +650,23 @@ export const getStripInfo = function () {
           actor1: {
             // - - - - - - - - - - - ACTOR 1
             eyes: {
-              eyeBrowMove: { map: "a", min: -0.7, max: 0.6 },
+              eyeBrowMove: { map: 'a', min: -0.7, max: 0.6 },
               a: true,
             },
             mouth: {
               sY: 0.5,
-              posY: { map: "a", min: 1, max: 0 },
-              curveSY: { map: "a", min: -0.7, max: 0.7 },
-              sX: { map: "a", min: 0.3, max: 1 },
-              teethTopSY: { map: "a", min: 0.3, max: 1 },
-              teethBottomSY: { map: "a", min: 0.3, max: 1 },
+              posY: { map: 'a', min: 1, max: 0 },
+              curveSY: { map: 'a', min: -0.7, max: 0.7 },
+              sX: { map: 'a', min: 0.3, max: 1 },
+              teethTopSY: { map: 'a', min: 0.3, max: 1 },
+              teethBottomSY: { map: 'a', min: 0.3, max: 1 },
             },
             body: {
-              lean: { map: "a", min: -0.2, max: 0.3 },
+              lean: { map: 'a', min: -0.2, max: 0.3 },
             },
             armLeft: {
               pos: {
-                map: "a",
+                map: 'a',
                 max: {
                   obj: actor2.head,
                   posX: 0.5,
@@ -676,7 +676,7 @@ export const getStripInfo = function () {
               },
               maxStraight: 0.85,
               hand: {
-                map: "a",
+                map: 'a',
                 min: {
                   angle: 0.5,
                 },
@@ -695,16 +695,16 @@ export const getStripInfo = function () {
           actor2: {
             // - - - - - - - - - - - ACTOR 2
             eyes: {
-              eyeBrowMove: { map: "a", min: -0.3, max: 0.3 },
+              eyeBrowMove: { map: 'a', min: -0.3, max: 0.3 },
               a: true,
             },
             mouth: {
-              sY: { map: "a", min: 0, max: 0.4 },
-              curveSY: { map: "a", min: -0.6, max: 1 },
+              sY: { map: 'a', min: 0, max: 0.4 },
+              curveSY: { map: 'a', min: -0.6, max: 1 },
             },
             body: {
-              lean: { map: "a", min: -0.2, max: 0.3 },
-              side: { map: "a", max: -0.5, min: 0 },
+              lean: { map: 'a', min: -0.2, max: 0.3 },
+              side: { map: 'a', max: -0.5, min: 0 },
             },
             armLeft: actor2LeftHandOnTable,
             armRight: actor2RightHandOnTable,
@@ -744,20 +744,20 @@ export const getStripInfo = function () {
           actor1: {
             // - - - - - - - - - - - ACTOR 1
             eyes: {
-              eyeBrowMove: { map: "a", min: -1, max: 0.8 },
-              pupilS: { map: "a", min: 0.7, max: 1 },
+              eyeBrowMove: { map: 'a', min: -1, max: 0.8 },
+              pupilS: { map: 'a', min: 0.7, max: 1 },
             },
             mouth: {
-              sY: { map: "a", min: 1, max: 0 },
-              curveSY: { map: "a", min: -0.7, max: 0.7 },
-              sX: { map: "a", min: 1, max: 0.3 },
+              sY: { map: 'a', min: 1, max: 0 },
+              curveSY: { map: 'a', min: -0.7, max: 0.7 },
+              sX: { map: 'a', min: 1, max: 0.3 },
             },
             body: {
-              lean: { map: "a", min: -0.3, max: 0.5 },
+              lean: { map: 'a', min: -0.3, max: 0.5 },
             },
             armLeft: {
               pos: {
-                map: "a",
+                map: 'a',
                 min: {
                   obj: actor2.head,
                   posX: 0.5,
@@ -770,7 +770,7 @@ export const getStripInfo = function () {
                 },
               },
               hand: {
-                map: "a",
+                map: 'a',
                 min: {
                   target: {
                     obj: actor2.head,
@@ -785,7 +785,7 @@ export const getStripInfo = function () {
             },
             armRight: {
               pos: {
-                map: "a",
+                map: 'a',
                 min: {
                   obj: actor2.head,
                   posX: 0.5,
@@ -798,7 +798,7 @@ export const getStripInfo = function () {
                 },
               },
               hand: {
-                map: "a",
+                map: 'a',
                 min: {
                   target: {
                     obj: actor2.head,
@@ -820,26 +820,26 @@ export const getStripInfo = function () {
           actor2: {
             // - - - - - - - - - - - ACTOR 2
             eyes: {
-              eyeBrowMove: { map: "a", min: -1, max: 0.8 },
-              pupilS: { map: "a", min: 0.8, max: 1 },
+              eyeBrowMove: { map: 'a', min: -1, max: 0.8 },
+              pupilS: { map: 'a', min: 0.8, max: 1 },
               a: true,
             },
             body: {
-              lean: { map: "a", min: -0.3, max: 0.5 },
+              lean: { map: 'a', min: -0.3, max: 0.5 },
             },
             mouth: {
-              sY: { map: "a", min: 1, max: 0 },
-              curveSY: { map: "a", min: -0.7, max: 0.7 },
-              sX: { map: "a", min: 0.3, max: 1 },
+              sY: { map: 'a', min: 1, max: 0 },
+              curveSY: { map: 'a', min: -0.7, max: 0.7 },
+              sX: { map: 'a', min: 0.3, max: 1 },
             },
             armLeft: {
               pos: {
-                map: "a",
+                map: 'a',
                 min: { obj: actor1.head, posX: 0.5, posY: 0.5 },
                 max: { obj: stage, posX: 0.5, posY: 1 },
               },
               hand: {
-                map: "a",
+                map: 'a',
                 min: {
                   target: {
                     obj: actor1.head,
@@ -855,12 +855,12 @@ export const getStripInfo = function () {
             },
             armRight: {
               pos: {
-                map: "a",
+                map: 'a',
                 min: { obj: actor1.head, posX: 0.5, posY: 0.1 },
                 max: { obj: stage, posX: 1, posY: 1 },
               },
               hand: {
-                map: "a",
+                map: 'a',
                 min: {
                   target: {
                     obj: actor1.head,
@@ -882,40 +882,40 @@ export const getStripInfo = function () {
       {
         // - - - - - - - - - - - - - - - - - - - - - - - -  5 // ON THE GROUND
         camera: {
-          zoom: { map: "a", min: 0.3, max: 0.6 },
+          zoom: { map: 'a', min: 0.3, max: 0.6 },
           focus: { obj: actor1, posX: 0.5, posY: 1 },
         },
         list: {
           actor1: {
             // - - - - - - - - - - - ACTOR 1
             eyes: {
-              eyeBrowMove: { map: "a", min: 0.5, max: 0.8 },
-              pupilPosXrel: { map: "a", min: 0.5, max: 0 },
-              pupilPosYrel: { map: "a", min: 0.5, max: 0 },
-              pupilS: { map: "a", min: 0.1, max: 1 },
-              openSY: { map: "a", min: 2, max: 1 },
+              eyeBrowMove: { map: 'a', min: 0.5, max: 0.8 },
+              pupilPosXrel: { map: 'a', min: 0.5, max: 0 },
+              pupilPosYrel: { map: 'a', min: 0.5, max: 0 },
+              pupilS: { map: 'a', min: 0.1, max: 1 },
+              openSY: { map: 'a', min: 2, max: 1 },
               a: true,
             },
             mouth: {
-              sY: { map: "a", min: 1, max: 0 },
-              posY: { map: "a", min: 1, max: 0 },
-              curveSY: { map: "a", min: -1, max: 0.7 },
-              sX: { map: "a", min: 1, max: 0.1 },
-              teethBottomSY: { map: "a", min: 1, max: 0 },
+              sY: { map: 'a', min: 1, max: 0 },
+              posY: { map: 'a', min: 1, max: 0 },
+              curveSY: { map: 'a', min: -1, max: 0.7 },
+              sX: { map: 'a', min: 1, max: 0.1 },
+              teethBottomSY: { map: 'a', min: 1, max: 0 },
             },
             pos: actor1OnTheGround,
             rotate: -90,
             body: {
-              side: { map: "a", min: 0.2, max: 1 },
+              side: { map: 'a', min: 0.2, max: 1 },
             },
             armLeft: {
               pos: {
-                map: "a",
+                map: 'a',
                 min: { obj: actor2, posX: 0.5, posY: 0.5 },
                 max: { obj: stage, posX: -0.6, posY: 0.3 },
               },
               hand: {
-                map: "a",
+                map: 'a',
                 min: {
                   angle: -0.8,
                 },
@@ -927,12 +927,12 @@ export const getStripInfo = function () {
             },
             armRight: {
               pos: {
-                map: "a",
+                map: 'a',
                 min: { obj: actor2, posX: 0.5, posY: 0.5 },
                 max: { obj: stage, posX: -0.5, posY: 0.5 },
               },
               hand: {
-                map: "a",
+                map: 'a',
                 min: {
                   angle: -0.5,
                 },
@@ -947,21 +947,21 @@ export const getStripInfo = function () {
           actor2: {
             // - - - - - - - - - - - ACTOR 2
             eyes: {
-              eyeBrowMove: { map: "a", min: -1, max: 0.8 },
+              eyeBrowMove: { map: 'a', min: -1, max: 0.8 },
               pupilS: 1,
               a: true,
             },
             mouth: {
-              sY: { map: "a", min: 1, max: 0 },
-              curveSY: { map: "a", min: -0.7, max: 0.7 },
-              sX: { map: "a", min: 1, max: 0.3 },
+              sY: { map: 'a', min: 1, max: 0 },
+              curveSY: { map: 'a', min: -0.7, max: 0.7 },
+              sX: { map: 'a', min: 1, max: 0.3 },
 
-              teethTopSY: { map: "a", min: 1, max: 0 },
-              teethBottomSY: { map: "a", min: 1, max: 0.2 },
+              teethTopSY: { map: 'a', min: 1, max: 0 },
+              teethBottomSY: { map: 'a', min: 1, max: 0.2 },
             },
             body: {
               side: -1,
-              lean: { map: "a", max: -0.1, min: -0.5 },
+              lean: { map: 'a', max: -0.1, min: -0.5 },
             },
             pos: { obj: actor1, posX: 0, posY: 1 },
             armLeft: {
@@ -974,12 +974,12 @@ export const getStripInfo = function () {
             },
             armRight: {
               pos: {
-                map: "a",
+                map: 'a',
                 min: { obj: actor1.head, posX: 0.8, posY: 0.5 },
                 max: { obj: actor1.head, posX: 1.1, posY: 0.5 },
               },
               hand: {
-                map: "a",
+                map: 'a',
                 min: {
                   target: {
                     obj: actor1.head,
@@ -1003,7 +1003,7 @@ export const getStripInfo = function () {
         // - - - - - - - - - - - -  6 // BIG FACE
         // zoomTo: actor1,
         camera: {
-          zoom: { map: "b", min: 0.5, max: 0.8 },
+          zoom: { map: 'b', min: 0.5, max: 0.8 },
           focus: { obj: actor1, posX: 0.5, posY: 0.8 },
         },
         list: {
@@ -1020,7 +1020,7 @@ export const getStripInfo = function () {
         // - - - - - - - - - - - -  7 // DIEING
         // noDefaults: true,
         camera: {
-          zoom: { map: "b", min: 0.8, max: 0.5 },
+          zoom: { map: 'b', min: 0.8, max: 0.5 },
           focus: { obj: actor2, posX: 0.5, posY: 0.5 },
         },
         list: {

@@ -1,8 +1,8 @@
 export const Renderer = function (canvas, info, options, pixelStarter) {
   // Render Engine to convert basic image into absolute Pixels
-  var context = canvas.getContext("2d"),
-    virtualCanvas = document.createElement("canvas"),
-    virtaulContext = virtualCanvas.getContext("2d"),
+  var context = canvas.getContext('2d'),
+    virtualCanvas = document.createElement('canvas'),
+    virtaulContext = virtualCanvas.getContext('2d'),
     pixelSize = options.pixelSize,
     w,
     h,

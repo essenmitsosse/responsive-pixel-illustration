@@ -1,4 +1,4 @@
-import { helper } from "../renderengine/helper.js"
+import { helper } from '../renderengine/helper.js'
 
 export default function () {
   var help = helper,
@@ -32,20 +32,20 @@ export default function () {
         minX: 3,
         minY: 4,
         list: [
-          { name: "Dot", clear: true },
-          { name: "Dot", fX: true, clear: true },
-          { name: "Dot", fY: true, clear: true },
-          { name: "Dot", fX: true, fY: true, clear: true },
+          { name: 'Dot', clear: true },
+          { name: 'Dot', fX: true, clear: true },
+          { name: 'Dot', fY: true, clear: true },
+          { name: 'Dot', fX: true, fY: true, clear: true },
         ],
       },
       {
         minX: 4,
         minY: 3,
         list: [
-          { name: "Dot", clear: true },
-          { name: "Dot", fX: true, clear: true },
-          { name: "Dot", fY: true, clear: true },
-          { name: "Dot", fX: true, fY: true, clear: true },
+          { name: 'Dot', clear: true },
+          { name: 'Dot', fX: true, clear: true },
+          { name: 'Dot', fY: true, clear: true },
+          { name: 'Dot', fX: true, fY: true, clear: true },
         ],
       },
       {},
@@ -53,12 +53,12 @@ export default function () {
         sY: { r: 0.3, max: 1 },
         sX: { r: 1, a: 1 },
         color: g1,
-        id: "eyebrow",
+        id: 'eyebrow',
       },
     ],
     arm = [
       {
-        weight: "pArmWeight",
+        weight: 'pArmWeight',
         points: [{}, { x: { r: 0.35 }, y: { r: 0.5 } }, { fX: true, fY: true }],
       },
     ],
@@ -74,24 +74,24 @@ export default function () {
     renderList = [
       // MAIN IMAGE
       {
-        m: "border",
+        m: 'border',
         list: [
           // BACKGROUND
           { color: g3 },
-          { use: "background", color: g3 },
+          { use: 'background', color: g3 },
           {
-            use: "background",
+            use: 'background',
             color: g4,
             chance: 0.02,
             sX: { a: 2, random: { r: 0.06 } },
             mask: true,
           },
-          { save: "background", sY: { r: 0.8 }, fY: true },
+          { save: 'background', sY: { r: 0.8 }, fY: true },
 
           // GROUND
-          { use: "ground", color: g2 },
+          { use: 'ground', color: g2 },
           {
-            use: "ground",
+            use: 'ground',
             chance: 0.02,
             sX: { a: 1, random: 10 },
             sY: 1,
@@ -99,8 +99,8 @@ export default function () {
           },
           {
             fY: true,
-            sY: "groundSY",
-            save: "ground",
+            sY: 'groundSY',
+            save: 'ground',
             list: [
               {
                 points: [
@@ -120,34 +120,34 @@ export default function () {
             color: g4,
             sY: { r: 0.01, a: 1 },
             sX: { r: 0.3 },
-            y: ["groundSY", mult(0.3, "skySY")],
+            y: ['groundSY', mult(0.3, 'skySY')],
             fY: true,
-            stripes: { strip: 3, random: mult(0.02, "skySY") },
+            stripes: { strip: 3, random: mult(0.02, 'skySY') },
           },
           {
             color: g4,
             sY: { r: 0.05, a: 1 },
             sX: { r: 0.1 },
-            y: ["groundSY", mult(0.3, "skySY")],
+            y: ['groundSY', mult(0.3, 'skySY')],
             fY: true,
-            stripes: { strip: 3, random: mult(0.02, "skySY") },
+            stripes: { strip: 3, random: mult(0.02, 'skySY') },
           },
 
           {
             color: g4,
             sY: { r: 0.02, a: 1 },
-            y: ["groundSY", mult(0.05, "skySY")],
+            y: ['groundSY', mult(0.05, 'skySY')],
             fY: true,
-            stripes: { strip: 3, random: mult(0.02, "skySY") },
+            stripes: { strip: 3, random: mult(0.02, 'skySY') },
           },
           {
             color: g4,
             sY: { r: 0.1, a: 1 },
             sX: { r: 0.6 },
             fX: true,
-            y: ["groundSY", mult(0.05, "skySY")],
+            y: ['groundSY', mult(0.05, 'skySY')],
             fY: true,
-            stripes: { strip: 3, random: mult(0.1, "skySY") },
+            stripes: { strip: 3, random: mult(0.1, 'skySY') },
           },
 
           {
@@ -155,38 +155,38 @@ export default function () {
             sY: { r: 0.4, a: 1 },
             sX: { r: 0.3 },
             fX: true,
-            y: ["groundSY", mult(0.05, "skySY")],
+            y: ['groundSY', mult(0.05, 'skySY')],
             fY: true,
-            stripes: { strip: 3, random: mult(0.1, "skySY") },
+            stripes: { strip: 3, random: mult(0.1, 'skySY') },
           },
 
           // CONTENT
           {
-            m: "margin",
+            m: 'margin',
             list: [
               // SPHINX
               {
-                sX: "sSX",
-                sY: "sSY",
+                sX: 'sSX',
+                sY: 'sSY',
                 list: [
                   // { color:c3 },
 
                   // HAIR
                   {
-                    sX: "sHairSX",
-                    sY: "sHairSY",
+                    sX: 'sHairSX',
+                    sY: 'sHairSY',
                     color: g1,
                     fX: true,
                     list: [
                       {
                         color: g2,
                         points: [
-                          { y: "sBodyTop" },
+                          { y: 'sBodyTop' },
                           { fX: true },
                           {
                             fY: true,
                             fX: true,
-                            x: "sBodyRight",
+                            x: 'sBodyRight',
                           },
                         ],
                       },
@@ -196,14 +196,14 @@ export default function () {
                   // TAIL
                   {
                     color: g1,
-                    sX: "sTailSX",
+                    sX: 'sTailSX',
                     sY: { r: 0.5 },
                     fY: true,
                     list: [
                       // Tail Head
                       {
                         color: g1,
-                        x: "tailHead",
+                        x: 'tailHead',
                         y: 1,
                         sX: {
                           r: 0.4,
@@ -211,16 +211,16 @@ export default function () {
                             r: 0.3,
                             otherDim: true,
                           },
-                          save: "tailHeadSize",
+                          save: 'tailHeadSize',
                         },
                         sY: {
                           r: 0.8,
-                          useSize: "tailHeadSize",
+                          useSize: 'tailHeadSize',
                           min: 1,
                         },
                         tX: true,
                         tY: true,
-                        id: "tailHead",
+                        id: 'tailHead',
                         list: [
                           {
                             sY: { r: 0.2 },
@@ -260,13 +260,13 @@ export default function () {
                             otherDim: true,
                           },
                           min: 1,
-                          save: "tailWeight",
+                          save: 'tailWeight',
                         },
                         points: [
                           {
                             x: {
                               r: 0.6,
-                              save: "tailHead",
+                              save: 'tailHead',
                             },
                           },
                           {
@@ -296,8 +296,8 @@ export default function () {
                             y: { r: 0.6 },
                             x: {
                               r: 0.5,
-                              useSize: "tailWeight",
-                              save: "halfTailWeight",
+                              useSize: 'tailWeight',
+                              save: 'halfTailWeight',
                             },
                           },
 
@@ -317,7 +317,7 @@ export default function () {
                             x: { r: -0.2 },
                             fX: true,
                             fY: true,
-                            y: "halfTailWeight",
+                            y: 'halfTailWeight',
                           },
                         ],
                       },
@@ -326,16 +326,16 @@ export default function () {
 
                   // BODY
                   {
-                    sX: "sBodySX",
-                    sY: "sBodySY",
-                    x: "sTailSX",
+                    sX: 'sBodySX',
+                    sY: 'sBodySY',
+                    x: 'sTailSX',
                     color: g2,
                     fY: true,
                     list: [
                       // Drop Shadow
                       {
                         color: g1,
-                        sY: "feetSY",
+                        sY: 'feetSY',
                         y: -1,
                         fY: true,
                         list: [{ points: shadow }],
@@ -349,7 +349,7 @@ export default function () {
                         sY: { r: 0.8 },
                         list: [
                           {
-                            sX: "frontLegSX",
+                            sX: 'frontLegSX',
                             sY: { r: 0.7 },
                             list: [
                               {
@@ -360,12 +360,12 @@ export default function () {
                           },
                           {
                             y: { r: 0.7 },
-                            sY: "frontLegSX",
+                            sY: 'frontLegSX',
                           },
                           {
                             y: { r: 0.7 },
                             fX: true,
-                            sX: "frontLegSX",
+                            sX: 'frontLegSX',
                             sY: { r: 0.3 },
                             list: [
                               { sY: { r: 0.9 } },
@@ -382,14 +382,14 @@ export default function () {
                         ],
                       },
 
-                      { use: "body" },
+                      { use: 'body' },
                       {
-                        use: "body",
+                        use: 'body',
                         color: g1,
                         chance: 0.02,
                         sY: {
-                          a: "pointSize",
-                          random: "pointSize",
+                          a: 'pointSize',
+                          random: 'pointSize',
                         },
                         mask: true,
                       },
@@ -397,7 +397,7 @@ export default function () {
                       // { color:c2 },
                       // Body
                       {
-                        save: "body",
+                        save: 'body',
                         points: [
                           { fY: true, x: { r: 0.1 } },
 
@@ -420,13 +420,13 @@ export default function () {
                           },
                           {
                             fX: true,
-                            x: "hairOvershotSX",
+                            x: 'hairOvershotSX',
                           },
 
                           { fX: true },
                           {
                             fX: true,
-                            y: "hairOvershotSY",
+                            y: 'hairOvershotSY',
                           },
                           {
                             fY: true,
@@ -487,7 +487,7 @@ export default function () {
 
                           {
                             fX: true,
-                            y: "hairOvershotSY",
+                            y: 'hairOvershotSY',
                           },
                           {
                             fY: true,
@@ -498,21 +498,21 @@ export default function () {
                         ],
                       },
 
-                      { use: "backLeg" },
+                      { use: 'backLeg' },
                       {
-                        use: "backLeg",
+                        use: 'backLeg',
                         color: g1,
                         chance: 0.02,
                         sY: {
-                          a: "pointSize",
-                          random: "pointSize",
+                          a: 'pointSize',
+                          random: 'pointSize',
                         },
                         mask: true,
                       },
 
                       // Back Leg
                       {
-                        save: "backLeg",
+                        save: 'backLeg',
                         fY: true,
                         sX: { r: 0.5 },
                         sY: { r: 0.4 },
@@ -546,11 +546,11 @@ export default function () {
                       },
                       {
                         fY: true,
-                        sY: "feetSY",
+                        sY: 'feetSY',
                         sX: [
-                          "sBodySX",
-                          sub("frontLegSX"),
-                          sub("frontLegX"),
+                          'sBodySX',
+                          sub('frontLegSX'),
+                          sub('frontLegX'),
                           -1,
                         ],
                         list: [
@@ -579,12 +579,12 @@ export default function () {
                         fX: true,
                         sX: {
                           r: 0.12,
-                          save: "frontLegSX",
+                          save: 'frontLegSX',
                           min: 1,
                         },
                         x: {
                           r: 0.15,
-                          save: "frontLegX",
+                          save: 'frontLegX',
                         },
                         list: [
                           {
@@ -592,7 +592,7 @@ export default function () {
                             fY: true,
                           },
                           {
-                            sY: "feetSY",
+                            sY: 'feetSY',
                             sX: { r: 1.7 },
                             fY: true,
                             list: [
@@ -616,35 +616,35 @@ export default function () {
 
                   // HAIR
                   {
-                    sX: "sHairSX",
-                    sY: "sHairSY",
+                    sX: 'sHairSX',
+                    sY: 'sHairSY',
                     color: g1,
                     fX: true,
                     list: [
                       // { color:c1 },
                       {
                         points: [
-                          { y: "sBodyTop" },
+                          { y: 'sBodyTop' },
                           {
                             fX: true,
-                            x: "sHeadSX",
+                            x: 'sHeadSX',
                             y: -1,
                           },
                           { fX: true, y: -1 },
                           {
                             fX: true,
-                            y: [mult(1.2, "sHeadSY"), "sHeadTop"],
+                            y: [mult(1.2, 'sHeadSY'), 'sHeadTop'],
                           },
                           {
                             fY: true,
                             fX: true,
-                            x: "sBodyRight",
+                            x: 'sBodyRight',
                           },
                           {
                             x: { r: 0.4 },
                             y: {
                               r: 0.2,
-                              a: "sBodyTop",
+                              a: 'sBodyTop',
                             },
                           },
                         ],
@@ -654,10 +654,10 @@ export default function () {
 
                   // HEAD
                   {
-                    sX: "sHeadSX",
-                    sY: "sHeadSY",
+                    sX: 'sHeadSX',
+                    sY: 'sHeadSY',
                     x: { r: 0.01 },
-                    y: "sHeadTop",
+                    y: 'sHeadTop',
                     color: g2,
                     fX: true,
                     list: [
@@ -671,13 +671,13 @@ export default function () {
                             fX: true,
                           },
                           {
-                            x: "sHeadRight",
+                            x: 'sHeadRight',
                             fX: true,
                             fY: true,
                           },
 
                           {
-                            x: "sHeadLeft",
+                            x: 'sHeadLeft',
                             fY: true,
                           },
                           {
@@ -699,7 +699,7 @@ export default function () {
                               r: 0.25,
                               otherDim: true,
                             },
-                            id: "eye",
+                            id: 'eye',
                             y: { r: 0.2 },
                             x: { r: 0.2 },
                             color: g4,
@@ -711,7 +711,7 @@ export default function () {
                               r: 0.25,
                               otherDim: true,
                             },
-                            id: "eye",
+                            id: 'eye',
                             y: { r: 0.2 },
                             x: { r: 0.1 },
                             color: g4,
@@ -722,13 +722,13 @@ export default function () {
                           {
                             color: g1,
                             fY: true,
-                            x: "sHeadLeft",
+                            x: 'sHeadLeft',
                             y: { r: 0.15, min: 1 },
                             sY: { r: 0.08, a: 1 },
                             sX: [
-                              "sHeadSX",
-                              sub("sHeadLeft"),
-                              sub("sHeadRight"),
+                              'sHeadSX',
+                              sub('sHeadLeft'),
+                              sub('sHeadRight'),
                             ],
                             list: [
                               {
@@ -755,8 +755,8 @@ export default function () {
 
                   // WINGS
                   {
-                    sX: "sWingSX",
-                    sY: "sWingSY",
+                    sX: 'sWingSX',
+                    sY: 'sWingSY',
                     color: g1,
                     list: [
                       {
@@ -829,7 +829,7 @@ export default function () {
                         fX: true,
                         sY: {
                           r: 1,
-                          add: [mult(0.05, "motiveSqu")],
+                          add: [mult(0.05, 'motiveSqu')],
                         },
                         sX: { r: 0.2 },
                         list: [
@@ -859,7 +859,7 @@ export default function () {
                                 x: { r: 0.7 },
                                 fY: true,
                               },
-                              { y: "sWingSY" },
+                              { y: 'sWingSY' },
                             ],
                           },
                         ],
@@ -871,9 +871,9 @@ export default function () {
 
               // Person
               {
-                sX: "pSX",
-                sY: "pSY",
-                y: "bottomSY",
+                sX: 'pSX',
+                sY: 'pSY',
+                y: 'bottomSY',
                 color: g3,
                 fX: true,
                 fY: true,
@@ -890,15 +890,15 @@ export default function () {
 
                   // LEGS
                   {
-                    sY: ["pSY", sub("pUpperbodySY")],
+                    sY: ['pSY', sub('pUpperbodySY')],
                     fY: true,
                     color: g1,
                     list: [
                       {
                         sX: {
-                          add: [{ r: 1 }, mult(-2, "pTorsoLeft")],
+                          add: [{ r: 1 }, mult(-2, 'pTorsoLeft')],
                         },
-                        x: "pTorsoLeft",
+                        x: 'pTorsoLeft',
                         list: [
                           { sX: { r: 0.3, min: 1 } },
                           {
@@ -929,36 +929,36 @@ export default function () {
 
                   // UPPER BODY
                   {
-                    sY: "pUpperbodySY",
+                    sY: 'pUpperbodySY',
                     list: [
                       // HEAD
                       {
-                        sX: "pHeadS",
-                        sY: "pHeadS",
+                        sX: 'pHeadS',
+                        sY: 'pHeadS',
                         cX: true,
                         x: {
-                          a: "pMoveTorso",
-                          max: [mult(0.5, "pSX"), sub("pHeadS")],
+                          a: 'pMoveTorso',
+                          max: [mult(0.5, 'pSX'), sub('pHeadS')],
                         },
-                        id: "pHead",
+                        id: 'pHead',
                         list: [
                           {
                             sY: 1,
-                            sX: "headEdgeTop",
+                            sX: 'headEdgeTop',
                             clear: true,
                           },
                           {
                             sY: 1,
                             sX: {
                               r: 0.1,
-                              save: "headEdgeTop",
+                              save: 'headEdgeTop',
                             },
                             clear: true,
                             fX: true,
                           },
                           {
                             sY: 1,
-                            sX: "headEdgeBottom",
+                            sX: 'headEdgeBottom',
                             clear: true,
                             fY: true,
                           },
@@ -966,7 +966,7 @@ export default function () {
                             sY: 1,
                             sX: {
                               r: 0.06,
-                              save: "headEdgeBottom",
+                              save: 'headEdgeBottom',
                             },
                             clear: true,
                             fX: true,
@@ -1005,27 +1005,27 @@ export default function () {
 
                       // TORSO
                       {
-                        sY: "pTorsoSY",
+                        sY: 'pTorsoSY',
                         fY: true,
                         list: [
                           {
                             points: [
                               {
-                                x: "pShoulderLeft",
+                                x: 'pShoulderLeft',
                                 y: -1,
                               },
                               {
-                                x: "pShoulderRight",
+                                x: 'pShoulderRight',
                                 fX: true,
                                 y: -1,
                               },
                               {
-                                x: "pTorsoLeft",
+                                x: 'pTorsoLeft',
                                 fX: true,
                                 fY: true,
                               },
                               {
-                                x: "pTorsoLeft",
+                                x: 'pTorsoLeft',
                                 fY: true,
                               },
                             ],
@@ -1037,19 +1037,19 @@ export default function () {
                       {
                         tX: true,
                         tY: true,
-                        y: ["pHeadS", "pArmWeight"],
-                        x: ["pShoulderLeft", "pArmWeight"],
-                        sX: "pArmSX",
-                        sY: "pArmSY",
+                        y: ['pHeadS', 'pArmWeight'],
+                        x: ['pShoulderLeft', 'pArmWeight'],
+                        sX: 'pArmSX',
+                        sY: 'pArmSY',
                         list: arm,
                       },
                       {
                         tX: true,
                         tY: true,
-                        y: ["pHeadS", "pArmWeight"],
-                        x: ["pShoulderLeft", sub("pArmWeight"), -1, "pTorsoSX"],
-                        sX: mult(0.7, "pArmSX"),
-                        sY: mult(1.3, "pArmSY"),
+                        y: ['pHeadS', 'pArmWeight'],
+                        x: ['pShoulderLeft', sub('pArmWeight'), -1, 'pTorsoSX'],
+                        sX: mult(0.7, 'pArmSX'),
+                        sY: mult(1.3, 'pArmSY'),
                         list: arm,
                       },
                     ],
@@ -1063,144 +1063,144 @@ export default function () {
     ],
     personRatio = 2.3,
     variableList = {
-      "fullRect": { r: 1, max: { r: 1, height: true } },
+      'fullRect': { r: 1, max: { r: 1, height: true } },
 
       // BORDER
-      "border": 2,
+      'border': 2,
 
       // IMAGE
-      "imageSX": { add: [{ r: 1 }, mult(-2, "border")] },
-      "imageSY": [{ r: 1, height: true }, mult(-2, "border")],
-      "margin": 1,
+      'imageSX': { add: [{ r: 1 }, mult(-2, 'border')] },
+      'imageSY': [{ r: 1, height: true }, mult(-2, 'border')],
+      'margin': 1,
 
       // MOTIVE
-      "motiveSX": { add: ["imageSX", mult(-2, "margin")] },
-      "motiveSY": ["imageSY", mult(-2, "margin")],
+      'motiveSX': { add: ['imageSX', mult(-2, 'margin')] },
+      'motiveSY': ['imageSY', mult(-2, 'margin')],
 
-      "motiveSqu": getSmallerDim({
+      'motiveSqu': getSmallerDim({
         r: 1,
-        useSize: ["motiveSX", "motiveSY"],
+        useSize: ['motiveSX', 'motiveSY'],
       }),
-      "motiveSquBigger": getBiggerDim({
+      'motiveSquBigger': getBiggerDim({
         r: 1,
-        useSize: ["motiveSX", "motiveSY"],
+        useSize: ['motiveSX', 'motiveSY'],
       }),
 
-      "restSX": ["motiveSX", sub("motiveSqu")],
-      "restSY": ["motiveSY", sub("motiveSqu")],
+      'restSX': ['motiveSX', sub('motiveSqu')],
+      'restSY': ['motiveSY', sub('motiveSqu')],
 
-      "restSXSuper": {
-        add: ["restSX", mult(-0.2, "motiveSqu")],
+      'restSXSuper': {
+        add: ['restSX', mult(-0.2, 'motiveSqu')],
         min: { a: 0 },
       },
-      "switch": mult(1000, "restSXSuper"),
+      'switch': mult(1000, 'restSXSuper'),
 
-      "restSquBigger": getBiggerDim({
+      'restSquBigger': getBiggerDim({
         r: 1,
-        useSize: ["restSX", "restSY"],
+        useSize: ['restSX', 'restSY'],
       }),
-      "squary": {
-        add: ["motiveSqu", sub("restSquBigger")],
+      'squary': {
+        add: ['motiveSqu', sub('restSquBigger')],
         min: { a: 0 },
       },
-      "squarySuper": {
-        add: ["squary", mult(-0.5, "motiveSqu")],
+      'squarySuper': {
+        add: ['squary', mult(-0.5, 'motiveSqu')],
         min: { a: 0 },
       },
 
       // GROUND
-      "groundSY": mult(0.2, "motiveSqu"),
-      "skySY": ["motiveSY", sub("groundSY")],
-      "feetSY": mult(0.05, "motiveSqu"),
-      "bottomSY": { add: ["groundSY", sub("feetSY"), -2], min: 1 },
+      'groundSY': mult(0.2, 'motiveSqu'),
+      'skySY': ['motiveSY', sub('groundSY')],
+      'feetSY': mult(0.05, 'motiveSqu'),
+      'bottomSY': { add: ['groundSY', sub('feetSY'), -2], min: 1 },
 
       //PERSON
-      "pSX": {
+      'pSX': {
         r: 0.3,
-        useSize: "motiveSX",
-        max: { r: 0.5 / personRatio, useSize: "motiveSY" },
+        useSize: 'motiveSX',
+        max: { r: 0.5 / personRatio, useSize: 'motiveSY' },
       },
-      "pSY": mult(personRatio, "pSX"),
+      'pSY': mult(personRatio, 'pSX'),
 
-      "pTorsoSX": mult(0.6, "pSX"),
-      "pTorsoLeft": [mult(0.5, "pSX"), mult(-0.5, "pTorsoSX")],
-      "pMoveTorso": mult(0.1, "restSY"),
-      "pUpperbodySY": { r: 0.5, useSize: "pSY" },
-      "pTorsoSY": { r: 0.75, useSize: "pUpperbodySY" },
-      "pHeadS": ["pUpperbodySY", sub("pTorsoSY")],
-      "pShoulderLeft": {
-        add: ["pTorsoLeft", "pMoveTorso"],
-        max: mult(2, "pTorsoLeft"),
-        min: "pTorsoLeft",
+      'pTorsoSX': mult(0.6, 'pSX'),
+      'pTorsoLeft': [mult(0.5, 'pSX'), mult(-0.5, 'pTorsoSX')],
+      'pMoveTorso': mult(0.1, 'restSY'),
+      'pUpperbodySY': { r: 0.5, useSize: 'pSY' },
+      'pTorsoSY': { r: 0.75, useSize: 'pUpperbodySY' },
+      'pHeadS': ['pUpperbodySY', sub('pTorsoSY')],
+      'pShoulderLeft': {
+        add: ['pTorsoLeft', 'pMoveTorso'],
+        max: mult(2, 'pTorsoLeft'),
+        min: 'pTorsoLeft',
       },
-      "pShoulderRight": {
-        add: ["pTorsoLeft", sub("pMoveTorso")],
+      'pShoulderRight': {
+        add: ['pTorsoLeft', sub('pMoveTorso')],
         min: { a: 0 },
-        max: "pTorsoLeft",
+        max: 'pTorsoLeft',
       },
 
-      "pArmSX": {
+      'pArmSX': {
         add: [
-          mult(1, "pSX"),
-          mult(-0.2, "restSY"),
-          mult(-0.15, "squary"),
-          mult(0.05, "squarySuper"),
+          mult(1, 'pSX'),
+          mult(-0.2, 'restSY'),
+          mult(-0.15, 'squary'),
+          mult(0.05, 'squarySuper'),
         ],
         min: 1,
       },
-      "pArmSY": {
+      'pArmSY': {
         add: [
-          mult(1, "pSX"),
-          mult(-0.2, "restSX"),
-          mult(-0.15, "squary"),
-          mult(0.05, "squarySuper"),
+          mult(1, 'pSX'),
+          mult(-0.2, 'restSX'),
+          mult(-0.15, 'squary'),
+          mult(0.05, 'squarySuper'),
         ],
         min: 1,
       },
-      "pArmWeight": { r: 0.12, useSize: "pTorsoSX", min: 1 },
+      'pArmWeight': { r: 0.12, useSize: 'pTorsoSX', min: 1 },
 
       //SPHINX
-      "sSX": mult(0.8, "motiveSX"),
-      "sSY": ["motiveSY", sub("bottomSY")],
+      'sSX': mult(0.8, 'motiveSX'),
+      'sSY': ['motiveSY', sub('bottomSY')],
 
-      "psOvershotSX": [sub("motiveSX"), "sSX", "pSX"],
+      'psOvershotSX': [sub('motiveSX'), 'sSX', 'pSX'],
 
-      "sSquare": getSmallerDim({ r: 1, useSize: ["sSX", "sSY"] }),
-      "sHeadTop": mult(0.05, "sSquare"),
-      "sHeadSX": mult(0.1, "sSquare"),
-      "sHeadSY": mult(0.15, "sSquare"),
-      "sHeadLeft": mult(0.3, "sHeadSX"),
-      "sHeadRight": mult(0.25, "sHeadSX"),
+      'sSquare': getSmallerDim({ r: 1, useSize: ['sSX', 'sSY'] }),
+      'sHeadTop': mult(0.05, 'sSquare'),
+      'sHeadSX': mult(0.1, 'sSquare'),
+      'sHeadSY': mult(0.15, 'sSquare'),
+      'sHeadLeft': mult(0.3, 'sHeadSX'),
+      'sHeadRight': mult(0.25, 'sHeadSX'),
 
-      "sTailSX": [mult(0.15, "sSX"), mult(0.05, "restSX")],
-      "sRightSX": {
-        add: [mult(0.5, "sHeadSX"), mult(0.15, "restSX")],
-        min: ["psOvershotSX", 1],
+      'sTailSX': [mult(0.15, 'sSX'), mult(0.05, 'restSX')],
+      'sRightSX': {
+        add: [mult(0.5, 'sHeadSX'), mult(0.15, 'restSX')],
+        min: ['psOvershotSX', 1],
       },
 
-      "sBodySX": ["sSX", sub("sTailSX"), sub("sRightSX"), mult(-0.1, "restSX")],
-      "sBodySY": ["sSY", mult(-0.5, "sHeadSY"), mult(-0.3, "restSY")],
-      "sBodyTop": ["sSY", sub("sBodySY")],
-      "sBodyRight": ["sSX", sub("sBodySX"), sub("sTailSX")],
+      'sBodySX': ['sSX', sub('sTailSX'), sub('sRightSX'), mult(-0.1, 'restSX')],
+      'sBodySY': ['sSY', mult(-0.5, 'sHeadSY'), mult(-0.3, 'restSY')],
+      'sBodyTop': ['sSY', sub('sBodySY')],
+      'sBodyRight': ['sSX', sub('sBodySX'), sub('sTailSX')],
 
-      "sHairSX": {
+      'sHairSX': {
         r: 3,
-        useSize: "sHeadSX",
-        min: mult(1.2, "sBodyRight"),
+        useSize: 'sHeadSX',
+        min: mult(1.2, 'sBodyRight'),
       },
-      "sHairSY": {
-        add: ["sBodyTop", mult(0.2, "sBodySY")],
-        min: ["sHeadTop", mult(2.5, "sHeadSY")],
+      'sHairSY': {
+        add: ['sBodyTop', mult(0.2, 'sBodySY')],
+        min: ['sHeadTop', mult(2.5, 'sHeadSY')],
       },
-      "hairOvershotSX": ["sHairSX", sub("sBodyRight")],
-      "hairOvershotSY": [sub("sSY"), "sBodySY", "sHairSY"],
+      'hairOvershotSX': ['sHairSX', sub('sBodyRight')],
+      'hairOvershotSY': [sub('sSY'), 'sBodySY', 'sHairSY'],
 
-      "sWingSX": ["sSX", sub("sHairSX"), -1],
-      "sWingSY": { r: 1.8, useSize: "sBodyTop", min: 3 },
+      'sWingSX': ['sSX', sub('sHairSX'), -1],
+      'sWingSY': { r: 1.8, useSize: 'sBodyTop', min: 3 },
 
-      "pointSize": getSmallerDim({
+      'pointSize': getSmallerDim({
         r: 0.02,
-        useSize: ["sBodySX", "sBodySY"],
+        useSize: ['sBodySX', 'sBodySY'],
       }),
     }
 

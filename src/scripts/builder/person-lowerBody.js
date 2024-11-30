@@ -1,4 +1,4 @@
-import { Object } from "./object.js"
+import { Object } from './object.js'
 
 /* global Builder */
 
@@ -236,10 +236,10 @@ Leg.prototype = new Object()
 Leg.prototype.draw = function (args, z, rightSide, behind) {
   var nr = args.nr,
     sideView = args.sideView,
-    legPos = args.leg && args.leg[rightSide ? "right" : "left"],
-    hipBend = legPos === "legHigh",
-    legBend = hipBend || legPos === "kneeBend",
-    legRaise = !hipBend && !legBend && legPos === "legRaise"
+    legPos = args.leg && args.leg[rightSide ? 'right' : 'left'],
+    hipBend = legPos === 'legHigh',
+    legBend = hipBend || legPos === 'kneeBend',
+    legRaise = !hipBend && !legBend && legPos === 'legRaise'
 
   if (args.calc) {
     args.legSX = this.pushLinkList({

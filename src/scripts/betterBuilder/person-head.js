@@ -1,4 +1,4 @@
-import { BBObj } from "./object.js"
+import { BBObj } from './object.js'
 /* global BBProto, BBObj */
 
 // HEAD MAIN  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -30,7 +30,7 @@ Head.prototype.draw = function (args) {
 
   var headBottom = new this.basic.Rotater({
       drawer: this.headBottom,
-      id: "lowerHead",
+      id: 'lowerHead',
       rotate: rotate,
       baseSX: this.sX,
       sideSX: this.headSideRatio,
@@ -41,7 +41,7 @@ Head.prototype.draw = function (args) {
     }),
     headTop = new this.basic.Rotater({
       drawer: this.headTop,
-      id: "topHead",
+      id: 'topHead',
       rotate: rotate,
       baseSX: this.sX,
       frontSX: this.headTopFrontSX,
@@ -54,7 +54,7 @@ Head.prototype.draw = function (args) {
     }),
     nose = new this.basic.Rotater({
       drawer: this.nose,
-      id: "nose",
+      id: 'nose',
       rotate: rotate,
       baseSX: this.sX,
       frontSX: 0.1,
@@ -135,7 +135,7 @@ HeadTop.prototype.draw = function (args, front, right) {
       fX: true,
       fY: true,
       z: 10,
-      id: "eye" + this.suffix,
+      id: 'eye' + this.suffix,
       list: [
         {},
         {

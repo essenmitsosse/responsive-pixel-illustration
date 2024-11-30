@@ -1,9 +1,9 @@
-import { helper } from "../../renderengine/helper.js"
-import { BBObj, Rotater, RotateInfo } from "./object.js"
-import { PersonMain, BodyMain } from "./person-main.js"
-import { Chest } from "./person-upperBody.js"
-import { LowerBody } from "./person-lowerBody.js"
-import { Head, HeadTop, HeadBottom, Nose, Neck } from "./person-head.js"
+import { helper } from '../../renderengine/helper.js'
+import { BBObj, Rotater, RotateInfo } from './object.js'
+import { PersonMain, BodyMain } from './person-main.js'
+import { Chest } from './person-upperBody.js'
+import { LowerBody } from './person-lowerBody.js'
+import { Head, HeadTop, HeadBottom, Nose, Neck } from './person-head.js'
 
 export const BB = function (init) {
   var args = {},
@@ -60,7 +60,7 @@ BB.prototype.Overview = function (init) {
     inner = init.inner * 1 || 0.8
 
   this.counter = 1
-  this.side = "left"
+  this.side = 'left'
 
   this.ll.push(
     (this.outerSX = { r: 1 / cols }),
@@ -83,7 +83,7 @@ BB.prototype.Overview = function (init) {
     do {
       i = 0
 
-      this.entity = new this.basic[init.what || "PersonMain"]({})
+      this.entity = new this.basic[init.what || 'PersonMain']({})
 
       do {
         list.push({

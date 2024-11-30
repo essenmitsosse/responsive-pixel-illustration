@@ -1,4 +1,4 @@
-import { Object } from "./object.js"
+import { Object } from './object.js'
 
 /* global Builder */
 
@@ -106,7 +106,7 @@ export const Tree = function (args) {
 
 Tree.prototype = new Object()
 Tree.prototype.draw = function (args, z, size) {
-  var code = (this.code = this.id + "_" + (this.nr += 1))
+  var code = (this.code = this.id + '_' + (this.nr += 1))
   this.zInd = z
 
   this.randomCount = 0
@@ -140,7 +140,7 @@ Tree.prototype.draw = function (args, z, size) {
       chance: this.fooliageCoverage,
       sX: this.leaveX,
       sY: this.leaveY,
-      use: "leavesShadowBack" + code,
+      use: 'leavesShadowBack' + code,
       z: this.zInd - 90,
     },
 
@@ -151,7 +151,7 @@ Tree.prototype.draw = function (args, z, size) {
       chance: this.fooliageCoverage,
       sX: this.leaveX,
       sY: this.leaveY,
-      use: "leavesBack" + code,
+      use: 'leavesBack' + code,
       z: this.zInd - 90,
     },
 
@@ -162,7 +162,7 @@ Tree.prototype.draw = function (args, z, size) {
       chance: this.fooliageCoverage,
       sX: this.leaveX,
       sY: this.leaveY,
-      use: "leavesFront" + code,
+      use: 'leavesFront' + code,
       z: this.zInd + 110,
     },
 
@@ -175,7 +175,7 @@ Tree.prototype.draw = function (args, z, size) {
         sX: this.leaveDetailX,
         sY: this.leaveDetailY,
         mask: true,
-        use: "leavesBack" + code,
+        use: 'leavesBack' + code,
         z: this.zInd - 80,
       },
     // Detail Front
@@ -187,7 +187,7 @@ Tree.prototype.draw = function (args, z, size) {
         sX: this.leaveDetailX,
         sY: this.leaveDetailY,
         mask: true,
-        use: "leavesFront" + code,
+        use: 'leavesFront' + code,
         z: this.zInd + 120,
       },
 
@@ -197,7 +197,7 @@ Tree.prototype.draw = function (args, z, size) {
       seed: this.nr,
       chance: this.fruitChance,
       s: this.fruitSize,
-      use: "leavesBack" + code,
+      use: 'leavesBack' + code,
       z: this.zInd - 70,
     },
     this.fruitColor && {
@@ -205,21 +205,21 @@ Tree.prototype.draw = function (args, z, size) {
       seed: this.nr,
       chance: this.fruitChance,
       s: this.fruitSize,
-      use: "leavesFront" + code,
+      use: 'leavesFront' + code,
       z: this.zInd + 130,
     },
 
     // Trunk
     {
       color: this.trunkColor.get(),
-      use: "trunk" + code,
+      use: 'trunk' + code,
       z: this.zInd,
     },
 
     // Trunk
     !this.noDetail && {
       color: this.trunkColorDetail.get(),
-      use: "trunk" + code,
+      use: 'trunk' + code,
       chance: 0.1,
       seed: this.nr,
       sX: this.detailSX,
@@ -241,7 +241,7 @@ Tree.prototype.draw = function (args, z, size) {
         },
         this.crooked
           ? {
-              save: "trunk" + code,
+              save: 'trunk' + code,
               rX: this.reflectCrookedTrunk,
               list: [
                 {
@@ -264,7 +264,7 @@ Tree.prototype.draw = function (args, z, size) {
                 },
               ],
             }
-          : { save: "trunk" + code },
+          : { save: 'trunk' + code },
       ],
     },
 
@@ -284,7 +284,7 @@ Tree.prototype.addBranches = function (args, hor, parentLeft, count, level) {
     i = Math.floor(count),
     step = (1 / i) * this.minFoliagePos,
     left = true,
-    thisZ = level === 1 || this.getRandom() < 0.2 ? "Front" : "Back",
+    thisZ = level === 1 || this.getRandom() < 0.2 ? 'Front' : 'Back',
     strip = {
       stripes: {
         random: { r: -0.5 },
@@ -298,21 +298,21 @@ Tree.prototype.addBranches = function (args, hor, parentLeft, count, level) {
     leaves = [
       // Shadow of Leaves
       {
-        save: "leavesShadow" + thisZ + code,
+        save: 'leavesShadow' + thisZ + code,
         sY: { r: 2, min: 5 },
         list: [strip],
       },
 
       // Leaves
       {
-        save: "leaves" + thisZ + code,
+        save: 'leaves' + thisZ + code,
         sY: { r: 1.5, min: 3 },
         list: [strip],
       },
 
       // Top of Leaves
       {
-        save: "leaves" + thisZ + code,
+        save: 'leaves' + thisZ + code,
         tY: true,
         sY: { r: 0.1, min: 1 },
         list: [

@@ -32,8 +32,8 @@ export const Strip = function (args) {
     imgRatio = { ratio: 1.5 }
 
   this.pushRelativeStandardAutomatic({
-    gutterX: { map: "gutter-width", min: 0, max: 1 },
-    gutterY: { map: "gutter-height", min: 0, max: 1 },
+    gutterX: { map: 'gutter-width', min: 0, max: 1 },
+    gutterY: { map: 'gutter-height', min: 0, max: 1 },
   })
 
   this.changersCustomList.push(function (args) {
@@ -61,7 +61,7 @@ export const Strip = function (args) {
   i = 0
   do {
     sizeCurrent = sizeList[i]
-    current = basicPanel[panelsInfo[i].method || "draw"]({
+    current = basicPanel[panelsInfo[i].method || 'draw']({
       i: i,
       rel: i / (count - 1),
       sX: sizeCurrent.sX,
@@ -82,21 +82,21 @@ export const Strip = function (args) {
         minY: 6,
         list: [
           (stripInfo.roundCorners || stripInfo.roundTopCorners) && {
-            name: "Dot",
+            name: 'Dot',
             color: paperColor,
           },
           (stripInfo.roundCorners || stripInfo.roundTopCorners) && {
-            name: "Dot",
+            name: 'Dot',
             fX: true,
             color: paperColor,
           },
           (stripInfo.roundCorners || stripInfo.roundBottomCorners) && {
-            name: "Dot",
+            name: 'Dot',
             fY: true,
             color: paperColor,
           },
           (stripInfo.roundCorners || stripInfo.roundBottomCorners) && {
-            name: "Dot",
+            name: 'Dot',
             fX: true,
             fY: true,
             color: paperColor,
@@ -136,8 +136,8 @@ Panel.prototype.setStage = function (minPanelSX, minPanelSY) {
   this.getSizeWithRatio({
     sX: (this.minPanelSX = minPanelSX),
     sY: (this.minPanelSY = minPanelSY),
-    sXName: "minSX",
-    sYName: "minSY",
+    sXName: 'minSX',
+    sYName: 'minSY',
   })
 }
 
@@ -222,7 +222,7 @@ Panel.prototype.draw = function (args) {
 
       if (cameraFocus.min.obj.sizeMap) {
         info.camera.zoomBaseActor1SizeSX = info.camera.zoomBaseActor1SizeSY = {
-          map: "actor-size",
+          map: 'actor-size',
           min: 1 / cameraFocus.min.obj.sizeMap.min,
           max: 1 / cameraFocus.min.obj.sizeMap.max,
         }
@@ -230,7 +230,7 @@ Panel.prototype.draw = function (args) {
 
       if (cameraFocus.max.obj.sizeMap) {
         info.camera.zoomBaseActor2SizeSX = info.camera.zoomBaseActor2SizeSY = {
-          map: "actor-size",
+          map: 'actor-size',
           min: 1 / cameraFocus.max.obj.sizeMap.min,
           max: 1 / cameraFocus.max.obj.sizeMap.max,
         }
@@ -251,7 +251,7 @@ Panel.prototype.draw = function (args) {
       if (cameraFocus.obj.sizeMap) {
         // Zoom Based on actor size
         info.camera.zoomBaseActorSizeSX = info.camera.zoomBaseActorSizeSY = {
-          map: "actor-size",
+          map: 'actor-size',
           min: 1 / cameraFocus.obj.sizeMap.min,
           max: 1 / cameraFocus.obj.sizeMap.max,
         }
@@ -457,7 +457,7 @@ Panel.prototype.draw = function (args) {
 
   if (info.camera) {
     info.camera.panDiffX = info.camera.panDiffY = {
-      map: "camera",
+      map: 'camera',
       min: 0,
       max: 1,
     }

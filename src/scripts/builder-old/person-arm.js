@@ -1,4 +1,4 @@
-import { Object } from "./object.js"
+import { Object } from './object.js'
 // ARM --------------------------------------------------------------------------------
 export const Arm = function (args) {
   // Form & Sizes
@@ -15,12 +15,12 @@ export const Arm = function (args) {
   this.sleeves &&
     ((this.sleeveSY = this.R(0, 1)),
     (this.upperSleeveSY =
-      this.upperArmSY > this.sleeveSY ? this.sleeveSY : "full"),
+      this.upperArmSY > this.sleeveSY ? this.sleeveSY : 'full'),
     (this.lowerSleeveSY =
       this.upperArmSY > this.sleeveSY
         ? false
         : this.sleeveSY - this.upperArmSY),
-    (this.fullUpper = this.upperSleeveSY === "full"))
+    (this.fullUpper = this.upperSleeveSY === 'full'))
 
   this.vest = args.sleeves && this.IF()
 
@@ -46,7 +46,7 @@ Arm.prototype = new Object()
 Arm.prototype.draw = function (args, rightSide, behind) {
   var nr = args.nr,
     sideView = args.sideView,
-    name = rightSide ? "right" : "left",
+    name = rightSide ? 'right' : 'left',
     nrName = name + nr,
     renderFromRight = sideView ? rightSide : args.right !== args.backView,
     tool = rightSide ? this.toolRight : this.toolLeft,
@@ -64,105 +64,105 @@ Arm.prototype.draw = function (args, rightSide, behind) {
   }
 
   if (args.calc) {
-    this.vL["armSX" + nr] = {
+    this.vL['armSX' + nr] = {
       r: this.armSX,
-      useSize: "personHalfSX" + nr,
+      useSize: 'personHalfSX' + nr,
       min: 1,
     }
-    this.vL["armSY" + nr] = { r: this.armSY, useSize: "fullBodySY" + nr }
-    this.vL["shoulderSX" + nr] = ["armSX" + nr]
-    this.vL["shoulderSY" + nr] = {
+    this.vL['armSY' + nr] = { r: this.armSY, useSize: 'fullBodySY' + nr }
+    this.vL['shoulderSX' + nr] = ['armSX' + nr]
+    this.vL['shoulderSY' + nr] = {
       r: 1,
-      useSize: "armSX" + nr,
+      useSize: 'armSX' + nr,
       min: 1,
-      max: "chestSY" + nr,
+      max: 'chestSY' + nr,
     }
-    this.vL["shoulderFullSX" + nr] = [
-      this.mult(sideView ? 2 : 1, "shoulderSX" + nr),
-      "chestSX" + nr,
+    this.vL['shoulderFullSX' + nr] = [
+      this.mult(sideView ? 2 : 1, 'shoulderSX' + nr),
+      'chestSX' + nr,
     ]
 
-    this.vL["handSX" + nr] = {
-      add: ["armSX" + nr, 1],
+    this.vL['handSX' + nr] = {
+      add: ['armSX' + nr, 1],
       min: 1,
-      max: { r: 0.1, useSize: "personHalfSX" + nr },
+      max: { r: 0.1, useSize: 'personHalfSX' + nr },
     }
-    this.vL["handHalfNegSX" + nr] = { r: -0.5, useSize: "handSX" + nr }
+    this.vL['handHalfNegSX' + nr] = { r: -0.5, useSize: 'handSX' + nr }
 
-    this.vL["upperArmSY" + nr] = {
+    this.vL['upperArmSY' + nr] = {
       r: this.upperArmSY,
-      useSize: "armSY" + nr,
+      useSize: 'armSY' + nr,
     }
-    this.vL["lowerArmSY" + nr] = ["armSY" + nr, this.sub("upperArmSY" + nr)]
+    this.vL['lowerArmSY' + nr] = ['armSY' + nr, this.sub('upperArmSY' + nr)]
 
     if (this.sleeves) {
       !this.fullUpper
-        ? (this.vL["upperSleeveSY" + nr] = {
+        ? (this.vL['upperSleeveSY' + nr] = {
             r: this.upperSleeveSY,
-            useSize: "armSY" + nr,
+            useSize: 'armSY' + nr,
           })
-        : (this.vL["lowerSleeveSY" + nr] = {
+        : (this.vL['lowerSleeveSY' + nr] = {
             r: this.lowerSleeveSY,
-            useSize: "armSY" + nr,
+            useSize: 'armSY' + nr,
           })
     }
   }
 
-  this.vL["armHalfSX" + nrName] = {
+  this.vL['armHalfSX' + nrName] = {
     r: renderFromRight ? 0.49 : 0.51,
-    useSize: "armSX" + nr,
+    useSize: 'armSX' + nr,
     max: {
       r: 0.22,
-      useSize: "upperBodySX" + nr,
+      useSize: 'upperBodySX' + nr,
       a: renderFromRight ? -1 : 0,
     },
   }
 
-  this.vL["upperArmX" + nrName] = {
+  this.vL['upperArmX' + nrName] = {
     r: Math.sin(shoulderAngle),
-    useSize: "upperArmSY" + nr,
+    useSize: 'upperArmSY' + nr,
   }
-  this.vL["upperArmY" + nrName] = {
+  this.vL['upperArmY' + nrName] = {
     r: Math.cos(shoulderAngle),
-    useSize: "upperArmSY" + nr,
+    useSize: 'upperArmSY' + nr,
   }
 
-  this.vL["lowerArmX" + nrName] = {
+  this.vL['lowerArmX' + nrName] = {
     r: Math.sin(armAngle),
-    useSize: "lowerArmSY" + nr,
+    useSize: 'lowerArmSY' + nr,
   }
-  this.vL["lowerArmY" + nrName] = {
+  this.vL['lowerArmY' + nrName] = {
     r: Math.cos(armAngle),
-    useSize: "lowerArmSY" + nr,
+    useSize: 'lowerArmSY' + nr,
   }
 
   if (this.sleeves) {
     !this.fullUpper
-      ? ((this.vL["upperSleeveX" + nrName] = {
+      ? ((this.vL['upperSleeveX' + nrName] = {
           r: Math.sin(shoulderAngle),
-          useSize: "upperSleeveSY" + nr,
+          useSize: 'upperSleeveSY' + nr,
         }),
-        (this.vL["upperSleeveY" + nrName] = {
+        (this.vL['upperSleeveY' + nrName] = {
           r: Math.cos(shoulderAngle),
-          useSize: "upperSleeveSY" + nr,
+          useSize: 'upperSleeveSY' + nr,
         }))
-      : ((this.vL["lowerSleeveX" + nrName] = {
+      : ((this.vL['lowerSleeveX' + nrName] = {
           r: Math.sin(armAngle),
-          useSize: "lowerSleeveSY" + nr,
+          useSize: 'lowerSleeveSY' + nr,
         }),
-        (this.vL["lowerSleeveY" + nrName] = {
+        (this.vL['lowerSleeveY' + nrName] = {
           r: Math.cos(armAngle),
-          useSize: "lowerSleeveSY" + nr,
+          useSize: 'lowerSleeveSY' + nr,
         }))
   }
 
   return {
-    sX: "shoulderSX" + nr,
-    sY: "armSY" + nr,
+    sX: 'shoulderSX' + nr,
+    sY: 'armSY' + nr,
     tX: true,
     fX: !behind,
     rX: behind,
-    id: "shoulder" + nrName,
+    id: 'shoulder' + nrName,
     color: this.vest
       ? this.shirtColor.get()
       : !this.sleeves && this.skinColor.get(),
@@ -170,8 +170,8 @@ Arm.prototype.draw = function (args, rightSide, behind) {
     list: [
       // Shoulder
       {
-        sX: "shoulderSX" + nr,
-        sY: "shoulderSY" + nr,
+        sX: 'shoulderSX' + nr,
+        sY: 'shoulderSY' + nr,
         z: upperZ,
       },
 
@@ -211,22 +211,22 @@ Arm.prototype.draw = function (args, rightSide, behind) {
       {
         fX: true,
         x: {
-          add: [this.sub("armHalfSX" + nrName)],
+          add: [this.sub('armHalfSX' + nrName)],
           a: renderFromRight && -1,
         },
-        y: [this.mult(0.49, "armSX" + nr)],
+        y: [this.mult(0.49, 'armSX' + nr)],
         list: [
           // Upper Arm
           {
             list: [
               {
                 z: upperZ,
-                weight: "armSX" + nr,
+                weight: 'armSX' + nr,
                 points: [
                   {},
                   {
-                    x: "upperArmX" + nrName,
-                    y: "upperArmY" + nrName,
+                    x: 'upperArmX' + nrName,
+                    y: 'upperArmY' + nrName,
                   },
                 ],
               },
@@ -246,30 +246,30 @@ Arm.prototype.draw = function (args, rightSide, behind) {
 
           // Lower Arm
           {
-            x: "upperArmX" + nrName,
-            y: "upperArmY" + nrName,
+            x: 'upperArmX' + nrName,
+            y: 'upperArmY' + nrName,
             z: 800,
             list: [
               {
-                weight: "armSX" + nr,
+                weight: 'armSX' + nr,
                 points: [
                   {},
                   {
-                    x: "lowerArmX" + nrName,
-                    y: "lowerArmY" + nrName,
+                    x: 'lowerArmX' + nrName,
+                    y: 'lowerArmY' + nrName,
                   },
                 ],
               },
 
               // Shirt
               this.shirt && {
-                s: { a: "handSX" + nr },
+                s: { a: 'handSX' + nr },
                 minX: 2,
                 x: [
-                  "lowerArmX" + nrName,
-                  renderFromRight ? "handHalfNegSX" + nr : { a: 0 },
+                  'lowerArmX' + nrName,
+                  renderFromRight ? 'handHalfNegSX' + nr : { a: 0 },
                 ],
-                y: ["lowerArmY" + nrName],
+                y: ['lowerArmY' + nrName],
                 color: this.shirtColor.get(),
                 list: [
                   {
@@ -292,9 +292,9 @@ Arm.prototype.draw = function (args, rightSide, behind) {
 
               // Hand
               {
-                s: "handSX" + nr,
-                x: ["lowerArmX" + nrName, "handHalfNegSX" + nr],
-                y: ["lowerArmY" + nrName, "handHalfNegSX" + nr],
+                s: 'handSX' + nr,
+                x: ['lowerArmX' + nrName, 'handHalfNegSX' + nr],
+                y: ['lowerArmY' + nrName, 'handHalfNegSX' + nr],
                 color: this.skinColor.get(),
                 rX: fullAngle < 0,
                 rotate:
@@ -319,7 +319,7 @@ Arm.prototype.draw = function (args, rightSide, behind) {
                         a: 1,
                         max: {
                           r: 0.15,
-                          useSize: "personHalfSX" + nr,
+                          useSize: 'personHalfSX' + nr,
                         },
                       },
                       fX: true,
@@ -402,26 +402,26 @@ ShoulderPad.prototype.draw = function (args, z) {
   return {
     sX: {
       r: this.SX,
-      useSize: "personHalfSX" + nr,
-      min: "armSX" + nr,
-      save: "shoulderPadSX" + nr,
+      useSize: 'personHalfSX' + nr,
+      min: 'armSX' + nr,
+      save: 'shoulderPadSX' + nr,
     },
     sY: {
       r: this.SY,
-      useSize: "armSX" + nr,
-      min: { r: 0.2, useSize: "shoulderPadSX" + nr },
+      useSize: 'armSX' + nr,
+      min: { r: 0.2, useSize: 'shoulderPadSX' + nr },
     },
-    y: { r: this.Y, useSize: "armSX" + nr, max: { a: 0 } },
-    x: { r: this.X, useSize: "trapSX" + nr },
-    id: "shoulderPad" + nr,
+    y: { r: this.Y, useSize: 'armSX' + nr, max: { a: 0 } },
+    x: { r: this.X, useSize: 'trapSX' + nr },
+    id: 'shoulderPad' + nr,
     z: z,
     color: this.shoulderPadColor.get(),
     // rX:sideView && args.right,
     list: [
-      this.roundInner && { name: "Dot", clear: true },
-      this.roundTop && { name: "Dot", clear: true, fX: true },
+      this.roundInner && { name: 'Dot', clear: true },
+      this.roundTop && { name: 'Dot', clear: true, fX: true },
       this.roundBottom && {
-        name: "Dot",
+        name: 'Dot',
         clear: true,
         fX: true,
         fY: true,
@@ -456,11 +456,11 @@ ShoulderPad.prototype.draw = function (args, z) {
         fX: !this.topDetailStrip,
         sX: this.topDetailStrip
           ? { r: 1, a: -2 }
-          : { r: 0.2, min: 1, save: "shoulderPadDetailSX" + nr },
+          : { r: 0.2, min: 1, save: 'shoulderPadDetailSX' + nr },
         sY: { r: this.topDetailSY },
         x: !this.topDetailStrip && {
           r: this.topDetailX,
-          max: ["shoulderPadSX" + nr, this.sub("shoulderPadDetailSX" + nr)],
+          max: ['shoulderPadSX' + nr, this.sub('shoulderPadDetailSX' + nr)],
         },
         y: 1,
         list: this.topDetailStrip
@@ -472,8 +472,8 @@ ShoulderPad.prototype.draw = function (args, z) {
               },
             ]
           : [
-              { name: "Dot", clear: true },
-              { name: "Dot", fX: true, clear: true },
+              { name: 'Dot', clear: true },
+              { name: 'Dot', fX: true, clear: true },
               {},
             ],
       },
@@ -499,7 +499,7 @@ Tool.prototype.draw = function (args, z) {
     sideView = args.sideView
 
   return {
-    s: "armSX" + nr,
+    s: 'armSX' + nr,
     fY: true,
     // rX:sideView && args.right,
     list: [
@@ -542,43 +542,43 @@ export const Sword = function (args, right) {
 Sword.prototype = new Object()
 Sword.prototype.draw = function (args, z) {
   var nr = args.nr,
-    name = this.rightSide ? "right" : "left",
+    name = this.rightSide ? 'right' : 'left',
     nrName = name + nr,
     side = args.side
 
-  this.vL["handleSY" + nrName] = { add: ["handSX" + nr, -2], min: 1 }
-  this.vL["bladeSX" + nrName] = {
+  this.vL['handleSY' + nrName] = { add: ['handSX' + nr, -2], min: 1 }
+  this.vL['bladeSX' + nrName] = {
     r: this.bladeSY,
-    useSize: "personHalfSX" + nr,
-    min: { r: 3, useSize: "armSX" + nr },
+    useSize: 'personHalfSX' + nr,
+    min: { r: 3, useSize: 'armSX' + nr },
   }
-  this.vL["bladeSY" + nrName] = {
+  this.vL['bladeSY' + nrName] = {
     r: this.bladeSX,
-    useSize: "personHalfSX" + nr,
-    min: "handleSY" + nrName,
+    useSize: 'personHalfSX' + nr,
+    min: 'handleSY' + nrName,
   }
-  this.vL["handleSX" + nrName] = {
+  this.vL['handleSX' + nrName] = {
     r: this.handleSX,
-    useSize: "personHalfSX" + nr,
+    useSize: 'personHalfSX' + nr,
   }
-  this.vL["handleOtherSX" + nrName] = {
+  this.vL['handleOtherSX' + nrName] = {
     r: this.handleOtherSX,
-    useSize: "personHalfSX" + nr,
-    min: ["handSX" + nr, 1],
+    useSize: 'personHalfSX' + nr,
+    min: ['handSX' + nr, 1],
   }
 
   return {
-    sY: "handleSY" + nrName,
+    sY: 'handleSY' + nrName,
     z: z,
     cY: true,
     color: this.hiltColor.get(),
-    id: "tool" + nrName,
+    id: 'tool' + nrName,
     list: [
       {
-        sX: "bladeSX" + nrName,
-        sY: "bladeSY" + nrName,
+        sX: 'bladeSX' + nrName,
+        sY: 'bladeSY' + nrName,
         cY: this.noKnife,
-        x: "handleSX" + nrName,
+        x: 'handleSX' + nrName,
         color: this.bladeColor.get(),
         list: [
           !this.notRound && {
@@ -619,18 +619,18 @@ Sword.prototype.draw = function (args, z) {
       },
 
       {
-        sX: "handleSX" + nrName,
+        sX: 'handleSX' + nrName,
       },
       {
-        sX: "handleOtherSX" + nrName,
+        sX: 'handleOtherSX' + nrName,
         fX: true,
       },
 
       // Cross Guard
       this.crossGuard && {
-        x: "handleSX" + nrName,
+        x: 'handleSX' + nrName,
         sX: 1,
-        sY: { r: this.noKnife ? 1.2 : 1, useSize: "bladeSY" + nrName },
+        sY: { r: this.noKnife ? 1.2 : 1, useSize: 'bladeSY' + nrName },
         cY: this.noKnife,
       },
     ],
@@ -640,7 +640,7 @@ Sword.prototype.draw = function (args, z) {
 // SHIELD --------------------------------------------------------------------------------
 export const Shield = function (args, right) {
   // Form & Sizes
-  this.name = right ? "right" : "left"
+  this.name = right ? 'right' : 'left'
   this.shieldSX = this.IF() ? this.R(0.4, 0.8) : this.R(0, 0.4)
   this.shieldSY = this.IF() ? this.R(0.4, 0.8) : this.R(0, 0.4)
 
@@ -676,35 +676,35 @@ Shield.prototype.draw = function (args, z) {
     side = args.side,
     logo = [this.logo.draw(args, z + 805)]
 
-  this.vL["shieldSX" + nrName] = {
+  this.vL['shieldSX' + nrName] = {
     r: this.shieldSX,
-    useSize: "personHalfSX" + nr,
+    useSize: 'personHalfSX' + nr,
     min: 1,
   }
-  this.vL["shieldSY" + nrName] = {
+  this.vL['shieldSY' + nrName] = {
     r: this.shieldSY,
-    useSize: "personHalfSX" + nr,
+    useSize: 'personHalfSX' + nr,
     min: 1,
   }
 
   return {
     color: this.shieldColor.get(),
     z: z + 800,
-    sX: "shieldSX" + nrName,
-    sY: "shieldSY" + nrName,
+    sX: 'shieldSX' + nrName,
+    sY: 'shieldSY' + nrName,
     cX: true,
     cY: true,
-    id: "shield" + nrName,
+    id: 'shield' + nrName,
     list: [
       (this.roundTop || this.roundBottom) && {
         minY: 3,
         clear: true,
         list: [
-          this.roundTop && { name: "Dot" },
-          this.roundTop && { name: "Dot", fX: true },
+          this.roundTop && { name: 'Dot' },
+          this.roundTop && { name: 'Dot', fX: true },
 
-          this.roundBottom && { name: "Dot", fY: true },
-          this.roundBottom && { name: "Dot", fY: true, fX: true },
+          this.roundBottom && { name: 'Dot', fY: true },
+          this.roundBottom && { name: 'Dot', fY: true, fX: true },
         ],
       },
 

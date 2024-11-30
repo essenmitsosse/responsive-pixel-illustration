@@ -30,7 +30,7 @@ Arm.prototype.draw = function ArmDraw(args) {
         min: { r: 1, useSize: args.torsoSX },
         max: { r: 0.8, useSize: this.actor.bodySY },
       },
-      "actor-features",
+      'actor-features',
     ),
     armS = (this.armS = this.pushLinkList({
       r: 0.08,
@@ -73,7 +73,7 @@ Arm.prototype.draw = function ArmDraw(args) {
   this.endY = this.pushLinkList({})
 
   if (info && info.pos) {
-    this.getMoveableTarget("target", "getTarget", info.pos)
+    this.getMoveableTarget('target', 'getTarget', info.pos)
   } else {
     // Default, lowered arms
     this.targetX = this.pushLinkList({ a: 0 })
@@ -81,7 +81,7 @@ Arm.prototype.draw = function ArmDraw(args) {
   }
 
   if (info && info.hand) {
-    this.getMoveableTarget("handTarget", "getHandTarget", info.hand)
+    this.getMoveableTarget('handTarget', 'getHandTarget', info.hand)
   } else {
     this.handTargetX = this.pushLinkList({ a: 0 })
     this.handTargetY = this.pushLinkList({ a: 2 })
@@ -97,7 +97,7 @@ Arm.prototype.draw = function ArmDraw(args) {
     z: (info && info.z) || 300,
     list: [
       {
-        name: "Arm",
+        name: 'Arm',
         lowerArmWeight: armS,
         upperArmWeight: upperArmS,
         length: armSY,
@@ -142,8 +142,8 @@ Arm.prototype.draw = function ArmDraw(args) {
 }
 
 Arm.prototype.getHandTarget = function (target, name) {
-  var x = name + "X",
-    y = name + "Y"
+  var x = name + 'X',
+    y = name + 'Y'
 
   if (target.angle) {
     this[x] = this.pushLinkList({
@@ -206,34 +206,34 @@ Arm.prototype.getTarget = function (target, name) {
     !this.right ? (this.isRotated ? 1 : -1) : 0,
   )
 
-  this[name + "X"] = this.pushLinkList({ add: xAdd })
-  this[name + "Y"] = this.pushLinkList({ add: yAdd })
+  this[name + 'X'] = this.pushLinkList({ add: xAdd })
+  this[name + 'Y'] = this.pushLinkList({ add: yAdd })
 }
 
 Arm.prototype.getMoveableTarget = function (name, targetFunc, info) {
-  var mainX = name + "X",
-    mainY = name + "Y",
-    moveXName = name + "moveX",
-    moveYName = name + "moveY",
+  var mainX = name + 'X',
+    mainY = name + 'Y',
+    moveXName = name + 'moveX',
+    moveYName = name + 'moveY',
     pushRelativeStandardAutomaticObject = {}
 
   if (info.map !== undefined) {
     this[targetFunc](info.max, name)
 
     // If there are two targets, create an animation between the two
-    this[targetFunc](info.min, name + "Alt")
+    this[targetFunc](info.min, name + 'Alt')
 
     this[moveXName] = this.pushLinkList({
       r: 0,
       useSize: this.pushLinkList({
-        add: [this[name + "AltX"], { r: -1, useSize: this[mainX] }],
+        add: [this[name + 'AltX'], { r: -1, useSize: this[mainX] }],
       }),
     })
 
     this[moveYName] = this.pushLinkList({
       r: 0,
       useSize: this.pushLinkList({
-        add: [this[name + "AltY"], { r: -1, useSize: this[mainY] }],
+        add: [this[name + 'AltY'], { r: -1, useSize: this[mainY] }],
       }),
     })
 

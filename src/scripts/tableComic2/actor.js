@@ -17,7 +17,7 @@ export const Actor = function (args) {
   this.headRelSY_ = this.rFl(0.6, 1.3)
 
   this.sizeMap = {
-    map: "actor-size",
+    map: 'actor-size',
     min: this.main ? 0.5 : 1.5,
     max: this.main ? 1.5 : 0.5,
   }
@@ -88,8 +88,8 @@ Actor.prototype.getSizeFromHead = function (args) {
   this.getSizeWithRatio({
     sX: args.stageSX,
     sY: args.stageSY,
-    sXName: "sX",
-    sYName: "headSY",
+    sXName: 'sX',
+    sYName: 'headSY',
     ratio: ratio / headSY_,
   })
 
@@ -211,7 +211,7 @@ Actor.prototype.draw = function (args) {
   var info = args.info
 
   // Decide which size calculation method to use and use it.
-  this[(this.zoomToHead = info.zoomToHead) ? "getSizeFromHead" : "getSize"](
+  this[(this.zoomToHead = info.zoomToHead) ? 'getSizeFromHead' : 'getSize'](
     args,
   )
 
@@ -242,7 +242,7 @@ Actor.prototype.draw = function (args) {
 
   this.baseShift = this.pushLinkList({ r: 1, useSize: this.baseShift })
   this.pushRelativeStandardAutomatic({
-    baseShift: { map: "props", min: 0, max: 1 },
+    baseShift: { map: 'props', min: 0, max: 1 },
   })
 
   this.y = this.pushLinkList({ add: [this.y, this.baseShift] })
@@ -342,7 +342,7 @@ Body.prototype.getSize = function BodyGetSize(args) {
     { r: this.legBaseSY_, useSize: args.sY },
     { r: this.legRelSY_ },
     {},
-    "actor-features",
+    'actor-features',
   )
   this.torsoSY = this.pushLinkList({
     add: [args.sY, { r: -1, useSize: this.legSY }],
@@ -412,8 +412,8 @@ Torso.prototype.draw = function TorsoDraw(args) {
     this.leanWay = this.pushLinkList({ r: 0.5, useSize: args.lean })
 
     this.pushRelativeStandardAutomatic({
-      zipperY: { map: "actor-accessoirs", min: 0, max: this.zipperSY },
-      leanWay: { map: "actor-accessoirs", min: this.zipperSY, max: 0 },
+      zipperY: { map: 'actor-accessoirs', min: 0, max: this.zipperSY },
+      leanWay: { map: 'actor-accessoirs', min: this.zipperSY, max: 0 },
     })
   }
 

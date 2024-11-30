@@ -150,7 +150,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   this.Arm = function Arm() {}
 
   // ------------------ PRIMITIVES ------------------
-  this.Primitive.prototype.getName = "Primitive"
+  this.Primitive.prototype.getName = 'Primitive'
 
   this.Primitive.prototype.create = (function () {
     var setColorArray = drawingTool.pixelSetter.setColorArray,
@@ -260,11 +260,11 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   // ------------------ PointBased ------------------
   this.PointBased.prototype = new this.Primitive()
-  this.PointBased.prototype.getName = "PointBased"
+  this.PointBased.prototype.getName = 'PointBased'
 
   // ------------------ Dot ------------------
   this.Dot.prototype = new this.PointBased()
-  this.Dot.prototype.getName = "Dot"
+  this.Dot.prototype.getName = 'Dot'
   this.Dot.prototype.draw = function () {
     var pos = this.args.getRealPosition()
     this.getColorArray()(pos.x, pos.y)
@@ -283,7 +283,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   // ------------------ Line ------------------
   this.Line.prototype = new this.PointBased()
-  this.Line.prototype.getName = "Line"
+  this.Line.prototype.getName = 'Line'
   this.Line.prototype.init = function (args) {
     if (args.closed) {
       this.args.closed = true
@@ -351,7 +351,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
           var x0, y0, x1, y1, dx, dy, sy, err, e2
 
           if (isNaN(p0.x) || isNaN(p0.y) || isNaN(p1.x) || isNaN(p1.y)) {
-            console.log("Line with NaN found!", p0.x, p0.y, p1.x, p1.y)
+            console.log('Line with NaN found!', p0.x, p0.y, p1.x, p1.y)
             return p1
           }
 
@@ -411,7 +411,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   // ------------------ Polygon ------------------
   this.Polygon.prototype = new this.Line()
-  this.Polygon.prototype.getName = "Polygon"
+  this.Polygon.prototype.getName = 'Polygon'
   this.Polygon.prototype.draw = (function () {
     var abs = Math.abs,
       getLineEdgeGetter = function (edgeList) {
@@ -532,7 +532,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   // ------------------ Fill ------------------
   this.Fill.prototype = new this.Primitive()
-  this.Fill.prototype.getName = "Fill"
+  this.Fill.prototype.getName = 'Fill'
 
   this.Fill.prototype.init = function (args) {
     this.use = args.use
@@ -563,7 +563,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   // ------------------ FillRandom ------------------
   this.FillRandom.prototype = new this.Fill()
-  this.FillRandom.prototype.getName = "Random Fill"
+  this.FillRandom.prototype.getName = 'Random Fill'
 
   this.FillRandom.prototype.init = function (args) {
     var width = this.rotate ? args.sY : args.sX,
@@ -666,11 +666,11 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   // ------------------ ShapeBased ------------------
   this.ShapeBased.prototype = new this.Primitive()
-  this.ShapeBased.prototype.getName = "ShapeBased"
+  this.ShapeBased.prototype.getName = 'ShapeBased'
 
   // ------------------ Rectangle ------------------
   this.Rect.prototype = new this.ShapeBased()
-  this.Rect.prototype.getName = "Rectangle"
+  this.Rect.prototype.getName = 'Rectangle'
   this.Rect.prototype.isRect = true
   this.Rect.prototype.draw = function () {
     var dimensions = this.dimensions.calc()
@@ -692,7 +692,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   // ------------------ OBJECTS ------------------
   this.Obj.prototype = new this.ShapeBased() // Objects consist of other Objects or Primitives
-  this.Obj.prototype.getName = "Object"
+  this.Obj.prototype.getName = 'Object'
 
   this.Obj.prototype.init = (function (drawingTool) {
     // Initing a new Object, converting its List into real Objects.
@@ -709,22 +709,22 @@ export const DrawingTools = function (pixelUnit, getRandom) {
             new drawingTool[
               newTool.name ||
                 (newTool.stripes
-                  ? "Stripes"
+                  ? 'Stripes'
                   : newTool.list
-                    ? "Obj"
+                    ? 'Obj'
                     : newTool.points
                       ? newTool.weight
-                        ? "Line"
-                        : "Polygon"
+                        ? 'Line'
+                        : 'Polygon'
                       : newTool.use
                         ? newTool.chance
-                          ? "FillRandom"
-                          : "Fill"
+                          ? 'FillRandom'
+                          : 'Fill'
                         : newTool.panels
-                          ? "Panels"
+                          ? 'Panels'
                           : newTool.targetX
-                            ? "Arm"
-                            : "Rect")
+                            ? 'Arm'
+                            : 'Rect')
             ]().create(newTool, inherit),
           )
         }
@@ -784,7 +784,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   // ------------------ Stripes ------------------
   this.Stripes.prototype = new this.Obj()
-  this.Stripes.prototype.getName = "Stripes"
+  this.Stripes.prototype.getName = 'Stripes'
   this.Stripes.prototype.isRect = true
   this.Stripes.prototype.isStripe = true
   this.Stripes.prototype.detailInit = function (args) {
@@ -808,7 +808,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     }
 
     if (stripes.random) {
-      if (typeof stripes.random === "object") {
+      if (typeof stripes.random === 'object') {
         stripes.random.height = !horizontal
       }
       this.lengthRandom = new pixelUnit.createSize(stripes.random)
@@ -816,7 +816,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     }
 
     if (stripes.change) {
-      if (typeof stripes.change === "object") {
+      if (typeof stripes.change === 'object') {
         stripes.change.height = !horizontal
       }
       this.lengthChange = new pixelUnit.createSize(stripes.change)
@@ -1000,7 +1000,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   // ------------------ Round Rectangle ------------------
   this.RoundRect.prototype = new this.Obj()
-  this.RoundRect.prototype.getName = "Rounded Rectangle"
+  this.RoundRect.prototype.getName = 'Rounded Rectangle'
   this.RoundRect.prototype.list = [
     // { mY:1 },
     // { mX:1, height: {a:1} },
@@ -1009,20 +1009,20 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       minX: 3,
       minY: 4,
       list: [
-        { name: "Dot", clear: true },
-        { name: "Dot", fX: true, clear: true },
-        { name: "Dot", fY: true, clear: true },
-        { name: "Dot", fX: true, fY: true, clear: true },
+        { name: 'Dot', clear: true },
+        { name: 'Dot', fX: true, clear: true },
+        { name: 'Dot', fY: true, clear: true },
+        { name: 'Dot', fX: true, fY: true, clear: true },
       ],
     },
     {
       minX: 4,
       minY: 3,
       list: [
-        { name: "Dot", clear: true },
-        { name: "Dot", fX: true, clear: true },
-        { name: "Dot", fY: true, clear: true },
-        { name: "Dot", fX: true, fY: true, clear: true },
+        { name: 'Dot', clear: true },
+        { name: 'Dot', fX: true, clear: true },
+        { name: 'Dot', fY: true, clear: true },
+        { name: 'Dot', fX: true, fY: true, clear: true },
       ],
     },
     {},
@@ -1031,7 +1031,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   // ------------------ Grid ------------------
   this.Grid.prototype = new this.Obj()
-  this.Grid.prototype.getName = "Grid"
+  this.Grid.prototype.getName = 'Grid'
   this.Grid.prototype.list = [
     {
       stripes: { gap: 1 },
@@ -1042,7 +1042,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   // ------------------ Panels ------------------
   this.Panels.prototype = new this.Obj()
-  this.Panels.prototype.getName = "Panels"
+  this.Panels.prototype.getName = 'Panels'
   this.Panels.prototype.init = (function (pX) {
     return function (args) {
       var panels = args.panels,
@@ -1075,7 +1075,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
       this.fluctuation = args.fluctuation || 0
       this.imgRatio = args.imgRatio
-        ? typeof args.imgRatio === "object"
+        ? typeof args.imgRatio === 'object'
           ? args.imgRatio
           : { ratio: args.imgRatio }
         : 1
@@ -1363,7 +1363,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   // ------------------ Arm ------------------
   this.Arm.prototype = new this.Obj()
-  this.Arm.prototype.getName = "Arm"
+  this.Arm.prototype.getName = 'Arm'
   this.Arm.prototype.init = (function (pX) {
     return function (args) {
       var hand

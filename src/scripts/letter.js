@@ -1,4 +1,4 @@
-import { helper as helperGlobal } from "../renderengine/helper.js"
+import { helper as helperGlobal } from '../renderengine/helper.js'
 
 export default function (args, init, createSlider) {
   var helper = helperGlobal,
@@ -70,9 +70,9 @@ export default function (args, init, createSlider) {
               {
                 stripes: { strip: 2, horizontal: true },
                 list: [
-                  { name: "Dot", color: [160, 160, 200] },
+                  { name: 'Dot', color: [160, 160, 200] },
                   {
-                    name: "Dot",
+                    name: 'Dot',
                     color: [160, 160, 200],
                     fX: true,
                     fY: true,
@@ -159,12 +159,12 @@ export default function (args, init, createSlider) {
         }),
     ]
 
-  pushChanger(0, 1, "letterS", letterSquare)
+  pushChanger(0, 1, 'letterS', letterSquare)
 
   if (createSlider) {
     createSlider.slider({
-      niceName: "Buchstaben Größe",
-      valueName: "letterS",
+      niceName: 'Buchstaben Größe',
+      valueName: 'letterS',
       defaultValue: 1,
       input: { min: 0, max: 1, step: 0.01 },
     })

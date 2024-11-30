@@ -210,10 +210,10 @@ Actor.prototype.getFocus = function (zoomSX, zoomSY, focus) {
 Actor.prototype.draw = function (args) {
   var info = args.info
 
+  this.zoomToHead = info.zoomToHead
+
   // Decide which size calculation method to use and use it.
-  this[(this.zoomToHead = info.zoomToHead) ? 'getSizeFromHead' : 'getSize'](
-    args,
-  )
+  this[this.zoomToHead ? 'getSizeFromHead' : 'getSize'](args)
 
   // SX and headScaling have automatically been generated; add additional properties
   this.sX.min = 3

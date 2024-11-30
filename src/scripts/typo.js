@@ -423,7 +423,7 @@ export default function () {
             Letters[letter] ||
             (letter === ' ' ? Letters['space'] : Letters['missing']),
           sX = thisLetter.sX,
-          letter = {
+          letterObject = {
             sX: mult(sX, 'wordUnit'),
             x: [
               mult(letterCount, 'wordUnit'),
@@ -444,7 +444,7 @@ export default function () {
           }
 
         letterCount += sX
-        return letter
+        return letterObject
       }
     })(),
     letters = (function () {

@@ -397,8 +397,7 @@ PixelGraphics.prototype.createVariableList = function (vl) {
       }
     },
     creator = function (name) {
-      if (newVL[name]) {
-      } else {
+      if (!newVL[name]) {
         newVL[name] = new DynamicVariable(name)
       }
 

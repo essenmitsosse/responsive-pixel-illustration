@@ -146,10 +146,11 @@ export const Skirt = function (args) {
   // Form & Sizes
   this.skirtSY = this.R(0.3, 1.2)
   this.stripes = this.IF()
-  this.stripes &&
-    ((this.gap = this.R(-0.1, 0.2)),
-    (this.strip = this.R(-0.1, 0.2)),
-    (this.hor = this.IF(0.08)))
+  if (this.stripes) {
+    this.gap = this.R(-0.1, 0.2)
+    this.strip = this.R(-0.1, 0.2)
+    this.hor = this.IF(0.08)
+  }
 
   // Colors
   this.skirtColor = args.skirtColor = this.IF()

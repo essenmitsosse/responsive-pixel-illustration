@@ -32,6 +32,21 @@ const listConfigImport = [
       'import/newline-after-import': 'error',
 
       /**
+       * Reports if a module's default export is unnamed
+       * {@link https://github.com/import-js/eslint-plugin-import/blob/d9b712ac7fd1fddc391f7b234827925c160d956f/docs/rules/no-anonymous-default-export.md}
+       */
+      'import/no-anonymous-default-export': [
+        'error',
+        {
+          /**
+           * This needs to be manually enabled, since it is set to `true` by
+           * default, for backwards compatibility
+           */
+          allowCallExpression: false,
+        },
+      ],
+
+      /**
        * Forbid cyclical dependencies between modules. While it is nice to check
        * this with infinite depth, it is incredible expensive and slows down
        * ESLint significantly.

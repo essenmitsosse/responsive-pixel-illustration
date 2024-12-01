@@ -369,11 +369,11 @@ export const ShoulderPad = function (args) {
   this.border = this.IF(0.5)
   this.deko = this.IF(0.2)
   this.topDetail = this.IF(0.2)
-  this.topDetail &&
-    ((this.topDetailStrip = this.IF(0.2)),
-    (this.topDetailX = !this.topDetailStrip && this.R(0, 1)),
-    (this.topDetailSY = this.R(0, 1)))
-
+  if (this.topDetail) {
+    this.topDetailStrip = this.IF(0.2)
+    this.topDetailX = !this.topDetailStrip && this.R(0, 1)
+    this.topDetailSY = this.R(0, 1)
+  }
   // Colors
   this.shoulderPadColor = this.IF()
     ? args.clothColor

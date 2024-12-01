@@ -97,8 +97,9 @@ export const Belt = function (args) {
       brContrast: this.IF(0.5) ? -1 : 2,
     })
   }
-  this.strips &&
-    (this.pantsColor = args.skirt ? args.skirtColor : args.pantsColor)
+  if (this.strips) {
+    this.pantsColor = args.skirt ? args.skirtColor : args.pantsColor
+  }
 
   // Assets
 } // END Belt

@@ -59,7 +59,9 @@ export const UpperBody = function (args) {
     }
   }
 
-  this.IF(0.1) && (this.logo = new this.basic.Logo(args))
+  if (this.IF(0.1)) {
+    this.logo = new this.basic.Logo(args)
+  }
 } // END UpperBody
 UpperBody.prototype = new Object()
 UpperBody.prototype.draw = function (args) {

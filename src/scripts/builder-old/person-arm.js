@@ -660,15 +660,16 @@ export const Shield = function (args, right) {
   this.shieldShadowColor = this.shieldColor.copy({ brContrast: -1 })
 
   // Assets
-  this.IF(1.1) &&
-    (this.logo = new this.basic.Logo(
+  if (this.IF(1.1)) {
+    this.logo = new this.basic.Logo(
       args,
       right,
       true,
       this.IF(0.1)
         ? this.shieldColor.copy({ nextColor: true, brContrast: 3 })
         : this.shieldShadowColor,
-    ))
+    )
+  }
 } // END Shield
 
 Shield.prototype = new Object()

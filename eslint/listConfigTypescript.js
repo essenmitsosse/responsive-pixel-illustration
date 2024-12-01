@@ -8,6 +8,16 @@ const listConfigTypeScript = [
        * {@link https://typescript-eslint.io/}
        */
       ...typescript.configs['eslint-recommended'].rules,
+
+      /**
+       * Basic ESLint TypeScript rules, that require type checking
+       * {@link https://typescript-eslint.io/linting/typed-linting/}
+       */
+      ...typescript.configs.recommended.rules,
+
+      '@typescript-eslint/no-this-alias': 'off',
+
+      '@typescript-eslint/no-unused-expressions': 'off',
     },
   },
 

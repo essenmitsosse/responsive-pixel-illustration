@@ -1,7 +1,5 @@
 import { Object } from './object.js'
 
-/* global Builder */
-
 // HEAD --------------------------------------------------------------------------------
 export const Head = function (args) {
   var hairNext = this.IF(0.7)
@@ -65,8 +63,7 @@ export const Head = function (args) {
 } // END Head
 Head.prototype = new Object()
 Head.prototype.getSizes = function (args) {
-  var nr = args.nr,
-    sideView = args.sideView
+  var sideView = args.sideView
 
   if (args.calc) {
     args.headBaseSY = this.pushLinkList({ r: 1, useSize: args.size })
@@ -329,8 +326,7 @@ export const Eye = function (args) {
 } // END Eye
 Eye.prototype = new Object()
 Eye.prototype.getSizes = function (args) {
-  var nr = args.nr,
-    sideView = args.sideView
+  var sideView = args.sideView
 
   if (args.calc) {
     args.eyeFullSX = this.pushLinkList({
@@ -368,7 +364,6 @@ Eye.prototype.getSizes = function (args) {
 }
 Eye.prototype.draw = function (args) {
   var nr = args.nr,
-    sideView = args.sideView,
     thisEye = args.eye || {},
     lids = thisEye.lids,
     lookHor = thisEye.lookHor,
@@ -747,7 +742,7 @@ export const Hair = function (args) {
   this.longHair = this.IF(0.1)
   this.hairSY = this.R(0.1, 1) * (this.longHair ? 3 : 1)
   this.hairSide = this.curly || this.IF(0.99)
-  this.hairSideSY = 0.8 || (this.hairSide && this.R(0.2, 0.8))
+  this.hairSideSY = 0.8
   this.hairAccuracy = this.R(0.1, 0.3)
   this.hairS = this.R(0.01, 0.1)
 

@@ -88,26 +88,7 @@ export default function (init, slide, createSlider) {
           'legRaise',
           // "kneeBend", "legHigh"
         ],
-        teethPos = ['', 'top', 'bottom', 'both', 'full'],
-        shoulderPos = [0, 0, 0, 0, 0, -90, -90, 180],
-        ellbowPos = [0, 0, 0, 90, -90],
-        views = [
-          '',
-          '',
-          '',
-          '',
-          '',
-          '',
-          'rightView',
-          'leftView',
-          'rightView',
-          'leftView',
-          'rightView',
-          'leftView',
-          'rightView',
-          'leftView',
-          'backView',
-        ]
+        teethPos = ['', 'top', 'bottom', 'both', 'full']
 
       return function (args) {
         args.eye = {

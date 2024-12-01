@@ -1,7 +1,5 @@
 import { BBObj } from './object.js'
 
-/* global BBProto, BBObj */
-
 // PERSON MAIN  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 export const PersonMain = function (args) {
   // Sizes and Forms
@@ -51,18 +49,6 @@ PersonMain.prototype.draw = function (args) {
     }),
   )
 
-  var neck =
-    false &&
-    new this.basic.Rotater({
-      drawer: this.neck,
-      id: 'neck',
-      rotate: args.rotate,
-      baseSX: this.neckSX,
-      sY: this.neckSY,
-      y: this.headSY,
-      zAbs: 60,
-    })
-
   this.headXSide = 1
 
   head = this.mover(head, {
@@ -80,7 +66,7 @@ PersonMain.prototype.draw = function (args) {
     sX: args.sX,
     cX: true,
     fY: true,
-    list: [head.get, neck && neck.get, bodyMain.get],
+    list: [head.get, bodyMain.get],
   }
 } // End PersonMain Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -132,7 +118,7 @@ BodyMain.prototype.draw = function (args) {
     })
 
   lowerBody = this.mover(lowerBody, {
-    xRel: -1 && 0,
+    xRel: 0,
     max: { a: 2 },
   })
 

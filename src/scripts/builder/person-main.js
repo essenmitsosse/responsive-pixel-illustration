@@ -1,7 +1,5 @@
 import { Object } from './object.js'
 
-/* global Builder */
-
 // PERSON --------------------------------------------------------------------------------
 export const Person = function (args) {
   if (!args) {
@@ -15,8 +13,9 @@ export const Person = function (args) {
 
 Person.prototype = new Object()
 Person.prototype.draw = function (args, z) {
-  var nr = (args.nr = this.basic.objectCount += 1),
-    backView = (args.backView = args.view === 'backView'),
+  args.nr = this.basic.objectCount += 1
+
+  var backView = (args.backView = args.view === 'backView'),
     sideView = (args.sideView = !backView && args.view ? true : false)
 
   args.id = this.id
@@ -108,8 +107,7 @@ export const BasicBody = function (args) {
 } // END BasicBody
 BasicBody.prototype = new Object()
 BasicBody.prototype.draw = function (args, right) {
-  var nr = args.nr,
-    sideView = args.sideView
+  var sideView = args.sideView
 
   args.right = right
   args.calc = args.backView !== right || sideView

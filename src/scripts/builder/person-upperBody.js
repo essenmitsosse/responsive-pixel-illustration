@@ -1,7 +1,5 @@
 import { Object } from './object.js'
 
-/* global Builder */
-
 // UPPER BODY --------------------------------------------------------------------------------
 export const UpperBody = function (args) {
   var shirtColor = args.firstColor.getBr()
@@ -200,8 +198,7 @@ export const Stripes = function (args) {
 } // END Stripes
 Stripes.prototype = new Object()
 Stripes.prototype.draw = function (args, z) {
-  var nr = args.nr,
-    sideView = args.sideView
+  var sideView = args.sideView
 
   return (
     (sideView || !args.right) && {
@@ -259,8 +256,7 @@ export const Buttons = function (args, color) {
 } // END Buttons
 Buttons.prototype = new Object()
 Buttons.prototype.draw = function (args, z) {
-  var nr = args.nr,
-    sideView = args.sideView
+  var sideView = args.sideView
 
   return (
     !args.backView && {
@@ -455,8 +451,7 @@ export const Cleavage = function (args) {
 Cleavage.prototype = new Object()
 
 Cleavage.prototype.draw = function (args, z) {
-  var nr = args.nr,
-    sideView = args.sideView
+  var sideView = args.sideView
 
   if (args.calc) {
     args.cleavageSX = this.pushLinkList({
@@ -535,8 +530,7 @@ export const Nipples = function (args) {
 } // END Nipples
 Nipples.prototype = new Object()
 Nipples.prototype.draw = function (args, z) {
-  var nr = args.nr,
-    sideView = args.sideView
+  var sideView = args.sideView
 
   if (args.calc) {
     args.nippleS = this.pushLinkList({
@@ -569,8 +563,7 @@ export const Cape = function (args) {
 Cape.prototype = new Object()
 
 Cape.prototype.draw = function (args) {
-  var nr = args.nr,
-    sideView = args.sideView
+  var sideView = args.sideView
 
   if (args.calc) {
     args.capeFrontSY = this.pushLinkList({
@@ -596,8 +589,7 @@ Cape.prototype.draw = function (args) {
 } // END Cape Back draw
 
 Cape.prototype.drawFront = function (args) {
-  var nr = args.nr,
-    sideView = args.sideView
+  var sideView = args.sideView
 
   return {
     color: this.capeColor.get(),

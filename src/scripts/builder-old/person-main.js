@@ -17,7 +17,9 @@ Person.prototype.draw = function (args, z) {
 
   args.id = this.id
 
-  z || (z = this.basic.objectCount * 10000)
+  if (!z) {
+    z = this.basic.objectCount * 10000
+  }
 
   this.vL['personHalfSX' + nr] = { r: 0.5, min: 5, useSize: args.size }
 
@@ -39,15 +41,13 @@ Person.prototype.draw = function (args, z) {
 
 // BASICBODY --------------------------------------------------------------------------------
 export const BasicBody = function (args) {
-  var nextFirstColor = this.IF(0.5),
-    nextSecondColor = this.IF(0.2),
-    hues = [
-      [0, 1, 2],
-      [0, 2, 2],
-      [0, 1, 1],
-      [1, 0, 0],
-      [2, 0, 1],
-    ][this.GR(0, 4)]
+  var hues = [
+    [0, 1, 2],
+    [0, 2, 2],
+    [0, 1, 1],
+    [1, 0, 0],
+    [2, 0, 1],
+  ][this.GR(0, 4)]
 
   // Form & Sizes
 
@@ -102,7 +102,6 @@ BasicBody.prototype = new Object()
 BasicBody.prototype.draw = function (args, right) {
   var nr = args.nr,
     sideView = args.sideView,
-    list,
     head
 
   args.right = right
@@ -194,7 +193,9 @@ export const Logo = function (args, right, symetrical, logoColor) {
   this.Y = this.R(0, 0.5)
 
   this.oneSide = !symetrical && this.IF(0.1)
-  this.oneSide && (this.side = this.IF(0.5))
+  if (this.oneSide) {
+    this.side = this.IF(0.5)
+  }
 
   this.roundUp = this.IF(0.3)
   this.roundDown = this.IF(0.3)

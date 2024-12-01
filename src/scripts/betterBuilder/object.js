@@ -41,8 +41,6 @@ BBObj.prototype.calcRotation = function (rotate) {
 }
 
 BBObj.prototype.calcRotation.prototype.getRotation = function (rotate) {
-  var abs
-
   if (rotate > 180) {
     rotate -= 360
   } else if (rotate < -180) {
@@ -51,7 +49,7 @@ BBObj.prototype.calcRotation.prototype.getRotation = function (rotate) {
 
   return {
     real: (rotate = rotate / 90),
-    abs: (abs = 1 - Math.abs(rotate)),
+    abs: 1 - Math.abs(rotate),
   }
 }
 
@@ -88,7 +86,7 @@ export const Rotater = function (args) {
     this.ll.push((this.y = args.y))
   }
 
-  ;(args.roundTop || args.roundBottom) &&
+  if (args.roundTop || args.roundBottom) {
     this.list.push({
       minX: 5,
       minY: 5,
@@ -104,6 +102,7 @@ export const Rotater = function (args) {
         },
       ],
     })
+  }
 
   this.pusher(rotate.FL, drawer.draw(args, true, false))
   this.pusher(rotate.FR, drawer.draw(args, true, true), true)

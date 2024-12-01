@@ -729,7 +729,7 @@ export const Hair = function (args) {
   this.longHair = this.IF(0.1)
   this.hairSY = this.R(0.1, 1) * (this.longHair ? 3 : 1)
   this.hairSide = this.curly || this.IF(0.99)
-  this.hairSideSY = 0.8 || (this.hairSide && this.R(0.2, 0.8))
+  this.hairSideSY = 0.8
   this.hairAccuracy = this.R(0.1, 0.3)
   this.hairS = this.R(0.01, 0.1)
 
@@ -924,8 +924,9 @@ export const Beard = function (args) {
   this.detailChance = this.R(0, 0.5)
 
   // Color
-  this.threeOClok &&
-    (this.skinShadowColor = args.skinShadowColor.copy({ min: 1 }))
+  if (this.threeOClok) {
+    this.skinShadowColor = args.skinShadowColor.copy({ min: 1 })
+  }
   this.hairDetailColor = args.hairDetailColor
 
   // Assets

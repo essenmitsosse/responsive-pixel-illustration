@@ -111,7 +111,6 @@ export default function () {
       },
     ],
     hair = [255, 255, 255],
-    shadowColor = treesDark,
     i = 0,
     snake = function (nr, vert) {
       var x = !vert ? ['snakeWeight', -1] : undefined,
@@ -323,7 +322,7 @@ export default function () {
                 list: [
                   // TEIRESIAS Shadow
                   {
-                    color: shadowColor,
+                    color: treesDark,
                     sX: 'teiresias',
                     sY: 'imgPadding',
                     x: 'teiresiasX',
@@ -342,7 +341,7 @@ export default function () {
 
                   // SNAKES Shadow
                   {
-                    color: shadowColor,
+                    color: treesDark,
                     sX: 'snakeWidth',
                     sY: 'imgPadding',
                     fY: true,

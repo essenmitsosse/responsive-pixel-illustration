@@ -28,8 +28,6 @@ export const TableComic = function (init, slide, createSlider) {
     innerSquare,
     innerSquareBig,
     innerSquareAverage,
-    controlerSX,
-    controlerSY,
     controlerX,
     controlerY,
     helper = helperGlobal,
@@ -53,8 +51,8 @@ export const TableComic = function (init, slide, createSlider) {
 
       (innerSquareAverage = innerSquareBig),
 
-      (controlerSX = { r: 0.015, useSize: square, min: 1 }),
-      (controlerSY = { r: 0.01, useSize: square, min: 1 }),
+      { r: 0.015, useSize: square, min: 1 },
+      { r: 0.01, useSize: square, min: 1 },
 
       (controlerX = { r: 0, useSize: sX }),
       (controlerY = { r: 0, useSize: sY }),

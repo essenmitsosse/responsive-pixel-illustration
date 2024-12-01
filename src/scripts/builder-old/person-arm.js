@@ -12,15 +12,14 @@ export const Arm = function (args) {
   this.upperArmSY = this.R(0.2, 0.8)
 
   this.sleeves = args.sleeves = !args.topless && this.IF(0.95)
-  this.sleeves &&
-    ((this.sleeveSY = this.R(0, 1)),
-    (this.upperSleeveSY =
-      this.upperArmSY > this.sleeveSY ? this.sleeveSY : 'full'),
-    (this.lowerSleeveSY =
-      this.upperArmSY > this.sleeveSY
-        ? false
-        : this.sleeveSY - this.upperArmSY),
-    (this.fullUpper = this.upperSleeveSY === 'full'))
+  if (this.sleeves) {
+    this.sleeveSY = this.R(0, 1)
+    this.upperSleeveSY =
+      this.upperArmSY > this.sleeveSY ? this.sleeveSY : 'full'
+    this.lowerSleeveSY =
+      this.upperArmSY > this.sleeveSY ? false : this.sleeveSY - this.upperArmSY
+    this.fullUpper = this.upperSleeveSY === 'full'
+  }
 
   this.vest = args.sleeves && this.IF()
 
@@ -96,15 +95,17 @@ Arm.prototype.draw = function (args, rightSide, behind) {
     this.vL['lowerArmSY' + nr] = ['armSY' + nr, this.sub('upperArmSY' + nr)]
 
     if (this.sleeves) {
-      !this.fullUpper
-        ? (this.vL['upperSleeveSY' + nr] = {
-            r: this.upperSleeveSY,
-            useSize: 'armSY' + nr,
-          })
-        : (this.vL['lowerSleeveSY' + nr] = {
-            r: this.lowerSleeveSY,
-            useSize: 'armSY' + nr,
-          })
+      if (!this.fullUpper) {
+        this.vL['upperSleeveSY' + nr] = {
+          r: this.upperSleeveSY,
+          useSize: 'armSY' + nr,
+        }
+      } else {
+        this.vL['lowerSleeveSY' + nr] = {
+          r: this.lowerSleeveSY,
+          useSize: 'armSY' + nr,
+        }
+      }
     }
   }
 
@@ -137,23 +138,25 @@ Arm.prototype.draw = function (args, rightSide, behind) {
   }
 
   if (this.sleeves) {
-    !this.fullUpper
-      ? ((this.vL['upperSleeveX' + nrName] = {
-          r: Math.sin(shoulderAngle),
-          useSize: 'upperSleeveSY' + nr,
-        }),
-        (this.vL['upperSleeveY' + nrName] = {
-          r: Math.cos(shoulderAngle),
-          useSize: 'upperSleeveSY' + nr,
-        }))
-      : ((this.vL['lowerSleeveX' + nrName] = {
-          r: Math.sin(armAngle),
-          useSize: 'lowerSleeveSY' + nr,
-        }),
-        (this.vL['lowerSleeveY' + nrName] = {
-          r: Math.cos(armAngle),
-          useSize: 'lowerSleeveSY' + nr,
-        }))
+    if (!this.fullUpper) {
+      this.vL['upperSleeveX' + nrName] = {
+        r: Math.sin(shoulderAngle),
+        useSize: 'upperSleeveSY' + nr,
+      }
+      this.vL['upperSleeveY' + nrName] = {
+        r: Math.cos(shoulderAngle),
+        useSize: 'upperSleeveSY' + nr,
+      }
+    } else {
+      this.vL['lowerSleeveX' + nrName] = {
+        r: Math.sin(armAngle),
+        useSize: 'lowerSleeveSY' + nr,
+      }
+      this.vL['lowerSleeveY' + nrName] = {
+        r: Math.cos(armAngle),
+        useSize: 'lowerSleeveSY' + nr,
+      }
+    }
   }
 
   return {
@@ -366,11 +369,11 @@ export const ShoulderPad = function (args) {
   this.border = this.IF(0.5)
   this.deko = this.IF(0.2)
   this.topDetail = this.IF(0.2)
-  this.topDetail &&
-    ((this.topDetailStrip = this.IF(0.2)),
-    (this.topDetailX = !this.topDetailStrip && this.R(0, 1)),
-    (this.topDetailSY = this.R(0, 1)))
-
+  if (this.topDetail) {
+    this.topDetailStrip = this.IF(0.2)
+    this.topDetailX = !this.topDetailStrip && this.R(0, 1)
+    this.topDetailSY = this.R(0, 1)
+  }
   // Colors
   this.shoulderPadColor = this.IF()
     ? args.clothColor
@@ -383,21 +386,21 @@ export const ShoulderPad = function (args) {
     : this.IF()
       ? args.secondColor.copy({ brContrast: 2, max: 4 })
       : this.shoulderPadColor.copy({ brContrast: -1, max: 4 })
-  ;(this.deko || this.topDetail) &&
-    ((this.dekoColor = (
+  if (this.deko || this.topDetail) {
+    this.dekoColor = (
       this.IF(0.5) ? this.shoulderPadColor : args.secondColor
-    ).copy({ brContrast: 2, max: 4 })),
-    (this.dekoShadowColor = this.dekoColor.copy({
+    ).copy({ brContrast: 2, max: 4 })
+    this.dekoShadowColor = this.dekoColor.copy({
       brContrast: -1,
       max: 4,
-    })))
+    })
+  }
 
   // Assets
 } // END ShoulderPad
 ShoulderPad.prototype = new Object()
 ShoulderPad.prototype.draw = function (args, z) {
-  var nr = args.nr,
-    sideView = args.sideView
+  var nr = args.nr
 
   return {
     sX: {
@@ -489,14 +492,13 @@ ShoulderPad.prototype.draw = function (args, z) {
 } // END ShoulderPad draw
 
 // TOOL --------------------------------------------------------------------------------
-export const Tool = function (args) {
+export const Tool = function () {
   // Form & Sizes
   // Assets
 } // END Tool
 Tool.prototype = new Object()
-Tool.prototype.draw = function (args, z) {
-  var nr = args.nr,
-    sideView = args.sideView
+Tool.prototype.draw = function (args) {
+  var nr = args.nr
 
   return {
     s: 'armSX' + nr,
@@ -543,8 +545,7 @@ Sword.prototype = new Object()
 Sword.prototype.draw = function (args, z) {
   var nr = args.nr,
     name = this.rightSide ? 'right' : 'left',
-    nrName = name + nr,
-    side = args.side
+    nrName = name + nr
 
   this.vL['handleSY' + nrName] = { add: ['handSX' + nr, -2], min: 1 }
   this.vL['bladeSX' + nrName] = {
@@ -644,9 +645,10 @@ export const Shield = function (args, right) {
   this.shieldSX = this.IF() ? this.R(0.4, 0.8) : this.R(0, 0.4)
   this.shieldSY = this.IF() ? this.R(0.4, 0.8) : this.R(0, 0.4)
 
-  this.IF() &&
-    ((this.stripesGap = this.R(0.01, 0.2)),
-    (this.stripesStrip = this.R(0.01, 0.2)))
+  if (this.IF()) {
+    this.stripesGap = this.R(0.01, 0.2)
+    this.stripesStrip = this.R(0.01, 0.2)
+  }
 
   this.roundTop = this.IF(0.5)
   this.roundBottom = this.IF(0.5)
@@ -658,22 +660,22 @@ export const Shield = function (args, right) {
   this.shieldShadowColor = this.shieldColor.copy({ brContrast: -1 })
 
   // Assets
-  this.IF(1.1) &&
-    (this.logo = new this.basic.Logo(
+  if (this.IF(1.1)) {
+    this.logo = new this.basic.Logo(
       args,
       right,
       true,
       this.IF(0.1)
         ? this.shieldColor.copy({ nextColor: true, brContrast: 3 })
         : this.shieldShadowColor,
-    ))
+    )
+  }
 } // END Shield
 
 Shield.prototype = new Object()
 Shield.prototype.draw = function (args, z) {
   var nr = args.nr,
     nrName = this.name + nr,
-    side = args.side,
     logo = [this.logo.draw(args, z + 805)]
 
   this.vL['shieldSX' + nrName] = {

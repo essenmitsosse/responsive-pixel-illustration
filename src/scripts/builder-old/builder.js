@@ -37,7 +37,6 @@ export const Builder = function (init) {
     margin = help.margin,
     initID = init.id ? init.id : Math.floor(Math.random() * 4294967296),
     random = help.random(initID),
-    that = this,
     joinVariableList = {}
 
   this.help = help
@@ -52,11 +51,11 @@ export const Builder = function (init) {
   this.GR = random.getRandom
   this.R = random.getRandomFloat
   this.init = init
-  ;(this.colorInfo = {
+  this.colorInfo = {
     colors: 3,
     steps: 6,
-  }),
-    (this.Color.prototype.colors = this.buildColors(this.colorInfo))
+  }
+  this.Color.prototype.colors = this.buildColors(this.colorInfo)
   this.Color.prototype.Color = this.Color
 
   this.backgroundColor = new this.Color(this.IF() ? 1 : 0, 5)

@@ -92,10 +92,11 @@ export const Belt = function (args) {
 
   // Colors
   this.beltColor = args.beltColor || args.pantsColor.copy({ brContrast: -1 })
-  this.buckle &&
-    (this.buckleColor = this.beltColor.copy({
+  if (this.buckle) {
+    this.buckleColor = this.beltColor.copy({
       brContrast: this.IF(0.5) ? -1 : 2,
-    }))
+    })
+  }
   this.strips &&
     (this.pantsColor = args.skirt ? args.skirtColor : args.pantsColor)
 

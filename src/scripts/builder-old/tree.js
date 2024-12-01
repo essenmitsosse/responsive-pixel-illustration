@@ -12,8 +12,8 @@ export const TreeFamily = function (args) {
   this.horFactor = this.R(0, 1) * 0.6 + 0.4
 
   this.fruit = this.IF()
-  ;(this.fruitChance = this.fruit && this.R(0, 1) * 0.02),
-    (this.fruitSize = this.fruit && this.GR(2, 4))
+  this.fruitChance = this.fruit && this.R(0, 1) * 0.02
+  this.fruitSize = this.fruit && this.GR(2, 4)
 
   this.leaveX = this.GR(1, 4)
   this.leaveY = this.GR(1, 4)

@@ -95,15 +95,17 @@ Arm.prototype.draw = function (args, rightSide, behind) {
     this.vL['lowerArmSY' + nr] = ['armSY' + nr, this.sub('upperArmSY' + nr)]
 
     if (this.sleeves) {
-      !this.fullUpper
-        ? (this.vL['upperSleeveSY' + nr] = {
-            r: this.upperSleeveSY,
-            useSize: 'armSY' + nr,
-          })
-        : (this.vL['lowerSleeveSY' + nr] = {
-            r: this.lowerSleeveSY,
-            useSize: 'armSY' + nr,
-          })
+      if (!this.fullUpper) {
+        this.vL['upperSleeveSY' + nr] = {
+          r: this.upperSleeveSY,
+          useSize: 'armSY' + nr,
+        }
+      } else {
+        this.vL['lowerSleeveSY' + nr] = {
+          r: this.lowerSleeveSY,
+          useSize: 'armSY' + nr,
+        }
+      }
     }
   }
 

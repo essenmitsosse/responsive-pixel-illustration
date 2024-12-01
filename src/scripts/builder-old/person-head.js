@@ -924,8 +924,9 @@ export const Beard = function (args) {
   this.detailChance = this.R(0, 0.5)
 
   // Color
-  this.threeOClok &&
-    (this.skinShadowColor = args.skinShadowColor.copy({ min: 1 }))
+  if (this.threeOClok) {
+    this.skinShadowColor = args.skinShadowColor.copy({ min: 1 })
+  }
   this.hairDetailColor = args.hairDetailColor
 
   // Assets

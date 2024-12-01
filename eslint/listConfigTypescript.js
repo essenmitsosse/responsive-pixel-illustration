@@ -1,6 +1,16 @@
 import typescript from '@typescript-eslint/eslint-plugin'
 
 const listConfigTypeScript = [
+  {
+    rules: {
+      /**
+       * Basic ESLint TypeScript rules, that work without type checking
+       * {@link https://typescript-eslint.io/}
+       */
+      ...typescript.configs['eslint-recommended'].rules,
+    },
+  },
+
   /**
    * Overwrite default rule by ESLint with the `@typescript-eslint` version
    * which respects some TypeScript specfics. The JavaScript version of this

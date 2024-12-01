@@ -135,7 +135,7 @@ export default function () {
     getLetter = (function () {
       var Letters = new (function () {
         var vertStem = { sY: 'stemVert', cY: true }
-        ;(this.missing = {
+        this.missing = {
           sX: 2,
           list: [
             {
@@ -146,49 +146,49 @@ export default function () {
               },
             },
           ],
-        }),
-          (this.space = {
-            sX: 3,
-            list: [],
-          }),
-          (this.A = {
-            sX: 4,
-            half: true,
-            list: [
-              {
-                stripes: {
-                  horizontal: true,
-                  change: { r: -0.9 },
-                },
-                fY: true,
-                fX: true,
-                sX: { r: 1, a: 'stemNeg' },
-                id: 'A',
-                clear: true,
+        }
+        this.space = {
+          sX: 3,
+          list: [],
+        }
+        this.A = {
+          sX: 4,
+          half: true,
+          list: [
+            {
+              stripes: {
+                horizontal: true,
+                change: { r: -0.9 },
               },
-              {
-                stripes: {
-                  horizontal: true,
-                  change: { r: -0.9 },
-                },
-                fY: true,
-                fX: true,
-                id: 'A',
+              fY: true,
+              fX: true,
+              sX: { r: 1, a: 'stemNeg' },
+              id: 'A',
+              clear: true,
+            },
+            {
+              stripes: {
+                horizontal: true,
+                change: { r: -0.9 },
               },
+              fY: true,
+              fX: true,
+              id: 'A',
+            },
 
-              {
-                sY: 'stemVert',
-                y: { r: 0.6 },
-                sX: { r: 0.5 },
-                fX: true,
-              },
-              { x: -1, list: [getSerif({ bottom: true })] },
-              {
-                x: 1,
-                list: [getSerif({ half: true, right: true })],
-              },
-            ],
-          })
+            {
+              sY: 'stemVert',
+              y: { r: 0.6 },
+              sX: { r: 0.5 },
+              fX: true,
+            },
+            { x: -1, list: [getSerif({ bottom: true })] },
+            {
+              x: 1,
+              list: [getSerif({ half: true, right: true })],
+            },
+          ],
+        }
 
         this.C = {
           sX: 3,

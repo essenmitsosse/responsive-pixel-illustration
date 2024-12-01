@@ -26,6 +26,12 @@ const listConfigImport = [
       'import/first': 'error',
 
       /**
+       * Require a newline after the last import/require in a group
+       * {@link https://github.com/import-js/eslint-plugin-import/blob/master/docs/rules/newline-after-import.md}
+       */
+      'import/newline-after-import': 'error',
+
+      /**
        * Forbid cyclical dependencies between modules. While it is nice to check
        * this with infinite depth, it is incredible expensive and slows down
        * ESLint significantly.

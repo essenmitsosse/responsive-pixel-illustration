@@ -69,14 +69,14 @@ test('interact with sliders', async ({ page }) => {
   await page.goto(
     '/?slide=9&id=362604472&p=5&panelCount=6&head-size=0&body-width=0.94&body-height=1&arm-length=0.26&leg-length=0.6&dontHighlight=true',
   )
-  const panelsInput = await page.locator('input[type="number"]').first()
+  const panelsInput = page.locator('input[type="number"]').first()
 
   await panelsInput.fill('12')
   await panelsInput.press('Enter')
 
   await page.waitForURL('/?slide=9&*')
 
-  const sliderTrack = await page.locator('input[type="range"]').first()
+  const sliderTrack = page.locator('input[type="range"]').first()
   const sliderOffsetWidth = await sliderTrack.evaluate((el) => {
     return el.getBoundingClientRect()
   })

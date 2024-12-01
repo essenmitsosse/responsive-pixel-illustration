@@ -16,20 +16,6 @@ const listConfigTypeScript = [
       ...typescript.configs.recommended.rules,
 
       /**
-       * Assigning a variable to this instead of properly using arrow lambdas
-       * may be a symptom of pre-ES6 practices or not managing scope well.
-       *
-       * {@link https://typescript-eslint.io/rules/no-this-alias/}
-       *
-       * This rule is enabled in the recommended rule that, but currently the
-       * code needs to violate it in quite a few places. As suggested in the
-       * docs, this rule for now only enforces a consistent alias name `that`.
-       *
-       * TODO: Refactor code in such a way that aliasing `this` is not needed.
-       * */
-      '@typescript-eslint/no-this-alias': ['error', { allowedNames: ['that'] }],
-
-      /**
        * A "Thenable" value is an object which has a `then` method, such as a
        * Promise. The `await` keyword is generally used to retrieve the result
        * of calling a Thenable's `then` method.
@@ -43,6 +29,20 @@ const listConfigTypeScript = [
        * {@link https://typescript-eslint.io/rules/await-thenable}
        */
       '@typescript-eslint/await-thenable': 'error',
+
+      /**
+       * Assigning a variable to this instead of properly using arrow lambdas
+       * may be a symptom of pre-ES6 practices or not managing scope well.
+       *
+       * {@link https://typescript-eslint.io/rules/no-this-alias/}
+       *
+       * This rule is enabled in the recommended rule that, but currently the
+       * code needs to violate it in quite a few places. As suggested in the
+       * docs, this rule for now only enforces a consistent alias name `that`.
+       *
+       * TODO: Refactor code in such a way that aliasing `this` is not needed.
+       * */
+      '@typescript-eslint/no-this-alias': ['error', { allowedNames: ['that'] }],
     },
   },
 

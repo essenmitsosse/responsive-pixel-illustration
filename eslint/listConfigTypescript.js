@@ -15,6 +15,20 @@ const listConfigTypeScript = [
        */
       ...typescript.configs.recommended.rules,
 
+      /**
+       * Assigning a variable to this instead of properly using arrow lambdas
+       * may be a symptom of pre-ES6 practices or not managing scope well.
+       *
+       * {@link https://typescript-eslint.io/rules/no-this-alias/}
+       *
+       * This rule is enabled in the recommended rule that, but currently the
+       * code needs to violate it in quite a few places. As suggested in the
+       * docs, this rule for now only enforces a consistent alias name `that`.
+       *
+       * TODO: Refactor code in such a way that aliasing `this` is not needed.
+       * */
+      '@typescript-eslint/no-this-alias': ['error', { allowedNames: ['that'] }],
+
       '@typescript-eslint/no-unused-expressions': 'off',
     },
   },

@@ -86,7 +86,7 @@ export const Rotater = function (args) {
     this.ll.push((this.y = args.y))
   }
 
-  ;(args.roundTop || args.roundBottom) &&
+  if (args.roundTop || args.roundBottom) {
     this.list.push({
       minX: 5,
       minY: 5,
@@ -102,6 +102,7 @@ export const Rotater = function (args) {
         },
       ],
     })
+  }
 
   this.pusher(rotate.FL, drawer.draw(args, true, false))
   this.pusher(rotate.FR, drawer.draw(args, true, true), true)

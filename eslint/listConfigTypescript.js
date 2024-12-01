@@ -31,6 +31,14 @@ const listConfigTypeScript = [
       '@typescript-eslint/await-thenable': 'error',
 
       /**
+       * This rule enforces that functions do have an explicit return type
+       * annotation.
+       *
+       * {@link https://typescript-eslint.io/rules/explicit-function-return-type/}
+       */
+      '@typescript-eslint/explicit-function-return-type': 'error',
+
+      /**
        * Assigning a variable to this instead of properly using arrow lambdas
        * may be a symptom of pre-ES6 practices or not managing scope well.
        *
@@ -44,6 +52,13 @@ const listConfigTypeScript = [
        * */
       '@typescript-eslint/no-this-alias': ['error', { allowedNames: ['that'] }],
     },
+  },
+
+  /** Disable rule for .js, because return types can't be typed in `.js` fiels */
+  {
+    files: ['**/*.js'],
+    plugins: { '@typescript-eslint': typescript },
+    rules: { '@typescript-eslint/explicit-function-return-type': 'off' },
   },
 
   /**

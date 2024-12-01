@@ -371,7 +371,9 @@ export const Collar = function (args) {
   this.scarf = !this.tie && this.IF(0.05)
 
   // Colors
-  this.tie && (this.tieColor = args.clothColor.copy({ brSet: 0 }))
+  if (this.tie) {
+    this.tieColor = args.clothColor.copy({ brSet: 0 })
+  }
   this.shirtColor = args.shirtColor
 
   // Assets

@@ -75,23 +75,23 @@ export const Comic = function (init) {
     min: ['gutterX', 1],
     max: ['borderY', -1],
   }
-  ;(this.vL['gutterBorderS'] = {
+  this.vL['gutterBorderS'] = {
     r: this.GR(-1, 1),
     useSize: 'gutterX',
     max: -1,
     min: { r: -0.5, useSize: 'gutterX', a: 0.5 },
-  }),
-    (this.vL['_effectiveImgSX'] = {
-      max: { r: 3, useSize: 'imgSX' },
-      add: [
-        '_panelOvershot3IF',
-        {
-          a: '_panelOvershot2IF',
-          min: 'imgSX',
-          max: { r: 2, useSize: 'imgSX' },
-        },
-      ],
-    })
+  }
+  this.vL['_effectiveImgSX'] = {
+    max: { r: 3, useSize: 'imgSX' },
+    add: [
+      '_panelOvershot3IF',
+      {
+        a: '_panelOvershot2IF',
+        min: 'imgSX',
+        max: { r: 2, useSize: 'imgSX' },
+      },
+    ],
+  }
 
   this.vL['panelRestSX'] = [
     '_effectiveImgSX',

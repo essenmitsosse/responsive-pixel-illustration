@@ -15,8 +15,6 @@ const listConfigTypeScript = [
        */
       ...typescript.configs.recommended.rules,
 
-      '@typescript-eslint/no-this-alias': 'off',
-
       '@typescript-eslint/no-unused-expressions': 'off',
     },
   },

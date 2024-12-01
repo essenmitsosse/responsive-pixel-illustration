@@ -156,7 +156,9 @@ export const Skirt = function (args) {
   this.skirtColor = args.skirtColor = this.IF()
     ? args.firstColor
     : args.secondColor.copy({ brContrast: 1, max: 4 })
-  this.stripes && (this.stripeColor = this.skirtColor.copy({ brContrast: -1 }))
+  if (this.stripes) {
+    this.stripeColor = this.skirtColor.copy({ brContrast: -1 })
+  }
 
   // Assets
 } // END Skirt

@@ -29,7 +29,9 @@ export const UpperBody = function (args) {
 
   // Assets
   this.arm = new this.basic.Arm(args)
-  this.IF(0.05) && (this.cape = new this.basic.Cape(args))
+  if (this.IF(0.05)) {
+    this.cape = new this.basic.Cape(args)
+  }
   this.topless && this.IF(0.8) && (this.nipples = new this.basic.Nipples(args))
 
   !args.animal &&

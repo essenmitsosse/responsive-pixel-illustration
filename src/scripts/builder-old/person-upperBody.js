@@ -179,8 +179,10 @@ export const Stripes = function (args) {
   this.horizontal = this.IF(0.5)
   this.randomDots = this.IF(0.05)
   this.doted = !this.randomDots && this.IF(0.1)
-  this.doted &&
-    ((this.dotGap = this.R(0.05, 0.2)), (this.dotStrip = this.R(0.05, 0.2)))
+  if (this.doted) {
+    this.dotGap = this.R(0.05, 0.2)
+    this.dotStrip = this.R(0.05, 0.2)
+  }
 
   // Colors
   this.stripColor = (this.IF(0.5) ? args.secondColor : args.clothColor).copy({

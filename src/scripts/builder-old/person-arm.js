@@ -386,14 +386,15 @@ export const ShoulderPad = function (args) {
     : this.IF()
       ? args.secondColor.copy({ brContrast: 2, max: 4 })
       : this.shoulderPadColor.copy({ brContrast: -1, max: 4 })
-  ;(this.deko || this.topDetail) &&
-    ((this.dekoColor = (
+  if (this.deko || this.topDetail) {
+    this.dekoColor = (
       this.IF(0.5) ? this.shoulderPadColor : args.secondColor
-    ).copy({ brContrast: 2, max: 4 })),
-    (this.dekoShadowColor = this.dekoColor.copy({
+    ).copy({ brContrast: 2, max: 4 })
+    this.dekoShadowColor = this.dekoColor.copy({
       brContrast: -1,
       max: 4,
-    })))
+    })
+  }
 
   // Assets
 } // END ShoulderPad

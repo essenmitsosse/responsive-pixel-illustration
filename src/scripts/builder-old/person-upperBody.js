@@ -82,11 +82,9 @@ UpperBody.prototype.draw = function (args) {
       useSize: 'upperBodySY' + nr,
       min: 1,
     }
-    this.chestWide &&
-      (this.vL['stomachSY' + nr] = [
-        'upperBodySY' + nr,
-        this.sub('chestSY' + nr),
-      ])
+    if (this.chestWide) {
+      this.vL['stomachSY' + nr] = ['upperBodySY' + nr, this.sub('chestSY' + nr)]
+    }
     this.vL['trapSX' + nr] = [
       'chestSX' + nr,
       this.mult(sideView ? -2 : -1, 'neckSX' + nr),

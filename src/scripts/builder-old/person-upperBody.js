@@ -377,9 +377,9 @@ export const Collar = function (args) {
   this.shirtColor = args.shirtColor
 
   // Assets
-  this.open &&
-    this.IF(0.3) &&
-    (this.buttons = new this.basic.Buttons(args, this.shirtColor))
+  if (this.open && this.IF(0.3)) {
+    this.buttons = new this.basic.Buttons(args, this.shirtColor)
+  }
 } // END Collar
 Collar.prototype = new Object()
 Collar.prototype.draw = function (args, z) {

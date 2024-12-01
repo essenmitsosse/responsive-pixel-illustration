@@ -17,8 +17,5 @@
   "git.inputValidationSubjectLength": 72,
 
   // This ensures the correct workspace TypeScript version is used
-  "typescript.tsdk": "node_modules/typescript/lib",
-
-  // Preferred non-relative style for auto imports.
-  "typescript.preferences.importModuleSpecifier": "non-relative"
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

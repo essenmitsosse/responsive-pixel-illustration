@@ -16,6 +16,16 @@ const listConfigTypeScript = [
       ...typescript.configs.recommended.rules,
 
       /**
+       * Overwrite `typed-fp` rule, to enforce TypeScript Arrays to always be
+       * typed as generic (i.e. ReadonlyArray<T>). This is a personal
+       * preference. {@link https://typescript-eslint.io/rules/array-type}
+       */
+      '@typescript-eslint/array-type': [
+        'error',
+        { default: 'generic', readonly: 'generic' },
+      ],
+
+      /**
        * A "Thenable" value is an object which has a `then` method, such as a
        * Promise. The `await` keyword is generally used to retrieve the result
        * of calling a Thenable's `then` method.
@@ -38,6 +48,19 @@ const listConfigTypeScript = [
        */
       '@typescript-eslint/explicit-function-return-type': 'error',
 
+      /** Sort members (interface keys etc.) */
+      '@typescript-eslint/member-ordering': [
+        'error',
+        { default: { order: 'alphabetically' } },
+      ],
+
+      /**
+       * Namespaces are an outdated way to organize TypeScript code.
+       *
+       * {@link https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-namespace.md}
+       */
+      '@typescript-eslint/no-namespace': ['error', { allowDeclarations: true }],
+
       /**
        * Assigning a variable to this instead of properly using arrow lambdas
        * may be a symptom of pre-ES6 practices or not managing scope well.
@@ -51,6 +74,22 @@ const listConfigTypeScript = [
        * TODO: Refactor code in such a way that aliasing `this` is not needed.
        * */
       '@typescript-eslint/no-this-alias': ['error', { allowedNames: ['that'] }],
+
+      /**
+       * Overwrite default rule by TypeScript ESLint, to allow unused
+       * variables,if they are followed by used parameters.
+       */
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { args: 'after-used', destructuredArrayIgnorePattern: '^_' },
+      ],
+
+      /**
+       * Enforce constituents of a type union/intersection to be sorted
+       * alphabetically.
+       * {@link https://typescript-eslint.io/rules/sort-type-constituents/}
+       */
+      '@typescript-eslint/sort-type-constituents': 'error',
     },
   },
 
@@ -59,6 +98,21 @@ const listConfigTypeScript = [
     files: ['**/*.js'],
     plugins: { '@typescript-eslint': typescript },
     rules: { '@typescript-eslint/explicit-function-return-type': 'off' },
+  },
+
+  /**
+   * This rule extends the base eslint/no-redeclare rule. It adds support
+   * for TypeScript function overloads, and declaration merging.
+   * {@link https://typescript-eslint.io/rules/no-redeclare/}
+   *
+   * Replaces the ESLint rule `no-redeclare`.
+   */
+  {
+    plugins: { '@typescript-eslint': typescript },
+    rules: {
+      'no-redeclare': 'off',
+      '@typescript-eslint/no-redeclare': 'error',
+    },
   },
 
   /**

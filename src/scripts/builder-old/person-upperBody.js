@@ -296,10 +296,11 @@ export const Suspenders = function (args) {
   this.strapColor = (this.IF(0.5) ? args.firstColor : args.secondColor).copy({
     brContrast: -1,
   })
-  this.detail &&
-    (this.detailColor = args.clothColor.copy({
+  if (this.detail) {
+    this.detailColor = args.clothColor.copy({
       brContrast: this.IF(0.5) ? 1 : -1,
-    }))
+    })
+  }
 
   // Assets
 } // END Suspenders

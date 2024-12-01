@@ -28,8 +28,6 @@ const listConfigTypeScript = [
        * TODO: Refactor code in such a way that aliasing `this` is not needed.
        * */
       '@typescript-eslint/no-this-alias': ['error', { allowedNames: ['that'] }],
-
-      '@typescript-eslint/no-unused-expressions': 'off',
     },
   },
 

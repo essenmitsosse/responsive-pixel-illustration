@@ -36,9 +36,14 @@ export const UpperBody = function (args) {
     this.nipples = new this.basic.Nipples(args)
   }
 
-  !args.animal &&
-    (this.IF(0.07) && (this.suspenders = new this.basic.Suspenders(args)),
-    this.IF(0.02) && (this.strap = new this.basic.Strap(args)))
+  if (!args.animal) {
+    if (this.IF(0.07)) {
+      this.suspenders = new this.basic.Suspenders(args)
+    }
+    if (this.IF(0.02)) {
+      this.strap = new this.basic.Strap(args)
+    }
+  }
 
   !this.topless &&
     (!this.breast &&

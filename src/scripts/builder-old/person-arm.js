@@ -645,9 +645,10 @@ export const Shield = function (args, right) {
   this.shieldSX = this.IF() ? this.R(0.4, 0.8) : this.R(0, 0.4)
   this.shieldSY = this.IF() ? this.R(0.4, 0.8) : this.R(0, 0.4)
 
-  this.IF() &&
-    ((this.stripesGap = this.R(0.01, 0.2)),
-    (this.stripesStrip = this.R(0.01, 0.2)))
+  if (this.IF()) {
+    this.stripesGap = this.R(0.01, 0.2)
+    this.stripesStrip = this.R(0.01, 0.2)
+  }
 
   this.roundTop = this.IF(0.5)
   this.roundBottom = this.IF(0.5)

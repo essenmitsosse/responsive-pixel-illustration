@@ -12,15 +12,14 @@ export const Arm = function (args) {
   this.upperArmSY = this.R(0.2, 0.8)
 
   this.sleeves = args.sleeves = !args.topless && this.IF(0.95)
-  this.sleeves &&
-    ((this.sleeveSY = this.R(0, 1)),
-    (this.upperSleeveSY =
-      this.upperArmSY > this.sleeveSY ? this.sleeveSY : 'full'),
-    (this.lowerSleeveSY =
-      this.upperArmSY > this.sleeveSY
-        ? false
-        : this.sleeveSY - this.upperArmSY),
-    (this.fullUpper = this.upperSleeveSY === 'full'))
+  if (this.sleeves) {
+    this.sleeveSY = this.R(0, 1)
+    this.upperSleeveSY =
+      this.upperArmSY > this.sleeveSY ? this.sleeveSY : 'full'
+    this.lowerSleeveSY =
+      this.upperArmSY > this.sleeveSY ? false : this.sleeveSY - this.upperArmSY
+    this.fullUpper = this.upperSleeveSY === 'full'
+  }
 
   this.vest = args.sleeves && this.IF()
 

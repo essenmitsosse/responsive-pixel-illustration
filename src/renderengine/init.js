@@ -1,5 +1,6 @@
 import { Admin } from './admin.js'
 import { PixelGraphics } from './info.js'
+
 export const InitPixel = function (args) {
   var queryString = this.getQueryString(),
     showcase = (this.showcase = true),

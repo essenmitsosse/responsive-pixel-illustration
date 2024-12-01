@@ -45,17 +45,19 @@ export const UpperBody = function (args) {
     }
   }
 
-  !this.topless &&
-    (!this.breast &&
-      !this.chestWide &&
-      this.IF(0.05) &&
-      (this.stripes = new this.basic.Stripes(args)),
-    this.IF(0.4) &&
-      (this.collar = new (this.IF() ? this.basic.Cleavage : this.basic.Collar)(
+  if (!this.topless) {
+    if (!this.breast && !this.chestWide && this.IF(0.05)) {
+      this.stripes = new this.basic.Stripes(args)
+    }
+    if (this.IF(0.4)) {
+      this.collar = new (this.IF() ? this.basic.Cleavage : this.basic.Collar)(
         args,
-      )),
-    this.IF(0.3) &&
-      (this.buttons = new this.basic.Buttons(args, this.clothColor)))
+      )
+    }
+    if (this.IF(0.3)) {
+      this.buttons = new this.basic.Buttons(args, this.clothColor)
+    }
+  }
 
   this.IF(0.1) && (this.logo = new this.basic.Logo(args))
 } // END UpperBody

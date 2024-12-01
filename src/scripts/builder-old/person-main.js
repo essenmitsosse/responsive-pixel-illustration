@@ -17,7 +17,9 @@ Person.prototype.draw = function (args, z) {
 
   args.id = this.id
 
-  z || (z = this.basic.objectCount * 10000)
+  if (!z) {
+    z = this.basic.objectCount * 10000
+  }
 
   this.vL['personHalfSX' + nr] = { r: 0.5, min: 5, useSize: args.size }
 

@@ -193,7 +193,9 @@ export const Logo = function (args, right, symetrical, logoColor) {
   this.Y = this.R(0, 0.5)
 
   this.oneSide = !symetrical && this.IF(0.1)
-  this.oneSide && (this.side = this.IF(0.5))
+  if (this.oneSide) {
+    this.side = this.IF(0.5)
+  }
 
   this.roundUp = this.IF(0.3)
   this.roundDown = this.IF(0.3)

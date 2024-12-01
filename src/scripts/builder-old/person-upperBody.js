@@ -32,7 +32,9 @@ export const UpperBody = function (args) {
   if (this.IF(0.05)) {
     this.cape = new this.basic.Cape(args)
   }
-  this.topless && this.IF(0.8) && (this.nipples = new this.basic.Nipples(args))
+  if (this.topless && this.IF(0.8)) {
+    this.nipples = new this.basic.Nipples(args)
+  }
 
   !args.animal &&
     (this.IF(0.07) && (this.suspenders = new this.basic.Suspenders(args)),

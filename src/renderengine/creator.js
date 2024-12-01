@@ -1,5 +1,5 @@
 export const DrawingTools = function (pixelUnit, getRandom) {
-  var drawingTool = this
+  var that = this
 
   this.seed = (function (getRandom) {
     var getSeed = getRandom().seed,
@@ -153,8 +153,8 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   this.Primitive.prototype.getName = 'Primitive'
 
   this.Primitive.prototype.create = (function () {
-    var setColorArray = drawingTool.pixelSetter.setColorArray,
-      setColorMask = drawingTool.pixelSetter.setColorMask
+    var setColorArray = that.pixelSetter.setColorArray,
+      setColorMask = that.pixelSetter.setColorMask
 
     return function (args, inherit) {
       inherit = inherit || {}
@@ -551,7 +551,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   this.Fill.prototype.draw = function () {
     var color = this.getColorArray(),
-      array = drawingTool.pixelSetter.getSave(this.use),
+      array = that.pixelSetter.getSave(this.use),
       l = array ? array.length - 1 : -1,
       current
 
@@ -571,7 +571,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
     this.use = args.use
     this.chance = args.chance || 0.5
-    this.random = drawingTool.seed.get(args.seed)
+    this.random = that.seed.get(args.seed)
     this.mask = args.mask
 
     if (height && height.random) {
@@ -594,7 +594,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
         : false,
       widthRandom = this.widthRandom ? this.widthRandom.getReal() + 1 : false,
       color = this.getColorArray(),
-      array = drawingTool.pixelSetter.getSave(this.use),
+      array = that.pixelSetter.getSave(this.use),
       l = array ? array.length : 0,
       count = Math.floor(
         l *
@@ -602,7 +602,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
             ((width + (widthRandom || sizeRandom || 0) / 2) *
               (height + (heightRandom || sizeRandom || 0) / 2))),
       ),
-      mask = this.mask ? drawingTool.pixelSetter.getMask(this.use) : false,
+      mask = this.mask ? that.pixelSetter.getMask(this.use) : false,
       dontCheck = !mask,
       random = this.random().one,
       current,
@@ -750,7 +750,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
         })
       }
     }
-  })(drawingTool) // ------ End Object Init
+  })(that) // ------ End Object Init
 
   this.Obj.prototype.draw = (function (pixelUnit) {
     // Draws Object, consisting of other Objects and Primitives.
@@ -824,7 +824,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     }
 
     if (random) {
-      this.random = drawingTool.seed.get(stripes.seed)
+      this.random = that.seed.get(stripes.seed)
     }
 
     this.cut = stripes.cut
@@ -1067,7 +1067,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
         }
 
         newPanels.push({
-          drawer: new drawingTool.Obj().create({ list: current.list }, inherit),
+          drawer: new that.Obj().create({ list: current.list }, inherit),
           sX: current.sX,
           sY: current.sY,
         })
@@ -1391,7 +1391,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       this.jointY.autoUpdate = true
 
       // Upper Arm
-      this.upperArm = new drawingTool.Line().create({
+      this.upperArm = new that.Line().create({
         weight: args.upperArmWeight || args.weight,
         color: args.upperArmColor || args.color,
         points: [{}, { x: this.jointX, y: this.jointY }],
@@ -1399,7 +1399,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       })
 
       if (args.upperArmLightColor) {
-        this.upperArmInner = new drawingTool.Line().create({
+        this.upperArmInner = new that.Line().create({
           weight: [args.upperArmWeight || args.weight, -2],
           color: args.upperArmLightColor,
           points: [{}, { x: this.jointX, y: this.jointY }],
@@ -1408,7 +1408,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       }
 
       // Lower Arm
-      this.lowerArm = new drawingTool.Line().create({
+      this.lowerArm = new that.Line().create({
         weight: args.lowerArmWeight || args.weight,
         color: args.lowerArmColor || args.color,
         points: [
@@ -1419,7 +1419,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       })
 
       if (args.lowerArmLightColor) {
-        this.lowerArmInner = new drawingTool.Line().create({
+        this.lowerArmInner = new that.Line().create({
           weight: [args.lowerArmWeight || args.weight, -2],
           color: args.lowerArmLightColor,
           points: [
@@ -1440,7 +1440,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
         // 	z: Infinity
         // });
 
-        this.debugLowerArm = new drawingTool.Line().create({
+        this.debugLowerArm = new that.Line().create({
           weight: 1,
           color: [80, 0, 0],
           points: [
@@ -1450,14 +1450,14 @@ export const DrawingTools = function (pixelUnit, getRandom) {
           z: Infinity,
         })
 
-        this.debugUpperArm = new drawingTool.Line().create({
+        this.debugUpperArm = new that.Line().create({
           weight: 1,
           color: [125, 0, 0],
           points: [{ x: this.jointX, y: this.jointY }, {}],
           z: Infinity,
         })
 
-        this.debugArmTarget = new drawingTool.Line().create({
+        this.debugArmTarget = new that.Line().create({
           weight: 1,
           color: [0, 255, 255],
           points: [
@@ -1497,7 +1497,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
         this.handRelativeToArm = hand.toArm || this.ellbow
         this.handRelativeToDirection = hand.toDir
 
-        this.hand = new drawingTool.Line().create({
+        this.hand = new that.Line().create({
           weight: hand.width || args.lowerArmWeight || args.weight,
           color: hand.color || args.lowerArmColor || args.color,
           points: [
@@ -1522,7 +1522,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
           // 	z: Infinity
           // });
 
-          this.debugHandTarget = new drawingTool.Line().create({
+          this.debugHandTarget = new that.Line().create({
             weight: 1,
             color: [255, 255, 0],
             points: [
@@ -1741,7 +1741,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       height: height,
     })
 
-    drawingTool.pixelSetter.setArray(pixelArray)
-    drawingTool.seed.reset()
+    that.pixelSetter.setArray(pixelArray)
+    that.seed.reset()
   }
 }

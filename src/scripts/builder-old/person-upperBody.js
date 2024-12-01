@@ -462,18 +462,18 @@ Cleavage.prototype.draw = function (args, z) {
           this.sub('collarSX' + nr),
         ]
       : ['chestSX' + nr, this.mult(-1, 'cleavageSX' + nr)]
-    this.sleeveless &&
-      (sideView &&
-        (this.vL['cleavageRightX' + nr] = [
-          'chestSX' + nr,
-          this.sub('cleavageX' + nr),
-          this.sub('cleavageSX' + nr),
-        ]),
-      (this.vL['strapSX' + nr] = {
-        r: this.strapSX,
-        useSize: 'cleavageX' + nr,
-        max: -1,
-      }))
+    if (this.sleeveless && sideView) {
+      ;(this.vL['cleavageRightX' + nr] = [
+        'chestSX' + nr,
+        this.sub('cleavageX' + nr),
+        this.sub('cleavageSX' + nr),
+      ]),
+        (this.vL['strapSX' + nr] = {
+          r: this.strapSX,
+          useSize: 'cleavageX' + nr,
+          max: -1,
+        })
+    }
   }
 
   return {

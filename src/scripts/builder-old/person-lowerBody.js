@@ -20,7 +20,9 @@ export const LowerBody = function (args) {
   this.skirt = args.skirt =
     (args.demo || this.wideHips || this.IF(args.animal ? 0.05 : 0.15)) &&
     new this.basic.Skirt(args)
-  !args.animal && this.IF(0.3) && (this.belt = new this.basic.Belt(args))
+  if (!args.animal && this.IF(0.3)) {
+    this.belt = new this.basic.Belt(args)
+  }
 } // END LowerBody
 LowerBody.prototype = new Object()
 LowerBody.prototype.draw = function (args, z) {

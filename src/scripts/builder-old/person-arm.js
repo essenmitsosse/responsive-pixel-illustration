@@ -138,23 +138,25 @@ Arm.prototype.draw = function (args, rightSide, behind) {
   }
 
   if (this.sleeves) {
-    !this.fullUpper
-      ? ((this.vL['upperSleeveX' + nrName] = {
-          r: Math.sin(shoulderAngle),
-          useSize: 'upperSleeveSY' + nr,
-        }),
-        (this.vL['upperSleeveY' + nrName] = {
-          r: Math.cos(shoulderAngle),
-          useSize: 'upperSleeveSY' + nr,
-        }))
-      : ((this.vL['lowerSleeveX' + nrName] = {
-          r: Math.sin(armAngle),
-          useSize: 'lowerSleeveSY' + nr,
-        }),
-        (this.vL['lowerSleeveY' + nrName] = {
-          r: Math.cos(armAngle),
-          useSize: 'lowerSleeveSY' + nr,
-        }))
+    if (!this.fullUpper) {
+      this.vL['upperSleeveX' + nrName] = {
+        r: Math.sin(shoulderAngle),
+        useSize: 'upperSleeveSY' + nr,
+      }
+      this.vL['upperSleeveY' + nrName] = {
+        r: Math.cos(shoulderAngle),
+        useSize: 'upperSleeveSY' + nr,
+      }
+    } else {
+      this.vL['lowerSleeveX' + nrName] = {
+        r: Math.sin(armAngle),
+        useSize: 'lowerSleeveSY' + nr,
+      }
+      this.vL['lowerSleeveY' + nrName] = {
+        r: Math.cos(armAngle),
+        useSize: 'lowerSleeveSY' + nr,
+      }
+    }
   }
 
   return {

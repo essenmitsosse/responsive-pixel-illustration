@@ -1,7 +1,6 @@
-import { Renderer } from './renderer.js'
-
-import { getPixelUnits } from './pixel.js'
 import { DrawingTools } from './creator.js'
+import { getPixelUnits } from './pixel.js'
+import { Renderer } from './renderer.js'
 
 var startTime = Date.now()
 export const PixelGraphics = function (options) {

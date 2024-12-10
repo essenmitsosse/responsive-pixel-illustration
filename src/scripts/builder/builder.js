@@ -1,4 +1,5 @@
 import { helper as helperGlobal } from '@/renderengine/helper.js'
+
 import { Object } from './object.js'
 import { Arm, Shield, ShoulderPad, Sword, Tool } from './person-arm.js'
 import {

@@ -1,4 +1,5 @@
 import { helper as helperGlobal } from '@/renderengine/helper.js'
+
 import { Chair, Emotion, Glass, Table } from './accessoir.js'
 import { Arm } from './actor-arm.js'
 import { Eye, Eyes, Hair, Hat, Head, Mouth } from './actor-head.js'

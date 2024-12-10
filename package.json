@@ -11,7 +11,8 @@
     "play": "playwright test",
     "preview": "vite preview",
     "prettier": "prettier --write .",
-    "prettierCheck": "prettier --check ."
+    "prettierCheck": "prettier --check .",
+    "knip": "knip"
   },
   "repository": {
     "type": "git",
@@ -44,7 +45,8 @@
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-playwright": "^2.1.0",
     "eslint-plugin-unused-imports": "^4.1.4",
-    "jiti": "^2.4.1"
+    "jiti": "^2.4.1",
+    "knip": "^5.39.4"
   },
   "engines": {
     "node": "22"

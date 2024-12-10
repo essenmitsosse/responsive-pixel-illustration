@@ -45,5 +45,8 @@
     "eslint-plugin-playwright": "^2.1.0",
     "eslint-plugin-unused-imports": "^4.1.4",
     "jiti": "^2.4.1"
+  },
+  "engines": {
+    "node": "20"
   }
 }

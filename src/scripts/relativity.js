@@ -1,4 +1,4 @@
-export default function () {
+function relativity() {
   var c1 = [255, 0, 0],
     c2 = [0, 255, 0],
     c3 = [0, 0, 255],
@@ -58,3 +58,5 @@ export default function () {
     variableList: variableList,
   }
 }
+
+export default relativity

@@ -1,6 +1,6 @@
 import { helper } from '../renderengine/helper.js'
 
-export default function () {
+function landscape() {
   var help = helper,
     getSmallerDim = help.getSmallerDim,
     mult = help.mult,
@@ -203,3 +203,5 @@ export default function () {
     background: backgroundColor,
   }
 }
+
+export default landscape

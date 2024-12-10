@@ -1,6 +1,6 @@
 import { helper } from '../renderengine/helper.js'
 
-export default function () {
+function sparta() {
   var help = helper,
     getSmallerDim = help.getSmallerDim,
     getBiggerDim = help.getBiggerDim,
@@ -258,3 +258,5 @@ export default function () {
     variableList: variableList,
   }
 }
+
+export default sparta

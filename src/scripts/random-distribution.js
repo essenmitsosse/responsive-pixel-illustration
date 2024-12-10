@@ -1,6 +1,6 @@
 import { helper } from '../renderengine/helper.js'
 
-export default function (init) {
+function randomDistribution(init) {
   var help = helper,
     random = help.random(init.id),
     rInt = random.getRandom,
@@ -87,3 +87,5 @@ export default function (init) {
     background: backgroundColor,
   }
 }
+
+export default randomDistribution

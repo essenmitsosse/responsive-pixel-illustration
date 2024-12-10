@@ -1,6 +1,6 @@
 import { helper as helperGlobal } from '../renderengine/helper.js'
 
-export default function () {
+function typo() {
   var help = helperGlobal,
     getSmallerDim = help.getSmallerDim,
     mult = help.mult,
@@ -506,3 +506,5 @@ export default function () {
     variableList: variableList,
   }
 }
+
+export default typo

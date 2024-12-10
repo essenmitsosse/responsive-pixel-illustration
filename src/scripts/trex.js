@@ -1,4 +1,4 @@
-export default function () {
+function trex() {
   var white = [255, 255, 255],
     ground = [90, 60, 50],
     trexsingle = [
@@ -176,3 +176,5 @@ export default function () {
     background: backgroundColor,
   }
 }
+
+export default trex

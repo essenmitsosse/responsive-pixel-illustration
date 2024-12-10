@@ -1,6 +1,6 @@
 import { helper } from '../renderengine/helper.js'
 
-export default function () {
+function argos() {
   var help = helper,
     getSmallerDim = help.getSmallerDim,
     getBiggerDim = help.getBiggerDim,
@@ -1101,3 +1101,5 @@ export default function () {
     background: backgroundColor,
   }
 }
+
+export default argos

@@ -1,6 +1,6 @@
 import { helper as helperGlobal } from '../renderengine/helper.js'
 
-export default function () {
+function graien() {
   var helper = helperGlobal,
     getSmallerDim = helper.getSmallerDim,
     getBiggerDim = helper.getBiggerDim,
@@ -2869,3 +2869,5 @@ export default function () {
     },
   }
 }
+
+export default graien

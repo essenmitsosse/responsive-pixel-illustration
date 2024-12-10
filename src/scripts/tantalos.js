@@ -1,6 +1,6 @@
 import { helper as helperGlobal } from '../renderengine/helper.js'
 
-export default function () {
+function tantalos() {
   var help = helperGlobal,
     getSmallerDim = help.getSmallerDim,
     getBiggerDim = help.getBiggerDim,
@@ -1008,3 +1008,5 @@ export default function () {
     background: backgroundColor,
   }
 }
+
+export default tantalos

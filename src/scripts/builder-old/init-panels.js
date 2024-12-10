@@ -1,6 +1,6 @@
 import { Builder } from './builder.js'
 
-export default function (init) {
+function builderOld(init) {
   var builder = new Builder(init),
     renderList
 
@@ -12,3 +12,5 @@ export default function (init) {
     background: builder.backgroundColor,
   }
 }
+
+export default builderOld

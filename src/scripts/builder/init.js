@@ -132,6 +132,7 @@ function builder(init, slide, createSlider) {
         }
 
         args.leg = {}
+
         args.leg[rIf(0.5) ? 'right' : 'left'] = legPos[rInt(0, legPos.length)]
 
         args.hatDown = rIf(0.02)
@@ -177,12 +178,15 @@ function builder(init, slide, createSlider) {
 
         if (showPerson) {
           args = {}
+
           args.groundColor = builder.backgroundColor
+
           args.groundShadowColor = builder.backgroundColor.copy({
             brAdd: -1,
           })
 
           getPosition(drawArgs)
+
           drawArgs.size = innerSquare
         } else {
           args = l >= half ? Tree1Family : Tree2Family
@@ -225,30 +229,35 @@ function builder(init, slide, createSlider) {
       input: { min: 1, max: 20, step: 1 },
       forceRedraw: true,
     })
+
     createSlider.slider({
       niceName: 'Headsize',
       valueName: 'head-size',
       defaultValue: 0.5,
       input: { min: 0, max: 1, step: 0.01 },
     })
+
     createSlider.slider({
       niceName: 'Body Width',
       valueName: 'body-width',
       defaultValue: 0.5,
       input: { min: 0, max: 1, step: 0.01 },
     })
+
     createSlider.slider({
       niceName: 'Body Height',
       valueName: 'body-height',
       defaultValue: 0.75,
       input: { min: 0, max: 1, step: 0.01 },
     })
+
     createSlider.slider({
       niceName: 'Arm Length',
       valueName: 'arm-length',
       defaultValue: 0.5,
       input: { min: 0, max: 1, step: 0.01 },
     })
+
     createSlider.slider({
       niceName: 'Leg Length',
       valueName: 'leg-length',

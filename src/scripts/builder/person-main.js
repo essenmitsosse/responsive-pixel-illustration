@@ -8,10 +8,12 @@ export const Person = function (args) {
 
   // Assests
   this.basicBody = new this.basic.BasicBody(args)
+
   this.id = this.basic.objectCount += 1
 } // END Person
 
 Person.prototype = new Object()
+
 Person.prototype.draw = function (args, z) {
   args.nr = this.basic.objectCount += 1
 
@@ -62,6 +64,7 @@ export const BasicBody = function (args) {
   // Form & Sizes
 
   this.sY = this.IF() ? this.R(0.4, 1) : 1
+
   this.sX =
     (this.IF(0.1)
       ? this.R(0.3, 0.8)
@@ -92,6 +95,7 @@ export const BasicBody = function (args) {
   this.skinShadowColor = args.skinShadowColor = args.skinColor.copy({
     brAdd: -1,
   })
+
   this.skinDetailColor = args.skinDetailColor = args.skinColor.copy({
     brAdd: -2,
   })
@@ -102,18 +106,24 @@ export const BasicBody = function (args) {
 
   // Assets
   this.head = new this.basic.Head(args)
+
   this.upperBody = new this.basic.UpperBody(args)
+
   this.lowerBody = new this.basic.LowerBody(args)
 } // END BasicBody
+
 BasicBody.prototype = new Object()
+
 BasicBody.prototype.draw = function (args, right) {
   var sideView = args.sideView
 
   args.right = right
+
   args.calc = args.backView !== right || sideView
 
   if (args.calc) {
     args.basicSX = this.pushLinkList({ r: 0, useSize: args.personHalfSX })
+
     args.personSX = this.pushLinkList({
       r: this.sX,
       useSize: args.basicSX,
@@ -121,6 +131,7 @@ BasicBody.prototype.draw = function (args, right) {
     })
 
     args.basicSY = this.pushLinkList({ r: 0, useSize: args.size })
+
     args.personSY = this.pushLinkList({
       r: this.sY,
       min: 5,
@@ -152,6 +163,7 @@ BasicBody.prototype.draw = function (args, right) {
       useSize: args.bodyRestSY,
       min: 1,
     })
+
     args.upperBodySY = this.pushLinkList({
       add: [args.bodyRestSY, this.sub(args.lowerBodySY)],
       min: 1,
@@ -162,9 +174,11 @@ BasicBody.prototype.draw = function (args, right) {
     })
 
     args.personRealSX = this.pushLinkList({ add: [args.personSX] })
+
     args.personRealMaxSY = this.pushLinkList({
       add: [args.fullBodySY, args.headMaxSY, args.neckSY],
     })
+
     args.personRealMinSY = this.pushLinkList({
       add: [args.fullBodySY, args.headMinSY, args.neckSY],
     })
@@ -213,22 +227,33 @@ export const Logo = function (args, right, symetrical, logoColor) {
 
   // Form & Sizes
   this.sX = this.R(0, 1)
+
   this.sY = this.R(0, 1)
+
   this.Y = this.R(0, 0.5)
 
   this.oneSide = !symetrical && this.IF(0.1)
+
   if (this.oneSide) {
     this.side = this.IF(0.5)
   }
 
   this.roundUp = this.IF(0.3)
+
   this.roundDown = this.IF(0.3)
+
   this.dentUp = this.IF(0.3)
+
   this.dentDown = this.IF(0.3)
+
   this.stripUp = this.IF(0.1)
+
   this.stripDown = this.IF(0.1)
+
   this.stripSide = this.IF(0.1)
+
   this.edgeUp = this.IF(0.2)
+
   this.edgeDown = this.IF(0.2)
 
   // Color
@@ -242,6 +267,7 @@ export const Logo = function (args, right, symetrical, logoColor) {
     })
   // Assets
 } // END Logo
+
 Logo.prototype = new Object()
 
 Logo.prototype.draw = function (args) {

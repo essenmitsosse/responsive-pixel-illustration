@@ -84,6 +84,7 @@ function stripes(args, init, createSlider) {
 
       while (i < count) {
         obj['s' + i] = stripRealSX
+
         i += 1
       }
 
@@ -105,6 +106,7 @@ function stripes(args, init, createSlider) {
             { m: 1, mask: true, list: versions(sizes['s' + i])[i] },
           ],
         })
+
         i += 1
       }
 
@@ -144,6 +146,7 @@ function stripes(args, init, createSlider) {
   // );
 
   pushChanger(0, 1, 'master', stripRealRelSX)
+
   if (createSlider) {
     createSlider.slider({
       niceName: 'Steifen Master',

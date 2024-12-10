@@ -18,6 +18,7 @@ function typo() {
     getSerif = serif
       ? function (args) {
           args = args || {}
+
           return args.hor
             ? {
                 sX: 'serifheight',
@@ -147,10 +148,12 @@ function typo() {
             },
           ],
         }
+
         this.space = {
           sX: 3,
           list: [],
         }
+
         this.A = {
           sX: 4,
           half: true,
@@ -442,6 +445,7 @@ function typo() {
           }
 
         letterCount += sX
+
         return letterObject
       }
     })(),
@@ -451,6 +455,7 @@ function typo() {
 
       while (l--) {
         list.push(getLetter(word[l]))
+
         spacingCount += 1
       }
 

@@ -9,6 +9,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     return {
       reset: function () {
         var l = count
+
         while (l--) {
           i[l] = 0
         }
@@ -63,6 +64,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
                 if (!mask[x]) {
                   mask[x] = []
                 }
+
                 mask[x][y] = true
               }
         }
@@ -75,6 +77,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
           if (thisSave) {
             save = thisSave.save
+
             mask = thisSave.mask
 
             return isRect
@@ -132,21 +135,31 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   this.Primitive = function Primitive() {}
 
   this.PointBased = function PointBased() {}
+
   this.Dot = function Dot() {}
+
   this.Line = function Line() {}
+
   this.Polygon = function Polygon() {}
 
   this.Fill = function Fill() {}
+
   this.FillRandom = function FillRandom() {}
 
   this.ShapeBased = function ShapeBased() {}
+
   this.Rect = function Rect() {}
+
   this.Stripes = function Stripes() {}
 
   this.Obj = function Obj() {}
+
   this.RoundRect = function RoundRect() {}
+
   this.Grid = function Grid() {}
+
   this.Panels = function Panels() {}
+
   this.Arm = function Arm() {}
 
   // ------------------ PRIMITIVES ------------------
@@ -178,12 +191,17 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
       if (rotate === 180) {
         rotate = 0
+
         reflectX = !reflectX
+
         reflectY = !reflectY
       }
+
       if (rotate === 270) {
         rotate = 90
+
         reflectX = !reflectX
+
         reflectY = !reflectY
       }
 
@@ -196,7 +214,9 @@ export const DrawingTools = function (pixelUnit, getRandom) {
         ) || {}
 
       newArgs.reflectX = (args.rX || false) !== reflectX
+
       newArgs.reflectY = (args.rY || false) !== reflectY
+
       newArgs.rotate = rotate + (args.rotate || 0)
 
       if (args.save || inherit.save) {
@@ -208,9 +228,11 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       if (args.clear || inherit.clear) {
         newArgs.clear = true
       }
+
       if (args.id || inherit.id || newArgs.save) {
         newArgs.id = args.id || inherit.id || newArgs.save
       }
+
       if (args.mask) {
         newArgs.mask = setColorMask
       }
@@ -231,9 +253,11 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       }
 
       this.args = newArgs
+
       if (this.init) {
         this.init(args)
       }
+
       if (this.detailInit) {
         this.detailInit(args, inherit)
       }
@@ -260,11 +284,14 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   // ------------------ PointBased ------------------
   this.PointBased.prototype = new this.Primitive()
+
   this.PointBased.prototype.getName = 'PointBased'
 
   // ------------------ Dot ------------------
   this.Dot.prototype = new this.PointBased()
+
   this.Dot.prototype.getName = 'Dot'
+
   this.Dot.prototype.draw = function () {
     var pos = this.args.getRealPosition()
     this.getColorArray()(pos.x, pos.y)
@@ -283,7 +310,9 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   // ------------------ Line ------------------
   this.Line.prototype = new this.PointBased()
+
   this.Line.prototype.getName = 'Line'
+
   this.Line.prototype.init = function (args) {
     if (args.closed) {
       this.args.closed = true
@@ -309,6 +338,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
               while ((i += 1) <= second) {
                 j = first
+
                 while ((j += 1) <= second) {
                   set(x + i, y + j)
                 }
@@ -330,6 +360,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       l = points.length
 
     reflectX = (args.rX || false) !== reflectX
+
     reflectY = (args.rY || false) !== reflectY
 
     while (l--) {
@@ -337,6 +368,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
         new pixelUnit.Position(points[l], reflectX, reflectY, rotate),
       )
     }
+
     return {
       points: newPoints,
       LineCount: newPoints.length - 1,
@@ -352,39 +384,54 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
           if (isNaN(p0.x) || isNaN(p0.y) || isNaN(p1.x) || isNaN(p1.y)) {
             console.log('Line with NaN found!', p0.x, p0.y, p1.x, p1.y)
+
             return p1
           }
 
           if (p0.x > p1.x) {
             x1 = p0.x
+
             y1 = p0.y
+
             x0 = p1.x
+
             y0 = p1.y
           } else {
             x0 = p0.x
+
             y0 = p0.y
+
             x1 = p1.x
+
             y1 = p1.y
           }
 
           dx = abs(x1 - x0)
+
           dy = -abs(y1 - y0)
 
           sy = y0 < y1 ? 1 : -1
+
           err = dx + dy
 
           while (true) {
             set(x0, y0)
+
             if (x0 === x1 && y0 === y1) {
               return p1
             }
+
             e2 = 2 * err
+
             if (e2 > dy) {
               err += dy
+
               x0 += 1
             }
+
             if (e2 < dx) {
               err += dx
+
               y0 += sy
             }
           }
@@ -403,6 +450,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       while (l--) {
         nextPoint = drawLine(nextPoint, p[l]())
       }
+
       if (firstPoint) {
         drawLine(nextPoint, firstPoint)
       }
@@ -411,24 +459,33 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   // ------------------ Polygon ------------------
   this.Polygon.prototype = new this.Line()
+
   this.Polygon.prototype.getName = 'Polygon'
+
   this.Polygon.prototype.draw = (function () {
     var abs = Math.abs,
       getLineEdgeGetter = function (edgeList) {
         var i = -1
+
         return function (p0, p1) {
           // Draw a single Lines
           var x0, y0, x1, y1, dx, dy, sy, err, e2, first, last
 
           if (p0.x > p1.x) {
             x1 = p0.x
+
             y1 = p0.y
+
             x0 = p1.x
+
             y0 = p1.y
           } else {
             x0 = p0.x
+
             y0 = p0.y
+
             x1 = p1.x
+
             y1 = p1.y
           }
 
@@ -439,11 +496,17 @@ export const DrawingTools = function (pixelUnit, getRandom) {
           // }
 
           dx = abs(x1 - x0)
+
           dy = -abs(y1 - y0)
+
           sy = y0 < y1 ? 1 : -1
+
           err = dx + dy
+
           e2 = 2 * err
+
           first = sy === -1
+
           last = !first
 
           if (first) {
@@ -457,8 +520,10 @@ export const DrawingTools = function (pixelUnit, getRandom) {
                 edgeList[i].x1 = x0
               } else {
                 i -= 1
+
                 edgeList.pop()
               }
+
               return p1
             }
 
@@ -475,10 +540,13 @@ export const DrawingTools = function (pixelUnit, getRandom) {
               }
 
               err += dx
+
               e2 = 2 * err
             } else if (e2 > dy) {
               err += dy
+
               x0 += 1
+
               e2 = 2 * err
             }
           }
@@ -497,9 +565,11 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       },
       sortFunction = function (a, b) {
         var n = b.y - a.y
+
         if (n !== 0) {
           return n
         }
+
         return b.x0 - a.x0
       }
 
@@ -532,6 +602,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   // ------------------ Fill ------------------
   this.Fill.prototype = new this.Primitive()
+
   this.Fill.prototype.getName = 'Fill'
 
   this.Fill.prototype.init = function (args) {
@@ -545,6 +616,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
         height = (rotate ? args.sX : args.sY) || args.s
 
       this.width = width ? new pixelUnit.Width(width) : false
+
       this.height = height ? new pixelUnit.Width(height) : false
     }
   })(pixelUnit)
@@ -563,6 +635,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   // ------------------ FillRandom ------------------
   this.FillRandom.prototype = new this.Fill()
+
   this.FillRandom.prototype.getName = 'Random Fill'
 
   this.FillRandom.prototype.init = function (args) {
@@ -570,16 +643,21 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       height = this.rotate ? args.sX : args.sY
 
     this.use = args.use
+
     this.chance = args.chance || 0.5
+
     this.random = that.seed.get(args.seed)
+
     this.mask = args.mask
 
     if (height && height.random) {
       this.heightRandom = new pixelUnit.createSize(height.random)
     }
+
     if (width && width.random) {
       this.widthRandom = new pixelUnit.createSize(width.random)
     }
+
     if (args.size && args.size.random) {
       this.sizeRandom = new pixelUnit.createSize(args.size.random)
     }
@@ -634,20 +712,26 @@ export const DrawingTools = function (pixelUnit, getRandom) {
           (randWidth =
             (widthRandom ? Math.floor(widthRandom * random()) : 0) +
             (randSize = sizeRandom ? Math.floor(sizeRandom * random()) : 0))
+
         realHeight =
           height +
           (randHeight =
             (heightRandom ? Math.floor(heightRandom * random()) : 0) + randSize)
+
         odd = !odd
+
         currentX =
           (current = array[Math.floor(random() * l)])[0] -
           (odd ? width + randWidth : 0)
+
         currentY = current[1] - (odd ? height + randHeight : 0)
 
         while (w--) {
           finalX = currentX + w
+
           if (dontCheck || (finalMaskX = mask[finalX])) {
             h = realHeight
+
             while (h--) {
               if (dontCheck || finalMaskX[currentY + h]) {
                 color(finalX, currentY + h)
@@ -666,12 +750,16 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   // ------------------ ShapeBased ------------------
   this.ShapeBased.prototype = new this.Primitive()
+
   this.ShapeBased.prototype.getName = 'ShapeBased'
 
   // ------------------ Rectangle ------------------
   this.Rect.prototype = new this.ShapeBased()
+
   this.Rect.prototype.getName = 'Rectangle'
+
   this.Rect.prototype.isRect = true
+
   this.Rect.prototype.draw = function () {
     var dimensions = this.dimensions.calc()
 
@@ -692,6 +780,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   // ------------------ OBJECTS ------------------
   this.Obj.prototype = new this.ShapeBased() // Objects consist of other Objects or Primitives
+
   this.Obj.prototype.getName = 'Object'
 
   this.Obj.prototype.init = (function (drawingTool) {
@@ -702,8 +791,10 @@ export const DrawingTools = function (pixelUnit, getRandom) {
         i = 0,
         newList = [],
         newTool
+
       do {
         newTool = list[i]
+
         if (newTool) {
           newList.push(
             new drawingTool[
@@ -729,6 +820,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
           )
         }
       } while ((i += 1) < l)
+
       return newList
     }
 
@@ -764,6 +856,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       if (dimensions.checkMin()) {
         return
       }
+
       if (args.mask) {
         oldMask = args.mask(dimensions, true)
       }
@@ -784,9 +877,13 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   // ------------------ Stripes ------------------
   this.Stripes.prototype = new this.Obj()
+
   this.Stripes.prototype.getName = 'Stripes'
+
   this.Stripes.prototype.isRect = true
+
   this.Stripes.prototype.isStripe = true
+
   this.Stripes.prototype.detailInit = function (args) {
     var random,
       stripes = args.stripes,
@@ -795,15 +892,18 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       Dimension = horizontal ? pixelUnit.Height : pixelUnit.Width
 
     this.stripWidth = new Dimension(stripes.strip || { a: 1 }) // Width of a single Line
+
     this.gapWidth = new Dimension(stripes.gap || { a: 0 }) // Width of a single Line
 
     if (stripes.strip && stripes.strip.random) {
       this.stripWidthRandom = new pixelUnit.createSize(stripes.strip.random)
+
       random = true
     }
 
     if (stripes.gap && stripes.gap.random) {
       this.gapWidthRandom = new pixelUnit.createSize(stripes.gap.random)
+
       random = true
     }
 
@@ -811,7 +911,9 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       if (typeof stripes.random === 'object') {
         stripes.random.height = !horizontal
       }
+
       this.lengthRandom = new pixelUnit.createSize(stripes.random)
+
       random = true
     }
 
@@ -819,7 +921,9 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       if (typeof stripes.change === 'object') {
         stripes.change.height = !horizontal
       }
+
       this.lengthChange = new pixelUnit.createSize(stripes.change)
+
       random = true
     }
 
@@ -828,8 +932,11 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     }
 
     this.cut = stripes.cut
+
     this.overflow = stripes.overflow
+
     this.round = stripes.round
+
     this.fromStart = stripes.fromStart
 
     this.fromOtherSide = horizontal ? this.fromBottom : this.fromRight
@@ -903,7 +1010,9 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     if (this.round) {
       var ratio = singleSX / stripWidth
       singleSX = Math.floor(size / Math.floor(size / singleSX))
+
       stripWidth = Math.round(singleSX / ratio)
+
       gapWidth = singleSX - stripWidth
     }
 
@@ -987,6 +1096,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
         if (list) {
           l = length
+
           while (l--) {
             list[l].draw()
           }
@@ -1000,7 +1110,9 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   // ------------------ Round Rectangle ------------------
   this.RoundRect.prototype = new this.Obj()
+
   this.RoundRect.prototype.getName = 'Rounded Rectangle'
+
   this.RoundRect.prototype.list = [
     // { mY:1 },
     // { mX:1, height: {a:1} },
@@ -1031,7 +1143,9 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   // ------------------ Grid ------------------
   this.Grid.prototype = new this.Obj()
+
   this.Grid.prototype.getName = 'Grid'
+
   this.Grid.prototype.list = [
     {
       stripes: { gap: 1 },
@@ -1042,7 +1156,9 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   // ------------------ Panels ------------------
   this.Panels.prototype = new this.Obj()
+
   this.Panels.prototype.getName = 'Panels'
+
   this.Panels.prototype.init = (function (pX) {
     return function (args) {
       var panels = args.panels,
@@ -1074,6 +1190,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       }
 
       this.fluctuation = args.fluctuation || 0
+
       this.imgRatio = args.imgRatio
         ? typeof args.imgRatio === 'object'
           ? args.imgRatio
@@ -1083,6 +1200,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       if (args.gutterX) {
         this.gutterSX = new pX.Width(args.gutterX)
       }
+
       if (args.gutterY) {
         this.gutterSY = new pX.Width(args.gutterY)
       }
@@ -1100,12 +1218,15 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       this.dimensions = this.dimensions.calc()
 
       this.sX = this.dimensions.width
+
       this.sY = this.dimensions.height
 
       this.gutterX = this.gutterSX.getReal()
+
       this.gutterY = this.gutterSY.getReal()
 
       this.countX = countX
+
       this.countY = countY
 
       // Find best combination of rows/cols
@@ -1148,6 +1269,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
         }
 
         current.singleSX = current.singleSXWithGutter - this.gutterX
+
         current.singleSY = current.singleSYWithGutter - this.gutterY
 
         current.ratio = current.singleSXWithGutter / current.singleSYWithGutter
@@ -1167,9 +1289,11 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     }
 
     this.countX = last.x
+
     this.countY = last.y
 
     this.singleSX = last.singleSX <= 1 ? 1 : last.singleSX
+
     this.singleSY = last.singleSY <= 1 ? 1 : last.singleSY
   }
 
@@ -1234,13 +1358,17 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
     while (total > l) {
       total -= 1
+
       panels[priorites.pop()].size += 1
     }
 
     j = this.countY
+
     while (j--) {
       i = this.countX
+
       odd = !odd
+
       while ((i -= (current = panels[c]).size) >= 0) {
         current.x = i
 
@@ -1252,6 +1380,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
           current.last = true
         } else if (c === 0) {
           current.first = true
+
           current.x = 1
         }
 
@@ -1281,9 +1410,13 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
     do {
       currentPanel = panels[c]
+
       x = currentPanel.x
+
       y = currentPanel.y
+
       size = currentPanel.size
+
       first = currentPanel.first
 
       if (first) {
@@ -1324,6 +1457,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
       // Update the linked sizes of the panel
       currentPanel.sX.real = width
+
       currentPanel.sY.real = height
 
       currentPanel.dimensions = {
@@ -1344,16 +1478,19 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
     do {
       currentPanel = panels[c]
+
       currentDim = currentPanel.dimensions
 
       if (mask) {
         oldMask = mask(currentDim)
       }
+
       pixelUnit.push(currentDim)
 
       currentPanel.drawer.draw()
 
       pixelUnit.pop()
+
       if (mask) {
         mask(oldMask)
       }
@@ -1363,31 +1500,41 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   // ------------------ Arm ------------------
   this.Arm.prototype = new this.Obj()
+
   this.Arm.prototype.getName = 'Arm'
+
   this.Arm.prototype.init = (function (pX) {
     return function (args) {
       var hand
 
       this.targetX = args.targetX
+
       this.targetY = args.targetY
 
       this.endX = args.endX
+
       this.endY = args.endY
 
       this.jointX = args.jointX
+
       this.jointY = args.jointY
 
       this.length = args.length
 
       this.flip = args.flip
+
       this.maxStraight = args.maxStraight || 1
 
       this.ratio = args.ratio || 0.5
+
       this.ellbow = args.ellbow
 
       this.endX.autoUpdate = true
+
       this.endY.autoUpdate = true
+
       this.jointX.autoUpdate = true
+
       this.jointY.autoUpdate = true
 
       // Upper Arm
@@ -1490,11 +1637,17 @@ export const DrawingTools = function (pixelUnit, getRandom) {
             min: 1,
           },
         )
+
         this.handEndX = hand.endX
+
         this.handEndY = hand.endY
+
         this.handTargetX = hand.targetX
+
         this.handTargetY = hand.targetY
+
         this.handRelativeToArm = hand.toArm || this.ellbow
+
         this.handRelativeToDirection = hand.toDir
 
         this.hand = new that.Line().create({
@@ -1543,7 +1696,9 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     var dimensions = this.dimensions.calc()
 
     this.fullLength = this.length.s.getReal()
+
     this.upperArmLength = this.fullLength * this.ratio // c|
+
     this.lowerArmLength = this.fullLength - this.upperArmLength // c||;
 
     if (this.ellbow) {
@@ -1553,8 +1708,11 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     }
 
     this.endX.calculated = true
+
     this.endY.calculated = true
+
     this.jointX.calculated = true
+
     this.jointY.calculated = true
 
     // draw
@@ -1570,18 +1728,23 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       if (this.debugEnd) {
         this.debugEnd.draw()
       }
+
       if (this.debugEllbow) {
         this.debugEllbow.draw()
       }
+
       if (this.debug) {
         this.debug.draw()
       }
+
       if (this.debugUpperArm) {
         this.debugUpperArm.draw()
       }
+
       if (this.debugLowerArm) {
         this.debugLowerArm.draw()
       }
+
       if (!this.ellbow && this.debugArmTarget) {
         this.debugArmTarget.draw()
       }
@@ -1590,10 +1753,13 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     if (this.lowerArmInner) {
       this.lowerArmInner.draw()
     }
+
     if (this.upperArmInner) {
       this.upperArmInner.draw()
     }
+
     this.lowerArm.draw()
+
     this.upperArm.draw()
 
     pixelUnit.pop()
@@ -1608,11 +1774,14 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       this.jointX.real = Math.sqrt(
         Math.pow(this.upperArmLength, 2) - Math.pow(jointY, 2),
       )
+
       this.jointY.real = this.endY.real = jointY
+
       this.endX.real = this.jointX.real
     } else {
       // if ellbow can’t reach, let it hang down
       this.jointX.real = 0
+
       this.jointY.real = this.upperArmLength
 
       this.endY.real = this.upperArmLength + this.lowerArmLength
@@ -1652,20 +1821,26 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
       if (lengthToDistanceRatio < 1) {
         x *= lengthToDistanceRatio
+
         y *= lengthToDistanceRatio
+
         fullDistance *= lengthToDistanceRatio
       }
 
       if (this.upperArmLength - this.lowerArmLength > fullDistance) {
         lengthToDistanceRatio =
           (this.upperArmLength - this.lowerArmLength) / fullDistance
+
         x *= lengthToDistanceRatio
+
         y *= lengthToDistanceRatio
+
         fullDistance *= lengthToDistanceRatio
       }
     }
 
     this.endX.real = Math.round(x)
+
     this.endY.real = Math.round(y)
 
     // - - - - Calculate Joints
@@ -1695,11 +1870,13 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
     // get one sides of the upper arm triangle
     this.jointX.real = Math.round(this.upperArmLength * Math.sin(upperArmAngle))
+
     this.jointY.real = Math.round(this.upperArmLength * Math.cos(upperArmAngle))
 
     if (isNaN(this.jointX.real)) {
       this.jointX.real = 0
     }
+
     if (isNaN(this.jointY.real)) {
       this.jointY.real = 0
     }
@@ -1717,16 +1894,20 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       ratio = length / (distance || 0.1)
 
     this.handEndX.real = endX + targetX * ratio
+
     this.handEndY.real = endY + targetY * ratio
 
     this.handEndX.calculated = true
+
     this.handEndY.calculated = true
 
     this.hand.draw()
+
     if (this.showDebug) {
       if (this.debugHandEnd) {
         this.debugHandEnd.draw()
       }
+
       // this.debugHandTarget.draw();
       if (this.debugHandTarget) {
         this.debugHandTarget.draw()
@@ -1742,6 +1923,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     })
 
     that.pixelSetter.setArray(pixelArray)
+
     that.seed.reset()
   }
 }

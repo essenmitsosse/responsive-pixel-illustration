@@ -3,17 +3,21 @@ export const Table = function Table(args) {
   if (!args) {
     args = {}
   }
+
   // Forms and Sizes
   this.sX_ = args.sX || 0.6
+
   this.sY_ = args.sY || 0.6
 
   // Colors
   this.color = args.color || [200, 200, 200]
+
   this.colorDetail = args.colorDetail || [225, 210, 225]
 }
 
 Table.prototype.draw = function TableDraw(args) {
   this.sX = this.pushLinkList({ r: this.sX_, useSize: args.stageSX })
+
   this.sY = this.pushLinkList({ r: this.sY_, useSize: args.stageSY })
 
   this.topSY = this.pushLinkList({
@@ -22,7 +26,9 @@ Table.prototype.draw = function TableDraw(args) {
     max: this.sY,
     min: 1,
   })
+
   this.legSX = this.pushLinkList({ r: 0.1, useSize: this.sX })
+
   this.footSX = this.pushLinkList({ r: 0.35, useSize: this.sX })
 
   this.pushRelativeStandardAutomatic({
@@ -83,28 +89,35 @@ export const Chair = function Chair(args) {
   if (!args) {
     args = {}
   }
+
   // Forms and Sizes
   this.sX_ = args.sX || 0.25
+
   this.sY_ = args.sY || 0.32
 
   this.reflect = args.toLeft
 
   // Colors
   this.color = args.color || [200, 200, 200]
+
   this.colorDetail = args.colorDetail || [180, 180, 180]
 }
 
 Chair.prototype.draw = function ChairDraw(args) {
   this.sX = this.pushLinkList({ r: this.sX_, useSize: args.stageSX })
+
   this.sY = this.pushLinkList({ r: this.sY_, useSize: args.stageSY })
 
   this.verticalElement = this.pushLinkList({ r: 0.1, useSize: this.sX })
+
   this.horizontalElement = this.pushLinkList({
     r: 0.15,
     useSize: this.sX,
     max: this.sY,
   })
+
   this.legDistance = this.pushLinkList({ r: 0.3, useSize: this.sX })
+
   this.backSY = this.pushLinkList({ r: 2, useSize: this.sY })
 
   this.pushRelativeStandardAutomatic({
@@ -166,13 +179,17 @@ export const Glass = function Glass(args) {
   if (!args) {
     args = {}
   }
+
   // Forms & Sizes
   this.sX_ = 0.1
+
   this.sY_ = 0.15
 
   // Colors
   this.color = args.color || [100, 100, 255]
+
   this.glassColor = [255, 255, 255]
+
   this.mixColor = [
     this.color[0] * 0.5 + this.glassColor[0] * 0.5,
     this.color[1] * 0.5 + this.glassColor[1] * 0.5,
@@ -184,6 +201,7 @@ Glass.prototype.draw = function GlassDraw(args) {
   var normalGlass
 
   this.sX = this.pushLinkList({ r: this.sX_, useSize: args.square, min: 1 })
+
   this.sY = this.pushLinkList({ r: this.sY_, useSize: args.square })
 
   this.pushRelativeStandardAutomatic({
@@ -193,6 +211,7 @@ Glass.prototype.draw = function GlassDraw(args) {
   this.level = this.pushLinkList({ r: 0, useSize: this.sY })
 
   this.getPosition(args)
+
   this.pushRelativeStandardAutomatic(args.info)
 
   normalGlass = [
@@ -223,7 +242,9 @@ export const Emotion = function Emotion(args) {
   if (!args) {
     args = {}
   }
+
   this.color = args.color || [220, 220, 220]
+
   this.heartColor = [-1, -1, -1]
 
   this.colorList.push({
@@ -238,6 +259,7 @@ Emotion.prototype.draw = function EmotionDraw(args) {
   if (!args.info.pos) {
     return
   }
+
   var actor = args.info.pos.obj
 
   if (!actor) {
@@ -247,12 +269,14 @@ Emotion.prototype.draw = function EmotionDraw(args) {
   this.sY = this.sX = actor.head ? actor.head.square : 0
 
   this.innerS = this.pushLinkList({ r: 0.3, useSize: this.sX, a: 5 })
+
   if (args.info.size) {
     this.innerS = this.pushLinkList({
       r: args.info.size,
       useSize: this.innerS,
     })
   }
+
   this.innerS = this.pushLinkList({ r: 1, useSize: this.innerS })
 
   this.pushRelativeStandardAutomatic({
@@ -275,6 +299,7 @@ Emotion.prototype.draw = function EmotionDraw(args) {
 
   if (args.info.heart) {
     this.cloudBottomY = this.pushLinkList({ r: 0.6, useSize: this.innerS })
+
     this.cloudLeftX = this.pushLinkList({ r: 0, useSize: this.innerS })
 
     if (args.info.thunder) {

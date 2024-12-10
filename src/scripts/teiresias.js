@@ -162,6 +162,7 @@ function teiresias() {
     treeLeaves = function (random) {
       var name = 'treeLeaves' + (i += 1),
         name2 = 'treesSpots' + i
+
       return [
         {
           sY: { r: 1.2 },

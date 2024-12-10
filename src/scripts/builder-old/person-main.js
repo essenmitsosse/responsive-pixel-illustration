@@ -1,15 +1,19 @@
 import { Object } from './object.js'
+
 // PERSON --------------------------------------------------------------------------------
 export const Person = function (args) {
   if (!args) {
     args = args || {}
   }
+
   // Assests
   this.basicBody = new this.basic.BasicBody(args)
+
   this.id = this.basic.objectCount += 1
 } // END Person
 
 Person.prototype = new Object()
+
 Person.prototype.draw = function (args, z) {
   var nr = (args.nr = this.basic.objectCount += 1),
     backView = (args.backView = args.view === 'backView'),
@@ -52,6 +56,7 @@ export const BasicBody = function (args) {
   // Form & Sizes
 
   this.sY = this.IF() ? this.R(0.4, 1) : 1
+
   this.sX =
     (this.IF(0.1)
       ? this.R(0.3, 0.8)
@@ -60,6 +65,7 @@ export const BasicBody = function (args) {
         : this.R(0.15, 0.3)) * this.sY
 
   this.lowerBodySY = this.IF(0.1) ? this.R(0.5, 0.9) : 0.7
+
   if (args.demo && args.hip) {
     this.lowerBodySY = args.hip
   }
@@ -85,6 +91,7 @@ export const BasicBody = function (args) {
   this.skinShadowColor = args.skinShadowColor = args.skinColor.copy({
     brAdd: -1,
   })
+
   this.skinDetailColor = args.skinDetailColor = args.skinColor.copy({
     brAdd: -2,
   })
@@ -95,16 +102,21 @@ export const BasicBody = function (args) {
 
   // Assets
   this.head = new this.basic.Head(args)
+
   this.upperBody = new this.basic.UpperBody(args)
+
   this.lowerBody = new this.basic.LowerBody(args)
 } // END BasicBody
+
 BasicBody.prototype = new Object()
+
 BasicBody.prototype.draw = function (args, right) {
   var nr = args.nr,
     sideView = args.sideView,
     head
 
   args.right = right
+
   args.calc = args.backView !== right || sideView
 
   if (args.calc) {
@@ -113,6 +125,7 @@ BasicBody.prototype.draw = function (args, right) {
       useSize: 'personHalfSX' + nr,
       a: 2,
     }
+
     this.vL['personSY' + nr] = { r: this.sY, min: 5, useSize: args.size }
   }
 
@@ -129,6 +142,7 @@ BasicBody.prototype.draw = function (args, right) {
       useSize: 'bodyRestSY' + nr,
       min: 1,
     }
+
     this.vL['upperBodySY' + nr] = {
       add: ['bodyRestSY' + nr, this.sub('lowerBodySY' + nr)],
       min: 1,
@@ -137,11 +151,13 @@ BasicBody.prototype.draw = function (args, right) {
     this.vL['fullBodySY' + nr] = ['lowerBodySY' + nr, 'upperBodySY' + nr]
 
     this.vL['personRealSX' + nr] = { a: 'personSX' + nr }
+
     this.vL['personRealMaxSY' + nr] = [
       'fullBodySY' + nr,
       'headMaxSY' + nr,
       'neckSY' + nr,
     ]
+
     this.vL['personRealMinSY' + nr] = [
       'fullBodySY' + nr,
       'headMinSY' + nr,
@@ -189,22 +205,33 @@ export const Logo = function (args, right, symetrical, logoColor) {
 
   // Form & Sizes
   this.sX = this.R(0, 1)
+
   this.sY = this.R(0, 1)
+
   this.Y = this.R(0, 0.5)
 
   this.oneSide = !symetrical && this.IF(0.1)
+
   if (this.oneSide) {
     this.side = this.IF(0.5)
   }
 
   this.roundUp = this.IF(0.3)
+
   this.roundDown = this.IF(0.3)
+
   this.dentUp = this.IF(0.3)
+
   this.dentDown = this.IF(0.3)
+
   this.stripUp = this.IF(0.1)
+
   this.stripDown = this.IF(0.1)
+
   this.stripSide = this.IF(0.1)
+
   this.edgeUp = this.IF(0.2)
+
   this.edgeDown = this.IF(0.2)
 
   // Color
@@ -218,6 +245,7 @@ export const Logo = function (args, right, symetrical, logoColor) {
     })
   // Assets
 } // END Logo
+
 Logo.prototype = new Object()
 
 Logo.prototype.draw = function (args) {

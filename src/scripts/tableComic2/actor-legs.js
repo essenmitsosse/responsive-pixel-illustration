@@ -4,6 +4,7 @@ export const Legs = function Legs(args) {
 
   // Forms & Sizes
   this.legSX_ = args.legSX || 0.2
+
   this.hipSY_ = args.hipSY || 0.2
 
   // Colors
@@ -11,9 +12,11 @@ export const Legs = function Legs(args) {
 
   // Assets
   this.belt = this.rIf(0.5)
+
   this.beltSY_ = this.belt && 0.2
 
   this.skirt = this.rIf(0.6)
+
   this.skirtSY_ = this.skirt && this.rFl(0.4, 0.9)
 
   this.shoeSY_ = this.rFl(-0.5, 1)
@@ -21,11 +24,13 @@ export const Legs = function Legs(args) {
 
 Legs.prototype.getSize = function LegsGetSize(args) {
   this.legSX = this.pushLinkList({ r: this.legSX_, useSize: args.sX })
+
   this.hipSY = this.pushLinkList({
     r: this.hipSY_,
     useSize: args.sY,
     min: this.legSY,
   })
+
   this.legY = this.pushLinkList([this.hipSY, { r: -1, useSize: this.legSX }])
 }
 
@@ -55,6 +60,7 @@ Legs.prototype.draw = function LegsDraw(args) {
     leg
 
   this.sX = args.sX
+
   this.sY = args.sY
 
   this.legY = this.pushLinkList({
@@ -64,16 +70,21 @@ Legs.prototype.draw = function LegsDraw(args) {
   this.fullLegSY = this.pushLinkList({
     add: [args.sY, { r: -1, useSize: this.hipSY }],
   })
+
   this.lowerLegSY = this.pushLinkList({ r: 1, useSize: this.fullLegSY })
+
   this.topLegSY = this.pushLinkList({
     add: [this.fullLegSY, { r: -1, useSize: this.lowerLegSY }],
   })
 
   this.side = this.pushLinkList({ r: 0, useSize: this.topLegSY })
+
   this.sideOther = this.pushLinkList({ r: -1, useSize: this.side })
 
   this.beltSY = this.pushLinkList({ r: 0, useSize: this.hipSY })
+
   this.skirtSY = this.pushLinkList({ r: 0, useSize: this.lowerLegSY })
+
   this.shoeSY = this.pushLinkList({ r: 1, useSize: this.lowerLegSY, min: 1 })
 
   this.pushRelativeStandardAutomatic({

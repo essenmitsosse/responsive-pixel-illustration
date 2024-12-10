@@ -24,6 +24,7 @@ function randomDistribution(init) {
 
   renderList = (function () {
     console.log(random)
+
     var count = rInt(5, 20),
       s_ = 1 / (count - 1),
       row = count,
@@ -73,6 +74,7 @@ function randomDistribution(init) {
 
     while (row--) {
       col = count
+
       while (col--) {
         getSquare()
       }

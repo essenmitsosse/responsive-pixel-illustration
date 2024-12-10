@@ -6,6 +6,7 @@ export const Arm = function (args) {
   this.armSX = this.IF(0.8) ? 0.04 : this.R(0, 0.1)
 
   this.armSY = this.R(0.4, 0.6)
+
   if (args.demo && args.arm) {
     this.armSY = args.arm
   }
@@ -16,10 +17,13 @@ export const Arm = function (args) {
 
   if (this.sleeves) {
     this.sleeveSY = this.R(0, 1)
+
     this.upperSleeveSY =
       this.upperArmSY > this.sleeveSY ? this.sleeveSY : 'full'
+
     this.lowerSleeveSY =
       this.upperArmSY > this.sleeveSY ? false : this.sleeveSY - this.upperArmSY
+
     this.fullUpper = this.upperSleeveSY === 'full'
   }
 
@@ -29,13 +33,16 @@ export const Arm = function (args) {
 
   // Colors
   this.skinColor = args.skinColor
+
   this.shirtColor = args.shirtColor
 
   // Assets
   this.shoulderPad = this.IF(0.05) && new this.basic.ShoulderPad(args)
+
   this.toolLeft =
     (args.demo || this.IF(0.1)) &&
     (this.IF(0.5) ? new this.basic.Shield(args) : new this.basic.Sword(args))
+
   this.toolRight =
     !args.demo &&
     this.IF(0.1) &&
@@ -45,7 +52,9 @@ export const Arm = function (args) {
 
   this.headGear = args.headGear
 } // END Arm
+
 Arm.prototype = new Object()
+
 Arm.prototype.draw = function (args, rightSide, behind) {
   var nr = args.nr,
     sideView = args.sideView,
@@ -74,18 +83,21 @@ Arm.prototype.draw = function (args, rightSide, behind) {
     })
 
     args.armBasicSY = this.pushLinkList({ r: 1, useSize: args.fullBodySY })
+
     args.armSY = this.pushLinkList({
       r: this.armSY,
       useSize: args.armBasicSY,
     })
 
     args.shoulderSX = this.pushLinkList([args.armSX])
+
     args.shoulderSY = this.pushLinkList({
       r: 1,
       useSize: args.armSX,
       min: 1,
       max: args.chestSY,
     })
+
     args.shoulderFullSX = this.pushLinkList([
       this.mult(sideView ? 2 : 1, args.shoulderSX),
       args.chestSX,
@@ -96,6 +108,7 @@ Arm.prototype.draw = function (args, rightSide, behind) {
       min: 1,
       max: { r: 0.1, useSize: args.personHalfSX },
     })
+
     args.handHalfNegSX = this.pushLinkList({
       r: -0.5,
       useSize: args.handSX,
@@ -105,6 +118,7 @@ Arm.prototype.draw = function (args, rightSide, behind) {
       r: this.upperArmSY,
       useSize: args.armSY,
     })
+
     args.lowerArmSY = this.pushLinkList([args.armSY, this.sub(args.upperArmSY)])
 
     if (this.sleeves) {
@@ -138,6 +152,7 @@ Arm.prototype.draw = function (args, rightSide, behind) {
     r: Math.sin(shoulderAngle),
     useSize: args.upperArmSY,
   })
+
   args['upperArmY' + nrName] = this.pushLinkList({
     r: Math.cos(shoulderAngle),
     useSize: args.upperArmSY,
@@ -147,6 +162,7 @@ Arm.prototype.draw = function (args, rightSide, behind) {
     r: Math.sin(armAngle),
     useSize: args.lowerArmSY,
   })
+
   args['lowerArmY' + nrName] = this.pushLinkList({
     r: Math.cos(armAngle),
     useSize: args.lowerArmSY,
@@ -158,6 +174,7 @@ Arm.prototype.draw = function (args, rightSide, behind) {
         r: Math.sin(shoulderAngle),
         useSize: args.upperSleeveSY,
       })
+
       args['upperSleeveY' + nrName] = this.pushLinkList({
         r: Math.cos(shoulderAngle),
         useSize: args.upperSleeveSY,
@@ -167,6 +184,7 @@ Arm.prototype.draw = function (args, rightSide, behind) {
         r: Math.sin(armAngle),
         useSize: args.lowerSleeveSY,
       })
+
       args['lowerSleeveY' + nrName] = this.pushLinkList({
         r: Math.cos(armAngle),
         useSize: args.lowerSleeveSY,
@@ -375,18 +393,30 @@ Arm.prototype.draw = function (args, rightSide, behind) {
 export const ShoulderPad = function (args) {
   // Form & Sizes
   this.X = this.R(-1, 0)
+
   this.Y = this.R(-1, 0.5)
+
   this.SX = this.R(0.1, 0.4)
+
   this.SY = this.R(1, 3)
+
   this.roundTop = this.IF(0.5)
+
   this.roundBottom = this.IF()
+
   this.roundInner = this.IF(0.3)
+
   this.border = this.IF(0.5)
+
   this.deko = this.IF(0.2)
+
   this.topDetail = this.IF(0.2)
+
   if (this.topDetail) {
     this.topDetailStrip = this.IF(0.2)
+
     this.topDetailX = !this.topDetailStrip && this.R(0, 1)
+
     this.topDetailSY = this.R(0, 1)
   }
 
@@ -407,12 +437,15 @@ export const ShoulderPad = function (args) {
     this.dekoColor = (
       this.IF(0.5) ? this.shoulderPadColor : args.secondColor
     ).copy({ brContrast: 2, max: 4 })
+
     this.dekoShadowColor = this.dekoColor.copy({ brContrast: -1, max: 4 })
   }
 
   // Assets
 } // END ShoulderPad
+
 ShoulderPad.prototype = new Object()
+
 ShoulderPad.prototype.draw = function (args, z) {
   var nr = args.nr
 
@@ -510,7 +543,9 @@ export const Tool = function () {
   // Form & Sizes
   // Assets
 } // END Tool
+
 Tool.prototype = new Object()
+
 Tool.prototype.draw = function (args) {
   return {
     s: args.armSX,
@@ -529,31 +564,44 @@ Tool.prototype.draw = function (args) {
 export const Sword = function (args, right) {
   // Form & Sizes
   this.rightSide = right
+
   this.bladeSY = this.R(0, 1.5)
+
   this.bladeSX = this.IF(0.1) ? this.R(0, 0.4) : this.R(0, 0.2)
+
   this.handleSX = this.R(0, 0.5)
+
   this.handleOtherSX = this.handleSX / 2 + this.R(-0.25, 0.25)
+
   this.noKnife = this.IF(0.5)
+
   this.crossGuard = this.IF(1.5)
+
   this.notRound = this.IF()
+
   this.bend = !this.notRound && this.IF()
+
   this.middleStrip = this.IF(0.5)
 
   // Color
   this.hiltColor = (this.IF(0.5) ? args.firstColor : args.secondColor).copy({
     brContrast: -1,
   })
+
   this.bladeColor = (this.IF(0.5) ? args.firstColor : args.secondColor).copy({
     brContrast: 1,
     max: 4,
   })
+
   this.bladeLightColor = this.bladeColor.copy({ brContrast: 1 })
+
   this.bladeShadowColor = this.bladeColor.copy({ brContrast: -1 })
 
   // Assets
 } // END Sword
 
 Sword.prototype = new Object()
+
 Sword.prototype.draw = function (args, z) {
   var nr = args.nr,
     name = this.rightSide ? 'right' : 'left',
@@ -563,20 +611,24 @@ Sword.prototype.draw = function (args, z) {
     add: [args.handSX, -2],
     min: 1,
   })
+
   args['bladeSX' + nrName] = this.pushLinkList({
     r: this.bladeSY,
     useSize: args.personHalfSX,
     min: { r: 3, useSize: args.armSX },
   })
+
   args['bladeSY' + nrName] = this.pushLinkList({
     r: this.bladeSX,
     useSize: args.personHalfSX,
     min: args['handleSY' + nrName],
   })
+
   args['handleSX' + nrName] = this.pushLinkList({
     r: this.handleSX,
     useSize: args.personHalfSX,
   })
+
   args['handleOtherSX' + nrName] = this.pushLinkList({
     r: this.handleOtherSX,
     useSize: args.personHalfSX,
@@ -660,21 +712,26 @@ Sword.prototype.draw = function (args, z) {
 export const Shield = function (args, right) {
   // Form & Sizes
   this.name = right ? 'right' : 'left'
+
   this.shieldSX = this.IF() ? this.R(0.4, 0.8) : this.R(0, 0.4)
+
   this.shieldSY = this.IF() ? this.R(0.4, 0.8) : this.R(0, 0.4)
 
   if (this.IF()) {
     this.stripesGap = this.R(0.01, 0.2)
+
     this.stripesStrip = this.R(0.01, 0.2)
   }
 
   this.roundTop = this.IF(0.5)
+
   this.roundBottom = this.IF(0.5)
 
   // Colors
   this.shieldColor = (this.IF(0.5) ? args.firstColor : args.secondColor).copy({
     brContrast: this.IF() ? 1 : -1,
   })
+
   this.shieldShadowColor = this.shieldColor.copy({ brContrast: -1 })
 
   // Assets
@@ -691,6 +748,7 @@ export const Shield = function (args, right) {
 } // END Shield
 
 Shield.prototype = new Object()
+
 Shield.prototype.draw = function (args, z) {
   var nr = args.nr,
     nrName = this.name + nr,
@@ -701,6 +759,7 @@ Shield.prototype.draw = function (args, z) {
     useSize: args.personHalfSX,
     min: 1,
   })
+
   args['shieldSY' + nrName] = this.pushLinkList({
     r: this.shieldSY,
     useSize: args.personHalfSX,

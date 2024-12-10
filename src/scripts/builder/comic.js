@@ -29,6 +29,7 @@ export const Comic = function (init) {
 
   // BORDER
   this.vL['borderX'] = { r: border, useSize: 'fullSqu', min: 2 }
+
   this.vL['borderY'] = {
     r: border * horRatio,
     useSize: 'fullSqu',
@@ -37,20 +38,24 @@ export const Comic = function (init) {
 
   // IMAGE
   this.vL['imgSX'] = { add: [{ r: 1 }, this.mult(-2, 'borderX')] }
+
   this.vL['imgSY'] = [
     { r: 1, height: true },
     this.mult(this.GR(-3.5, -2), 'borderY'),
   ]
 
   this.vL['imgSqu'] = { a: 'imgSX', max: 'imgSY' }
+
   this.vL['imgSquBigger'] = { a: 'imgSX', min: 'imgSY' }
 
   this.vL['_panelWid'] = { r: 1 / panelsCalc, useSize: 'imgSX' }
+
   this.vL['_panelOvershot2'] = {
     add: ['imgSY', { r: this.R(-2.5, -1.5), useSize: '_panelWid' }],
     min: { a: 0 },
     max: 1,
   }
+
   this.vL['_panelOvershot2IF'] = { r: 10000000, useSize: '_panelOvershot2' }
 
   this.vL['_panelOvershot3'] = {
@@ -58,6 +63,7 @@ export const Comic = function (init) {
     min: { a: 0 },
     max: 1,
   }
+
   this.vL['_panelOvershot3IF'] =
     panels === 4
       ? { a: 0 }
@@ -69,18 +75,21 @@ export const Comic = function (init) {
     min: 3,
     max: ['borderX', -1],
   }
+
   this.vL['gutterY'] = {
     r: gutter * horRatio,
     useSize: 'imgSqu',
     min: ['gutterX', 1],
     max: ['borderY', -1],
   }
+
   this.vL['gutterBorderS'] = {
     r: this.GR(-1, 1),
     useSize: 'gutterX',
     max: -1,
     min: { r: -0.5, useSize: 'gutterX', a: 0.5 },
   }
+
   this.vL['_effectiveImgSX'] = {
     max: { r: 3, useSize: 'imgSX' },
     add: [
@@ -97,10 +106,13 @@ export const Comic = function (init) {
     '_effectiveImgSX',
     this.mult(-1 * panelsCalc, 'gutterX'),
   ]
+
   this.vL['panelSX'] = this.mult(1 / panelsCalc, 'panelRestSX')
 
   this.vL['panelRest2SY'] = ['imgSY', this.mult(-1, 'gutterY')]
+
   this.vL['panelRest3SY'] = ['imgSY', this.mult(-2, 'gutterY')]
+
   this.vL['panelSY'] = {
     add: [
       {
@@ -124,6 +136,7 @@ export const Comic = function (init) {
     ],
     max: { a: 0 },
   }
+
   this.vL['2rowY'] = {
     a: '_panelOvershot2IF',
     add: [this.sub('_panelOvershot3IF')],
@@ -139,6 +152,7 @@ export const Comic = function (init) {
       { r: -panelsCalc / 3, useSize: 'gutterX' },
     ],
   }
+
   this.vL['3rowY'] = { a: '_panelOvershot3IF', max: ['panelSY', 'gutterY'] }
 
   this.vL['fullSX'] = [
@@ -168,6 +182,7 @@ export const Comic = function (init) {
   }
 
   args.panels = panels
+
   args.outerBorderColor = outerBorderColor
 
   panel = new this.basic.Panel(args)
@@ -233,12 +248,15 @@ export const Panel = function (args) {
   this.horizont = this.IF(0.6) ? this.R(0.1, 0.6) : this.R(0, 1)
 
   this.lightnessSwitched = this.IF(0.01 * args.panels)
+
   this.colorChangeGradual =
     !this.lightnessSwitched && this.IF(0.01 * args.panels)
 
   if (this.lightnessSwitched) {
     this.lightnessSwitchPanel = this.R(1, args.panels - 1)
+
     this.backWard = this.IF(0.5)
+
     this.newLightness = args.newLightness =
       args.newLightness || this.GR(1, 3) * (this.IF(0.7) ? -1 : 1)
   } else if (this.colorChangeGradual) {
@@ -266,6 +284,7 @@ export const Panel = function (args) {
     nextColor: this.IF(0.1),
     brSet: this.sun ? 4 : 5,
   })
+
   if (this.sun) {
     this.sunColor = this.starColor || this.skyColor.copy({ brSet: 5 })
   }
@@ -276,13 +295,16 @@ export const Panel = function (args) {
   this.ground = new this.basic.Ground(args)
 
   this.actor1 = this.IF(0.99) && new this.basic.Actor(args)
+
   this.actor2 = this.IF(0.9) && new this.basic.Actor(args)
+
   this.actor3 = this.IF(0.1) && new this.basic.Actor(args)
 
   this.forrest = this.IF(0.4) && new this.basic.Forrest(args)
 } // END Panel
 
 Panel.prototype = new Object()
+
 Panel.prototype.draw = function (args) {
   var nr = args.i,
     closeUp = this.IF(0.1),
@@ -309,6 +331,7 @@ Panel.prototype.draw = function (args) {
             : 0
     } else {
       darkness = Math.round(this.colorChangeStart + this.colorChange * nr)
+
       if (darkness < -3) {
         darkness = -3
       }
@@ -327,7 +350,9 @@ Panel.prototype.draw = function (args) {
         brSet: 1,
         dontChange: true,
       })
+
       stars = darkness < -2 && this.clearSky
+
       if (stars) {
         this.starColor = this.finalSkyColor.copy({
           brSet: 3,
@@ -346,6 +371,7 @@ Panel.prototype.draw = function (args) {
     closeUp ? 2 : wideShot ? 0.5 : superWideShot ? 0.2 : 1,
     'panelSqu',
   )
+
   this.vL['horizont' + nr] = {
     r:
       this.horizont *
@@ -497,6 +523,7 @@ export const Actor = function (args) {
 } // END Actor
 
 Actor.prototype = new Object()
+
 Actor.prototype.draw = function (args, z, size) {
   var eyeLookVert = ['', '', '', 'left', 'right'],
     eyeLookHor = ['', '', '', '', '', 'up', 'down', 'up', 'down', 'verDown'],
@@ -610,6 +637,7 @@ Actor.prototype.draw = function (args, z, size) {
   }
 
   args.leg = {}
+
   args.leg[this.IF(0.5) ? 'right' : 'left'] = legPos[this.GR(0, legPos.length)]
 
   args.hatDown = this.IF(0.02)
@@ -626,13 +654,16 @@ export const Ground = function (args) {
     nextColor: this.IF(),
     brContrast: this.GR(1, 4),
   })
+
   this.groundShadowColor = args.groundShadowColor = this.groundColor.copy({
     brAdd: -1,
   })
 
   // Assets
 } // END Ground
+
 Ground.prototype = new Object()
+
 Ground.prototype.draw = function (args, z) {
   var nr = args.nr
 

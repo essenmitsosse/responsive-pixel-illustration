@@ -6,11 +6,13 @@ export const Background = function Background(args) {
   this.blank = args.blank
 
   this.backgroundColor = args.backgroundColor || [180, 190, 200]
+
   this.floorColor = [
     this.backgroundColor[0] * floorFactor,
     this.backgroundColor[1] * floorFactor,
     this.backgroundColor[2] * floorFactor,
   ]
+
   this.borderColor = [
     this.backgroundColor[0] * borderFactor,
     this.backgroundColor[1] * borderFactor,
@@ -43,6 +45,7 @@ Background.prototype.draw = function BackgroundDraw(args) {
     })
 
   this.backgroundSY = this.pushLinkList({ r: 1, useSize: args.fullSY })
+
   this.floorSY = this.pushLinkList({ r: 1, useSize: floorY })
 
   this.pushRelativeStandardAutomatic({
@@ -108,6 +111,7 @@ export const Floor = function Floor(args) {
   var darkFactor = 0.9
 
   this.color = args.color
+
   this.darkColor = [
     this.color[0] * darkFactor,
     this.color[1] * darkFactor,
@@ -184,11 +188,13 @@ export const Stage = function Stage(args) {
 
   // // Stage always has to be at 0 because it has nothing to be relative to. Use panX/panY to move camera.
   this.x = this.pushLinkList({ a: 0 })
+
   this.y = this.pushLinkList({ a: 0 })
 }
 
 Stage.prototype.draw = function StageDraw(args) {
   this.sX = args.stageSX
+
   this.sY = args.stageSY
 
   return (

@@ -14,6 +14,7 @@ export const Renderer = function (canvas, info, options, pixelStarter) {
   return {
     rescaleWindow: function () {
       w = canvas.offsetWidth
+
       h = canvas.offsetHeight
     },
 
@@ -28,16 +29,22 @@ export const Renderer = function (canvas, info, options, pixelStarter) {
       if (image && countW > 0 && countH > 0) {
         // Resize Canvas to new Windows-Size
         virtualCanvas.width = countW
+
         virtualCanvas.height = countH
 
         canvas.width = w
+
         canvas.height = h
 
         // Disable Anti-Alaising
         context.mozImageSmoothingEnabled = false
+
         context.oImageSmoothingEnabled = false
+
         context.webkitImageSmoothingEnabled = false
+
         context.msImageSmoothingEnabled = false
+
         context.imageSmoothingEnabled = false
 
         // Render the Image Data to the Pixel Array
@@ -112,7 +119,9 @@ Renderer.prototype.getPixelArray = function (width, height) {
 
   while (width--) {
     countH = height
+
     colorArray[width] = []
+
     while (countH--) {
       colorArray[width][countH] = new Color()
     }
@@ -141,17 +150,21 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
       // TODO: Dont check if its the old values;
 
       maxX = (minX = dimensions.posX) + dimensions.width
+
       maxY = (minY = dimensions.posY) + dimensions.height
 
       if (!maxX || maxX > canvasWidth) {
         maxX = canvasWidth
       }
+
       if (!maxY || maxY > canvasHeight) {
         maxY = canvasHeight
       }
+
       if (!minX || minX < 0) {
         minX = 0
       }
+
       if (!minY || minY < 0) {
         minY = 0
       }
@@ -160,12 +173,15 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
         if (maxX > old.posX + old.width) {
           maxX = old.posX + old.width
         }
+
         if (maxY > old.posY + old.height) {
           maxY = old.posY + old.height
         }
+
         if (minX < old.posX) {
           minX = old.posX
         }
+
         if (minY < old.posY) {
           minY = old.posY
         }
@@ -193,6 +209,7 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
     getSetForRect: function (color, zInd, id) {
       // Set Color for Rectangle for better Performance
       var pA = pixelArray
+
       return function (args) {
         var posX = args.posX,
           posY = args.posY,
@@ -207,6 +224,7 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
 
         while ((sizeX -= 1) >= startX) {
           sizeY = sizeY_start
+
           row = pA[sizeX]
 
           while ((sizeY -= 1) >= startY) {
@@ -218,6 +236,7 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
 
     getClearForRect: function (id) {
       var pA = pixelArray
+
       return function (args) {
         var endX = args.width + args.posX,
           endY = args.height + args.posY,
@@ -230,7 +249,9 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
 
         while ((sizeX -= 1) >= startX) {
           sizeY = initSizeY
+
           row = pA[sizeX]
+
           while ((sizeY -= 1) >= startY) {
             row[sizeY].clear(id)
           }
@@ -257,6 +278,7 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
 
           while ((sizeY -= 1) >= startY) {
             s.push([sizeX, sizeY])
+
             col[sizeY] = true
           }
         }
@@ -311,21 +333,31 @@ Renderer.prototype.getRenderPixelToImage = function (backgroundColor) {
 
     while (pW--) {
       w4 -= 4
+
       pH = pHSave
+
       full = fullSave
+
       row = pA[pW]
+
       while (pH--) {
         if ((c = row[pH].s.pop())) {
           c = c.c
 
           imageData[(i = w4 + (full -= wFull))] = c[0]
+
           imageData[(i += 1)] = c[1]
+
           imageData[(i += 1)] = c[2]
+
           imageData[(i += 1)] = 255
         } else if (backgroundColor) {
           imageData[(i = w4 + (full -= wFull))] = defaultRed
+
           imageData[(i += 1)] = defaultGreen
+
           imageData[(i += 1)] = defaultBlue
+
           imageData[(i += 1)] = 255
         } else {
           imageData[(i = w4 + (full -= wFull) + 3)] = 0
@@ -351,6 +383,7 @@ Renderer.prototype.getDrawer = function (pixelStarter, renderList) {
     var pixelArray = that.createPixelArray(countW, countH)
 
     drawingTool.init(countW, countH, pixelArray)
+
     canvasTool.draw()
 
     return pixelArray

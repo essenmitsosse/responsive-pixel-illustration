@@ -78,30 +78,45 @@ export const TableComic = function (init, slide, createSlider) {
       current = comicPrototype[key].prototype
 
       current.rIf = rIf
+
       current.rInt = rInt
+
       current.rFl = rFl
+
       current.linkList = linkList
+
       current.pushLinkList = helperGlobal.getLinkListPusher(linkList)
 
       current.pushRelativeStandardAutomatic = pushRelativeStandardAutomatic
+
       current.changersRelativeCustomList = changersRelativeCustomList
+
       current.pushRelativeStandard = pushRelativeStandard
+
       current.changersCustomList = changersCustomList
+
       current.colorList = pushColorStandard
 
       current.getSizeWithRatio = comicPrototype.getSizeWithRatio
+
       current.getRelativePosition = comicPrototype.getRelativePosition
+
       current.getPosition = comicPrototype.getPosition
+
       if (!current.getFocus) {
         current.getFocus = comicPrototype.getFocus
       }
+
       current.getObject = comicPrototype.getObject
 
       current.getPosX = comicPrototype.getPosX
+
       current.getPosY = comicPrototype.getPosY
+
       current.getSizeSwitch = comicPrototype.getSizeSwitch
 
       current.multiplyColor = helper.multiplyColor
+
       current.getColorShades = comicPrototype.getColorShades
 
       current.debug = debug
@@ -115,6 +130,7 @@ export const TableComic = function (init, slide, createSlider) {
     : init.altVersion
       ? this.getStrip()
       : new this.getTableComic(init) // !!!! REMOVE ONE OF THEM !!!!!
+
   this.paperColor = this.stripInfo.paperColor || [255, 255, 255]
 
   renderList = [
@@ -166,78 +182,91 @@ export const TableComic = function (init, slide, createSlider) {
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
       })
+
       createSlider.slider({
         niceName: 'B',
         valueName: 'b',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
       })
+
       createSlider.slider({
         niceName: 'C',
         valueName: 'c',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
       })
+
       createSlider.slider({
         niceName: 'D',
         valueName: 'd',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
       })
+
       createSlider.slider({
         niceName: 'E',
         valueName: 'e',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
       })
+
       createSlider.slider({
         niceName: 'F',
         valueName: 'f',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
       })
+
       createSlider.slider({
         niceName: 'G',
         valueName: 'g',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
       })
+
       createSlider.slider({
         niceName: 'H',
         valueName: 'h',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
       })
+
       createSlider.slider({
         niceName: 'I',
         valueName: 'i',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
       })
+
       createSlider.slider({
         niceName: 'J',
         valueName: 'j',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
       })
+
       createSlider.slider({
         niceName: 'K',
         valueName: 'k',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
       })
+
       createSlider.slider({
         niceName: 'L',
         valueName: 'l',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
       })
+
       createSlider.slider({
         niceName: 'M',
         valueName: 'm',
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
       })
+
       createSlider.slider({
         niceName: 'N',
         valueName: 'n',
@@ -251,6 +280,7 @@ export const TableComic = function (init, slide, createSlider) {
         defaultValue: 0.5,
         input: { min: 0, max: 1, step: 0.02 },
       })
+
       createSlider.slider({
         niceName: 'Kamera',
         valueName: 'camera',
@@ -259,6 +289,7 @@ export const TableComic = function (init, slide, createSlider) {
       })
     } else {
       createSlider.title({ title: 'Layout' })
+
       createSlider.number({
         niceName: 'Panel Count',
         valueName: 'panels',
@@ -266,6 +297,7 @@ export const TableComic = function (init, slide, createSlider) {
         input: { min: 1, max: 20, step: 1 },
         forceRedraw: true,
       })
+
       createSlider.slider({
         niceName: 'Image Ration',
         valueName: 'imgRatio',
@@ -273,12 +305,14 @@ export const TableComic = function (init, slide, createSlider) {
         input: { min: 0.01, max: 4, step: 0.01 },
         output: { min: 0.01, max: 4 },
       })
+
       createSlider.slider({
         niceName: 'Gutter Width',
         valueName: 'gutter-width',
         defaultValue: 0.25,
         input: { min: 0, max: 1, step: 0.02 },
       })
+
       createSlider.slider({
         niceName: 'Gutter Height',
         valueName: 'gutter-height',
@@ -287,12 +321,14 @@ export const TableComic = function (init, slide, createSlider) {
       })
 
       createSlider.title({ title: 'Content' })
+
       createSlider.slider({
         niceName: 'Story Beginn',
         valueName: 'a',
         defaultValue: 0,
         input: { min: -1, max: 1, step: 0.02 },
       })
+
       createSlider.slider({
         niceName: 'Story End',
         valueName: 'b',
@@ -301,12 +337,14 @@ export const TableComic = function (init, slide, createSlider) {
       })
 
       createSlider.title({ title: 'Camera' })
+
       createSlider.slider({
         niceName: 'Camera',
         valueName: 'camera',
         defaultValue: 0,
         input: { min: 0, max: 1, step: 0.02 },
       })
+
       createSlider.slider({
         niceName: 'Camera Alternative',
         valueName: 'altCamera',
@@ -315,30 +353,35 @@ export const TableComic = function (init, slide, createSlider) {
       })
 
       createSlider.title({ title: 'Actors' })
+
       createSlider.slider({
         niceName: 'Actors Size',
         valueName: 'actor-size',
         defaultValue: 0.5,
         input: { min: -1, max: 1, step: 0.02 },
       })
+
       createSlider.slider({
         niceName: 'Actors Color',
         valueName: 'actor-color',
         defaultValue: 0,
         input: { min: 0, max: 1, step: 0.02 },
       })
+
       createSlider.slider({
         niceName: 'Actors Proportion',
         valueName: 'actor-features',
         defaultValue: 0,
         input: { min: 0, max: 1, step: 0.02 },
       })
+
       createSlider.slider({
         niceName: 'Actors Cloth',
         valueName: 'actor-accessoirs',
         defaultValue: 0,
         input: { min: 0, max: 1, step: 0.02 },
       })
+
       createSlider.slider({
         niceName: 'Emotions',
         valueName: 'emotions',
@@ -347,12 +390,14 @@ export const TableComic = function (init, slide, createSlider) {
       })
 
       createSlider.title({ title: 'Environment' })
+
       createSlider.slider({
         niceName: 'Background',
         valueName: 'set',
         defaultValue: 0,
         input: { min: 0, max: 1, step: 0.02 },
       })
+
       createSlider.slider({
         niceName: 'Props',
         valueName: 'props',
@@ -379,6 +424,7 @@ TableComic.prototype.getSizeWithRatio = function (args) {
 
   if (ratio > 1) {
     sX = this.pushLinkList({ r: ratio, useSize: args.sY, max: args.sX })
+
     sY = this.pushLinkList({ r: 1 / ratio, useSize: sX })
   } else {
     sY = this.pushLinkList({
@@ -386,10 +432,12 @@ TableComic.prototype.getSizeWithRatio = function (args) {
       useSize: args.sX,
       max: args.sY,
     })
+
     sX = this.pushLinkList({ r: ratio, useSize: sY })
   }
 
   this[args.sXName || 'sX'] = sX
+
   this[args.sYName || 'sY'] = sY
 }
 
@@ -408,6 +456,7 @@ TableComic.prototype.getSizeSwitch = function (
   defaultPoint,
 ) {
   baseSize = this.pushLinkList(baseSize)
+
   maxSize = this.pushLinkList(maxSize)
 
   if (!maxSize.useSize) {
@@ -443,12 +492,17 @@ TableComic.prototype.getPosition = function (args) {
     obj
 
   this.square = this.pushLinkList({ add: [this.sX], max: this.sY })
+
   this.rotation = info.rotate
+
   this.isRotated = this.rotation && Math.abs(this.rotation) === 90
+
   this.zInd = info.z
 
   this.x = false
+
   this.y = false
+
   if (info.pos) {
     if (typeof info.pos === 'number') {
       this.x = this.getRelativePosition(args.stageSX, info.pos)
@@ -583,32 +637,61 @@ TableComic.prototype.getColorShades = function (color) {
 }
 
 TableComic.prototype.Chair = Chair
+
 TableComic.prototype.Emotion = Emotion
+
 TableComic.prototype.Glass = Glass
+
 TableComic.prototype.Table = Table
+
 TableComic.prototype.Arm = Arm
+
 TableComic.prototype.Eye = Eye
+
 TableComic.prototype.Eyes = Eyes
+
 TableComic.prototype.Hair = Hair
+
 TableComic.prototype.Hat = Hat
+
 TableComic.prototype.Head = Head
+
 TableComic.prototype.Mouth = Mouth
+
 TableComic.prototype.Legs = Legs
+
 TableComic.prototype.Actor = Actor
+
 TableComic.prototype.Body = Body
+
 TableComic.prototype.Torso = Torso
+
 TableComic.prototype.Stage = Stage
+
 TableComic.prototype.Background = Background
+
 TableComic.prototype.Floor = Floor
+
 TableComic.prototype.Strip = Strip
+
 TableComic.prototype.Panel = Panel
+
 TableComic.prototype.getCombiner = getCombiner
+
 TableComic.prototype.getFace = getFace
+
 TableComic.prototype.getStrip = getStrip
+
 TableComic.prototype.getStripInfo = getStripInfo
+
 TableComic.prototype.RenderObjectContainer = RenderObjectContainer
+
 TableComic.prototype.getActors = getActors
+
 TableComic.prototype.getAnimation = getAnimation
+
 TableComic.prototype.getColorScheme = getColorScheme
+
 TableComic.prototype.getStory = getStory
+
 TableComic.prototype.getTableComic = getTableComic

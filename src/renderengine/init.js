@@ -45,6 +45,7 @@ export const InitPixel = function (args) {
   loadScript(callback, currentSlide)
 
   this.getDocumentTitle(imageName, queryString)
+
   window.onkeydown = this.getShortcuts(queryString)
 
   if (currentSlide.timer || queryString.timer) {
@@ -66,14 +67,17 @@ InitPixel.prototype.getQueryString = function () {
       } else {
         value = value * 1
       }
+
       return value
     }
 
   while (i < l) {
     pair = vars[i].split('=')
+
     if (pair[0]) {
       list[pair[0]] = convert(pair[1])
     }
+
     i += 1
   }
 
@@ -112,6 +116,7 @@ InitPixel.prototype.createSingleCanvas = function (canvasData, div) {
     key
 
   canvas.resize = true
+
   canvas.keepalive = true
   // canvas.style.position = "absolute";
 
@@ -143,6 +148,7 @@ InitPixel.prototype.getCallback = function (
   info,
 ) {
   var that = this
+
   return function callback(ImageFunction) {
     var imageFunction, renderObject
 
@@ -206,6 +212,7 @@ InitPixel.prototype.info = function (options) {
     }
 
   info.setAttribute('id', 'infos')
+
   if (show) {
     body.appendChild(info)
   }
@@ -216,6 +223,7 @@ InitPixel.prototype.info = function (options) {
     if (event.ctrlKey) {
       if (k === 73) {
         event.preventDefault()
+
         swap()
       }
     }
@@ -241,7 +249,9 @@ InitPixel.prototype.info = function (options) {
 
       if (show) {
         change('Duration', fullDuration + 'ms')
+
         change('fps', Math.floor(1000 / fullDuration) + 'fps')
+
         change('Average-Time', 'false')
 
         for (what in lo) {
@@ -312,6 +322,7 @@ InitPixel.prototype.nextSlide = function (next) {
   if (!slide) {
     slide = 0
   }
+
   slide = slide * 1 + (next ? 1 : -1)
 
   if (slide > this.slides.length - 1) {
@@ -346,6 +357,7 @@ InitPixel.prototype.changeForceRedraw = function (obj) {
       id: this.queryString.id,
       slide: obj.slide,
     }
+
     this.refresh()
   } else {
     this.addToQueryString(obj)
@@ -354,11 +366,13 @@ InitPixel.prototype.changeForceRedraw = function (obj) {
 
 InitPixel.prototype.makeFullScreen = function () {
   this.toggleResizability(false)
+
   this.renderer.redraw({ width: 1, height: 1 })
 }
 
 InitPixel.prototype.setupToggleResizabilityLinkButton = function (button) {
   this.toggleResizabilityButton = button
+
   this.toggleResizability(this.queryString.resizeable ? true : false)
 }
 
@@ -411,28 +425,35 @@ InitPixel.prototype.getShortcuts = function (q) {
         // CTRL + C // toggle Color sheme
 
         q.cs = q.cs !== true ? true : undefined
+
         that.refresh()
       } else if (keyCode === 68) {
         // CTRL + D // toggle debugging
 
         q.debug = q.debug !== true ? true : undefined
+
         that.refresh()
       } else if (keyCode === 187) {
         // CTRL + "+" // zoom In
         if (!q.p) {
           q.p = 5
         }
+
         q.p = q.p * 1 + 1
+
         that.refresh()
       } else if (keyCode === 189) {
         // CTRL + "-" // zoom Out
         if (!q.p) {
           q.p = 5
         }
+
         q.p = q.p * 1 - 1
+
         if (q.p < 1) {
           q.p = 1
         }
+
         that.refresh()
       }
     } else if (event.altKey) {
@@ -441,16 +462,21 @@ InitPixel.prototype.getShortcuts = function (q) {
         if (!q.panels) {
           q.panels = 1
         }
+
         q.panels = q.panels * 1 + 1
+
         that.refresh()
       } else if (keyCode === 40) {
         if (!q.panels) {
           q.panels = 1
         }
+
         q.panels = q.panels * 1 - 1
+
         if (q.panels < 1) {
           q.panels = 1
         }
+
         that.refresh()
       } else if (keyCode === 39) {
         // Arrow Keys Left/Right // Next / Prev Image
@@ -516,15 +542,21 @@ InitPixel.prototype.getTimerAnimation = function () {
 
       for (key in animations) {
         current = animations[key]
+
         if (current.move) {
           current.pos += current.step * (current.forward ? 1 : -1)
+
           if (current.pos > 1) {
             current.pos = 1
+
             current.move = false
+
             current.forward = false
           } else if (current.pos < 0) {
             current.pos = 0
+
             current.move = false
+
             current.forward = true
           }
 
@@ -533,8 +565,10 @@ InitPixel.prototype.getTimerAnimation = function () {
             current.waitTimer -= 1
           } else {
             current.waitTimer = waitTimer
+
             if (current.middleChance > Math.random()) {
               current.forward = !current.forward
+
               current.move = false
             }
           }
@@ -545,6 +579,7 @@ InitPixel.prototype.getTimerAnimation = function () {
             current.waitTimer -= 1
           } else {
             current.waitTimer = waitTimer
+
             if (current.chance > Math.random()) {
               current.move = true
             }
@@ -561,14 +596,19 @@ InitPixel.prototype.getTimerAnimation = function () {
 
   for (key in animations) {
     current = animations[key]
+
     current.chance = (waitTimer * current.chance) / fps
+
     current.middleChance = waitTimer / (fps * current.duration)
 
     current.step = 1 / (fps * current.duration)
 
     current.pos = 0
+
     current.forward = true
+
     current.move = true
+
     current.waitTimer = 0
   }
 

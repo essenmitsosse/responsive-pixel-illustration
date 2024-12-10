@@ -100,6 +100,7 @@ export const getStrip = function getStrip() {
   }
 
   delete stripInfo.defaultPanels
+
   delete stripInfo.inventory
 
   return stripInfo
@@ -249,6 +250,7 @@ export const getStripInfo = function () {
 
           if (i === 4) {
             min += 0.2
+
             max += 0.2
           }
         }

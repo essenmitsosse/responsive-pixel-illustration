@@ -1,6 +1,7 @@
 // BEGINN getTableComic /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const getTableComic = function getTableComic(args) {
   this.panel = new this.basic.Panel()
+
   this.story = new this.basic.getStory(args)
 
   this.comic = {
@@ -19,7 +20,9 @@ export const getTableComic = function getTableComic(args) {
 // BEGINN getStory /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const getStory = function getStory() {
   this.stage = new this.basic.Stage()
+
   this.colors = new this.basic.getColorScheme()
+
   this.actorsList = new this.basic.getActors(this)
 }
 
@@ -994,8 +997,10 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
 
   // get the total Length of all Story Arcs
   count = 0
+
   while (count < arcLength) {
     mainSteps[count].endLengthAbs = totalArcLength += mainSteps[count].lengthAbs
+
     count += 1
   }
 
@@ -1003,18 +1008,25 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
   count = 0
 
   count = 0
+
   while (count < arcLength) {
     mainSteps[count].relLength = mainSteps[count].lengthAbs / totalArcLength
+
     mainSteps[count].relStart = relArcEnd
+
     mainSteps[count].relEnd = relArcEnd += mainSteps[count].relLength
 
     mainSteps[count].absFloatLength =
       totalPanelCount * mainSteps[count].relLength
+
     mainSteps[count].absLength = Math.round(mainSteps[count].absFloatLength)
+
     if (mainSteps[count].absLength <= 0) {
       mainSteps[count].absLength = 1
     }
+
     panelsLeft -= mainSteps[count].absLength
+
     count += 1
   }
 
@@ -1048,7 +1060,9 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
           : current.priority <= lowestPriority)
       ) {
         lowestPriority = current.priority
+
         biggestArc = currentNr
+
         current.priority += panelsLeft
       }
 
@@ -1056,6 +1070,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
     }
 
     mainSteps[biggestArc].absLength += removePanels
+
     mainSteps[biggestArc].absFloatLength += removePanels
 
     panelsLeft -= removePanels
@@ -1095,6 +1110,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
         })
 
         innerCount += 1
+
         panelCount += 1
       }
     }
@@ -1185,6 +1201,7 @@ export const getAnimation = function getAnimation(args) {
   if (process < 0) {
     process = 0
   }
+
   if (process > 1) {
     process = 1
   }
@@ -1209,27 +1226,33 @@ export const getActors = function (story) {
     colorScheme = colorSchemes[this.rInt(0, colorSchemes.length - 1)]
 
   this.colors = story.colors
+
   this.stage = story.stage
 
   this.baseSkinColor = { nr: colorScheme[0] }
+
   this.baseSkinColorAlt = { nr: colorScheme[3] }
 
   this.baseColor1 = { nr: colorScheme[1], shade: this.rFl(0.5, 1) }
+
   this.baseColor2 = { nr: colorScheme[4], shade: this.rFl(0.5, 1) }
 
   this.baseColor1Alt = { nr: colorScheme[2], shade: this.rFl(0.5, 1) }
+
   this.baseColor2Alt = { nr: colorScheme[5], shade: this.rFl(0.5, 1) }
 
   this.furnitureColor = this.colors.getColor({
     nr: colorScheme[5],
     shade: 0.5,
   })
+
   this.furnitureDetailColor = this.colors.getColor({
     nr: colorScheme[5],
     shade: 0.3,
   })
 
   this.actor0 = this.getNewActor({ main: true })
+
   this.actor1 = this.getNewActor({})
 
   this.chair0 = new this.basic.RenderObjectContainer(
@@ -1238,6 +1261,7 @@ export const getActors = function (story) {
       colorDetail: this.furnitureDetailColor,
     }),
   )
+
   this.chair1 = new this.basic.RenderObjectContainer(
     new this.basic.Chair({
       toLeft: true,
@@ -1245,6 +1269,7 @@ export const getActors = function (story) {
       colorDetail: this.furnitureDetailColor,
     }),
   )
+
   this.table = new this.basic.RenderObjectContainer(
     new this.basic.Table({
       color: this.furnitureColor,
@@ -1255,6 +1280,7 @@ export const getActors = function (story) {
   this.glass = new this.basic.RenderObjectContainer(new this.basic.Glass())
 
   this.emotion0 = new this.basic.RenderObjectContainer(new this.basic.Emotion())
+
   this.emotion1 = new this.basic.RenderObjectContainer(new this.basic.Emotion())
 }
 
@@ -1332,6 +1358,7 @@ RenderObjectContainer.prototype.getActionProcessor.prototype.processObject =
 
     return obj
   }
+
 RenderObjectContainer.prototype.getActionProcessor.prototype.processValue =
   function (obj, start, end) {
     if (end !== undefined) {
@@ -1348,6 +1375,7 @@ RenderObjectContainer.prototype.getActionProcessor.prototype.processValue =
       return start
     }
   }
+
 RenderObjectContainer.prototype.getActionProcessor.prototype.checkIfObject =
   function (obj, start, end) {
     // console.log( "check", ( ( end && end.relPos ) ), end );

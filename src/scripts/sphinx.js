@@ -1,4 +1,4 @@
-import { helper } from '../renderengine/helper.js'
+import { helper } from '@/renderengine/helper.js'
 
 function sphinx() {
   var help = helper,

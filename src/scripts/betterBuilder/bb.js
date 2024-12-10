@@ -1,4 +1,4 @@
-import { helper } from '../../renderengine/helper.js'
+import { helper } from '@/renderengine/helper.js'
 import { BBObj, Rotater, RotateInfo } from './object.js'
 import { PersonMain, BodyMain } from './person-main.js'
 import { Chest } from './person-upperBody.js'

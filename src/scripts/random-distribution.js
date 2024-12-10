@@ -1,4 +1,4 @@
-import { helper } from '../renderengine/helper.js'
+import { helper } from '@/renderengine/helper.js'
 
 function randomDistribution(init) {
   var help = helper,

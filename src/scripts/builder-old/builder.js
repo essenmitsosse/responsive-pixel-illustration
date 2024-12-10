@@ -1,4 +1,4 @@
-import { helper } from '../../renderengine/helper.js'
+import { helper } from '@/renderengine/helper.js'
 import { Object } from './object.js'
 import { Actor, Comic, Ground, Panel } from './comic.js'
 import { Arm, Shield, ShoulderPad, Sword, Tool } from './person-arm.js'

@@ -1,4 +1,4 @@
-import { helper as helperGlobal } from '../renderengine/helper.js'
+import { helper as helperGlobal } from '@/renderengine/helper.js'
 
 function graien() {
   var helper = helperGlobal,

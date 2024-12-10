@@ -21,8 +21,11 @@ BBObj.prototype.calcRotation = function (rotate) {
   }
 
   rad = (realRotation * Math.PI) / 180
+
   sin = Math.sin(rad)
+
   cos = Math.cos(rad)
+
   front = Math.abs(Math.abs(rotate - 180) - 90) / 90
 
   return {
@@ -41,8 +44,6 @@ BBObj.prototype.calcRotation = function (rotate) {
 }
 
 BBObj.prototype.calcRotation.prototype.getRotation = function (rotate) {
-  var abs
-
   if (rotate > 180) {
     rotate -= 360
   } else if (rotate < -180) {
@@ -51,7 +52,7 @@ BBObj.prototype.calcRotation.prototype.getRotation = function (rotate) {
 
   return {
     real: (rotate = rotate / 90),
-    abs: (abs = 1 - Math.abs(rotate)),
+    abs: 1 - Math.abs(rotate),
   }
 }
 
@@ -77,6 +78,7 @@ export const Rotater = function (args) {
     if (!args.side.sX) {
       args.side.sX = this.sX
     }
+
     this.x = this.moveOut(args.side, rotate)
   }
 
@@ -88,7 +90,7 @@ export const Rotater = function (args) {
     this.ll.push((this.y = args.y))
   }
 
-  ;(args.roundTop || args.roundBottom) &&
+  if (args.roundTop || args.roundBottom) {
     this.list.push({
       minX: 5,
       minY: 5,
@@ -104,10 +106,14 @@ export const Rotater = function (args) {
         },
       ],
     })
+  }
 
   this.pusher(rotate.FL, drawer.draw(args, true, false))
+
   this.pusher(rotate.FR, drawer.draw(args, true, true), true)
+
   this.pusher(rotate.BR, drawer.draw(args, false, true))
+
   this.pusher(rotate.BL, drawer.draw(args, false, false), true)
 
   return {
@@ -131,7 +137,9 @@ export const Rotater = function (args) {
     y: this.y,
   }
 }
+
 Rotater.prototype = new BBObj()
+
 Rotater.prototype.pusher = function (rotate, list, reflect) {
   var front = rotate.abs > 0
 
@@ -191,6 +199,7 @@ BBObj.prototype.moveOut = function (args, rotate) {
     this.ll.push((this.max = args.max))
 
     X.max = this.max
+
     X.min = { r: -1, useSize: this.max }
   }
 

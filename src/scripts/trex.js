@@ -1,8 +1,6 @@
-export default function () {
+function trex() {
   var white = [255, 255, 255],
-    grey = [160, 160, 160],
     ground = [90, 60, 50],
-    groundDark = [65, 54, 57],
     trexsingle = [
       {
         name: 'Obj',
@@ -178,3 +176,5 @@ export default function () {
     background: backgroundColor,
   }
 }
+
+export default trex

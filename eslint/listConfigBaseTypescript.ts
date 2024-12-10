@@ -1,11 +1,12 @@
 import tsParser from '@typescript-eslint/parser'
 
+import type { Linter } from 'eslint'
+
 /**
  * Basic setup to make sure TypeScript files can be linted and types are
  * available to the linting rules
  */
-/** @type {ReadonlyArray<import('eslint').Linter.Config>} */
-const listConfigSetupTypescript = [
+const listConfigSetupTypescript: ReadonlyArray<Linter.Config> = [
   {
     files: ['**/*.{js,jsx,mjs,cjs,ts,tsx}'],
     languageOptions: {

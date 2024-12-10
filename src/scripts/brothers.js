@@ -1,6 +1,6 @@
-import { helper } from '../renderengine/helper.js'
+import { helper } from '@/renderengine/helper.js'
 
-export default function () {
+function brothers() {
   var help = helper,
     getSmallerDim = help.getSmallerDim,
     getBiggerDim = help.getBiggerDim,
@@ -9,37 +9,28 @@ export default function () {
     shadowColor = [255, 255, 255],
     shadow = help.darken(shadowColor, 0.7),
     shadowSoft = help.darken(shadowColor, 0.9),
-    detail = help.darken(shadowColor, 0.4),
+    darkenColor = help.darken(shadowColor, 0.4),
     lighten = help.lighten(shadowColor, 0.3),
     lightenSoft = help.lighten(shadowColor, 0.1),
-    c1 = [255, 0, 0],
-    c2 = [0, 255, 0],
     c3 = [0, 0, 255],
-    c4 = [255, 255, 0],
-    c5 = [0, 255, 255],
-    c5 = [255, 0, 255],
-    c6 = [255, 255, 255],
-    c7 = [0, 0, 0],
-    c8 = [128, 128, 128],
-    c9 = [64, 64, 64],
     zBackground = [200, 150, 255],
     zSkin = shadow(zBackground),
     zSkinShadow = shadow(zSkin),
     zHair = lighten(zBackground),
-    zCloth = detail(zBackground),
+    zCloth = darkenColor(zBackground),
     flash = [255, 220, 180],
     hBasic = [210, 100, 20],
     hSkin = shadow(hBasic),
     hHair = lighten(hBasic),
-    hCloth = detail(hBasic),
+    hCloth = darkenColor(hBasic),
     hBackground = hBasic,
     pBasic = [116, 150, 150],
     pSkin = shadow(pBasic),
     pHair = lighten(pBasic),
-    pCloth = detail(pBasic),
+    pCloth = darkenColor(pBasic),
     pBackground = pBasic,
     borderDetail = shadow(zCloth),
-    backgroundColor = detail(borderDetail),
+    backgroundColor = darkenColor(borderDetail),
     flashForm = [
       {
         points: [
@@ -78,6 +69,7 @@ export default function () {
             fY: true,
           },
         ]
+
       return {
         list: [
           // BEARD
@@ -558,7 +550,7 @@ export default function () {
       horizontal: true,
       overflow: true,
     },
-    detail = [
+    detailBorder = [
       {},
       { color: backgroundColor, mY: 1, sX: 1, fX: true },
       { color: backgroundColor, mY: 1, sX: 'detail' },
@@ -571,7 +563,7 @@ export default function () {
         sX: 'borderInline',
         x: 'borderInner',
         stripes: outerStrip,
-        list: detail,
+        list: detailBorder,
       },
       {
         sX: 'borderInline',
@@ -580,7 +572,7 @@ export default function () {
         rX: true,
         y: 'strip',
         stripes: outerStrip,
-        list: detail,
+        list: detailBorder,
       },
     ],
     borderSmall = [
@@ -590,7 +582,7 @@ export default function () {
         sX: 'borderSmallInline',
         x: 'borderSmallInner',
         stripes: outerStrip,
-        list: detail,
+        list: detailBorder,
       },
     ],
     borderSmallCenter = [
@@ -599,7 +591,7 @@ export default function () {
         sX: 'borderSmallInline',
         x: 'borderSmallInner',
         stripes: outerStrip,
-        list: detail,
+        list: detailBorder,
       },
       { sX: 'borderSmallOutline', x: 'borderSmallMargin' },
       { sX: 'borderSmallOutline', x: 'borderSmallMargin', fX: true },
@@ -1493,3 +1485,5 @@ export default function () {
     background: backgroundColor,
   }
 }
+
+export default brothers

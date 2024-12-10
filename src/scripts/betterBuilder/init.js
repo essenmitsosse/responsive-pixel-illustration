@@ -1,6 +1,6 @@
 import { BB } from './bb.js'
 
-export default function (init) {
+function betterBuilder(init) {
   var bb = new BB(init)
 
   return {
@@ -9,3 +9,5 @@ export default function (init) {
     background: bb.background || [160, 200, 200],
   }
 }
+
+export default betterBuilder

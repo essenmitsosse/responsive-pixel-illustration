@@ -1,6 +1,6 @@
 import { Builder } from './builder.js'
 
-export default function (init, slide, createSlider) {
+function builder(init, slide, createSlider) {
   var builder = new Builder(init),
     hover = builder.hover,
     pushLinkList = builder.pushLinkList,
@@ -88,26 +88,7 @@ export default function (init, slide, createSlider) {
           'legRaise',
           // "kneeBend", "legHigh"
         ],
-        teethPos = ['', 'top', 'bottom', 'both', 'full'],
-        shoulderPos = [0, 0, 0, 0, 0, -90, -90, 180],
-        ellbowPos = [0, 0, 0, 90, -90],
-        views = [
-          '',
-          '',
-          '',
-          '',
-          '',
-          '',
-          'rightView',
-          'leftView',
-          'rightView',
-          'leftView',
-          'rightView',
-          'leftView',
-          'rightView',
-          'leftView',
-          'backView',
-        ]
+        teethPos = ['', 'top', 'bottom', 'both', 'full']
 
       return function (args) {
         args.eye = {
@@ -151,6 +132,7 @@ export default function (init, slide, createSlider) {
         }
 
         args.leg = {}
+
         args.leg[rIf(0.5) ? 'right' : 'left'] = legPos[rInt(0, legPos.length)]
 
         args.hatDown = rIf(0.02)
@@ -196,12 +178,15 @@ export default function (init, slide, createSlider) {
 
         if (showPerson) {
           args = {}
+
           args.groundColor = builder.backgroundColor
+
           args.groundShadowColor = builder.backgroundColor.copy({
             brAdd: -1,
           })
 
           getPosition(drawArgs)
+
           drawArgs.size = innerSquare
         } else {
           args = l >= half ? Tree1Family : Tree2Family
@@ -244,30 +229,35 @@ export default function (init, slide, createSlider) {
       input: { min: 1, max: 20, step: 1 },
       forceRedraw: true,
     })
+
     createSlider.slider({
       niceName: 'Headsize',
       valueName: 'head-size',
       defaultValue: 0.5,
       input: { min: 0, max: 1, step: 0.01 },
     })
+
     createSlider.slider({
       niceName: 'Body Width',
       valueName: 'body-width',
       defaultValue: 0.5,
       input: { min: 0, max: 1, step: 0.01 },
     })
+
     createSlider.slider({
       niceName: 'Body Height',
       valueName: 'body-height',
       defaultValue: 0.75,
       input: { min: 0, max: 1, step: 0.01 },
     })
+
     createSlider.slider({
       niceName: 'Arm Length',
       valueName: 'arm-length',
       defaultValue: 0.5,
       input: { min: 0, max: 1, step: 0.01 },
     })
+
     createSlider.slider({
       niceName: 'Leg Length',
       valueName: 'leg-length',
@@ -285,3 +275,5 @@ export default function (init, slide, createSlider) {
     changeValueSetter: hover.ready,
   }
 }
+
+export default builder

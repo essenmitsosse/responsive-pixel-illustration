@@ -1,9 +1,10 @@
-import { helper } from '../../renderengine/helper.js'
+import { helper } from '@/renderengine/helper.js'
+
 import { BBObj, Rotater, RotateInfo } from './object.js'
+import { Head, HeadTop, HeadBottom, Nose, Neck } from './person-head.js'
+import { LowerBody } from './person-lowerBody.js'
 import { PersonMain, BodyMain } from './person-main.js'
 import { Chest } from './person-upperBody.js'
-import { LowerBody } from './person-lowerBody.js'
-import { Head, HeadTop, HeadBottom, Nose, Neck } from './person-head.js'
 
 export const BB = function (init) {
   var args = {},
@@ -19,28 +20,43 @@ export const BB = function (init) {
   ObjProto.rotate = args.rotate
 
   ObjProto.basic = this
+
   ObjProto.basicArgs = args
+
   ObjProto.ll = this.ll = []
 
   ObjProto.white = [200, 200, 200]
+
   ObjProto.black = [20, 20, 20]
 
   ObjProto.c1 = [200, 20, 20]
+
   ObjProto.c2 = [20, 200, 20]
+
   ObjProto.c3 = [20, 0, 200]
+
   ObjProto.c4 = [200, 200, 20]
+
   ObjProto.c5 = [20, 200, 200]
+
   ObjProto.c6 = [200, 20, 200]
 
   ObjProto.c1D = [150, 20, 20]
+
   ObjProto.c2D = [20, 150, 20]
+
   ObjProto.c3D = [20, 0, 150]
+
   ObjProto.c4D = [150, 150, 20]
+
   ObjProto.c5D = [20, 150, 150]
+
   ObjProto.c6D = [150, 20, 150]
 
   ObjProto.IF = random.getIf
+
   ObjProto.GR = random.getRandom
+
   ObjProto.R = random.getRandomFloat
 }
 
@@ -60,6 +76,7 @@ BB.prototype.Overview = function (init) {
     inner = init.inner * 1 || 0.8
 
   this.counter = 1
+
   this.side = 'left'
 
   this.ll.push(
@@ -80,6 +97,7 @@ BB.prototype.Overview = function (init) {
 
   do {
     j = 0
+
     do {
       i = 0
 
@@ -124,13 +142,23 @@ BB.prototype.Overview = function (init) {
 BB.prototype.Overview.prototype = new BBObj()
 
 BB.prototype.PersonMain = PersonMain
+
 BB.prototype.BodyMain = BodyMain
+
 BB.prototype.Chest = Chest
+
 BB.prototype.LowerBody = LowerBody
+
 BB.prototype.Head = Head
+
 BB.prototype.HeadTop = HeadTop
+
 BB.prototype.HeadBottom = HeadBottom
+
 BB.prototype.Nose = Nose
+
 BB.prototype.Neck = Neck
+
 BB.prototype.Rotater = Rotater
+
 BB.prototype.RotateInfo = RotateInfo

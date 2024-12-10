@@ -15,16 +15,21 @@ export const getPixelUnits = function () {
         M = Math
 
       function Dimension() {}
+
       function Distance() {}
+
       function Width(args) {
         this.prepare(args)
       }
+
       function Height(args) {
         this.prepare(args)
       }
+
       function DistanceX(args) {
         this.prepare(args)
       }
+
       function DistanceY(args) {
         this.prepare(args)
       }
@@ -41,16 +46,19 @@ export const getPixelUnits = function () {
             // is Array
 
             this.createAdder(args, true)
+
             return
           } else if (args.getLinkedVariable) {
             // Linked to Variable ( new style )
             this.realPartCalculation = args.getLinkedVariable
+
             return
           } else if (args.getLength) {
             this.realPartCalculation = this.getGetLengthCalculation(
               args.getLength[0],
               args.getLength[1],
             )
+
             return
           }
 
@@ -95,6 +103,7 @@ export const getPixelUnits = function () {
               variableListCreate(args.save),
             )
           }
+
           if (args.odd || args.even) {
             this.realPartCalculation = this.odd(args.odd || false)
           }
@@ -105,21 +114,28 @@ export const getPixelUnits = function () {
             if (this.dimension) {
               // No calculation, just return Number
               this.simplify(args)
+
               return
             } else {
               this.abs = args
+
               this.rele = 0
             }
           } else if (objType === 'string') {
             // Linked to Variable ( old style )
             variableListLink(args, this)
+
             this.rele = 0
+
             this.realPartCalculation = this.getRealDistance
+
             return
           } else {
             this.dim = this.axis
+
             if (this.getDefaults()) {
               this.realPartCalculation = this.getQuick
+
               return
             }
           }
@@ -145,6 +161,7 @@ export const getPixelUnits = function () {
 
         return function () {
           var real = Math.round(this.getRealForOdd())
+
           return real === 0
             ? 0
             : (!(real % 2) === false) === odd
@@ -156,11 +173,13 @@ export const getPixelUnits = function () {
       Dimension.prototype.getDefaults = function (r, a) {
         if (r === undefined && a === undefined && this.adder === undefined) {
           this.rele = 1
+
           this.abs = 0
 
           return true
         } else {
           this.rele = r || 0
+
           this.abs = a || 0
         }
       }
@@ -188,6 +207,7 @@ export const getPixelUnits = function () {
 
       Dimension.prototype.getGetLengthCalculation = function (x, y) {
         x = new Width(x)
+
         y = new Width(y)
 
         return function () {
@@ -199,6 +219,7 @@ export const getPixelUnits = function () {
 
       Dimension.prototype.getReal = (function () {
         var round = M.round
+
         return function () {
           return round(this.realPartCalculation())
         }
@@ -251,6 +272,7 @@ export const getPixelUnits = function () {
 
       Dimension.prototype.getRealDistanceWithMaxMin = function (max, min, Dim) {
         max = max && new Dim(max)
+
         min = min && new Dim(min)
 
         return max && min
@@ -271,11 +293,13 @@ export const getPixelUnits = function () {
             ? function () {
                 var a,
                   realMax = typeof max === 'number' ? max : max.getReal()
+
                 return (a = this.getRealDistance()) > realMax ? realMax : a
               }
             : function () {
                 var a,
                   realMin = typeof min === 'number' ? min : min.getReal()
+
                 return (a = this.getRealDistance()) < realMin ? realMin : a
               }
       }
@@ -283,6 +307,7 @@ export const getPixelUnits = function () {
       Dimension.prototype.getDim = function () {
         return this.dim ? this.width : this.height
       }
+
       Dimension.prototype.dimension = true
 
       Dimension.prototype.simplify = function (abs) {
@@ -292,21 +317,26 @@ export const getPixelUnits = function () {
       }
 
       Width.prototype = new Dimension()
+
       Height.prototype = new Dimension()
 
       Width.prototype.axis = true
+
       Height.prototype.axis = false
 
       // DISTANCES --- PosX & PosY
       Distance.prototype = new Dimension()
+
       Distance.prototype.getDefaults = function (r, a) {
         if (r === undefined && a === undefined) {
           this.rele = 0
+
           this.abs = 0
 
           return true
         } else {
           this.rele = r || 0
+
           this.abs = a || 0
         }
       }
@@ -318,6 +348,7 @@ export const getPixelUnits = function () {
       Distance.prototype.dimension = false
 
       DistanceX.prototype = new Distance()
+
       DistanceY.prototype = new Distance()
 
       DistanceX.prototype.axis = true
@@ -336,6 +367,7 @@ export const getPixelUnits = function () {
             h = dimensions.height,
             getRealPos = function (add) {
               var round = r
+
               return add
                 ? function () {
                     return round(this.realPartCalculation() + add)
@@ -348,6 +380,7 @@ export const getPixelUnits = function () {
               var round = r,
                 width = w,
                 height = h
+
               return add
                 ? function (size) {
                     return (
@@ -365,11 +398,15 @@ export const getPixelUnits = function () {
             }
 
           DistanceX.prototype.getReal = getRealPos(x)
+
           DistanceY.prototype.getReal = getRealPos(y)
+
           DistanceX.prototype.fromOtherSide = getFromOtherSide(x)
+
           DistanceY.prototype.fromOtherSide = getFromOtherSide(y)
 
           Dimension.prototype.width = w
+
           Dimension.prototype.height = h
         },
       }
@@ -379,11 +416,17 @@ export const getPixelUnits = function () {
         createAxis = function (Size, Pos) {
           return function (args) {
             this.pos = new Pos(args.pos)
+
             this.size = new Size(args.size)
+
             this.margin = args.margin ? new Size(args.margin) : false
+
             this.toOtherSide = args.toOtherSide
+
             this.fromOtherSide = args.fromOtherSide
+
             this.center = args.center
+
             if (args.min) {
               this.min = new Size(args.min)
             }
@@ -404,8 +447,11 @@ export const getPixelUnits = function () {
         createPos = function (Pos) {
           return function (args) {
             this.pos = new Pos(args.pos)
+
             this.toOtherSide = args.toOtherSide
+
             this.fromOtherSide = args.fromOtherSide
+
             this.center = args.center
 
             this.calcPos = this.center
@@ -444,6 +490,7 @@ export const getPixelUnits = function () {
         this.realSize =
           this.size.getReal() -
           (this.realMargin = this.margin ? this.margin.getReal() : 0) * 2
+
         this.realPos = this.calcPos()
       }
 
@@ -473,6 +520,7 @@ export const getPixelUnits = function () {
       }
 
       AxisX.prototype = new Axis()
+
       AxisY.prototype = new Axis()
 
       Pos.prototype = new Axis()
@@ -504,6 +552,7 @@ export const getPixelUnits = function () {
       }
 
       PosX.prototype = new Pos()
+
       PosY.prototype = new Pos()
 
       return {
@@ -513,6 +562,7 @@ export const getPixelUnits = function () {
         PosY: PosY,
         set: function (dimensions) {
           AxisX.prototype.dim = PosX.prototype.dim = dimensions.width
+
           AxisY.prototype.dim = PosY.prototype.dim = dimensions.height
         },
       }
@@ -566,6 +616,7 @@ export const getPixelUnits = function () {
           if (args.sX === undefined) {
             args.sX = args.s
           }
+
           if (args.sY === undefined) {
             args.sY = args.s
           }
@@ -638,7 +689,9 @@ export const getPixelUnits = function () {
 
       Dimensions.prototype.calc = function () {
         this.x.calc()
+
         this.y.calc()
+
         return this
       }
 
@@ -665,7 +718,9 @@ export const getPixelUnits = function () {
     Height: oneD.Height,
     setList: function (listLink, listCreate, updater) {
       variableListLink = listLink
+
       variableListCreate = listCreate
+
       updateList = updater
     },
     linkList: function (calc) {
@@ -673,25 +728,33 @@ export const getPixelUnits = function () {
     },
     init: function (dimensions) {
       oneD.set(dimensions)
+
       Axis.set(dimensions)
+
       if (calculateList) {
         calculateList(dimensions)
       }
+
       if (updateList) {
         updateList()
       }
     },
     pop: function () {
       var o = old[old.length - 2]
+
       if (o) {
         oneD.set(o)
+
         Axis.set(o)
+
         old.pop()
       }
     },
     push: function (dimensions) {
       oneD.set(dimensions)
+
       Axis.set(dimensions)
+
       old.push(dimensions)
     },
   }

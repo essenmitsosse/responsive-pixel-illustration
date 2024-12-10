@@ -1,30 +1,15 @@
-import { helper } from '../renderengine/helper.js'
+import { helper } from '@/renderengine/helper.js'
 
-export default function () {
+function argos() {
   var help = helper,
     getSmallerDim = help.getSmallerDim,
     getBiggerDim = help.getBiggerDim,
     mult = help.mult,
     sub = help.sub,
-    shadowColor = [255, 255, 255],
-    shadow = help.darken(shadowColor, 0.7),
-    detail = help.darken(shadowColor, 0.4),
-    lighten = help.lighten(shadowColor, 0.3),
-    c1 = [255, 0, 0],
-    c2 = [0, 255, 0],
-    c3 = [0, 0, 255],
-    c4 = [255, 255, 0],
-    c5 = [0, 255, 255],
-    c5 = [255, 0, 255],
-    c6 = [255, 255, 255],
-    c7 = [0, 0, 0],
-    c8 = [128, 128, 128],
-    c9 = [64, 64, 64],
     wood = [155, 114, 70],
     wood1 = [143, 92, 57],
     wood2 = [177, 124, 62],
     wood3 = [130, 99, 64],
-    wood4 = [171, 129, 85],
     woodDark = [60, 51, 45],
     holes = [64, 37, 19],
     sail = [208, 202, 202],
@@ -804,7 +789,7 @@ export default function () {
                           round: true,
                           change: { r: -0.3 },
                         },
-                        list: [, mast()],
+                        list: [mast()],
                       },
                     ],
                   },
@@ -1116,3 +1101,5 @@ export default function () {
     background: backgroundColor,
   }
 }
+
+export default argos

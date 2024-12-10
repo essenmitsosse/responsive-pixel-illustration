@@ -1,27 +1,12 @@
-import { helper } from '../renderengine/helper.js'
+import { helper } from '@/renderengine/helper.js'
 
-export default function () {
+function sphinx() {
   var help = helper,
     getSmallerDim = help.getSmallerDim,
     getBiggerDim = help.getBiggerDim,
     mult = help.mult,
     sub = help.sub,
-    shadowColor = [255, 255, 255],
-    shadow = help.darken(shadowColor, 0.7),
-    shadowSoft = help.darken(shadowColor, 0.9),
-    detail = help.darken(shadowColor, 0.4),
-    lighten = help.lighten(shadowColor, 0.3),
-    lightenSoft = help.lighten(shadowColor, 0.1),
     c1 = [255, 0, 0],
-    c2 = [0, 255, 0],
-    c3 = [0, 0, 255],
-    c4 = [255, 255, 0],
-    c5 = [0, 255, 255],
-    c5 = [255, 0, 255],
-    c6 = [255, 255, 255],
-    c7 = [0, 0, 0],
-    c8 = [128, 128, 128],
-    c9 = [64, 64, 64],
     g1 = [0, 0, 0],
     g2 = [85, 85, 85],
     g3 = [170, 170, 170],
@@ -1210,3 +1195,5 @@ export default function () {
     background: backgroundColor,
   }
 }
+
+export default sphinx

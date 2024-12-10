@@ -1,28 +1,34 @@
 import { BBObj } from './object.js'
-/* global BBProto, BBObj */
 
 // HEAD MAIN  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 export const Head = function (args) {
   this.color = args.color || [255, 0, 0]
+
   this.colorDark = args.colorDark || [150, 0, 0]
 
   this._sX = this.R(0.4, 1.8)
+
   this.headSideRatio = this.R(0.5, 1.5)
 
   this.headTopFrontSX = this.R(0.5, 1.5)
+
   this.headTopSideSX = this.headTopFrontSX + this.R(-0.2, 0.2)
 
   this.wideJaw = this.headSideRatio > this.headTopSideSX
 
   this.headTopX = (this.wideJaw ? -1 : 1) * this.R(0, 1)
+
   this.headTopSY = this.R(0.2, 0.8)
 
   this.headTop = new this.basic.HeadTop(args)
+
   this.headBottom = new this.basic.HeadBottom(args)
+
   this.nose = new this.basic.Nose(args)
 } // End Head
 
 Head.prototype = new BBObj()
+
 Head.prototype.draw = function (args) {
   var rotate = args.rotate
 
@@ -93,9 +99,11 @@ Head.prototype.draw = function (args) {
 // HEAD TOP - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 export const HeadTop = function (args) {
   this.color = args.color
+
   this.colorDark = args.colorDark
 
   this.eyeSYLeft = this.R(0.2, 0.9)
+
   this.eyeSYRight = this.IF(0.5)
     ? this.eyeSYLeft
     : this.eyeSYLeft + this.R(-0.1, 0.1)
@@ -153,12 +161,13 @@ HeadTop.prototype.draw = function (args, front, right) {
 // HEAD BOTTOM - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 export const HeadBottom = function (args) {
   this.color = args.color
+
   this.colorDark = args.colorDark
 } // End Head Bottom
 
 HeadBottom.prototype = new BBObj()
 
-HeadBottom.prototype.draw = function (args, front, right) {
+HeadBottom.prototype.draw = function (args, front) {
   return [
     { color: !front && this.colorDark },
 
@@ -187,11 +196,13 @@ HeadBottom.prototype.draw = function (args, front, right) {
 // NOSE MAIN  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 export const Nose = function (args) {
   this.color = args.color
+
   this.colorDark = args.colorDark
 } // End Nose
 
 Nose.prototype = new BBObj()
-Nose.prototype.draw = function (args, front, right) {
+
+Nose.prototype.draw = function (args, front) {
   return [
     {
       color: this.colorDark,
@@ -204,11 +215,13 @@ Nose.prototype.draw = function (args, front, right) {
 // NECK MAIN  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 export const Neck = function (args) {
   this.color = args.color
+
   this.colorDark = args.colorDark
 } // End Neck
 
 Neck.prototype = new BBObj()
-Neck.prototype.draw = function (args) {
+
+Neck.prototype.draw = function () {
   return [
     {
       color: this.colorDark,

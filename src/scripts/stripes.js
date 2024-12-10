@@ -1,6 +1,6 @@
-import { helper as helperGlobal } from '../renderengine/helper.js'
+import { helper as helperGlobal } from '@/renderengine/helper.js'
 
-export default function (args, init, createSlider) {
+function stripes(args, init, createSlider) {
   var helper = helperGlobal,
     hover = helper.getHoverChangers(),
     pushChanger = hover.pushRelativeStandard,
@@ -33,23 +33,20 @@ export default function (args, init, createSlider) {
       min: [height, -count],
     }),
     singleSY = linkListPush({ r: 1 / count, useSize: smallerSide }),
-    innerSingleSY = linkListPush({ add: [singleSY, -2] }),
     stripMinSX = singleSY,
-    stripMaxSX = biggerSide,
     stripRealRelSX = linkListPush({ r: 1, useSize: biggerSide }),
     stripRealSX = linkListPush({ add: [stripRealRelSX], min: stripMinSX }),
     redSX_ = 0.2,
     redSXrel = linkListPush({ r: redSX_, useSize: stripRealSX }),
     redSXabs = linkListPush({ r: redSX_, useSize: stripMinSX }),
     redSXmin = redSXabs,
-    redSXmax = linkListPush({ r: redSX_, useSize: stripMaxSX }),
     redSXminMaxDiff = linkListPush({
       a: 100,
       add: [{ add: [redSXrel, { r: -1, useSize: redSXmin }, -100], min: 0 }],
     }),
     redSXa = redSXrel,
     redSXb = linkListPush([redSXabs, redSXminMaxDiff]),
-    versions = function (size) {
+    versions = function () {
       return [
         [
           { color: white },
@@ -87,12 +84,13 @@ export default function (args, init, createSlider) {
 
       while (i < count) {
         obj['s' + i] = stripRealSX
+
         i += 1
       }
 
       return obj
     })(count),
-    getSquares = function (args) {
+    getSquares = function () {
       var list = [],
         i = 0,
         max = count
@@ -108,6 +106,7 @@ export default function (args, init, createSlider) {
             { m: 1, mask: true, list: versions(sizes['s' + i])[i] },
           ],
         })
+
         i += 1
       }
 
@@ -147,6 +146,7 @@ export default function (args, init, createSlider) {
   // );
 
   pushChanger(0, 1, 'master', stripRealRelSX)
+
   if (createSlider) {
     createSlider.slider({
       niceName: 'Steifen Master',
@@ -167,3 +167,5 @@ export default function (args, init, createSlider) {
     recommendedPixelSize: 6,
   }
 }
+
+export default stripes

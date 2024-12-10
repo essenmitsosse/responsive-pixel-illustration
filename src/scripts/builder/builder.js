@@ -1,4 +1,5 @@
-import { helper as helperGlobal } from '../../renderengine/helper.js'
+import { helper as helperGlobal } from '@/renderengine/helper.js'
+
 import { Object } from './object.js'
 import { Arm, Shield, ShoulderPad, Sword, Tool } from './person-arm.js'
 import {
@@ -45,14 +46,21 @@ export const Builder = function (init) {
     }
 
   this.getSmallerDim = getSmallerDim
+
   this.getBiggerDim = getBiggerDim
+
   this.mult = mult
+
   this.sub = sub
+
   this.margin = margin
 
   this.IF = random.getIf
+
   this.GR = random.getRandom
+
   this.R = random.getRandomFloat
+
   this.init = init
 
   this.colorInfo = {
@@ -61,26 +69,39 @@ export const Builder = function (init) {
   }
 
   this.Color.prototype.colors = this.buildColors(this.colorInfo)
+
   this.Color.prototype.Color = this.Color
 
   this.backgroundColor = new this.Color(this.IF() ? 1 : 0, 5)
+
   this.backgroundShadowColor = this.backgroundColor.copy({ brAdd: -1 })
 
   this.objectCount = 0
 
   this.Object.prototype.IF = this.IF
+
   this.Object.prototype.GR = this.GR
+
   this.Object.prototype.R = this.R
+
   this.Object.prototype.mult = this.mult
+
   this.Object.prototype.sub = this.sub
+
   this.Object.prototype.margin = this.margin
+
   this.Object.prototype.colorGen = this.colorGen
+
   this.Object.prototype.Color = this.Color
+
   this.Object.prototype.init = this.init
+
   this.Object.prototype.basic = this
+
   this.Object.prototype.pushLinkList = pushLinkList
 
   this.Object.prototype.addHoverChange = hover.pushRelativeStandardAutomatic
+
   this.Object.prototype.simpleAddHoverChange = hover.pushRelativeStandard
 
   return {
@@ -127,6 +148,7 @@ export const buildColors = function (info) {
 
       // DARKER COLORS
       i = startPos
+
       fak = 1 / (i + 1)
 
       while (i--) {
@@ -139,6 +161,7 @@ export const buildColors = function (info) {
 
       // LIGHTER COLORS
       i = steps - startPos - 1
+
       fak = 1 / (i + 1)
 
       while (i--) {
@@ -171,6 +194,7 @@ export const colorScheme = function () {
 
   while (i--) {
     j = steps
+
     while (j--) {
       list.push({
         s: s,
@@ -187,6 +211,7 @@ export const colorScheme = function () {
 
 export const Color = function (nr, br) {
   this.nr = nr
+
   this.br = br
 }
 
@@ -212,6 +237,7 @@ Color.prototype.copy = function (args) {
   if (args.min && color.br < args.min) {
     color.br = args.min
   }
+
   if (args.max && color.br > args.max) {
     color.br = args.max
   }
@@ -225,6 +251,7 @@ Color.prototype.copy = function (args) {
 
 Color.prototype.nextColor = function () {
   this.nr += 1
+
   if (this.nr > 2) {
     this.nr = 0
   }
@@ -232,6 +259,7 @@ Color.prototype.nextColor = function () {
 
 Color.prototype.prevColor = function () {
   this.nr -= 1
+
   if (this.nr < 0) {
     this.nr = 2
   }
@@ -259,6 +287,7 @@ Color.prototype.brightnessSet = function (set) {
 
 Color.prototype.brightnessContrast = function (add, min, max) {
   min = min || 0
+
   max = max || 5
 
   if (add < 0) {
@@ -307,38 +336,73 @@ export const getNormalColor = function () {
 }
 
 Builder.prototype.Color = Color
+
 Builder.prototype.buildColors = buildColors
+
 Builder.prototype.Object = Object
+
 Builder.prototype.Person = Person
+
 Builder.prototype.BasicBody = BasicBody
+
 Builder.prototype.Logo = Logo
+
 Builder.prototype.TreeFamily = TreeFamily
+
 Builder.prototype.Forrest = Forrest
+
 Builder.prototype.Tree = Tree
+
 Builder.prototype.Arm = Arm
+
 Builder.prototype.Shield = Shield
+
 Builder.prototype.ShoulderPad = ShoulderPad
+
 Builder.prototype.Sword = Sword
+
 Builder.prototype.Tool = Tool
+
 Builder.prototype.Beard = Beard
+
 Builder.prototype.Eye = Eye
+
 Builder.prototype.Hair = Hair
+
 Builder.prototype.Hat = Hat
+
 Builder.prototype.Head = Head
+
 Builder.prototype.HeadBand = HeadBand
+
 Builder.prototype.Helm = Helm
+
 Builder.prototype.Horns = Horns
+
 Builder.prototype.Mouth = Mouth
+
 Builder.prototype.Belt = Belt
+
 Builder.prototype.Leg = Leg
+
 Builder.prototype.LowerBody = LowerBody
+
 Builder.prototype.Skirt = Skirt
+
 Builder.prototype.Buttons = Buttons
+
 Builder.prototype.Cape = Cape
+
 Builder.prototype.Cleavage = Cleavage
+
 Builder.prototype.Collar = Collar
+
 Builder.prototype.Nipples = Nipples
+
 Builder.prototype.Strap = Strap
+
 Builder.prototype.Stripes = Stripes
+
 Builder.prototype.Suspenders = Suspenders
+
 Builder.prototype.UpperBody = UpperBody

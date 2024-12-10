@@ -1,6 +1,6 @@
-import { helper } from '../renderengine/helper.js'
+import { helper } from '@/renderengine/helper.js'
 
-export default function () {
+function zeus() {
   var help = helper,
     getSmallerDim = help.getSmallerDim,
     getBiggerDim = help.getBiggerDim,
@@ -10,18 +10,15 @@ export default function () {
     shadowColor = [255, 255, 255],
     shadow = help.darken(shadowColor, 0.7),
     detail = help.darken(shadowColor, 0.4),
-    lighten = help.lighten(shadowColor, 0.3),
     eyes = [182, 0, 234],
     frame = shadow(eyes),
     red = [255, 0, 0],
     backgroundColor = [31, 14, 63],
     zeus = [240, 240, 240],
     zeusShadow = shadow(zeus),
-    zeusDetail = detail(zeus),
     flesh = [190, 160, 160],
     fleshShadow = shadow(flesh),
     hair = zeusShadow,
-    teeth = hair,
     cloth = eyes,
     arm = [
       { sX: 'arm' },
@@ -1356,9 +1353,12 @@ export default function () {
       torsoSX: ['bodySX', mult(-2, 'armSX'), sub('tailSX')],
       torsoLeft: 'armSX',
     }
+
   return {
     renderList: renderList,
     variableList: variableList,
     background: backgroundColor,
   }
 }
+
+export default zeus

@@ -1,5 +1,6 @@
 import { Admin } from './admin.js'
 import { PixelGraphics } from './info.js'
+
 export const InitPixel = function (args) {
   var queryString = this.getQueryString(),
     showcase = (this.showcase = true),
@@ -7,14 +8,12 @@ export const InitPixel = function (args) {
     slides = showcase ? this.showcaseSlides : this.slides,
     currentSlide = !forceName && slides[queryString.slide || 0],
     imageName = forceName || currentSlide.name || 'tantalos',
-    admin,
     sliders = queryString.sliders || currentSlide.sliders,
     div = args.div,
     canvasDataList = false, // change for multiple Canvases
     canvasRenderer = this.createSingleCanvas(canvasDataList, div),
     callback,
-    body = document.getElementsByTagName('body')[0],
-    main = document.getElementById('main')
+    body = document.getElementsByTagName('body')[0]
 
   this.parent = queryString.admin || queryString.parent
 
@@ -24,7 +23,7 @@ export const InitPixel = function (args) {
 
   // Admin
   if (queryString.admin || showcase || sliders) {
-    admin = new Admin({
+    new Admin({
       body: body,
       showcase: showcase,
       admin: queryString.admin,
@@ -46,6 +45,7 @@ export const InitPixel = function (args) {
   loadScript(callback, currentSlide)
 
   this.getDocumentTitle(imageName, queryString)
+
   window.onkeydown = this.getShortcuts(queryString)
 
   if (currentSlide.timer || queryString.timer) {
@@ -67,14 +67,17 @@ InitPixel.prototype.getQueryString = function () {
       } else {
         value = value * 1
       }
+
       return value
     }
 
   while (i < l) {
     pair = vars[i].split('=')
+
     if (pair[0]) {
       list[pair[0]] = convert(pair[1])
     }
+
     i += 1
   }
 
@@ -113,6 +116,7 @@ InitPixel.prototype.createSingleCanvas = function (canvasData, div) {
     key
 
   canvas.resize = true
+
   canvas.keepalive = true
   // canvas.style.position = "absolute";
 
@@ -144,6 +148,7 @@ InitPixel.prototype.getCallback = function (
   info,
 ) {
   var that = this
+
   return function callback(ImageFunction) {
     var imageFunction, renderObject
 
@@ -207,6 +212,7 @@ InitPixel.prototype.info = function (options) {
     }
 
   info.setAttribute('id', 'infos')
+
   if (show) {
     body.appendChild(info)
   }
@@ -217,6 +223,7 @@ InitPixel.prototype.info = function (options) {
     if (event.ctrlKey) {
       if (k === 73) {
         event.preventDefault()
+
         swap()
       }
     }
@@ -242,7 +249,9 @@ InitPixel.prototype.info = function (options) {
 
       if (show) {
         change('Duration', fullDuration + 'ms')
+
         change('fps', Math.floor(1000 / fullDuration) + 'fps')
+
         change('Average-Time', 'false')
 
         for (what in lo) {
@@ -313,6 +322,7 @@ InitPixel.prototype.nextSlide = function (next) {
   if (!slide) {
     slide = 0
   }
+
   slide = slide * 1 + (next ? 1 : -1)
 
   if (slide > this.slides.length - 1) {
@@ -347,6 +357,7 @@ InitPixel.prototype.changeForceRedraw = function (obj) {
       id: this.queryString.id,
       slide: obj.slide,
     }
+
     this.refresh()
   } else {
     this.addToQueryString(obj)
@@ -355,11 +366,13 @@ InitPixel.prototype.changeForceRedraw = function (obj) {
 
 InitPixel.prototype.makeFullScreen = function () {
   this.toggleResizability(false)
+
   this.renderer.redraw({ width: 1, height: 1 })
 }
 
 InitPixel.prototype.setupToggleResizabilityLinkButton = function (button) {
   this.toggleResizabilityButton = button
+
   this.toggleResizability(this.queryString.resizeable ? true : false)
 }
 
@@ -412,28 +425,35 @@ InitPixel.prototype.getShortcuts = function (q) {
         // CTRL + C // toggle Color sheme
 
         q.cs = q.cs !== true ? true : undefined
+
         that.refresh()
       } else if (keyCode === 68) {
         // CTRL + D // toggle debugging
 
         q.debug = q.debug !== true ? true : undefined
+
         that.refresh()
       } else if (keyCode === 187) {
         // CTRL + "+" // zoom In
         if (!q.p) {
           q.p = 5
         }
+
         q.p = q.p * 1 + 1
+
         that.refresh()
       } else if (keyCode === 189) {
         // CTRL + "-" // zoom Out
         if (!q.p) {
           q.p = 5
         }
+
         q.p = q.p * 1 - 1
+
         if (q.p < 1) {
           q.p = 1
         }
+
         that.refresh()
       }
     } else if (event.altKey) {
@@ -442,16 +462,21 @@ InitPixel.prototype.getShortcuts = function (q) {
         if (!q.panels) {
           q.panels = 1
         }
+
         q.panels = q.panels * 1 + 1
+
         that.refresh()
       } else if (keyCode === 40) {
         if (!q.panels) {
           q.panels = 1
         }
+
         q.panels = q.panels * 1 - 1
+
         if (q.panels < 1) {
           q.panels = 1
         }
+
         that.refresh()
       } else if (keyCode === 39) {
         // Arrow Keys Left/Right // Next / Prev Image
@@ -517,15 +542,21 @@ InitPixel.prototype.getTimerAnimation = function () {
 
       for (key in animations) {
         current = animations[key]
+
         if (current.move) {
           current.pos += current.step * (current.forward ? 1 : -1)
+
           if (current.pos > 1) {
             current.pos = 1
+
             current.move = false
+
             current.forward = false
           } else if (current.pos < 0) {
             current.pos = 0
+
             current.move = false
+
             current.forward = true
           }
 
@@ -534,8 +565,10 @@ InitPixel.prototype.getTimerAnimation = function () {
             current.waitTimer -= 1
           } else {
             current.waitTimer = waitTimer
+
             if (current.middleChance > Math.random()) {
               current.forward = !current.forward
+
               current.move = false
             }
           }
@@ -546,6 +579,7 @@ InitPixel.prototype.getTimerAnimation = function () {
             current.waitTimer -= 1
           } else {
             current.waitTimer = waitTimer
+
             if (current.chance > Math.random()) {
               current.move = true
             }
@@ -562,14 +596,19 @@ InitPixel.prototype.getTimerAnimation = function () {
 
   for (key in animations) {
     current = animations[key]
+
     current.chance = (waitTimer * current.chance) / fps
+
     current.middleChance = waitTimer / (fps * current.duration)
 
     current.step = 1 / (fps * current.duration)
 
     current.pos = 0
+
     current.forward = true
+
     current.move = true
+
     current.waitTimer = 0
   }
 
@@ -580,7 +619,7 @@ InitPixel.prototype.showcaseSlides = [
   {
     name: 'graien',
     niceName: 'The Three Graeae',
-    import: () => import('../scripts/graien.js'),
+    import: () => import('@/scripts/graien.js'),
     resizeable: true,
     unchangeable: true,
     sliders: true,
@@ -588,56 +627,56 @@ InitPixel.prototype.showcaseSlides = [
   {
     name: 'tantalos',
     niceName: 'Tantalos',
-    import: () => import('../scripts/tantalos.js'),
+    import: () => import('@/scripts/tantalos.js'),
     resizeable: true,
   },
   {
     name: 'teiresias',
     niceName: 'Teiresias',
-    import: () => import('../scripts/teiresias.js'),
+    import: () => import('@/scripts/teiresias.js'),
     resizeable: true,
   },
   {
     name: 'brothers',
     niceName: 'Brothers',
-    import: () => import('../scripts/brothers.js'),
+    import: () => import('@/scripts/brothers.js'),
     resizeable: true,
   },
   {
     name: 'zeus',
     niceName: 'Zeus',
-    import: () => import('../scripts/zeus.js'),
+    import: () => import('@/scripts/zeus.js'),
     resizeable: true,
   },
   {
     name: 'argos',
     niceName: 'The Argos',
-    import: () => import('../scripts/argos.js'),
+    import: () => import('@/scripts/argos.js'),
     resizeable: true,
   },
   {
     name: 'sphinx',
     niceName: 'The Sphinx',
-    import: () => import('../scripts/sphinx.js'),
+    import: () => import('@/scripts/sphinx.js'),
     resizeable: true,
   },
   {
     name: 'letter',
     niceName: 'Letter',
-    import: () => import('../scripts/letter.js'),
+    import: () => import('@/scripts/letter.js'),
     unchangeable: true,
     both: true,
   },
   {
     name: 'persons_lessrandom',
     niceName: 'Trees',
-    import: () => import('../scripts/builder/init.js'),
+    import: () => import('@/scripts/builder/init.js'),
     hasRandom: true,
   },
   {
     name: 'persons_lessrandom',
     niceName: 'Persons',
-    import: () => import('../scripts/builder/init.js'),
+    import: () => import('@/scripts/builder/init.js'),
     sliders: true,
     showPerson: true,
     hasRandom: true,
@@ -645,7 +684,7 @@ InitPixel.prototype.showcaseSlides = [
   {
     name: 'panels',
     niceName: 'Panels',
-    import: () => import('../scripts/builder-old/init-panels.js'),
+    import: () => import('@/scripts/builder-old/init-panels.js'),
     unchangeable: true,
     sliders: true,
     hasRandom: true,
@@ -653,7 +692,7 @@ InitPixel.prototype.showcaseSlides = [
   {
     name: 'turnaround',
     niceName: 'Turnaround',
-    import: () => import('../scripts/betterBuilder/init.js'),
+    import: () => import('@/scripts/betterBuilder/init.js'),
     unchangeable: true,
     sliders: true,
     hasRandom: true,
@@ -661,7 +700,7 @@ InitPixel.prototype.showcaseSlides = [
   {
     name: 'table2',
     niceName: 'Comic 2',
-    import: () => import('../scripts/tableComic2/init.js'),
+    import: () => import('@/scripts/tableComic2/init.js'),
     unchangeable: true,
     sliders: true,
     hasRandom: true,
@@ -669,45 +708,45 @@ InitPixel.prototype.showcaseSlides = [
   {
     name: 'relativity',
     niceName: 'Relativity',
-    import: () => import('../scripts/relativity.js'),
+    import: () => import('@/scripts/relativity.js'),
     resizeable: true,
   },
   {
     name: 'stripes',
     niceName: 'Stripe',
-    import: () => import('../scripts/stripes.js'),
+    import: () => import('@/scripts/stripes.js'),
     resizeable: true,
   },
   {
     name: 'landscape',
     niceName: 'Landscape',
-    import: () => import('../scripts/landscape.js'),
+    import: () => import('@/scripts/landscape.js'),
     resizeable: true,
     hasRandom: true,
   },
   {
     name: 'sparta',
     niceName: 'Sparta',
-    import: () => import('../scripts/sparta.js'),
+    import: () => import('@/scripts/sparta.js'),
     resizeable: true,
   },
   {
     name: 'trex',
     niceName: 'T-Rex',
-    import: () => import('../scripts/trex.js'),
+    import: () => import('@/scripts/trex.js'),
     resizeable: true,
   },
   {
     name: 'typo',
     niceName: 'Typo',
-    import: () => import('../scripts/typo.js'),
+    import: () => import('@/scripts/typo.js'),
     resizeable: true,
   },
   {
     name: 'random-distribution',
     niceName: 'Random',
     hasRandom: true,
-    import: () => import('../scripts/random-distribution.js'),
+    import: () => import('@/scripts/random-distribution.js'),
     resizeable: true,
   },
 ]

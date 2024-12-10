@@ -1,14 +1,12 @@
-import { helper as helperGlobal } from '../renderengine/helper.js'
+import { helper as helperGlobal } from '@/renderengine/helper.js'
 
-export default function () {
+function typo() {
   var help = helperGlobal,
     getSmallerDim = help.getSmallerDim,
-    getBiggerDim = help.getBiggerDim,
     mult = help.mult,
     sub = help.sub,
     backgroundColor = [170, 190, 230],
     font = [30, 30, 30],
-    letterWidth = 8,
     letterCount = 0,
     spacingCount = 0,
     word = 'MAUTZN',
@@ -20,6 +18,7 @@ export default function () {
     getSerif = serif
       ? function (args) {
           args = args || {}
+
           return args.hor
             ? {
                 sX: 'serifheight',
@@ -137,7 +136,7 @@ export default function () {
     getLetter = (function () {
       var Letters = new (function () {
         var vertStem = { sY: 'stemVert', cY: true }
-        ;(this.missing = {
+        this.missing = {
           sX: 2,
           list: [
             {
@@ -148,49 +147,51 @@ export default function () {
               },
             },
           ],
-        }),
-          (this.space = {
-            sX: 3,
-            list: [],
-          }),
-          (this.A = {
-            sX: 4,
-            half: true,
-            list: [
-              {
-                stripes: {
-                  horizontal: true,
-                  change: { r: -0.9 },
-                },
-                fY: true,
-                fX: true,
-                sX: { r: 1, a: 'stemNeg' },
-                id: 'A',
-                clear: true,
-              },
-              {
-                stripes: {
-                  horizontal: true,
-                  change: { r: -0.9 },
-                },
-                fY: true,
-                fX: true,
-                id: 'A',
-              },
+        }
 
-              {
-                sY: 'stemVert',
-                y: { r: 0.6 },
-                sX: { r: 0.5 },
-                fX: true,
+        this.space = {
+          sX: 3,
+          list: [],
+        }
+
+        this.A = {
+          sX: 4,
+          half: true,
+          list: [
+            {
+              stripes: {
+                horizontal: true,
+                change: { r: -0.9 },
               },
-              { x: -1, list: [getSerif({ bottom: true })] },
-              {
-                x: 1,
-                list: [getSerif({ half: true, right: true })],
+              fY: true,
+              fX: true,
+              sX: { r: 1, a: 'stemNeg' },
+              id: 'A',
+              clear: true,
+            },
+            {
+              stripes: {
+                horizontal: true,
+                change: { r: -0.9 },
               },
-            ],
-          })
+              fY: true,
+              fX: true,
+              id: 'A',
+            },
+
+            {
+              sY: 'stemVert',
+              y: { r: 0.6 },
+              sX: { r: 0.5 },
+              fX: true,
+            },
+            { x: -1, list: [getSerif({ bottom: true })] },
+            {
+              x: 1,
+              list: [getSerif({ half: true, right: true })],
+            },
+          ],
+        }
 
         this.C = {
           sX: 3,
@@ -423,7 +424,7 @@ export default function () {
             Letters[letter] ||
             (letter === ' ' ? Letters['space'] : Letters['missing']),
           sX = thisLetter.sX,
-          letter = {
+          letterObject = {
             sX: mult(sX, 'wordUnit'),
             x: [
               mult(letterCount, 'wordUnit'),
@@ -444,16 +445,17 @@ export default function () {
           }
 
         letterCount += sX
-        return letter
+
+        return letterObject
       }
     })(),
     letters = (function () {
       var list = [],
-        l = word.length,
-        sX = 1 / l
+        l = word.length
 
       while (l--) {
         list.push(getLetter(word[l]))
+
         spacingCount += 1
       }
 
@@ -509,3 +511,5 @@ export default function () {
     variableList: variableList,
   }
 }
+
+export default typo

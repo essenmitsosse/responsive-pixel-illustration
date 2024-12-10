@@ -1,15 +1,19 @@
 export const helper = new (function () {
   var that = this
+
   this.getSmallerDim = function (x) {
     var o = { r: x.r },
       max = { r: x.r2 || x.r, otherDim: true }
 
     if (x.a) {
       o.a = x.a
+
       max.a = x.a
     }
+
     if (x.useSize) {
       o.useSize = x.useSize[0]
+
       max.useSize = x.useSize[1] || x.useSize[0]
     }
 
@@ -24,6 +28,7 @@ export const helper = new (function () {
 
   this.getBiggerDim = function (x) {
     x.getBiggerDim = true
+
     return that.getSmallerDim(x)
   }
 
@@ -133,6 +138,7 @@ export const helper = new (function () {
   this.setValue = function (what, value) {
     what.r = value
   }
+
   this.setValueNew = function (what, value) {
     what.s.rele = value
   }
@@ -164,7 +170,9 @@ export const helper = new (function () {
           valueNeg = 1 - value
 
         color[0] = minR * valueNeg + maxR * value
+
         color[1] = minG * valueNeg + maxG * value
+
         color[2] = minB * valueNeg + maxB * value
       }
 
@@ -186,6 +194,7 @@ export const helper = new (function () {
             if ((currentSize = this[key])) {
               // Assignment
               currentInfo = info[key]
+
               if (typeof currentInfo === 'object') {
                 if (currentInfo.map !== undefined) {
                   pushRelativeStandard(
@@ -255,6 +264,7 @@ export const helper = new (function () {
           if ((l = changersColorStandard.length)) {
             while (l--) {
               current = changersColorStandard[l]
+
               if (args[current.map] !== undefined) {
                 changeColor(args[current.map], current)
               }
@@ -296,15 +306,18 @@ export const helper = new (function () {
       t = x ^ (x << a),
       getFloat = function () {
         var t = x ^ (x << a)
+
         return (x = x ^ (x >> c) ^ (t ^ (t >> b))) / denom
       }
 
     x = x ^ (x >> c) ^ (t ^ (t >> b))
 
     t = x ^ (x << a)
+
     x = x ^ (x >> c) ^ (t ^ (t >> b))
 
     t = x ^ (x << a)
+
     x = x ^ (x >> c) ^ (t ^ (t >> b))
 
     return {

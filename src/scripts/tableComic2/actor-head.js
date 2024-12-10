@@ -1,20 +1,22 @@
-/* global TableComic */
-
 // BEGINN Head /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Head = function (args) {
   this.actor = this.parent = args.actor
 
   // Forms and Sizes
   this.eyeAreaBaseSX_ = 0.5
+
   this.eyeAreaRelSX_ = this.rFl(0.7, 1.4)
 
   this.eyeAreaBaseSY_ = 0.5
+
   this.eyeAreaRelSY_ = this.rFl(0.7, 1.5)
 
   this.mouthAreaBaseSX_ = 0.7
+
   this.mouthAreaRelSX_ = this.rFl(0.7, 1.4)
 
   this.baseSX_ = args.baseSX_ || 0.8
+
   this.relSX_ = this.rFl(0.4, 1.2 / this.baseSX_)
 
   // Colors
@@ -25,6 +27,7 @@ export const Head = function (args) {
     actor: this.actor,
     color: this.color,
   })
+
   this.mouth = new this.basic.Mouth({
     actor: this.actor,
     color: this.color,
@@ -206,16 +209,21 @@ export const Eyes = function (args) {
 
   // Forms & Sizes
   this.eyeBaseSX_ = 0.6
+
   this.eyeBaseSY_ = 0.6
 
   this.eyeSXRel_ = this.rFl(0.6, 1.5)
+
   this.eyeSYRel_ = this.rFl(0.5, 0.7)
 
   this.roundInner = true
+
   this.roundOuter = true
+
   this.eyeBrow = this.rIf(0.5)
 
   this.pupilSX_ = 1
+
   this.pupilSY_ = 1
 
   // Colors
@@ -271,11 +279,13 @@ Eyes.prototype.draw = function (args) {
     x
 
   this.side = this.pushLinkList({ r: 0, useSize: maxEyesCombinedSX })
+
   eyeLeftSX = this.pushLinkList({
     r: 0.5,
     useSize: maxEyesCombinedSX,
     add: [{ r: 0.5, useSize: this.side }],
   })
+
   eyeRightSX = this.pushLinkList([
     maxEyesCombinedSX,
     { r: -1, useSize: eyeLeftSX },
@@ -329,10 +339,13 @@ export const Eye = function Eye(args) {
   this.left = args.left
 
   this.roundInner = args.roundInner
+
   this.roundOuter = args.roundOuter
+
   this.eyeBrow = args.eyeBrow
 
   this.pupilSX_ = args.pupilSX_
+
   this.pupilSY_ = args.pupilSY_
 
   // Colors
@@ -642,6 +655,7 @@ Mouth.prototype.draw = function MouthDraw(args) {
   if (!args.info) {
     args.info = {}
   }
+
   // Assign the side value to the info, so it can be added to the changers.
   args.info.curveSideSX = args.info.cutOff = args.info.sideRestSX = args.side
 
@@ -734,7 +748,7 @@ Mouth.prototype.draw = function MouthDraw(args) {
 // END Mouth \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/
 
 // BEGINN Hair /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
-export const Hair = function Hair(args) {
+export const Hair = function Hair() {
   // Forms & Sizes
   this.sY_ = 0.3
 
@@ -794,10 +808,12 @@ export const Hat = function Hat(args) {
   this.actor = args.actor
 
   this.rim = this.rIf(0.7)
+
   this.baseCap = this.rim && this.rIf(0.5)
 
   // Forms & Sizes
   this.sY_ = 0.1
+
   this.topSY_ = this.rim ? this.rFl(0.1, 0.4) : 0
 
   this.colorScheme = this.rIf(0.5)
@@ -805,11 +821,13 @@ export const Hat = function Hat(args) {
     : this.actor.colors.color2
 
   this.color = this.colorScheme[2]
+
   this.detailColor = this.colorScheme[3]
 }
 
 Hat.prototype.draw = function HatDraw(args) {
   this.sY = this.pushLinkList({ r: 0, useSize: args.sY })
+
   this.topSY = this.pushLinkList({ r: 0, useSize: args.sY })
 
   this.pushRelativeStandardAutomatic({

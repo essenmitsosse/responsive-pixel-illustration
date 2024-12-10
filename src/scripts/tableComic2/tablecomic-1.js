@@ -1,5 +1,3 @@
-/* global TableComic */
-
 // BEGINN getStrip /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const getFace = function () {
   var backgroundColor = [0, 0, 0],
@@ -102,6 +100,7 @@ export const getStrip = function getStrip() {
   }
 
   delete stripInfo.defaultPanels
+
   delete stripInfo.inventory
 
   return stripInfo
@@ -239,7 +238,6 @@ export const getStripInfo = function () {
     getZoom = (function () {
       var min = 1,
         max = min,
-        zoomOut = -0.04,
         zoomIn = 0.1,
         i = 0
 
@@ -252,6 +250,7 @@ export const getStripInfo = function () {
 
           if (i === 4) {
             min += 0.2
+
             max += 0.2
           }
         }
@@ -437,14 +436,6 @@ export const getStripInfo = function () {
     chair2FallenOver = {
       rotate: 90,
       pos: { obj: stage, posX: 1.4, posY: 0.2 },
-    },
-    tableOnGround = {
-      z: -5,
-      pos: {
-        obj: stage,
-        posX: 1,
-      },
-      rotate: 90,
     },
     glassBasic = {
       z: 11000,

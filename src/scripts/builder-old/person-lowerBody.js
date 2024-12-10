@@ -1,8 +1,10 @@
 import { Object } from './object.js'
+
 // LOWER BODY --------------------------------------------------------------------------------
 export const LowerBody = function (args) {
   // Form & Sizes
   this.sideSYFak = this.R(0.6, 1.6)
+
   this.crotchSY = this.R(1, 3)
 
   this.wideHips = this.IF(0.05)
@@ -17,12 +19,18 @@ export const LowerBody = function (args) {
 
   // Assets
   this.leg = new this.basic.Leg(args)
+
   this.skirt = args.skirt =
     (args.demo || this.wideHips || this.IF(args.animal ? 0.05 : 0.15)) &&
     new this.basic.Skirt(args)
-  !args.animal && this.IF(0.3) && (this.belt = new this.basic.Belt(args))
+
+  if (!args.animal && this.IF(0.3)) {
+    this.belt = new this.basic.Belt(args)
+  }
 } // END LowerBody
+
 LowerBody.prototype = new Object()
+
 LowerBody.prototype.draw = function (args, z) {
   var nr = args.nr,
     sideView = args.sideView,
@@ -84,28 +92,34 @@ LowerBody.prototype.draw = function (args, z) {
 export const Belt = function (args) {
   // Form & Sizes
   this.beltSY = this.R(0.1, 0.7)
+
   this.buckle = this.IF(0.5)
+
   this.buckleSX = this.R(-0.3, 1)
+
   this.strips = this.IF(0.3)
 
   // Colors
   this.beltColor = args.beltColor || args.pantsColor.copy({ brContrast: -1 })
-  this.buckle &&
-    (this.buckleColor = this.beltColor.copy({
+
+  if (this.buckle) {
+    this.buckleColor = this.beltColor.copy({
       brContrast: this.IF(0.5) ? -1 : 2,
-    }))
-  this.strips &&
-    (this.pantsColor = args.skirt ? args.skirtColor : args.pantsColor)
+    })
+  }
+
+  if (this.strips) {
+    this.pantsColor = args.skirt ? args.skirtColor : args.pantsColor
+  }
 
   // Assets
 } // END Belt
+
 Belt.prototype = new Object()
+
 Belt.prototype.draw = function (args, z) {
   var nr = args.nr,
     sideView = args.sideView
-
-  if (args.calc) {
-  }
 
   return {
     z: z + 115,
@@ -144,22 +158,32 @@ Belt.prototype.draw = function (args, z) {
 export const Skirt = function (args) {
   // Form & Sizes
   this.skirtSY = this.R(0.3, 1.2)
+
   this.stripes = this.IF()
-  this.stripes &&
-    ((this.gap = this.R(-0.1, 0.2)),
-    (this.strip = this.R(-0.1, 0.2)),
-    (this.hor = this.IF(0.08)))
+
+  if (this.stripes) {
+    this.gap = this.R(-0.1, 0.2)
+
+    this.strip = this.R(-0.1, 0.2)
+
+    this.hor = this.IF(0.08)
+  }
 
   // Colors
   this.skirtColor = args.skirtColor = this.IF()
     ? args.firstColor
     : args.secondColor.copy({ brContrast: 1, max: 4 })
-  this.stripes && (this.stripeColor = this.skirtColor.copy({ brContrast: -1 }))
+
+  if (this.stripes) {
+    this.stripeColor = this.skirtColor.copy({ brContrast: -1 })
+  }
 
   // Assets
 } // END Skirt
+
 Skirt.prototype = new Object()
-Skirt.prototype.draw = function (args, z) {
+
+Skirt.prototype.draw = function (args) {
   var nr = args.nr,
     sideView = args.sideView
 
@@ -170,6 +194,7 @@ Skirt.prototype.draw = function (args, z) {
       min: 1,
       max: 'lowerBodySY' + nr,
     }
+
     this.vL['feetRestSY' + nr] = ['lowerBodySY' + nr, this.sub('skirtSY' + nr)]
   }
 
@@ -197,14 +222,19 @@ Skirt.prototype.draw = function (args, z) {
 } // END Skirt draw
 
 // LEG --------------------------------------------------------------------------------
-export const Leg = function (args, right) {
+export const Leg = function (args) {
   // Form & Sizes
 
   this.legSX = this.IF(0.1) ? this.R(0.05, 0.5) : 0.05
+
   this.bootsSY = this.IF() && this.R(0.2, 1)
+
   this.thights = this.IF() && this.R(1, 1.5) * this.legSX
+
   this.calves = this.IF() && this.R(1, 1.5) * this.legSX
+
   this.bootsSXBig = !this.calves && this.IF() && this.GR(1, 2)
+
   this.bareFoot = this.IF(args.animal ? 0.8 : 0.05)
 
   this.legsIn = this.IF(args.skirt ? 0.8 : 0.2)
@@ -216,11 +246,12 @@ export const Leg = function (args, right) {
 
   // Assets
 } // END Leg
+
 Leg.prototype = new Object()
+
 Leg.prototype.draw = function (args, z, rightSide, behind) {
   var nr = args.nr,
     sideView = args.sideView,
-    legUp = false,
     legPos = args.leg && args.leg[rightSide ? 'right' : 'left'],
     hipBend = legPos === 'legHigh',
     legBend = hipBend || legPos === 'kneeBend',
@@ -233,7 +264,9 @@ Leg.prototype.draw = function (args, z, rightSide, behind) {
       max: ['lowerBodySX' + nr, this.legsIn ? -2 : -1],
       min: 1,
     }
+
     this.vL['upperLegSY' + nr] = { r: 0.5, useSize: 'lowerBodySY' + nr }
+
     this.vL['lowerLegSY' + nr] = [
       'lowerBodySY' + nr,
       this.sub('upperLegSY' + nr),
@@ -257,12 +290,14 @@ Leg.prototype.draw = function (args, z, rightSide, behind) {
       max: 'legMaxSX' + nr,
       min: 1,
     }
+
     this.vL['calvesSX' + nr] = {
       useSize: 'personHalfSX' + nr,
       r: this.calves || 1,
       max: 'legMaxSX' + nr,
       min: 1,
     }
+
     this.vL['legFullSX' + nr] = {
       a: 'thighsSX' + nr,
       min: 'calvesSX' + nr,

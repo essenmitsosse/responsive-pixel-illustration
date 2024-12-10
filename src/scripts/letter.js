@@ -1,6 +1,6 @@
-import { helper as helperGlobal } from '../renderengine/helper.js'
+import { helper as helperGlobal } from '@/renderengine/helper.js'
 
-export default function (args, init, createSlider) {
+function letter(args, init, createSlider) {
   var helper = helperGlobal,
     hover = helper.getHoverChangers(),
     pushChanger = hover.pushRelativeStandard,
@@ -181,3 +181,5 @@ export default function (args, init, createSlider) {
     recommendedPixelSize: 16,
   }
 }
+
+export default letter

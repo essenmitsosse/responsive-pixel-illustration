@@ -1,5 +1,3 @@
-/* global TableComic */
-
 // BEGINN Actor /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Actor = function (args) {
   if (!args) {
@@ -14,6 +12,7 @@ export const Actor = function (args) {
   this.headScaling = args.headScaling || 1
 
   this.headSY_ = 0.25
+
   this.headRelSY_ = this.rFl(0.6, 1.3)
 
   this.sizeMap = {
@@ -64,6 +63,7 @@ Actor.prototype.getSize = function (args) {
 
   // HeadSize
   this.headSY = this.pushLinkList({ r: this.headSY_, useSize: this.sY })
+
   this.headSY = this.pushLinkList({ r: 1, useSize: this.headSY })
 
   this.bodySY = this.pushLinkList({
@@ -97,11 +97,14 @@ Actor.prototype.getSizeFromHead = function (args) {
     r: (1 - headSY_) / headSY_,
     useSize: this.headSY,
   })
+
   this.sY = this.pushLinkList([this.bodySY, this.headSY])
 
   if (mapper.map) {
     map = mapper.map
+
     min = mapper.min
+
     change = mapper.max - min
 
     this.changersRelativeCustomList.push([
@@ -126,8 +129,10 @@ Actor.prototype.getSizeFromHead = function (args) {
       this.bodySY,
       function (args) {
         var headSY
+
         if (args[map] !== undefined) {
           headSY = headSY_ * (args[map] * change + min)
+
           return (1 - headSY) / headSY
         }
       },
@@ -210,19 +215,22 @@ Actor.prototype.getFocus = function (zoomSX, zoomSY, focus) {
 Actor.prototype.draw = function (args) {
   var info = args.info
 
+  this.zoomToHead = info.zoomToHead
+
   // Decide which size calculation method to use and use it.
-  this[(this.zoomToHead = info.zoomToHead) ? 'getSizeFromHead' : 'getSize'](
-    args,
-  )
+  this[this.zoomToHead ? 'getSizeFromHead' : 'getSize'](args)
 
   // SX and headScaling have automatically been generated; add additional properties
   this.sX.min = 3
+
   this.sX.odd = true
 
   this.headSY.a = 1
+
   this.headSY.min = 4
 
   this.headSX = this.pushLinkList({ r: 1, useSize: this.sX })
+
   this.pushRelativeStandardAutomatic({
     headSX: this.headScaling,
   })
@@ -241,6 +249,7 @@ Actor.prototype.draw = function (args) {
   )
 
   this.baseShift = this.pushLinkList({ r: 1, useSize: this.baseShift })
+
   this.pushRelativeStandardAutomatic({
     baseShift: { map: 'props', min: 0, max: 1 },
   })
@@ -258,6 +267,7 @@ Actor.prototype.draw = function (args) {
   this.pushRelativeStandardAutomatic(info.body)
 
   this.armRightInfo = info.armRight
+
   this.armLeftInfo = info.armLeft
   // this.sideInfo = info.body.side;
 
@@ -324,6 +334,7 @@ export const Body = function Body(args) {
 
   // Forms & Sizes
   this.legBaseSY_ = 0.7
+
   this.legRelSY_ = this.rFl(0.5, (1 / this.legBaseSY_) * 0.9)
 
   // Assets
@@ -344,6 +355,7 @@ Body.prototype.getSize = function BodyGetSize(args) {
     {},
     'actor-features',
   )
+
   this.torsoSY = this.pushLinkList({
     add: [args.sY, { r: -1, useSize: this.legSY }],
   })
@@ -361,6 +373,7 @@ Body.prototype.getSize = function BodyGetSize(args) {
 
 Body.prototype.draw = function BodyDraw(args) {
   this.sY = args.sY
+
   this.sX = args.sX
 
   return {
@@ -394,6 +407,7 @@ export const Torso = function Torso(args) {
 
   // Assests
   this.zipper = this.rIf(0.5)
+
   this.zipperSY = this.rIf(0.6) ? 1 : this.rFl(0, 1)
 }
 
@@ -403,12 +417,14 @@ Torso.prototype.getSize = function TorsoDraw(args) {
 
 Torso.prototype.draw = function TorsoDraw(args) {
   this.sX = args.sX
+
   this.sY = args.sY
 
   this.center = this.pushLinkList({ r: 0.5, useSize: this.sX, a: -1 })
 
   if (this.zipper) {
     this.zipperY = this.pushLinkList({ r: 0.5, useSize: this.sY })
+
     this.leanWay = this.pushLinkList({ r: 0.5, useSize: args.lean })
 
     this.pushRelativeStandardAutomatic({
@@ -418,6 +434,7 @@ Torso.prototype.draw = function TorsoDraw(args) {
   }
 
   this.upperTorsoSY = this.pushLinkList({ r: 0.5, useSize: args.sY, min: 1 })
+
   this.lowerTorsoSY = this.pushLinkList({
     add: [args.sY, { r: -1, useSize: this.upperTorsoSY }, 1],
     min: 1,

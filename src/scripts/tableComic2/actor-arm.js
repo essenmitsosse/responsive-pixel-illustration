@@ -1,5 +1,3 @@
-/* global TableComic */
-
 // BEGINN Arm /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Arm = function Arm(args) {
   this.actor = args.actor
@@ -8,6 +6,7 @@ export const Arm = function Arm(args) {
   this.shortSleaves = args.info.shortSleaves
 
   this.armBaseSY_ = 1.3
+
   this.armRelSY_ = this.rFl(0.5, 1.5)
 
   // Sizes
@@ -15,9 +14,11 @@ export const Arm = function Arm(args) {
 
   // Colors
   this.skinColor = this.actor.colors.skinColor
+
   this.color = this.actor.colors.color1
 
   this.upperArmColor = this.noSleaves ? this.skinColor : this.color
+
   this.lowerArmColor = this.shortSleaves ? this.skinColor : this.color
 }
 
@@ -53,6 +54,7 @@ Arm.prototype.draw = function ArmDraw(args) {
   this.right = args.right
 
   this.isRotated = this.actor.isRotated
+
   this.x = this.pushLinkList({
     add: [
       args.right ? { r: -1, useSize: args.x } : args.x,
@@ -70,6 +72,7 @@ Arm.prototype.draw = function ArmDraw(args) {
   this.handHalfS = this.pushLinkList({ r: -0.5, useSize: handS })
 
   this.endX = this.pushLinkList({})
+
   this.endY = this.pushLinkList({})
 
   if (info && info.pos) {
@@ -77,6 +80,7 @@ Arm.prototype.draw = function ArmDraw(args) {
   } else {
     // Default, lowered arms
     this.targetX = this.pushLinkList({ a: 0 })
+
     this.targetY = armSY
   }
 
@@ -84,6 +88,7 @@ Arm.prototype.draw = function ArmDraw(args) {
     this.getMoveableTarget('handTarget', 'getHandTarget', info.hand)
   } else {
     this.handTargetX = this.pushLinkList({ a: 0 })
+
     this.handTargetY = this.pushLinkList({ a: 2 })
   }
 
@@ -149,6 +154,7 @@ Arm.prototype.getHandTarget = function (target, name) {
     this[x] = this.pushLinkList({
       a: Math.sin(target.angle * Math.PI) * 20,
     })
+
     this[y] = this.pushLinkList({
       a: Math.cos(target.angle * Math.PI) * 20,
     })
@@ -158,11 +164,13 @@ Arm.prototype.getHandTarget = function (target, name) {
     this[x] = this.pushLinkList({
       add: [this[x], { r: -1, useSize: this.endX }],
     })
+
     this[y] = this.pushLinkList({
       add: [this[y], { r: -1, useSize: this.endY }],
     })
   } else {
     this[x] = this.pushLinkList({ a: 0 })
+
     this[y] = this.pushLinkList({ a: 1 })
   }
 }
@@ -190,12 +198,14 @@ Arm.prototype.getTarget = function (target, name) {
       ? target.obj.getBetterPosY(target.posY)
       : target.obj.getPosY(target.posY),
   )
-  ;(this.isRotated ? xAdd : yAdd).push(
-    { r: -1, useSize: this.y },
-    this.actor.bodySY,
-    -1,
-  )
-  ;(!this.isRotated ? xAdd : yAdd).push(
+
+  const add = this.isRotated ? xAdd : yAdd
+
+  const addOtherAxis = !this.isRotated ? xAdd : yAdd
+
+  add.push({ r: -1, useSize: this.y }, this.actor.bodySY, -1)
+
+  addOtherAxis.push(
     {
       r: (this.isRotated ? -1 : 1) * (!this.right ? -1 : 1),
       useSize: this.x,
@@ -207,6 +217,7 @@ Arm.prototype.getTarget = function (target, name) {
   )
 
   this[name + 'X'] = this.pushLinkList({ add: xAdd })
+
   this[name + 'Y'] = this.pushLinkList({ add: yAdd })
 }
 
@@ -242,6 +253,7 @@ Arm.prototype.getMoveableTarget = function (name, targetFunc, info) {
       min: 0,
       max: 1,
     }
+
     pushRelativeStandardAutomaticObject[moveYName] = {
       map: info.map,
       min: 0,
@@ -253,6 +265,7 @@ Arm.prototype.getMoveableTarget = function (name, targetFunc, info) {
     this[mainX] = this.pushLinkList({
       add: [this[mainX], this[moveXName]],
     })
+
     this[mainY] = this.pushLinkList({
       add: [this[mainY], this[moveYName]],
     })

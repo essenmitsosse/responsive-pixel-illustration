@@ -2,8 +2,11 @@ export const Admin = function (args) {
   var body = args.body
 
   this.pixel = args.pixel
+
   this.getClicker = this.getClickerGetter(this.pixel)
+
   this.showcase = args.showcase
+
   this.admin = args.admin
 
   // Setup Basic Showcase/Admin Layout
@@ -13,10 +16,15 @@ export const Admin = function (args) {
 
   // Setup sidebar div
   this.sideBarDiv = document.createElement('div')
+
   this.sideBarInnerDiv = document.createElement('div')
+
   this.sideBarDiv.setAttribute('id', 'sidebar')
+
   this.sideBarInnerDiv.setAttribute('class', 'inner')
+
   this.sideBarDiv.appendChild(this.sideBarInnerDiv)
+
   this.mainAdmin.appendChild(this.sideBarDiv)
 
   if (this.showcase || this.admin) {
@@ -29,6 +37,7 @@ export const Admin = function (args) {
   this.setupSlider()
 
   body.appendChild(this.mainAdmin)
+
   this.mainAdmin.setAttribute('id', 'mainAdmin')
 }
 
@@ -55,6 +64,7 @@ Admin.prototype.setupSlides = function (slides) {
 Admin.prototype.getClickerGetter = function (pixel) {
   return function getClicker(nr) {
     var p = pixel
+
     return function () {
       p.changeForceRedraw({ slide: nr })
     }
@@ -80,30 +90,37 @@ Admin.prototype.setupSlider = function () {
         label
 
       wrap.setAttribute('class', 'input ' + name)
+
       innerWrap.setAttribute('class', 'sliderWrap')
 
       if (labelName) {
         label = document.createElement('label')
+
         label.innerHTML = labelName
+
         wrap.appendChild(label)
       }
 
       while (count < l) {
         innerWrap.appendChild(objects[count])
+
         count += 1
       }
 
       wrap.appendChild(innerWrap)
+
       slidersDivList.appendChild(wrap)
     },
     activateSliders = function () {
       if (!hasSliders) {
         hasSliders = true
+
         body.className = [body.className, 'withSliders'].join(' ')
       }
     }
 
   this.pixel.sliderObject = sliderObject
+
   this.pixel.sliderValues = sliderValues
 
   this.pixel.createSlider = {
@@ -125,6 +142,7 @@ Admin.prototype.setupSlider = function () {
 
       if (!args.dontShow) {
         getBasicWrapper([slider, /* datalist, */ span], 'slider', args.niceName)
+
         sliderObject[args.valueName] = getSliderControl.slider(
           slider,
           span,
@@ -146,7 +164,9 @@ Admin.prototype.setupSlider = function () {
       }
 
       getBasicWrapper([input], 'slider', args.niceName)
+
       sliderObject[args.valueName] = getSliderControl.number(input, args)
+
       sliderValues[args.valueName] = args.defaultValue
     },
 
@@ -157,7 +177,9 @@ Admin.prototype.setupSlider = function () {
       title.innerHTML = args.title
 
       wrap.setAttribute('class', 'title')
+
       wrap.appendChild(title)
+
       slidersDivList.appendChild(wrap)
     },
   }
@@ -181,6 +203,7 @@ Admin.prototype.getSliderControlGetter = function () {
         outputFactor = (outputMap.max - outputMin) / diff,
         updateInfoSpan = function () {
           span.innerHTML = Math.round(value * 10) / 10
+
           span.setAttribute(
             'style',
             'left: ' + (((value - min) / diff) * 100 - 10) + '%;',
@@ -193,15 +216,19 @@ Admin.prototype.getSliderControlGetter = function () {
           if (typeof setValue === 'number') {
             // obj[ valueName ] = setValue;
             value = slider.value = (setValue - outputMin) / outputFactor + min
+
             if (single) {
               if (lastValueName !== valueName && lastSliderParent) {
                 lastSliderParent.setAttribute('style', '')
               }
 
               lastValueName = valueName
+
               lastSliderParent = parentNode
             }
+
             updateInfoSpan()
+
             return
 
             // else update the object
@@ -211,12 +238,15 @@ Admin.prototype.getSliderControlGetter = function () {
             updateInfoSpan()
 
             obj[valueName] = (value - min) * outputFactor + outputMin
+
             pixel.sliderChange(obj)
           }
         }
 
       slider.addEventListener('mousemove', update, false)
+
       slider.addEventListener('touchmove', update, false)
+
       slider.addEventListener('click', update, false)
 
       return update
@@ -244,6 +274,7 @@ Admin.prototype.getSliderControlGetter = function () {
         }
 
       number.addEventListener('click', update, false)
+
       number.addEventListener('keypress', function (event) {
         if (event.keyCode === 13) {
           update()
@@ -348,9 +379,11 @@ Admin.prototype.List.prototype.addMessage = function (
   var newMessage = document.createElement('li')
 
   newMessage.innerHTML = message
+
   if (className) {
     newMessage.setAttribute('class', className)
   }
+
   this.list.appendChild(newMessage)
 
   if (clickEvent) {

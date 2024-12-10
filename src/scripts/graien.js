@@ -1,6 +1,6 @@
-import { helper as helperGlobal } from '../renderengine/helper.js'
+import { helper as helperGlobal } from '@/renderengine/helper.js'
 
-export default function (args, slide, createSlider) {
+function graien() {
   var helper = helperGlobal,
     getSmallerDim = helper.getSmallerDim,
     getBiggerDim = helper.getBiggerDim,
@@ -348,42 +348,55 @@ export default function (args, slide, createSlider) {
 
       if (a) {
         graienValues(handWidth, a, 0.07)
+
         graienValues(armWidth, a, 0.05)
+
         graienValues(legWidth, a, 0.15)
+
         graienValues(legLowerWidth, a, 0.07)
       }
 
       if (b) {
         graienValues(graie1HeadSize, b, 0.18)
+
         graienValues(graie2HeadHeight, b, 0.8)
       }
 
       if (c || d) {
         if (c) {
           graie1[0] = c * 227
+
           graie2[0] = c * 192
+
           graie3[0] = c * 232
         }
 
         if (d) {
           graie1[1] = d * 200
+
           graie2[1] = d * 176
+
           graie3[1] = d * 204
         }
 
         if (c && d) {
           graie1[2] = (0.5 + c * d * 0.5) * 190
+
           graie2[2] = (0.5 + c * d * 0.5) * 133
+
           graie3[2] = (0.5 + c * d * 0.5) * 152
         }
 
         graie1Shadow = shadow(graie1, graie1Shadow)
+
         graie1Detail = detail(graie1, graie1Detail)
 
         graie2Shadow = shadow(graie2, graie2Shadow)
+
         graie2Detail = detail(graie2, graie2Detail)
 
         graie3Shadow = shadow(graie3, graie3Shadow)
+
         graie3Detail = detail(graie3, graie3Detail)
       }
     },
@@ -534,10 +547,12 @@ export default function (args, slide, createSlider) {
       var i = 0,
         s = { a: 0, random: legDetailWidth },
         armSize = { a: 0, random: armDetailLength }
+
       return function (nr, hor, arm) {
         var shadow = getShadow(nr)
 
         hor = arm ? !hor : hor
+
         return {
           list: [
             {},
@@ -560,6 +575,7 @@ export default function (args, slide, createSlider) {
     })(),
     armToLeft = function (nr, down) {
       var shadow = getShadow(nr)
+
       return [
         legStructure(nr, false, true),
         { sY: armShadow, color: shadow, fY: true },
@@ -627,7 +643,9 @@ export default function (args, slide, createSlider) {
         { color: shadow },
         { s: { r: 1, a: -2 }, color: skin, c: true },
       ]
+
       obj.sY = big ? { r: 0.1, a: -1, max: 4 } : { r: 0.02, max: 1 }
+
       obj.sX = big ? { r: 0.1, a: -1, otherDim: true, max: 4 } : 1
 
       return obj
@@ -2869,3 +2887,5 @@ export default function (args, slide, createSlider) {
     },
   }
 }
+
+export default graien

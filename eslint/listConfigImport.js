@@ -61,6 +61,13 @@ const listConfigImport = [
       'import/no-duplicates': 'error',
 
       /**
+       * Forbid the import of external modules that are not declared in the
+       * `package.json`'s `dependencies`
+       * {@link https://github.com/import-js/eslint-plugin-import/blob/master/docs/rules/no-extraneous-dependencies.md}
+       */
+      'import/no-extraneous-dependencies': 'error',
+
+      /**
        * Do not allow a default import name to match a named export
        * {@link https://github.com/import-js/eslint-plugin-import/blob/master/docs/rules/no-named-as-default.md}
        */

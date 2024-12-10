@@ -85,5 +85,5 @@ test('interact with sliders', async ({ page }) => {
     sliderOffsetWidth.y + sliderOffsetWidth.height / 2,
   )
   await page.waitForTimeout(1000)
-  await expect(page).toHaveScreenshot(`slider-before.png`)
+  await expect(page).toHaveScreenshot('slider-before.png')
 })

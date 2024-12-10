@@ -1,11 +1,14 @@
 import typescript from '@typescript-eslint/eslint-plugin'
+// @ts-expect-error - currently no types for this package
 import importPlugin from 'eslint-plugin-import'
 
+import type { Linter } from 'eslint'
+
 /** Set of rules to ensure we get a consistant import style and sorting. */
-/** @type {ReadonlyArray<import('eslint').Linter.Config>} */
-const listConfigImportStyle = [
+const listConfigImportStyle: ReadonlyArray<Linter.Config> = [
   {
     plugins: {
+      // @ts-expect-error - TODO: Check for updates so this actually works
       '@typescript-eslint-import-style': typescript,
       'import-import-style': importPlugin,
     },

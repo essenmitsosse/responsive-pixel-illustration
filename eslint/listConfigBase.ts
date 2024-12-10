@@ -1,8 +1,9 @@
 import js from '@eslint/js'
 import globals from 'globals'
 
-/** @type {ReadonlyArray<import('eslint').Linter.Config>} */
-const listConfigEslintBase = [
+import type { Linter } from 'eslint'
+
+const listConfigEslintBase: ReadonlyArray<Linter.Config> = [
   {
     languageOptions: { globals: { ...globals.browser, process: true } },
     rules: {

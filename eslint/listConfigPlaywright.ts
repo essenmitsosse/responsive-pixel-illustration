@@ -1,11 +1,12 @@
 import playwright from 'eslint-plugin-playwright'
 
+import type { Linter } from 'eslint'
+
 /**
  * Playwright rules
  * {@link https://github.com/playwright-community/eslint-plugin-playwright}
  */
-/** @type {ReadonlyArray<import('eslint').Linter.Config>} */
-const listConfigPlaywright = [
+const listConfigPlaywright: ReadonlyArray<Linter.Config> = [
   {
     ...playwright.configs['flat/recommended'],
     files: ['**/*.spec.*'],

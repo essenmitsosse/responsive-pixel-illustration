@@ -1,6 +1,8 @@
 import typescript from '@typescript-eslint/eslint-plugin'
 
-const listConfigTypeScript = [
+import type { Linter } from 'eslint'
+
+const listConfigTypeScript: ReadonlyArray<Linter.Config> = [
   {
     rules: {
       /**
@@ -96,6 +98,7 @@ const listConfigTypeScript = [
   /** Disable rule for .js, because return types can't be typed in `.js` fiels */
   {
     files: ['**/*.js'],
+    // @ts-expect-error - TODO: Check for updates so this actually works
     plugins: { '@typescript-eslint': typescript },
     rules: { '@typescript-eslint/explicit-function-return-type': 'off' },
   },
@@ -108,6 +111,7 @@ const listConfigTypeScript = [
    * Replaces the ESLint rule `no-redeclare`.
    */
   {
+    // @ts-expect-error - TODO: Check for updates so this actually works
     plugins: { '@typescript-eslint': typescript },
     rules: {
       'no-redeclare': 'off',
@@ -121,6 +125,7 @@ const listConfigTypeScript = [
    * rule will sometimes give false negatives for TypeScript types.
    */
   {
+    // @ts-expect-error - TODO: Check for updates so this actually works
     plugins: { '@typescript-eslint': typescript },
     rules: {
       'no-unused-vars': 'off',

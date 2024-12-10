@@ -7,8 +7,9 @@ import listConfigPlaywright from './eslint/listConfigPlaywright.js'
 import listConfigStylistic from './eslint/listConfigStylistic.js'
 import listConfigTypeScript from './eslint/listConfigTypescript.js'
 
-/** @type {ReadonlyArray<import('eslint').Linter.Config>} */
-const listConfigEslint = [
+import type { Linter } from 'eslint'
+
+const listConfigEslint: ReadonlyArray<Linter.Config> = [
   ...listConfigBaseTypescript,
 
   ...listConfigBase,

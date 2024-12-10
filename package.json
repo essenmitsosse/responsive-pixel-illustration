@@ -7,7 +7,7 @@
     "dev": "vite --port 8000",
     "build": "vite build",
     "ts": "tsc",
-    "lint": "eslint . --max-warnings 0",
+    "lint": "eslint . --max-warnings 0 --flag unstable_ts_config",
     "play": "playwright test",
     "preview": "vite preview",
     "prettier": "prettier --write .",
@@ -43,6 +43,7 @@
     "eslint": "^9.15.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-playwright": "^2.1.0",
-    "eslint-plugin-unused-imports": "^4.1.4"
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "jiti": "^2.4.1"
   }
 }

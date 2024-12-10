@@ -1,12 +1,14 @@
+// @ts-expect-error - currently no types for this package
 import importPlugin from 'eslint-plugin-import'
 import unusedImportPlugin from 'eslint-plugin-unused-imports'
+
+import type { Linter } from 'eslint'
 
 /**
  * This plugin enforces rules for imports
  * {@link https://github.com/import-js/eslint-plugin-import/tree/main}
  */
-/** @type {ReadonlyArray<import('eslint').Linter.Config>} */
-const listConfigImport = [
+const listConfigImport: ReadonlyArray<Linter.Config> = [
   {
     plugins: { import: importPlugin },
     rules: {

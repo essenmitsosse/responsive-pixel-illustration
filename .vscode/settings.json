@@ -12,6 +12,9 @@
   // easier to separate from TypeScript errors
   "eslint.rules.customizations": [{ "rule": "*", "severity": "warn" }],
 
+  // Make sure to support the `.ts` config files for ESLint
+  "eslint.options": { "flags": ["unstable_ts_config"] },
+
   // Make sure to use the same max subject length for commit messages as is
   // used in GitHub actions check
   "git.inputValidationSubjectLength": 72,

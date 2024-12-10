@@ -1,7 +1,8 @@
 import stylistic from '@stylistic/eslint-plugin-ts'
 
-/** @type {ReadonlyArray<import('eslint').Linter.Config>} */
-const listConfigStylistic = [
+import type { Linter } from 'eslint'
+
+const listConfigStylistic: ReadonlyArray<Linter.Config> = [
   {
     plugins: { '@stylistic/ts': stylistic },
     rules: {

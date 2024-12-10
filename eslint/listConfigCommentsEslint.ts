@@ -1,11 +1,13 @@
+// @ts-expect-error - currently no types for this package
 import eslintComments from 'eslint-plugin-eslint-comments'
+
+import type { Linter } from 'eslint'
 
 /**
  * Enforces a description for `eslint-disable` comments
  * {@link https://mysticatea.github.io/eslint-plugin-eslint-comments}
  */
-/** @type {ReadonlyArray<import('eslint').Linter.Config>} */
-const listConfigCommentsEslint = [
+const listConfigCommentsEslint: ReadonlyArray<Linter.Config> = [
   {
     plugins: { 'eslint-comments': eslintComments },
     rules: {

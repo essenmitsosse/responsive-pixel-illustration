@@ -42,6 +42,7 @@
     "@vercel/analytics": "^1.4.1",
     "eslint": "^9.15.0",
     "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-playwright": "^2.1.0",
     "eslint-plugin-unused-imports": "^4.1.4"
   }
 }

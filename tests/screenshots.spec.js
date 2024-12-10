@@ -90,6 +90,7 @@ test('interact with sliders', async ({ page }) => {
     sliderOffsetWidth.y + sliderOffsetWidth.height / 2,
   )
 
+  // eslint-disable-next-line playwright/no-wait-for-timeout -- Currently there is no better way to make sure the slider updated
   await page.waitForTimeout(1000)
 
   await expect(page).toHaveScreenshot('slider-before.png')

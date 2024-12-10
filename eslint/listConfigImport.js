@@ -86,6 +86,12 @@ const listConfigImport = [
       'import/no-namespace': 'error',
 
       /**
+       * Use this rule to prevent imports to folders in relative parent paths.
+       * {@link https://github.com/import-js/eslint-plugin-import/blob/c34f14f67f077acd5a61b3da9c0b0de298d20059/docs/rules/no-relative-parent-imports.md}
+       */
+      'import/no-relative-parent-imports': 'error',
+
+      /**
        * Forbid a module from importing itself
        * {@link https://github.com/import-js/eslint-plugin-import/blob/44a038c06487964394b1e15b64f3bd34e5d40cde/docs/rules/no-self-import.md}
        */

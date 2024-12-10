@@ -19,10 +19,20 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
+          # Install NPM dependencies, but not via `ci`, so the `package-lock.json` would be updated if it is not up-to-date
       - name: Install NPM dependencies
-        run: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm ci --prefer-offline --ignore-scripts
+        run: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install --prefer-offline --ignore-scripts
       - name: Run Prettier
         run: npm run prettierCheck
+      - name: Check file are up-to-date
+        shell: bash
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "ERROR: Git tree is dirty. That means some files are not up-to-date. Update the files manually and commit them."
+            echo
+            git status --porcelain
+            exit 1
+          fi
 
   lint:
     name: 👔 ESLint

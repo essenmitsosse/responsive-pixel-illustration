@@ -66,7 +66,7 @@ export const TableComic = function (init, slide, createSlider) {
   )
 
   // Assign global Functions to all Comic Constructors
-  ;(function (comicPrototype) {
+  function assignFunctionToComicConstructor(comicPrototype) {
     var current,
       pushRelativeStandardAutomatic = hover.pushRelativeStandardAutomatic,
       changersRelativeCustomList = hover.changersRelativeCustomList,
@@ -106,7 +106,9 @@ export const TableComic = function (init, slide, createSlider) {
 
       current.debug = debug
     }
-  })(TableComic.prototype)
+  }
+
+  assignFunctionToComicConstructor(TableComic.prototype)
 
   this.stripInfo = faceVersion
     ? new this.getFace()

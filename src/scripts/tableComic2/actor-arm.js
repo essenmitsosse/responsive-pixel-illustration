@@ -188,12 +188,12 @@ Arm.prototype.getTarget = function (target, name) {
       ? target.obj.getBetterPosY(target.posY)
       : target.obj.getPosY(target.posY),
   )
-  ;(this.isRotated ? xAdd : yAdd).push(
-    { r: -1, useSize: this.y },
-    this.actor.bodySY,
-    -1,
-  )
-  ;(!this.isRotated ? xAdd : yAdd).push(
+
+  const add = this.isRotated ? xAdd : yAdd
+  const addOtherAxis = !this.isRotated ? xAdd : yAdd
+
+  add.push({ r: -1, useSize: this.y }, this.actor.bodySY, -1)
+  addOtherAxis.push(
     {
       r: (this.isRotated ? -1 : 1) * (!this.right ? -1 : 1),
       useSize: this.x,

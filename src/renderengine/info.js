@@ -344,7 +344,7 @@ PixelGraphics.prototype.prepareVariableList = function (vl) {
 
   if (vlLength > 0) {
     // Prepare
-    ;(function (vl, vll) {
+    function doAddVariable(vl, vll) {
       var i = 0,
         current,
         getLinkedVariable = function (args) {
@@ -370,7 +370,9 @@ PixelGraphics.prototype.prepareVariableList = function (vl) {
           current.getLinkedVariable = getLinkedVariable(current)
         }
       } while ((i += 1) < vll)
-    })(vl, vlLength)
+    }
+
+    doAddVariable(vl, vlLength)
 
     pixelUnits.linkList(calculate)
   }

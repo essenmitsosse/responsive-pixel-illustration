@@ -1,4 +1,4 @@
-import { helper } from '@/renderengine/helper.js'
+import { helper } from '@/renderengine/helper'
 
 import { Chair, Emotion, Glass, Table } from './accessoir.js'
 import { Arm } from './actor-arm.js'

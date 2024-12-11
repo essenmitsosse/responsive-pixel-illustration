@@ -1,4 +1,4 @@
-import { helper } from '@/renderengine/helper.js'
+import { helper } from '@/renderengine/helper'
 
 import { Actor, Comic, Ground, Panel } from './comic.js'
 import { Object } from './object.js'

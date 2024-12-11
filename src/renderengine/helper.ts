@@ -1,12 +1,42 @@
 import getIsUnknownObject from '@/lib/getIsUnknownObject'
 import getObjectKeys from '@/lib/getObjectKeys'
 
+type SizeIn<TA, TUse> = {
+  a: TA
+  getBiggerDim: unknown
+  r: number
+  r2: number
+  useSize: ReadonlyArray<TUse>
+}
+
+type SizeOut<TA, TUse> = {
+  a?: TA
+  max?: Max
+  min?: Max
+  r: number
+  useSize?: TUse
+}
+
+type Size<T> = { r?: T; s: { rele?: T } }
+
+type Max = {
+  a?: unknown
+  otherDim: boolean
+  r: number
+  useSize?: unknown
+}
+
+type ColorRgb = [number, number, number]
+
 class Helper {
   constructor() {}
 
-  getSmallerDim(x) {
-    const o = { r: x.r }
-    const max = { r: x.r2 || x.r, otherDim: true }
+  getSmallerDim<TA, TUse>(x: SizeIn<TA, TUse>): SizeOut<TA, TUse> {
+    const o: SizeOut<TA, TUse> = { r: x.r }
+    const max: Max = {
+      r: x.r2 || x.r,
+      otherDim: true,
+    }
 
     if (x.a) {
       o.a = x.a
@@ -29,28 +59,43 @@ class Helper {
     return o
   }
 
-  getBiggerDim(x) {
+  getBiggerDim<TA, TUse>(x: SizeIn<TA, TUse>): SizeOut<TA, TUse> {
     x.getBiggerDim = true
 
     return this.getSmallerDim(x)
   }
 
-  mult(r, use, a) {
+  mult<TR, TUse, TA>(
+    r: TR,
+    use: TUse,
+    a: TA,
+  ): {
+    a: TA
+    r: TR
+    useSize: TUse
+  } {
     return { r, useSize: use, a }
   }
 
-  sub(use) {
+  sub<TUse>(use: TUse): { r: number; useSize: TUse } {
     return { r: -1, useSize: use }
   }
 
-  margin(full, margin, min) {
+  margin<TFull, TMargin, TMin>(
+    full: TFull,
+    margin: TMargin,
+    min: TMin,
+  ): {
+    add: [TFull, { r: number; useSize: TMargin }]
+    min: TMin
+  } {
     return { add: [full, { r: -2, useSize: margin }], min }
   }
 
-  darken(darken, strength) {
+  darken(darken: ColorRgb, strength: number) {
     let l = darken.length
 
-    const finalDarken = []
+    const finalDarken: Array<number> = []
 
     strength /= 255
 
@@ -58,10 +103,10 @@ class Helper {
       finalDarken[l] = darken[l] * strength
     }
 
-    return function (color, copy) {
+    return (color: ColorRgb, copy?: ColorRgb): ColorRgb => {
       let l = color.length
 
-      const newColor = copy || []
+      const newColor: ColorRgb = copy || [0, 0, 0]
 
       while (l--) {
         newColor[l] = Math.floor(color[l] * finalDarken[l])
@@ -71,21 +116,21 @@ class Helper {
     }
   }
 
-  lighten(lighten, strength) {
+  lighten(lighten: ColorRgb, strength: number) {
     let l = lighten.length
 
-    const finaleLighten = []
+    const finaleLighten: ColorRgb = [0, 0, 0]
 
     while (l--) {
       finaleLighten[l] = lighten[l] * strength
     }
 
-    return function (color) {
+    return (color: ColorRgb): ColorRgb => {
       let l = color.length
 
-      const newColor = []
+      const newColor: ColorRgb = [0, 0, 0]
 
-      let thisC
+      let thisC: number
 
       while (l--) {
         newColor[l] = (thisC = color[l] + finaleLighten[l]) > 255 ? 255 : thisC
@@ -95,13 +140,13 @@ class Helper {
     }
   }
 
-  addC(add) {
-    return function (color) {
+  addC(add: ColorRgb) {
+    return (color: ColorRgb): ColorRgb => {
       let l = color.length
 
-      const newColor = []
+      const newColor: ColorRgb = [0, 0, 0]
 
-      let thisC
+      let thisC: number
 
       while (l--) {
         newColor[l] =
@@ -112,13 +157,13 @@ class Helper {
     }
   }
 
-  lessSat(color, s) {
+  lessSat(color: ColorRgb, s: number): ColorRgb {
     const total = ((color[0] + color[1] + color[2]) * (1 - s)) / 3
 
     return [color[0] * s + total, color[1] * s + total, color[2] * s + total]
   }
 
-  getBrightness(color) {
+  getBrightness(color: ColorRgb): number {
     let l = color.length
     let b = 0
 
@@ -129,37 +174,80 @@ class Helper {
     return b / 3
   }
 
-  colorAdd(rgb, add) {
+  colorAdd(rgb: ColorRgb, add: number): ColorRgb {
     return [rgb[0] + add, rgb[1] + add, rgb[2] + add]
   }
 
-  multiplyColor(rgb, factor) {
+  multiplyColor(rgb: ColorRgb, factor: number): ColorRgb {
     return [rgb[0] * factor, rgb[1] * factor, rgb[2] * factor]
   }
 
-  getLinkListPusher(linkList) {
+  getLinkListPusher<T>(linkList: Array<T>): (link: T) => T {
     return function (link) {
       linkList.push(link)
 
       return link
     }
   }
-
-  setValue(what, value) {
+  setValue<T>(what: Size<T>, value: T): void {
     what.r = value
   }
 
-  setValueNew(what, value) {
+  setValueNew<TRele>(what: Size<TRele>, value: TRele): void {
     what.s.rele = value
   }
 
-  getHoverChangers() {
+  getHoverChangers(): {
+    changersCustomList: Array<unknown>
+    changersRelativeCustomList: Array<unknown>
+    list: Array<{
+      change: number
+      map: string
+      min: number
+      variable: unknown
+    }>
+    pushColorStandard: Array<{
+      color: ColorRgb
+      map: string
+      max: ColorRgb
+      min: ColorRgb
+    }>
+    hover(args: unknown): void
+    pushRelativeStandard(
+      min: number,
+      max: number,
+      map: string,
+      variable: unknown,
+    ): void
+    pushRelativeStandardAutomatic<T extends string>(
+      this: Record<T, Size<unknown>>,
+      info: Record<T, { map?: unknown; max?: number; min?: number }>,
+    ): void
+    ready(): void
+  } {
     const that = this
-    const changersRelativeStandardList = []
-    const changersRelativeCustomList = []
-    const changersColorStandardList = []
-    const changersCustomList = []
-    const pushRelativeStandard = (min, max, map, variable) => {
+    const changersRelativeStandardList: Array<{
+      change: number
+      map: string
+      min: number
+      variable: { r?: unknown; s: { rele?: unknown } }
+    }> = []
+    const changersRelativeCustomList: Array<
+      [Size<unknown>, (args: Record<string, number>) => void]
+    > = []
+    const changersColorStandardList: Array<{
+      color: ColorRgb
+      map: string
+      max: ColorRgb
+      min: ColorRgb
+    }> = []
+    const changersCustomList: Array<(args: Record<string, number>) => void> = []
+    const pushRelativeStandard = (
+      min: number,
+      max: number,
+      map: string,
+      variable: { r?: unknown; s: { rele?: unknown } },
+    ): void => {
       changersRelativeStandardList.push({
         change: max - min,
         min,
@@ -167,7 +255,10 @@ class Helper {
         variable,
       })
     }
-    const changeColor = (value, map) => {
+    const changeColor = (
+      value: number,
+      map: { color: ColorRgb; max: ColorRgb; min: ColorRgb },
+    ): void => {
       const [maxR, maxG, maxB] = map.max
       const [minR, minG, minB] = map.min
       const valueNeg = 1 - value
@@ -189,10 +280,19 @@ class Helper {
 
       // Takes an object, where the keys have the names of dimensions from the object which called it
       // This dimension "r" is linked to the variables max, min and can be changed by what is defined by map
-      pushRelativeStandardAutomatic(info) {
+      pushRelativeStandardAutomatic<T extends string>(
+        this: Record<T, Size<unknown>>,
+        info: Record<T, { map: string; max: number; min: number }>,
+      ): void {
         if (info) {
           getObjectKeys(info).forEach((key) => {
-            let currentSize = this[key]
+            let currentSize:
+              | number
+              | {
+                  r?: unknown
+                  s: { rele?: unknown }
+                }
+              | undefined = this[key]
 
             if (currentSize) {
               // Assignment
@@ -219,7 +319,7 @@ class Helper {
         }
       },
 
-      hover(args) {
+      hover(args: Record<string, number>): void {
         let somethingToChange = false
 
         for (const key in args) {
@@ -286,17 +386,22 @@ class Helper {
         }
       },
 
-      ready() {
+      ready(): void {
         that.setValue = that.setValueNew
       },
     }
   }
 
-  getRandomInt(i) {
+  getRandomInt(i: number): number {
     return Math.floor(Math.random() * i)
   }
 
-  random(seed) {
+  random(seed: number): {
+    getFloat(): number
+    getIf(chance?: number): boolean
+    getRandom(min: number, max: number): number
+    getRandomFloat(min: number, max: number): number
+  } {
     const denom = Math.pow(2, 31)
     const a = 11
     const b = 19
@@ -306,7 +411,7 @@ class Helper {
     let x = seed || Math.floor(Math.random() * 4294967296)
     let t = x ^ (x << a)
 
-    const getFloat = () => {
+    const getFloat = (): number => {
       const t = x ^ (x << a)
 
       return (x = x ^ (x >> c) ^ (t ^ (t >> b))) / denom
@@ -325,15 +430,15 @@ class Helper {
     return {
       getFloat,
 
-      getIf(chance) {
+      getIf(chance): boolean {
         return (chance || 0.2) > getFloat()
       },
 
-      getRandom(min, max) {
+      getRandom(min, max): number {
         return Math.floor((max - min + 1) * getFloat() + min)
       },
 
-      getRandomFloat(min, max) {
+      getRandomFloat(min, max): number {
         return (max - min) * getFloat() + min
       },
     }

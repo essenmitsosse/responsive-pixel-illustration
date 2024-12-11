@@ -1,4 +1,4 @@
-import { helper } from '@/renderengine/helper.js'
+import { helper } from '@/renderengine/helper'
 
 function brothers() {
   const shadowColor = [255, 255, 255]

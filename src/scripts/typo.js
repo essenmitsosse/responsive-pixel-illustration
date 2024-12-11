@@ -1,4 +1,4 @@
-import { helper } from '@/renderengine/helper.js'
+import { helper } from '@/renderengine/helper'
 
 function typo() {
   const backgroundColor = [170, 190, 230]

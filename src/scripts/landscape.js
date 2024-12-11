@@ -1,4 +1,4 @@
-import { helper } from '@/renderengine/helper.js'
+import { helper } from '@/renderengine/helper'
 
 function landscape() {
   const backgroundColor = [0, 0, 0]

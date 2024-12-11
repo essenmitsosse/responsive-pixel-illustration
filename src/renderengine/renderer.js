@@ -1,18 +1,14 @@
 export const Renderer = function (canvas, info, options, pixelStarter) {
   // Render Engine to convert basic image into absolute Pixels
   const context = canvas.getContext('2d')
-
   const virtualCanvas = document.createElement('canvas')
-
   const virtaulContext = virtualCanvas.getContext('2d')
-
   const { pixelSize } = options
 
   let w
   let h
 
   const drawer = this.getDrawer(pixelStarter, options.imageFunction.renderList)
-
   const renderPixelToImage = this.getRenderPixelToImage(
     options.imageFunction.background,
   )
@@ -26,9 +22,7 @@ export const Renderer = function (canvas, info, options, pixelStarter) {
 
     resize: function resize(widthFactor, heightFactor) {
       const countW = Math.round(((widthFactor || 1) * w) / pixelSize)
-
       const countH = Math.round(((heightFactor || 1) * h) / pixelSize)
-
       const image =
         countW && countH && virtaulContext.createImageData(countW, countH)
 
@@ -222,16 +216,13 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
 
       return function (args) {
         const endX = args.width + args.posX
-
         const endY = args.height + args.posY
 
         let sizeX = endX > maxX ? maxX : endX
         let sizeY
 
         const sizeY_start = endY > maxY ? maxY : endY
-
         const startX = args.posX < minX ? minX : args.posX
-
         const startY = args.posY < minY ? minY : args.posY
 
         let row
@@ -253,16 +244,13 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
 
       return function (args) {
         const endX = args.width + args.posX
-
         const endY = args.height + args.posY
 
         let sizeX = endX > maxX ? maxX : endX
         let sizeY
 
         const initSizeY = endY > maxY ? maxY : endY
-
         const startX = args.posX < minX ? minX : args.posX
-
         const startY = args.posY < minY ? minY : args.posY
 
         let row
@@ -282,18 +270,14 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
     getSaveForRect(save, mask) {
       return function (args) {
         const endX = args.width + args.posX
-
         const endY = args.height + args.posY
 
         let sizeX = endX > canvasWidth ? canvasWidth : endX
         let sizeY
 
         const initSizeY = endY > canvasHeight ? canvasHeight : endY
-
         const startX = args.posX < 0 ? 0 : args.posX
-
         const startY = args.posY < 0 ? 0 : args.posY
-
         const s = save
 
         let col
@@ -316,16 +300,13 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
     getClearSaveForRect(save, mask) {
       return function (args) {
         const endX = args.width + args.posX
-
         const endY = args.height + args.posY
 
         let sizeX = endX > canvasWidth ? canvasWidth : endX
         let sizeY
 
         const initSizeY = endY > canvasHeight ? canvasHeight : endY
-
         const startX = args.posX < 0 ? 0 : args.posX
-
         const startY = args.posY < 0 ? 0 : args.posY
 
         let col
@@ -358,7 +339,6 @@ Renderer.prototype.getRenderPixelToImage = function (backgroundColor) {
     let pH
 
     const pHSave = pixelH
-
     const fullSave = w4 * pHSave
 
     let full
@@ -367,11 +347,8 @@ Renderer.prototype.getRenderPixelToImage = function (backgroundColor) {
     let row
 
     const pA = pixelArray
-
     const defaultRed = backgroundColor && backgroundColor[0]
-
     const defaultGreen = backgroundColor && backgroundColor[1]
-
     const defaultBlue = backgroundColor && backgroundColor[2]
 
     while (pW--) {
@@ -415,14 +392,11 @@ Renderer.prototype.getRenderPixelToImage = function (backgroundColor) {
 Renderer.prototype.getDrawer = function (pixelStarter, renderList) {
   // Initialize the drawingTool
   const that = this
-
   const pixelUnit = pixelStarter.pixelUnits
-
   const drawingTool = new pixelStarter.DrawingTools(
     pixelUnit,
     pixelStarter.getRandom,
   )
-
   const canvasTool = new drawingTool.Obj().create({ list: renderList })
 
   return function drawer(countW, countH) {

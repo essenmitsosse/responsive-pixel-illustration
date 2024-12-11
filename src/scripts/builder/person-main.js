@@ -19,7 +19,6 @@ Person.prototype.draw = function (args, z) {
   args.nr = this.basic.objectCount += 1
 
   const backView = (args.backView = args.view === 'backView')
-
   const sideView = (args.sideView = !backView && args.view ? true : false)
 
   args.id = this.id
@@ -276,9 +275,7 @@ Logo.prototype = new Object()
 
 Logo.prototype.draw = function (args) {
   const { nr } = args
-
   const nrName = nr + this.name
-
   const { sideView } = args
 
   return (

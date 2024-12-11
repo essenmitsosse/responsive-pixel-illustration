@@ -2,21 +2,13 @@ import { helper } from '@/renderengine/helper.js'
 
 function sparta() {
   const shadowColor = [255, 255, 255]
-
   const shadow = helper.darken(shadowColor, 0.5)
-
   const detail = helper.darken(shadowColor, 0.2)
-
   const backgroundColor = [60, 60, 60]
-
   const water = [36, 44, 53]
-
   const skin = [227, 200, 190]
-
   const skinDetail = detail(skin)
-
   const skinShadow = shadow(skin)
-
   const leftHalf = [
     {
       sY: { r: 1, add: [helper.sub('headHeight'), helper.sub('legs'), -1] },
@@ -173,7 +165,6 @@ function sparta() {
       ],
     },
   ]
-
   const person = [
     {
       minX: 5,
@@ -223,7 +214,6 @@ function sparta() {
       ],
     },
   ]
-
   const renderList = [
     {
       m: 'border',
@@ -241,7 +231,6 @@ function sparta() {
       ],
     },
   ]
-
   const variableList = {
     border: helper.getSmallerDim({ r: 0.05 }),
     imgWidth: [{ r: 1 }, helper.mult(-2, 'border')],

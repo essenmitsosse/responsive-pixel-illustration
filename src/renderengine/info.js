@@ -6,7 +6,6 @@ const startTime = Date.now()
 
 export const PixelGraphics = function (options) {
   const that = this
-
   // Initialize PixelUnits with Variables
   const pU = this.getPixelUnits()
 
@@ -24,11 +23,8 @@ export const PixelGraphics = function (options) {
 
   return function (canvas) {
     const isParent = options.queryString.parent
-
     const finalRenderer = new Renderer(canvas, options.info, options, that)
-
     const resize = that.getResize(options, options.info, finalRenderer.resize)
-
     const redraw = that.getRedraw(options, resize, isParent)
 
     options.info.logInitTime(Date.now() - startTime)
@@ -75,7 +71,6 @@ PixelGraphics.prototype.getResize = function (options, info, render) {
       resize(currentW, currentH)
     }
   }
-
   const resize = function (w, h) {
     // var time = Date.now();
 
@@ -144,9 +139,7 @@ PixelGraphics.prototype.initUserInput = function (
   unchangeable,
 ) {
   const hasSomethingToHover = options.imageFunction.hover
-
   const that = this
-
   const changeImage = function changeImage(event, size) {
     let x = event.x || event.clientX
     let y = event.y || event.clientY
@@ -161,7 +154,6 @@ PixelGraphics.prototype.initUserInput = function (
       size ? { width: x, height: y } : alt ? { c: x, d: y } : { a: x, b: y },
     )
   }
-
   const mouseMove = function (event, size) {
     if (
       options.queryString.resizeable ||
@@ -170,7 +162,6 @@ PixelGraphics.prototype.initUserInput = function (
       changeImage(event, size || options.queryString.resizeable)
     }
   }
-
   const touchMove = function (event) {
     event.preventDefault()
 
@@ -285,7 +276,6 @@ PixelGraphics.prototype.getOrientation = function (
 
     setTimeout(resetTilt, 100)
   }
-
   const resetTilt = function () {
     realTilt = tilt
   }
@@ -310,17 +300,11 @@ PixelGraphics.prototype.getOrientation = function (
 
 PixelGraphics.prototype.getDebug = function () {
   const info = document.createElement('div')
-
   const text = document.createElement('div')
-
   const center = document.createElement('div')
-
   const oriX = document.createElement('div')
-
   const oriY = document.createElement('div')
-
   const oriZ = document.createElement('div')
-
   const bonus = document.createElement('div')
 
   info.setAttribute('id', 'infoField')
@@ -386,9 +370,7 @@ PixelGraphics.prototype.getDebug = function () {
 
 PixelGraphics.prototype.prepareVariableList = function (vl) {
   const that = this
-
   const vlLength = vl.length
-
   const calculate = function (dimensions) {
     let i = 0
 
@@ -452,7 +434,6 @@ PixelGraphics.prototype.prepareVariableList = function (vl) {
 
 PixelGraphics.prototype.createVariableList = function (vl) {
   const that = this
-
   const newVL = {}
 
   let key
@@ -464,7 +445,6 @@ PixelGraphics.prototype.createVariableList = function (vl) {
       newVL[key].set()
     }
   }
-
   const link = function (name, vari) {
     if (newVL[name]) {
       newVL[name].link(vari)
@@ -474,7 +454,6 @@ PixelGraphics.prototype.createVariableList = function (vl) {
       newVL[name].link(vari)
     }
   }
-
   const creator = function (name) {
     if (!newVL[name]) {
       newVL[name] = new DynamicVariable(name)
@@ -482,7 +461,6 @@ PixelGraphics.prototype.createVariableList = function (vl) {
 
     return newVL[name]
   }
-
   const Variable = function (args, name) {
     if (args) {
       this.name = name
@@ -494,7 +472,6 @@ PixelGraphics.prototype.createVariableList = function (vl) {
       this.l = 0
     }
   }
-
   const DynamicVariable = function (name) {
     this.name = name
 
@@ -538,7 +515,6 @@ PixelGraphics.prototype.createVariableList = function (vl) {
 
 PixelGraphics.prototype.globalResizer = (function () {
   const allCanvases = []
-
   const resize = function () {
     let l = allCanvases.length
 
@@ -556,11 +532,8 @@ PixelGraphics.prototype.globalResizer = (function () {
 
 PixelGraphics.prototype.getRandom = (function () {
   const m = 2147483647
-
   const a = 16807
-
   const c = 17
-
   const z = 3
 
   let i = 0

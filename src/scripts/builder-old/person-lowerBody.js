@@ -255,11 +255,8 @@ Leg.prototype = new Object()
 
 Leg.prototype.draw = function (args, z, rightSide, behind) {
   const legPos = args.leg && args.leg[rightSide ? 'right' : 'left']
-
   const hipBend = legPos === 'legHigh'
-
   const legBend = hipBend || legPos === 'kneeBend'
-
   const legRaise = !hipBend && !legBend && legPos === 'legRaise'
 
   if (args.calc) {

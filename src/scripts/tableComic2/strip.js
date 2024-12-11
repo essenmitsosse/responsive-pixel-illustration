@@ -1,9 +1,7 @@
 // BEGINN Strip /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Strip = function (args) {
   const panelsInfo = args.stripInfo.panels
-
   const count = panelsInfo.length
-
   const countSqrt = Math.sqrt(count)
 
   let i = 0
@@ -24,20 +22,16 @@ export const Strip = function (args) {
     r: 0.2 / countSqrt,
     useSize: args.squareBig,
   }))
-
   const gutterX = (this.gutterX = this.pushLinkList({
     r: 1,
     useSize: gutterBase,
   }))
-
   const gutterY = (this.gutterY = this.pushLinkList({
     r: 1,
     useSize: gutterBase,
   }))
-
   const basicPanel =
     args.stripInfo.basicPanel || new this.basic.Panel(args.stripInfo)
-
   const imgRatio = { ratio: 1.5 }
 
   this.pushRelativeStandardAutomatic({
@@ -157,7 +151,6 @@ Panel.prototype.setStage = function (minPanelSX, minPanelSY) {
 
 Panel.prototype.draw = function (args) {
   const info = args.info || {}
-
   const cameraFocus = info.camera && info.camera.focus
 
   this.basePanelX = this.pushLinkList({ r: 0.9, useSize: this.minSX })
@@ -171,7 +164,6 @@ Panel.prototype.draw = function (args) {
       const zoomToHead1 = cameraFocus
         ? 1 / (cameraFocus.min.obj.headSY_ || cameraFocus.min.obj.sY_)
         : 1
-
       const zoomToHead2 = cameraFocus
         ? 1 / (cameraFocus.max.obj.headSY_ || cameraFocus.max.obj.sY_)
         : 1
@@ -344,14 +336,12 @@ Panel.prototype.draw = function (args) {
 
   // START render stage  - - - - - - - - - - - - - - - - -
   const infoList = (this.infoList = info.list)
-
   const l = infoList ? infoList.length : 0
 
   let count = 0
   let current
 
   const renderList = []
-
   const drawInfo = {
     stageSX: this.stageSX,
     stageSY: this.stageSY,
@@ -360,9 +350,7 @@ Panel.prototype.draw = function (args) {
       max: this.stageSY,
     }),
   }
-
   const finishList = []
-
   const background = info.background || this.background
 
   while (count < l) {

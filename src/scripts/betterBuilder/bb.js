@@ -8,10 +8,10 @@ import { Chest } from './person-upperBody.js'
 
 export const BB = function (init) {
   const args = {}
-
   const ObjProto = BB.prototype.Obj.prototype
-
-  const random = helper.random(init.id || Math.floor(Math.random() * 4294967296))
+  const random = helper.random(
+    init.id || Math.floor(Math.random() * 4294967296),
+  )
 
   for (const attr in init) {
     args[attr] = init[attr]
@@ -67,15 +67,10 @@ BB.prototype.Obj = BBObj
 // OVERVIEW
 BB.prototype.Overview = function (init) {
   const list = []
-
   const rotations = []
-
   const rows = init.rows || 2
-
   const vari = init.vari || 3
-
   const reps = Math.round(rows / vari / 0.55)
-
   const cols = reps === 0 ? vari : vari * reps
 
   let i = 0

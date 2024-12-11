@@ -2,87 +2,60 @@ import { helper as helperGlobal } from '@/renderengine/helper.js'
 
 function letter(args, init, createSlider) {
   const helper = helperGlobal
-
   const hover = helper.getHoverChangers()
-
   const pushChanger = hover.pushRelativeStandard
-
   const backgroundColor = [200, 200, 240]
-
   const linkList = []
-
   const linkListPush = function (obj) {
     linkList.push(obj)
 
     return obj
   }
-
   const width = linkListPush({ main: true })
-
   const height = linkListPush({ main: true, height: true })
-
   const halfHeight = { r: 0.5, useSize: height, a: -1 }
-
   const halfWidth = { r: 0.5, useSize: width, a: -1 }
-
   const square = linkListPush({
     add: [{ add: [width], max: height }],
     max: { add: [halfWidth], min: halfHeight },
   })
-
   const letterSquareMax = linkListPush({ r: 1, useSize: square })
-
   const letterSquare = linkListPush({ r: 1, useSize: letterSquareMax })
-
   const innerLetterSquare = linkListPush({ add: [letterSquare, -2] })
-
   const heightOvershot = linkListPush({
     add: [height, { r: -1, useSize: width }],
     min: { a: 0 },
   })
-
   const widthOvershot = linkListPush({
     add: [width, { r: -1, useSize: height }],
     min: { a: 0 },
   })
-
   const letter2PosX = linkListPush({
     r: 1000,
     useSize: widthOvershot,
     max: letterSquareMax,
   })
-
   const letter2PosY = linkListPush({
     r: 1000,
     useSize: heightOvershot,
     max: letterSquareMax,
   })
-
   const serifeSX_ = 0.48
-
   const stammSX_ = 0.27
-
   const stammX_ = (serifeSX_ - stammSX_) / 2
-
   const serifeSY_ = 0.03
-
   const barSY_ = 0.06
-
   const serifeSX = linkListPush({ r: 0.5, useSize: innerLetterSquare, a: -1 })
-
   const stammX = linkListPush({ r: 0.25, useSize: serifeSX })
-
   const stammSX = linkListPush({
     add: [serifeSX, { r: -2, useSize: stammX }],
     min: 1,
   })
-
   const serifeSY = linkListPush({
     r: serifeSY_,
     useSize: innerLetterSquare,
     min: 1,
   })
-
   const getLetter = function (args) {
     return {
       x: args.x,
@@ -125,7 +98,6 @@ function letter(args, init, createSlider) {
       ],
     }
   }
-
   const renderList = [
     getLetter({
       letter: [

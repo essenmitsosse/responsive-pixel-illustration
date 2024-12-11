@@ -17,9 +17,7 @@ Person.prototype = new Object()
 
 Person.prototype.draw = function (args, z) {
   const nr = (args.nr = this.basic.objectCount += 1)
-
   const backView = (args.backView = args.view === 'backView')
-
   const sideView = (args.sideView = !backView && args.view ? true : false)
 
   args.id = this.id

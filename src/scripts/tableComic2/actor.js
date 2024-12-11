@@ -178,7 +178,6 @@ Actor.prototype.getFocus = function (zoomSX, zoomSY, focus) {
       // pos
     ],
   })
-
   const y = this.pushLinkList({
     add: [
       { r: 0.5, useSize: zoomSY },

@@ -308,7 +308,6 @@ Tree.prototype.addBranches = function (hor, parentLeft, count, level) {
   let left = true
 
   const thisZ = level === 1 || this.getRandom() < 0.2 ? 'Front' : 'Back'
-
   const strip = {
     stripes: {
       random: { r: -0.5 },
@@ -318,7 +317,6 @@ Tree.prototype.addBranches = function (hor, parentLeft, count, level) {
       cut: true,
     },
   }
-
   const leaves = [
     // Shadow of Leaves
     {

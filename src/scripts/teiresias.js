@@ -2,51 +2,28 @@ import { helper } from '@/renderengine/helper.js'
 
 function teiresias() {
   const shadowColor = [255, 200, 255]
-
   const shadow = helper.darken(shadowColor, 0.7)
-
   const detail = helper.darken(shadowColor, 0.4)
-
   const lighten = helper.lighten(shadowColor, 0.3)
-
   const trees = [40, 74, 95]
-
   const frame = lighten(trees)
-
   const frameDark = shadow(frame)
-
   const treesDark = shadow(trees)
-
   const backgroundColor = detail(trees)
-
   const teiresias = [100, 50, 60]
-
   const teiresiasShadow = shadow(teiresias)
-
   const stick = [90, 90, 90]
-
   const stickDark = shadow(stick)
-
   const stickDarkest = detail(stick)
-
   const skin = [193, 180, 163]
-
   const skinShadow = shadow(skin)
-
   const eyes = detail(skin)
-
   const snake1 = teiresias
-
   const snake1Detail = shadow(snake1)
-
   const snake2 = [165, 157, 105]
-
   const snake2Detail = shadow(snake2)
-
   const snakeTongue = [150, 85, 94]
-
   const snakeEyes = backgroundColor
-
   const getFrame = [
     {},
     {
@@ -103,7 +80,6 @@ function teiresias() {
       ],
     },
   ]
-
   const bigEdge = [
     { sX: { r: 0.5 } },
     { sY: { r: 0.5 }, fY: true },
@@ -133,16 +109,13 @@ function teiresias() {
       ],
     },
   ]
-
   const hair = [255, 255, 255]
 
   let i = 0
 
   const snake = function (nr, vert) {
     const x = !vert ? ['snakeWeight', -1] : undefined
-
     const y = vert ? ['snakeWeight', -1] : undefined
-
     const s = { r: 1, add: [helper.sub('snakeWeight')] }
 
     return nr === 2
@@ -166,7 +139,6 @@ function teiresias() {
           },
         ]
   }
-
   const treeTrunk = function () {
     const name = 'treeBark' + (i += 1)
 
@@ -188,10 +160,8 @@ function teiresias() {
       },
     ]
   }
-
   const treeLeaves = function (random) {
     const name = 'treeLeaves' + (i += 1)
-
     const name2 = 'treesSpots' + i
 
     return [
@@ -210,7 +180,6 @@ function teiresias() {
       },
     ]
   }
-
   const shadowGround = [
     {
       sY: { r: 0.5 },
@@ -224,11 +193,8 @@ function teiresias() {
       stripes: { strip: 2, random: { r: 0.15 } },
     },
   ]
-
   const torsoMargin = 0.4
-
   const torsoTop = 0.35
-
   const renderList = [
     // IMAGE
     {
@@ -1315,11 +1281,8 @@ function teiresias() {
       ],
     },
   ]
-
   const imgDims = ['imgWidth', 'imgheight']
-
   const motiveDims = ['motiveWidth', 'motiveheight']
-
   const variableList = {
     fullRect: { r: 1, max: { r: 1, height: true } },
     borderWidth: { r: 0.06, a: 1, useSize: 'fullRect', min: 1 },

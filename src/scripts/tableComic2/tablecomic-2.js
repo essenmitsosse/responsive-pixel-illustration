@@ -30,19 +30,16 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
   const actor0StandUp = 0.1
   // emotion0 = actorsList.emotion0.renderObject,
   // emotion1 = actorsList.emotion1.renderObject,
-
   const actor0sitting = {
     posX: 0.2,
     posY: 1,
     obj: this.actorsList.chair0.renderObject,
   }
-
   const chair0Pos = {
     obj: this.stage,
     posX: 0.1,
     posY: 0,
   }
-
   const mainSteps = [
     {
       // - - -  START step 0 - - - - - - - - - - - - - SITTING
@@ -1343,7 +1340,6 @@ getStory.prototype.getPanels = function getStoryPanels(totalPanelCount) {
 
 getStory.prototype.getPanel = function (frame, rel) {
   const main = frame.main.list
-
   const list = [{ what: this.stage }]
 
   let key
@@ -1394,7 +1390,6 @@ export const getActors = function (story) {
     [0, 1, 1, 1, 2, 2],
     [0, 2, 1, 2, 1, 0],
   ]
-
   const colorScheme = colorSchemes[this.rInt(0, colorSchemes.length - 1)]
 
   this.colors = story.colors
@@ -1489,9 +1484,7 @@ RenderObjectContainer.prototype.getAction = function (args) {
   let obj = {}
 
   const start = (args.info && args.info.start) || args.info
-
   const end = args.info && args.info.end
-
   const actionProcessor = new this.getActionProcessor(args.relPosition)
 
   // Check if start or end is needed or a position inbetween
@@ -1569,7 +1562,6 @@ export const getColorScheme = function getColorScheme() {
     [this.rInt(50, 100), this.rInt(100, 150), this.rInt(150, 200)],
     [this.rInt(100, 150), this.rInt(150, 200), this.rInt(50, 100)],
   ]
-
   const first = this.rInt(0, 2)
 
   this.colors = [
@@ -1581,7 +1573,6 @@ export const getColorScheme = function getColorScheme() {
 
 getColorScheme.prototype.getColor = function (args) {
   const shade = args.maxShade ? this.rFl(args.maxShade, 1) : args.shade
-
   const baseColor =
     this.colors[
       typeof args === 'number'

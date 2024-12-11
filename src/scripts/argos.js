@@ -2,53 +2,29 @@ import { helper } from '@/renderengine/helper.js'
 
 function argos() {
   const wood = [155, 114, 70]
-
   const wood1 = [143, 92, 57]
-
   const wood2 = [177, 124, 62]
-
   const wood3 = [130, 99, 64]
-
   const woodDark = [60, 51, 45]
-
   const holes = [64, 37, 19]
-
   const sail = [208, 202, 202]
-
   const string = [171, 177, 190]
-
   const oar = [131, 93, 39]
-
   const paddle = [219, 216, 211]
-
   const ram = [149, 136, 100]
-
   const slaveSkin = [162, 142, 128]
-
   const slaveCloth = [65, 71, 79]
-
   const spear = [151, 176, 175]
-
   const spearTip = [137, 137, 137]
-
   const argoCloth = [108, 50, 50]
-
   const argoSkin = [200, 172, 151]
-
   const argoHelm = [161, 133, 88]
-
   const water = [26, 59, 120]
-
   const water1 = [0, 36, 102]
-
   const water2 = [9, 22, 71]
-
   const foam = [245, 249, 255]
-
   const backgroundColor = [165, 239, 255]
-
   const cloud = [198, 245, 255]
-
   const mast = function (center, fromRight) {
     return {
       sX: 'mastSX',
@@ -133,16 +109,13 @@ function argos() {
       ],
     }
   }
-
   const fullOar = [
     { color: oar, weight: 1, points: [{ fY: true }, { fX: true }] },
     { color: paddle, s: 2, fY: true, tY: true, tX: true },
     { color: paddle, s: 2, fY: true, tY: true, tX: true, x: -1, y: -1 },
     { color: paddle, s: 2, fY: true, tY: true, tX: true, x: -2, y: -2 },
   ]
-
   const faceSlop = [{ weight: 3, points: [{}, { fX: true, fY: true }] }]
-
   const eye = [
     {},
     { x: { r: 0.5 } },
@@ -150,7 +123,6 @@ function argos() {
     { fY: true, fX: true },
     { fY: true, x: { r: 0.3 }, y: { r: 0.3 } },
   ]
-
   const cloudShape = [
     {
       points: [
@@ -182,7 +154,6 @@ function argos() {
       },
     },
   ]
-
   const renderList = [
     // { s:10, color:wood, list:[
     // 	{},
@@ -1070,7 +1041,6 @@ function argos() {
       ],
     },
   ]
-
   const variableList = {
     fullRect: { r: 1, max: { r: 1, height: true } },
 

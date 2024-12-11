@@ -2,19 +2,12 @@ import { helper } from '@/renderengine/helper.js'
 
 function landscape() {
   const backgroundColor = [0, 0, 0]
-
   const colorNr = helper.getRandomInt(4)
-
   const dayNight = helper.getRandomInt(2)
-
   const sunPos = helper.getRandomInt(2)
-
   const mountains = helper.getRandomInt(2)
-
   const clouds = helper.getRandomInt(2)
-
   const tree = helper.getRandomInt(2)
-
   const colorScheme = [
     [
       [255, 255, 255],
@@ -41,9 +34,7 @@ function landscape() {
       [40, 40, 0],
     ],
   ][colorNr]
-
   const [, c2, c3, c4] = colorScheme
-
   const renderList = [
     {
       m: 'borderS',
@@ -140,7 +131,6 @@ function landscape() {
       ],
     },
   ]
-
   const variableList = {
     width: { r: 1 },
     height: { r: 1, height: true },

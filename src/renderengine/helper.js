@@ -3,7 +3,6 @@ export const helper = new (function () {
 
   this.getSmallerDim = function (x) {
     const o = { r: x.r }
-
     const max = { r: x.r2 || x.r, otherDim: true }
 
     if (x.a) {
@@ -153,13 +152,9 @@ export const helper = new (function () {
 
   this.getHoverChangers = function () {
     const changersRelativeStandardList = []
-
     const changersRelativeCustomList = []
-
     const changersColorStandardList = []
-
     const changersCustomList = []
-
     const pushRelativeStandard = function (min, max, map, variable) {
       changersRelativeStandardList.push({
         change: max - min,
@@ -168,12 +163,9 @@ export const helper = new (function () {
         variable,
       })
     }
-
     const changeColor = function (value, map) {
       const [maxR, maxG, maxB] = map.max
-
       const [minR, minG, minB] = map.min
-
       const valueNeg = 1 - value
 
       map.color[0] = minR * valueNeg + maxR * value
@@ -227,11 +219,8 @@ export const helper = new (function () {
 
       hover(args) {
         const changersRelativeStandard = changersRelativeStandardList
-
         const changersRelativeCustom = changersRelativeCustomList
-
         const changersColorStandard = changersColorStandardList
-
         const changersCustom = changersCustomList
 
         let l
@@ -311,11 +300,8 @@ export const helper = new (function () {
 
   this.random = function (seed) {
     const denom = Math.pow(2, 31)
-
     const a = 11
-
     const b = 19
-
     const c = 8
 
     // x = Math.pow( seed, 3 ) + 88675123 || 88675123,

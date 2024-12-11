@@ -2,17 +2,11 @@ import { helper } from '@/renderengine/helper.js'
 
 function sphinx() {
   const c1 = [255, 0, 0]
-
   const g1 = [0, 0, 0]
-
   const g2 = [85, 85, 85]
-
   const g3 = [170, 170, 170]
-
   const g4 = [255, 255, 255]
-
   const backgroundColor = g1
-
   const eye = [
     {
       minX: 3,
@@ -42,14 +36,12 @@ function sphinx() {
       id: 'eyebrow',
     },
   ]
-
   const arm = [
     {
       weight: 'pArmWeight',
       points: [{}, { x: { r: 0.35 }, y: { r: 0.5 } }, { fX: true, fY: true }],
     },
   ]
-
   const shadow = [
     { fY: true, x: { r: 0.1 } },
     { y: { r: 0.5 } },
@@ -59,7 +51,6 @@ function sphinx() {
     { fX: true, y: { r: 0.5 } },
     { fX: true, fY: true, x: { r: 0.1 } },
   ]
-
   const renderList = [
     // MAIN IMAGE
     {
@@ -1062,9 +1053,7 @@ function sphinx() {
     },
     // END Image
   ]
-
   const personRatio = 2.3
-
   const variableList = {
     fullRect: { r: 1, max: { r: 1, height: true } },
 

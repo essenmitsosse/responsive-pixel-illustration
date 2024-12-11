@@ -2,32 +2,30 @@ import { Builder } from './builder.js'
 
 function builder(init, slide, createSlider) {
   const builder = new Builder(init)
-
   const width = builder.pushLinkList({ main: true })
-
   const height = builder.pushLinkList({ main: true, height: true })
-
   const squ = builder.pushLinkList({ add: [width], max: height })
-
   const borderS = builder.pushLinkList({ r: 0.05, a: -2, useSize: squ, min: 1 })
-
   const imgSX = builder.pushLinkList([width, { r: -2, useSize: borderS }])
-
   const imgSY = builder.pushLinkList([height, { r: -2, useSize: borderS }])
-
   const showPerson = slide.showPerson || init.showPerson
-
   const getPosition = (function () {
     const rFl = builder.basic.R
-
     const rIf = builder.basic.IF
-
     const rInt = builder.basic.GR
-
     const eyeLookVert = ['', '', '', 'left', 'right']
-
-    const eyeLookHor = ['', '', '', '', '', 'up', 'down', 'up', 'down', 'verDown']
-
+    const eyeLookHor = [
+      '',
+      '',
+      '',
+      '',
+      '',
+      'up',
+      'down',
+      'up',
+      'down',
+      'verDown',
+    ]
     const eyeLids = [
       '',
       '',
@@ -45,7 +43,6 @@ function builder(init, slide, createSlider) {
       'closed',
       'wink',
     ]
-
     const eyeBrow = [
       '',
       '',
@@ -57,7 +54,6 @@ function builder(init, slide, createSlider) {
       'angry',
       'sad',
     ]
-
     const mouthHeight = [
       '',
       '',
@@ -73,11 +69,8 @@ function builder(init, slide, createSlider) {
       'half',
       'full',
     ]
-
     const mouthWid = ['', '', '', 'narrow']
-
     const mouthForm = ['', '', '', 'sceptical', 'grin', 'D:']
-
     const legPos = [
       '',
       '',
@@ -93,7 +86,6 @@ function builder(init, slide, createSlider) {
       'legRaise',
       // "kneeBend", "legHigh"
     ]
-
     const teethPos = ['', 'top', 'bottom', 'both', 'full']
 
     return function (args) {
@@ -151,27 +143,20 @@ function builder(init, slide, createSlider) {
       // args.hand = 	{ right : 90,	left : 90 };
     }
   })()
-
   const getPanels = function () {
     let l = init.panelCount || 6
 
     const half = l / 2
-
     const list = []
 
     let args
     let drawArgs
 
     const sX = builder.pushLinkList({})
-
     const sY = builder.pushLinkList({})
-
     const square = builder.pushLinkList({ add: [sX], max: sY })
-
     const innerSquare = builder.pushLinkList({ r: 0.7, useSize: square })
-
     const SingleObject = showPerson ? builder.Person : builder.Tree
-
     const Tree1Family =
       !showPerson &&
       new builder.TreeFamily({
@@ -180,7 +165,6 @@ function builder(init, slide, createSlider) {
           next: true,
         }),
       })
-
     const Tree2Family =
       !showPerson &&
       new builder.TreeFamily({
@@ -225,7 +209,6 @@ function builder(init, slide, createSlider) {
 
     return list
   }
-
   const renderList = [
     {
       sX: imgSX,

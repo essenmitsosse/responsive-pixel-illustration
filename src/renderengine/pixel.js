@@ -196,7 +196,6 @@ export const getPixelUnits = function () {
       let l = add.length
 
       const adder = (this.adder = [])
-
       const Size = this.dim ? Height : Width
 
       while (l--) {
@@ -279,7 +278,6 @@ export const getPixelUnits = function () {
             let a
 
             const realMin = typeof min === 'number' ? min : min.getReal()
-
             const realMax = typeof max === 'number' ? max : max.getReal()
 
             return (a = this.getRealDistance()) > realMax
@@ -364,9 +362,7 @@ export const getPixelUnits = function () {
       DistanceY,
       set(dimensions) {
         const x = dimensions.posX || 0
-
         const y = dimensions.posY || 0
-
         const getRealPos = function (add) {
           return add
             ? function () {
@@ -376,7 +372,6 @@ export const getPixelUnits = function () {
                 return Math.round(this.realPartCalculation())
               }
         }
-
         const getFromOtherSide = function (add) {
           return add
             ? function (size) {
@@ -408,10 +403,8 @@ export const getPixelUnits = function () {
       },
     }
   })()
-
   const Axis = (function () {
     const D = oneD
-
     const createAxis = function (Size, Pos) {
       return function (args) {
         this.pos = new Pos(args.pos)
@@ -443,7 +436,6 @@ export const getPixelUnits = function () {
               : this.getCalcPos.normal
       }
     }
-
     const createPos = function (Pos) {
       return function (args) {
         this.pos = new Pos(args.pos)
@@ -467,17 +459,11 @@ export const getPixelUnits = function () {
               : this.getCalcPos.normal
       }
     }
-
     const Axis = function () {}
-
     const AxisX = createAxis(D.Width, D.DistanceX)
-
     const AxisY = createAxis(D.Height, D.DistanceY)
-
     const Pos = function () {}
-
     const PosX = createPos(D.DistanceX)
-
     const PosY = createPos(D.DistanceY)
 
     Axis.prototype = {
@@ -573,19 +559,13 @@ export const getPixelUnits = function () {
       },
     }
   })()
-
   const twoD = (function () {
     const A = Axis
-
     const XAxis = A.X
-
     const YAxis = A.Y
-
     const Position = function (args, reflectX, reflectY, rotate) {
       const fromRight = (args.fX || false) !== reflectX
-
       const fromBottom = (args.fY || false) !== reflectY
-
       const x = new A.PosX(
         rotate
           ? {
@@ -601,7 +581,6 @@ export const getPixelUnits = function () {
               center: args.centerY || args.center,
             },
       )
-
       const y = new A.PosY(
         rotate
           ? {
@@ -625,7 +604,6 @@ export const getPixelUnits = function () {
         }
       }
     }
-
     const Dimensions = function (args, fromRight, fromBottom, rotate) {
       if (args.sX === undefined) {
         args.sX = args.s

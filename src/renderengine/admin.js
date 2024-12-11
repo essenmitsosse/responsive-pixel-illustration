@@ -44,7 +44,6 @@ export const Admin = function (args) {
 
 Admin.prototype.setupSlides = function (slides) {
   const currentSlide = this.pixel.queryString.slide * 1 || 0
-
   const l = slides.length
 
   let count = 0
@@ -80,24 +79,17 @@ Admin.prototype.setupSlider = function () {
     id: 'sliders',
     container: this.sideBarInnerDiv,
   })
-
   const slidersDivList = slidersDiv.list
-
   const sliderObject = {}
-
   const sliderValues = {}
 
   let hasSliders = false
 
   const getSliderControl = this.getSliderControlGetter()
-
   const [body] = document.getElementsByTagName('body')
-
   const getBasicWrapper = function (objects, name, labelName) {
     const wrap = document.createElement('li')
-
     const innerWrap = document.createElement('div')
-
     const l = objects.length
 
     let count = 0
@@ -125,7 +117,6 @@ Admin.prototype.setupSlider = function () {
 
     slidersDivList.appendChild(wrap)
   }
-
   const activateSliders = function () {
     if (!hasSliders) {
       hasSliders = true
@@ -141,7 +132,6 @@ Admin.prototype.setupSlider = function () {
   this.pixel.createSlider = {
     slider: function createSlider(args) {
       const slider = document.createElement('input')
-
       const span = document.createElement('span')
 
       // dataList = document.createElement( "datalist" ),
@@ -190,7 +180,6 @@ Admin.prototype.setupSlider = function () {
 
     title: function createTitle(args) {
       const title = document.createElement('h2')
-
       const wrap = document.createElement('li')
 
       title.innerHTML = args.title
@@ -215,13 +204,9 @@ Admin.prototype.getSliderControlGetter = function () {
       let value
 
       const diff = args.input.max - args.input.min
-
       const outputMap = args.output || { min: 0, max: 1 }
-
       const outputMin = outputMap.min
-
       const outputFactor = (outputMap.max - outputMin) / diff
-
       const updateInfoSpan = function () {
         span.innerHTML = Math.round(value * 10) / 10
 
@@ -230,7 +215,6 @@ Admin.prototype.getSliderControlGetter = function () {
           'left: ' + (((value - args.input.min) / diff) * 100 - 10) + '%;',
         )
       }
-
       const update = function (setValue, single) {
         const obj = {}
 
@@ -315,7 +299,6 @@ Admin.prototype.setupBasicControls = function (hasRandom) {
     id: 'mainControls',
     container: this.sideBarInnerDiv,
   })
-
   const createButton = this.getButtonCreater(sideBarContentDiv)
 
   // if( this.showcase || this.admin ) {

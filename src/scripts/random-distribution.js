@@ -2,40 +2,23 @@ import { helper } from '@/renderengine/helper.js'
 
 function randomDistribution(init) {
   const random = helper.random(init.id)
-
   const backgroundColor = [0, 0, 0]
-
   const width = { main: true }
-
   const height = { main: true, height: true }
-
   const square = { r: 1, useSize: width, max: height }
-
   const biggerSquare = { r: 1, useSize: width, min: height }
-
   const linkList = [width, height, square, biggerSquare]
-
   const backgroundGrid = true
-
   const minSize = random.getRandomFloat(0, 0.8)
-
   const maxSize = random.getRandomFloat(minSize, 1)
-
   const minR = random.getRandom(0, 200)
-
   const maxR = random.getRandom(minR, 255)
-
   const minG = random.getRandom(0, 200)
-
   const maxG = random.getRandom(minG, 255)
-
   const minB = random.getRandom(0, 200)
-
   const maxB = random.getRandom(minB, 255)
-
   const renderList = (function () {
     const count = random.getRandom(5, 20)
-
     const s_ = 1 / (count - 1)
 
     let row = count
@@ -43,7 +26,6 @@ function randomDistribution(init) {
     let s
 
     const list = []
-
     const getSquare = function () {
       let innerS
 

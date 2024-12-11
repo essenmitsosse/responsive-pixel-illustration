@@ -56,7 +56,6 @@ Legs.prototype.getBetterPosY = function (rel) {
 
 Legs.prototype.draw = function LegsDraw(args) {
   const sitting = (this.sitting = args.info.sitting)
-
   const bendLeg = sitting || args.info.bendLeg
 
   this.sX = args.sX

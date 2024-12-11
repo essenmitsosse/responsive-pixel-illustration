@@ -17,11 +17,8 @@ BBObj.prototype.calcRotation = function (rotate) {
   }
 
   const rad = (realRotation * Math.PI) / 180
-
   const sin = Math.sin(rad)
-
   const cos = Math.cos(rad)
-
   const front = Math.abs(Math.abs(rotate - 180) - 90) / 90
 
   return {
@@ -158,7 +155,6 @@ BBObj.prototype.moveOut = function (args, rotate) {
   let diff
 
   const add = []
-
   const X = {
     add,
   }

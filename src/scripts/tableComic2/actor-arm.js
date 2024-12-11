@@ -32,27 +32,22 @@ Arm.prototype.draw = function ArmDraw(args) {
     },
     'actor-features',
   )
-
   const armS = (this.armS = this.pushLinkList({
     r: 0.08,
     useSize: armSY,
     min: 1,
   }))
-
   const upperArmS = this.pushLinkList({ r: 0.1, useSize: armSY, min: 1 })
-
   const armSHalf = (this.armSHalf = this.pushLinkList({
     r: 0.5,
     useSize: upperArmS,
     a: -1,
   }))
-
   const handS = (this.handS = this.pushLinkList({
     r: 0.1,
     useSize: armSY,
     min: 1,
   }))
-
   const handSY = this.pushLinkList({ r: 0.14, useSize: armSY, min: 1 })
 
   this.right = args.right
@@ -156,7 +151,6 @@ Arm.prototype.draw = function ArmDraw(args) {
 
 Arm.prototype.getHandTarget = function (target, name) {
   const x = name + 'X'
-
   const y = name + 'Y'
 
   if (target.angle) {
@@ -186,7 +180,6 @@ Arm.prototype.getHandTarget = function (target, name) {
 
 Arm.prototype.getTarget = function (target, name) {
   const xAdd = []
-
   const yAdd = []
 
   xAdd.push(
@@ -210,7 +203,6 @@ Arm.prototype.getTarget = function (target, name) {
   )
 
   const add = this.isRotated ? xAdd : yAdd
-
   const addOtherAxis = !this.isRotated ? xAdd : yAdd
 
   add.push({ r: -1, useSize: this.y }, this.actor.bodySY, -1)
@@ -233,13 +225,9 @@ Arm.prototype.getTarget = function (target, name) {
 
 Arm.prototype.getMoveableTarget = function (name, targetFunc, info) {
   const mainX = name + 'X'
-
   const mainY = name + 'Y'
-
   const moveXName = name + 'moveX'
-
   const moveYName = name + 'moveY'
-
   const pushRelativeStandardAutomaticObject = {}
 
   if (info.map !== undefined) {

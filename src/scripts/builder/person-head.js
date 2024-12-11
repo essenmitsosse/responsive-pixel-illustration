@@ -398,40 +398,26 @@ Eye.prototype.getSizes = function (args) {
 
 Eye.prototype.draw = function (args) {
   const thisEye = args.eye || {}
-
   const eyeSad = thisEye.lids === 'sad'
-
   const eyeAngry = eyeSad || thisEye.lids === 'angry'
-
   const eyeClosed =
     eyeAngry ||
     thisEye.lids === 'closed' ||
     thisEye.lids === 'sleepy' ||
     (args.right && thisEye.lids === 'wink')
-
   const eyeHalfClosed = !eyeClosed && thisEye.lids === 'halfClosed'
-
   const lookUp = thisEye.lookHor === 'up'
-
   const lookDown = thisEye.lookHor === 'down' || thisEye.lookHor === 'veryDown'
-
   const lookExtrem = lookUp || thisEye.lookHor === 'veryDown'
-
   const lookForward = !lookUp && !lookDown
-
   const lookSide = thisEye.lookVert
-
   const lookRight = thisEye.lookVert === 'right'
-
   const eyeBrowRaised =
     thisEye.brow === 'raised' || (args.right && thisEye.brow === 'sceptical')
-
   const eyeBrowLow =
     thisEye.brow === 'low' || (!args.right && thisEye.brow === 'sceptical')
-
   const eyeBrowSad =
     thisEye.brow === 'sad' || (args.right && thisEye.brow === 'superSceptical')
-
   const eyeBrowAngry =
     eyeBrowSad ||
     thisEye.brow === 'angry' ||
@@ -683,34 +669,21 @@ Mouth.prototype = new Object()
 
 Mouth.prototype.draw = function (args) {
   const thisMouth = args.mouth || {}
-
   const mouthWidth = thisMouth.width
-
   const mouthHeight = thisMouth.height
-
   const mouthForm = thisMouth.form
-
   const mouthD = mouthForm === 'D: '
-
   const mouthGrin = mouthD || mouthForm === 'grin'
-
   const mouthNarrow = mouthWidth === 'narrow'
-
   const mouthSlight = mouthHeight === 'slight'
-
   const mouthHalfOpen = mouthHeight === 'half'
-
   const mouthOpen = mouthSlight || mouthHalfOpen || mouthHeight === 'full'
-
   const mouthSmile = mouthGrin && !mouthOpen
-
   const teethFull =
     !mouthSlight && mouthOpen && !mouthNarrow && thisMouth.teeth === 'full'
-
   const teethTop =
     !mouthSlight &&
     ((mouthOpen && thisMouth.teeth === 'top') || thisMouth.teeth === 'both')
-
   const teethBottom =
     !mouthSlight &&
     ((mouthOpen && thisMouth.teeth === 'bottom') || thisMouth.teeth === 'both')
@@ -841,7 +814,6 @@ Hair.prototype = new Object()
 
 Hair.prototype.draw = function (args) {
   const rightSide = args.sideView || !args.right
-
   const name = args.id + '_' + args.right + args.nr
 
   if (args.calc) {

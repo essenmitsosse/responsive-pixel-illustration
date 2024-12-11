@@ -33,19 +33,12 @@ export const TableComic = function (init, slide, createSlider) {
   let controlerY
 
   const random = helper.random(init.id)
-
   const rFl = random.getRandomFloat
-
   const rInt = random.getRandom
-
   const rIf = random.getIf
-
   const debug = init.debug || slide.debug
-
   const hover = helper.getHoverChangers()
-
   const faceVersion = init.faceVersion || slide.faceVersion
-
   const linkList = [
     (sX = { main: true }),
     (sY = { main: true, height: true }),
@@ -572,7 +565,6 @@ TableComic.prototype.getFocus = function (zoomSX, zoomSY, focus) {
       // relative to Head
     ],
   })
-
   const y = this.pushLinkList({
     add: [
       { r: 0.5, useSize: zoomSY },

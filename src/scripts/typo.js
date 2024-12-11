@@ -2,24 +2,17 @@ import { helper } from '@/renderengine/helper.js'
 
 function typo() {
   const backgroundColor = [170, 190, 230]
-
   const font = [30, 30, 30]
 
   let letterCount = 0
   let spacingCount = 0
 
   const word = 'MAUTZN'
-
   const contrast = 0.4
-
   const serif = true
-
   const roundSerif = true
-
   const middleStemLength = 0.8
-
   const serifWidth = 0.6
-
   const getSerif = serif
     ? function (args) {
         args = args || {}
@@ -137,7 +130,6 @@ function typo() {
         return undefined
       }
   // letterCount * letterWidth + letterCount
-
   const getLetter = (function () {
     const Letters = new (function () {
       const vertStem = { sY: 'stemVert', cY: true }
@@ -428,7 +420,6 @@ function typo() {
     return function (letter) {
       const thisLetter =
         Letters[letter] || (letter === ' ' ? Letters.space : Letters.missing)
-
       const letterObject = {
         sX: helper.mult(thisLetter.sX, 'wordUnit'),
         x: [
@@ -454,7 +445,6 @@ function typo() {
       return letterObject
     }
   })()
-
   const letters = (function () {
     const list = []
 
@@ -470,7 +460,6 @@ function typo() {
 
     return list
   })()
-
   const renderList = [
     {
       mY: 'border',
@@ -484,7 +473,6 @@ function typo() {
     },
     // { gap:{a:0}, color:[255,255,0], change:{r:-1} },
   ]
-
   const variableList = {
     border: helper.getSmallerDim({ r: 0.08 }),
     borderSide: { r: 0.04 },

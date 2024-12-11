@@ -3,24 +3,15 @@ import { PixelGraphics } from './info.js'
 
 export const InitPixel = function (args) {
   const queryString = this.getQueryString()
-
   const showcase = (this.showcase = true)
-
   const forceName = args.imageName || window.location.hash.substr(1)
-
   const slides = showcase ? this.showcaseSlides : this.slides
-
   const currentSlide = !forceName && slides[queryString.slide || 0]
-
   const imageName = forceName || currentSlide.name || 'tantalos'
-
   const sliders = queryString.sliders || currentSlide.sliders
-
   /** Change for multiple Canvases */
   const canvasDataList = false
-
   const canvasRenderer = this.createSingleCanvas(canvasDataList, args.div)
-
   const [body] = document.getElementsByTagName('body')
 
   this.parent = queryString.admin || queryString.parent
@@ -63,7 +54,6 @@ export const InitPixel = function (args) {
 
 InitPixel.prototype.getQueryString = function () {
   const list = {}
-
   const vars = location.search.substr(1).split('&')
 
   let i = 0
@@ -214,9 +204,7 @@ InitPixel.prototype.info = function (options) {
   let initString
 
   const d = document
-
   const [body] = d.getElementsByTagName('body')
-
   const info = d.createElement('div')
 
   let show = options.showInfos
@@ -228,7 +216,6 @@ InitPixel.prototype.info = function (options) {
       body.removeChild(info)
     }
   }
-
   const change = function (name, value) {
     logs[name] = value
   }
@@ -267,9 +254,7 @@ InitPixel.prototype.info = function (options) {
       let what
 
       const lo = logs
-
       const render = fullDuration - draw
-
       const string = []
 
       if (show) {
@@ -542,12 +527,9 @@ InitPixel.prototype.getShortcuts = function (q) {
 
 InitPixel.prototype.getTimerAnimation = function () {
   const that = this
-
   const fps = 20
-
   /* how often per second should the chance be checked */
   const waitTimer = fps * 0.5
-
   const animations = {
     camera: { duration: 6, chance: 0.1 },
     side: { duration: 3, chance: 0.3 },

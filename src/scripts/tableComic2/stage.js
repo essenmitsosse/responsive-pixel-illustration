@@ -1,7 +1,7 @@
 // BEGINN Background /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Background = function Background(args) {
-  var floorFactor = 0.8
-  var borderFactor = 0.9
+  let floorFactor = 0.8
+  let borderFactor = 0.9
 
   this.blank = args.blank
 
@@ -25,22 +25,22 @@ export const Background = function Background(args) {
 }
 
 Background.prototype.draw = function BackgroundDraw(args) {
-  var borderSY = this.pushLinkList({
+  let borderSY = this.pushLinkList({
     r: 0.05,
     min: 1,
     useSize: args.stageSY,
   })
-  var borderFinalSY = (this.borderFinalSY = this.pushLinkList({
+  let borderFinalSY = (this.borderFinalSY = this.pushLinkList({
     r: 1,
     useSize: borderSY,
   }))
-  var stripeSX = this.pushLinkList({ r: 0.1, useSize: args.stageSX })
-  var stripeFinalSX = (this.stripeFinalSX = this.pushLinkList({
+  let stripeSX = this.pushLinkList({ r: 0.1, useSize: args.stageSX })
+  let stripeFinalSX = (this.stripeFinalSX = this.pushLinkList({
     r: 1,
     useSize: stripeSX,
     min: 1,
   }))
-  var floorY = this.pushLinkList({
+  let floorY = this.pushLinkList({
     add: [args.panY, { r: 0.2, useSize: args.stageSX }],
   })
 
@@ -108,7 +108,7 @@ Background.prototype.draw = function BackgroundDraw(args) {
 
 // BEGINN Floor /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Floor = function Floor(args) {
-  var darkFactor = 0.9
+  let darkFactor = 0.9
 
   this.color = args.color
 
@@ -136,12 +136,12 @@ Floor.prototype.draw = function FloorDraw(args) {
       ],
     }
   } else {
-    var stripes = {
+    let stripes = {
       center: true,
       strip: args.sY || { r: 0.22, useSize: args.stageSX },
       mask: true,
     }
-    var list = [{ sX: 1 }]
+    let list = [{ sX: 1 }]
 
     return {
       color: this.color,

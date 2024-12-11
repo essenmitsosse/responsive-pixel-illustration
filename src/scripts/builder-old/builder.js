@@ -30,9 +30,9 @@ import {
 import { Forrest, Tree, TreeFamily } from './tree.js'
 
 export const Builder = function (init) {
-  var initID = init.id ? init.id : Math.floor(Math.random() * 4294967296)
-  var random = helper.random(initID)
-  var joinVariableList = {}
+  let initID = init.id ? init.id : Math.floor(Math.random() * 4294967296)
+  let random = helper.random(initID)
+  let joinVariableList = {}
 
   this.help = helper
 
@@ -108,23 +108,23 @@ export const Builder = function (init) {
 }
 
 const buildColors = function (info) {
-  var that = this
-  var i = info.colors
-  var colors = []
+  let that = this
+  let i = info.colors
+  let colors = []
 
-  var createColor = function () {
-    var r = that.R(0, 200)
-    var g = that.R(0, 200)
-    var b = that.R(0, 200)
-    var br = Math.sqrt(
+  let createColor = function () {
+    let r = that.R(0, 200)
+    let g = that.R(0, 200)
+    let b = that.R(0, 200)
+    let br = Math.sqrt(
       0.241 * Math.pow(r, 2) + 0.691 * Math.pow(g, 2) + 0.068 * Math.pow(b, 2),
     )
-    var rgb = [r, g, b]
-    var maxBr = 255 / info.steps
-    var startPos = Math.floor(br / maxBr)
-    var colorRange = []
-    var i
-    var fak
+    let rgb = [r, g, b]
+    let maxBr = 255 / info.steps
+    let startPos = Math.floor(br / maxBr)
+    let colorRange = []
+    let i
+    let fak
 
     colorRange[startPos] = rgb
 
@@ -173,7 +173,7 @@ const Color = function (nr, br) {
 Color.prototype.copy = function (args) {
   args = args || {}
 
-  var color = new this.Color(args.nr !== undefined ? args.nr : this.nr, this.br)
+  let color = new this.Color(args.nr !== undefined ? args.nr : this.nr, this.br)
 
   if (args.nextColor) {
     color.nextColor()
@@ -274,7 +274,7 @@ Color.prototype.getBr = function () {
 
 Builder.prototype.getDark = function (darkness) {
   Color.prototype.get = function () {
-    var br = this.dontChange ? this.br : this.br + darkness
+    let br = this.dontChange ? this.br : this.br + darkness
 
     if (br < 0) {
       br = 0

@@ -2,7 +2,7 @@ import { Object } from './object.js'
 
 // UPPER BODY --------------------------------------------------------------------------------
 export const UpperBody = function (args) {
-  var shirtColor = args.firstColor.getBr()
+  let shirtColor = args.firstColor.getBr()
 
   // Form & Sizes
   this.thickShoulder = (this.IF() && this.R(1.5, 4)) || 1.5
@@ -341,7 +341,7 @@ export const Suspenders = function (args) {
 Suspenders.prototype = new Object()
 
 Suspenders.prototype.draw = function (args, z) {
-  var detail = this.detail && [
+  let detail = this.detail && [
     {},
     {
       color: this.detailColor.get(),

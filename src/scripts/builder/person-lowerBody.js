@@ -33,8 +33,8 @@ export const LowerBody = function (args) {
 LowerBody.prototype = new Object()
 
 LowerBody.prototype.draw = function (args, z) {
-  var list
-  var leg
+  let list
+  let leg
 
   if (args.calc) {
     args.lowerBodySX = this.pushLinkList(args.personRealSX)
@@ -254,10 +254,10 @@ export const Leg = function (args) {
 Leg.prototype = new Object()
 
 Leg.prototype.draw = function (args, z, rightSide, behind) {
-  var legPos = args.leg && args.leg[rightSide ? 'right' : 'left']
-  var hipBend = legPos === 'legHigh'
-  var legBend = hipBend || legPos === 'kneeBend'
-  var legRaise = !hipBend && !legBend && legPos === 'legRaise'
+  let legPos = args.leg && args.leg[rightSide ? 'right' : 'left']
+  let hipBend = legPos === 'legHigh'
+  let legBend = hipBend || legPos === 'kneeBend'
+  let legRaise = !hipBend && !legBend && legPos === 'legRaise'
 
   if (args.calc) {
     args.legSX = this.pushLinkList({

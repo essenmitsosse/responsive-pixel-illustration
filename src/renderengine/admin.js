@@ -43,10 +43,10 @@ export const Admin = function (args) {
 }
 
 Admin.prototype.setupSlides = function (slides) {
-  var currentSlide = this.pixel.queryString.slide * 1 || 0
-  var l = slides.length
-  var count = 0
-  var sideBarContentUl = new this.List({
+  let currentSlide = this.pixel.queryString.slide * 1 || 0
+  let l = slides.length
+  let count = 0
+  let sideBarContentUl = new this.List({
     id: 'slides',
     container: this.sideBarInnerDiv,
   })
@@ -64,7 +64,7 @@ Admin.prototype.setupSlides = function (slides) {
 
 Admin.prototype.getClickerGetter = function (pixel) {
   return function getClicker(nr) {
-    var p = pixel
+    let p = pixel
 
     return function () {
       p.changeForceRedraw({ slide: nr })
@@ -73,23 +73,23 @@ Admin.prototype.getClickerGetter = function (pixel) {
 }
 
 Admin.prototype.setupSlider = function () {
-  var slidersDiv = new this.List({
+  let slidersDiv = new this.List({
     id: 'sliders',
     container: this.sideBarInnerDiv,
   })
-  var slidersDivList = slidersDiv.list
-  var sliderObject = {}
-  var sliderValues = {}
-  var hasSliders = false
-  var getSliderControl = this.getSliderControlGetter()
-  var [body] = document.getElementsByTagName('body')
+  let slidersDivList = slidersDiv.list
+  let sliderObject = {}
+  let sliderValues = {}
+  let hasSliders = false
+  let getSliderControl = this.getSliderControlGetter()
+  let [body] = document.getElementsByTagName('body')
 
-  var getBasicWrapper = function (objects, name, labelName) {
-    var wrap = document.createElement('li')
-    var innerWrap = document.createElement('div')
-    var l = objects.length
-    var count = 0
-    var label
+  let getBasicWrapper = function (objects, name, labelName) {
+    let wrap = document.createElement('li')
+    let innerWrap = document.createElement('div')
+    let l = objects.length
+    let count = 0
+    let label
 
     wrap.setAttribute('class', 'input ' + name)
 
@@ -114,7 +114,7 @@ Admin.prototype.setupSlider = function () {
     slidersDivList.appendChild(wrap)
   }
 
-  var activateSliders = function () {
+  let activateSliders = function () {
     if (!hasSliders) {
       hasSliders = true
 
@@ -128,12 +128,12 @@ Admin.prototype.setupSlider = function () {
 
   this.pixel.createSlider = {
     slider: function createSlider(args) {
-      var slider = document.createElement('input')
-      var span = document.createElement('span')
+      let slider = document.createElement('input')
+      let span = document.createElement('span')
       // dataList = document.createElement( "datalist" ),
       // option1, option2,
       // sliderId = "slider-" + args.valueName,
-      var key
+      let key
 
       activateSliders()
 
@@ -157,8 +157,8 @@ Admin.prototype.setupSlider = function () {
     },
 
     number: function createButton(args) {
-      var input = document.createElement('input')
-      var key
+      let input = document.createElement('input')
+      let key
 
       input.setAttribute('type', 'number')
 
@@ -174,8 +174,8 @@ Admin.prototype.setupSlider = function () {
     },
 
     title: function createTitle(args) {
-      var title = document.createElement('h2')
-      var wrap = document.createElement('li')
+      let title = document.createElement('h2')
+      let wrap = document.createElement('li')
 
       title.innerHTML = args.title
 
@@ -189,19 +189,19 @@ Admin.prototype.setupSlider = function () {
 }
 
 Admin.prototype.getSliderControlGetter = function () {
-  var lastSliderParent
-  var lastValueName
-  var that = this
+  let lastSliderParent
+  let lastValueName
+  let that = this
 
   return {
     slider: function getSliderControl(slider, span, args) {
-      var value
-      var diff = args.input.max - args.input.min
-      var outputMap = args.output || { min: 0, max: 1 }
-      var outputMin = outputMap.min
-      var outputFactor = (outputMap.max - outputMin) / diff
+      let value
+      let diff = args.input.max - args.input.min
+      let outputMap = args.output || { min: 0, max: 1 }
+      let outputMin = outputMap.min
+      let outputFactor = (outputMap.max - outputMin) / diff
 
-      var updateInfoSpan = function () {
+      let updateInfoSpan = function () {
         span.innerHTML = Math.round(value * 10) / 10
 
         span.setAttribute(
@@ -210,8 +210,8 @@ Admin.prototype.getSliderControlGetter = function () {
         )
       }
 
-      var update = function (setValue, single) {
-        var obj = {}
+      let update = function (setValue, single) {
+        let obj = {}
 
         // If update is received with a sepcific value (e.g. from server), than just update the visual slider
         if (typeof setValue === 'number') {
@@ -256,10 +256,10 @@ Admin.prototype.getSliderControlGetter = function () {
     },
 
     number: function getButtonControl(number, args) {
-      var value
+      let value
 
-      var update = function (setValue, dontForce) {
-        var obj = {}
+      let update = function (setValue, dontForce) {
+        let obj = {}
 
         if (typeof setValue === 'number') {
           value = number.value = setValue
@@ -290,11 +290,11 @@ Admin.prototype.getSliderControlGetter = function () {
 }
 
 Admin.prototype.setupBasicControls = function (hasRandom) {
-  var sideBarContentDiv = new this.List({
+  let sideBarContentDiv = new this.List({
     id: 'mainControls',
     container: this.sideBarInnerDiv,
   })
-  var createButton = this.getButtonCreater(sideBarContentDiv)
+  let createButton = this.getButtonCreater(sideBarContentDiv)
 
   // if( this.showcase || this.admin ) {
   // 	createButton( { text: "◀", functionName: "nextSlide", args: false, className: "important slideControl narrow newrow" } );
@@ -319,10 +319,10 @@ Admin.prototype.setupBasicControls = function (hasRandom) {
 }
 
 Admin.prototype.getButtonCreater = function (div) {
-  var that = this
+  let that = this
 
   return function createButton(args) {
-    var button = div.addMessage(
+    let button = div.addMessage(
       args.text,
       'button' + (args.className ? ' ' + args.className : ''),
       (function (pixel) {
@@ -379,7 +379,7 @@ Admin.prototype.List.prototype.addMessage = function (
   className,
   clickEvent,
 ) {
-  var newMessage = document.createElement('li')
+  let newMessage = document.createElement('li')
 
   newMessage.innerHTML = message
 

@@ -33,7 +33,7 @@ Head.prototype = new BBObj()
 Head.prototype.draw = function (args) {
   this.ll.push((this.sX = { r: this._sX, useSize: args.sY }))
 
-  var headBottom = new this.basic.Rotater({
+  let headBottom = new this.basic.Rotater({
     drawer: this.headBottom,
     id: 'lowerHead',
     rotate: args.rotate,
@@ -44,7 +44,7 @@ Head.prototype.draw = function (args) {
     roundTop: true,
     roundBottom: true,
   })
-  var headTop = new this.basic.Rotater({
+  let headTop = new this.basic.Rotater({
     drawer: this.headTop,
     id: 'topHead',
     rotate: args.rotate,
@@ -57,7 +57,7 @@ Head.prototype.draw = function (args) {
     roundTop: true,
     roundBottom: true,
   })
-  var nose = new this.basic.Rotater({
+  let nose = new this.basic.Rotater({
     drawer: this.nose,
     id: 'nose',
     rotate: args.rotate,

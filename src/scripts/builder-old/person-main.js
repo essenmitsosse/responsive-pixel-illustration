@@ -16,9 +16,9 @@ export const Person = function (args) {
 Person.prototype = new Object()
 
 Person.prototype.draw = function (args, z) {
-  var nr = (args.nr = this.basic.objectCount += 1)
-  var backView = (args.backView = args.view === 'backView')
-  var sideView = (args.sideView = !backView && args.view ? true : false)
+  let nr = (args.nr = this.basic.objectCount += 1)
+  let backView = (args.backView = args.view === 'backView')
+  let sideView = (args.sideView = !backView && args.view ? true : false)
 
   args.id = this.id
 
@@ -47,7 +47,7 @@ Person.prototype.draw = function (args, z) {
 
 // BASICBODY --------------------------------------------------------------------------------
 export const BasicBody = function (args) {
-  var hues = [
+  let hues = [
     [0, 1, 2],
     [0, 2, 2],
     [0, 1, 1],
@@ -114,7 +114,7 @@ export const BasicBody = function (args) {
 BasicBody.prototype = new Object()
 
 BasicBody.prototype.draw = function (args, right) {
-  var head
+  let head
 
   args.right = right
 
@@ -208,7 +208,7 @@ BasicBody.prototype.draw = function (args, right) {
 
 // LOGO --------------------------------------------------------------------------------
 export const Logo = function (args, right, symetrical, logoColor) {
-  var color = !logoColor && this.IF(0.5)
+  let color = !logoColor && this.IF(0.5)
 
   this.name = symetrical ? (right ? 'right' : 'left') : 'chest'
 
@@ -259,7 +259,7 @@ export const Logo = function (args, right, symetrical, logoColor) {
 Logo.prototype = new Object()
 
 Logo.prototype.draw = function (args) {
-  var nrName = args.nr + this.name
+  let nrName = args.nr + this.name
 
   return (
     (!this.oneSide || args.right === this.side) && {

@@ -1,32 +1,32 @@
 // BEGINN Strip /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Strip = function (args) {
-  var panelsInfo = args.stripInfo.panels
-  var count = panelsInfo.length
-  var countSqrt = Math.sqrt(count)
-  var i = 0
-  var panels = []
-  var current
-  var sizeCurrent
-  var sizeList = []
-  var sX
-  var sY
-  var minSX
-  var minSY
-  var gutterBase = (this.gutterBase = this.pushLinkList({
+  let panelsInfo = args.stripInfo.panels
+  let count = panelsInfo.length
+  let countSqrt = Math.sqrt(count)
+  let i = 0
+  let panels = []
+  let current
+  let sizeCurrent
+  let sizeList = []
+  let sX
+  let sY
+  let minSX
+  let minSY
+  let gutterBase = (this.gutterBase = this.pushLinkList({
     r: 0.2 / countSqrt,
     useSize: args.squareBig,
   }))
-  var gutterX = (this.gutterX = this.pushLinkList({
+  let gutterX = (this.gutterX = this.pushLinkList({
     r: 1,
     useSize: gutterBase,
   }))
-  var gutterY = (this.gutterY = this.pushLinkList({
+  let gutterY = (this.gutterY = this.pushLinkList({
     r: 1,
     useSize: gutterBase,
   }))
-  var basicPanel =
+  let basicPanel =
     args.stripInfo.basicPanel || new this.basic.Panel(args.stripInfo)
-  var imgRatio = { ratio: 1.5 }
+  let imgRatio = { ratio: 1.5 }
 
   this.pushRelativeStandardAutomatic({
     gutterX: { map: 'gutter-width', min: 0, max: 1 },
@@ -144,8 +144,8 @@ Panel.prototype.setStage = function (minPanelSX, minPanelSY) {
 }
 
 Panel.prototype.draw = function (args) {
-  var info = args.info || {}
-  var cameraFocus = info.camera && info.camera.focus
+  let info = args.info || {}
+  let cameraFocus = info.camera && info.camera.focus
 
   this.basePanelX = this.pushLinkList({ r: 0.9, useSize: this.minSX })
 
@@ -155,10 +155,10 @@ Panel.prototype.draw = function (args) {
   if (cameraFocus) {
     // Zoom to actor head size
     if (cameraFocus.map) {
-      var zoomToHead1 = cameraFocus
+      let zoomToHead1 = cameraFocus
         ? 1 / (cameraFocus.min.obj.headSY_ || cameraFocus.min.obj.sY_)
         : 1
-      var zoomToHead2 = cameraFocus
+      let zoomToHead2 = cameraFocus
         ? 1 / (cameraFocus.max.obj.headSY_ || cameraFocus.max.obj.sY_)
         : 1
 
@@ -176,7 +176,7 @@ Panel.prototype.draw = function (args) {
         cameraFocus.map,
       )
     } else {
-      var zoomToHead = cameraFocus
+      let zoomToHead = cameraFocus
         ? 1 / (cameraFocus.obj.headSY_ || cameraFocus.obj.sY_)
         : 1
 
@@ -329,12 +329,12 @@ Panel.prototype.draw = function (args) {
   // END camera zoom  - - - - - - - - - - - - - - - - -
 
   // START render stage  - - - - - - - - - - - - - - - - -
-  var infoList = (this.infoList = info.list)
-  var l = infoList ? infoList.length : 0
-  var count = 0
-  var current
-  var renderList = []
-  var drawInfo = {
+  let infoList = (this.infoList = info.list)
+  let l = infoList ? infoList.length : 0
+  let count = 0
+  let current
+  let renderList = []
+  let drawInfo = {
     stageSX: this.stageSX,
     stageSY: this.stageSY,
     square: this.pushLinkList({
@@ -342,8 +342,8 @@ Panel.prototype.draw = function (args) {
       max: this.stageSY,
     }),
   }
-  var finishList = []
-  var background = info.background || this.background
+  let finishList = []
+  let background = info.background || this.background
 
   while (count < l) {
     current = infoList[count]
@@ -377,8 +377,8 @@ Panel.prototype.draw = function (args) {
 
   // START Camera Pan - - - - - - - - - - - - - - - - - - - - - - - -
   if (cameraFocus) {
-    var actorFocus1
-    var actorFocus2
+    let actorFocus1
+    let actorFocus2
 
     if (cameraFocus.map) {
       actorFocus1 = cameraFocus.min.obj.getFocus(

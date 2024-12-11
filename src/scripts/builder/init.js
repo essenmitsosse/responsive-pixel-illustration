@@ -1,21 +1,21 @@
 import { Builder } from './builder.js'
 
 function builder(init, slide, createSlider) {
-  var builder = new Builder(init)
-  var width = builder.pushLinkList({ main: true })
-  var height = builder.pushLinkList({ main: true, height: true })
-  var squ = builder.pushLinkList({ add: [width], max: height })
-  var borderS = builder.pushLinkList({ r: 0.05, a: -2, useSize: squ, min: 1 })
-  var imgSX = builder.pushLinkList([width, { r: -2, useSize: borderS }])
-  var imgSY = builder.pushLinkList([height, { r: -2, useSize: borderS }])
-  var showPerson = slide.showPerson || init.showPerson
-  var getPosition = (function () {
-    var rFl = builder.basic.R
-    var rIf = builder.basic.IF
-    var rInt = builder.basic.GR
-    var eyeLookVert = ['', '', '', 'left', 'right']
-    var eyeLookHor = ['', '', '', '', '', 'up', 'down', 'up', 'down', 'verDown']
-    var eyeLids = [
+  let builder = new Builder(init)
+  let width = builder.pushLinkList({ main: true })
+  let height = builder.pushLinkList({ main: true, height: true })
+  let squ = builder.pushLinkList({ add: [width], max: height })
+  let borderS = builder.pushLinkList({ r: 0.05, a: -2, useSize: squ, min: 1 })
+  let imgSX = builder.pushLinkList([width, { r: -2, useSize: borderS }])
+  let imgSY = builder.pushLinkList([height, { r: -2, useSize: borderS }])
+  let showPerson = slide.showPerson || init.showPerson
+  let getPosition = (function () {
+    let rFl = builder.basic.R
+    let rIf = builder.basic.IF
+    let rInt = builder.basic.GR
+    let eyeLookVert = ['', '', '', 'left', 'right']
+    let eyeLookHor = ['', '', '', '', '', 'up', 'down', 'up', 'down', 'verDown']
+    let eyeLids = [
       '',
       '',
       '',
@@ -32,7 +32,7 @@ function builder(init, slide, createSlider) {
       'closed',
       'wink',
     ]
-    var eyeBrow = [
+    let eyeBrow = [
       '',
       '',
       '',
@@ -43,7 +43,7 @@ function builder(init, slide, createSlider) {
       'angry',
       'sad',
     ]
-    var mouthHeight = [
+    let mouthHeight = [
       '',
       '',
       '',
@@ -58,9 +58,9 @@ function builder(init, slide, createSlider) {
       'half',
       'full',
     ]
-    var mouthWid = ['', '', '', 'narrow']
-    var mouthForm = ['', '', '', 'sceptical', 'grin', 'D:']
-    var legPos = [
+    let mouthWid = ['', '', '', 'narrow']
+    let mouthForm = ['', '', '', 'sceptical', 'grin', 'D:']
+    let legPos = [
       '',
       '',
       '',
@@ -75,7 +75,7 @@ function builder(init, slide, createSlider) {
       'legRaise',
       // "kneeBend", "legHigh"
     ]
-    var teethPos = ['', 'top', 'bottom', 'both', 'full']
+    let teethPos = ['', 'top', 'bottom', 'both', 'full']
 
     return function (args) {
       args.eye = {
@@ -133,18 +133,18 @@ function builder(init, slide, createSlider) {
     }
   })()
 
-  var getPanels = function () {
-    var l = init.panelCount || 6
-    var half = l / 2
-    var list = []
-    var args
-    var drawArgs
-    var sX = builder.pushLinkList({})
-    var sY = builder.pushLinkList({})
-    var square = builder.pushLinkList({ add: [sX], max: sY })
-    var innerSquare = builder.pushLinkList({ r: 0.7, useSize: square })
-    var SingleObject = showPerson ? builder.Person : builder.Tree
-    var Tree1Family =
+  let getPanels = function () {
+    let l = init.panelCount || 6
+    let half = l / 2
+    let list = []
+    let args
+    let drawArgs
+    let sX = builder.pushLinkList({})
+    let sY = builder.pushLinkList({})
+    let square = builder.pushLinkList({ add: [sX], max: sY })
+    let innerSquare = builder.pushLinkList({ r: 0.7, useSize: square })
+    let SingleObject = showPerson ? builder.Person : builder.Tree
+    let Tree1Family =
       !showPerson &&
       new builder.TreeFamily({
         color: builder.backgroundColor,
@@ -152,7 +152,7 @@ function builder(init, slide, createSlider) {
           next: true,
         }),
       })
-    var Tree2Family =
+    let Tree2Family =
       !showPerson &&
       new builder.TreeFamily({
         color: builder.backgroundColor,
@@ -197,7 +197,7 @@ function builder(init, slide, createSlider) {
     return list
   }
 
-  var renderList = [
+  let renderList = [
     {
       sX: imgSX,
       sY: imgSY,

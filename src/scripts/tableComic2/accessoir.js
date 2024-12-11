@@ -198,7 +198,7 @@ export const Glass = function Glass(args) {
 }
 
 Glass.prototype.draw = function GlassDraw(args) {
-  var normalGlass
+  let normalGlass
 
   this.sX = this.pushLinkList({ r: this.sX_, useSize: args.square, min: 1 })
 
@@ -260,7 +260,7 @@ Emotion.prototype.draw = function EmotionDraw(args) {
     return
   }
 
-  var actor = args.info.pos.obj
+  let actor = args.info.pos.obj
 
   if (!actor) {
     return

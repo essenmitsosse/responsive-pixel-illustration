@@ -1,7 +1,7 @@
 function trex() {
-  var white = [255, 255, 255]
-  var ground = [90, 60, 50]
-  var trexsingle = [
+  let white = [255, 255, 255]
+  let ground = [90, 60, 50]
+  let trexsingle = [
     {
       name: 'Obj',
       sX: { r: 0.25, min: 10 },
@@ -152,7 +152,7 @@ function trex() {
       ],
     },
   ]
-  var renderList = [
+  let renderList = [
     { name: 'Rect', sY: { r: 0.4 }, fY: true, color: ground },
     {
       name: 'Obj',
@@ -181,7 +181,7 @@ function trex() {
       list: trexsingle,
     },
   ]
-  var backgroundColor = [170, 190, 230]
+  let backgroundColor = [170, 190, 230]
 
   return {
     renderList,

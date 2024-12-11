@@ -29,12 +29,12 @@ import {
 import { Forrest, Tree, TreeFamily } from './tree.js'
 
 export const Builder = function (init) {
-  var initID = init.id ? init.id : Math.floor(Math.random() * 4294967296)
-  var random = helper.random(initID)
-  var linkList = []
-  var hover = helper.getHoverChangers()
+  let initID = init.id ? init.id : Math.floor(Math.random() * 4294967296)
+  let random = helper.random(initID)
+  let linkList = []
+  let hover = helper.getHoverChangers()
 
-  var pushLinkList = function (obj) {
+  let pushLinkList = function (obj) {
     linkList.push(obj)
 
     return obj
@@ -121,23 +121,23 @@ export const Builder = function (init) {
 }
 
 const buildColors = function (info) {
-  var rInt = this.R
-  var i = info.colors
-  var colors = []
+  let rInt = this.R
+  let i = info.colors
+  let colors = []
 
-  var createColor = function () {
-    var r = rInt(0, 200)
-    var g = rInt(0, 200)
-    var b = rInt(0, 200)
-    var br = Math.sqrt(
+  let createColor = function () {
+    let r = rInt(0, 200)
+    let g = rInt(0, 200)
+    let b = rInt(0, 200)
+    let br = Math.sqrt(
       0.241 * Math.pow(r, 2) + 0.691 * Math.pow(g, 2) + 0.068 * Math.pow(b, 2),
     )
-    var rgb = [r, g, b]
-    var maxBr = 255 / info.steps
-    var startPos = Math.floor(br / maxBr)
-    var colorRange = []
-    var i
-    var fak
+    let rgb = [r, g, b]
+    let maxBr = 255 / info.steps
+    let startPos = Math.floor(br / maxBr)
+    let colorRange = []
+    let i
+    let fak
 
     colorRange[startPos] = rgb
 
@@ -186,7 +186,7 @@ const Color = function (nr, br) {
 Color.prototype.copy = function (args) {
   args = args || {}
 
-  var color = new this.Color(args.nr !== undefined ? args.nr : this.nr, this.br)
+  let color = new this.Color(args.nr !== undefined ? args.nr : this.nr, this.br)
 
   if (args.nextColor) {
     color.nextColor()

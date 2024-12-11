@@ -1,30 +1,30 @@
 import { helper } from '@/renderengine/helper.js'
 
 function teiresias() {
-  var shadowColor = [255, 200, 255]
-  var shadow = helper.darken(shadowColor, 0.7)
-  var detail = helper.darken(shadowColor, 0.4)
-  var lighten = helper.lighten(shadowColor, 0.3)
-  var trees = [40, 74, 95]
-  var frame = lighten(trees)
-  var frameDark = shadow(frame)
-  var treesDark = shadow(trees)
-  var backgroundColor = detail(trees)
-  var teiresias = [100, 50, 60]
-  var teiresiasShadow = shadow(teiresias)
-  var stick = [90, 90, 90]
-  var stickDark = shadow(stick)
-  var stickDarkest = detail(stick)
-  var skin = [193, 180, 163]
-  var skinShadow = shadow(skin)
-  var eyes = detail(skin)
-  var snake1 = teiresias
-  var snake1Detail = shadow(snake1)
-  var snake2 = [165, 157, 105]
-  var snake2Detail = shadow(snake2)
-  var snakeTongue = [150, 85, 94]
-  var snakeEyes = backgroundColor
-  var getFrame = [
+  let shadowColor = [255, 200, 255]
+  let shadow = helper.darken(shadowColor, 0.7)
+  let detail = helper.darken(shadowColor, 0.4)
+  let lighten = helper.lighten(shadowColor, 0.3)
+  let trees = [40, 74, 95]
+  let frame = lighten(trees)
+  let frameDark = shadow(frame)
+  let treesDark = shadow(trees)
+  let backgroundColor = detail(trees)
+  let teiresias = [100, 50, 60]
+  let teiresiasShadow = shadow(teiresias)
+  let stick = [90, 90, 90]
+  let stickDark = shadow(stick)
+  let stickDarkest = detail(stick)
+  let skin = [193, 180, 163]
+  let skinShadow = shadow(skin)
+  let eyes = detail(skin)
+  let snake1 = teiresias
+  let snake1Detail = shadow(snake1)
+  let snake2 = [165, 157, 105]
+  let snake2Detail = shadow(snake2)
+  let snakeTongue = [150, 85, 94]
+  let snakeEyes = backgroundColor
+  let getFrame = [
     {},
     {
       mY: 1,
@@ -80,7 +80,7 @@ function teiresias() {
       ],
     },
   ]
-  var bigEdge = [
+  let bigEdge = [
     { sX: { r: 0.5 } },
     { sY: { r: 0.5 }, fY: true },
     {
@@ -109,13 +109,13 @@ function teiresias() {
       ],
     },
   ]
-  var hair = [255, 255, 255]
-  var i = 0
+  let hair = [255, 255, 255]
+  let i = 0
 
-  var snake = function (nr, vert) {
-    var x = !vert ? ['snakeWeight', -1] : undefined
-    var y = vert ? ['snakeWeight', -1] : undefined
-    var s = { r: 1, add: [helper.sub('snakeWeight')] }
+  let snake = function (nr, vert) {
+    let x = !vert ? ['snakeWeight', -1] : undefined
+    let y = vert ? ['snakeWeight', -1] : undefined
+    let s = { r: 1, add: [helper.sub('snakeWeight')] }
 
     return nr === 2
       ? [{ save: 'snake2' }]
@@ -139,8 +139,8 @@ function teiresias() {
         ]
   }
 
-  var treeTrunk = function () {
-    var name = 'treeBark' + (i += 1)
+  let treeTrunk = function () {
+    let name = 'treeBark' + (i += 1)
 
     return [
       { use: name },
@@ -161,9 +161,9 @@ function teiresias() {
     ]
   }
 
-  var treeLeaves = function (random) {
-    var name = 'treeLeaves' + (i += 1)
-    var name2 = 'treesSpots' + i
+  let treeLeaves = function (random) {
+    let name = 'treeLeaves' + (i += 1)
+    let name2 = 'treesSpots' + i
 
     return [
       {
@@ -182,7 +182,7 @@ function teiresias() {
     ]
   }
 
-  var shadowGround = [
+  let shadowGround = [
     {
       sY: { r: 0.5 },
       y: { r: 0.5 },
@@ -195,9 +195,9 @@ function teiresias() {
       stripes: { strip: 2, random: { r: 0.15 } },
     },
   ]
-  var torsoMargin = 0.4
-  var torsoTop = 0.35
-  var renderList = [
+  let torsoMargin = 0.4
+  let torsoTop = 0.35
+  let renderList = [
     // IMAGE
     {
       m: 'borderWidth',
@@ -1283,9 +1283,9 @@ function teiresias() {
       ],
     },
   ]
-  var imgDims = ['imgWidth', 'imgheight']
-  var motiveDims = ['motiveWidth', 'motiveheight']
-  var variableList = {
+  let imgDims = ['imgWidth', 'imgheight']
+  let motiveDims = ['motiveWidth', 'motiveheight']
+  let variableList = {
     fullRect: { r: 1, max: { r: 1, height: true } },
     borderWidth: { r: 0.06, a: 1, useSize: 'fullRect', min: 1 },
     borderInner: ['borderWidth', -4],

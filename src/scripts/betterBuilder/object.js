@@ -2,11 +2,11 @@ export const BBObj = function () {}
 
 // GET ROTATION
 BBObj.prototype.calcRotation = function (rotate) {
-  var realRotation = rotate - 45
-  var rad
-  var sin
-  var cos
-  var front
+  let realRotation = rotate - 45
+  let rad
+  let sin
+  let cos
+  let front
 
   if (realRotation > 180) {
     realRotation -= 360
@@ -142,7 +142,7 @@ export const Rotater = function (args) {
 Rotater.prototype = new BBObj()
 
 Rotater.prototype.pusher = function (rotate, list, reflect) {
-  var front = rotate.abs > 0
+  let front = rotate.abs > 0
 
   this.list.push({
     sX: { r: front ? rotate.abs : -rotate.abs },
@@ -159,9 +159,9 @@ BBObj.prototype.moveOut = function (args, rotate) {
   //	xAdd,
   //	XRel
 
-  var diff
-  var add = []
-  var X = {
+  let diff
+  let add = []
+  let X = {
     add,
   }
 
@@ -212,7 +212,7 @@ BBObj.prototype.moveOut = function (args, rotate) {
 }
 
 BBObj.prototype.mover = function (what, move) {
-  var x
+  let x
 
   move.sX = what.sX
 
@@ -237,7 +237,7 @@ BBObj.prototype.mover = function (what, move) {
 }
 
 BBObj.prototype.merge = function (what, args) {
-  for (var attr in args) {
+  for (let attr in args) {
     what[attr] = args[attr]
   }
 
@@ -245,7 +245,7 @@ BBObj.prototype.merge = function (what, args) {
 }
 
 export const RotateInfo = function (rotate) {
-  var s = { a: 5 }
+  let s = { a: 5 }
 
   this.ll.push(s)
 

@@ -23,7 +23,7 @@ export const Arm = function Arm(args) {
 }
 
 Arm.prototype.draw = function ArmDraw(args) {
-  var armSY = this.getSizeSwitch(
+  let armSY = this.getSizeSwitch(
     { r: this.armBaseSY_, useSize: args.torsoSY },
     { r: this.armRelSY_ },
     {
@@ -32,23 +32,23 @@ Arm.prototype.draw = function ArmDraw(args) {
     },
     'actor-features',
   )
-  var armS = (this.armS = this.pushLinkList({
+  let armS = (this.armS = this.pushLinkList({
     r: 0.08,
     useSize: armSY,
     min: 1,
   }))
-  var upperArmS = this.pushLinkList({ r: 0.1, useSize: armSY, min: 1 })
-  var armSHalf = (this.armSHalf = this.pushLinkList({
+  let upperArmS = this.pushLinkList({ r: 0.1, useSize: armSY, min: 1 })
+  let armSHalf = (this.armSHalf = this.pushLinkList({
     r: 0.5,
     useSize: upperArmS,
     a: -1,
   }))
-  var handS = (this.handS = this.pushLinkList({
+  let handS = (this.handS = this.pushLinkList({
     r: 0.1,
     useSize: armSY,
     min: 1,
   }))
-  var handSY = this.pushLinkList({ r: 0.14, useSize: armSY, min: 1 })
+  let handSY = this.pushLinkList({ r: 0.14, useSize: armSY, min: 1 })
 
   this.right = args.right
 
@@ -150,8 +150,8 @@ Arm.prototype.draw = function ArmDraw(args) {
 }
 
 Arm.prototype.getHandTarget = function (target, name) {
-  var x = name + 'X'
-  var y = name + 'Y'
+  let x = name + 'X'
+  let y = name + 'Y'
 
   if (target.angle) {
     this[x] = this.pushLinkList({
@@ -179,8 +179,8 @@ Arm.prototype.getHandTarget = function (target, name) {
 }
 
 Arm.prototype.getTarget = function (target, name) {
-  var xAdd = []
-  var yAdd = []
+  let xAdd = []
+  let yAdd = []
 
   xAdd.push(
     // Actor relative to Stage
@@ -225,11 +225,11 @@ Arm.prototype.getTarget = function (target, name) {
 }
 
 Arm.prototype.getMoveableTarget = function (name, targetFunc, info) {
-  var mainX = name + 'X'
-  var mainY = name + 'Y'
-  var moveXName = name + 'moveX'
-  var moveYName = name + 'moveY'
-  var pushRelativeStandardAutomaticObject = {}
+  let mainX = name + 'X'
+  let mainY = name + 'Y'
+  let moveXName = name + 'moveX'
+  let moveYName = name + 'moveY'
+  let pushRelativeStandardAutomaticObject = {}
 
   if (info.map !== undefined) {
     this[targetFunc](info.max, name)

@@ -19,26 +19,26 @@ import {
 
 // BEGINN TableComic /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const TableComic = function (init, slide, createSlider) {
-  var sX
-  var sY
-  var square
-  var margin
-  var doubleMargin
-  var innerSX
-  var innerSY
-  var innerSquare
-  var innerSquareBig
-  var innerSquareAverage
-  var controlerX
-  var controlerY
-  var random = helper.random(init.id)
-  var rFl = random.getRandomFloat
-  var rInt = random.getRandom
-  var rIf = random.getIf
-  var debug = init.debug || slide.debug
-  var hover = helper.getHoverChangers()
-  var faceVersion = init.faceVersion || slide.faceVersion
-  var linkList = [
+  let sX
+  let sY
+  let square
+  let margin
+  let doubleMargin
+  let innerSX
+  let innerSY
+  let innerSquare
+  let innerSquareBig
+  let innerSquareAverage
+  let controlerX
+  let controlerY
+  let random = helper.random(init.id)
+  let rFl = random.getRandomFloat
+  let rInt = random.getRandom
+  let rIf = random.getIf
+  let debug = init.debug || slide.debug
+  let hover = helper.getHoverChangers()
+  let faceVersion = init.faceVersion || slide.faceVersion
+  let linkList = [
     (sX = { main: true }),
     (sY = { main: true, height: true }),
     (square = { add: [sX], max: sY }),
@@ -57,7 +57,7 @@ export const TableComic = function (init, slide, createSlider) {
     (controlerX = { r: 0, useSize: sX }),
     (controlerY = { r: 0, useSize: sY }),
   ]
-  var renderList
+  let renderList
 
   hover.list.push(
     { change: 1, min: 0, map: 'a', variable: controlerX },
@@ -66,9 +66,9 @@ export const TableComic = function (init, slide, createSlider) {
 
   // Assign global Functions to all Comic Constructors
   function assignFunctionToComicConstructor(comicPrototype) {
-    var current
+    let current
 
-    for (var key in comicPrototype) {
+    for (let key in comicPrototype) {
       current = comicPrototype[key].prototype
 
       current.rIf = rIf
@@ -414,9 +414,9 @@ export const TableComic = function (init, slide, createSlider) {
 }
 
 TableComic.prototype.getSizeWithRatio = function (args) {
-  var ratio = args.ratio || this.ratio
-  var sX
-  var sY
+  let ratio = args.ratio || this.ratio
+  let sX
+  let sY
 
   if (ratio > 1) {
     sX = this.pushLinkList({ r: ratio, useSize: args.sY, max: args.sX })
@@ -484,8 +484,8 @@ TableComic.prototype.getRelativePosition = function (obj, pos) {
 }
 
 TableComic.prototype.getPosition = function (args) {
-  var info = args.info || {}
-  var obj
+  let info = args.info || {}
+  let obj
 
   this.square = this.pushLinkList({ add: [this.sX], max: this.sY })
 
@@ -553,7 +553,7 @@ TableComic.prototype.getObject = function (object) {
 }
 
 TableComic.prototype.getFocus = function (zoomSX, zoomSY, focus) {
-  var x = this.pushLinkList({
+  let x = this.pushLinkList({
     add: [
       { r: 0.5, useSize: zoomSX },
       // normalize pan
@@ -563,7 +563,7 @@ TableComic.prototype.getFocus = function (zoomSX, zoomSY, focus) {
       // relative to Head
     ],
   })
-  var y = this.pushLinkList({
+  let y = this.pushLinkList({
     add: [
       { r: 0.5, useSize: zoomSY },
       // normalize pan
@@ -596,10 +596,10 @@ TableComic.prototype.getPosY = function (rel) {
 }
 
 TableComic.prototype.getColorShades = function (color) {
-  var c0
-  var c1
-  var c2
-  var c3
+  let c0
+  let c1
+  let c2
+  let c3
 
   if (color.max) {
     this.colorList.push({

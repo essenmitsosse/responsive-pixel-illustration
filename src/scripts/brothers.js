@@ -1,32 +1,32 @@
 import { helper } from '@/renderengine/helper.js'
 
 function brothers() {
-  var shadowColor = [255, 255, 255]
-  var shadow = helper.darken(shadowColor, 0.7)
-  var shadowSoft = helper.darken(shadowColor, 0.9)
-  var darkenColor = helper.darken(shadowColor, 0.4)
-  var lighten = helper.lighten(shadowColor, 0.3)
-  var lightenSoft = helper.lighten(shadowColor, 0.1)
-  var c3 = [0, 0, 255]
-  var zBackground = [200, 150, 255]
-  var zSkin = shadow(zBackground)
-  var zSkinShadow = shadow(zSkin)
-  var zHair = lighten(zBackground)
-  var zCloth = darkenColor(zBackground)
-  var flash = [255, 220, 180]
-  var hBasic = [210, 100, 20]
-  var hSkin = shadow(hBasic)
-  var hHair = lighten(hBasic)
-  var hCloth = darkenColor(hBasic)
-  var hBackground = hBasic
-  var pBasic = [116, 150, 150]
-  var pSkin = shadow(pBasic)
-  var pHair = lighten(pBasic)
-  var pCloth = darkenColor(pBasic)
-  var pBackground = pBasic
-  var borderDetail = shadow(zCloth)
-  var backgroundColor = darkenColor(borderDetail)
-  var flashForm = [
+  let shadowColor = [255, 255, 255]
+  let shadow = helper.darken(shadowColor, 0.7)
+  let shadowSoft = helper.darken(shadowColor, 0.9)
+  let darkenColor = helper.darken(shadowColor, 0.4)
+  let lighten = helper.lighten(shadowColor, 0.3)
+  let lightenSoft = helper.lighten(shadowColor, 0.1)
+  let c3 = [0, 0, 255]
+  let zBackground = [200, 150, 255]
+  let zSkin = shadow(zBackground)
+  let zSkinShadow = shadow(zSkin)
+  let zHair = lighten(zBackground)
+  let zCloth = darkenColor(zBackground)
+  let flash = [255, 220, 180]
+  let hBasic = [210, 100, 20]
+  let hSkin = shadow(hBasic)
+  let hHair = lighten(hBasic)
+  let hCloth = darkenColor(hBasic)
+  let hBackground = hBasic
+  let pBasic = [116, 150, 150]
+  let pSkin = shadow(pBasic)
+  let pHair = lighten(pBasic)
+  let pCloth = darkenColor(pBasic)
+  let pBackground = pBasic
+  let borderDetail = shadow(zCloth)
+  let backgroundColor = darkenColor(borderDetail)
+  let flashForm = [
     {
       points: [
         { y: { r: 0.4 } },
@@ -40,10 +40,10 @@ function brothers() {
     },
   ]
 
-  var beard = function (hair, center) {
-    var beardSideHeight = { r: 0.6, a: -1 }
-    var beardSideWidth = center ? 0.4 : 0.2
-    var beardInner = [
+  let beard = function (hair, center) {
+    let beardSideHeight = { r: 0.6, a: -1 }
+    let beardSideWidth = center ? 0.4 : 0.2
+    let beardInner = [
       {
         stripes: {
           horizontal: true,
@@ -54,7 +54,7 @@ function brothers() {
         fY: true,
       },
     ]
-    var beardOuter = [
+    let beardOuter = [
       {
         stripes: {
           horizontal: true,
@@ -183,8 +183,8 @@ function brothers() {
     }
   }
 
-  var mustach = function (hades) {
-    var mustachHalf = [
+  let mustach = function (hades) {
+    let mustachHalf = [
       {
         sY: { r: 0.5 },
         y: { r: 0.5 },
@@ -208,8 +208,8 @@ function brothers() {
     ]
   }
 
-  var eyes = function (color, hair, hades) {
-    var eye = [
+  let eyes = function (color, hair, hades) {
+    let eye = [
       { mX: 2, x: 1 },
       { mY: 1, sY: { min: 3 } },
       {
@@ -244,10 +244,10 @@ function brothers() {
     }
   }
 
-  var getOthers = function (posei, skin, hair, cloth, background) {
-    var clothShadow = !posei ? cloth : shadow(cloth)
-    var skinShadow = shadow(skin)
-    var clothDetail = [
+  let getOthers = function (posei, skin, hair, cloth, background) {
+    let clothShadow = !posei ? cloth : shadow(cloth)
+    let skinShadow = shadow(skin)
+    let clothDetail = [
       {
         weight: 1,
         points: [
@@ -258,9 +258,9 @@ function brothers() {
         ],
       },
     ]
-    var rightShoulder = { r: -0.3 }
-    var headRatio = posei ? 1.2 : 0.8
-    var leftShoulder = { r: -1, useSize: 'torsoSY' }
+    let rightShoulder = { r: -0.3 }
+    let headRatio = posei ? 1.2 : 0.8
+    let leftShoulder = { r: -1, useSize: 'torsoSY' }
 
     return [
       { color: background },
@@ -534,7 +534,7 @@ function brothers() {
     ]
   }
 
-  var hair = [
+  let hair = [
     {
       stripes: {
         change: { r: -1 },
@@ -546,18 +546,18 @@ function brothers() {
       fY: true,
     },
   ]
-  var outerStrip = {
+  let outerStrip = {
     gap: 'gap',
     strip: 'strip',
     horizontal: true,
     overflow: true,
   }
-  var detailBorder = [
+  let detailBorder = [
     {},
     { color: backgroundColor, mY: 1, sX: 1, fX: true },
     { color: backgroundColor, mY: 1, sX: 'detail' },
   ]
-  var outerBorder = [
+  let outerBorder = [
     { color: backgroundColor },
     { sX: 'borderOutline', x: 'borderMargin' },
     { sX: 'borderOutline', x: 'borderMargin', fX: true },
@@ -577,7 +577,7 @@ function brothers() {
       list: detailBorder,
     },
   ]
-  var borderSmall = [
+  let borderSmall = [
     { color: backgroundColor },
     { sX: 'borderSmallOutline', x: 'borderSmallMargin' },
     {
@@ -587,7 +587,7 @@ function brothers() {
       list: detailBorder,
     },
   ]
-  var borderSmallCenter = [
+  let borderSmallCenter = [
     { color: backgroundColor },
     {
       sX: 'borderSmallInline',
@@ -598,7 +598,7 @@ function brothers() {
     { sX: 'borderSmallOutline', x: 'borderSmallMargin' },
     { sX: 'borderSmallOutline', x: 'borderSmallMargin', fX: true },
   ]
-  var edgeSmallOuter = [
+  let edgeSmallOuter = [
     { color: backgroundColor },
     { sX: 'borderSmallOutline', x: 'borderSmallMargin' },
     {
@@ -608,7 +608,7 @@ function brothers() {
       fX: true,
     },
   ]
-  var edgeSmallInner = [
+  let edgeSmallInner = [
     { sX: 'borderSmallOutline', x: 'borderSmallMargin', fX: true },
     {
       sY: 'borderSmallOutline',
@@ -617,7 +617,7 @@ function brothers() {
       fX: true,
     },
   ]
-  var edgeSmallCenter = [
+  let edgeSmallCenter = [
     {
       sX: 'borderSmallOutline',
       sY: 'borderSmallMargin',
@@ -633,7 +633,7 @@ function brothers() {
     },
   ]
 
-  var edgeWide = function (center) {
+  let edgeWide = function (center) {
     return [
       { color: backgroundColor },
       { sY: 'borderSmallOutline', y: 'borderSmallMargin', fY: true },
@@ -661,7 +661,7 @@ function brothers() {
     ]
   }
 
-  var edgeBig = [
+  let edgeBig = [
     { color: backgroundColor },
     {
       color: borderDetail,
@@ -704,10 +704,10 @@ function brothers() {
       ],
     },
   ]
-  var areaStrip = { strip: 'strip', gap: 1, horizontal: true }
+  let areaStrip = { strip: 'strip', gap: 1, horizontal: true }
 
-  var areaPiece = function (who) {
-    var hades = who === 'hades'
+  let areaPiece = function (who) {
+    let hades = who === 'hades'
 
     return [
       {},
@@ -791,7 +791,7 @@ function brothers() {
     ]
   }
 
-  var sideBorder = [
+  let sideBorder = [
     {
       sX: 'border',
       sY: 'borderSmall',
@@ -809,7 +809,7 @@ function brothers() {
       fX: true,
     },
   ]
-  var oSideBorder = [
+  let oSideBorder = [
     {
       s: 'borderSmall',
       tX: true,
@@ -818,7 +818,7 @@ function brothers() {
       list: edgeSmallInner,
     },
   ]
-  var renderList = [
+  let renderList = [
     // MAIN IMAGE
     {
       m: 'border',
@@ -1341,8 +1341,8 @@ function brothers() {
     // { s:{a:"switch", max:5} , color:c5, fX:true, fY:true },
     // { s:{a:"switch2", max:5} , color:c5, fX:true, fY:true },
   ]
-  var headRatio = 1.33
-  var variableList = {
+  let headRatio = 1.33
+  let variableList = {
     fullRect: { r: 1, max: { r: 1, height: true } },
 
     // BORDER

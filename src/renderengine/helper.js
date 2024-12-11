@@ -1,9 +1,9 @@
 export const helper = new (function () {
-  var that = this
+  let that = this
 
   this.getSmallerDim = function (x) {
-    var o = { r: x.r }
-    var max = { r: x.r2 || x.r, otherDim: true }
+    let o = { r: x.r }
+    let max = { r: x.r2 || x.r, otherDim: true }
 
     if (x.a) {
       o.a = x.a
@@ -45,8 +45,8 @@ export const helper = new (function () {
   }
 
   this.darken = function (darken, strength) {
-    var l = darken.length
-    var finalDarken = []
+    let l = darken.length
+    let finalDarken = []
 
     strength /= 255
 
@@ -55,8 +55,8 @@ export const helper = new (function () {
     }
 
     return function (color, copy) {
-      var l = color.length
-      var newColor = copy || []
+      let l = color.length
+      let newColor = copy || []
 
       while (l--) {
         newColor[l] = Math.floor(color[l] * finalDarken[l])
@@ -67,17 +67,17 @@ export const helper = new (function () {
   }
 
   this.lighten = function (lighten, strength) {
-    var l = lighten.length
-    var finaleLighten = []
+    let l = lighten.length
+    let finaleLighten = []
 
     while (l--) {
       finaleLighten[l] = lighten[l] * strength
     }
 
     return function (color) {
-      var l = color.length
-      var newColor = []
-      var thisC
+      let l = color.length
+      let newColor = []
+      let thisC
 
       while (l--) {
         newColor[l] = (thisC = color[l] + finaleLighten[l]) > 255 ? 255 : thisC
@@ -89,9 +89,9 @@ export const helper = new (function () {
 
   this.addC = function (add) {
     return function (color) {
-      var l = color.length
-      var newColor = []
-      var thisC
+      let l = color.length
+      let newColor = []
+      let thisC
 
       while (l--) {
         newColor[l] =
@@ -103,14 +103,14 @@ export const helper = new (function () {
   }
 
   this.lessSat = function (color, s) {
-    var total = ((color[0] + color[1] + color[2]) * (1 - s)) / 3
+    let total = ((color[0] + color[1] + color[2]) * (1 - s)) / 3
 
     return [color[0] * s + total, color[1] * s + total, color[2] * s + total]
   }
 
   this.getBrightness = function (color) {
-    var l = color.length
-    var b = 0
+    let l = color.length
+    let b = 0
 
     while (l--) {
       b += color[l]
@@ -144,12 +144,12 @@ export const helper = new (function () {
   }
 
   this.getHoverChangers = function () {
-    var changersRelativeStandardList = []
-    var changersRelativeCustomList = []
-    var changersColorStandardList = []
-    var changersCustomList = []
+    let changersRelativeStandardList = []
+    let changersRelativeCustomList = []
+    let changersColorStandardList = []
+    let changersCustomList = []
 
-    var pushRelativeStandard = function (min, max, map, variable) {
+    let pushRelativeStandard = function (min, max, map, variable) {
       changersRelativeStandardList.push({
         change: max - min,
         min,
@@ -158,10 +158,10 @@ export const helper = new (function () {
       })
     }
 
-    var changeColor = function (value, map) {
-      var [maxR, maxG, maxB] = map.max
-      var [minR, minG, minB] = map.min
-      var valueNeg = 1 - value
+    let changeColor = function (value, map) {
+      let [maxR, maxG, maxB] = map.max
+      let [minR, minG, minB] = map.min
+      let valueNeg = 1 - value
 
       map.color[0] = minR * valueNeg + maxR * value
 
@@ -181,9 +181,9 @@ export const helper = new (function () {
       // Takes an object, where the keys have the names of dimensions from the object which called it
       // This dimension "r" is linked to the variables max, min and can be changed by what is defined by map
       pushRelativeStandardAutomatic(info) {
-        var key
-        var currentInfo
-        var currentSize
+        let key
+        let currentInfo
+        let currentSize
 
         if (info) {
           for (key in info) {
@@ -213,15 +213,15 @@ export const helper = new (function () {
       },
 
       hover(args) {
-        var changersRelativeStandard = changersRelativeStandardList
-        var changersRelativeCustom = changersRelativeCustomList
-        var changersColorStandard = changersColorStandardList
-        var changersCustom = changersCustomList
-        var l
-        var current
-        var currentValue
-        var key
-        var somethingToChange = false
+        let changersRelativeStandard = changersRelativeStandardList
+        let changersRelativeCustom = changersRelativeCustomList
+        let changersColorStandard = changersColorStandardList
+        let changersCustom = changersCustomList
+        let l
+        let current
+        let currentValue
+        let key
+        let somethingToChange = false
 
         for (key in args) {
           if (key !== 'width' && key !== 'height') {
@@ -293,16 +293,16 @@ export const helper = new (function () {
   }
 
   this.random = function (seed) {
-    var denom = Math.pow(2, 31)
-    var a = 11
-    var b = 19
-    var c = 8
+    let denom = Math.pow(2, 31)
+    let a = 11
+    let b = 19
+    let c = 8
     // x = Math.pow( seed, 3 ) + 88675123 || 88675123,
-    var x = seed || Math.floor(Math.random() * 4294967296)
-    var t = x ^ (x << a)
+    let x = seed || Math.floor(Math.random() * 4294967296)
+    let t = x ^ (x << a)
 
-    var getFloat = function () {
-      var t = x ^ (x << a)
+    let getFloat = function () {
+      let t = x ^ (x << a)
 
       return (x = x ^ (x >> c) ^ (t ^ (t >> b))) / denom
     }

@@ -2,18 +2,18 @@ import { Admin } from './admin.js'
 import { PixelGraphics } from './info.js'
 
 export const InitPixel = function (args) {
-  var queryString = this.getQueryString()
-  var showcase = (this.showcase = true)
-  var forceName = args.imageName || window.location.hash.substr(1)
-  var slides = showcase ? this.showcaseSlides : this.slides
-  var currentSlide = !forceName && slides[queryString.slide || 0]
-  var imageName = forceName || currentSlide.name || 'tantalos'
-  var sliders = queryString.sliders || currentSlide.sliders
+  let queryString = this.getQueryString()
+  let showcase = (this.showcase = true)
+  let forceName = args.imageName || window.location.hash.substr(1)
+  let slides = showcase ? this.showcaseSlides : this.slides
+  let currentSlide = !forceName && slides[queryString.slide || 0]
+  let imageName = forceName || currentSlide.name || 'tantalos'
+  let sliders = queryString.sliders || currentSlide.sliders
   /** Change for multiple Canvases */
-  var canvasDataList = false
-  var canvasRenderer = this.createSingleCanvas(canvasDataList, args.div)
-  var callback
-  var [body] = document.getElementsByTagName('body')
+  let canvasDataList = false
+  let canvasRenderer = this.createSingleCanvas(canvasDataList, args.div)
+  let callback
+  let [body] = document.getElementsByTagName('body')
 
   this.parent = queryString.admin || queryString.parent
 
@@ -54,13 +54,13 @@ export const InitPixel = function (args) {
 }
 
 InitPixel.prototype.getQueryString = function () {
-  var list = {}
-  var vars = location.search.substr(1).split('&')
-  var i = 0
-  var l = vars.length
-  var pair
+  let list = {}
+  let vars = location.search.substr(1).split('&')
+  let i = 0
+  let l = vars.length
+  let pair
 
-  var convert = function (value) {
+  let convert = function (value) {
     if (value === 'true') {
       value = true
     } else if (value === 'false') {
@@ -113,8 +113,8 @@ InitPixel.prototype.getQueryString = function () {
 
 // Create a new Canvas, add it to the div and return it
 InitPixel.prototype.createSingleCanvas = function (canvasData, div) {
-  var canvas = document.createElement('canvas')
-  var key
+  let canvas = document.createElement('canvas')
+  let key
 
   canvas.resize = true
 
@@ -148,11 +148,11 @@ InitPixel.prototype.getCallback = function (
   currentSlide,
   info,
 ) {
-  var that = this
+  let that = this
 
   return function callback(ImageFunction) {
-    var imageFunction
-    var renderObject
+    let imageFunction
+    let renderObject
 
     if (ImageFunction) {
       if (that.createSlider) {
@@ -196,14 +196,14 @@ InitPixel.prototype.getCallback = function (
 }
 
 InitPixel.prototype.info = function (options) {
-  var logs = []
-  var initString
-  var d = document
-  var [body] = d.getElementsByTagName('body')
-  var info = d.createElement('div')
-  var show = options.showInfos
+  let logs = []
+  let initString
+  let d = document
+  let [body] = d.getElementsByTagName('body')
+  let info = d.createElement('div')
+  let show = options.showInfos
 
-  var swap = function () {
+  let swap = function () {
     if ((show = !show)) {
       body.appendChild(info)
     } else {
@@ -211,7 +211,7 @@ InitPixel.prototype.info = function (options) {
     }
   }
 
-  var change = function (name, value) {
+  let change = function (name, value) {
     logs[name] = value
   }
 
@@ -222,7 +222,7 @@ InitPixel.prototype.info = function (options) {
   }
 
   document.onkeydown = function () {
-    var k = event.keyCode
+    let k = event.keyCode
 
     if (event.ctrlKey) {
       if (k === 73) {
@@ -246,10 +246,10 @@ InitPixel.prototype.info = function (options) {
       ].join('')
     },
     logRenderTime(draw, fullDuration) {
-      var what
-      var lo = logs
-      var render = fullDuration - draw
-      var string = []
+      let what
+      let lo = logs
+      let render = fullDuration - draw
+      let string = []
 
       if (show) {
         change('Duration', fullDuration + 'ms')
@@ -285,9 +285,9 @@ InitPixel.prototype.info = function (options) {
 }
 
 InitPixel.prototype.addToQueryString = function (newObj, dontRefresh) {
-  var key
-  var q = this.queryString
-  var somethingChanged = false
+  let key
+  let q = this.queryString
+  let somethingChanged = false
 
   for (key in newObj) {
     if (q[key] !== newObj[key]) {
@@ -303,9 +303,9 @@ InitPixel.prototype.addToQueryString = function (newObj, dontRefresh) {
 }
 
 InitPixel.prototype.refresh = function (event) {
-  var newString = []
-  var key
-  var q = this.queryString
+  let newString = []
+  let key
+  let q = this.queryString
 
   if (event) {
     event.preventDefault()
@@ -346,7 +346,7 @@ InitPixel.prototype.sliderChange = function (obj) {
   if (this.renderer) {
     this.renderer.redraw(obj)
   } else {
-    for (var key in obj) {
+    for (let key in obj) {
       this.defaultValues[key] = obj[key]
     }
   }
@@ -379,7 +379,7 @@ InitPixel.prototype.setupToggleResizabilityLinkButton = function (button) {
 }
 
 InitPixel.prototype.toggleResizability = function (value) {
-  var resizeable = (this.queryString.resizeable =
+  let resizeable = (this.queryString.resizeable =
     value === undefined ? !this.queryString.resizeable : value)
 
   if (this.toggleResizabilityButton) {
@@ -390,7 +390,7 @@ InitPixel.prototype.toggleResizability = function (value) {
 }
 
 InitPixel.prototype.getDocumentTitle = function (imageName, queryString) {
-  var name = imageName
+  let name = imageName
 
   // add resizeable to the title
   if (queryString.resizeable) {
@@ -407,7 +407,7 @@ InitPixel.prototype.getDocumentTitle = function (imageName, queryString) {
 }
 
 InitPixel.prototype.getShortcuts = function (q) {
-  var that = this
+  let that = this
 
   return function (event) {
     if (event.ctrlKey) {
@@ -516,11 +516,11 @@ InitPixel.prototype.getShortcuts = function (q) {
 }
 
 InitPixel.prototype.getTimerAnimation = function () {
-  var that = this
-  var fps = 20
+  let that = this
+  let fps = 20
   /* how often per second should the chance be checked */
-  var waitTimer = fps * 0.5
-  var animations = {
+  let waitTimer = fps * 0.5
+  let animations = {
     camera: { duration: 6, chance: 0.1 },
     side: { duration: 3, chance: 0.3 },
     a: { duration: 2, chance: 0.3 },
@@ -538,13 +538,13 @@ InitPixel.prototype.getTimerAnimation = function () {
     m: { duration: 2, chance: 0.3 },
     n: { duration: 2, chance: 0.3 },
   }
-  var key
-  var current
+  let key
+  let current
 
-  var getFrame = function () {
-    var renderObject = {}
-    var current
-    var key
+  let getFrame = function () {
+    let renderObject = {}
+    let current
+    let key
 
     for (key in animations) {
       current = animations[key]

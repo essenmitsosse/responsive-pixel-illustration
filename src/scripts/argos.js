@@ -1,32 +1,32 @@
 import { helper } from '@/renderengine/helper.js'
 
 function argos() {
-  var wood = [155, 114, 70]
-  var wood1 = [143, 92, 57]
-  var wood2 = [177, 124, 62]
-  var wood3 = [130, 99, 64]
-  var woodDark = [60, 51, 45]
-  var holes = [64, 37, 19]
-  var sail = [208, 202, 202]
-  var string = [171, 177, 190]
-  var oar = [131, 93, 39]
-  var paddle = [219, 216, 211]
-  var ram = [149, 136, 100]
-  var slaveSkin = [162, 142, 128]
-  var slaveCloth = [65, 71, 79]
-  var spear = [151, 176, 175]
-  var spearTip = [137, 137, 137]
-  var argoCloth = [108, 50, 50]
-  var argoSkin = [200, 172, 151]
-  var argoHelm = [161, 133, 88]
-  var water = [26, 59, 120]
-  var water1 = [0, 36, 102]
-  var water2 = [9, 22, 71]
-  var foam = [245, 249, 255]
-  var backgroundColor = [165, 239, 255]
-  var cloud = [198, 245, 255]
+  let wood = [155, 114, 70]
+  let wood1 = [143, 92, 57]
+  let wood2 = [177, 124, 62]
+  let wood3 = [130, 99, 64]
+  let woodDark = [60, 51, 45]
+  let holes = [64, 37, 19]
+  let sail = [208, 202, 202]
+  let string = [171, 177, 190]
+  let oar = [131, 93, 39]
+  let paddle = [219, 216, 211]
+  let ram = [149, 136, 100]
+  let slaveSkin = [162, 142, 128]
+  let slaveCloth = [65, 71, 79]
+  let spear = [151, 176, 175]
+  let spearTip = [137, 137, 137]
+  let argoCloth = [108, 50, 50]
+  let argoSkin = [200, 172, 151]
+  let argoHelm = [161, 133, 88]
+  let water = [26, 59, 120]
+  let water1 = [0, 36, 102]
+  let water2 = [9, 22, 71]
+  let foam = [245, 249, 255]
+  let backgroundColor = [165, 239, 255]
+  let cloud = [198, 245, 255]
 
-  var mast = function (center, fromRight) {
+  let mast = function (center, fromRight) {
     return {
       sX: 'mastSX',
       color: wood1,
@@ -111,21 +111,21 @@ function argos() {
     }
   }
 
-  var fullOar = [
+  let fullOar = [
     { color: oar, weight: 1, points: [{ fY: true }, { fX: true }] },
     { color: paddle, s: 2, fY: true, tY: true, tX: true },
     { color: paddle, s: 2, fY: true, tY: true, tX: true, x: -1, y: -1 },
     { color: paddle, s: 2, fY: true, tY: true, tX: true, x: -2, y: -2 },
   ]
-  var faceSlop = [{ weight: 3, points: [{}, { fX: true, fY: true }] }]
-  var eye = [
+  let faceSlop = [{ weight: 3, points: [{}, { fX: true, fY: true }] }]
+  let eye = [
     {},
     { x: { r: 0.5 } },
     { y: { r: 0.5 }, fX: true },
     { fY: true, fX: true },
     { fY: true, x: { r: 0.3 }, y: { r: 0.3 } },
   ]
-  var cloudShape = [
+  let cloudShape = [
     {
       points: [
         { x: { r: 0.5 } },
@@ -156,7 +156,7 @@ function argos() {
       },
     },
   ]
-  var renderList = [
+  let renderList = [
     // { s:10, color:wood, list:[
     // 	{},
     // 	{ m:2, list:[
@@ -1043,7 +1043,7 @@ function argos() {
       ],
     },
   ]
-  var variableList = {
+  let variableList = {
     fullRect: { r: 1, max: { r: 1, height: true } },
 
     // BORDER

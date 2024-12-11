@@ -18,8 +18,8 @@ Person.prototype = new Object()
 Person.prototype.draw = function (args, z) {
   args.nr = this.basic.objectCount += 1
 
-  var backView = (args.backView = args.view === 'backView')
-  var sideView = (args.sideView = !backView && args.view ? true : false)
+  let backView = (args.backView = args.view === 'backView')
+  let sideView = (args.sideView = !backView && args.view ? true : false)
 
   args.id = this.id
 
@@ -55,7 +55,7 @@ export const BasicBody = function (args) {
   // var nextFirstColor = this.IF(0.5),
   // 	nextSecondColor = this.IF(0.2),
 
-  var hues = [
+  let hues = [
     [0, 1, 2],
     [0, 2, 2],
     [0, 1, 1],
@@ -223,7 +223,7 @@ BasicBody.prototype.draw = function (args, right) {
 
 // LOGO --------------------------------------------------------------------------------
 export const Logo = function (args, right, symetrical, logoColor) {
-  var color = !logoColor && this.IF(0.5)
+  let color = !logoColor && this.IF(0.5)
 
   this.name = symetrical ? (right ? 'right' : 'left') : 'chest'
 
@@ -274,9 +274,9 @@ export const Logo = function (args, right, symetrical, logoColor) {
 Logo.prototype = new Object()
 
 Logo.prototype.draw = function (args) {
-  var { nr } = args
-  var nrName = nr + this.name
-  var { sideView } = args
+  let { nr } = args
+  let nrName = nr + this.name
+  let { sideView } = args
 
   return (
     (!this.oneSide || args.right === this.side) && {

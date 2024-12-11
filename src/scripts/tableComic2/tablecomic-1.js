@@ -1,15 +1,15 @@
 // BEGINN getStrip /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const getFace = function () {
-  var backgroundColor = [0, 0, 0]
-  var that = this
+  let backgroundColor = [0, 0, 0]
+  let that = this
 
-  var getPanel = function () {
-    var actor = new this.basic.Actor({
+  let getPanel = function () {
+    let actor = new this.basic.Actor({
       color: [that.rInt(0, 255), that.rInt(0, 255), that.rInt(0, 255)],
     })
-    var pupilS = { map: 'c', min: 0.5, max: 0.8 }
-    var pupilPosY = { map: 'a', min: 0, max: 1 }
-    var openSY = { map: 'd', min: 0, max: 1 }
+    let pupilS = { map: 'c', min: 0.5, max: 0.8 }
+    let pupilPosY = { map: 'a', min: 0, max: 1 }
+    let openSY = { map: 'd', min: 0, max: 1 }
 
     return {
       camera: {
@@ -75,12 +75,12 @@ export const getFace = function () {
 }
 
 export const getStrip = function getStrip() {
-  var stripInfo = new this.getStripInfo()
-  var basicPanels = stripInfo.panels
-  var count = 0
-  var currentPanel
-  var finalPanels = []
-  var combiner = this.getCombiner(
+  let stripInfo = new this.getStripInfo()
+  let basicPanels = stripInfo.panels
+  let count = 0
+  let currentPanel
+  let finalPanels = []
+  let combiner = this.getCombiner(
     finalPanels,
     stripInfo.defaultPanels,
     stripInfo.inventory,
@@ -107,14 +107,14 @@ export const getStrip = function getStrip() {
 
 export const getCombiner = function (finals, defaults, inventory) {
   return function (panel) {
-    var panelList = panel.list || {}
-    var newList = []
-    var objectKey
-    var listKey
-    var defaultsList
+    let panelList = panel.list || {}
+    let newList = []
+    let objectKey
+    let listKey
+    let defaultsList
 
-    var copyDefaultObject = function (object, defaultObject) {
-      var valueKey
+    let copyDefaultObject = function (object, defaultObject) {
+      let valueKey
 
       if (object === undefined) {
         // If no Info exist about Object, that is supposed to be there
@@ -178,24 +178,24 @@ export const getCombiner = function (finals, defaults, inventory) {
 }
 
 export const getStripInfo = function () {
-  var background = new this.basic.Background({})
-  var basicPanel = new this.basic.Panel({
+  let background = new this.basic.Background({})
+  let basicPanel = new this.basic.Panel({
     background,
   })
-  var ratio = 1.3
-  var furnitureColor = [30, 50, 50]
-  var stage = new this.basic.Stage({
+  let ratio = 1.3
+  let furnitureColor = [30, 50, 50]
+  let stage = new this.basic.Stage({
     // show: true
   })
-  var actorBaseColor = [this.rInt(0, 255), this.rInt(0, 255), this.rInt(0, 255)]
-  var firstBaseColor = [this.rInt(0, 255), this.rInt(0, 255), this.rInt(0, 255)]
-  var secondBaseColor = [
+  let actorBaseColor = [this.rInt(0, 255), this.rInt(0, 255), this.rInt(0, 255)]
+  let firstBaseColor = [this.rInt(0, 255), this.rInt(0, 255), this.rInt(0, 255)]
+  let secondBaseColor = [
     this.rInt(0, 255),
     this.rInt(0, 255),
     this.rInt(0, 255),
   ]
 
-  var actor1 = new this.basic.Actor({
+  let actor1 = new this.basic.Actor({
     color: {
       map: 'actor-color',
       min: actorBaseColor,
@@ -206,7 +206,7 @@ export const getStripInfo = function () {
     secondColor: secondBaseColor,
     main: true,
   })
-  var actor2 = new this.basic.Actor({
+  let actor2 = new this.basic.Actor({
     color: actorBaseColor,
     firstColor: {
       map: 'actor-color',
@@ -226,27 +226,27 @@ export const getStripInfo = function () {
       },
     },
   })
-  var table = new this.basic.Table({
+  let table = new this.basic.Table({
     color: furnitureColor,
     sX: 0.6,
     colorDetail: [70, 90, 80],
   })
-  var chair1 = new this.basic.Chair({ color: furnitureColor })
-  var chair2 = new this.basic.Chair({ color: furnitureColor, toLeft: true })
-  var glass = new this.basic.Glass({
+  let chair1 = new this.basic.Chair({ color: furnitureColor })
+  let chair2 = new this.basic.Chair({ color: furnitureColor, toLeft: true })
+  let glass = new this.basic.Glass({
     color: [this.rInt(0, 255), this.rInt(0, 255), this.rInt(0, 255)],
   })
-  var emotion1 = new this.basic.Emotion({})
-  var emotion2 = new this.basic.Emotion({})
-  var noCameraMovement = false
-  var getZoom = (function () {
-    var min = 1
-    var max = min
-    var zoomIn = 0.1
-    var i = 0
+  let emotion1 = new this.basic.Emotion({})
+  let emotion2 = new this.basic.Emotion({})
+  let noCameraMovement = false
+  let getZoom = (function () {
+    let min = 1
+    let max = min
+    let zoomIn = 0.1
+    let i = 0
 
     return function () {
-      var zoom = { map: 'a', min, max }
+      let zoom = { map: 'a', min, max }
 
       if (i > 0) {
         // min += zoomOut;
@@ -264,7 +264,7 @@ export const getStripInfo = function () {
       return noCameraMovement ? (zoom.max + zoom.min) / 2 : zoom
     }
   })()
-  var panY = [
+  let panY = [
     -0.15,
     //0
     { map: 'a', min: -0.15, max: -0.18 },
@@ -278,7 +278,7 @@ export const getStripInfo = function () {
     { map: 'a', min: 0.1, max: 0.1 },
     // 5
   ]
-  var panX = [
+  let panX = [
     //0
     0,
     //1
@@ -292,34 +292,34 @@ export const getStripInfo = function () {
     //5
     noCameraMovement ? 0.2 : { map: 'a', min: 0.3, max: 0.25 },
   ]
-  var actor1PosRel = 0.1
-  var actor2PosRel = 0.85
-  var chair1basic = {
+  let actor1PosRel = 0.1
+  let actor2PosRel = 0.85
+  let chair1basic = {
     pos: {
       obj: stage,
       posX: actor1PosRel,
     },
   }
-  var chair2basic = {
+  let chair2basic = {
     pos: {
       obj: stage,
       posX: actor2PosRel,
     },
   }
-  var actor2standing = {
+  let actor2standing = {
     obj: stage,
     posX: actor2PosRel,
     posY: 0,
   }
-  var actor1LeftHandOnLap = {
+  let actor1LeftHandOnLap = {
     pos: { obj: actor1.body.legs, posX: 0.5, posY: 0.8 },
     hand: { angle: 0.5 },
   }
-  var actor1RightHandOnLap = {
+  let actor1RightHandOnLap = {
     pos: { obj: actor1.body.legs, posX: 0.8, posY: 1 },
     hand: { angle: -0.5 },
   }
-  var actor1RightHandOnTable = {
+  let actor1RightHandOnTable = {
     pos: {
       obj: table,
       posY: 1,
@@ -327,13 +327,13 @@ export const getStripInfo = function () {
     },
     hand: { angle: 0.5 },
   }
-  var actor2LeftHandOnTable = {
+  let actor2LeftHandOnTable = {
     pos: { obj: table, posY: 1, posX: 0.5 },
     hand: { angle: -0.5 },
     flip: true,
     z: -100,
   }
-  var actor2RightHandOnTable = {
+  let actor2RightHandOnTable = {
     pos: {
       obj: table,
       posY: 1,
@@ -341,8 +341,8 @@ export const getStripInfo = function () {
     },
     hand: { angle: -0.5 },
   }
-  var actor1OnTheGround = { obj: table, posX: 0, posY: 1 }
-  var actor1Dead = {
+  let actor1OnTheGround = { obj: table, posX: 0, posY: 1 }
+  let actor1Dead = {
     body: {
       side: { map: 'b', min: 0.2, max: 1 },
     },
@@ -381,7 +381,7 @@ export const getStripInfo = function () {
     },
     z: 20000,
   }
-  var actor2Reacts = {
+  let actor2Reacts = {
     pos: {
       obj: stage,
       posX: 1,
@@ -445,30 +445,30 @@ export const getStripInfo = function () {
       flip: true,
     },
   }
-  var chair1FallenOver = {
+  let chair1FallenOver = {
     rotate: -90,
     pos: { obj: stage, posX: -0.3, posY: 0.1 },
   }
-  var chair2FallenOver = {
+  let chair2FallenOver = {
     rotate: 90,
     pos: { obj: stage, posX: 1.4, posY: 0.2 },
   }
-  var glassBasic = {
+  let glassBasic = {
     z: 11000,
     level: { map: 'a', min: 0.15, max: 0.75 },
     pos: { obj: table, posX: 0.8, posY: 1 },
   }
-  var glassFallenOver = {
+  let glassFallenOver = {
     rotate: 90,
     pos: { obj: table, posX: 0.95, posY: 1 },
     level: 0,
   }
-  var glassOnGround = {
+  let glassOnGround = {
     pos: { obj: stage, posX: -0.7, posY: 0.1 },
     level: 0,
     rotate: -90,
   }
-  var panels = [
+  let panels = [
     {
       // - - - - - - - - - - - -  0
       camera: {

@@ -1,18 +1,18 @@
 import { helper } from '@/renderengine/helper.js'
 
 function typo() {
-  var backgroundColor = [170, 190, 230]
-  var font = [30, 30, 30]
-  var letterCount = 0
-  var spacingCount = 0
-  var word = 'MAUTZN'
-  var contrast = 0.4
-  var serif = true
-  var roundSerif = true
-  var middleStemLength = 0.8
-  var serifWidth = 0.6
+  let backgroundColor = [170, 190, 230]
+  let font = [30, 30, 30]
+  let letterCount = 0
+  let spacingCount = 0
+  let word = 'MAUTZN'
+  let contrast = 0.4
+  let serif = true
+  let roundSerif = true
+  let middleStemLength = 0.8
+  let serifWidth = 0.6
 
-  var getSerif = serif
+  let getSerif = serif
     ? function (args) {
         args = args || {}
 
@@ -130,9 +130,9 @@ function typo() {
       }
   // letterCount * letterWidth + letterCount
 
-  var getLetter = (function () {
-    var Letters = new (function () {
-      var vertStem = { sY: 'stemVert', cY: true }
+  let getLetter = (function () {
+    let Letters = new (function () {
+      let vertStem = { sY: 'stemVert', cY: true }
       this.missing = {
         sX: 2,
         list: [
@@ -417,9 +417,9 @@ function typo() {
     })()
 
     return function (letter) {
-      var thisLetter =
+      let thisLetter =
         Letters[letter] || (letter === ' ' ? Letters.space : Letters.missing)
-      var letterObject = {
+      let letterObject = {
         sX: helper.mult(thisLetter.sX, 'wordUnit'),
         x: [
           helper.mult(letterCount, 'wordUnit'),
@@ -444,9 +444,9 @@ function typo() {
       return letterObject
     }
   })()
-  var letters = (function () {
-    var list = []
-    var l = word.length
+  let letters = (function () {
+    let list = []
+    let l = word.length
 
     while (l--) {
       list.push(getLetter(word[l]))
@@ -458,7 +458,7 @@ function typo() {
 
     return list
   })()
-  var renderList = [
+  let renderList = [
     {
       mY: 'border',
       sX: [
@@ -471,7 +471,7 @@ function typo() {
     },
     // { gap:{a:0}, color:[255,255,0], change:{r:-1} },
   ]
-  var variableList = {
+  let variableList = {
     border: helper.getSmallerDim({ r: 0.08 }),
     borderSide: { r: 0.04 },
     imgWidth: { r: 1, add: [helper.mult(-2, 'borderSide', -spacingCount)] },

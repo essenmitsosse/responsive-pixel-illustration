@@ -1,10 +1,10 @@
 function relativity() {
-  var c1 = [255, 0, 0]
-  var c2 = [0, 255, 0]
-  var c3 = [0, 0, 255]
-  var c4 = [0, 255, 255]
-  var backgroundColor = [50, 50, 50]
-  var renderList = [
+  let c1 = [255, 0, 0]
+  let c2 = [0, 255, 0]
+  let c3 = [0, 0, 255]
+  let c4 = [0, 255, 255]
+  let backgroundColor = [50, 50, 50]
+  let renderList = [
     {
       m: 'border',
       list: [
@@ -42,7 +42,7 @@ function relativity() {
       ],
     },
   ]
-  var variableList = {
+  let variableList = {
     border: { r: 0.1, height: true },
     imgHeight: {
       r: 1,

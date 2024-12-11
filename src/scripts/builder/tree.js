@@ -81,7 +81,7 @@ export const Tree = function (args) {
 
   this.zInd = 1000
 
-  for (var attr in args) {
+  for (let attr in args) {
     this[attr] = args[attr]
   }
 
@@ -123,7 +123,7 @@ export const Tree = function (args) {
 Tree.prototype = new Object()
 
 Tree.prototype.draw = function (args, z, size) {
-  var code = (this.code = this.id + '_' + (this.nr += 1))
+  let code = (this.code = this.id + '_' + (this.nr += 1))
   this.zInd = z
 
   this.randomCount = 0
@@ -302,12 +302,12 @@ Tree.prototype.draw = function (args, z, size) {
 // END Tree draw
 
 Tree.prototype.addBranches = function (args, hor, parentLeft, count, level) {
-  var list = []
-  var i = Math.floor(count)
-  var step = (1 / i) * this.minFoliagePos
-  var left = true
-  var thisZ = level === 1 || this.getRandom() < 0.2 ? 'Front' : 'Back'
-  var strip = {
+  let list = []
+  let i = Math.floor(count)
+  let step = (1 / i) * this.minFoliagePos
+  let left = true
+  let thisZ = level === 1 || this.getRandom() < 0.2 ? 'Front' : 'Back'
+  let strip = {
     stripes: {
       random: { r: -0.5 },
       strip: this.leaveX,
@@ -316,7 +316,7 @@ Tree.prototype.addBranches = function (args, hor, parentLeft, count, level) {
       cut: true,
     },
   }
-  var leaves = [
+  let leaves = [
     // Shadow of Leaves
     {
       save: 'leavesShadow' + thisZ + this.code,
@@ -432,10 +432,10 @@ Tree.prototype.getRandom = function () {
 
 // FORREST
 export const Forrest = function () {
-  var i = (this.treeKindsCount = this.IF(0.8) ? 1 : this.IF(0.8) ? 2 : 3)
+  let i = (this.treeKindsCount = this.IF(0.8) ? 1 : this.IF(0.8) ? 2 : 3)
   // trees,
-  var family
-  var count
+  let family
+  let count
 
   this.trees = []
 
@@ -462,9 +462,9 @@ export const Forrest = function () {
 Forrest.prototype = new Object()
 
 Forrest.prototype.draw = function (args, z, size) {
-  var list = []
-  var i = this.treeCount
-  var thisTree
+  let list = []
+  let i = this.treeCount
+  let thisTree
 
   while (i--) {
     thisTree = this.trees[i]

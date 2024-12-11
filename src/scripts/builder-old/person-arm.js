@@ -55,16 +55,16 @@ export const Arm = function (args) {
 Arm.prototype = new Object()
 
 Arm.prototype.draw = function (args, rightSide, behind) {
-  var name = rightSide ? 'right' : 'left',
-    nrName = name + args.nr,
-    renderFromRight = args.sideView ? rightSide : args.right !== args.backView,
-    tool = rightSide ? this.toolRight : this.toolLeft,
-    otherHand = !rightSide ? this.toolRight : this.toolLeft,
-    finger = args.finger && args.finger[name],
-    shoulderAngle = ((args.shoulder && args.shoulder[name]) || 0) * Math.PI,
-    armAngle = ((args.arm && args.arm[name]) || 0) * Math.PI + shoulderAngle,
-    fullAngle = (armAngle / Math.PI) * 180,
-    upperZ = shoulderAngle < 1.5 ? -150 : 0
+  var name = rightSide ? 'right' : 'left'
+  var nrName = name + args.nr
+  var renderFromRight = args.sideView ? rightSide : args.right !== args.backView
+  var tool = rightSide ? this.toolRight : this.toolLeft
+  var otherHand = !rightSide ? this.toolRight : this.toolLeft
+  var finger = args.finger && args.finger[name]
+  var shoulderAngle = ((args.shoulder && args.shoulder[name]) || 0) * Math.PI
+  var armAngle = ((args.arm && args.arm[name]) || 0) * Math.PI + shoulderAngle
+  var fullAngle = (armAngle / Math.PI) * 180
+  var upperZ = shoulderAngle < 1.5 ? -150 : 0
 
   if (fullAngle > 180) {
     fullAngle -= 360
@@ -609,8 +609,8 @@ export const Sword = function (args, right) {
 Sword.prototype = new Object()
 
 Sword.prototype.draw = function (args, z) {
-  var name = this.rightSide ? 'right' : 'left',
-    nrName = name + args.nr
+  var name = this.rightSide ? 'right' : 'left'
+  var nrName = name + args.nr
 
   this.vL['handleSY' + nrName] = { add: ['handSX' + args.nr, -2], min: 1 }
 
@@ -751,8 +751,8 @@ export const Shield = function (args, right) {
 Shield.prototype = new Object()
 
 Shield.prototype.draw = function (args, z) {
-  var nrName = this.name + args.nr,
-    logo = [this.logo.draw(args, z + 805)]
+  var nrName = this.name + args.nr
+  var logo = [this.logo.draw(args, z + 805)]
 
   this.vL['shieldSX' + nrName] = {
     r: this.shieldSX,

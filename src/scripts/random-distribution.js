@@ -1,60 +1,61 @@
 import { helper } from '@/renderengine/helper.js'
 
 function randomDistribution(init) {
-  var random = helper.random(init.id),
-    backgroundColor = [0, 0, 0],
-    width = { main: true },
-    height = { main: true, height: true },
-    square = { r: 1, useSize: width, max: height },
-    biggerSquare = { r: 1, useSize: width, min: height },
-    linkList = [width, height, square, biggerSquare],
-    renderList,
-    backgroundGrid = true,
-    minSize = random.getRandomFloat(0, 0.8),
-    maxSize = random.getRandomFloat(minSize, 1),
-    minR = random.getRandom(0, 200),
-    maxR = random.getRandom(minR, 255),
-    minG = random.getRandom(0, 200),
-    maxG = random.getRandom(minG, 255),
-    minB = random.getRandom(0, 200),
-    maxB = random.getRandom(minB, 255)
+  var random = helper.random(init.id)
+  var backgroundColor = [0, 0, 0]
+  var width = { main: true }
+  var height = { main: true, height: true }
+  var square = { r: 1, useSize: width, max: height }
+  var biggerSquare = { r: 1, useSize: width, min: height }
+  var linkList = [width, height, square, biggerSquare]
+  var renderList
+  var backgroundGrid = true
+  var minSize = random.getRandomFloat(0, 0.8)
+  var maxSize = random.getRandomFloat(minSize, 1)
+  var minR = random.getRandom(0, 200)
+  var maxR = random.getRandom(minR, 255)
+  var minG = random.getRandom(0, 200)
+  var maxG = random.getRandom(minG, 255)
+  var minB = random.getRandom(0, 200)
+  var maxB = random.getRandom(minB, 255)
 
   renderList = (function () {
-    var count = random.getRandom(5, 20),
-      s_ = 1 / (count - 1),
-      row = count,
-      col,
-      s,
-      list = [],
-      getSquare = function () {
-        var innerS
+    var count = random.getRandom(5, 20)
+    var s_ = 1 / (count - 1)
+    var row = count
+    var col
+    var s
+    var list = []
 
-        linkList.push(
-          (innerS = {
-            r: random.getRandomFloat(minSize, maxSize),
-            useSize: s,
-            odd: true,
-            test: true,
-          }),
-        )
+    var getSquare = function () {
+      var innerS
 
-        list.push({
-          s: [s, -1],
-          color: [
-            random.getRandomFloat(minR, maxR),
-            random.getRandomFloat(minG, maxG),
-            random.getRandomFloat(minB, maxB),
-          ],
-          x: { r: row, useSize: s },
-          y: { r: col, useSize: s },
-          list: [
-            {
-              c: true,
-              s: innerS,
-            },
-          ],
-        })
-      }
+      linkList.push(
+        (innerS = {
+          r: random.getRandomFloat(minSize, maxSize),
+          useSize: s,
+          odd: true,
+          test: true,
+        }),
+      )
+
+      list.push({
+        s: [s, -1],
+        color: [
+          random.getRandomFloat(minR, maxR),
+          random.getRandomFloat(minG, maxG),
+          random.getRandomFloat(minB, maxB),
+        ],
+        x: { r: row, useSize: s },
+        y: { r: col, useSize: s },
+        list: [
+          {
+            c: true,
+            s: innerS,
+          },
+        ],
+      })
+    }
 
     linkList.push((s = { r: s_, useSize: biggerSquare, odd: true }))
 

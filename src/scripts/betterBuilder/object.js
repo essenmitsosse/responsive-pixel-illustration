@@ -2,11 +2,11 @@ export const BBObj = function () {}
 
 // GET ROTATION
 BBObj.prototype.calcRotation = function (rotate) {
-  var realRotation = rotate - 45,
-    rad,
-    sin,
-    cos,
-    front
+  var realRotation = rotate - 45
+  var rad
+  var sin
+  var cos
+  var front
 
   if (realRotation > 180) {
     realRotation -= 360
@@ -159,11 +159,11 @@ BBObj.prototype.moveOut = function (args, rotate) {
   //	xAdd,
   //	XRel
 
-  var diff,
-    add = [],
-    X = {
-      add,
-    }
+  var diff
+  var add = []
+  var X = {
+    add,
+  }
 
   if (args.sXBase && args.xBase) {
     // Move out, relative to the Base

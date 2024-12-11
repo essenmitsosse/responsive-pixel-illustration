@@ -353,32 +353,31 @@ export const Eye = function (args) {
 Eye.prototype = new Object()
 
 Eye.prototype.draw = function (args) {
-  var thisEye = args.eye || {},
-    eyeSad = thisEye.lids === 'sad',
-    eyeAngry = eyeSad || thisEye.lids === 'angry',
-    eyeClosed =
-      eyeAngry ||
-      thisEye.lids === 'closed' ||
-      thisEye.lids === 'sleepy' ||
-      (args.right && thisEye.lids === 'wink'),
-    eyeHalfClosed = !eyeClosed && thisEye.lids === 'halfClosed',
-    lookUp = thisEye.lookHor === 'up',
-    lookDown = thisEye.lookHor === 'down' || thisEye.lookHor === 'veryDown',
-    lookExtrem = lookUp || thisEye.lookHor === 'veryDown',
-    lookForward = !lookUp && !lookDown,
-    lookSide = thisEye.lookVert,
-    lookRight = thisEye.lookVert === 'right',
-    eyeBrowRaised =
-      thisEye.brow === 'raised' || (args.right && thisEye.brow === 'sceptical'),
-    eyeBrowLow =
-      thisEye.brow === 'low' || (!args.right && thisEye.brow === 'sceptical'),
-    eyeBrowSad =
-      thisEye.brow === 'sad' ||
-      (args.right && thisEye.brow === 'superSceptical'),
-    eyeBrowAngry =
-      eyeBrowSad ||
-      thisEye.brow === 'angry' ||
-      (!args.right && thisEye.brow === 'superSceptical')
+  var thisEye = args.eye || {}
+  var eyeSad = thisEye.lids === 'sad'
+  var eyeAngry = eyeSad || thisEye.lids === 'angry'
+  var eyeClosed =
+    eyeAngry ||
+    thisEye.lids === 'closed' ||
+    thisEye.lids === 'sleepy' ||
+    (args.right && thisEye.lids === 'wink')
+  var eyeHalfClosed = !eyeClosed && thisEye.lids === 'halfClosed'
+  var lookUp = thisEye.lookHor === 'up'
+  var lookDown = thisEye.lookHor === 'down' || thisEye.lookHor === 'veryDown'
+  var lookExtrem = lookUp || thisEye.lookHor === 'veryDown'
+  var lookForward = !lookUp && !lookDown
+  var lookSide = thisEye.lookVert
+  var lookRight = thisEye.lookVert === 'right'
+  var eyeBrowRaised =
+    thisEye.brow === 'raised' || (args.right && thisEye.brow === 'sceptical')
+  var eyeBrowLow =
+    thisEye.brow === 'low' || (!args.right && thisEye.brow === 'sceptical')
+  var eyeBrowSad =
+    thisEye.brow === 'sad' || (args.right && thisEye.brow === 'superSceptical')
+  var eyeBrowAngry =
+    eyeBrowSad ||
+    thisEye.brow === 'angry' ||
+    (!args.right && thisEye.brow === 'superSceptical')
 
   if (args.calc) {
     this.vL['eyeFullSX' + args.nr] = {
@@ -683,26 +682,25 @@ export const Mouth = function (args) {
 Mouth.prototype = new Object()
 
 Mouth.prototype.draw = function (args) {
-  var thisMouth = args.mouth || {},
-    mouthWidth = thisMouth.width,
-    mouthHeight = thisMouth.height,
-    mouthForm = thisMouth.form,
-    mouthD = mouthForm === 'D:',
-    mouthGrin = mouthD || mouthForm === 'grin',
-    mouthNarrow = mouthWidth === 'narrow',
-    mouthSlight = mouthHeight === 'slight',
-    mouthHalfOpen = mouthHeight === 'half',
-    mouthOpen = mouthSlight || mouthHalfOpen || mouthHeight === 'full',
-    mouthSmile = mouthGrin && !mouthOpen,
-    teethFull =
-      !mouthSlight && mouthOpen && !mouthNarrow && thisMouth.teeth === 'full',
-    teethTop =
-      !mouthSlight &&
-      ((mouthOpen && thisMouth.teeth === 'top') || thisMouth.teeth === 'both'),
-    teethBottom =
-      !mouthSlight &&
-      ((mouthOpen && thisMouth.teeth === 'bottom') ||
-        thisMouth.teeth === 'both')
+  var thisMouth = args.mouth || {}
+  var mouthWidth = thisMouth.width
+  var mouthHeight = thisMouth.height
+  var mouthForm = thisMouth.form
+  var mouthD = mouthForm === 'D:'
+  var mouthGrin = mouthD || mouthForm === 'grin'
+  var mouthNarrow = mouthWidth === 'narrow'
+  var mouthSlight = mouthHeight === 'slight'
+  var mouthHalfOpen = mouthHeight === 'half'
+  var mouthOpen = mouthSlight || mouthHalfOpen || mouthHeight === 'full'
+  var mouthSmile = mouthGrin && !mouthOpen
+  var teethFull =
+    !mouthSlight && mouthOpen && !mouthNarrow && thisMouth.teeth === 'full'
+  var teethTop =
+    !mouthSlight &&
+    ((mouthOpen && thisMouth.teeth === 'top') || thisMouth.teeth === 'both')
+  var teethBottom =
+    !mouthSlight &&
+    ((mouthOpen && thisMouth.teeth === 'bottom') || thisMouth.teeth === 'both')
 
   if (args.calc) {
     this.vL['mouthSX' + args.nr] = {
@@ -827,8 +825,8 @@ export const Hair = function (args) {
 Hair.prototype = new Object()
 
 Hair.prototype.draw = function (args) {
-  var rightSide = args.sideView || !args.right,
-    name = args.id + '_' + args.right + args.nr
+  var rightSide = args.sideView || !args.right
+  var name = args.id + '_' + args.right + args.nr
 
   if (args.calc) {
     this.vL['hairS' + args.nr] = {

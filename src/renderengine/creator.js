@@ -2,9 +2,9 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   var that = this
 
   this.seed = (function (getRandom) {
-    var getSeed = getRandom().seed,
-      count = 0,
-      i = []
+    var getSeed = getRandom().seed
+    var count = 0
+    var i = []
 
     return {
       reset() {
@@ -15,8 +15,8 @@ export const DrawingTools = function (pixelUnit, getRandom) {
         }
       },
       get(j) {
-        var seed = j || getSeed(),
-          nr = (count += 1)
+        var seed = j || getSeed()
+        var nr = (count += 1)
 
         return function () {
           return getRandom(seed + i[nr]++ || 0)
@@ -26,74 +26,79 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   })(getRandom)
 
   this.pixelSetter = (function () {
-    var colorArray,
-      formSave = {},
-      getSet = function (color, zInd, id) {
-        return function () {
-          return colorArray.getSet(color, zInd, id)
-        }
-      },
-      getClear = function (id) {
-        return function () {
-          return colorArray.getClear(id)
-        }
-      },
-      getSetForRect = function (color, zInd, id) {
-        return function () {
-          return colorArray.getSetForRect(color, zInd, id)
-        }
-      },
-      getClearForRect = function (id) {
-        return function () {
-          return colorArray.getClearForRect(id)
-        }
-      },
-      getSave = function (name, isRect) {
-        return function () {
-          var thisSave = formSave[name]
-              ? formSave[name]
-              : (formSave[name] = {}),
-            save = thisSave.save ? thisSave.save : (thisSave.save = []),
-            mask = thisSave.mask ? thisSave.mask : (thisSave.mask = [])
+    var colorArray
+    var formSave = {}
+
+    var getSet = function (color, zInd, id) {
+      return function () {
+        return colorArray.getSet(color, zInd, id)
+      }
+    }
+
+    var getClear = function (id) {
+      return function () {
+        return colorArray.getClear(id)
+      }
+    }
+
+    var getSetForRect = function (color, zInd, id) {
+      return function () {
+        return colorArray.getSetForRect(color, zInd, id)
+      }
+    }
+
+    var getClearForRect = function (id) {
+      return function () {
+        return colorArray.getClearForRect(id)
+      }
+    }
+
+    var getSave = function (name, isRect) {
+      return function () {
+        var thisSave = formSave[name] ? formSave[name] : (formSave[name] = {})
+        var save = thisSave.save ? thisSave.save : (thisSave.save = [])
+        var mask = thisSave.mask ? thisSave.mask : (thisSave.mask = [])
+
+        return isRect
+          ? colorArray.getSaveForRect(save, mask)
+          : function (x, y) {
+              save.push([x, y])
+
+              if (!mask[x]) {
+                mask[x] = []
+              }
+
+              mask[x][y] = true
+            }
+      }
+    }
+
+    var getClearSave = function (name, isRect) {
+      return function () {
+        var thisSave = formSave[name]
+        var save
+        var mask
+
+        if (thisSave) {
+          save = thisSave.save
+
+          mask = thisSave.mask
 
           return isRect
-            ? colorArray.getSaveForRect(save, mask)
-            : function (x, y) {
-                save.push([x, y])
-
-                if (!mask[x]) {
-                  mask[x] = []
-                }
-
-                mask[x][y] = true
-              }
+            ? colorArray.getClearSaveForRect(save, mask)
+            : function () {}
         }
-      },
-      getClearSave = function (name, isRect) {
-        return function () {
-          var thisSave = formSave[name],
-            save,
-            mask
-
-          if (thisSave) {
-            save = thisSave.save
-
-            mask = thisSave.mask
-
-            return isRect
-              ? colorArray.getClearSaveForRect(save, mask)
-              : function () {}
-          }
-        }
-      },
-      getColorMask = function (dimensions, push) {
-        return colorArray.setMask(dimensions, push)
       }
+    }
+
+    var getColorMask = function (dimensions, push) {
+      return colorArray.setMask(dimensions, push)
+    }
 
     return {
       setArray(newArray) {
-        var forms = formSave,
-          key
+        var forms = formSave
+        var key
 
         for (key in forms) {
           forms[key] = []
@@ -169,10 +174,10 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     return function (args, inherit) {
       inherit = inherit || {}
 
-      var newArgs,
-        reflectX = inherit.reflectX || false,
-        reflectY = inherit.reflectY || false,
-        rotate = inherit.rotate || 0
+      var newArgs
+      var reflectX = inherit.reflectX || false
+      var reflectY = inherit.reflectY || false
+      var rotate = inherit.rotate || 0
 
       if (rotate >= 360) {
         rotate -= 360
@@ -324,14 +329,14 @@ export const DrawingTools = function (pixelUnit, getRandom) {
           var w = pixelUnit.createSize(weight)
 
           return function () {
-            var thisW = w.getReal(),
-              first = -Math.round(thisW / 2),
-              second = Math.round(thisW + first),
-              set = this.getColorArray()
+            var thisW = w.getReal()
+            var first = -Math.round(thisW / 2)
+            var second = Math.round(thisW + first)
+            var set = this.getColorArray()
 
             return function (x, y) {
-              var i = first,
-                j
+              var i = first
+              var j
 
               while ((i += 1) <= second) {
                 j = first
@@ -352,8 +357,8 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     reflectY,
     rotate,
   ) {
-    var newPoints = [],
-      l = args.points.length
+    var newPoints = []
+    var l = args.points.length
 
     reflectX = (args.rX || false) !== reflectX
 
@@ -375,7 +380,15 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     var getDrawLine = function (set) {
       return function (p0, p1) {
         // Draw a single Lines
-        var x0, y0, x1, y1, dx, dy, sy, err, e2
+        var x0
+        var y0
+        var x1
+        var y1
+        var dx
+        var dy
+        var sy
+        var err
+        var e2
 
         if (isNaN(p0.x) || isNaN(p0.y) || isNaN(p1.x) || isNaN(p1.y)) {
           throw new Error('Line with NaN found!', p0.x, p0.y, p1.x, p1.y)
@@ -433,11 +446,11 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
     return function () {
       // Draw all Lines
-      var p = this.args.points,
-        l = this.args.LineCount,
-        nextPoint = p[l](),
-        firstPoint = this.args.closed ? nextPoint : false,
-        drawLine = getDrawLine(this.lineSetter())
+      var p = this.args.points
+      var l = this.args.LineCount
+      var nextPoint = p[l]()
+      var firstPoint = this.args.closed ? nextPoint : false
+      var drawLine = getDrawLine(this.lineSetter())
 
       while (l--) {
         nextPoint = drawLine(nextPoint, p[l]())
@@ -456,120 +469,132 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   this.Polygon.prototype.draw = (function () {
     var getLineEdgeGetter = function (edgeList) {
-        var i = -1
+      var i = -1
 
-        return function (p0, p1) {
-          // Draw a single Lines
-          var x0, y0, x1, y1, dx, dy, sy, err, e2, first, last
+      return function (p0, p1) {
+        // Draw a single Lines
+        var x0
+        var y0
+        var x1
+        var y1
+        var dx
+        var dy
+        var sy
+        var err
+        var e2
+        var first
+        var last
 
-          if (p0.x > p1.x) {
-            x1 = p0.x
+        if (p0.x > p1.x) {
+          x1 = p0.x
 
-            y1 = p0.y
+          y1 = p0.y
 
-            x0 = p1.x
+          x0 = p1.x
 
-            y0 = p1.y
-          } else {
-            x0 = p0.x
+          y0 = p1.y
+        } else {
+          x0 = p0.x
 
-            y0 = p0.y
+          y0 = p0.y
 
-            x1 = p1.x
+          x1 = p1.x
 
-            y1 = p1.y
-          }
+          y1 = p1.y
+        }
 
-          // if( y0 === y1 ) { // Skip if horizontal Line
-          // 	edgeList[ i += 1 ] = { x0: x0, x1:x0, y: y0 };
-          // 	edgeList[ i += 1 ] = { x0: x1, x1:x1, y: y0 };
-          // 	return p1;
-          // }
+        // if( y0 === y1 ) { // Skip if horizontal Line
+        // 	edgeList[ i += 1 ] = { x0: x0, x1:x0, y: y0 };
+        // 	edgeList[ i += 1 ] = { x0: x1, x1:x1, y: y0 };
+        // 	return p1;
+        // }
 
-          dx = Math.abs(x1 - x0)
+        dx = Math.abs(x1 - x0)
 
-          dy = -Math.abs(y1 - y0)
+        dy = -Math.abs(y1 - y0)
 
-          sy = y0 < y1 ? 1 : -1
+        sy = y0 < y1 ? 1 : -1
 
-          err = dx + dy
+        err = dx + dy
 
-          e2 = 2 * err
+        e2 = 2 * err
 
-          first = sy === -1
+        first = sy === -1
 
-          last = !first
+        last = !first
 
-          if (first) {
-            edgeList[(i += 1)] = { x0, y: y0 }
-          }
+        if (first) {
+          edgeList[(i += 1)] = { x0, y: y0 }
+        }
 
-          while (true) {
-            if (x0 === x1 && y0 === y1) {
-              // Add List Point and Break
-              if (last) {
-                edgeList[i].x1 = x0
-              } else {
-                i -= 1
+        while (true) {
+          if (x0 === x1 && y0 === y1) {
+            // Add List Point and Break
+            if (last) {
+              edgeList[i].x1 = x0
+            } else {
+              i -= 1
 
-                edgeList.pop()
-              }
-
-              return p1
+              edgeList.pop()
             }
 
-            if (e2 < dx) {
-              if (first) {
-                edgeList[i].x1 = x0
-              } else {
-                first = true
-              }
+            return p1
+          }
 
-              edgeList[(i += 1)] = {
-                x0: x0 + (dx ? 1 : 0),
-                y: (y0 += sy),
-              }
-
-              err += dx
-
-              e2 = 2 * err
-            } else if (e2 > dy) {
-              err += dy
-
-              x0 += 1
-
-              e2 = 2 * err
+          if (e2 < dx) {
+            if (first) {
+              edgeList[i].x1 = x0
+            } else {
+              first = true
             }
+
+            edgeList[(i += 1)] = {
+              x0: x0 + (dx ? 1 : 0),
+              y: (y0 += sy),
+            }
+
+            err += dx
+
+            e2 = 2 * err
+          } else if (e2 > dy) {
+            err += dy
+
+            x0 += 1
+
+            e2 = 2 * err
           }
         }
-      },
-      getDrawRow = function (set) {
-        return function (p0, p1) {
-          do {
-            set(p0.x0, p1.y)
-          } while ((p0.x0 += 1) <= p1.x1)
-        }
-      },
-      sortFunction = function (a, b) {
-        var n = b.y - a.y
-
-        if (n !== 0) {
-          return n
-        }
-
-        return b.x0 - a.x0
       }
+    }
+
+    var getDrawRow = function (set) {
+      return function (p0, p1) {
+        do {
+          set(p0.x0, p1.y)
+        } while ((p0.x0 += 1) <= p1.x1)
+      }
+    }
+
+    var sortFunction = function (a, b) {
+      var n = b.y - a.y
+
+      if (n !== 0) {
+        return n
+      }
+
+      return b.x0 - a.x0
+    }
 
     return function () {
       // Draw all Lines
-      var edgeList = [],
-        colorArraySet = this.getColorArray(),
-        drawRow = getDrawRow(colorArraySet),
-        getLineEdge = getLineEdgeGetter(edgeList),
-        p = this.args.points,
-        l = this.args.LineCount,
-        nextPoint = p[l](true),
-        firstPoint = nextPoint
+      var edgeList = []
+      var colorArraySet = this.getColorArray()
+      var drawRow = getDrawRow(colorArraySet)
+      var getLineEdge = getLineEdgeGetter(edgeList)
+      var p = this.args.points
+      var l = this.args.LineCount
+      var nextPoint = p[l](true)
+      var firstPoint = nextPoint
 
       while (l--) {
         nextPoint = getLineEdge(nextPoint, p[l](true))
@@ -599,8 +624,8 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   this.Fill.prototype.prepareSizeAndPos = (function (pixelUnit) {
     // Prepare Size and Position Data for Basic Objects
     return function (args, reflectX, reflectY, rotate) {
-      var width = (rotate ? args.sY : args.sX) || args.s,
-        height = (rotate ? args.sX : args.sY) || args.s
+      var width = (rotate ? args.sY : args.sX) || args.s
+      var height = (rotate ? args.sX : args.sY) || args.s
 
       this.width = width ? new pixelUnit.Width(width) : false
 
@@ -609,10 +634,10 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   })(pixelUnit)
 
   this.Fill.prototype.draw = function () {
-    var color = this.getColorArray(),
-      array = that.pixelSetter.getSave(this.use),
-      l = array ? array.length - 1 : -1,
-      current
+    var color = this.getColorArray()
+    var array = that.pixelSetter.getSave(this.use)
+    var l = array ? array.length - 1 : -1
+    var current
 
     while (l >= 0) {
       color((current = array[l--])[0], current[1])
@@ -626,8 +651,8 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   this.FillRandom.prototype.getName = 'Random Fill'
 
   this.FillRandom.prototype.init = function (args) {
-    var width = this.rotate ? args.sY : args.sX,
-      height = this.rotate ? args.sX : args.sY
+    var width = this.rotate ? args.sY : args.sX
+    var height = this.rotate ? args.sX : args.sY
 
     this.use = args.use
 
@@ -651,37 +676,37 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   }
 
   this.FillRandom.prototype.draw = function () {
-    var width = this.width ? this.width.getReal() : 1,
-      height = this.height ? this.height.getReal() : 1,
-      sizeRandom = this.sizeRandom ? this.sizeRandom.getReal() + 1 : false,
-      heightRandom = this.heightRandom
-        ? this.heightRandom.getReal() + 1
-        : false,
-      widthRandom = this.widthRandom ? this.widthRandom.getReal() + 1 : false,
-      color = this.getColorArray(),
-      array = that.pixelSetter.getSave(this.use),
-      l = array ? array.length : 0,
-      count = Math.floor(
-        l *
-          (this.chance /
-            ((width + (widthRandom || sizeRandom || 0) / 2) *
-              (height + (heightRandom || sizeRandom || 0) / 2))),
-      ),
-      mask = this.mask ? that.pixelSetter.getMask(this.use) : false,
-      dontCheck = !mask,
-      random = this.random().one,
-      current,
-      currentX,
-      currentY,
-      finalX,
-      finalMaskX,
-      odd = true,
-      w,
-      h,
-      realHeight,
-      randSize = 0,
-      randWidth = 0,
-      randHeight = 0
+    var width = this.width ? this.width.getReal() : 1
+    var height = this.height ? this.height.getReal() : 1
+    var sizeRandom = this.sizeRandom ? this.sizeRandom.getReal() + 1 : false
+    var heightRandom = this.heightRandom
+      ? this.heightRandom.getReal() + 1
+      : false
+    var widthRandom = this.widthRandom ? this.widthRandom.getReal() + 1 : false
+    var color = this.getColorArray()
+    var array = that.pixelSetter.getSave(this.use)
+    var l = array ? array.length : 0
+    var count = Math.floor(
+      l *
+        (this.chance /
+          ((width + (widthRandom || sizeRandom || 0) / 2) *
+            (height + (heightRandom || sizeRandom || 0) / 2))),
+    )
+    var mask = this.mask ? that.pixelSetter.getMask(this.use) : false
+    var dontCheck = !mask
+    var random = this.random().one
+    var current
+    var currentX
+    var currentY
+    var finalX
+    var finalMaskX
+    var odd = true
+    var w
+    var h
+    var realHeight
+    var randSize = 0
+    var randWidth = 0
+    var randHeight = 0
 
     if (count === Infinity) {
       return
@@ -775,10 +800,10 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     // Initing a new Object, converting its List into real Objects.
     var convertList = function (list, inherit) {
       // Loops through the List of an Object
-      var l = list ? list.length : 0,
-        i = 0,
-        newList = [],
-        newTool
+      var l = list ? list.length : 0
+      var i = 0
+      var newList = []
+      var newTool
 
       do {
         newTool = list[i]
@@ -835,9 +860,9 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   this.Obj.prototype.draw = (function (pixelUnit) {
     // Draws Object, consisting of other Objects and Primitives.
     return function () {
-      var l = this.args.list.length,
-        dimensions = this.dimensions.calc(),
-        oldMask
+      var l = this.args.list.length
+      var dimensions = this.dimensions.calc()
+      var oldMask
 
       if (dimensions.checkMin()) {
         return
@@ -871,12 +896,12 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   this.Stripes.prototype.isStripe = true
 
   this.Stripes.prototype.detailInit = function (args) {
-    var random,
-      /** Width of a single Line */
-      horizontal = (this.horizontal =
-        (this.rotate ? !args.stripes.horizontal : args.stripes.horizontal) ||
-        false),
-      Dimension = horizontal ? pixelUnit.Height : pixelUnit.Width
+    var random
+    /** Width of a single Line */
+    var horizontal = (this.horizontal =
+      (this.rotate ? !args.stripes.horizontal : args.stripes.horizontal) ||
+      false)
+    var Dimension = horizontal ? pixelUnit.Height : pixelUnit.Width
 
     /** Width of a single Line */
     this.stripWidth = new Dimension(args.stripes.strip || { a: 1 })
@@ -938,8 +963,8 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   this.Stripes.prototype.drawers = {
     normal(drawer, fromOtherSide, stripWidth, endX, startY, endY, overflow) {
       return function (startX, currentHeightChange, randomWidth) {
-        var end = startX + stripWidth + randomWidth,
-          start = startY - (fromOtherSide ? currentHeightChange : 0)
+        var end = startX + stripWidth + randomWidth
+        var start = startY - (fromOtherSide ? currentHeightChange : 0)
 
         drawer({
           posX: startX,
@@ -959,8 +984,8 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       overflow,
     ) {
       return function (startY, currentHeightChange, randomWidth) {
-        var end = startY + stripWidth + randomWidth,
-          start = startX - (fromOtherSide ? currentHeightChange : 0)
+        var end = startY + stripWidth + randomWidth
+        var start = startX - (fromOtherSide ? currentHeightChange : 0)
 
         drawer({
           posX: start,
@@ -979,10 +1004,10 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       return
     }
 
-    var stripWidth = this.stripWidth.getReal(),
-      gapWidth = this.gapWidth.getReal(),
-      size = this.horizontal ? dimensions.height : dimensions.width,
-      singleSX = gapWidth + stripWidth
+    var stripWidth = this.stripWidth.getReal()
+    var gapWidth = this.gapWidth.getReal()
+    var size = this.horizontal ? dimensions.height : dimensions.width
+    var singleSX = gapWidth + stripWidth
 
     if (this.round) {
       var ratio = singleSX / stripWidth
@@ -993,75 +1018,67 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       gapWidth = singleSX - stripWidth
     }
 
-    var lengthChange = this.lengthChange ? this.lengthChange.getReal() : 0,
-      lengthChangeStep =
-        (lengthChange /
-          (this.horizontal ? dimensions.height : dimensions.width)) *
-        (this.fromOtherSide ? -1 : 1),
-      totalHeightChange = Math.round(
-        this.fromOtherSide ? -lengthChangeStep : 0,
-      ),
-      startX =
-        dimensions.posX -
-        (this.horizontal && this.fromRight && this.fromBottom
-          ? lengthChange
-          : 0),
-      startY =
-        dimensions.posY -
-        (!this.horizontal && this.fromRight && this.fromBottom
-          ? lengthChange
-          : 0),
-      width =
-        dimensions.width +
-        (this.horizontal && !this.fromRight && this.fromBottom
-          ? lengthChange
-          : 0) +
-        (this.horizontal && this.fromRight && this.fromBottom
-          ? lengthChange
-          : 0),
-      height =
-        dimensions.height +
-        (!this.horizontal && this.fromRight && !this.fromBottom
-          ? lengthChange
-          : 0) +
-        (!this.horizontal && this.fromRight && this.fromBottom
-          ? lengthChange
-          : 0),
-      endX = startX + width,
-      endY = startY + height,
-      start =
-        (this.horizontal ? startY : startX) +
-        (this.fromOtherSide && !this.fromStart
-          ? Math.round((this.horizontal ? height : width) % singleSX) -
-            (this.overflow ? singleSX : 0)
-          : 0),
-      end = this.horizontal ? endY : endX,
-      random = this.random ? this.random().one : false,
-      stripWidthRandom = this.stripWidthRandom
-        ? this.stripWidthRandom.getReal() + 1
-        : 0,
-      gapWidthRandom = this.gapWidthRandom
-        ? this.gapWidthRandom.getReal() + 1
-        : 0,
-      lengthRandom = this.lengthRandom ? this.lengthRandom.getReal() : 0,
-      randomWidth,
-      totalWidth,
-      l,
-      length = this.args.list ? this.args.list.length : 0,
-      draw = this.getDraw(
-        this.args.list
-          ? pixelUnit.push
-          : this.getColorArray
-            ? this.getColorArray()
-            : false,
-        /** From Other Side? */
-        this.horizontal ? this.fromRight : this.fromBottom,
-        stripWidth,
-        end,
-        this.horizontal ? startX : startY,
-        this.horizontal ? endX : endY,
-        this.overflow,
-      )
+    var lengthChange = this.lengthChange ? this.lengthChange.getReal() : 0
+    var lengthChangeStep =
+      (lengthChange /
+        (this.horizontal ? dimensions.height : dimensions.width)) *
+      (this.fromOtherSide ? -1 : 1)
+    var totalHeightChange = Math.round(
+      this.fromOtherSide ? -lengthChangeStep : 0,
+    )
+    var startX =
+      dimensions.posX -
+      (this.horizontal && this.fromRight && this.fromBottom ? lengthChange : 0)
+    var startY =
+      dimensions.posY -
+      (!this.horizontal && this.fromRight && this.fromBottom ? lengthChange : 0)
+    var width =
+      dimensions.width +
+      (this.horizontal && !this.fromRight && this.fromBottom
+        ? lengthChange
+        : 0) +
+      (this.horizontal && this.fromRight && this.fromBottom ? lengthChange : 0)
+    var height =
+      dimensions.height +
+      (!this.horizontal && this.fromRight && !this.fromBottom
+        ? lengthChange
+        : 0) +
+      (!this.horizontal && this.fromRight && this.fromBottom ? lengthChange : 0)
+    var endX = startX + width
+    var endY = startY + height
+    var start =
+      (this.horizontal ? startY : startX) +
+      (this.fromOtherSide && !this.fromStart
+        ? Math.round((this.horizontal ? height : width) % singleSX) -
+          (this.overflow ? singleSX : 0)
+        : 0)
+    var end = this.horizontal ? endY : endX
+    var random = this.random ? this.random().one : false
+    var stripWidthRandom = this.stripWidthRandom
+      ? this.stripWidthRandom.getReal() + 1
+      : 0
+    var gapWidthRandom = this.gapWidthRandom
+      ? this.gapWidthRandom.getReal() + 1
+      : 0
+    var lengthRandom = this.lengthRandom ? this.lengthRandom.getReal() : 0
+    var randomWidth
+    var totalWidth
+    var l
+    var length = this.args.list ? this.args.list.length : 0
+    var draw = this.getDraw(
+      this.args.list
+        ? pixelUnit.push
+        : this.getColorArray
+          ? this.getColorArray()
+          : false,
+      /** From Other Side? */
+      this.horizontal ? this.fromRight : this.fromBottom,
+      stripWidth,
+      end,
+      this.horizontal ? startX : startY,
+      this.horizontal ? endX : endY,
+      this.overflow,
+    )
 
     do {
       totalWidth =
@@ -1152,10 +1169,10 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   this.Panels.prototype.init = (function (pX) {
     return function (args) {
-      var l = args.panels.length,
-        inherit = {},
-        newPanels = (this.args.list = []),
-        current
+      var l = args.panels.length
+      var inherit = {}
+      var newPanels = (this.args.list = [])
+      var current
 
       while (l--) {
         current = args.panels[l]
@@ -1200,7 +1217,8 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   this.Panels.prototype.draw = (function () {
     // Draws Object, consisting of other Objects and Primitives.
     return function () {
-      var countX, countY
+      var countX
+      var countY
 
       this.dimensions = this.dimensions.calc()
 
@@ -1230,15 +1248,15 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   })(pixelUnit)
 
   this.Panels.prototype.findBestRows = function (list) {
-    var y = 0,
-      x,
-      l = list.length,
-      current,
-      imgRatio = this.imgRatio.ratio,
-      last = {
-        lastSquarness: Infinity,
-        lastRatioDiff: imgRatio,
-      }
+    var y = 0
+    var x
+    var l = list.length
+    var current
+    var imgRatio = this.imgRatio.ratio
+    var last = {
+      lastSquarness: Infinity,
+      lastRatioDiff: imgRatio,
+    }
 
     while ((y += 1) <= l) {
       x = Math.round(l / y)
@@ -1286,48 +1304,48 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   }
 
   this.Panels.prototype.sortRows = function (list) {
-    var panels = [],
-      i,
-      j,
-      l = list.length,
-      c = l - 1,
-      total = this.countX * this.countY,
-      odd = true,
-      priorites = [
-        l - 1,
-        0,
-        l - 1,
-        0,
-        l - 1,
-        0,
-        l - 1,
-        0,
-        l - 1,
-        0,
-        l - 1,
-        0,
-        l - 1,
-        0,
-        l - 1,
-        0,
-        l - 1,
-        0,
-        l - 1,
-        0,
-        l - 1,
-        0,
-        l - 1,
-        0,
-        l - 1,
-        0,
-        l - 1,
-        0,
-        l - 1,
-        0,
-        l - 1,
-        0,
-      ],
-      current
+    var panels = []
+    var i
+    var j
+    var l = list.length
+    var c = l - 1
+    var total = this.countX * this.countY
+    var odd = true
+    var priorites = [
+      l - 1,
+      0,
+      l - 1,
+      0,
+      l - 1,
+      0,
+      l - 1,
+      0,
+      l - 1,
+      0,
+      l - 1,
+      0,
+      l - 1,
+      0,
+      l - 1,
+      0,
+      l - 1,
+      0,
+      l - 1,
+      0,
+      l - 1,
+      0,
+      l - 1,
+      0,
+      l - 1,
+      0,
+      l - 1,
+      0,
+      l - 1,
+      0,
+      l - 1,
+      0,
+    ]
+    var current
 
     i = l
 
@@ -1386,18 +1404,18 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   }
 
   this.Panels.prototype.calcPanelsSizes = function (panels) {
-    var c = 0,
-      l = panels.length,
-      currentPanel,
-      x,
-      y,
-      size,
-      currentWidth,
-      first,
-      width = 0,
-      height = this.singleSY,
-      posX = 0,
-      posY = 0
+    var c = 0
+    var l = panels.length
+    var currentPanel
+    var x
+    var y
+    var size
+    var currentWidth
+    var first
+    var width = 0
+    var height = this.singleSY
+    var posX = 0
+    var posY = 0
 
     do {
       currentPanel = panels[c]
@@ -1461,11 +1479,11 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   }
 
   this.Panels.prototype.drawPanels = function (panels, mask) {
-    var currentPanel,
-      currentDim,
-      oldMask,
-      l = panels.length,
-      c = 0
+    var currentPanel
+    var currentDim
+    var oldMask
+    var l = panels.length
+    var c = 0
 
     do {
       currentPanel = panels[c]
@@ -1797,12 +1815,12 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   }
 
   this.Arm.prototype.calculateFromHand = function () {
-    var x = this.targetX.s.getReal(),
-      y = this.targetY.s.getReal(),
-      fullDistance = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)),
-      lengthToDistanceRatio,
-      innerAngle,
-      upperArmAngle
+    var x = this.targetX.s.getReal()
+    var y = this.targetY.s.getReal()
+    var fullDistance = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))
+    var lengthToDistanceRatio
+    var innerAngle
+    var upperArmAngle
 
     // - - - - Calculate End Point
     this.fullLength *= this.maxStraight
@@ -1876,13 +1894,13 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   }
 
   this.Arm.prototype.drawHand = function () {
-    var endX = this.endX.real,
-      endY = this.endY.real,
-      targetX = this.handTargetX.s.getReal(),
-      targetY = this.handTargetY.s.getReal(),
-      length = this.handLength.getReal(),
-      distance = Math.sqrt(Math.pow(targetX, 2) + Math.pow(targetY, 2)),
-      ratio = length / (distance || 0.1)
+    var endX = this.endX.real
+    var endY = this.endY.real
+    var targetX = this.handTargetX.s.getReal()
+    var targetY = this.handTargetY.s.getReal()
+    var length = this.handLength.getReal()
+    var distance = Math.sqrt(Math.pow(targetX, 2) + Math.pow(targetY, 2))
+    var ratio = length / (distance || 0.1)
 
     this.handEndX.real = endX + targetX * ratio
 

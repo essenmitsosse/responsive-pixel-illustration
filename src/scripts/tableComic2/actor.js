@@ -77,10 +77,10 @@ Actor.prototype.getSize = function (args) {
 }
 
 Actor.prototype.getSizeFromHead = function (args) {
-  var mapper = this.headScaling,
-    map,
-    min,
-    change
+  var mapper = this.headScaling
+  var map
+  var min
+  var change
 
   // calculates this.sX & this.headSY
   this.getSizeWithRatio({
@@ -170,21 +170,21 @@ Actor.prototype.getBetterPosY = function (rel) {
 
 Actor.prototype.getFocus = function (zoomSX, zoomSY, focus) {
   var x = this.pushLinkList({
-      add: [
-        { r: 0.5, useSize: zoomSX },
-        // normalize pan
-        { r: -1, useSize: this.x },
-        // pos
-      ],
-    }),
-    y = this.pushLinkList({
-      add: [
-        { r: 0.5, useSize: zoomSY },
-        // normalize pan
-        { r: -1, useSize: this.y },
-        // pos
-      ],
-    })
+    add: [
+      { r: 0.5, useSize: zoomSX },
+      // normalize pan
+      { r: -1, useSize: this.x },
+      // pos
+    ],
+  })
+  var y = this.pushLinkList({
+    add: [
+      { r: 0.5, useSize: zoomSY },
+      // normalize pan
+      { r: -1, useSize: this.y },
+      // pos
+    ],
+  })
 
   if (this.isRotated) {
     x.add.push({ r: -1, useSize: this.square }, this.sY, {

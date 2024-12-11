@@ -16,9 +16,9 @@ export const Person = function (args) {
 Person.prototype = new Object()
 
 Person.prototype.draw = function (args, z) {
-  var nr = (args.nr = this.basic.objectCount += 1),
-    backView = (args.backView = args.view === 'backView'),
-    sideView = (args.sideView = !backView && args.view ? true : false)
+  var nr = (args.nr = this.basic.objectCount += 1)
+  var backView = (args.backView = args.view === 'backView')
+  var sideView = (args.sideView = !backView && args.view ? true : false)
 
   args.id = this.id
 

@@ -302,53 +302,53 @@ Tree.prototype.draw = function (args, z, size) {
 // END Tree draw
 
 Tree.prototype.addBranches = function (args, hor, parentLeft, count, level) {
-  var list = [],
-    i = Math.floor(count),
-    step = (1 / i) * this.minFoliagePos,
-    left = true,
-    thisZ = level === 1 || this.getRandom() < 0.2 ? 'Front' : 'Back',
-    strip = {
-      stripes: {
-        random: { r: -0.5 },
-        strip: this.leaveX,
-        change: { r: this.leaveChange },
-        seed: this.nr + count + level,
-        cut: true,
-      },
+  var list = []
+  var i = Math.floor(count)
+  var step = (1 / i) * this.minFoliagePos
+  var left = true
+  var thisZ = level === 1 || this.getRandom() < 0.2 ? 'Front' : 'Back'
+  var strip = {
+    stripes: {
+      random: { r: -0.5 },
+      strip: this.leaveX,
+      change: { r: this.leaveChange },
+      seed: this.nr + count + level,
+      cut: true,
     },
-    leaves = [
-      // Shadow of Leaves
-      {
-        save: 'leavesShadow' + thisZ + this.code,
-        sY: { r: 2, min: 5 },
-        list: [strip],
-      },
+  }
+  var leaves = [
+    // Shadow of Leaves
+    {
+      save: 'leavesShadow' + thisZ + this.code,
+      sY: { r: 2, min: 5 },
+      list: [strip],
+    },
 
-      // Leaves
-      {
-        save: 'leaves' + thisZ + this.code,
-        sY: { r: 1.5, min: 3 },
-        list: [strip],
-      },
+    // Leaves
+    {
+      save: 'leaves' + thisZ + this.code,
+      sY: { r: 1.5, min: 3 },
+      list: [strip],
+    },
 
-      // Top of Leaves
-      {
-        save: 'leaves' + thisZ + this.code,
-        tY: true,
-        sY: { r: 0.1, min: 1 },
-        list: [
-          {
-            fY: true,
-            stripes: {
-              strip: this.leaveX,
-              random: { r: -1 },
-              change: { r: this.leaveChange * 5 },
-              cut: true,
-            },
+    // Top of Leaves
+    {
+      save: 'leaves' + thisZ + this.code,
+      tY: true,
+      sY: { r: 0.1, min: 1 },
+      list: [
+        {
+          fY: true,
+          stripes: {
+            strip: this.leaveX,
+            random: { r: -1 },
+            change: { r: this.leaveChange * 5 },
+            cut: true,
           },
-        ],
-      },
-    ]
+        },
+      ],
+    },
+  ]
 
   list.push({
     list: [
@@ -432,10 +432,10 @@ Tree.prototype.getRandom = function () {
 
 // FORREST
 export const Forrest = function () {
-  var i = (this.treeKindsCount = this.IF(0.8) ? 1 : this.IF(0.8) ? 2 : 3),
-    // trees,
-    family,
-    count
+  var i = (this.treeKindsCount = this.IF(0.8) ? 1 : this.IF(0.8) ? 2 : 3)
+  // trees,
+  var family
+  var count
 
   this.trees = []
 
@@ -462,9 +462,9 @@ export const Forrest = function () {
 Forrest.prototype = new Object()
 
 Forrest.prototype.draw = function (args, z, size) {
-  var list = [],
-    i = this.treeCount,
-    thisTree
+  var list = []
+  var i = this.treeCount
+  var thisTree
 
   while (i--) {
     thisTree = this.trees[i]

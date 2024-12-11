@@ -18,8 +18,8 @@ Person.prototype = new Object()
 Person.prototype.draw = function (args, z) {
   args.nr = this.basic.objectCount += 1
 
-  var backView = (args.backView = args.view === 'backView'),
-    sideView = (args.sideView = !backView && args.view ? true : false)
+  var backView = (args.backView = args.view === 'backView')
+  var sideView = (args.sideView = !backView && args.view ? true : false)
 
   args.id = this.id
 
@@ -274,9 +274,9 @@ export const Logo = function (args, right, symetrical, logoColor) {
 Logo.prototype = new Object()
 
 Logo.prototype.draw = function (args) {
-  var { nr } = args,
-    nrName = nr + this.name,
-    { sideView } = args
+  var { nr } = args
+  var nrName = nr + this.name
+  var { sideView } = args
 
   return (
     (!this.oneSide || args.right === this.side) && {

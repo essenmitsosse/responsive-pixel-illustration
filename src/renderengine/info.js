@@ -5,9 +5,9 @@ import { Renderer } from './renderer.js'
 var startTime = Date.now()
 
 export const PixelGraphics = function (options) {
-  var that = this,
-    // Initialize PixelUnits with Variables
-    pU = this.getPixelUnits()
+  var that = this
+  // Initialize PixelUnits with Variables
+  var pU = this.getPixelUnits()
 
   this.pixelUnits = pU
 
@@ -22,10 +22,10 @@ export const PixelGraphics = function (options) {
   }
 
   return function (canvas) {
-    var isParent = options.queryString.parent,
-      finalRenderer = new Renderer(canvas, options.info, options, that),
-      resize = that.getResize(options, options.info, finalRenderer.resize),
-      redraw = that.getRedraw(options, resize, isParent)
+    var isParent = options.queryString.parent
+    var finalRenderer = new Renderer(canvas, options.info, options, that)
+    var resize = that.getResize(options, options.info, finalRenderer.resize)
+    var redraw = that.getRedraw(options, resize, isParent)
 
     options.info.logInitTime(Date.now() - startTime)
 
@@ -57,34 +57,36 @@ export const PixelGraphics = function (options) {
 }
 
 PixelGraphics.prototype.getResize = function (options, info, render) {
-  var that = this,
-    currentW,
-    currentH,
-    needsToResize = false,
-    resizeBlock = false,
-    resetResizeBlock = function () {
-      resizeBlock = false
+  var that = this
+  var currentW
+  var currentH
+  var needsToResize = false
+  var resizeBlock = false
 
-      if (needsToResize) {
-        resize(currentW, currentH)
-      }
-    },
-    resize = function (w, h) {
-      // var time = Date.now();
+  var resetResizeBlock = function () {
+    resizeBlock = false
 
-      // Render the actual image. This takes very long!
-      that.canvasSize = render(w || currentW, h || currentH)
-
-      // // Log Drawing Time and Full RenderTime
-      // if( that.canvasSize ) {
-      // 	info.logRenderTime(
-      // 		that.canvasSize[ 2 ],
-      // 		Date.now() - time
-      // 	);
-      // }
-
-      needsToResize = false
+    if (needsToResize) {
+      resize(currentW, currentH)
     }
+  }
+
+  var resize = function (w, h) {
+    // var time = Date.now();
+
+    // Render the actual image. This takes very long!
+    that.canvasSize = render(w || currentW, h || currentH)
+
+    // // Log Drawing Time and Full RenderTime
+    // if( that.canvasSize ) {
+    // 	info.logRenderTime(
+    // 		that.canvasSize[ 2 ],
+    // 		Date.now() - time
+    // 	);
+    // }
+
+    needsToResize = false
+  }
 
   return function checkIfResizeShouldBeDone(w, h) {
     needsToResize = true
@@ -107,8 +109,8 @@ PixelGraphics.prototype.getRedraw = function redraw(options, resize) {
   var hoverEvent = options.imageFunction.hover
 
   return function redraw(args) {
-    var key,
-      first = !args.dontHighlight
+    var key
+    var first = !args.dontHighlight
 
     if (options.sliderObject) {
       for (key in args) {
@@ -136,34 +138,37 @@ PixelGraphics.prototype.initUserInput = function (
   canvas,
   unchangeable,
 ) {
-  var hasSomethingToHover = options.imageFunction.hover,
-    that = this,
-    changeImage = function changeImage(event, size) {
-      var x = event.x || event.clientX,
-        y = event.y || event.clientY,
-        alt = event.altKey
+  var hasSomethingToHover = options.imageFunction.hover
+  var that = this
 
-      x /= that.canvasSize[0]
+  var changeImage = function changeImage(event, size) {
+    var x = event.x || event.clientX
+    var y = event.y || event.clientY
+    var alt = event.altKey
 
-      y /= that.canvasSize[1]
+    x /= that.canvasSize[0]
 
-      redraw(
-        size ? { width: x, height: y } : alt ? { c: x, d: y } : { a: x, b: y },
-      )
-    },
-    mouseMove = function (event, size) {
-      if (
-        options.queryString.resizeable ||
-        (!unchangeable && (size || hasSomethingToHover))
-      ) {
-        changeImage(event, size || options.queryString.resizeable)
-      }
-    },
-    touchMove = function (event) {
-      event.preventDefault()
+    y /= that.canvasSize[1]
 
-      mouseMove(event.changedTouches[0], true)
+    redraw(
+      size ? { width: x, height: y } : alt ? { c: x, d: y } : { a: x, b: y },
+    )
+  }
+
+  var mouseMove = function (event, size) {
+    if (
+      options.queryString.resizeable ||
+      (!unchangeable && (size || hasSomethingToHover))
+    ) {
+      changeImage(event, size || options.queryString.resizeable)
     }
+  }
+
+  var touchMove = function (event) {
+    event.preventDefault()
+
+    mouseMove(event.changedTouches[0], true)
+  }
 
   canvas.addEventListener('mousemove', mouseMove, false)
 
@@ -183,100 +188,103 @@ PixelGraphics.prototype.getOrientation = function (
   redraw,
   options,
 ) {
-  var pause = function () {},
-    lastX = 0,
-    lastY = 0,
-    lastZ = 0,
-    // debug = this.getDebug(),
+  var pause = function () {}
 
-    tilt = function (event) {
-      var changed = false,
-        x = event.alpha,
-        y = event.beta,
-        z = event.gamma,
-        obj = {}
+  var lastX = 0
+  var lastY = 0
+  var lastZ = 0
+  // debug = this.getDebug(),
 
-      if ((x = Math.floor(x)) !== lastX) {
-        lastX = x
+  var tilt = function (event) {
+    var changed = false
+    var x = event.alpha
+    var y = event.beta
+    var z = event.gamma
+    var obj = {}
 
-        changed = true
+    if ((x = Math.floor(x)) !== lastX) {
+      lastX = x
+
+      changed = true
+    }
+
+    if ((y = Math.floor(y)) !== lastY) {
+      lastY = y
+
+      changed = true
+    }
+
+    if ((z = Math.floor(z)) !== lastZ) {
+      lastZ = z
+
+      changed = true
+    }
+
+    if (changed) {
+      if (x > 180) {
+        x = 180 - x + 360
+      } else {
+        x = 180 - x
       }
 
-      if ((y = Math.floor(y)) !== lastY) {
-        lastY = y
+      x = x / 360
 
-        changed = true
+      y = (y + 90) / 180
+
+      z = (z + 180) / 360
+
+      x = x + 0.25
+
+      if (x > 1) {
+        x = x - 1
       }
 
-      if ((z = Math.floor(z)) !== lastZ) {
-        lastZ = z
-
-        changed = true
+      if (x > 0.5) {
+        x = (x - 0.5) * 2
+      } else {
+        x = (0.5 - x) * 2
       }
 
-      if (changed) {
-        if (x > 180) {
-          x = 180 - x + 360
-        } else {
-          x = 180 - x
-        }
+      z = z + 0.25
 
-        x = x / 360
-
-        y = (y + 90) / 180
-
-        z = (z + 180) / 360
-
-        x = x + 0.25
-
-        if (x > 1) {
-          x = x - 1
-        }
-
-        if (x > 0.5) {
-          x = (x - 0.5) * 2
-        } else {
-          x = (0.5 - x) * 2
-        }
-
-        z = z + 0.25
-
-        if (z > 1) {
-          z = z - 1
-        }
-
-        if (z > 0.5) {
-          z = (z - 0.5) * 2
-        } else {
-          z = (0.5 - z) * 2
-        }
-
-        if (names[0]) {
-          obj[names[0]] = z
-        }
-
-        if (names[1]) {
-          obj[names[1]] = y
-        }
-
-        if (names[2]) {
-          obj[names[2]] = x
-        }
-
-        redraw(obj)
-        // debug( x, y, z, soften );
+      if (z > 1) {
+        z = z - 1
       }
 
-      realTilt = pause
+      if (z > 0.5) {
+        z = (z - 0.5) * 2
+      } else {
+        z = (0.5 - z) * 2
+      }
 
-      setTimeout(resetTilt, 100)
-    },
-    resetTilt = function () {
-      realTilt = tilt
-    },
-    realTilt = tilt,
-    key,
-    names = []
+      if (names[0]) {
+        obj[names[0]] = z
+      }
+
+      if (names[1]) {
+        obj[names[1]] = y
+      }
+
+      if (names[2]) {
+        obj[names[2]] = x
+      }
+
+      redraw(obj)
+      // debug( x, y, z, soften );
+    }
+
+    realTilt = pause
+
+    setTimeout(resetTilt, 100)
+  }
+
+  var resetTilt = function () {
+    realTilt = tilt
+  }
+
+  var realTilt = tilt
+  var key
+  var names = []
 
   for (key in options.sliderValues) {
     if (names.length < 4) {
@@ -292,13 +300,13 @@ PixelGraphics.prototype.getOrientation = function (
 }
 
 PixelGraphics.prototype.getDebug = function () {
-  var info = document.createElement('div'),
-    text = document.createElement('div'),
-    center = document.createElement('div'),
-    oriX = document.createElement('div'),
-    oriY = document.createElement('div'),
-    oriZ = document.createElement('div'),
-    bonus = document.createElement('div')
+  var info = document.createElement('div')
+  var text = document.createElement('div')
+  var center = document.createElement('div')
+  var oriX = document.createElement('div')
+  var oriY = document.createElement('div')
+  var oriZ = document.createElement('div')
+  var bonus = document.createElement('div')
 
   info.setAttribute('id', 'infoField')
 
@@ -362,42 +370,44 @@ PixelGraphics.prototype.getDebug = function () {
 }
 
 PixelGraphics.prototype.prepareVariableList = function (vl) {
-  var that = this,
-    vlLength = vl.length,
-    calculate = function (dimensions) {
-      var i = 0,
-        vll = vlLength,
-        current
+  var that = this
+  var vlLength = vl.length
 
-      do {
-        current = vl[i]
+  var calculate = function (dimensions) {
+    var i = 0
+    var vll = vlLength
+    var current
 
-        if (current.main) {
-          current.calculated = true
+    do {
+      current = vl[i]
 
-          current.real = dimensions[current.height ? 'height' : 'width']
-        } else {
-          current.calculated = current.autoUpdate
-        }
-      } while ((i += 1) < vll)
-    }
+      if (current.main) {
+        current.calculated = true
+
+        current.real = dimensions[current.height ? 'height' : 'width']
+      } else {
+        current.calculated = current.autoUpdate
+      }
+    } while ((i += 1) < vll)
+  }
 
   if (vlLength > 0) {
     // Prepare
     function doAddVariable(vl, vll) {
-      var i = 0,
-        current,
-        getLinkedVariable = function (args) {
-          return function () {
-            if (!args.calculated) {
-              args.calculated = true
+      var i = 0
+      var current
 
-              return (args.real = args.s.getReal())
-            } else {
-              return args.real
-            }
+      var getLinkedVariable = function (args) {
+        return function () {
+          if (!args.calculated) {
+            args.calculated = true
+
+            return (args.real = args.s.getReal())
+          } else {
+            return args.real
           }
         }
+      }
 
       do {
         current = vl[i]
@@ -423,54 +433,59 @@ PixelGraphics.prototype.prepareVariableList = function (vl) {
 }
 
 PixelGraphics.prototype.createVariableList = function (vl) {
-  var that = this,
-    newVL = {},
-    key,
-    updater = function () {
-      var key
+  var that = this
+  var newVL = {}
+  var key
 
-      for (key in vl) {
-        newVL[key].set()
-      }
-    },
-    link = function (name, vari) {
-      if (newVL[name]) {
-        newVL[name].link(vari)
-      } else {
-        newVL[name] = new DynamicVariable(name)
+  var updater = function () {
+    var key
 
-        newVL[name].link(vari)
-      }
-    },
-    creator = function (name) {
-      if (!newVL[name]) {
-        newVL[name] = new DynamicVariable(name)
-      }
+    for (key in vl) {
+      newVL[key].set()
+    }
+  }
 
-      return newVL[name]
-    },
-    Variable = function (args, name) {
-      if (args) {
-        this.name = name
+  var link = function (name, vari) {
+    if (newVL[name]) {
+      newVL[name].link(vari)
+    } else {
+      newVL[name] = new DynamicVariable(name)
 
-        this.vari = that.pixelUnits.createSize(args)
+      newVL[name].link(vari)
+    }
+  }
 
-        this.linkedP = []
+  var creator = function (name) {
+    if (!newVL[name]) {
+      newVL[name] = new DynamicVariable(name)
+    }
 
-        this.l = 0
-      }
-    },
-    DynamicVariable = function (name) {
+    return newVL[name]
+  }
+
+  var Variable = function (args, name) {
+    if (args) {
       this.name = name
+
+      this.vari = that.pixelUnits.createSize(args)
 
       this.linkedP = []
 
       this.l = 0
     }
+  }
+
+  var DynamicVariable = function (name) {
+    this.name = name
+
+    this.linkedP = []
+
+    this.l = 0
+  }
 
   Variable.prototype.set = function () {
-    var value,
-      { l } = this
+    var value
+    var { l } = this
 
     value = this.vari.getReal()
 
@@ -503,14 +518,15 @@ PixelGraphics.prototype.createVariableList = function (vl) {
 }
 
 PixelGraphics.prototype.globalResizer = (function () {
-  var allCanvases = [],
-    resize = function () {
-      var l = allCanvases.length
+  var allCanvases = []
 
-      while (l--) {
-        allCanvases[l]()
-      }
+  var resize = function () {
+    var l = allCanvases.length
+
+    while (l--) {
+      allCanvases[l]()
     }
+  }
 
   window.onresize = resize
 
@@ -520,11 +536,11 @@ PixelGraphics.prototype.globalResizer = (function () {
 })()
 
 PixelGraphics.prototype.getRandom = (function () {
-  var m = 2147483647,
-    a = 16807,
-    c = 17,
-    z = 3,
-    i = 0
+  var m = 2147483647
+  var a = 16807
+  var c = 17
+  var z = 3
+  var i = 0
 
   return function (seed) {
     var thisZ = seed || z
@@ -544,11 +560,11 @@ PixelGraphics.prototype.getRandom = (function () {
 })()
 
 PixelGraphics.prototype.joinObjects = function () {
-  var l = arguments.length,
-    count = 0,
-    newObj = {},
-    key,
-    currentObj
+  var l = arguments.length
+  var count = 0
+  var newObj = {}
+  var key
+  var currentObj
 
   while (count < l) {
     currentObj = arguments[count]

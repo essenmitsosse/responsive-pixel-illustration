@@ -38,15 +38,15 @@ PersonMain.prototype.draw = function (args) {
   )
 
   var head = this.head.draw({
-      sY: this.headSY,
-      rotate: args.rotate,
-    }),
-    bodyMain = this.bodyMain.draw({
-      sX: args.sX,
-      sY: this.bodySY,
-      rotate: args.rotate,
-      fY: true,
-    })
+    sY: this.headSY,
+    rotate: args.rotate,
+  })
+  var bodyMain = this.bodyMain.draw({
+    sX: args.sX,
+    sY: this.bodySY,
+    rotate: args.rotate,
+    fY: true,
+  })
 
   this.ll.push(
     (this.neckSX = {
@@ -115,25 +115,25 @@ BodyMain.prototype.draw = function (args) {
   this.ll.push((this.lowerBodySY = [args.sY, { r: -1, useSize: this.chestSY }]))
 
   var lowerBody = new this.basic.Rotater({
-      drawer: this.lowerBody,
-      id: 'lowerBody',
-      rotate: args.rotate,
-      baseSX: this.sX,
-      sideSX: this.torsoSide,
-      sY: this.lowerBodySY,
-      fY: true,
-      z: 20,
-    }),
-    chest = new this.basic.Rotater({
-      drawer: this.chest,
-      id: 'chest',
-      rotate: args.rotate,
-      baseSX: this.sX,
-      sideSX: this.chestSideSX,
-      frontSX: this.chestFrontSX,
-      sY: this.chestSY,
-      z: 40,
-    })
+    drawer: this.lowerBody,
+    id: 'lowerBody',
+    rotate: args.rotate,
+    baseSX: this.sX,
+    sideSX: this.torsoSide,
+    sY: this.lowerBodySY,
+    fY: true,
+    z: 20,
+  })
+  var chest = new this.basic.Rotater({
+    drawer: this.chest,
+    id: 'chest',
+    rotate: args.rotate,
+    baseSX: this.sX,
+    sideSX: this.chestSideSX,
+    frontSX: this.chestFrontSX,
+    sY: this.chestSY,
+    z: 40,
+  })
 
   lowerBody = this.mover(lowerBody, {
     xRel: 0,

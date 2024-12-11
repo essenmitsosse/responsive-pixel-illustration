@@ -43,13 +43,13 @@ export const Admin = function (args) {
 }
 
 Admin.prototype.setupSlides = function (slides) {
-  var currentSlide = this.pixel.queryString.slide * 1 || 0,
-    l = slides.length,
-    count = 0,
-    sideBarContentUl = new this.List({
-      id: 'slides',
-      container: this.sideBarInnerDiv,
-    })
+  var currentSlide = this.pixel.queryString.slide * 1 || 0
+  var l = slides.length
+  var count = 0
+  var sideBarContentUl = new this.List({
+    id: 'slides',
+    container: this.sideBarInnerDiv,
+  })
 
   while (count < l) {
     sideBarContentUl.addMessage(
@@ -74,51 +74,53 @@ Admin.prototype.getClickerGetter = function (pixel) {
 
 Admin.prototype.setupSlider = function () {
   var slidersDiv = new this.List({
-      id: 'sliders',
-      container: this.sideBarInnerDiv,
-    }),
-    slidersDivList = slidersDiv.list,
-    sliderObject = {},
-    sliderValues = {},
-    hasSliders = false,
-    getSliderControl = this.getSliderControlGetter(),
-    [body] = document.getElementsByTagName('body'),
-    getBasicWrapper = function (objects, name, labelName) {
-      var wrap = document.createElement('li'),
-        innerWrap = document.createElement('div'),
-        l = objects.length,
-        count = 0,
-        label
+    id: 'sliders',
+    container: this.sideBarInnerDiv,
+  })
+  var slidersDivList = slidersDiv.list
+  var sliderObject = {}
+  var sliderValues = {}
+  var hasSliders = false
+  var getSliderControl = this.getSliderControlGetter()
+  var [body] = document.getElementsByTagName('body')
 
-      wrap.setAttribute('class', 'input ' + name)
+  var getBasicWrapper = function (objects, name, labelName) {
+    var wrap = document.createElement('li')
+    var innerWrap = document.createElement('div')
+    var l = objects.length
+    var count = 0
+    var label
 
-      innerWrap.setAttribute('class', 'sliderWrap')
+    wrap.setAttribute('class', 'input ' + name)
 
-      if (labelName) {
-        label = document.createElement('label')
+    innerWrap.setAttribute('class', 'sliderWrap')
 
-        label.innerHTML = labelName
+    if (labelName) {
+      label = document.createElement('label')
 
-        wrap.appendChild(label)
-      }
+      label.innerHTML = labelName
 
-      while (count < l) {
-        innerWrap.appendChild(objects[count])
-
-        count += 1
-      }
-
-      wrap.appendChild(innerWrap)
-
-      slidersDivList.appendChild(wrap)
-    },
-    activateSliders = function () {
-      if (!hasSliders) {
-        hasSliders = true
-
-        body.className = [body.className, 'withSliders'].join(' ')
-      }
+      wrap.appendChild(label)
     }
+
+    while (count < l) {
+      innerWrap.appendChild(objects[count])
+
+      count += 1
+    }
+
+    wrap.appendChild(innerWrap)
+
+    slidersDivList.appendChild(wrap)
+  }
+
+  var activateSliders = function () {
+    if (!hasSliders) {
+      hasSliders = true
+
+      body.className = [body.className, 'withSliders'].join(' ')
+    }
+  }
 
   this.pixel.sliderObject = sliderObject
 
@@ -126,12 +128,12 @@ Admin.prototype.setupSlider = function () {
 
   this.pixel.createSlider = {
     slider: function createSlider(args) {
-      var slider = document.createElement('input'),
-        span = document.createElement('span'),
-        // dataList = document.createElement( "datalist" ),
-        // option1, option2,
-        // sliderId = "slider-" + args.valueName,
-        key
+      var slider = document.createElement('input')
+      var span = document.createElement('span')
+      // dataList = document.createElement( "datalist" ),
+      // option1, option2,
+      // sliderId = "slider-" + args.valueName,
+      var key
 
       activateSliders()
 
@@ -155,8 +157,8 @@ Admin.prototype.setupSlider = function () {
     },
 
     number: function createButton(args) {
-      var input = document.createElement('input'),
-        key
+      var input = document.createElement('input')
+      var key
 
       input.setAttribute('type', 'number')
 
@@ -172,8 +174,8 @@ Admin.prototype.setupSlider = function () {
     },
 
     title: function createTitle(args) {
-      var title = document.createElement('h2'),
-        wrap = document.createElement('li')
+      var title = document.createElement('h2')
+      var wrap = document.createElement('li')
 
       title.innerHTML = args.title
 
@@ -187,60 +189,62 @@ Admin.prototype.setupSlider = function () {
 }
 
 Admin.prototype.getSliderControlGetter = function () {
-  var lastSliderParent,
-    lastValueName,
-    that = this
+  var lastSliderParent
+  var lastValueName
+  var that = this
 
   return {
     slider: function getSliderControl(slider, span, args) {
-      var value,
-        diff = args.input.max - args.input.min,
-        outputMap = args.output || { min: 0, max: 1 },
-        outputMin = outputMap.min,
-        outputFactor = (outputMap.max - outputMin) / diff,
-        updateInfoSpan = function () {
-          span.innerHTML = Math.round(value * 10) / 10
+      var value
+      var diff = args.input.max - args.input.min
+      var outputMap = args.output || { min: 0, max: 1 }
+      var outputMin = outputMap.min
+      var outputFactor = (outputMap.max - outputMin) / diff
 
-          span.setAttribute(
-            'style',
-            'left: ' + (((value - args.input.min) / diff) * 100 - 10) + '%;',
-          )
-        },
-        update = function (setValue, single) {
-          var obj = {}
+      var updateInfoSpan = function () {
+        span.innerHTML = Math.round(value * 10) / 10
 
-          // If update is received with a sepcific value (e.g. from server), than just update the visual slider
-          if (typeof setValue === 'number') {
-            // obj[ valueName ] = setValue;
-            value = slider.value =
-              (setValue - outputMin) / outputFactor + args.input.min
+        span.setAttribute(
+          'style',
+          'left: ' + (((value - args.input.min) / diff) * 100 - 10) + '%;',
+        )
+      }
 
-            if (single) {
-              if (lastValueName !== args.valueName && lastSliderParent) {
-                lastSliderParent.setAttribute('style', '')
-              }
+      var update = function (setValue, single) {
+        var obj = {}
 
-              lastValueName = args.valueName
+        // If update is received with a sepcific value (e.g. from server), than just update the visual slider
+        if (typeof setValue === 'number') {
+          // obj[ valueName ] = setValue;
+          value = slider.value =
+            (setValue - outputMin) / outputFactor + args.input.min
 
-              lastSliderParent = slider.parentNode.parentNode
+          if (single) {
+            if (lastValueName !== args.valueName && lastSliderParent) {
+              lastSliderParent.setAttribute('style', '')
             }
 
-            updateInfoSpan()
+            lastValueName = args.valueName
 
-            return
-
-            // else update the object
-          } else if (value !== slider.value * 1) {
-            value = slider.value * 1
-
-            updateInfoSpan()
-
-            obj[args.valueName] =
-              (value - args.input.min) * outputFactor + outputMin
-
-            that.pixel.sliderChange(obj)
+            lastSliderParent = slider.parentNode.parentNode
           }
+
+          updateInfoSpan()
+
+          return
+
+          // else update the object
+        } else if (value !== slider.value * 1) {
+          value = slider.value * 1
+
+          updateInfoSpan()
+
+          obj[args.valueName] =
+            (value - args.input.min) * outputFactor + outputMin
+
+          that.pixel.sliderChange(obj)
         }
+      }
 
       slider.addEventListener('mousemove', update, false)
 
@@ -252,24 +256,25 @@ Admin.prototype.getSliderControlGetter = function () {
     },
 
     number: function getButtonControl(number, args) {
-      var value,
-        update = function (setValue, dontForce) {
-          var obj = {}
+      var value
 
-          if (typeof setValue === 'number') {
-            value = number.value = setValue
-          } else if (value !== number.value * 1) {
-            value = number.value * 1
+      var update = function (setValue, dontForce) {
+        var obj = {}
 
-            obj[args.valueName] = value
+        if (typeof setValue === 'number') {
+          value = number.value = setValue
+        } else if (value !== number.value * 1) {
+          value = number.value * 1
 
-            if (!dontForce && args.forceRedraw) {
-              that.pixel.changeForceRedraw(obj)
-            } else {
-              that.pixel.sliderChange(obj)
-            }
+          obj[args.valueName] = value
+
+          if (!dontForce && args.forceRedraw) {
+            that.pixel.changeForceRedraw(obj)
+          } else {
+            that.pixel.sliderChange(obj)
           }
         }
+      }
 
       number.addEventListener('click', update, false)
 
@@ -286,10 +291,10 @@ Admin.prototype.getSliderControlGetter = function () {
 
 Admin.prototype.setupBasicControls = function (hasRandom) {
   var sideBarContentDiv = new this.List({
-      id: 'mainControls',
-      container: this.sideBarInnerDiv,
-    }),
-    createButton = this.getButtonCreater(sideBarContentDiv)
+    id: 'mainControls',
+    container: this.sideBarInnerDiv,
+  })
+  var createButton = this.getButtonCreater(sideBarContentDiv)
 
   // if( this.showcase || this.admin ) {
   // 	createButton( { text: "◀", functionName: "nextSlide", args: false, className: "important slideControl narrow newrow" } );

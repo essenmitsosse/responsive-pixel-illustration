@@ -29,15 +29,16 @@ import {
 import { Forrest, Tree, TreeFamily } from './tree.js'
 
 export const Builder = function (init) {
-  var initID = init.id ? init.id : Math.floor(Math.random() * 4294967296),
-    random = helper.random(initID),
-    linkList = [],
-    hover = helper.getHoverChangers(),
-    pushLinkList = function (obj) {
-      linkList.push(obj)
+  var initID = init.id ? init.id : Math.floor(Math.random() * 4294967296)
+  var random = helper.random(initID)
+  var linkList = []
+  var hover = helper.getHoverChangers()
 
-      return obj
-    }
+  var pushLinkList = function (obj) {
+    linkList.push(obj)
+
+    return obj
+  }
 
   this.helper = helper
 
@@ -120,55 +121,54 @@ export const Builder = function (init) {
 }
 
 const buildColors = function (info) {
-  var rInt = this.R,
-    i = info.colors,
-    colors = [],
-    createColor = function () {
-      var r = rInt(0, 200),
-        g = rInt(0, 200),
-        b = rInt(0, 200),
-        br = Math.sqrt(
-          0.241 * Math.pow(r, 2) +
-            0.691 * Math.pow(g, 2) +
-            0.068 * Math.pow(b, 2),
-        ),
-        rgb = [r, g, b],
-        maxBr = 255 / info.steps,
-        startPos = Math.floor(br / maxBr),
-        colorRange = [],
-        i,
-        fak
+  var rInt = this.R
+  var i = info.colors
+  var colors = []
 
-      colorRange[startPos] = rgb
+  var createColor = function () {
+    var r = rInt(0, 200)
+    var g = rInt(0, 200)
+    var b = rInt(0, 200)
+    var br = Math.sqrt(
+      0.241 * Math.pow(r, 2) + 0.691 * Math.pow(g, 2) + 0.068 * Math.pow(b, 2),
+    )
+    var rgb = [r, g, b]
+    var maxBr = 255 / info.steps
+    var startPos = Math.floor(br / maxBr)
+    var colorRange = []
+    var i
+    var fak
 
-      // DARKER COLORS
-      i = startPos
+    colorRange[startPos] = rgb
 
-      fak = 1 / (i + 1)
+    // DARKER COLORS
+    i = startPos
 
-      while (i--) {
-        colorRange[i] = [
-          r * fak * (i + 1) + 0 * (1 - fak * (i + 1)),
-          g * fak * (i + 1) + 0 * (1 - fak * (i + 1)),
-          b * fak * (i + 1) + 0 * (1 - fak * (i + 1)),
-        ]
-      }
+    fak = 1 / (i + 1)
 
-      // LIGHTER COLORS
-      i = info.steps - startPos - 1
-
-      fak = 1 / (i + 1)
-
-      while (i--) {
-        colorRange[startPos + i + 1] = [
-          r * (1 - fak * (i + 1)) + 255 * fak * (i + 1),
-          g * (1 - fak * (i + 1)) + 255 * fak * (i + 1),
-          b * (1 - fak * (i + 1)) + 255 * fak * (i + 1),
-        ]
-      }
-
-      colors.push(colorRange)
+    while (i--) {
+      colorRange[i] = [
+        r * fak * (i + 1) + 0 * (1 - fak * (i + 1)),
+        g * fak * (i + 1) + 0 * (1 - fak * (i + 1)),
+        b * fak * (i + 1) + 0 * (1 - fak * (i + 1)),
+      ]
     }
+
+    // LIGHTER COLORS
+    i = info.steps - startPos - 1
+
+    fak = 1 / (i + 1)
+
+    while (i--) {
+      colorRange[startPos + i + 1] = [
+        r * (1 - fak * (i + 1)) + 255 * fak * (i + 1),
+        g * (1 - fak * (i + 1)) + 255 * fak * (i + 1),
+        b * (1 - fak * (i + 1)) + 255 * fak * (i + 1),
+      ]
+    }
+
+    colors.push(colorRange)
+  }
 
   while (i--) {
     createColor()

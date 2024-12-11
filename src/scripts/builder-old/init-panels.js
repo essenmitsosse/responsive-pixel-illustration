@@ -1,8 +1,8 @@
 import { Builder } from './builder.js'
 
 function builderOld(init) {
-  var builder = new Builder(init),
-    renderList
+  var builder = new Builder(init)
+  var renderList
 
   renderList = new builder.basic.Comic(init)
 

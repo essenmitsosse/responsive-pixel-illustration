@@ -225,13 +225,9 @@ class Helper {
         const changersColorStandard = changersColorStandardList
         const changersCustom = changersCustomList
 
-        let l
-        let current
-        let currentValue
-        let key
         let somethingToChange = false
 
-        for (key in args) {
+        for (const key in args) {
           if (key !== 'width' && key !== 'height') {
             somethingToChange = true
             break
@@ -239,10 +235,12 @@ class Helper {
         }
 
         if (somethingToChange) {
+          let l0 = changersRelativeStandard.length
+
           // Change the RELATIVE VALUE of the variable, by the STANDARD map scheme
-          if ((l = changersRelativeStandard.length)) {
-            while (l--) {
-              current = changersRelativeStandard[l]
+          if (l0) {
+            while (l0--) {
+              const current = changersRelativeStandard[l0]
 
               if (args[current.map] !== undefined) {
                 that.setValue(
@@ -254,20 +252,25 @@ class Helper {
           }
 
           // Change the RELATIVE VALUE of the variable, by a CUSTOM map scheme
-          if ((l = changersRelativeCustom.length)) {
-            while (l--) {
-              current = changersRelativeCustom[l]
+          let l1 = changersRelativeCustom.length
 
-              if ((currentValue = current[1](args)) !== undefined) {
+          if (l1) {
+            while (l1--) {
+              const current = changersRelativeCustom[l1]
+              const currentValue = current[1](args)
+
+              if (currentValue !== undefined) {
                 that.setValue(current[0], currentValue)
               }
             }
           }
 
+          let l2 = changersColorStandard.length
+
           // Change a COLOR, by a STANDARD map scheme
-          if ((l = changersColorStandard.length)) {
-            while (l--) {
-              current = changersColorStandard[l]
+          if (l2) {
+            while (l2--) {
+              const current = changersColorStandard[l2]
 
               if (args[current.map] !== undefined) {
                 changeColor(args[current.map], current)
@@ -275,10 +278,12 @@ class Helper {
             }
           }
 
+          let l3 = changersCustom.length
+
           // Execute a CUSTOM FUNCTION
-          if ((l = changersCustom.length)) {
-            while (l--) {
-              changersCustom[l](args)
+          if (l3) {
+            while (l3--) {
+              changersCustom[l3](args)
             }
           }
 

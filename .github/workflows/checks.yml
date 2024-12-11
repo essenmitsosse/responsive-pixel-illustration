@@ -67,6 +67,8 @@ jobs:
         run: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm ci --prefer-offline --ignore-scripts
       - name: Run Knip
         run: npm run knip
+      - name: Run Knip in strict production mode
+        run: npm run knip -- --production --strict
 
   ts:
     name: 😎 TypeScript

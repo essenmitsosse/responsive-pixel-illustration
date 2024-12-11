@@ -6,7 +6,8 @@ var startTime = Date.now()
 
 export const PixelGraphics = function (options) {
   var that = this,
-    pU = this.getPixelUnits() // Initialize PixelUnits with Variables
+    // Initialize PixelUnits with Variables
+    pU = this.getPixelUnits()
 
   this.pixelUnits = pU
 

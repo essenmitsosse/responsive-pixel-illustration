@@ -236,7 +236,8 @@ export const Comic = function (init) {
     },
     init.cs === 'true' && this.basic.colorScheme(),
   ]
-} // END Comic
+}
+// END Comic
 
 Comic.prototype = new Object()
 // Comic.prototype.draw = function () {
@@ -301,7 +302,8 @@ export const Panel = function (args) {
   this.actor3 = this.IF(0.1) && new this.basic.Actor(args)
 
   this.forrest = this.IF(0.4) && new this.basic.Forrest(args)
-} // END Panel
+}
+// END Panel
 
 Panel.prototype = new Object()
 
@@ -515,12 +517,14 @@ Panel.prototype.draw = function (args) {
       },
     ],
   }
-} // END Panel draw
+}
+// END Panel draw
 
 // ACTOR --------------------------------------------------------------------------------
 export const Actor = function (args) {
   this.person = new this.basic.Person(args)
-} // END Actor
+}
+// END Actor
 
 Actor.prototype = new Object()
 
@@ -643,7 +647,8 @@ Actor.prototype.draw = function (args, z, size) {
   args.hatDown = this.IF(0.02)
 
   return this.person.draw(args, z)
-} // END Actor draw
+}
+// END Actor draw
 
 // GROUND --------------------------------------------------------------------------------
 export const Ground = function (args) {
@@ -660,7 +665,8 @@ export const Ground = function (args) {
   })
 
   // Assets
-} // END Ground
+}
+// END Ground
 
 Ground.prototype = new Object()
 
@@ -673,4 +679,5 @@ Ground.prototype.draw = function (args, z) {
     z: z,
     sY: 'horizont' + nr,
   }
-} // END Ground draw
+}
+// END Ground draw

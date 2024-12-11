@@ -76,7 +76,8 @@ export const UpperBody = function (args) {
   if (this.IF(0.1)) {
     this.logo = new this.basic.Logo(args)
   }
-} // END UpperBody
+}
+// END UpperBody
 
 UpperBody.prototype = new Object()
 
@@ -190,7 +191,8 @@ UpperBody.prototype.draw = function (args) {
       this.strap && this.strap.draw(args, 10),
     ],
   }
-} // END UpperBody draw
+}
+// END UpperBody draw
 
 // STRIPES --------------------------------------------------------------------------------
 export const Stripes = function (args) {
@@ -217,7 +219,8 @@ export const Stripes = function (args) {
   })
 
   // Assets
-} // END Stripes
+}
+// END Stripes
 
 Stripes.prototype = new Object()
 
@@ -263,7 +266,8 @@ Stripes.prototype.draw = function (args, z) {
           ],
     }
   )
-} // END Stripes draw
+}
+// END Stripes draw
 
 // BUTTONS --------------------------------------------------------------------------------
 export const Buttons = function (args, color) {
@@ -280,7 +284,8 @@ export const Buttons = function (args, color) {
   this.buttonsColor = color.copy({ brContrast: -1 })
 
   // Assets
-} // END Buttons
+}
+// END Buttons
 
 Buttons.prototype = new Object()
 
@@ -314,7 +319,8 @@ Buttons.prototype.draw = function (args, z) {
       ],
     }
   )
-} // END Buttons draw
+}
+// END Buttons draw
 
 // SUSPENDERS --------------------------------------------------------------------------------
 export const Suspenders = function (args) {
@@ -337,7 +343,8 @@ export const Suspenders = function (args) {
   }
 
   // Assets
-} // END Suspenders
+}
+// END Suspenders
 
 Suspenders.prototype = new Object()
 
@@ -397,7 +404,8 @@ Suspenders.prototype.draw = function (args, z) {
       },
     ],
   }
-} // END Suspenders draw
+}
+// END Suspenders draw
 
 // COLLAR --------------------------------------------------------------------------------
 export const Collar = function (args) {
@@ -423,7 +431,8 @@ export const Collar = function (args) {
   if (this.open && this.IF(0.3)) {
     this.buttons = new this.basic.Buttons(args, this.shirtColor)
   }
-} // END Collar
+}
+// END Collar
 
 Collar.prototype = new Object()
 
@@ -470,7 +479,8 @@ Collar.prototype.draw = function (args, z) {
         },
     ],
   }
-} // END Collar Shirt draw
+}
+// END Collar Shirt draw
 
 // CLEAVAGE --------------------------------------------------------------------------------
 export const Cleavage = function (args) {
@@ -491,7 +501,8 @@ export const Cleavage = function (args) {
   this.skinColor = args.skinColor
 
   // Assets
-} // END Cleavage
+}
+// END Cleavage
 
 Cleavage.prototype = new Object()
 
@@ -562,7 +573,8 @@ Cleavage.prototype.draw = function (args, z) {
       },
     ],
   }
-} // END Cleavage draw
+}
+// END Cleavage draw
 
 // NIPPLES --------------------------------------------------------------------------------
 export const Nipples = function (args) {
@@ -575,7 +587,8 @@ export const Nipples = function (args) {
   this.nippleColor = args.skinShadowColor
 
   // Assets
-} // END Nipples
+}
+// END Nipples
 
 Nipples.prototype = new Object()
 
@@ -597,7 +610,8 @@ Nipples.prototype.draw = function (args, z) {
     fX: !sideView,
     z: z,
   }
-} // END Nipples draw
+}
+// END Nipples draw
 
 // CAPE --------------------------------------------------------------------------------
 export const Cape = function (args) {
@@ -610,7 +624,8 @@ export const Cape = function (args) {
   this.capeColor = args.clothColor.copy({ nextColor: true, brContrast: -2 })
 
   // Assets
-} // END Cape
+}
+// END Cape
 
 Cape.prototype = new Object()
 
@@ -639,7 +654,8 @@ Cape.prototype.draw = function (args) {
     fX: sideView,
     x: sideView && this.sub(args.shoulderSX),
   }
-} // END Cape Back draw
+}
+// END Cape Back draw
 
 Cape.prototype.drawFront = function (args) {
   var sideView = args.sideView
@@ -650,7 +666,8 @@ Cape.prototype.drawFront = function (args) {
     x: sideView && this.sub(args.shoulderSX),
     sY: args.capeFrontSY,
   }
-} // END Cape draw
+}
+// END Cape draw
 
 // STRAP --------------------------------------------------------------------------------
 export const Strap = function (args) {
@@ -665,7 +682,8 @@ export const Strap = function (args) {
     }))
 
   // Assets
-} // END Strap
+}
+// END Strap
 
 Strap.prototype = new Object()
 
@@ -716,4 +734,5 @@ Strap.prototype.draw = function (args, z) {
       ],
     }
   )
-} // END Strap Back draw
+}
+// END Strap Back draw

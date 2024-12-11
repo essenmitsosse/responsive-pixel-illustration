@@ -1133,9 +1133,11 @@ function zeus() {
                 ],
               },
             ],
-          }, // END MOTIVE ZEUS
+          },
+          // END MOTIVE ZEUS
         ],
-      }, // END IMAGE
+      },
+      // END IMAGE
 
       // FRAME
       {

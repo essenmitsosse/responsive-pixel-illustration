@@ -117,7 +117,8 @@ export const Tree = function (args) {
   // this.branches = this.addBranches( args, true, true, this.branchCount, 1 );
 
   // Copy
-} // END Tree
+}
+// END Tree
 
 Tree.prototype = new Object()
 
@@ -297,7 +298,8 @@ Tree.prototype.draw = function (args, z, size) {
     // 	y: {r: 0.2}
     // }
   ]
-} // END Tree draw
+}
+// END Tree draw
 
 Tree.prototype.addBranches = function (args, hor, parentLeft, count, level) {
   var list = [],

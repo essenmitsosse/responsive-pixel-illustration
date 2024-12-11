@@ -66,8 +66,9 @@ export const Rotater = function (args) {
   this.ll.push(
     (this.sX = {
       r:
-        1 + // Base Size
-        (args.frontSX !== undefined ? rotate.front * (args.frontSX - 1) : 0), // change for Front
+        1 +
+        // Base Size (change for Front)
+        (args.frontSX !== undefined ? rotate.front * (args.frontSX - 1) : 0),
       // + ( args.sideSX !== undefined ? rotate.side * ( args.sideSX - 1 ) : 0 ), 	// change for Side
       useSize: args.baseSX,
       odd: true,
@@ -177,7 +178,9 @@ BBObj.prototype.moveOut = function (args, rotate) {
 
     add.push({
       r: rotate.position * args.xBase,
-      a: args.xBase > 0 && rotate.position * -1, // correct the 1 subtracted Pixel
+
+      /** Correct the 1 subtracted Pixel */
+      a: args.xBase > 0 && rotate.position * -1,
       useSize: diff,
     })
   }

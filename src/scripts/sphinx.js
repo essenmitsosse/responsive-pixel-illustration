@@ -597,7 +597,8 @@ function sphinx() {
                         ],
                       },
                     ],
-                  }, // END Body
+                  },
+                  // END Body
 
                   // HAIR
                   {
@@ -736,7 +737,8 @@ function sphinx() {
                         ],
                       },
                     ],
-                  }, // END Head
+                  },
+                  // END Head
 
                   // WINGS
                   {
@@ -850,9 +852,11 @@ function sphinx() {
                         ],
                       },
                     ],
-                  }, // END WINGS
+                  },
+                  // END WINGS
                 ],
-              }, // END Sphinx
+              },
+              // END Sphinx
 
               // Person
               {
@@ -1040,11 +1044,14 @@ function sphinx() {
                     ],
                   },
                 ],
-              }, // END Person
+              },
+              // END Person
             ],
-          }, // END content
+          },
+          // END content
         ],
-      }, // END Image
+      },
+      // END Image
     ],
     personRatio = 2.3,
     variableList = {

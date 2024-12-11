@@ -198,10 +198,10 @@ export const helper = new (function () {
               if (typeof currentInfo === 'object') {
                 if (currentInfo.map !== undefined) {
                   pushRelativeStandard(
-                    currentInfo.min, // max
-                    currentInfo.max, // min
-                    currentInfo.map, // map
-                    currentSize, // variable
+                    currentInfo.min,
+                    currentInfo.max,
+                    currentInfo.map,
+                    currentSize,
                   )
                 } else {
                   // Just assign the max or min value

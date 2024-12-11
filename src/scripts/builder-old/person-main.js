@@ -10,7 +10,8 @@ export const Person = function (args) {
   this.basicBody = new this.basic.BasicBody(args)
 
   this.id = this.basic.objectCount += 1
-} // END Person
+}
+// END Person
 
 Person.prototype = new Object()
 
@@ -41,7 +42,8 @@ Person.prototype.draw = function (args, z) {
           list: this.basicBody.draw(args, backView),
         },
       ]
-} // END Person draw
+}
+// END Person draw
 
 // BASICBODY --------------------------------------------------------------------------------
 export const BasicBody = function (args) {
@@ -106,7 +108,8 @@ export const BasicBody = function (args) {
   this.upperBody = new this.basic.UpperBody(args)
 
   this.lowerBody = new this.basic.LowerBody(args)
-} // END BasicBody
+}
+// END BasicBody
 
 BasicBody.prototype = new Object()
 
@@ -195,7 +198,8 @@ BasicBody.prototype.draw = function (args, right) {
       ],
     },
   ]
-} // END BasicBody draw
+}
+// END BasicBody draw
 
 // LOGO --------------------------------------------------------------------------------
 export const Logo = function (args, right, symetrical, logoColor) {
@@ -244,7 +248,8 @@ export const Logo = function (args, right, symetrical, logoColor) {
         (this.IF(0.5) ? -1 : 1) * (!color || this.IF(0.2) ? 2 : 1),
     })
   // Assets
-} // END Logo
+}
+// END Logo
 
 Logo.prototype = new Object()
 
@@ -294,4 +299,5 @@ Logo.prototype.draw = function (args) {
       ],
     }
   )
-} // END Logo Back draw
+}
+// END Logo Back draw

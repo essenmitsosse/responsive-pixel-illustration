@@ -51,7 +51,8 @@ export const Arm = function (args) {
       : new this.basic.Sword(args, true))
 
   this.headGear = args.headGear
-} // END Arm
+}
+// END Arm
 
 Arm.prototype = new Object()
 
@@ -387,7 +388,8 @@ Arm.prototype.draw = function (args, rightSide, behind) {
       },
     ],
   }
-} // END Arm draw
+}
+// END Arm draw
 
 // SHOULDER PAD --------------------------------------------------------------------------------
 export const ShoulderPad = function (args) {
@@ -442,7 +444,8 @@ export const ShoulderPad = function (args) {
   }
 
   // Assets
-} // END ShoulderPad
+}
+// END ShoulderPad
 
 ShoulderPad.prototype = new Object()
 
@@ -536,13 +539,15 @@ ShoulderPad.prototype.draw = function (args, z) {
       },
     ],
   }
-} // END ShoulderPad draw
+}
+// END ShoulderPad draw
 
 // TOOL --------------------------------------------------------------------------------
 export const Tool = function () {
   // Form & Sizes
   // Assets
-} // END Tool
+}
+// END Tool
 
 Tool.prototype = new Object()
 
@@ -558,7 +563,8 @@ Tool.prototype.draw = function (args) {
       // ]}
     ],
   }
-} // END Tool draw
+}
+// END Tool draw
 
 // SWORD --------------------------------------------------------------------------------
 export const Sword = function (args, right) {
@@ -598,7 +604,8 @@ export const Sword = function (args, right) {
   this.bladeShadowColor = this.bladeColor.copy({ brContrast: -1 })
 
   // Assets
-} // END Sword
+}
+// END Sword
 
 Sword.prototype = new Object()
 
@@ -706,7 +713,8 @@ Sword.prototype.draw = function (args, z) {
       },
     ],
   }
-} // END Sword draw
+}
+// END Sword draw
 
 // SHIELD --------------------------------------------------------------------------------
 export const Shield = function (args, right) {
@@ -745,7 +753,8 @@ export const Shield = function (args, right) {
         : this.shieldShadowColor,
     )
   }
-} // END Shield
+}
+// END Shield
 
 Shield.prototype = new Object()
 
@@ -808,4 +817,5 @@ Shield.prototype.draw = function (args, z) {
       },
     ],
   }
-} // END Shield draw
+}
+// END Shield draw

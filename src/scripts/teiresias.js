@@ -55,10 +55,14 @@ function teiresias() {
                 color: trees,
               },
 
-              { sX: 1, sY: 'dekoheight' }, // dark
-              { sY: 1, sX: 4 }, // dark
-              { sX: 1, sY: 'dekoheight', x: 4 }, // dark
-              { sY: 1, sX: 4, fY: true, y: 'dekoOffset', x: 4 }, // dark
+              { sX: 1, sY: 'dekoheight' },
+              // dark
+              { sY: 1, sX: 4 },
+              // dark
+              { sX: 1, sY: 'dekoheight', x: 4 },
+              // dark
+              { sY: 1, sX: 4, fY: true, y: 'dekoOffset', x: 4 },
+              // dark
 
               {
                 sY: 1,
@@ -470,12 +474,14 @@ function teiresias() {
                         x: 'feetLeftX',
                         y: ['feetLeftY', 'handSize'],
                         fY: true,
-                      }, // Left Foot
+                      },
+                      // Left Foot
                       {
                         x: 'kneeLeftX',
                         y: 'kneeLeftY',
                         fY: true,
-                      }, // Left Knee
+                      },
+                      // Left Knee
                     ],
                   },
 
@@ -489,13 +495,15 @@ function teiresias() {
                         y: ['feetRightY', 'handSize'],
                         fX: true,
                         fY: true,
-                      }, // Right Foot
+                      },
+                      // Right Foot
                       {
                         x: 'kneeRightX',
                         y: 'kneeRightY',
                         fX: true,
                         fY: true,
-                      }, // Right Knee
+                      },
+                      // Right Knee
                     ],
                   },
 
@@ -523,34 +531,40 @@ function teiresias() {
                       {
                         x: 'torsoMargin',
                         y: 'torsoBottom',
-                      }, // Left Hip
+                      },
+                      // Left Hip
                       {
                         x: 'torsoMargin',
                         y: 'torsoBottom',
                         fX: true,
-                      }, // Right Hip
+                      },
+                      // Right Hip
                       {
                         x: ['kneeRightX', sub('armWeight')],
                         y: ['kneeRightY', 'armWeight'],
                         fX: true,
                         fY: true,
-                      }, // Right Knee
+                      },
+                      // Right Knee
                       {
                         x: ['skirtRightX', sub('armWeight')],
                         y: 'skirtRightY',
                         fX: true,
                         fY: true,
-                      }, // Middle Right
+                      },
+                      // Middle Right
                       {
                         x: ['skirtLeftX', sub('armWeight')],
                         y: 'skirtLeftY',
                         fY: true,
-                      }, // Middle Left
+                      },
+                      // Middle Left
                       {
                         x: ['kneeLeftX', sub('armWeight')],
                         y: ['kneeLeftY', 'armWeight'],
                         fY: true,
-                      }, // Left Knee
+                      },
+                      // Left Knee
                     ],
                   },
 
@@ -1178,7 +1192,8 @@ function teiresias() {
             ],
           },
         ],
-      }, // END IMAGE
+      },
+      // END IMAGE
 
       // FRAME
       {

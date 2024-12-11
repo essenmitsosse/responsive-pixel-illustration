@@ -173,14 +173,18 @@ Actor.prototype.getBetterPosY = function (rel) {
 Actor.prototype.getFocus = function (zoomSX, zoomSY, focus) {
   var x = this.pushLinkList({
       add: [
-        { r: 0.5, useSize: zoomSX }, // normalize pan
-        { r: -1, useSize: this.x }, // pos
+        { r: 0.5, useSize: zoomSX },
+        // normalize pan
+        { r: -1, useSize: this.x },
+        // pos
       ],
     }),
     y = this.pushLinkList({
       add: [
-        { r: 0.5, useSize: zoomSY }, // normalize pan
-        { r: -1, useSize: this.y }, // pos
+        { r: 0.5, useSize: zoomSY },
+        // normalize pan
+        { r: -1, useSize: this.y },
+        // pos
       ],
     })
 
@@ -196,13 +200,16 @@ Actor.prototype.getFocus = function (zoomSX, zoomSY, focus) {
     )
   } else {
     x.add.push(
-      { r: -focus.posX, useSize: this.sX }, // relative to Head
+      { r: -focus.posX, useSize: this.sX },
+      // relative to Head
       { r: -1, useSize: this.lean },
     )
 
     y.add.push(
-      { r: -1, useSize: this.sY }, // size
-      { r: 1 - focus.posY, useSize: this.headSY }, // relative to Head
+      { r: -1, useSize: this.sY },
+      // size
+      { r: 1 - focus.posY, useSize: this.headSY },
+      // relative to Head
     )
   }
 

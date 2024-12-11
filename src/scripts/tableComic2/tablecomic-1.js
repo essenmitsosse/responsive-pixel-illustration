@@ -261,20 +261,32 @@ export const getStripInfo = function () {
       }
     })(),
     panY = [
-      -0.15, //0
-      { map: 'a', min: -0.15, max: -0.18 }, //1
-      { map: 'a', min: -0.15, max: -0.21 }, //2
-      { map: 'a', min: -0.15, max: -0.25 }, //3
-      { map: 'a', min: -0.15, max: -0.275 }, //4
-      { map: 'a', min: 0.1, max: 0.1 }, // 5
+      -0.15,
+      //0
+      { map: 'a', min: -0.15, max: -0.18 },
+      //1
+      { map: 'a', min: -0.15, max: -0.21 },
+      //2
+      { map: 'a', min: -0.15, max: -0.25 },
+      //3
+      { map: 'a', min: -0.15, max: -0.275 },
+      //4
+      { map: 'a', min: 0.1, max: 0.1 },
+      // 5
     ],
     panX = [
-      0, //0
-      0, //1
-      0, //2
-      0, //3
-      0, //4
-      noCameraMovement ? 0.2 : { map: 'a', min: 0.3, max: 0.25 }, //5
+      //0
+      0,
+      //1
+      0,
+      //2
+      0,
+      //3
+      0,
+      //4
+      0,
+      //5
+      noCameraMovement ? 0.2 : { map: 'a', min: 0.3, max: 0.25 },
     ],
     actor1PosRel = 0.1,
     actor2PosRel = 0.85,

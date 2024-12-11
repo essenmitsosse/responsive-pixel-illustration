@@ -285,6 +285,7 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
       }
     },
 
+    /** Return prepared Color-Array, with default Color; */
     getClearSaveForRect: function (save, mask) {
       return function (args) {
         var endX = args.width + args.posX,
@@ -311,7 +312,7 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
     },
 
     get: pixelArray,
-  } // Return prepared Color-Array, with default Color;
+  }
 }
 
 Renderer.prototype.getRenderPixelToImage = function (backgroundColor) {

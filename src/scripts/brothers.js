@@ -130,7 +130,8 @@ function brothers() {
             color: hair,
             rX: true,
             list: beardOuter,
-          }, // to side
+          },
+          // to side
 
           // Right
           {
@@ -149,7 +150,8 @@ function brothers() {
             sX: { r: 0.1, save: 'rightSide' },
             color: hair,
             list: beardOuter,
-          }, // to side
+          },
+          // to side
 
           // HAIR
           {
@@ -1007,7 +1009,8 @@ function brothers() {
               // { tX:true, color:backgroundColor, sX:"border" },
               // { tX:true, fX:true, color:backgroundColor, sX:"border" },
             ],
-          }, // END ZEUS
+          },
+          // END ZEUS
 
           // OTHERS
           {
@@ -1021,7 +1024,8 @@ function brothers() {
                 sY: 'oSY',
                 color: hSkin,
                 list: getOthers(false, hSkin, hHair, hCloth, hBackground),
-              }, // END HADES
+              },
+              // END HADES
 
               // POSEIDON
               {
@@ -1032,9 +1036,11 @@ function brothers() {
                 color: pSkin,
                 rX: true,
                 list: getOthers(true, pSkin, pHair, pCloth, pBackground),
-              }, // END POSEIDON
+              },
+              // END POSEIDON
             ],
-          }, // END OTHERS
+          },
+          // END OTHERS
         ],
       },
 

@@ -141,7 +141,7 @@ Admin.prototype.setupSlider = function () {
       }
 
       if (!args.dontShow) {
-        getBasicWrapper([slider, /* datalist, */ span], 'slider', args.niceName)
+        getBasicWrapper([slider, span], 'slider', args.niceName)
 
         sliderObject[args.valueName] = getSliderControl.slider(
           slider,

@@ -18,7 +18,8 @@ export const PersonMain = function (args) {
   this.neck = new this.basic.Neck(args)
 
   this.bodyMain = new this.basic.BodyMain(args)
-} // End PersonMain
+}
+// End PersonMain
 
 PersonMain.prototype = new BBObj()
 
@@ -74,7 +75,8 @@ PersonMain.prototype.draw = function (args) {
     fY: true,
     list: [head.get, bodyMain.get],
   }
-} // End PersonMain Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+}
+// End PersonMain Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // BODY MAIN  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 export const BodyMain = function (args) {
@@ -100,7 +102,8 @@ export const BodyMain = function (args) {
   this.chest = new this.basic.Chest(args)
 
   this.lowerBody = new this.basic.LowerBody(args)
-} // End BodyMain
+}
+// End BodyMain
 
 BodyMain.prototype = new BBObj()
 
@@ -147,4 +150,5 @@ BodyMain.prototype.draw = function (args) {
     chest: chest,
     lowerBody: lowerBody,
   }
-} // End BodyMain Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+}
+// End BodyMain Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

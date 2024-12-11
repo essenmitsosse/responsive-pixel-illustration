@@ -15,7 +15,8 @@ function trex() {
             sX: { r: 0.7 },
             sY: { a: 1 },
             clear: true,
-          }, // Mouth
+          },
+          // Mouth
           { name: 'RoundRect' },
           {
             name: 'Dot',
@@ -45,7 +46,8 @@ function trex() {
                 fY: true,
                 color: ground,
                 changeColor: { what: 'multiply', amount: 0.6 },
-              }, //Shadow
+              },
+              //Shadow
 
               {
                 name: 'Obj',
@@ -62,8 +64,10 @@ function trex() {
                     name: 'Rect',
                     sX: { r: 0.6, min: 2 },
                     fX: true,
-                  }, // Leg
-                  { name: 'Rect', sY: { a: 1 }, fY: true }, // Feet
+                  },
+                  // Leg
+                  { name: 'Rect', sY: { a: 1 }, fY: true },
+                  // Feet
                   { name: 'Dot', y: { r: 1 }, color: white },
                   {
                     name: 'Dot',
@@ -86,8 +90,10 @@ function trex() {
                     name: 'Rect',
                     sX: { r: 0.6, min: 2 },
                     fX: true,
-                  }, // Leg
-                  { name: 'Rect', sY: { a: 1 }, fY: true }, // Feet
+                  },
+                  // Leg
+                  { name: 'Rect', sY: { a: 1 }, fY: true },
+                  // Feet
                   { name: 'Dot', fY: true, color: white },
                   {
                     name: 'Dot',
@@ -114,15 +120,18 @@ function trex() {
                     ],
                   },
                 ],
-              }, //Neck
-              { name: 'RoundRect', sY: { r: 0.5, min: 5 } }, //Torso
+              },
+              //Neck
+              { name: 'RoundRect', sY: { r: 0.5, min: 5 } },
+              //Torso
               {
                 name: 'Rect',
                 x: { r: -0.15, max: -3 },
                 sX: { r: 0.2, min: 3 },
                 y: { r: 0.2 },
                 sY: { a: 1 },
-              }, // Arms
+              },
+              // Arms
               {
                 name: 'Rect',
                 x: { r: -0.1, max: -2 },
@@ -138,7 +147,8 @@ function trex() {
             fX: true,
             sX: { r: 0.6 },
             sY: { r: 0.1 },
-          }, // Tail
+          },
+          // Tail
         ],
       },
     ],
@@ -153,7 +163,8 @@ function trex() {
         x: { r: -0.1 },
         y: { r: 0.2 },
         fY: true,
-        color: [100, 120, 200], // Trex
+        // Trex
+        color: [100, 120, 200],
         rX: true,
         list: trexsingle,
       },
@@ -165,7 +176,8 @@ function trex() {
         mY: { r: 0.07, a: -1 },
         x: { a: -20, r: -0.2 },
         fX: true,
-        color: [180, 50, 50], // Trex
+        // Trex
+        color: [180, 50, 50],
         list: trexsingle,
       },
     ],

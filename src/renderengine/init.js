@@ -10,7 +10,8 @@ export const InitPixel = function (args) {
     imageName = forceName || currentSlide.name || 'tantalos',
     sliders = queryString.sliders || currentSlide.sliders,
     div = args.div,
-    canvasDataList = false, // change for multiple Canvases
+    /** Change for multiple Canvases */
+    canvasDataList = false,
     canvasRenderer = this.createSingleCanvas(canvasDataList, div),
     callback,
     body = document.getElementsByTagName('body')[0]
@@ -486,7 +487,8 @@ InitPixel.prototype.getShortcuts = function (q) {
       }
     }
     // else if ( event.shiftKey ) {
-    // 	if ( keyCode === 49 ) { q.p = 11; that.refresh(); } // Number Keys 1 — 9 // Set resolution
+    // 	if ( keyCode === 49 ) { q.p = 11; that.refresh(); }
+    // Number Keys 1 — 9 // Set resolution
     // 	else if ( keyCode === 222 ) { q.p = 12; that.refresh(); }
     // 	else if ( keyCode === 51 ) { q.p = 13; that.refresh(); }
     // 	else if ( keyCode === 52 ) { q.p = 14; that.refresh(); }
@@ -499,7 +501,8 @@ InitPixel.prototype.getShortcuts = function (q) {
     // }
 
     // else if( !event.metaKey ) {
-    // 	if ( keyCode === 49 ) { q.p = 1; that.refresh(); } // Number Keys 1 — 9 // Set resolution
+    // 	if ( keyCode === 49 ) { q.p = 1; that.refresh(); }
+    // Number Keys 1 — 9 // Set resolution
     // 	else if ( keyCode === 50 ) { q.p = 2; that.refresh(); }
     // 	else if ( keyCode === 51 ) { q.p = 3; that.refresh(); }
     // 	else if ( keyCode === 52 ) { q.p = 4; that.refresh(); }
@@ -516,15 +519,18 @@ InitPixel.prototype.getShortcuts = function (q) {
 InitPixel.prototype.getTimerAnimation = function () {
   var that = this,
     fps = 20,
-    waitTimer = fps * 0.5, // how often per second should the chance be checked
+    /* how often per second should the chance be checked */
+    waitTimer = fps * 0.5,
     animations = {
       camera: { duration: 6, chance: 0.1 },
       side: { duration: 3, chance: 0.3 },
       a: { duration: 2, chance: 0.3 },
       b: { duration: 2, chance: 0.3 },
       c: { duration: 2, chance: 0.3 },
-      d: { duration: 2, chance: 0.1 }, // eye open
-      e: { duration: 2, chance: 0.1 }, // eye open
+      // eye open
+      d: { duration: 2, chance: 0.1 },
+      // eye open
+      e: { duration: 2, chance: 0.1 },
       f: { duration: 2, chance: 0.3 },
       g: { duration: 2, chance: 0.3 },
       h: { duration: 2, chance: 0.3 },

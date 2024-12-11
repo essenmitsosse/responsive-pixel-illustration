@@ -27,7 +27,8 @@ export const LowerBody = function (args) {
   if (!args.animal && this.IF(0.3)) {
     this.belt = new this.basic.Belt(args)
   }
-} // END LowerBody
+}
+// END LowerBody
 
 LowerBody.prototype = new Object()
 
@@ -88,7 +89,8 @@ LowerBody.prototype.draw = function (args, z) {
   }
 
   return list
-} // END LowerBody draw
+}
+// END LowerBody draw
 
 // Belt --------------------------------------------------------------------------------
 export const Belt = function (args) {
@@ -115,7 +117,8 @@ export const Belt = function (args) {
   }
 
   // Assets
-} // END Belt
+}
+// END Belt
 
 Belt.prototype = new Object()
 
@@ -153,7 +156,8 @@ Belt.prototype.draw = function (args, z) {
         },
     ],
   }
-} // END Belt draw
+}
+// END Belt draw
 
 // SKIRT --------------------------------------------------------------------------------
 export const Skirt = function (args) {
@@ -180,7 +184,8 @@ export const Skirt = function (args) {
   }
 
   // Assets
-} // END Skirt
+}
+// END Skirt
 
 Skirt.prototype = new Object()
 
@@ -221,7 +226,8 @@ Skirt.prototype.draw = function (args) {
       ],
     }
   )
-} // END Skirt draw
+}
+// END Skirt draw
 
 // LEG --------------------------------------------------------------------------------
 export const Leg = function (args) {
@@ -247,7 +253,8 @@ export const Leg = function (args) {
     : args.pantsColor.copy({ prevColor: this.IF(), brContrast: -2 })
 
   // Assets
-} // END Leg
+}
+// END Leg
 
 Leg.prototype = new Object()
 
@@ -405,4 +412,5 @@ Leg.prototype.draw = function (args, z, rightSide, behind) {
       },
     ],
   }
-} // END Leg draw
+}
+// END Leg draw

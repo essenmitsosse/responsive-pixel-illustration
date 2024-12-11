@@ -4,6 +4,7 @@ import listConfigCommentsEslint from './eslint/listConfigCommentsEslint.js'
 import listConfigImport from './eslint/listConfigImport.js'
 import listConfigImportStyle from './eslint/listConfigImportStyle.js'
 import listConfigPlaywright from './eslint/listConfigPlaywright.js'
+import listConfigSortKeys from './eslint/listConfigSortKeys.js'
 import listConfigStylistic from './eslint/listConfigStylistic.js'
 import listConfigTypeScript from './eslint/listConfigTypescript.js'
 
@@ -17,6 +18,7 @@ const listConfigEslint: ReadonlyArray<Linter.Config> = [
   ...listConfigImport,
   ...listConfigImportStyle,
   ...listConfigPlaywright,
+  ...listConfigSortKeys,
   ...listConfigStylistic,
   ...listConfigTypeScript,
 

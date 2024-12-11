@@ -59,6 +59,7 @@ const listConfigEslintBase: ReadonlyArray<Linter.Config> = [
        * Disallow unnecessary computed property keys in objects and classes
        * {@link https://eslint.org/docs/latest/rules/no-useless-computed-key#rule-details}
        */
+
       'no-useless-computed-key': 'error',
 
       /**
@@ -66,6 +67,14 @@ const listConfigEslintBase: ReadonlyArray<Linter.Config> = [
        * literals {@link https://eslint.org/docs/latest/rules/object-shorthand}
        */
       'object-shorthand': 'error',
+
+      /**
+       * Enforce variables to be declared separately in functions, instead of as
+       * a list.
+       *
+       * {@link https://eslint.org/docs/latest/rules/one-var}
+       */
+      'one-var': ['error', 'never'],
 
       /**
        * This rule enforces usage of destructuring instead of accessing a

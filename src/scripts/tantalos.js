@@ -1,10 +1,7 @@
-import { helper as helperGlobal } from '@/renderengine/helper.js'
+import { helper } from '@/renderengine/helper.js'
 
 function tantalos() {
-  var help = helperGlobal,
-    getSmallerDim = help.getSmallerDim,
-    getBiggerDim = help.getBiggerDim,
-    water = [36, 44, 53],
+  var water = [36, 44, 53],
     waterLight = [74, 81, 88],
     ground = [72, 71, 68],
     groundDark = [65, 54, 57],
@@ -45,10 +42,10 @@ function tantalos() {
     }),
     motiveSY = linkListPush([sYMain, { r: -2, useSize: borderSX }]),
     motiveSqu = linkListPush(
-      getSmallerDim({ r: 1, useSize: [motiveSX, motiveSY] }),
+      helper.getSmallerDim({ r: 1, useSize: [motiveSX, motiveSY] }),
     ),
     motiveSquBigger = linkListPush(
-      getBiggerDim({ r: 1, useSize: [motiveSX, motiveSY] }),
+      helper.getBiggerDim({ r: 1, useSize: [motiveSX, motiveSY] }),
     ),
     overshotSX = linkListPush({
       add: [motiveSX, { r: -1, useSize: motiveSqu }],

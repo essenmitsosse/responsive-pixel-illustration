@@ -82,10 +82,6 @@ export const UpperBody = function (args) {
 UpperBody.prototype = new Object()
 
 UpperBody.prototype.draw = function (args) {
-  var nr = args.nr,
-    sideView = args.sideView,
-    backView = args.backView
-
   if (args.calc) {
     args.upperBodySX = this.pushLinkList(args.personRealSX)
 
@@ -109,7 +105,7 @@ UpperBody.prototype.draw = function (args) {
     }
 
     args.trapSX = this.pushLinkList({
-      add: [args.chestSX, this.mult(sideView ? -2 : -1, args.neckSX)],
+      add: [args.chestSX, this.mult(args.sideView ? -2 : -1, args.neckSX)],
     })
 
     args.collarSX = this.pushLinkList(this.shirt ? 1 : { a: 0 })
@@ -119,12 +115,12 @@ UpperBody.prototype.draw = function (args) {
     sX: args.upperBodySX,
     sY: args.upperBodySY,
     y: args.lowerBodySY,
-    cX: sideView,
+    cX: args.sideView,
     fY: true,
     color: this.clothColor.get(),
-    id: 'upperBody' + nr,
+    id: 'upperBody' + args.nr,
     list: [
-      !sideView &&
+      !args.sideView &&
         this.waist && {
           clear: true,
           sX: { r: 0.2, max: 1 },
@@ -137,7 +133,7 @@ UpperBody.prototype.draw = function (args) {
       {
         sX: args.chestSX,
         sY: args.chestSY,
-        cX: sideView,
+        cX: args.sideView,
         list: [
           {},
 
@@ -147,25 +143,25 @@ UpperBody.prototype.draw = function (args) {
           // Arm
           this.arm.draw(args, args.right),
 
-          // Arm SideView
-          sideView && this.arm.draw(args, !args.right, true),
+          // Arm args.sideView
+          args.sideView && this.arm.draw(args, !args.right, true),
 
           // Cape
           this.cape && this.cape.draw(args),
-          !backView && this.cape && this.cape.drawFront(args),
+          !args.backView && this.cape && this.cape.drawFront(args),
         ],
       },
 
       // Stomach
       this.chestWide && {
         sY: args.stomachSY,
-        cX: sideView,
+        cX: args.sideView,
         fY: true,
       },
 
       this.stripes && this.stripes.draw(args),
 
-      !backView &&
+      !args.backView &&
         this.breast && {
           color: this.clothShadowColor.get(),
           sY: 1,
@@ -174,19 +170,19 @@ UpperBody.prototype.draw = function (args) {
         },
 
       this.hanky &&
-        !backView &&
-        (sideView || !args.right) && {
+        !args.backView &&
+        (args.sideView || !args.right) && {
           color: this.shirtColor.get(),
-          sX: { r: sideView ? 0.2 : 0.3 },
+          sX: { r: args.sideView ? 0.2 : 0.3 },
           sY: { r: 0.1, max: 1 },
           y: { r: 0.2 },
           x: { r: 0.2, min: 1 },
-          fX: !sideView || !args.right,
+          fX: !args.sideView || !args.right,
         },
 
-      !backView && this.logo && this.logo.draw(args, 3),
-      !backView && this.nipples && this.nipples.draw(args, 3),
-      !backView && this.buttons && this.buttons.draw(args, 5),
+      !args.backView && this.logo && this.logo.draw(args, 3),
+      !args.backView && this.nipples && this.nipples.draw(args, 3),
+      !args.backView && this.buttons && this.buttons.draw(args, 5),
       this.suspenders && this.suspenders.draw(args, 7),
       this.strap && this.strap.draw(args, 10),
     ],
@@ -225,13 +221,11 @@ export const Stripes = function (args) {
 Stripes.prototype = new Object()
 
 Stripes.prototype.draw = function (args, z) {
-  var sideView = args.sideView
-
   return (
-    (sideView || !args.right) && {
+    (args.sideView || !args.right) && {
       fX: true,
       z,
-      sX: !sideView && { r: 2, useSize: args.upperBodySX, a: -1 },
+      sX: !args.sideView && { r: 2, useSize: args.upperBodySX, a: -1 },
       color: this.stripColor.get(),
       stripes: !this.dots && {
         gap: { r: this.gap, useSize: args.upperBodySY },
@@ -290,16 +284,14 @@ export const Buttons = function (args, color) {
 Buttons.prototype = new Object()
 
 Buttons.prototype.draw = function (args, z) {
-  var sideView = args.sideView
-
   return (
     !args.backView && {
       sX: { r: this.buttonSX, useSize: args.chestSX, min: 1 },
       fY: true,
-      cX: sideView,
+      cX: args.sideView,
       color: this.buttonsColor.get(),
       z,
-      // rX: sideView && args.right,
+      // rX: args.sideView && args.right,
       list: !this.zipper && [
         {
           stripes: {
@@ -349,16 +341,14 @@ export const Suspenders = function (args) {
 Suspenders.prototype = new Object()
 
 Suspenders.prototype.draw = function (args, z) {
-  var nr = args.nr,
-    sideView = args.sideView,
-    detail = this.detail && [
-      {},
-      {
-        color: this.detailColor.get(),
-        sY: { r: 1, otherDim: true },
-        fY: true,
-      },
-    ]
+  var detail = this.detail && [
+    {},
+    {
+      color: this.detailColor.get(),
+      sY: { r: 1, otherDim: true },
+      fY: true,
+    },
+  ]
 
   if (args.calc) {
     args.trapSX = this.pushLinkList({
@@ -369,18 +359,18 @@ Suspenders.prototype.draw = function (args, z) {
   return {
     z,
     color: this.strapColor.get(),
-    id: 'strap' + nr,
+    id: 'strap' + args.nr,
     fX: true,
     list: [
       {
         sX: {
-          r: this.strapSX * (sideView ? 0.5 : 1),
+          r: this.strapSX * (args.sideView ? 0.5 : 1),
           useSize: args.trapSX,
           min: 1,
           save: args.strapSX,
         },
         x: {
-          r: this.strapX * (sideView ? 0.5 : 1),
+          r: this.strapX * (args.sideView ? 0.5 : 1),
           useSize: args.trapSX,
           max: [args.trapSX, this.sub(args.strapSX)],
           min: { a: 0 },
@@ -388,15 +378,15 @@ Suspenders.prototype.draw = function (args, z) {
         fX: true,
         list: detail,
       },
-      sideView && {
+      args.sideView && {
         sX: {
-          r: this.strapSX * (sideView ? 0.5 : 1),
+          r: this.strapSX * (args.sideView ? 0.5 : 1),
           useSize: args.trapSX,
           min: 1,
           save: args.strapSX,
         },
         x: {
-          r: this.strapX * (sideView ? 0.5 : 1),
+          r: this.strapX * (args.sideView ? 0.5 : 1),
           useSize: args.trapSX,
           max: [args.trapSX, this.sub(args.strapSX)],
         },
@@ -437,18 +427,15 @@ export const Collar = function (args) {
 Collar.prototype = new Object()
 
 Collar.prototype.draw = function (args, z) {
-  var nr = args.nr,
-    sideView = args.sideView
-
   return {
     z: 10,
     color: this.shirtColor.get(),
     sX: this.scarf
       ? { add: [args.headSX], max: args.chestSX }
-      : [args.neckSX, sideView ? 2 : 1],
+      : [args.neckSX, args.sideView ? 2 : 1],
     sY: { r: this.collarSY, max: args.backView && 1 },
-    cX: sideView,
-    fX: !this.scarf && sideView,
+    cX: args.sideView,
+    fX: !this.scarf && args.sideView,
     list: [
       this.scarf && { ty: true, sY: 2, y: -1, z: z + 100 },
       { sY: { r: 1, max: 2 } },
@@ -473,7 +460,7 @@ Collar.prototype.draw = function (args, z) {
           sX: { r: 0.25, min: 1 },
           sY: this.fullTie && [args.upperBodySY, -1],
           minY: 4,
-          id: 'tie' + nr,
+          id: 'tie' + args.nr,
           color: this.tieColor.get(),
           list: [{ name: 'Dot', fY: true, fX: true, clear: true }, {}],
         },
@@ -507,8 +494,6 @@ export const Cleavage = function (args) {
 Cleavage.prototype = new Object()
 
 Cleavage.prototype.draw = function (args, z) {
-  var sideView = args.sideView
-
   if (args.calc) {
     args.cleavageSX = this.pushLinkList({
       r: this.cleavageSX,
@@ -517,7 +502,7 @@ Cleavage.prototype.draw = function (args, z) {
     })
 
     args.cleavageX = this.pushLinkList(
-      sideView
+      args.sideView
         ? [
             this.mult(0.5, args.chestSX),
             this.mult(-0.5, args.cleavageSX),
@@ -527,7 +512,7 @@ Cleavage.prototype.draw = function (args, z) {
     )
 
     if (this.sleeveless) {
-      if (sideView) {
+      if (args.sideView) {
         args.cleavageRightX = this.pushLinkList({
           add: [
             args.chestSX,
@@ -547,7 +532,7 @@ Cleavage.prototype.draw = function (args, z) {
 
   return {
     list: [
-      sideView &&
+      args.sideView &&
         this.sleeveless && {
           color: this.skinColor.get(),
           sX: [args.cleavageRightX, args.strapSX],
@@ -567,9 +552,9 @@ Cleavage.prototype.draw = function (args, z) {
         z,
         color: this.skinColor.get(),
         sY: { r: this.cleavageSY },
-        x: sideView && args.cleavageX,
+        x: args.sideView && args.cleavageX,
         sX: args.cleavageSX,
-        fX: sideView,
+        fX: args.sideView,
       },
     ],
   }
@@ -593,8 +578,6 @@ export const Nipples = function (args) {
 Nipples.prototype = new Object()
 
 Nipples.prototype.draw = function (args, z) {
-  var sideView = args.sideView
-
   if (args.calc) {
     args.nippleS = this.pushLinkList({
       r: this.nippleSize,
@@ -607,7 +590,7 @@ Nipples.prototype.draw = function (args, z) {
     s: args.nippleS,
     y: { r: this.nipplePos, min: 1 },
     x: { r: 0.2, min: 1 },
-    fX: !sideView,
+    fX: !args.sideView,
     z,
   }
 }
@@ -630,8 +613,6 @@ export const Cape = function (args) {
 Cape.prototype = new Object()
 
 Cape.prototype.draw = function (args) {
-  var sideView = args.sideView
-
   if (args.calc) {
     args.capeFrontSY = this.pushLinkList({
       r: this.capeFrontSY,
@@ -651,19 +632,17 @@ Cape.prototype.draw = function (args) {
     color: this.capeColor.get(),
     sX: args.shoulderFullSX,
     sY: args.capeSY,
-    fX: sideView,
-    x: sideView && this.sub(args.shoulderSX),
+    fX: args.sideView,
+    x: args.sideView && this.sub(args.shoulderSX),
   }
 }
 // END Cape Back draw
 
 Cape.prototype.drawFront = function (args) {
-  var sideView = args.sideView
-
   return {
     color: this.capeColor.get(),
     sX: args.shoulderFullSX,
-    x: sideView && this.sub(args.shoulderSX),
+    x: args.sideView && this.sub(args.shoulderSX),
     sY: args.capeFrontSY,
   }
 }
@@ -688,9 +667,6 @@ export const Strap = function (args) {
 Strap.prototype = new Object()
 
 Strap.prototype.draw = function (args, z) {
-  var nr = args.nr,
-    sideView = args.sideView
-
   if (args.calc) {
     args.strapTickness = this.pushLinkList({
       r: this.thickness,
@@ -700,9 +676,9 @@ Strap.prototype.draw = function (args, z) {
   }
 
   return (
-    (sideView || args.right) && {
-      rX: sideView && !args.right,
-      id: 'strap' + nr,
+    (args.sideView || args.right) && {
+      rX: args.sideView && !args.right,
+      id: 'strap' + args.nr,
       list: [
         {
           tY: true,
@@ -724,7 +700,7 @@ Strap.prototype.draw = function (args, z) {
             {
               fX: true,
               x: {
-                r: sideView ? 1 : 2,
+                r: args.sideView ? 1 : 2,
                 useSize: args.personSX,
                 add: [this.mult(-0.5, args.strapTickness), -2],
               },

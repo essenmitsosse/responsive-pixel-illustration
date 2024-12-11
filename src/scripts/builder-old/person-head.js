@@ -75,42 +75,40 @@ export const Head = function (args) {
 Head.prototype = new Object()
 
 Head.prototype.draw = function (args) {
-  var nr = args.nr,
-    sideView = args.sideView,
-    list
+  var list
 
   if (args.calc) {
-    this.vL['headMinSY' + nr] = {
+    this.vL['headMinSY' + args.nr] = {
       r: this.headSY,
       useSize: args.size,
       a: 1,
       min: 1,
     }
 
-    this.vL['headMinSX' + nr] = {
+    this.vL['headMinSX' + args.nr] = {
       r: this.headSX,
       min: 1,
       useSize: args.size,
       a: 1.4,
     }
 
-    this.vL['neckSX' + nr] = sideView
+    this.vL['neckSX' + args.nr] = args.sideView
       ? {
           add: [
-            { r: -1 + this.neckSX, useSize: 'headMinSX' + nr },
-            'headMinSX' + nr,
+            { r: -1 + this.neckSX, useSize: 'headMinSX' + args.nr },
+            'headMinSX' + args.nr,
           ],
-          max: 'personSX' + nr,
+          max: 'personSX' + args.nr,
           min: 1,
         }
       : {
           r: this.neckSX,
-          useSize: 'headMinSX' + nr,
-          max: 'personSX' + nr,
+          useSize: 'headMinSX' + args.nr,
+          max: 'personSX' + args.nr,
           min: 1,
         }
 
-    this.vL['neckSY' + nr] = {
+    this.vL['neckSY' + args.nr] = {
       r: this.headSY * this.neckSY,
       useSize: args.size,
       a: -1,
@@ -119,37 +117,37 @@ Head.prototype.draw = function (args) {
   }
 
   list = {
-    y: ['fullBodySY' + nr],
+    y: ['fullBodySY' + args.nr],
     fY: true,
     color: this.skinColor.get(),
     z: 100,
     list: [
       {
-        cX: sideView,
+        cX: args.sideView,
         list: [
           // Neck
           {
-            sY: ['neckSY' + nr, 2],
+            sY: ['neckSY' + args.nr, 2],
             y: -1,
-            sX: 'neckSX' + nr,
-            cX: sideView,
+            sX: 'neckSX' + args.nr,
+            cX: args.sideView,
             fY: true,
           },
 
           // Head
           {
-            sX: sideView ? 'headSX' + nr : 'lowerHeadSX' + nr,
-            sY: 'headSY' + nr,
+            sX: args.sideView ? 'headSX' + args.nr : 'lowerHeadSX' + args.nr,
+            sY: 'headSY' + args.nr,
             fY: true,
-            y: 'neckSY' + nr,
-            cX: sideView,
-            id: 'head' + nr,
+            y: 'neckSY' + args.nr,
+            cX: args.sideView,
+            id: 'head' + args.nr,
             list: [
               // Upper Head
               {
-                sX: 'headSX' + nr,
-                sY: ['upperHeadSY' + nr, 1],
-                id: 'upperHead' + nr,
+                sX: 'headSX' + args.nr,
+                sY: ['upperHeadSY' + args.nr, 1],
+                id: 'upperHead' + args.nr,
                 list: [
                   // Horns
                   this.horns && this.horns.draw(args),
@@ -178,7 +176,7 @@ Head.prototype.draw = function (args) {
                         clear: true,
                         fX: true,
                       },
-                      sideView && {
+                      args.sideView && {
                         name: 'Dot',
                         clear: true,
                       },
@@ -192,7 +190,7 @@ Head.prototype.draw = function (args) {
               // Round Bottom
               {
                 fY: true,
-                sY: 'lowerHeadSY' + nr,
+                sY: 'lowerHeadSY' + args.nr,
                 minY: 4,
                 minX: 3,
                 list: [
@@ -202,7 +200,7 @@ Head.prototype.draw = function (args) {
                     clear: true,
                     fX: true,
                   },
-                  sideView && {
+                  args.sideView && {
                     name: 'Dot',
                     fY: true,
                     clear: true,
@@ -212,7 +210,7 @@ Head.prototype.draw = function (args) {
 
               // Lower Head
               {
-                sY: 'lowerHeadSY' + nr,
+                sY: 'lowerHeadSY' + args.nr,
                 fY: true,
                 list: [
                   { name: 'Dot', clear: true, fX: true },
@@ -237,58 +235,62 @@ Head.prototype.draw = function (args) {
   }
 
   if (args.calc) {
-    this.vL['faceMaxSY' + nr] = [
-      'mouthMaxSY' + nr,
-      'eyeSY' + nr,
-      'eyeFullMaxY' + nr,
+    this.vL['faceMaxSY' + args.nr] = [
+      'mouthMaxSY' + args.nr,
+      'eyeSY' + args.nr,
+      'eyeFullMaxY' + args.nr,
     ]
 
-    this.vL['foreheadSY' + nr] = {
+    this.vL['foreheadSY' + args.nr] = {
       r: this.foreheadSY,
-      useSize: 'headMinSY' + nr,
+      useSize: 'headMinSY' + args.nr,
     }
 
-    this.vL['upperHeadSY' + nr] = ['foreheadSY' + nr, 'eyeSY' + nr, 'eyeY' + nr]
+    this.vL['upperHeadSY' + args.nr] = [
+      'foreheadSY' + args.nr,
+      'eyeSY' + args.nr,
+      'eyeY' + args.nr,
+    ]
 
-    this.vL['headSX' + nr] = {
-      add: ['eyeSX' + nr, 'eyeX' + nr],
+    this.vL['headSX' + args.nr] = {
+      add: ['eyeSX' + args.nr, 'eyeX' + args.nr],
       min: {
-        r: sideView ? this.headSideSYFak : 1,
-        useSize: 'headMinSX' + nr,
-        min: ['mouthSX' + nr],
+        r: args.sideView ? this.headSideSYFak : 1,
+        useSize: 'headMinSX' + args.nr,
+        min: ['mouthSX' + args.nr],
       },
     }
 
-    this.vL['headMaxSY' + nr] = {
-      add: ['mouthTopMaxY' + nr, 'upperHeadSY' + nr],
+    this.vL['headMaxSY' + args.nr] = {
+      add: ['mouthTopMaxY' + args.nr, 'upperHeadSY' + args.nr],
     }
 
-    this.vL['headSY' + nr] = {
-      add: ['mouthTopY' + nr, 'upperHeadSY' + nr],
-      min: 'headMinSY' + nr,
+    this.vL['headSY' + args.nr] = {
+      add: ['mouthTopY' + args.nr, 'upperHeadSY' + args.nr],
+      min: 'headMinSY' + args.nr,
     }
 
-    this.vL['hairSX' + nr] = {
-      add: ['headSX' + nr, !this.hair ? { a: 0 } : sideView ? 2 : 1],
-      max: { r: 1.2, useSize: 'headSX' + nr },
+    this.vL['hairSX' + args.nr] = {
+      add: ['headSX' + args.nr, !this.hair ? { a: 0 } : args.sideView ? 2 : 1],
+      max: { r: 1.2, useSize: 'headSX' + args.nr },
     }
 
-    this.vL['lowerHeadSY' + nr] = [
-      'headSY' + nr,
-      this.sub('upperHeadSY' + nr),
+    this.vL['lowerHeadSY' + args.nr] = [
+      'headSY' + args.nr,
+      this.sub('upperHeadSY' + args.nr),
       1,
     ]
 
-    this.vL['eyeOutX' + nr] = [
-      'headSX' + nr,
-      this.sub('eyeSX' + nr),
-      this.sub('eyeX' + nr),
+    this.vL['eyeOutX' + args.nr] = [
+      'headSX' + args.nr,
+      this.sub('eyeSX' + args.nr),
+      this.sub('eyeX' + args.nr),
     ]
 
-    this.vL['lowerHeadSX' + nr] = {
+    this.vL['lowerHeadSX' + args.nr] = {
       r: this.lowerHeadSX,
-      useSize: 'headSX' + nr,
-      min: 'mouthSX' + nr,
+      useSize: 'headSX' + args.nr,
+      min: 'mouthSX' + args.nr,
     }
   }
 
@@ -351,82 +353,88 @@ export const Eye = function (args) {
 Eye.prototype = new Object()
 
 Eye.prototype.draw = function (args) {
-  var nr = args.nr,
-    sideView = args.sideView,
-    thisEye = args.eye || {},
-    lids = thisEye.lids,
-    lookHor = thisEye.lookHor,
-    lookVert = thisEye.lookVert,
-    brow = thisEye.brow,
-    eyeSad = lids === 'sad',
-    eyeAngry = eyeSad || lids === 'angry',
+  var thisEye = args.eye || {},
+    eyeSad = thisEye.lids === 'sad',
+    eyeAngry = eyeSad || thisEye.lids === 'angry',
     eyeClosed =
       eyeAngry ||
-      lids === 'closed' ||
-      lids === 'sleepy' ||
-      (args.right && lids === 'wink'),
-    eyeHalfClosed = !eyeClosed && lids === 'halfClosed',
-    lookUp = lookHor === 'up',
-    lookDown = lookHor === 'down' || lookHor === 'veryDown',
-    lookExtrem = lookUp || lookHor === 'veryDown',
+      thisEye.lids === 'closed' ||
+      thisEye.lids === 'sleepy' ||
+      (args.right && thisEye.lids === 'wink'),
+    eyeHalfClosed = !eyeClosed && thisEye.lids === 'halfClosed',
+    lookUp = thisEye.lookHor === 'up',
+    lookDown = thisEye.lookHor === 'down' || thisEye.lookHor === 'veryDown',
+    lookExtrem = lookUp || thisEye.lookHor === 'veryDown',
     lookForward = !lookUp && !lookDown,
-    lookSide = lookVert,
-    lookRight = lookVert === 'right',
-    eyeBrowRaised = brow === 'raised' || (args.right && brow === 'sceptical'),
-    eyeBrowLow = brow === 'low' || (!args.right && brow === 'sceptical'),
-    eyeBrowSad = brow === 'sad' || (args.right && brow === 'superSceptical'),
+    lookSide = thisEye.lookVert,
+    lookRight = thisEye.lookVert === 'right',
+    eyeBrowRaised =
+      thisEye.brow === 'raised' || (args.right && thisEye.brow === 'sceptical'),
+    eyeBrowLow =
+      thisEye.brow === 'low' || (!args.right && thisEye.brow === 'sceptical'),
+    eyeBrowSad =
+      thisEye.brow === 'sad' ||
+      (args.right && thisEye.brow === 'superSceptical'),
     eyeBrowAngry =
       eyeBrowSad ||
-      brow === 'angry' ||
-      (!args.right && brow === 'superSceptical')
+      thisEye.brow === 'angry' ||
+      (!args.right && thisEye.brow === 'superSceptical')
 
   if (args.calc) {
-    this.vL['eyeFullSX' + nr] = {
+    this.vL['eyeFullSX' + args.nr] = {
       r: this.eyeSX,
-      useSize: 'headMinSX' + nr,
-      max: 'headMinSX' + nr,
+      useSize: 'headMinSX' + args.nr,
+      max: 'headMinSX' + args.nr,
     }
 
-    this.vL['eyeSX' + nr] = {
-      r: sideView ? 0.8 : 1,
-      useSize: 'eyeFullSX' + nr,
-      min: { r: 0.3, useSize: 'headMinSX' + nr, max: 1 },
+    this.vL['eyeSX' + args.nr] = {
+      r: args.sideView ? 0.8 : 1,
+      useSize: 'eyeFullSX' + args.nr,
+      min: { r: 0.3, useSize: 'headMinSX' + args.nr, max: 1 },
     }
 
-    this.vL['eyeSY' + nr] = {
+    this.vL['eyeSY' + args.nr] = {
       r: this.eyeSX * this.eyeSY,
-      useSize: 'headMinSX' + nr,
-      min: { r: 0.2, useSize: 'headMinSY' + nr, max: 1 },
-      max: { r: 2, useSize: 'eyeSX' + nr, a: -1 },
+      useSize: 'headMinSX' + args.nr,
+      min: { r: 0.2, useSize: 'headMinSY' + args.nr, max: 1 },
+      max: { r: 2, useSize: 'eyeSX' + args.nr, a: -1 },
     }
 
-    this.vL['eyeX' + nr] = {
+    this.vL['eyeX' + args.nr] = {
       r: this.eyeX,
-      useSize: 'headMinSX' + nr,
+      useSize: 'headMinSX' + args.nr,
       min: 1,
     }
 
-    this.vL['eyeY' + nr] = {
+    this.vL['eyeY' + args.nr] = {
       r: this.eyeY,
-      useSize: 'headMinSY' + nr,
+      useSize: 'headMinSY' + args.nr,
       min: { a: 0 },
     }
 
-    this.vL['eyeFullY' + nr] = ['eyeY' + nr, 'mouthTopY' + nr, 0.1]
+    this.vL['eyeFullY' + args.nr] = [
+      'eyeY' + args.nr,
+      'mouthTopY' + args.nr,
+      0.1,
+    ]
 
-    this.vL['eyeFullMaxY' + nr] = ['eyeY' + nr, 'mouthTopMaxY' + nr, 0.1]
+    this.vL['eyeFullMaxY' + args.nr] = [
+      'eyeY' + args.nr,
+      'mouthTopMaxY' + args.nr,
+      0.1,
+    ]
 
-    this.vL['eyeBrowSY' + nr] = { r: 0.3, useSize: 'eyeSY' + nr }
+    this.vL['eyeBrowSY' + args.nr] = { r: 0.3, useSize: 'eyeSY' + args.nr }
   }
 
   return (
     !args.backView && {
-      sX: 'eyeSX' + nr,
-      sY: 'eyeSY' + nr,
-      x: 'eyeX' + nr,
-      y: 'eyeFullY' + nr,
+      sX: 'eyeSX' + args.nr,
+      sY: 'eyeSY' + args.nr,
+      x: 'eyeX' + args.nr,
+      y: 'eyeFullY' + args.nr,
       fY: true,
-      id: 'eyes' + nr,
+      id: 'eyes' + args.nr,
       color: (this.glasses ? this.pupilColor : this.skinShadowColor).get(),
       z: 0,
       list: [
@@ -437,10 +445,10 @@ Eye.prototype.draw = function (args) {
             { m: -1 },
 
             //Between Eyes
-            { sY: 1, sX: 'eyeX' + nr, tX: true },
+            { sY: 1, sX: 'eyeX' + args.nr, tX: true },
 
             // Ear Things
-            { sY: 1, sX: 'eyeOutX' + nr, fX: true, tX: true },
+            { sY: 1, sX: 'eyeOutX' + args.nr, fX: true, tX: true },
 
             // Glasses
             { color: this.eyeColor.get() },
@@ -486,7 +494,7 @@ Eye.prototype.draw = function (args) {
 
                 {
                   sY: !this.glasses && eyeHalfClosed && 1,
-                  y: !this.glasses && eyeHalfClosed && ['lowerLids' + nr],
+                  y: !this.glasses && eyeHalfClosed && ['lowerLids' + args.nr],
                   fY: true,
                   list: [
                     { color: this.eyeColor.get() },
@@ -494,12 +502,12 @@ Eye.prototype.draw = function (args) {
                     {
                       sX: {
                         r: 0.4,
-                        max: ['eyeSX' + nr, -1],
+                        max: ['eyeSX' + args.nr, -1],
                         min: 1,
                       },
                       sY: !this.highPupil && {
                         r: lookExtrem ? 0.5 : 0.6,
-                        max: 'eyeSY' + nr,
+                        max: 'eyeSY' + args.nr,
                         min: 1,
                       },
                       color: this.pupilColor.get(),
@@ -508,7 +516,7 @@ Eye.prototype.draw = function (args) {
                       rX: lookSide && args.right === lookRight,
                       fX: lookSide && args.right === lookRight,
                       cY: lookForward,
-                      id: 'pupil' + nr,
+                      id: 'pupil' + args.nr,
                       list: !this.highPupil && [
                         {
                           minX: 3,
@@ -551,19 +559,19 @@ Eye.prototype.draw = function (args) {
                 // Half Closed
                 !this.glasses &&
                   eyeHalfClosed && {
-                    id: 'halfClosed' + nr,
+                    id: 'halfClosed' + args.nr,
                     list: [
                       {
                         sY: {
                           r: 1,
-                          add: [this.sub('lowerLids' + nr), -1],
+                          add: [this.sub('lowerLids' + args.nr), -1],
                         },
                       },
                       {
                         sY: {
                           r: 0.5,
                           max: { r: 1, a: -2 },
-                          save: 'lowerLids' + nr,
+                          save: 'lowerLids' + args.nr,
                         },
                         fY: true,
                       },
@@ -598,43 +606,46 @@ Eye.prototype.draw = function (args) {
               // Closed Eyes
               fY: true,
               sY: 1,
-              cY: lids !== 'sleepy',
+              cY: thisEye.lids !== 'sleepy',
             },
 
         // Eye Brow
         this.eyeBrow && {
           sX: this.monoBrow
-            ? ['eyeSX' + nr, 'eyeX' + nr]
+            ? ['eyeSX' + args.nr, 'eyeX' + args.nr]
             : {
                 r: 1,
                 a: 1,
-                max: ['headSX' + nr, this.sub('eyeX' + nr)],
+                max: ['headSX' + args.nr, this.sub('eyeX' + args.nr)],
               },
           sY: eyeBrowAngry
-            ? ['eyeBrowSY' + nr, { r: 0.2, useSize: 'eyeSY' + nr, max: 1 }]
-            : 'eyeBrowSY' + nr,
+            ? [
+                'eyeBrowSY' + args.nr,
+                { r: 0.2, useSize: 'eyeSY' + args.nr, max: 1 },
+              ]
+            : 'eyeBrowSY' + args.nr,
           y:
             (eyeBrowRaised && -1) ||
             (eyeBrowLow && {
               r: 0.2,
-              useSize: 'eyeSX' + nr,
+              useSize: 'eyeSX' + args.nr,
               max: 1,
             }),
           minX: 2,
           fX: this.monoBrow,
           tY: true,
-          id: 'eyeBrow' + nr,
+          id: 'eyeBrow' + args.nr,
           color: this.hairColor.get(),
           list: eyeBrowAngry && [
             {
               sX: { r: 0.5 },
-              sY: 'eyeBrowSY' + nr,
+              sY: 'eyeBrowSY' + args.nr,
               fY: eyeBrowSad,
               fX: true,
             },
             {
               sX: { r: 0.5 },
-              sY: 'eyeBrowSY' + nr,
+              sY: 'eyeBrowSY' + args.nr,
               fY: !eyeBrowSad,
             },
 
@@ -672,13 +683,10 @@ export const Mouth = function (args) {
 Mouth.prototype = new Object()
 
 Mouth.prototype.draw = function (args) {
-  var nr = args.nr,
-    sideView = args.sideView,
-    thisMouth = args.mouth || {},
+  var thisMouth = args.mouth || {},
     mouthWidth = thisMouth.width,
     mouthHeight = thisMouth.height,
     mouthForm = thisMouth.form,
-    teeth = thisMouth.teeth,
     mouthD = mouthForm === 'D:',
     mouthGrin = mouthD || mouthForm === 'grin',
     mouthNarrow = mouthWidth === 'narrow',
@@ -686,53 +694,62 @@ Mouth.prototype.draw = function (args) {
     mouthHalfOpen = mouthHeight === 'half',
     mouthOpen = mouthSlight || mouthHalfOpen || mouthHeight === 'full',
     mouthSmile = mouthGrin && !mouthOpen,
-    teethFull = !mouthSlight && mouthOpen && !mouthNarrow && teeth === 'full',
+    teethFull =
+      !mouthSlight && mouthOpen && !mouthNarrow && thisMouth.teeth === 'full',
     teethTop =
-      !mouthSlight && ((mouthOpen && teeth === 'top') || teeth === 'both'),
+      !mouthSlight &&
+      ((mouthOpen && thisMouth.teeth === 'top') || thisMouth.teeth === 'both'),
     teethBottom =
-      !mouthSlight && ((mouthOpen && teeth === 'bottom') || teeth === 'both'),
-    smirk = thisMouth.smirk
+      !mouthSlight &&
+      ((mouthOpen && thisMouth.teeth === 'bottom') ||
+        thisMouth.teeth === 'both')
 
   if (args.calc) {
-    this.vL['mouthSX' + nr] = {
-      r: this.mouthSX * (sideView ? 0.7 : 1),
+    this.vL['mouthSX' + args.nr] = {
+      r: this.mouthSX * (args.sideView ? 0.7 : 1),
       a: 0.5,
-      useSize: 'headMinSX' + nr,
-      max: 'headMinSX' + nr,
+      useSize: 'headMinSX' + args.nr,
+      max: 'headMinSX' + args.nr,
     }
 
-    this.vL['mouthMaxSY' + nr] = {
+    this.vL['mouthMaxSY' + args.nr] = {
       r: this.mouthSY,
-      useSize: 'headMinSY' + nr,
+      useSize: 'headMinSY' + args.nr,
     }
 
-    this.vL['mouthSY' + nr] =
+    this.vL['mouthSY' + args.nr] =
       mouthSlight || mouthSmile
-        ? { a: 2, max: 'mouthMaxSY' + nr }
+        ? { a: 2, max: 'mouthMaxSY' + args.nr }
         : mouthOpen
           ? mouthHalfOpen
-            ? this.mult(0.5, 'mouthMaxSY' + nr)
-            : 'mouthMaxSY' + nr
-          : { a: 1, max: 'mouthMaxSY' + nr }
+            ? this.mult(0.5, 'mouthMaxSY' + args.nr)
+            : 'mouthMaxSY' + args.nr
+          : { a: 1, max: 'mouthMaxSY' + args.nr }
 
-    this.vL['mouthY' + nr] = { r: this.mouthY, useSize: 'headMinSY' + nr }
+    this.vL['mouthY' + args.nr] = {
+      r: this.mouthY,
+      useSize: 'headMinSY' + args.nr,
+    }
 
-    this.vL['mouthTopMaxY' + nr] = ['mouthMaxSY' + nr, 'mouthY' + nr]
+    this.vL['mouthTopMaxY' + args.nr] = [
+      'mouthMaxSY' + args.nr,
+      'mouthY' + args.nr,
+    ]
 
-    this.vL['mouthTopY' + nr] = ['mouthSY' + nr, 'mouthY' + nr]
+    this.vL['mouthTopY' + args.nr] = ['mouthSY' + args.nr, 'mouthY' + args.nr]
   }
 
   return (
     !args.backView && {
       sX: {
-        r: (mouthNarrow ? 0.4 : 1) * (smirk && args.right ? 0.4 : 1),
-        useSize: 'mouthSX' + nr,
+        r: (mouthNarrow ? 0.4 : 1) * (thisMouth.smirk && args.right ? 0.4 : 1),
+        useSize: 'mouthSX' + args.nr,
       },
       minX: 2,
-      sY: 'mouthSY' + nr,
-      y: 'mouthY' + nr,
+      sY: 'mouthSY' + args.nr,
+      y: 'mouthY' + args.nr,
       fY: true,
-      id: 'mouth' + nr,
+      id: 'mouth' + args.nr,
       z: 0,
       color: this.skinDetailColor.get(),
       list: mouthSmile
@@ -810,39 +827,36 @@ export const Hair = function (args) {
 Hair.prototype = new Object()
 
 Hair.prototype.draw = function (args) {
-  var nr = args.nr,
-    sideView = args.sideView,
-    backView = args.backView,
-    rightSide = sideView || !args.right,
-    name = args.id + '_' + args.right + nr
+  var rightSide = args.sideView || !args.right,
+    name = args.id + '_' + args.right + args.nr
 
   if (args.calc) {
-    this.vL['hairS' + nr] = {
+    this.vL['hairS' + args.nr] = {
       r: this.hairS,
-      useSize: 'headMinSY' + nr,
+      useSize: 'headMinSY' + args.nr,
       min: 1,
     }
 
-    this.vL['hairAccuracy' + nr] = {
+    this.vL['hairAccuracy' + args.nr] = {
       r: this.hairAccuracy * -1,
-      useSize: 'headMinSY' + nr,
+      useSize: 'headMinSY' + args.nr,
       max: { a: 0 },
     }
 
-    this.vL['hairDetailSY' + nr] = {
+    this.vL['hairDetailSY' + args.nr] = {
       r: this.detailSY,
-      useSize: 'headMinSY' + nr,
+      useSize: 'headMinSY' + args.nr,
       min: 1,
     }
   }
 
   return {
     color: this.hairColor.get(),
-    sX: 'hairSX' + nr,
-    cX: sideView,
-    fX: sideView,
+    sX: 'hairSX' + args.nr,
+    cX: args.sideView,
+    fX: args.sideView,
     z: 100,
-    id: 'hair' + nr,
+    id: 'hair' + args.nr,
     list: [
       // Main Hair Front
       {
@@ -868,8 +882,8 @@ Hair.prototype.draw = function (args) {
             color: this.hairDetailColor.get(),
             chance: this.detailChance,
             sY: {
-              a: 'hairDetailSY' + nr,
-              random: 'hairDetailSY' + nr,
+              a: 'hairDetailSY' + args.nr,
+              random: 'hairDetailSY' + args.nr,
             },
             mask: true,
           },
@@ -879,8 +893,8 @@ Hair.prototype.draw = function (args) {
             color: this.hairDetailColor.get(),
             chance: this.detailChance,
             sY: {
-              a: 'hairDetailSY' + nr,
-              random: 'hairDetailSY' + nr,
+              a: 'hairDetailSY' + args.nr,
+              random: 'hairDetailSY' + args.nr,
             },
             mask: true,
           },
@@ -890,8 +904,8 @@ Hair.prototype.draw = function (args) {
       // Top
       {
         save: 'hairFront' + name,
-        sX: 'headSX' + nr,
-        cX: sideView,
+        sX: 'headSX' + args.nr,
+        cX: args.sideView,
         sY: 1,
       },
 
@@ -901,20 +915,20 @@ Hair.prototype.draw = function (args) {
         list: [
           // ForeHead
           rightSide && {
-            sX: !sideView && {
+            sX: !args.sideView && {
               r: 2,
-              useSize: 'hairSX' + nr,
+              useSize: 'hairSX' + args.nr,
               a: -1,
             },
-            sY: { r: 0.5, useSize: 'foreheadSY' + nr, a: -1 },
+            sY: { r: 0.5, useSize: 'foreheadSY' + args.nr, a: -1 },
             fX: true,
             save: 'hairFront' + name,
             list: [
               {
                 stripes: {
-                  random: 'hairAccuracy' + nr,
+                  random: 'hairAccuracy' + args.nr,
                   seed: args.id + (args.right ? 1 : 0),
-                  strip: 'hairS' + nr,
+                  strip: 'hairS' + args.nr,
                 },
               },
             ],
@@ -924,21 +938,23 @@ Hair.prototype.draw = function (args) {
           this.hairSide && {
             color: this.longHair ? [0, 100, 150] : [0, 130, 255],
             fX: true,
-            sX: sideView ? { r: 0.5 } : { r: 2, useSize: 'hairSX' + nr, a: -1 },
+            sX: args.sideView
+              ? { r: 0.5 }
+              : { r: 2, useSize: 'hairSX' + args.nr, a: -1 },
             sY: {
               r: this.hairSY,
-              useSize: 'headMinSY' + nr,
-              min: 'hairSideSY' + nr,
-              max: ['personRealMinSY' + nr, -2],
+              useSize: 'headMinSY' + args.nr,
+              min: 'hairSideSY' + args.nr,
+              max: ['personRealMinSY' + args.nr, -2],
             },
             list: [
               {
-                save: (backView ? 'hairFront' : 'hairBack') + name,
+                save: (args.backView ? 'hairFront' : 'hairBack') + name,
                 color: [255, 0, 0],
                 stripes: {
-                  random: 'hairAccuracy' + nr,
+                  random: 'hairAccuracy' + args.nr,
                   seed: args.id + (args.right ? 1 : 0),
-                  strip: 'hairS' + nr,
+                  strip: 'hairS' + args.nr,
                 },
               },
             ],
@@ -947,26 +963,26 @@ Hair.prototype.draw = function (args) {
           // Side Hair
           this.hairSide && {
             sX: {
-              r: sideView ? 0.8 : 0.6,
-              useSize: 'eyeOutX' + nr,
+              r: args.sideView ? 0.8 : 0.6,
+              useSize: 'eyeOutX' + args.nr,
               max: {
-                r: sideView ? 0.9 : 0.15,
-                useSize: 'headSX' + nr,
+                r: args.sideView ? 0.9 : 0.15,
+                useSize: 'headSX' + args.nr,
               },
             },
             sY: {
               r: this.hairSideSY,
-              useSize: 'upperHeadSY' + nr,
-              save: 'hairSideSY' + nr,
+              useSize: 'upperHeadSY' + args.nr,
+              save: 'hairSideSY' + args.nr,
             },
             x: 1,
             fX: true,
             save: 'hairFront' + name,
             // color:[0,0,255],
             stripes: {
-              random: sideView && 'hairAccuracy' + nr,
-              strip: sideView && 'hairS' + nr,
-              change: !sideView && { r: -0.3 },
+              random: args.sideView && 'hairAccuracy' + args.nr,
+              strip: args.sideView && 'hairS' + args.nr,
+              change: !args.sideView && { r: -0.3 },
               seed: args.id + (args.right ? 1 : 0),
             },
           },
@@ -1014,47 +1030,44 @@ export const Beard = function (args) {
 Beard.prototype = new Object()
 
 Beard.prototype.draw = function (args) {
-  var nr = args.nr,
-    sideView = args.sideView
-
   if (args.calc) {
-    this.vL['beardDetailSY' + nr] = {
+    this.vL['beardDetailSY' + args.nr] = {
       r: this.detailSY,
-      useSize: 'headMinSY' + nr,
+      useSize: 'headMinSY' + args.nr,
       min: 1,
     }
   }
 
   return {
     color: this.beardColor.get(),
-    id: 'beard' + nr,
+    id: 'beard' + args.nr,
     z: args.backView && -100,
     list: [
       // 3 O’Clock Shadow
       this.threeOClok && {
-        id: 'head' + nr,
-        sY: 'mouthTopY' + nr,
+        id: 'head' + args.nr,
+        sY: 'mouthTopY' + args.nr,
         fY: true,
         color: this.skinShadowColor.get(),
       },
 
       // Beard Detail
-      this.mainBeard && { use: 'beard' + nr },
+      this.mainBeard && { use: 'beard' + args.nr },
 
       this.mainBeard && {
-        use: 'beard' + nr,
+        use: 'beard' + args.nr,
         color: this.hairDetailColor.get(),
         chance: this.detailChance,
-        sY: { a: 'beardDetailSY' + nr, random: 'beardDetailSY' + nr },
+        sY: { a: 'beardDetailSY' + args.nr, random: 'beardDetailSY' + args.nr },
         mask: true,
       },
 
       // Mustach
       this.mustach && {
-        sY: { r: 0.6, useSize: 'eyeY' + nr },
-        sX: ['mouthSX' + nr, 1],
+        sY: { r: 0.6, useSize: 'eyeY' + args.nr },
+        sX: ['mouthSX' + args.nr, 1],
         fY: true,
-        y: 'mouthTopY' + nr,
+        y: 'mouthTopY' + args.nr,
         x: this.mustachGap && 1,
         stripes: { horizontal: true, change: -1 },
       },
@@ -1062,12 +1075,12 @@ Beard.prototype.draw = function (args) {
       // Goate
       this.goate && {
         sX: { r: 0.2 },
-        sY: 'mouthTopY' + nr,
+        sY: 'mouthTopY' + args.nr,
         fY: true,
         x: [
-          'mouthSX' + nr,
+          'mouthSX' + args.nr,
           this.mustachGap
-            ? { r: 0.1, useSize: 'headSX' + nr, max: 1 }
+            ? { r: 0.1, useSize: 'headSX' + args.nr, max: 1 }
             : { a: 0 },
         ],
       },
@@ -1076,10 +1089,10 @@ Beard.prototype.draw = function (args) {
       this.mainBeard && {
         fY: true,
         tY: true,
-        id: 'beard' + nr,
-        y: ['mouthY' + nr, -1],
-        sY: { r: this.beardLength, useSize: 'headMaxSY' + nr },
-        sX: { r: (sideView ? 0.5 : 1) * (this.chinBard ? 0.5 : 1) },
+        id: 'beard' + args.nr,
+        y: ['mouthY' + args.nr, -1],
+        sY: { r: this.beardLength, useSize: 'headMaxSY' + args.nr },
+        sX: { r: (args.sideView ? 0.5 : 1) * (this.chinBard ? 0.5 : 1) },
         list: [
           {
             y: -1,
@@ -1092,7 +1105,7 @@ Beard.prototype.draw = function (args) {
               random: { r: -0.3, a: 2, max: { a: 0 } },
               seed: args.id + (args.right ? 1 : 0) * 2,
             },
-            save: 'beard' + nr,
+            save: 'beard' + args.nr,
           },
         ],
       },
@@ -1155,9 +1168,6 @@ export const Hat = function (args) {
 Hat.prototype = new Object()
 
 Hat.prototype.draw = function (args) {
-  var nr = args.nr,
-    sideView = args.sideView
-
   // if( args.calc ) {
   // 	this.vL[ "hatDepthY"+nr ] = ;
   // }
@@ -1165,30 +1175,30 @@ Hat.prototype.draw = function (args) {
   return {
     color: this.hatColor.get(),
     tY: true,
-    id: 'hat' + nr,
+    id: 'hat' + args.nr,
     z: 500,
-    cX: sideView,
-    fX: sideView,
+    cX: args.sideView,
+    fX: args.sideView,
     sY: {
       r: this.hatSY,
-      useSize: 'headMinSY' + nr,
+      useSize: 'headMinSY' + args.nr,
       min: [
         {
           r: this.hatDepthY,
-          useSize: 'foreheadSY' + nr,
+          useSize: 'foreheadSY' + args.nr,
           min: 1,
-          save: 'hatDepthY' + nr,
+          save: 'hatDepthY' + args.nr,
         },
         1,
       ],
     },
     sX: this.smallHat
-      ? { r: this.smallHat, useSize: 'hairSX' + nr }
-      : 'hairSX' + nr,
-    y: !this.smallHat && 'hatDepthY' + nr,
+      ? { r: this.smallHat, useSize: 'hairSX' + args.nr }
+      : 'hairSX' + args.nr,
+    y: !this.smallHat && 'hatDepthY' + args.nr,
     list: [
       // Dent
-      !sideView &&
+      !args.sideView &&
         this.dent && {
           sX: { r: this.dentSX * (this.hatTopSX || 1), min: 1 },
           clear: true,
@@ -1197,11 +1207,11 @@ Hat.prototype.draw = function (args) {
 
       // Rounding
       this.roundHat && { name: 'Dot', clear: true, fX: true },
-      this.roundHat && sideView && { name: 'Dot', clear: true },
+      this.roundHat && args.sideView && { name: 'Dot', clear: true },
 
       // Hat Band
       this.hatBand &&
-        (sideView || !this.baseCap) && {
+        (args.sideView || !this.baseCap) && {
           z: 10,
           sY: { r: 0.3, min: 2 },
           sX: this.baseCap && { r: 0.2 },
@@ -1211,27 +1221,27 @@ Hat.prototype.draw = function (args) {
           color: this.hatBandColor && this.hatBandColor.get(),
         },
 
-      this.getSmaller && { id: 'hair' + nr, clear: true },
+      this.getSmaller && { id: 'hair' + args.nr, clear: true },
 
       // Main Hat
       {
         points: this.getSmaller && [
-          sideView
-            ? { y: this.hatTopSX > 0 && 'hatDepthY' + nr, fY: true }
+          args.sideView
+            ? { y: this.hatTopSX > 0 && 'hatDepthY' + args.nr, fY: true }
             : { y: -1 },
-          sideView
+          args.sideView
             ? {
-                x: { r: this.hatTopSX * (sideView ? 0.5 : 1) },
+                x: { r: this.hatTopSX * (args.sideView ? 0.5 : 1) },
                 y: -1,
               }
             : { y: -1 },
           {
-            x: { r: this.hatTopSX * (sideView ? 0.5 : 1) },
+            x: { r: this.hatTopSX * (args.sideView ? 0.5 : 1) },
             fX: true,
             y: -1,
           },
           {
-            y: this.hatTopSX > 0 && 'hatDepthY' + nr,
+            y: this.hatTopSX > 0 && 'hatDepthY' + args.nr,
             fY: true,
             fX: true,
           },
@@ -1242,14 +1252,14 @@ Hat.prototype.draw = function (args) {
 
       // Rim
       this.hatRim && {
-        id: 'hatRim' + nr,
+        id: 'hatRim' + args.nr,
         z: 20,
-        sY: { a: this.thickRim ? 2 : 1, save: 'hatRim' + nr },
+        sY: { a: this.thickRim ? 2 : 1, save: 'hatRim' + args.nr },
         sX:
           (!this.baseCap && { r: this.hatRimSY }) ||
-          (sideView && { r: (this.hatRimSY - 1) / 2 + 1 }),
-        cX: sideView && !this.baseCap,
-        fX: sideView,
+          (args.sideView && { r: (this.hatRimSY - 1) / 2 + 1 }),
+        cX: args.sideView && !this.baseCap,
+        fX: args.sideView,
         fY: true,
         color: this.hatRimColor.get(),
       },
@@ -1296,25 +1306,22 @@ export const Helm = function (args) {
 Helm.prototype = new Object()
 
 Helm.prototype.draw = function (args) {
-  var nr = args.nr,
-    sideView = args.sideView
-
   // if( args.calc ) {
   // 	this.vL[ "hatDepthY"+nr ] = ;
   // }
 
   return {
     color: this.helmColor.get(),
-    id: 'hat' + nr,
+    id: 'hat' + args.nr,
     z: 160,
     y: -1,
-    cX: sideView,
-    sY: [{ r: this.helmSY, useSize: 'headMaxSY' + nr }, 2],
-    sX: 'hairSX' + nr,
+    cX: args.sideView,
+    sY: [{ r: this.helmSY, useSize: 'headMaxSY' + args.nr }, 2],
+    sX: 'hairSX' + args.nr,
     list: [
       {
         list: [
-          !sideView &&
+          !args.sideView &&
             this.sides && {
               color: !args.backView && this.helmDetailColor.get(),
               z: -1000,
@@ -1328,16 +1335,16 @@ Helm.prototype.draw = function (args) {
             tY: true,
             sX: { r: 0.2, min: 1 },
             sY: 1,
-            cX: sideView,
+            cX: args.sideView,
             color: this.helmDetailColor.get(),
           },
 
           // Top Part
-          { sY: { r: 1, max: 'foreheadSY' + nr } },
+          { sY: { r: 1, max: 'foreheadSY' + args.nr } },
 
           // Sides
           this.sides && {
-            sX: { a: 'eyeOutX' + nr, min: 1 },
+            sX: { a: 'eyeOutX' + args.nr, min: 1 },
             fX: true,
             list: this.bottomDetail && [
               {},
@@ -1352,8 +1359,8 @@ Helm.prototype.draw = function (args) {
 
           // Full
           this.full && {
-            y: ['foreheadSY' + nr, 'eyeSY' + nr, 1],
-            sY: 'mouthTopMaxY' + nr,
+            y: ['foreheadSY' + args.nr, 'eyeSY' + args.nr, 1],
+            sY: 'mouthTopMaxY' + args.nr,
           },
 
           // Nose Piece
@@ -1361,11 +1368,11 @@ Helm.prototype.draw = function (args) {
             z: 5,
             sX: {
               r: 0.2,
-              useSize: 'headSX' + nr,
-              max: 'eyeX' + nr,
-              min: ['eyeX' + nr, -1],
+              useSize: 'headSX' + args.nr,
+              max: 'eyeX' + args.nr,
+              min: ['eyeX' + args.nr, -1],
             },
-            sY: ['foreheadSY' + nr, 'eyeSY' + nr, 2],
+            sY: ['foreheadSY' + args.nr, 'eyeSY' + args.nr, 2],
           },
 
           args.backView && {},
@@ -1375,19 +1382,19 @@ Helm.prototype.draw = function (args) {
       this.foreheadDetail && {
         sY: {
           r: this.foreheadDetailSY,
-          useSize: 'foreheadSY' + nr,
+          useSize: 'foreheadSY' + args.nr,
           min: 1,
-          save: 'helmDetailSX' + nr,
+          save: 'helmDetailSX' + args.nr,
         },
         y: {
           r: 0.7,
           a: -1,
-          useSize: 'foreheadSY' + nr,
+          useSize: 'foreheadSY' + args.nr,
           min: { a: 0 },
           max: {
             r: -1.2,
-            useSize: 'helmDetailSX' + nr,
-            a: 'foreheadSY' + nr,
+            useSize: 'helmDetailSX' + args.nr,
+            a: 'foreheadSY' + args.nr,
           },
         },
         color: this.helmDetailColor.get(),
@@ -1415,24 +1422,21 @@ export const HeadBand = function (args) {
 HeadBand.prototype = new Object()
 
 HeadBand.prototype.draw = function (args, z) {
-  var nr = args.nr,
-    sideView = args.sideView
-
   return {
     z,
     sY: {
       r: 0.3,
-      useSize: 'foreheadSY' + nr,
+      useSize: 'foreheadSY' + args.nr,
       min: 1,
-      save: 'headBandSX' + nr,
+      save: 'headBandSX' + args.nr,
     },
-    sX: 'hairSX' + nr,
-    cX: sideView,
+    sX: 'hairSX' + args.nr,
+    cX: args.sideView,
     color: this.headBandColor.get(),
     y: {
       r: 0.5,
-      useSize: 'foreheadSY' + nr,
-      max: ['foreheadSY' + nr, this.sub('headBandSX' + nr)],
+      useSize: 'foreheadSY' + args.nr,
+      max: ['foreheadSY' + args.nr, this.sub('headBandSX' + args.nr)],
     },
   }
 }
@@ -1459,30 +1463,27 @@ export const Horns = function (args) {
 Horns.prototype = new Object()
 
 Horns.prototype.draw = function (args, z) {
-  var nr = args.nr,
-    sideView = args.sideView
-
   // if( args.calc ) {
   // 	this.vL[ "hatDepthY"+nr ] = ;
   // }
 
   return {
-    tX: !sideView || !this.ears,
+    tX: !args.sideView || !this.ears,
     fX: true,
-    z: z + (sideView ? 100 : 0),
-    id: 'horns' + nr,
+    z: z + (args.sideView ? 100 : 0),
+    id: 'horns' + args.nr,
     color: this.hornColor.get(),
     sX: {
-      r: this.hornsSX * (sideView ? 0.5 : 1),
-      useSize: 'headSX' + nr,
+      r: this.hornsSX * (args.sideView ? 0.5 : 1),
+      useSize: 'headSX' + args.nr,
       min: 1,
     },
-    sY: { r: this.hornsSY, useSize: 'headMaxSY' + nr },
-    x: sideView && {
+    sY: { r: this.hornsSY, useSize: 'headMaxSY' + args.nr },
+    x: args.sideView && {
       r: this.ears ? 0.3 : this.hornsSX * 0.3,
-      useSize: 'headSX' + nr,
+      useSize: 'headSX' + args.nr,
     },
-    y: { r: this.hornsY, useSize: 'headMaxSY' + nr },
+    y: { r: this.hornsY, useSize: 'headMaxSY' + args.nr },
     list: [
       { name: 'Dot', clear: true, fX: true, fY: true },
       // bend

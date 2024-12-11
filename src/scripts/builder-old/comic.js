@@ -671,13 +671,11 @@ export const Ground = function (args) {
 Ground.prototype = new Object()
 
 Ground.prototype.draw = function (args, z) {
-  var nr = args.nr
-
   return {
     color: this.groundColor.get(),
     fY: true,
     z,
-    sY: 'horizont' + nr,
+    sY: 'horizont' + args.nr,
   }
 }
 // END Ground draw

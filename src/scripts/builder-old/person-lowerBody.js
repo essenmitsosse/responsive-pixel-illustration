@@ -33,39 +33,37 @@ export const LowerBody = function (args) {
 LowerBody.prototype = new Object()
 
 LowerBody.prototype.draw = function (args, z) {
-  var nr = args.nr,
-    sideView = args.sideView,
-    list
+  var list
 
   if (args.calc) {
-    this.vL['lowerBodySX' + nr] = 'personRealSX' + nr
+    this.vL['lowerBodySX' + args.nr] = 'personRealSX' + args.nr
   }
 
   this.skirt = (!args.demo || args.skirt) && this.skirt
 
   list = {
-    sX: this.wideHips ? ['lowerBodySX' + nr, 1] : 'lowerBodySX' + nr,
-    sY: 'lowerBodySY' + nr,
-    cX: sideView,
+    sX: this.wideHips ? ['lowerBodySX' + args.nr, 1] : 'lowerBodySX' + args.nr,
+    sY: 'lowerBodySY' + args.nr,
+    cX: args.sideView,
     fY: true,
     color: this.pantsColor.get(),
     z,
     list: [
       // Leg SideView
-      sideView && this.leg.draw(args, z + 100, !args.right, true),
+      args.sideView && this.leg.draw(args, z + 100, !args.right, true),
 
       // Crotch
       this.skirt
         ? this.skirt.draw(args, z + 110)
         : {
-            sY: 'crotchSY' + nr,
+            sY: 'crotchSY' + args.nr,
             z: z + 110,
-            cX: sideView,
+            cX: args.sideView,
           },
 
       // Leg
       {
-        sY: this.skirt && 'feetRestSY' + nr,
+        sY: this.skirt && 'feetRestSY' + args.nr,
         list: [
           // Check if Skirt is so long, that it covers all the feet
           this.leg.draw(args, z, args.right),
@@ -78,10 +76,10 @@ LowerBody.prototype.draw = function (args, z) {
   }
 
   if (args.calc) {
-    this.vL['crotchSY' + nr] = {
+    this.vL['crotchSY' + args.nr] = {
       r: this.crotchSY,
-      useSize: 'legSX' + nr,
-      max: this.mult(0.4, 'lowerBodySY' + nr),
+      useSize: 'legSX' + args.nr,
+      max: this.mult(0.4, 'lowerBodySY' + args.nr),
       min: 1,
     }
   }
@@ -121,16 +119,17 @@ export const Belt = function (args) {
 Belt.prototype = new Object()
 
 Belt.prototype.draw = function (args, z) {
-  var nr = args.nr,
-    sideView = args.sideView
-
   return {
     z: z + 115,
     sY: {
       r: this.beltSY,
-      useSize: 'crotchSY' + nr,
+      useSize: 'crotchSY' + args.nr,
       a: 1,
-      max: { r: 1.4, useSize: 'legSX' + nr, max: ['crotchSY' + nr, -1] },
+      max: {
+        r: 1.4,
+        useSize: 'legSX' + args.nr,
+        max: ['crotchSY' + args.nr, -1],
+      },
     },
     color: this.beltColor.get(),
     list: [
@@ -145,7 +144,7 @@ Belt.prototype.draw = function (args, z) {
         this.buckle && {
           color: this.buckleColor.get(),
           sX: {
-            r: this.buckleSX * (sideView ? 0.5 : 1),
+            r: this.buckleSX * (args.sideView ? 0.5 : 1),
             min: {
               r: 1,
               otherDim: true,
@@ -189,27 +188,27 @@ export const Skirt = function (args) {
 Skirt.prototype = new Object()
 
 Skirt.prototype.draw = function (args) {
-  var nr = args.nr,
-    sideView = args.sideView
-
   if (args.calc) {
-    this.vL['skirtSY' + nr] = {
+    this.vL['skirtSY' + args.nr] = {
       r: this.skirtSY,
-      useSize: 'lowerBodySY' + nr,
+      useSize: 'lowerBodySY' + args.nr,
       min: 1,
-      max: 'lowerBodySY' + nr,
+      max: 'lowerBodySY' + args.nr,
     }
 
-    this.vL['feetRestSY' + nr] = ['lowerBodySY' + nr, this.sub('skirtSY' + nr)]
+    this.vL['feetRestSY' + args.nr] = [
+      'lowerBodySY' + args.nr,
+      this.sub('skirtSY' + args.nr),
+    ]
   }
 
   return (
-    (sideView || !args.right) && {
+    (args.sideView || !args.right) && {
       z: 50,
-      cX: sideView,
-      sX: !sideView && { r: 2, a: -1 },
+      cX: args.sideView,
+      sX: !args.sideView && { r: 2, a: -1 },
       fX: true,
-      sY: 'skirtSY' + nr,
+      sY: 'skirtSY' + args.nr,
       color: this.skirtColor.get(),
       list: this.stripes && [
         {},
@@ -257,117 +256,122 @@ export const Leg = function (args) {
 Leg.prototype = new Object()
 
 Leg.prototype.draw = function (args, z, rightSide, behind) {
-  var nr = args.nr,
-    sideView = args.sideView,
-    legPos = args.leg && args.leg[rightSide ? 'right' : 'left'],
+  var legPos = args.leg && args.leg[rightSide ? 'right' : 'left'],
     hipBend = legPos === 'legHigh',
     legBend = hipBend || legPos === 'kneeBend',
     legRaise = !hipBend && !legBend && legPos === 'legRaise'
 
   if (args.calc) {
-    this.vL['legSX' + nr] = {
+    this.vL['legSX' + args.nr] = {
       r: this.legSX,
-      useSize: 'personHalfSX' + nr,
-      max: ['lowerBodySX' + nr, this.legsIn ? -2 : -1],
+      useSize: 'personHalfSX' + args.nr,
+      max: ['lowerBodySX' + args.nr, this.legsIn ? -2 : -1],
       min: 1,
     }
 
-    this.vL['upperLegSY' + nr] = { r: 0.5, useSize: 'lowerBodySY' + nr }
+    this.vL['upperLegSY' + args.nr] = {
+      r: 0.5,
+      useSize: 'lowerBodySY' + args.nr,
+    }
 
-    this.vL['lowerLegSY' + nr] = [
-      'lowerBodySY' + nr,
-      this.sub('upperLegSY' + nr),
+    this.vL['lowerLegSY' + args.nr] = [
+      'lowerBodySY' + args.nr,
+      this.sub('upperLegSY' + args.nr),
     ]
 
-    this.vL['shoeSY' + nr] = this.bootsSY
-      ? { r: this.bootsSY, useSize: 'lowerLegSY' + nr, min: 1 }
-      : { r: 0.8, useSize: 'legSX' + nr, min: 1 }
+    this.vL['shoeSY' + args.nr] = this.bootsSY
+      ? { r: this.bootsSY, useSize: 'lowerLegSY' + args.nr, min: 1 }
+      : { r: 0.8, useSize: 'legSX' + args.nr, min: 1 }
 
-    this.vL['legMaxSX' + nr] = {
-      r: sideView ? 0.8 : 1,
-      useSize: 'lowerBodySX' + nr,
+    this.vL['legMaxSX' + args.nr] = {
+      r: args.sideView ? 0.8 : 1,
+      useSize: 'lowerBodySX' + args.nr,
       a: -2,
-      max: ['legSX' + nr, 2],
-      min: 'legSX' + nr,
+      max: ['legSX' + args.nr, 2],
+      min: 'legSX' + args.nr,
     }
 
-    this.vL['thighsSX' + nr] = {
-      useSize: 'personHalfSX' + nr,
+    this.vL['thighsSX' + args.nr] = {
+      useSize: 'personHalfSX' + args.nr,
       r: this.thights || 1,
-      max: 'legMaxSX' + nr,
+      max: 'legMaxSX' + args.nr,
       min: 1,
     }
 
-    this.vL['calvesSX' + nr] = {
-      useSize: 'personHalfSX' + nr,
+    this.vL['calvesSX' + args.nr] = {
+      useSize: 'personHalfSX' + args.nr,
       r: this.calves || 1,
-      max: 'legMaxSX' + nr,
+      max: 'legMaxSX' + args.nr,
       min: 1,
     }
 
-    this.vL['legFullSX' + nr] = {
-      a: 'thighsSX' + nr,
-      min: 'calvesSX' + nr,
+    this.vL['legFullSX' + args.nr] = {
+      a: 'thighsSX' + args.nr,
+      min: 'calvesSX' + args.nr,
     }
   }
 
   return {
-    s: 'legSX' + nr,
+    s: 'legSX' + args.nr,
     fX: !behind,
-    x: !sideView && this.legsIn && { r: 0.3, max: 1 },
+    x: !args.sideView && this.legsIn && { r: 0.3, max: 1 },
     z,
-    rY: hipBend && (args.backView || (sideView && args.right === rightSide)),
+    rY:
+      hipBend && (args.backView || (args.sideView && args.right === rightSide)),
     rX:
-      (!hipBend && sideView) ||
-      (hipBend && (args.backView || (sideView && !args.right === rightSide))),
+      (!hipBend && args.sideView) ||
+      (hipBend &&
+        (args.backView || (args.sideView && !args.right === rightSide))),
     rotate: hipBend && (rightSide ? 90 : -90),
     // y:["crotchSY"+nr],
     list: [
       {
-        sY: 'upperLegSY' + nr,
+        sY: 'upperLegSY' + args.nr,
         list: [
           {
-            sX: 'legFullSX' + nr,
-            fX: !sideView || args.right !== rightSide,
+            sX: 'legFullSX' + args.nr,
+            fX: !args.sideView || args.right !== rightSide,
 
             list: [
               // Thigh
-              { cX: true, sX: 'thighsSX' + nr, fX: true },
+              { cX: true, sX: 'thighsSX' + args.nr, fX: true },
 
               // Calve
               {
-                sX: 'calvesSX' + nr,
-                sY: 'legSX' + nr,
+                sX: 'calvesSX' + args.nr,
+                sY: 'legSX' + args.nr,
                 tY: true,
                 fY: true,
                 cX: true,
                 rY:
                   legBend &&
-                  (args.backView || (sideView && args.right === rightSide)),
+                  (args.backView ||
+                    (args.sideView && args.right === rightSide)),
                 rX:
                   legBend &&
-                  (args.backView || (sideView && args.right === rightSide)),
+                  (args.backView ||
+                    (args.sideView && args.right === rightSide)),
                 rotate: legBend && (rightSide ? -90 : 90),
                 list: [
                   {
-                    sY: 'lowerLegSY' + nr,
+                    sY: 'lowerLegSY' + args.nr,
                     y: legRaise && {
                       r: -0.1,
-                      useSize: 'lowerBodySY' + nr,
+                      useSize: 'lowerBodySY' + args.nr,
                     },
                     list: [
                       {},
 
                       // Feet
                       {
-                        sY: 'shoeSY' + nr,
+                        sY: 'shoeSY' + args.nr,
                         sX: !this.bareFoot &&
                           this.bootsSXBig && {
                             r: 1,
                             a: this.bootsSXBig,
                             max: {
                               r: 0.5,
-                              useSize: 'personHalfSX' + nr,
+                              useSize: 'personHalfSX' + args.nr,
                             },
                           },
                         cX: true,
@@ -381,7 +385,7 @@ Leg.prototype.draw = function (args, z, rightSide, behind) {
                           !this.bareFoot && {
                             sY: {
                               r: 0.2,
-                              useSize: 'legSX' + nr,
+                              useSize: 'legSX' + args.nr,
                               min: 1,
                             },
                             sX: {
@@ -389,8 +393,8 @@ Leg.prototype.draw = function (args, z, rightSide, behind) {
                               a: 1,
                               max: {
                                 r: 0.15,
-                                useSize: 'personHalfSX' + nr,
-                                max: ['calvesSX' + nr, 1],
+                                useSize: 'personHalfSX' + args.nr,
+                                max: ['calvesSX' + args.nr, 1],
                               },
                             },
                             fY: true,

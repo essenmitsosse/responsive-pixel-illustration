@@ -118,11 +118,9 @@ export const BasicBody = function (args) {
 BasicBody.prototype = new Object()
 
 BasicBody.prototype.draw = function (args, right) {
-  var sideView = args.sideView
-
   args.right = right
 
-  args.calc = args.backView !== right || sideView
+  args.calc = args.backView !== right || args.sideView
 
   if (args.calc) {
     args.basicSX = this.pushLinkList({ r: 0, useSize: args.personHalfSX })
@@ -192,9 +190,9 @@ BasicBody.prototype.draw = function (args, right) {
   return [
     {
       sY: args.personSY,
-      cX: sideView,
+      cX: args.sideView,
       fY: true,
-      rX: sideView && args.right,
+      rX: args.sideView && args.right,
       color: [200, 0, 0],
       list: [
         // Upper Body
@@ -211,7 +209,7 @@ BasicBody.prototype.draw = function (args, right) {
           color: this.groundShadowColor.get(),
           fY: true,
           tY: true,
-          cX: sideView,
+          cX: args.sideView,
           y: 1,
           sY: 2,
           sX: args.shoulderFullSX,
@@ -276,9 +274,9 @@ export const Logo = function (args, right, symetrical, logoColor) {
 Logo.prototype = new Object()
 
 Logo.prototype.draw = function (args) {
-  var nr = args.nr,
+  var { nr } = args,
     nrName = nr + this.name,
-    sideView = args.sideView
+    { sideView } = args
 
   return (
     (!this.oneSide || args.right === this.side) && {

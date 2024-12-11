@@ -1,4 +1,4 @@
-import { helper as helperGlobal } from '@/renderengine/helper.js'
+import { helper } from '@/renderengine/helper.js'
 
 import { Chair, Emotion, Glass, Table } from './accessoir.js'
 import { Arm } from './actor-arm.js'
@@ -31,7 +31,6 @@ export const TableComic = function (init, slide, createSlider) {
     innerSquareAverage,
     controlerX,
     controlerY,
-    helper = helperGlobal,
     random = helper.random(init.id),
     rFl = random.getRandomFloat,
     rInt = random.getRandom,
@@ -67,12 +66,7 @@ export const TableComic = function (init, slide, createSlider) {
 
   // Assign global Functions to all Comic Constructors
   function assignFunctionToComicConstructor(comicPrototype) {
-    var current,
-      pushRelativeStandardAutomatic = hover.pushRelativeStandardAutomatic,
-      changersRelativeCustomList = hover.changersRelativeCustomList,
-      pushColorStandard = hover.pushColorStandard,
-      pushRelativeStandard = hover.pushRelativeStandard,
-      changersCustomList = hover.changersCustomList
+    var current
 
     for (var key in comicPrototype) {
       current = comicPrototype[key].prototype
@@ -85,17 +79,18 @@ export const TableComic = function (init, slide, createSlider) {
 
       current.linkList = linkList
 
-      current.pushLinkList = helperGlobal.getLinkListPusher(linkList)
+      current.pushLinkList = helper.getLinkListPusher(linkList)
 
-      current.pushRelativeStandardAutomatic = pushRelativeStandardAutomatic
+      current.pushRelativeStandardAutomatic =
+        hover.pushRelativeStandardAutomatic
 
-      current.changersRelativeCustomList = changersRelativeCustomList
+      current.changersRelativeCustomList = hover.changersRelativeCustomList
 
-      current.pushRelativeStandard = pushRelativeStandard
+      current.pushRelativeStandard = hover.pushRelativeStandard
 
-      current.changersCustomList = changersCustomList
+      current.changersCustomList = hover.changersCustomList
 
-      current.colorList = pushColorStandard
+      current.colorList = hover.pushColorStandard
 
       current.getSizeWithRatio = comicPrototype.getSizeWithRatio
 

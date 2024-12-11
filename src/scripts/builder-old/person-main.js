@@ -114,76 +114,81 @@ export const BasicBody = function (args) {
 BasicBody.prototype = new Object()
 
 BasicBody.prototype.draw = function (args, right) {
-  var nr = args.nr,
-    sideView = args.sideView,
-    head
+  var head
 
   args.right = right
 
-  args.calc = args.backView !== right || sideView
+  args.calc = args.backView !== right || args.sideView
 
   if (args.calc) {
-    this.vL['personSX' + nr] = {
+    this.vL['personSX' + args.nr] = {
       r: this.sX,
-      useSize: 'personHalfSX' + nr,
+      useSize: 'personHalfSX' + args.nr,
       a: 2,
     }
 
-    this.vL['personSY' + nr] = { r: this.sY, min: 5, useSize: args.size }
+    this.vL['personSY' + args.nr] = { r: this.sY, min: 5, useSize: args.size }
   }
 
   head = this.head.draw(args)
 
   if (args.calc) {
-    this.vL['bodyRestSY' + nr] = {
-      a: 'personSY' + nr,
-      max: [args.size, this.sub('headMaxSY' + nr), this.sub('neckSY' + nr)],
+    this.vL['bodyRestSY' + args.nr] = {
+      a: 'personSY' + args.nr,
+      max: [
+        args.size,
+        this.sub('headMaxSY' + args.nr),
+        this.sub('neckSY' + args.nr),
+      ],
     }
 
-    this.vL['lowerBodySY' + nr] = {
+    this.vL['lowerBodySY' + args.nr] = {
       r: this.lowerBodySY,
-      useSize: 'bodyRestSY' + nr,
+      useSize: 'bodyRestSY' + args.nr,
       min: 1,
     }
 
-    this.vL['upperBodySY' + nr] = {
-      add: ['bodyRestSY' + nr, this.sub('lowerBodySY' + nr)],
+    this.vL['upperBodySY' + args.nr] = {
+      add: ['bodyRestSY' + args.nr, this.sub('lowerBodySY' + args.nr)],
       min: 1,
     }
 
-    this.vL['fullBodySY' + nr] = ['lowerBodySY' + nr, 'upperBodySY' + nr]
-
-    this.vL['personRealSX' + nr] = { a: 'personSX' + nr }
-
-    this.vL['personRealMaxSY' + nr] = [
-      'fullBodySY' + nr,
-      'headMaxSY' + nr,
-      'neckSY' + nr,
+    this.vL['fullBodySY' + args.nr] = [
+      'lowerBodySY' + args.nr,
+      'upperBodySY' + args.nr,
     ]
 
-    this.vL['personRealMinSY' + nr] = [
-      'fullBodySY' + nr,
-      'headMinSY' + nr,
-      'neckSY' + nr,
+    this.vL['personRealSX' + args.nr] = { a: 'personSX' + args.nr }
+
+    this.vL['personRealMaxSY' + args.nr] = [
+      'fullBodySY' + args.nr,
+      'headMaxSY' + args.nr,
+      'neckSY' + args.nr,
+    ]
+
+    this.vL['personRealMinSY' + args.nr] = [
+      'fullBodySY' + args.nr,
+      'headMinSY' + args.nr,
+      'neckSY' + args.nr,
     ]
   }
 
   return [
     {
-      sY: 'personSY' + nr,
-      cX: sideView,
+      sY: 'personSY' + args.nr,
+      cX: args.sideView,
       fY: true,
-      rX: sideView && args.right,
+      rX: args.sideView && args.right,
       list: [
         // Shadow
         {
           color: this.groundShadowColor.get(),
           fY: true,
           tY: true,
-          cX: sideView,
+          cX: args.sideView,
           y: 1,
           sY: 2,
-          sX: 'shoulderFullSX' + nr,
+          sX: 'shoulderFullSX' + args.nr,
           z: -1000,
         },
 
@@ -254,9 +259,7 @@ export const Logo = function (args, right, symetrical, logoColor) {
 Logo.prototype = new Object()
 
 Logo.prototype.draw = function (args) {
-  var nr = args.nr,
-    nrName = nr + this.name,
-    sideView = args.sideView
+  var nrName = args.nr + this.name
 
   return (
     (!this.oneSide || args.right === this.side) && {
@@ -270,7 +273,7 @@ Logo.prototype.draw = function (args) {
         r: this.Y,
         max: ['logoSY' + nrName, this.sub('logoSY' + nrName)],
       },
-      cX: args.oneSide || sideView,
+      cX: args.oneSide || args.sideView,
       color: this.logoColor.get(),
       id: 'logo' + nrName,
       z: 50,

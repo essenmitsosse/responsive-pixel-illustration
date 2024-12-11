@@ -28,24 +28,16 @@ export const getStory = function getStory() {
 
 getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
   var actor0StandUp = 0.1,
-    stage = this.stage,
-    actorsList = this.actorsList,
-    actor0 = actorsList.actor0.renderObject,
-    actor1 = actorsList.actor1.renderObject,
-    table = actorsList.table.renderObject,
-    glass = actorsList.glass.renderObject,
-    chair0 = actorsList.chair0.renderObject,
-    chair1 = actorsList.chair1.renderObject,
     // emotion0 = actorsList.emotion0.renderObject,
     // emotion1 = actorsList.emotion1.renderObject,
 
     actor0sitting = {
       posX: 0.2,
       posY: 1,
-      obj: chair0,
+      obj: this.actorsList.chair0.renderObject,
     },
     chair0Pos = {
-      obj: stage,
+      obj: this.stage,
       posX: 0.1,
       posY: 0,
     },
@@ -55,7 +47,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
         list: {
           table: {
             pos: {
-              obj: stage,
+              obj: this.stage,
               posX: 0.5,
               posY: -0.05,
             },
@@ -70,7 +62,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
           chair1: {
             start: {
               pos: {
-                obj: stage,
+                obj: this.stage,
                 posX: 0.85,
               },
               z: -5000,
@@ -99,7 +91,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               },
               armLeft: {
                 pos: {
-                  obj: actor0.body.legs,
+                  obj: this.actorsList.actor0.renderObject.body.legs,
                   posX: 0.8,
                   posY: 1,
                 },
@@ -107,7 +99,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               },
               armRight: {
                 pos: {
-                  obj: actor0.body.legs,
+                  obj: this.actorsList.actor0.renderObject.body.legs,
                   posX: 0.5,
                   posY: 0.8,
                 },
@@ -143,7 +135,11 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               armRight: {
                 relPos: 0.5,
                 value: {
-                  pos: { obj: table, posY: 1, ellbow: true },
+                  pos: {
+                    obj: this.actorsList.table.renderObject,
+                    posY: 1,
+                    ellbow: true,
+                  },
                   hand: { angle: 0.5 },
                 },
               },
@@ -155,7 +151,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               pos: {
                 posX: 0.5,
                 posY: 1,
-                obj: chair1,
+                obj: this.actorsList.chair1.renderObject,
               },
               body: {
                 lean: 0.1,
@@ -175,13 +171,21 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                 curveSY: { map: 'a', min: 0, max: 0 },
               },
               armLeft: {
-                pos: { obj: table, posY: 1, posX: 0.5 },
+                pos: {
+                  obj: this.actorsList.table.renderObject,
+                  posY: 1,
+                  posX: 0.5,
+                },
                 hand: { angle: -0.5 },
                 flip: true,
                 z: -100,
               },
               armRight: {
-                pos: { obj: table, posY: 1, posX: 0.8 },
+                pos: {
+                  obj: this.actorsList.table.renderObject,
+                  posY: 1,
+                  posX: 0.8,
+                },
                 hand: { angle: -0.5 },
               },
               sitting: true,
@@ -207,7 +211,11 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               armRight: {
                 relPos: 0.7,
                 value: {
-                  pos: { obj: glass, posX: 1, posY: 0.6 },
+                  pos: {
+                    obj: this.actorsList.glass.renderObject,
+                    posX: 1,
+                    posY: 0.6,
+                  },
                   hand: { angle: -0.5 },
                   z: 100000,
                 },
@@ -217,7 +225,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
           glass: {
             start: {
               pos: {
-                obj: table,
+                obj: this.actorsList.table.renderObject,
                 posX: 0.8,
                 posY: 1,
               },
@@ -235,7 +243,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               pos: {
                 relPos: 0.5,
                 value: {
-                  obj: actor0,
+                  obj: this.actorsList.actor0.renderObject,
                   posY: 1,
                   posX: 0,
                 },
@@ -254,7 +262,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               pos: {
                 relPos: 0.5,
                 value: {
-                  obj: actor1,
+                  obj: this.actorsList.actor1.renderObject,
                   posY: 1,
                   posX: 0,
                 },
@@ -271,8 +279,16 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               zoom: 0.5,
               focus: {
                 map: 'altCamera',
-                min: { obj: actor0, posX: 0.5, posY: 0.5 },
-                max: { obj: actor1, posX: 0.5, posY: 0.5 },
+                min: {
+                  obj: this.actorsList.actor0.renderObject,
+                  posX: 0.5,
+                  posY: 0.5,
+                },
+                max: {
+                  obj: this.actorsList.actor1.renderObject,
+                  posX: 0.5,
+                  posY: 0.5,
+                },
               },
             },
           },
@@ -283,8 +299,16 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               zoom: 1,
               focus: {
                 map: 'altCamera',
-                min: { obj: glass, posX: 0.5, posY: 0.6 },
-                max: { obj: actor1, posX: 0.5, posY: 0.5 },
+                min: {
+                  obj: this.actorsList.glass.renderObject,
+                  posX: 0.5,
+                  posY: 0.6,
+                },
+                max: {
+                  obj: this.actorsList.actor1.renderObject,
+                  posX: 0.5,
+                  posY: 0.5,
+                },
               },
             },
           },
@@ -309,7 +333,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
           },
           chair1: {
             start: {
-              pos: { obj: stage, posX: 1.2 },
+              pos: { obj: this.stage, posX: 1.2 },
             },
           },
           glass: {
@@ -338,14 +362,18 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               },
               armLeft: {
                 pos: {
-                  obj: actor0.body.legs,
+                  obj: this.actorsList.actor0.renderObject.body.legs,
                   posX: 0.8,
                   posY: 1,
                 },
                 hand: { angle: -0.5 },
               },
               armRight: {
-                pos: { obj: table, posY: 1, ellbow: true },
+                pos: {
+                  obj: this.actorsList.table.renderObject,
+                  posY: 1,
+                  ellbow: true,
+                },
                 hand: { angle: 0.5 },
               },
               sitting: true,
@@ -356,7 +384,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                 value: {
                   posX: 0.3,
                   posY: 0,
-                  obj: stage,
+                  obj: this.stage,
                 },
               },
               eyes: {
@@ -374,12 +402,12 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                   pos: {
                     map: 'a',
                     min: {
-                      obj: actor1.head,
+                      obj: this.actorsList.actor1.renderObject.head,
                       posX: 0.5,
                       posY: -0.2,
                     },
                     max: {
-                      obj: actor0.head,
+                      obj: this.actorsList.actor0.renderObject.head,
                       posX: -1,
                       posY: 0.5,
                     },
@@ -388,7 +416,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                     map: 'a',
                     min: {
                       target: {
-                        obj: actor1.head,
+                        obj: this.actorsList.actor1.renderObject.head,
                         posX: 0.5,
                         posY: 0.5,
                       },
@@ -405,12 +433,12 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                   pos: {
                     map: 'a',
                     min: {
-                      obj: actor1.head,
+                      obj: this.actorsList.actor1.renderObject.head,
                       posX: 0.5,
                       posY: 0.5,
                     },
                     max: {
-                      obj: actor0.head,
+                      obj: this.actorsList.actor0.renderObject.head,
                       posX: 1.5,
                       posY: 0.8,
                     },
@@ -419,7 +447,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                     map: 'a',
                     min: {
                       target: {
-                        obj: actor1.head,
+                        obj: this.actorsList.actor1.renderObject.head,
                         posX: 0.5,
                         posY: 0.5,
                       },
@@ -435,27 +463,39 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
           actor1: {
             // actor 1 — frame 1
             start: {
-              pos: { posX: 0.8, posY: 0, obj: stage },
+              pos: { posX: 0.8, posY: 0, obj: this.stage },
               body: {
                 side: -0.7,
                 lean: { map: 'a', min: -0.4, max: 0.3 },
               },
               armRight: {
-                pos: { obj: table, posY: 1, posX: 0.9 },
+                pos: {
+                  obj: this.actorsList.table.renderObject,
+                  posY: 1,
+                  posX: 0.9,
+                },
                 hand: { angle: -0.5 },
                 maxStraight: 0.95,
               },
               armLeft: {
                 pos: {
                   map: 'a',
-                  min: { obj: actor0, posY: 0.5, posX: -0.2 },
-                  max: { obj: actor0, posY: 0.5, posX: -0.2 },
+                  min: {
+                    obj: this.actorsList.actor0.renderObject,
+                    posY: 0.5,
+                    posX: -0.2,
+                  },
+                  max: {
+                    obj: this.actorsList.actor0.renderObject,
+                    posY: 0.5,
+                    posX: -0.2,
+                  },
                 },
                 hand: {
                   map: 'a',
                   min: {
                     target: {
-                      obj: actor0,
+                      obj: this.actorsList.actor0.renderObject,
                       posX: 1,
                       posY: 0.5,
                     },
@@ -475,12 +515,12 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                   pos: {
                     map: 'a',
                     min: {
-                      obj: actor0.head,
+                      obj: this.actorsList.actor0.renderObject.head,
                       posY: 0.5,
                       posX: 0.5,
                     },
                     max: {
-                      obj: actor1,
+                      obj: this.actorsList.actor1.renderObject,
                       posY: 1,
                       posX: 0.9,
                     },
@@ -489,7 +529,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                     map: 'a',
                     min: {
                       target: {
-                        obj: actorsList.actor0.renderObject,
+                        obj: this.actorsList.actor0.renderObject,
                         posX: 0,
                         posY: 0.8,
                       },
@@ -501,8 +541,16 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               armLeft: {
                 pos: {
                   map: 'a',
-                  min: { obj: actor1, posY: 0.6, posX: -1.5 },
-                  max: { obj: actor1, posY: 1, posX: -1.2 },
+                  min: {
+                    obj: this.actorsList.actor1.renderObject,
+                    posY: 0.6,
+                    posX: -1.5,
+                  },
+                  max: {
+                    obj: this.actorsList.actor1.renderObject,
+                    posY: 1,
+                    posX: -1.2,
+                  },
                 },
               },
             },
@@ -517,7 +565,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
             end: {
               pos: {
                 relPos: 0.5,
-                value: { obj: actor0, posY: 1.1 },
+                value: { obj: this.actorsList.actor0.renderObject, posY: 1.1 },
               },
               size: 1,
             },
@@ -534,7 +582,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
             end: {
               pos: {
                 relPos: 0.5,
-                value: { obj: actor1, posY: 1 },
+                value: { obj: this.actorsList.actor1.renderObject, posY: 1 },
               },
               size: 0.9,
             },
@@ -548,8 +596,16 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               zoom: 1,
               focus: {
                 map: 'altCamera',
-                min: { obj: glass, posX: 0.5, posY: 0.6 },
-                max: { obj: actor1, posX: 0.5, posY: 0.5 },
+                min: {
+                  obj: this.actorsList.glass.renderObject,
+                  posX: 0.5,
+                  posY: 0.6,
+                },
+                max: {
+                  obj: this.actorsList.actor1.renderObject,
+                  posX: 0.5,
+                  posY: 0.5,
+                },
               },
             },
           },
@@ -565,14 +621,18 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
           chair0: {},
           chair1: {},
           glass: {
-            pos: { obj: stage, posY: 0, posX: 0.8 },
+            pos: { obj: this.stage, posY: 0, posX: 0.8 },
             rotate: 90,
           },
           actor0: {
             // actor 0 — frame 2
             start: {
               body: { lean: -0.1, side: 1 },
-              pos: { obj: table, posX: 1, posY: 1 },
+              pos: {
+                obj: this.actorsList.table.renderObject,
+                posX: 1,
+                posY: 1,
+              },
               eyes: {
                 eyeBrowMove: { map: 'a', min: 0.5, max: 0.8 },
                 pupilPosXrel: { map: 'a', min: 0.5, max: 0 },
@@ -591,8 +651,12 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               armLeft: {
                 pos: {
                   map: 'a',
-                  min: { obj: actor1, posX: 0.5, posY: 0.5 },
-                  max: { obj: stage, posX: -0.6, posY: 0.3 },
+                  min: {
+                    obj: this.actorsList.actor1.renderObject,
+                    posX: 0.5,
+                    posY: 0.5,
+                  },
+                  max: { obj: this.stage, posX: -0.6, posY: 0.3 },
                 },
                 hand: {
                   map: 'a',
@@ -604,8 +668,12 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               armRight: {
                 pos: {
                   map: 'a',
-                  min: { obj: actor1, posX: 0.5, posY: 0.5 },
-                  max: { obj: stage, posX: -0.5, posY: 0.5 },
+                  min: {
+                    obj: this.actorsList.actor1.renderObject,
+                    posX: 0.5,
+                    posY: 0.5,
+                  },
+                  max: { obj: this.stage, posX: -0.5, posY: 0.5 },
                 },
                 hand: {
                   map: 'a',
@@ -622,7 +690,11 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
           actor1: {
             // actor 1 — frame 2
             start: {
-              pos: { obj: actor0, posX: 0, posY: 1 },
+              pos: {
+                obj: this.actorsList.actor0.renderObject,
+                posX: 0,
+                posY: 1,
+              },
               body: {
                 side: -1,
                 lean: { map: 'a', min: -1, max: -0.3 },
@@ -640,13 +712,17 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                 teethBottomSY: { map: 'a', min: 1, max: 0.2 },
               },
               armLeft: {
-                pos: { obj: actor0.head, posX: 1, posY: 0.8 },
+                pos: {
+                  obj: this.actorsList.actor0.renderObject.head,
+                  posX: 1,
+                  posY: 0.8,
+                },
                 // flip: true,
                 x: 0.15,
                 z: -20000,
                 hand: {
                   target: {
-                    obj: actor0.head,
+                    obj: this.actorsList.actor0.renderObject.head,
                     posX: 1,
                     posY: 1,
                   },
@@ -656,12 +732,12 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                 pos: {
                   map: 'a',
                   min: {
-                    obj: actor0.head,
+                    obj: this.actorsList.actor0.renderObject.head,
                     posX: 0.8,
                     posY: 0.5,
                   },
                   max: {
-                    obj: actor0.head,
+                    obj: this.actorsList.actor0.renderObject.head,
                     posX: 1.1,
                     posY: 1,
                   },
@@ -671,7 +747,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                   map: 'a',
                   min: {
                     target: {
-                      obj: actor0.head,
+                      obj: this.actorsList.actor0.renderObject.head,
                       posX: 0,
                       posY: 0,
                     },
@@ -694,7 +770,11 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
             pos: 0,
             camera: {
               zoom: { map: 'altCamera', min: 0.3, max: 0.6 },
-              focus: { obj: actor1, posX: 0.5, posY: -0.2 },
+              focus: {
+                obj: this.actorsList.actor1.renderObject,
+                posX: 0.5,
+                posY: -0.2,
+              },
             },
           },
           {
@@ -702,7 +782,11 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
             pos: 0.5,
             camera: {
               zoom: { map: 'altCamera', min: 0.3, max: 0.6 },
-              focus: { obj: glass, posX: 0.5, posY: 0.5 },
+              focus: {
+                obj: this.actorsList.glass.renderObject,
+                posX: 0.5,
+                posY: 0.5,
+              },
             },
           },
         ],
@@ -743,14 +827,22 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                 curveSY: { map: 'b', max: 1, min: -0.75 },
               },
               armRight: {
-                pos: { obj: table, posY: 1, ellbow: true },
+                pos: {
+                  obj: this.actorsList.table.renderObject,
+                  posY: 1,
+                  ellbow: true,
+                },
                 hand: { angle: -0.8 },
                 maxStraight: 0.9,
                 flip: true,
                 z: -5000000,
               },
               armLeft: {
-                pos: { obj: table, posY: 1, ellbow: true },
+                pos: {
+                  obj: this.actorsList.table.renderObject,
+                  posY: 1,
+                  ellbow: true,
+                },
                 hand: { angle: -0.6 },
                 maxStraight: 0.9,
                 flip: true,
@@ -765,7 +857,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
             // actor 1 — frame 2
             start: {
               rotate: 0,
-              pos: { obj: stage, posX: 1, posY: 0 },
+              pos: { obj: this.stage, posX: 1, posY: 0 },
               body: { lean: { relPos: 0.3, value: 0 } },
               eyeLeft: {
                 eyeBrowMove: { map: 'b', max: 0.5, min: 0.3 },
@@ -797,9 +889,13 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               armRight: {
                 pos: {
                   map: 'b',
-                  min: { obj: actor1, posX: 1.5, posY: 0.5 },
+                  min: {
+                    obj: this.actorsList.actor1.renderObject,
+                    posX: 1.5,
+                    posY: 0.5,
+                  },
                   max: {
-                    obj: actor1.head,
+                    obj: this.actorsList.actor1.renderObject.head,
                     posX: 1.2,
                     posY: 1.2,
                   },
@@ -815,9 +911,13 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               armLeft: {
                 pos: {
                   map: 'b',
-                  min: { obj: actor1, posX: -0.2, posY: 0 },
+                  min: {
+                    obj: this.actorsList.actor1.renderObject,
+                    posX: -0.2,
+                    posY: 0,
+                  },
                   max: {
-                    obj: actor1.head,
+                    obj: this.actorsList.actor1.renderObject.head,
                     posX: -0.3,
                     posY: 0.3,
                   },
@@ -835,9 +935,13 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               armRight: {
                 pos: {
                   map: 'b',
-                  min: { obj: actor1, posX: 1.5, posY: 0 },
+                  min: {
+                    obj: this.actorsList.actor1.renderObject,
+                    posX: 1.5,
+                    posY: 0,
+                  },
                   max: {
-                    obj: actor1.head,
+                    obj: this.actorsList.actor1.renderObject.head,
                     posX: 1.2,
                     posY: 1.2,
                   },
@@ -853,9 +957,13 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               armLeft: {
                 pos: {
                   map: 'b',
-                  min: { obj: actor1, posX: -0.5, posY: 0.5 },
+                  min: {
+                    obj: this.actorsList.actor1.renderObject,
+                    posX: -0.5,
+                    posY: 0.5,
+                  },
                   max: {
-                    obj: actor1.head,
+                    obj: this.actorsList.actor1.renderObject.head,
                     posX: 0.1,
                     posY: 1,
                   },
@@ -879,8 +987,16 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               zoom: { map: 'altCamera', min: 1, max: 0.8 },
               focus: {
                 map: 'altCamera',
-                min: { obj: actor1, posX: 0.5, posY: 0.5 },
-                max: { obj: actor0, posX: 0.5, posY: 0.5 },
+                min: {
+                  obj: this.actorsList.actor1.renderObject,
+                  posX: 0.5,
+                  posY: 0.5,
+                },
+                max: {
+                  obj: this.actorsList.actor0.renderObject,
+                  posX: 0.5,
+                  posY: 0.5,
+                },
               },
             },
           },
@@ -891,8 +1007,16 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               zoom: { map: 'altCamera', min: 0.8, max: 1 },
               focus: {
                 map: 'altCamera',
-                min: { obj: actor0, posX: 0.5, posY: 0.5 },
-                max: { obj: actor1, posX: 0.5, posY: 0.5 },
+                min: {
+                  obj: this.actorsList.actor0.renderObject,
+                  posX: 0.5,
+                  posY: 0.5,
+                },
+                max: {
+                  obj: this.actorsList.actor1.renderObject,
+                  posX: 0.5,
+                  posY: 0.5,
+                },
               },
             },
           },
@@ -927,34 +1051,50 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               mouth: {
                 sX: 0,
               },
-              pos: { obj: stage, posX: 0.8, posY: -0.1 },
+              pos: { obj: this.stage, posX: 0.8, posY: -0.1 },
               body: { side: 0.2 },
               armRight: {
-                pos: { obj: actor1, posX: -0.3, posY: 0.6 },
+                pos: {
+                  obj: this.actorsList.actor1.renderObject,
+                  posX: -0.3,
+                  posY: 0.6,
+                },
 
                 hand: { angle: 0.8 },
                 maxStraight: 0.9,
                 flip: true,
               },
               armLeft: {
-                pos: { obj: actor1, posX: 1.5, posY: 0.4 },
+                pos: {
+                  obj: this.actorsList.actor1.renderObject,
+                  posX: 1.5,
+                  posY: 0.4,
+                },
                 hand: { angle: -0.3 },
                 maxStraight: 0.9,
               },
             },
             end: {
               pos: {
-                obj: stage,
+                obj: this.stage,
                 posX: 1.5,
                 posY: -0.2,
               },
               body: { side: 1 },
 
               armRight: {
-                pos: { obj: actor1, posX: 1.5, posY: 0.6 },
+                pos: {
+                  obj: this.actorsList.actor1.renderObject,
+                  posX: 1.5,
+                  posY: 0.6,
+                },
               },
               armLeft: {
-                pos: { obj: actor1, posX: -0.3, posY: 0.4 },
+                pos: {
+                  obj: this.actorsList.actor1.renderObject,
+                  posX: -0.3,
+                  posY: 0.4,
+                },
               },
             },
           },
@@ -967,8 +1107,16 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               zoom: 0.8,
               focus: {
                 map: 'altCamera',
-                min: { obj: actor1, posX: 0.5, posY: 0.5 },
-                max: { obj: glass, posX: 0.5, posY: 0.5 },
+                min: {
+                  obj: this.actorsList.actor1.renderObject,
+                  posX: 0.5,
+                  posY: 0.5,
+                },
+                max: {
+                  obj: this.actorsList.glass.renderObject,
+                  posX: 0.5,
+                  posY: 0.5,
+                },
               },
             },
           },
@@ -979,8 +1127,16 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
               zoom: 0.8,
               focus: {
                 map: 'altCamera',
-                min: { obj: glass, posX: 0.5, posY: 0.5 },
-                max: { obj: actor1, posX: 0.5, posY: 0.5 },
+                min: {
+                  obj: this.actorsList.glass.renderObject,
+                  posX: 0.5,
+                  posY: 0.5,
+                },
+                max: {
+                  obj: this.actorsList.actor1.renderObject,
+                  posX: 0.5,
+                  posY: 0.5,
+                },
               },
             },
           },
@@ -1091,8 +1247,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
 
     var totalCount = current.absLength,
       innerCount = 0,
-      cameras = current.cameras,
-      camerasLength = cameras && cameras.length,
+      camerasLength = current.cameras && current.cameras.length,
       cameraCount = 0,
       currentStart = panelCount,
       currentCam
@@ -1121,7 +1276,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
     }
 
     while (cameraCount < camerasLength) {
-      currentCam = cameras[cameraCount]
+      currentCam = current.cameras[cameraCount]
 
       if (innerCount >= currentCam.minPanels) {
         panels[Math.round(currentStart + currentCam.pos * totalCount)].camera =
@@ -1179,14 +1334,13 @@ getStory.prototype.getPanels = function getStoryPanels(totalPanelCount) {
 
 getStory.prototype.getPanel = function (frame, rel) {
   var main = frame.main.list,
-    actorsList = this.actorsList,
     list = [{ what: this.stage }],
     key
 
   for (key in main) {
     list.push(
-      actorsList[key].getAction({
-        what: actorsList[key].renderObject,
+      this.actorsList[key].getAction({
+        what: this.actorsList[key].renderObject,
         info: main[key],
         relPosition: rel || frame.relPosition,
       }),
@@ -1320,9 +1474,8 @@ export const RenderObjectContainer = function (renderObject) {
 
 RenderObjectContainer.prototype.getAction = function (args) {
   var obj = {},
-    info = args.info,
-    start = (info && info.start) || info,
-    end = info && info.end,
+    start = (args.info && args.info.start) || args.info,
+    end = args.info && args.info.end,
     actionProcessor = new this.getActionProcessor(args.relPosition)
 
   // Check if start or end is needed or a position inbetween

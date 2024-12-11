@@ -33,9 +33,7 @@ export const LowerBody = function (args) {
 LowerBody.prototype = new Object()
 
 LowerBody.prototype.draw = function (args, z) {
-  var sideView = args.sideView,
-    list,
-    leg
+  var list, leg
 
   if (args.calc) {
     args.lowerBodySX = this.pushLinkList(args.personRealSX)
@@ -63,13 +61,13 @@ LowerBody.prototype.draw = function (args, z) {
   list = {
     sX: this.wideHips ? [args.lowerBodySX, 1] : args.lowerBodySX,
     sY: args.lowerBodySY,
-    cX: sideView,
+    cX: args.sideView,
     fY: true,
     color: this.pantsColor.get(),
     z,
     list: [
-      // Leg SideView
-      sideView && this.leg.draw(args, z + 100, !args.right, true),
+      // Leg args.sideView
+      args.sideView && this.leg.draw(args, z + 100, !args.right, true),
 
       // Crotch
       this.skirt
@@ -77,7 +75,7 @@ LowerBody.prototype.draw = function (args, z) {
         : {
             sY: args.crotchSY,
             z: z + 110,
-            cX: sideView,
+            cX: args.sideView,
           },
 
       // Leg
@@ -123,8 +121,6 @@ export const Belt = function (args) {
 Belt.prototype = new Object()
 
 Belt.prototype.draw = function (args, z) {
-  var sideView = args.sideView
-
   return {
     z: z + 115,
     sY: {
@@ -146,7 +142,7 @@ Belt.prototype.draw = function (args, z) {
         this.buckle && {
           color: this.buckleColor.get(),
           sX: {
-            r: this.buckleSX * (sideView ? 0.5 : 1),
+            r: this.buckleSX * (args.sideView ? 0.5 : 1),
             min: {
               r: 1,
               otherDim: true,
@@ -190,8 +186,6 @@ export const Skirt = function (args) {
 Skirt.prototype = new Object()
 
 Skirt.prototype.draw = function (args) {
-  var sideView = args.sideView
-
   if (args.calc) {
     args.skirtSY = this.pushLinkList({
       r: this.skirtSY,
@@ -206,10 +200,10 @@ Skirt.prototype.draw = function (args) {
   }
 
   return (
-    (sideView || !args.right) && {
+    (args.sideView || !args.right) && {
       z: 50,
-      cX: sideView,
-      sX: !sideView && { r: 2, a: -1 },
+      cX: args.sideView,
+      sX: !args.sideView && { r: 2, a: -1 },
       fX: true,
       sY: args.skirtSY,
       color: this.skirtColor.get(),
@@ -259,8 +253,7 @@ export const Leg = function (args) {
 Leg.prototype = new Object()
 
 Leg.prototype.draw = function (args, z, rightSide, behind) {
-  var sideView = args.sideView,
-    legPos = args.leg && args.leg[rightSide ? 'right' : 'left'],
+  var legPos = args.leg && args.leg[rightSide ? 'right' : 'left'],
     hipBend = legPos === 'legHigh',
     legBend = hipBend || legPos === 'kneeBend',
     legRaise = !hipBend && !legBend && legPos === 'legRaise'
@@ -289,7 +282,7 @@ Leg.prototype.draw = function (args, z, rightSide, behind) {
     )
 
     args.legMaxSX = this.pushLinkList({
-      r: sideView ? 0.8 : 1,
+      r: args.sideView ? 0.8 : 1,
       useSize: args.lowerBodySX,
       a: -2,
       max: [args.legSX, 2],
@@ -319,12 +312,14 @@ Leg.prototype.draw = function (args, z, rightSide, behind) {
   return {
     s: args.legSX,
     fX: !behind,
-    x: !sideView && this.legsIn && { r: 0.3, max: 1 },
+    x: !args.sideView && this.legsIn && { r: 0.3, max: 1 },
     z,
-    rY: hipBend && (args.backView || (sideView && args.right === rightSide)),
+    rY:
+      hipBend && (args.backView || (args.sideView && args.right === rightSide)),
     rX:
-      (!hipBend && sideView) ||
-      (hipBend && (args.backView || (sideView && args.right !== rightSide))),
+      (!hipBend && args.sideView) ||
+      (hipBend &&
+        (args.backView || (args.sideView && args.right !== rightSide))),
     rotate: hipBend && (rightSide ? 90 : -90),
     // y: [ args.crotchSY ],
     list: [
@@ -333,7 +328,7 @@ Leg.prototype.draw = function (args, z, rightSide, behind) {
         list: [
           {
             sX: args.legFullSX,
-            fX: !sideView || args.right !== rightSide,
+            fX: !args.sideView || args.right !== rightSide,
 
             list: [
               // Thigh
@@ -348,10 +343,12 @@ Leg.prototype.draw = function (args, z, rightSide, behind) {
                 cX: true,
                 rY:
                   legBend &&
-                  (args.backView || (sideView && args.right === rightSide)),
+                  (args.backView ||
+                    (args.sideView && args.right === rightSide)),
                 rX:
                   legBend &&
-                  (args.backView || (sideView && args.right === rightSide)),
+                  (args.backView ||
+                    (args.sideView && args.right === rightSide)),
                 rotate: legBend && (rightSide ? -90 : 90),
                 list: [
                   {

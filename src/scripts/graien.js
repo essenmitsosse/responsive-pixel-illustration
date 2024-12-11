@@ -1,12 +1,7 @@
-import { helper as helperGlobal } from '@/renderengine/helper.js'
+import { helper } from '@/renderengine/helper.js'
 
 function graien() {
-  var helper = helperGlobal,
-    getSmallerDim = helper.getSmallerDim,
-    getBiggerDim = helper.getBiggerDim,
-    mult = helper.mult,
-    sub = helper.sub,
-    background = [60, 120, 110],
+  var background = [60, 120, 110],
     bSS = 0.5,
     shadowAdd = 195,
     shadowColor = [
@@ -60,39 +55,39 @@ function graien() {
     fullBorderX = linkListPush([border, graienPaddingX]),
     fullBorderY = linkListPush([border, graienPaddingY]),
     edgeOvershot = linkListPush({ r: 1, useSize: framePadding, a: -1 }),
-    edgeOvershotNeg = linkListPush(sub(edgeOvershot)),
-    edgeSize = linkListPush([mult(2, edgeOvershot), frameWidth]),
+    edgeOvershotNeg = linkListPush(helper.sub(edgeOvershot)),
+    edgeSize = linkListPush([helper.mult(2, edgeOvershot), frameWidth]),
     imgWidth = linkListPush([sXMain, { useSize: fullBorderX, r: -2 }]),
     imgHeight = linkListPush([sYMain, { useSize: fullBorderY, r: -2 }]),
     backWidth = linkListPush([sXMain, { useSize: border, r: -2 }]),
     backHeight = linkListPush([sYMain, { useSize: border, r: -2 }]),
     backSquare = linkListPush(
-      getSmallerDim({ r: 1, useSize: [backWidth, backHeight] }),
+      helper.getSmallerDim({ r: 1, useSize: [backWidth, backHeight] }),
     ),
     imgSquare = linkListPush(
-      getSmallerDim({ r: 1, useSize: [imgWidth, imgHeight] }),
+      helper.getSmallerDim({ r: 1, useSize: [imgWidth, imgHeight] }),
     ),
     imgSquareBigger = linkListPush(
-      getBiggerDim({ r: 1, useSize: [imgWidth, imgHeight] }),
+      helper.getBiggerDim({ r: 1, useSize: [imgWidth, imgHeight] }),
     ),
     // BORDER DETAILS
     borderMargin = linkListPush({ r: 0.1, useSize: border, min: 1 }),
     frameDetailSize = linkListPush({
       min: 1,
-      add: [frameWidth, mult(-2, borderMargin), -2],
+      add: [frameWidth, helper.mult(-2, borderMargin), -2],
     }),
     // BACKGROUND
-    groundHeight = linkListPush(mult(0.2, backHeight)),
+    groundHeight = linkListPush(helper.mult(0.2, backHeight)),
     hillHeight = linkListPush({
       r: 0.05,
       useSize: backHeight,
-      add: [mult(0.1, backWidth)],
+      add: [helper.mult(0.1, backWidth)],
     }),
     hillDifference = linkListPush({ r: 0.4, useSize: backHeight }),
     hillWidth = linkListPush({
       r: 0.1,
       useSize: backWidth,
-      add: [mult(0.1, backSquare)],
+      add: [helper.mult(0.1, backSquare)],
     }),
     treeWidth = linkListPush({ a: 2 }),
     treeMinGap = linkListPush({
@@ -101,9 +96,9 @@ function graien() {
       add: [{ r: 0.02, useSize: backHeight }],
       min: 1,
     }),
-    treeRandomGap = linkListPush(mult(10, treeMinGap)),
-    treeRandomGap2 = linkListPush(mult(15, treeMinGap)),
-    trunkWidth = linkListPush(mult(3, treeMinGap)),
+    treeRandomGap = linkListPush(helper.mult(10, treeMinGap)),
+    treeRandomGap2 = linkListPush(helper.mult(15, treeMinGap)),
+    trunkWidth = linkListPush(helper.mult(3, treeMinGap)),
     // BREAD
     /** Adds a little bit to each side of the bread to make it more rect ) */
     breadAdd = linkListPush({ r: 0.05, a: 2, useSize: imgSquare }),
@@ -113,82 +108,92 @@ function graien() {
       { r: 0.08, useSize: sYMain, min: 3 },
     ]),
     breadSquare = linkListPush(
-      getSmallerDim({ r: 1, useSize: [breadWidth, breadHeight] }),
+      helper.getSmallerDim({ r: 1, useSize: [breadWidth, breadHeight] }),
     ),
     breadDetail = linkListPush({ r: 0.15, useSize: breadSquare }),
     // FULL GRAIEN
-    graieHalfWidth = linkListPush(mult(0.5, imgWidth)),
+    graieHalfWidth = linkListPush(helper.mult(0.5, imgWidth)),
     graieHeight = linkListPush(imgHeight),
-    graieHalfHeight = linkListPush(mult(0.5, imgHeight)),
+    graieHalfHeight = linkListPush(helper.mult(0.5, imgHeight)),
     // HAND
     handWidth = linkListPush({ r: 0.08, useSize: imgSquare, min: 2 }),
-    fingerLength = linkListPush(mult(0.2, handWidth)),
+    fingerLength = linkListPush(helper.mult(0.2, handWidth)),
     armWidth = linkListPush({ r: 0.05, useSize: imgSquare, a: -1, min: 1 }),
-    armDetailLength = linkListPush(mult(2.5, armWidth)),
-    handArmDifference = linkListPush([handWidth, sub(armWidth)]),
+    armDetailLength = linkListPush(helper.mult(2.5, armWidth)),
+    handArmDifference = linkListPush([handWidth, helper.sub(armWidth)]),
     handToBreadSub = linkListPush({ useSize: handWidth, r: -0.3 }),
-    handToBread = linkListPush(sub(handToBreadSub)),
+    handToBread = linkListPush(helper.sub(handToBreadSub)),
     graieArmLengt = linkListPush([
       graieHalfWidth,
-      mult(-0.5, breadWidth, -1),
+      helper.mult(-0.5, breadWidth, -1),
       handWidth,
       handToBreadSub,
     ]),
     graieArmLengtDown = linkListPush([
       graieHalfHeight,
-      mult(-0.5, breadHeight),
+      helper.mult(-0.5, breadHeight),
       handWidth,
       handToBreadSub,
     ]),
     armShadow = linkListPush({ r: 0.4, max: 1, useSize: armWidth }),
-    subArmWidth = linkListPush([sub(armWidth), 1]),
+    subArmWidth = linkListPush([helper.sub(armWidth), 1]),
     // LEG
     legWidth = linkListPush({ r: 0.15, useSize: imgSquare, a: -1, min: 1 }),
     legLowerWidth = linkListPush({ r: 0.07, useSize: imgSquare, min: 1 }),
-    legDetailWidth = linkListPush(mult(0.5, legWidth)),
+    legDetailWidth = linkListPush(helper.mult(0.5, legWidth)),
     footFrontLength = linkListPush({ r: 0.1, useSize: imgSquare, min: 1 }),
     footLength = linkListPush([footFrontLength, legLowerWidth, 1]),
     footWidth = linkListPush({ r: 0.08, useSize: imgSquare, min: 1 }),
     legBack = linkListPush({ r: 0.2, useSize: legLowerWidth, max: 1 }),
-    moveFootBack = linkListPush(sub(legBack)),
+    moveFootBack = linkListPush(helper.sub(legBack)),
     toeSize = linkListPush({ r: 0.2, useSize: footWidth }),
     fingerSize = linkListPush({ add: [toeSize, -1], min: 1 }),
-    subLegLowerWidth = linkListPush([sub(legLowerWidth), 1]),
+    subLegLowerWidth = linkListPush([helper.sub(legLowerWidth), 1]),
     // GRAIE I
-    graie1ShoulderHeight = linkListPush(mult(0.6, imgHeight)),
-    graie1ToTop = linkListPush([imgHeight, sub(graie1ShoulderHeight)]),
+    graie1ShoulderHeight = linkListPush(helper.mult(0.6, imgHeight)),
+    graie1ToTop = linkListPush([imgHeight, helper.sub(graie1ShoulderHeight)]),
     graie1ToLeft = linkListPush([footWidth, { r: 0.01, useSize: imgWidth }]),
     graie1Width = linkListPush(
-      getSmallerDim({ r: 0.15, r2: 0.6, useSize: [imgWidth, imgHeight] }),
+      helper.getSmallerDim({
+        r: 0.15,
+        r2: 0.6,
+        useSize: [imgWidth, imgHeight],
+      }),
     ),
     graie1LegHeight = linkListPush([legWidth, legLowerWidth, footFrontLength]),
     graie1TorsoHeight = linkListPush([
       graie1ShoulderHeight,
-      sub(graie1LegHeight),
+      helper.sub(graie1LegHeight),
     ]),
-    graie1ArmHeight = linkListPush(mult(0.3, imgHeight)),
+    graie1ArmHeight = linkListPush(helper.mult(0.3, imgHeight)),
     graie1BreadArmPos = linkListPush(graieHalfHeight),
     graie1RightSide = linkListPush([graie1Width, graie1ToLeft]),
-    graie1HeadSize = linkListPush(mult(0.18, imgSquare)),
+    graie1HeadSize = linkListPush(helper.mult(0.18, imgSquare)),
     graie1HeadHeight = linkListPush({
-      add: [mult(2, graie1HeadSize), mult(-0.03, imgWidth)],
+      add: [helper.mult(2, graie1HeadSize), helper.mult(-0.03, imgWidth)],
       min: 3,
       max: [graie1ToTop, -1],
     }),
     graie1HeadWidth = linkListPush({
-      add: [graie1HeadSize, mult(-0.02, imgHeight)],
+      add: [graie1HeadSize, helper.mult(-0.02, imgHeight)],
       min: 2,
       max: graie1Width,
     }),
-    graie1ShoulderWidth = linkListPush([graie1Width, sub(graie1HeadWidth)]),
-    graie1HeadPos = linkListPush(mult(0.3, graie1ShoulderWidth)),
+    graie1ShoulderWidth = linkListPush([
+      graie1Width,
+      helper.sub(graie1HeadWidth),
+    ]),
+    graie1HeadPos = linkListPush(helper.mult(0.3, graie1ShoulderWidth)),
     graie1HairLeftWidth = linkListPush({
       r: 0.25,
       min: 1,
       useSize: graie1HeadWidth,
     }),
-    graie1FaceWidth = linkListPush([graie1HeadWidth, sub(graie1HairLeftWidth)]),
-    graie1NosePos = linkListPush(mult(0.5, graie1HeadHeight)),
+    graie1FaceWidth = linkListPush([
+      graie1HeadWidth,
+      helper.sub(graie1HairLeftWidth),
+    ]),
+    graie1NosePos = linkListPush(helper.mult(0.5, graie1HeadHeight)),
     // Eyes
     minEyesWidth = linkListPush({ r: 0.8, useSize: graie1FaceWidth }),
     graie1eyeWidth = linkListPush({
@@ -199,14 +204,17 @@ function graien() {
     }),
     graie1eyesWidth = linkListPush({
       add: [
-        mult(2, graie1eyeWidth),
+        helper.mult(2, graie1eyeWidth),
         { r: 0.05, useSize: graie1FaceWidth, min: 0 },
         { r: 0.2, useSize: graie1FaceWidth, max: 1 },
       ],
       max: graie1FaceWidth,
       min: { r: 2, useSize: graie1eyeWidth, min: 3 },
     }),
-    graie1faceRest = linkListPush([graie1FaceWidth, sub(graie1eyesWidth)]),
+    graie1faceRest = linkListPush([
+      graie1FaceWidth,
+      helper.sub(graie1eyesWidth),
+    ]),
     graie1eyePosLeft = linkListPush({
       r: 0.5,
       useSize: graie1faceRest,
@@ -216,14 +224,17 @@ function graien() {
       add: [graie1NosePos, { r: -0.1, useSize: graie1HeadHeight }],
       min: 1,
     }),
-    graie1eyePosTop = linkListPush([graie1NosePos, sub(graie1eyeHeight)]),
-    graie1NoseHeight = linkListPush(mult(0.8, armWidth)),
+    graie1eyePosTop = linkListPush([
+      graie1NosePos,
+      helper.sub(graie1eyeHeight),
+    ]),
+    graie1NoseHeight = linkListPush(helper.mult(0.8, armWidth)),
     graie1MouthOuterPart = linkListPush({
       r: 0.1,
       useSize: graie1eyesWidth,
       min: 1,
     }),
-    graie1MouthInnerPart = linkListPush(mult(0.3, graie1eyesWidth)),
+    graie1MouthInnerPart = linkListPush(helper.mult(0.3, graie1eyesWidth)),
     graie1BreastWidth = linkListPush({ useSize: graie1Width, r: 0.3 }),
     graie1BreastMargin = linkListPush({
       useSize: graie1Width,
@@ -242,40 +253,43 @@ function graien() {
     }),
     graie1BreadArmLength = linkListPush([
       graie1ShoulderHeight,
-      mult(-0.52, graieHeight),
+      helper.mult(-0.52, graieHeight),
       armWidth,
     ]),
     // GRAIE II
     graie2ToLeft = linkListPush(
-      getSmallerDim({ r: 0.35, r2: 4, useSize: [imgWidth, imgHeight] }),
+      helper.getSmallerDim({ r: 0.35, r2: 4, useSize: [imgWidth, imgHeight] }),
     ),
-    graie2ToRight = linkListPush(mult(0.3, imgWidth)),
+    graie2ToRight = linkListPush(helper.mult(0.3, imgWidth)),
     graie2Width = linkListPush([
       imgWidth,
-      sub(graie2ToLeft),
-      sub(graie2ToRight),
+      helper.sub(graie2ToLeft),
+      helper.sub(graie2ToRight),
     ]),
-    graie2BodyHeight = linkListPush(mult(0.2, imgHeight)),
+    graie2BodyHeight = linkListPush(helper.mult(0.2, imgHeight)),
     graie2HeadHeight = linkListPush({ r: 0.8, useSize: graie2BodyHeight }),
     graie2HeadWidth = linkListPush({
       r: 1.5,
       useSize: graie2HeadHeight,
       max: { r: 0.5, useSize: graie2Width },
     }),
-    graie2LegLength = linkListPush([mult(0.32, graieHalfHeight)]),
+    graie2LegLength = linkListPush([helper.mult(0.32, graieHalfHeight)]),
     graie2ArmLength = linkListPush([
       imgHeight,
-      sub(graie1BreadArmPos),
-      sub(armWidth),
+      helper.sub(graie1BreadArmPos),
+      helper.sub(armWidth),
       -1,
     ]),
     graie2LegPos = linkListPush([
-      mult(0.05, graie2Width),
-      mult(-0.005, imgHeight),
+      helper.mult(0.05, graie2Width),
+      helper.mult(-0.005, imgHeight),
       armWidth,
     ]),
-    graie2graie1Dist = linkListPush([graie2ToLeft, sub(graie1RightSide)]),
-    graie2ArmToArmWidth = linkListPush(mult(0.5, graie2graie1Dist)),
+    graie2graie1Dist = linkListPush([
+      graie2ToLeft,
+      helper.sub(graie1RightSide),
+    ]),
+    graie2ArmToArmWidth = linkListPush(helper.mult(0.5, graie2graie1Dist)),
     graie2HeadShadow = linkListPush({
       r: 0.15,
       useSize: graie2HeadHeight,
@@ -283,8 +297,8 @@ function graien() {
     }),
     graie1LegLength = linkListPush([
       graie1Width,
-      mult(0.5, graie2graie1Dist),
-      mult(0.1, imgHeight),
+      helper.mult(0.5, graie2graie1Dist),
+      helper.mult(0.1, imgHeight),
     ]),
     graie1ArmRest = linkListPush([
       graie1RightSide,
@@ -293,31 +307,37 @@ function graien() {
       legLowerWidth,
       1,
     ]),
-    graie1ArmLength = linkListPush([imgWidth, mult(-1, graie1ArmRest)]),
+    graie1ArmLength = linkListPush([imgWidth, helper.mult(-1, graie1ArmRest)]),
     // GRAIE III
-    graie3ShoulderHeight = linkListPush(mult(0.75, imgHeight)),
-    graie3ToTop = linkListPush([imgHeight, sub(graie3ShoulderHeight)]),
-    graie3GripPoint = linkListPush([graie2BodyHeight, mult(0.05, imgHeight)]),
+    graie3ShoulderHeight = linkListPush(helper.mult(0.75, imgHeight)),
+    graie3ToTop = linkListPush([imgHeight, helper.sub(graie3ShoulderHeight)]),
+    graie3GripPoint = linkListPush([
+      graie2BodyHeight,
+      helper.mult(0.05, imgHeight),
+    ]),
     graie3ToRight = linkListPush(
-      getSmallerDim({ r: 0.1, r2: 0.5, useSize: [imgWidth, imgHeight] }),
+      helper.getSmallerDim({ r: 0.1, r2: 0.5, useSize: [imgWidth, imgHeight] }),
     ),
     graie3Width = linkListPush(graie1Width),
-    graie3LegLength = linkListPush([graie2LegLength, mult(0.2, imgHeight)]),
+    graie3LegLength = linkListPush([
+      graie2LegLength,
+      helper.mult(0.2, imgHeight),
+    ]),
     graie3LegHeight = linkListPush([graie3LegLength, footFrontLength]),
     graie3TorsoHeight = linkListPush([
       graie3ShoulderHeight,
-      sub(graie3LegHeight),
+      helper.sub(graie3LegHeight),
     ]),
     graie3lowerLegLength = linkListPush([
       graie3ToRight,
       graie3Width,
-      sub(legWidth),
+      helper.sub(legWidth),
     ]),
     graie3BehindLegLength = linkListPush([
       graie2ToRight,
       graie2LegPos,
-      mult(2, legLowerWidth),
-      sub(graie3ToRight),
+      helper.mult(2, legLowerWidth),
+      helper.sub(graie3ToRight),
       1,
     ]),
     graie3HeadHeight = linkListPush({
@@ -328,64 +348,58 @@ function graien() {
     graie3NeckHeight = linkListPush({
       r: 0.6,
       useSize: graie3HeadHeight,
-      add: [mult(-0.1, graie3HeadWidth), 1],
+      add: [helper.mult(-0.1, graie3HeadWidth), 1],
     }),
     graie3FaceHeight = linkListPush([
-      sub(graie3NeckHeight),
+      helper.sub(graie3NeckHeight),
       1,
       graie3HeadHeight,
     ]),
-    graie3EarSize = linkListPush(mult(0.3, graie3FaceHeight)),
-    graie3EarPos = linkListPush(mult(0.1, graie3FaceHeight)),
-    setValue = helper.setValue,
+    graie3EarSize = linkListPush(helper.mult(0.3, graie3FaceHeight)),
+    graie3EarPos = linkListPush(helper.mult(0.1, graie3FaceHeight)),
     graienValues = function (what, faktor, value) {
-      setValue(what, faktor * value * 2 + value * 0.2)
+      helper.setValue(what, faktor * value * 2 + value * 0.2)
     },
     hover = function (args) {
-      var a = args.a,
-        b = args.b,
-        c = args.c,
-        d = args.d
+      if (args.a) {
+        graienValues(handWidth, args.a, 0.07)
 
-      if (a) {
-        graienValues(handWidth, a, 0.07)
+        graienValues(armWidth, args.a, 0.05)
 
-        graienValues(armWidth, a, 0.05)
+        graienValues(legWidth, args.a, 0.15)
 
-        graienValues(legWidth, a, 0.15)
-
-        graienValues(legLowerWidth, a, 0.07)
+        graienValues(legLowerWidth, args.a, 0.07)
       }
 
-      if (b) {
-        graienValues(graie1HeadSize, b, 0.18)
+      if (args.b) {
+        graienValues(graie1HeadSize, args.b, 0.18)
 
-        graienValues(graie2HeadHeight, b, 0.8)
+        graienValues(graie2HeadHeight, args.b, 0.8)
       }
 
-      if (c || d) {
-        if (c) {
-          graie1[0] = c * 227
+      if (args.c || args.d) {
+        if (args.c) {
+          graie1[0] = args.c * 227
 
-          graie2[0] = c * 192
+          graie2[0] = args.c * 192
 
-          graie3[0] = c * 232
+          graie3[0] = args.c * 232
         }
 
-        if (d) {
-          graie1[1] = d * 200
+        if (args.d) {
+          graie1[1] = args.d * 200
 
-          graie2[1] = d * 176
+          graie2[1] = args.d * 176
 
-          graie3[1] = d * 204
+          graie3[1] = args.d * 204
         }
 
-        if (c && d) {
-          graie1[2] = (0.5 + c * d * 0.5) * 190
+        if (args.c && args.d) {
+          graie1[2] = (0.5 + args.c * args.d * 0.5) * 190
 
-          graie2[2] = (0.5 + c * d * 0.5) * 133
+          graie2[2] = (0.5 + args.c * args.d * 0.5) * 133
 
-          graie3[2] = (0.5 + c * d * 0.5) * 152
+          graie3[2] = (0.5 + args.c * args.d * 0.5) * 152
         }
 
         graie1Shadow = shadow(graie1, graie1Shadow)
@@ -463,7 +477,7 @@ function graien() {
     },
     foot = function (hor, down, fX, nr) {
       var shadow = getShadow(nr),
-        withoutToes = { r: 1, add: [sub(toeSize)] },
+        withoutToes = { r: 1, add: [helper.sub(toeSize)] },
         anklePos = { r: 0.5, useSize: legLowerWidth },
         ankleSize = { r: 0.6, useSize: legLowerWidth },
         ankleWidth = { r: 1, a: -1 },
@@ -508,7 +522,7 @@ function graien() {
               color: shadow,
               fY: true,
               fX: true,
-              sX: [footFrontLength, sub(toeSize)],
+              sX: [footFrontLength, helper.sub(toeSize)],
               x: toeSize,
             }
           : undefined,
@@ -768,8 +782,12 @@ function graien() {
 
               // Trees
               {
-                sY: [backHeight, sub(groundHeight), sub(hillHeight)],
-                x: mult(0.3, treeRandomGap),
+                sY: [
+                  backHeight,
+                  helper.sub(groundHeight),
+                  helper.sub(hillHeight),
+                ],
+                x: helper.mult(0.3, treeRandomGap),
                 stripes: {
                   strip: treeWidth,
                   gap: {
@@ -804,8 +822,12 @@ function graien() {
               },
 
               {
-                sY: [backHeight, sub(groundHeight), sub(hillHeight)],
-                x: sub(treeWidth),
+                sY: [
+                  backHeight,
+                  helper.sub(groundHeight),
+                  helper.sub(hillHeight),
+                ],
+                x: helper.sub(treeWidth),
                 stripes: {
                   strip: treeWidth,
                   gap: {
@@ -876,7 +898,7 @@ function graien() {
 
                               {
                                 sX: legLowerWidth,
-                                sY: [graie3LegLength, sub(legWidth)],
+                                sY: [graie3LegLength, helper.sub(legWidth)],
                                 fY: true,
                                 tY: true,
                                 list: [
@@ -894,7 +916,7 @@ function graien() {
                           {
                             sY: graie3LegLength,
                             fX: true,
-                            x: [graie3Width, sub(legWidth)],
+                            x: [graie3Width, helper.sub(legWidth)],
                             list: [
                               {
                                 sX: legWidth,
@@ -1237,7 +1259,7 @@ function graien() {
                                     r: -0.2,
                                   },
                                 },
-                                sX: mult(0.2, graie1Width),
+                                sX: helper.mult(0.2, graie1Width),
                                 sY: {
                                   r: 0.8,
                                   max: {
@@ -1248,7 +1270,7 @@ function graien() {
                                 },
                                 minX: 3,
                                 x: [
-                                  mult(2, graie1BreastWidth),
+                                  helper.mult(2, graie1BreastWidth),
                                   graie1BreastMargin,
                                 ],
                                 fX: true,
@@ -1293,7 +1315,7 @@ function graien() {
                                     r: -0.2,
                                   },
                                 },
-                                sX: mult(0.2, graie1Width),
+                                sX: helper.mult(0.2, graie1Width),
                                 sY: {
                                   r: 0.2,
                                   max: 6,
@@ -1309,13 +1331,13 @@ function graien() {
                                   graie1ToLeft,
                                   [
                                     graie1Width,
-                                    sub(armWidth),
-                                    sub(graie1BreastWidth),
-                                    sub(graie1BreastWidth),
-                                    sub(graie1BreastMargin),
+                                    helper.sub(armWidth),
+                                    helper.sub(graie1BreastWidth),
+                                    helper.sub(graie1BreastWidth),
+                                    helper.sub(graie1BreastMargin),
                                   ],
                                 ],
-                                x: [sub(graie1ToLeft), armWidth],
+                                x: [helper.sub(graie1ToLeft), armWidth],
                                 list: [
                                   legStructure(1, false, true),
                                   {
@@ -1584,7 +1606,7 @@ function graien() {
                                     y: [
                                       graie1NosePos,
                                       graie1NoseHeight,
-                                      mult(0.02, graie1HeadHeight),
+                                      helper.mult(0.02, graie1HeadHeight),
                                     ],
                                     list: [
                                       {
@@ -1803,7 +1825,7 @@ function graien() {
                               {
                                 sY: graie1BreadArmLength,
                                 sX: armWidth,
-                                x: sub(graie1ToLeft),
+                                x: helper.sub(graie1ToLeft),
                                 list: [
                                   legStructure(1, true, true),
                                   {
@@ -1871,7 +1893,7 @@ function graien() {
                                 fY: true,
                                 sX: {
                                   r: 1,
-                                  add: [sub(legWidth)],
+                                  add: [helper.sub(legWidth)],
                                 },
                               },
                               // Upper Leg Shadow
@@ -1936,7 +1958,7 @@ function graien() {
                     list: [
                       // Upright Leg
                       {
-                        sY: [imgHeight, sub(graie2BodyHeight)],
+                        sY: [imgHeight, helper.sub(graie2BodyHeight)],
                         sX: legLowerWidth,
                         x: graie2LegPos,
                         y: graie2BodyHeight,
@@ -1965,9 +1987,9 @@ function graien() {
 
                       // Arm to Bread
                       {
-                        sX: [graieArmLengt, sub(graie2ToRight)],
+                        sX: [graieArmLengt, helper.sub(graie2ToRight)],
                         sY: armWidth,
-                        y: mult(-0.5, armWidth),
+                        y: helper.mult(-0.5, armWidth),
                         rX: true,
                         fX: true,
                         list: armToLeft(2, true),
@@ -1976,7 +1998,7 @@ function graien() {
                         sX: armWidth,
                         sY: {
                           r: 1,
-                          add: [sub(graie2BodyHeight)],
+                          add: [helper.sub(graie2BodyHeight)],
                         },
                         fX: true,
                         list: [
@@ -2280,7 +2302,7 @@ function graien() {
                                   {
                                     sY: {
                                       r: 0.9,
-                                      add: [sub(armWidth)],
+                                      add: [helper.sub(armWidth)],
                                     },
                                     x: -1,
                                     y: armWidth,
@@ -2626,7 +2648,11 @@ function graien() {
 
                           // Arm to Bread
                           {
-                            sY: [graieArmLengtDown, sub(graie3ToTop), -1],
+                            sY: [
+                              graieArmLengtDown,
+                              helper.sub(graie3ToTop),
+                              -1,
+                            ],
                             sX: armWidth,
                             rotate: 90,
                             list: armToLeft(3),
@@ -2635,7 +2661,10 @@ function graien() {
                           // Arm to Graie 2
                           {
                             sX: armWidth,
-                            sY: [graie3ShoulderHeight, sub(graie3GripPoint)],
+                            sY: [
+                              graie3ShoulderHeight,
+                              helper.sub(graie3GripPoint),
+                            ],
                             fX: true,
                             list: [
                               legStructure(3, true, true),
@@ -2654,8 +2683,8 @@ function graien() {
                           {
                             sX: [
                               graie2ToRight,
-                              mult(1, armWidth),
-                              mult(0.5, handArmDifference),
+                              helper.mult(1, armWidth),
+                              helper.mult(0.5, handArmDifference),
                             ],
                             sY: armWidth,
                             y: graie3GripPoint,
@@ -2910,7 +2939,7 @@ function graien() {
     linkList,
     hover,
     changeValueSetter() {
-      setValue = helper.setValueNew
+      helper.setValue = helper.setValueNew
     },
   }
 }

@@ -316,25 +316,24 @@ Tree.prototype.addBranches = function (args, hor, parentLeft, count, level) {
         cut: true,
       },
     },
-    code = this.code,
     leaves = [
       // Shadow of Leaves
       {
-        save: 'leavesShadow' + thisZ + code,
+        save: 'leavesShadow' + thisZ + this.code,
         sY: { r: 2, min: 5 },
         list: [strip],
       },
 
       // Leaves
       {
-        save: 'leaves' + thisZ + code,
+        save: 'leaves' + thisZ + this.code,
         sY: { r: 1.5, min: 3 },
         list: [strip],
       },
 
       // Top of Leaves
       {
-        save: 'leaves' + thisZ + code,
+        save: 'leaves' + thisZ + this.code,
         tY: true,
         sY: { r: 0.1, min: 1 },
         list: [

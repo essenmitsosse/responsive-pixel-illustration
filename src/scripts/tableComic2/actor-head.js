@@ -356,8 +356,7 @@ Eye.prototype.draw = function EyeDraw(args) {
   // sYNormal is the normal eye height, sY can be changed for smaller or bigger eyes, but is recommended to only be used for bigger eyes.
   // for closed eyes use openSY;
   // use eyeLidTopSY to change percentage of lower and upper eye;
-  var sX = args.sX,
-    sYNormal = this.pushLinkList({
+  var sYNormal = this.pushLinkList({
       r: args.away ? 1 - args.away : 1,
       useSize: args.sY,
       min: 1,
@@ -426,7 +425,7 @@ Eye.prototype.draw = function EyeDraw(args) {
     })),
     // pupilPosrel moves relative to the white, pupilPos moves relative to the pupil
     pupilRestSX = this.pushLinkList({
-      add: [sX, { r: -1, useSize: pupilSX }],
+      add: [args.sX, { r: -1, useSize: pupilSX }],
       min: 1,
     }),
     pupilRestSY = this.pushLinkList({
@@ -455,7 +454,7 @@ Eye.prototype.draw = function EyeDraw(args) {
       useSize: pupilSY,
       add: [pupilPosYrel],
     })),
-    eyeLidOvershot = this.pushLinkList({ r: 0.1, max: 1, useSize: sX }),
+    eyeLidOvershot = this.pushLinkList({ r: 0.1, max: 1, useSize: args.sX }),
     rotate = this.actor.isRotated
 
   // if( args.info ) { args.info.sY = false; }
@@ -464,7 +463,7 @@ Eye.prototype.draw = function EyeDraw(args) {
   // this.pushRelativeStandardAutomatic( { pupilS: { map:"test", min:0, max:2 } } )
 
   return {
-    sX,
+    sX: args.sX,
     sY,
     fY: true,
     rX: this.left,

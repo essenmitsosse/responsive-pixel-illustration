@@ -2,14 +2,12 @@ import { Builder } from './builder.js'
 
 function builder(init, slide, createSlider) {
   var builder = new Builder(init),
-    hover = builder.hover,
-    pushLinkList = builder.pushLinkList,
-    width = pushLinkList({ main: true }),
-    height = pushLinkList({ main: true, height: true }),
-    squ = pushLinkList({ add: [width], max: height }),
-    borderS = pushLinkList({ r: 0.05, a: -2, useSize: squ, min: 1 }),
-    imgSX = pushLinkList([width, { r: -2, useSize: borderS }]),
-    imgSY = pushLinkList([height, { r: -2, useSize: borderS }]),
+    width = builder.pushLinkList({ main: true }),
+    height = builder.pushLinkList({ main: true, height: true }),
+    squ = builder.pushLinkList({ add: [width], max: height }),
+    borderS = builder.pushLinkList({ r: 0.05, a: -2, useSize: squ, min: 1 }),
+    imgSX = builder.pushLinkList([width, { r: -2, useSize: borderS }]),
+    imgSY = builder.pushLinkList([height, { r: -2, useSize: borderS }]),
     showPerson = slide.showPerson || init.showPerson,
     getPosition = (function () {
       var rFl = builder.basic.R,
@@ -151,10 +149,10 @@ function builder(init, slide, createSlider) {
         list = [],
         args,
         drawArgs,
-        sX = pushLinkList({}),
-        sY = pushLinkList({}),
-        square = pushLinkList({ add: [sX], max: sY }),
-        innerSquare = pushLinkList({ r: 0.7, useSize: square }),
+        sX = builder.pushLinkList({}),
+        sY = builder.pushLinkList({}),
+        square = builder.pushLinkList({ add: [sX], max: sY }),
+        innerSquare = builder.pushLinkList({ r: 0.7, useSize: square }),
         SingleObject = showPerson ? builder.Person : builder.Tree,
         Tree1Family =
           !showPerson &&
@@ -270,9 +268,9 @@ function builder(init, slide, createSlider) {
     renderList,
     linkList: builder.linkList,
     background: builder.backgroundColor.get(),
-    hover: hover.hover,
+    hover: builder.hover.hover,
     hoverAlt: builder.hoverAlt,
-    changeValueSetter: hover.ready,
+    changeValueSetter: builder.hover.ready,
   }
 }
 

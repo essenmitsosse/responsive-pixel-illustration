@@ -57,11 +57,9 @@ export const Arm = function (args) {
 Arm.prototype = new Object()
 
 Arm.prototype.draw = function (args, rightSide, behind) {
-  var nr = args.nr,
-    sideView = args.sideView,
-    name = rightSide ? 'right' : 'left',
-    nrName = name + nr,
-    renderFromRight = sideView ? rightSide : args.right !== args.backView,
+  var name = rightSide ? 'right' : 'left',
+    nrName = name + args.nr,
+    renderFromRight = args.sideView ? rightSide : args.right !== args.backView,
     tool = rightSide ? this.toolRight : this.toolLeft,
     otherHand = !rightSide ? this.toolRight : this.toolLeft,
     finger = args.finger && args.finger[name],
@@ -100,7 +98,7 @@ Arm.prototype.draw = function (args, rightSide, behind) {
     })
 
     args.shoulderFullSX = this.pushLinkList([
-      this.mult(sideView ? 2 : 1, args.shoulderSX),
+      this.mult(args.sideView ? 2 : 1, args.shoulderSX),
       args.chestSX,
     ])
 
@@ -372,7 +370,7 @@ Arm.prototype.draw = function (args, rightSide, behind) {
                       rY: true,
                       list: [
                         this.headGear.draw(args, 100),
-                        !sideView && {
+                        !args.sideView && {
                           tX: true,
                           rX: true,
                           x: 1,
@@ -450,8 +448,6 @@ export const ShoulderPad = function (args) {
 ShoulderPad.prototype = new Object()
 
 ShoulderPad.prototype.draw = function (args, z) {
-  var nr = args.nr
-
   return {
     sX: {
       r: this.SX,
@@ -466,7 +462,7 @@ ShoulderPad.prototype.draw = function (args, z) {
     },
     y: { r: this.Y, useSize: args.armSX, max: { a: 0 } },
     x: { r: this.X, useSize: args.trapSX },
-    id: 'shoulderPad' + nr,
+    id: 'shoulderPad' + args.nr,
     z,
     color: this.shoulderPadColor.get(),
     // rX: sideView && args.right,
@@ -610,9 +606,8 @@ export const Sword = function (args, right) {
 Sword.prototype = new Object()
 
 Sword.prototype.draw = function (args, z) {
-  var nr = args.nr,
-    name = this.rightSide ? 'right' : 'left',
-    nrName = name + nr
+  var name = this.rightSide ? 'right' : 'left',
+    nrName = name + args.nr
 
   args['handleSY' + nrName] = this.pushLinkList({
     add: [args.handSX, -2],
@@ -759,8 +754,7 @@ export const Shield = function (args, right) {
 Shield.prototype = new Object()
 
 Shield.prototype.draw = function (args, z) {
-  var nr = args.nr,
-    nrName = this.name + nr,
+  var nrName = this.name + args.nr,
     logo = [this.logo.draw(args, z + 805)]
 
   args['shieldSX' + nrName] = this.pushLinkList({

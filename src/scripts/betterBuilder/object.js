@@ -58,9 +58,6 @@ BBObj.prototype.calcRotation.prototype.getRotation = function (rotate) {
 
 // Rotater
 export const Rotater = function (args) {
-  var drawer = args.drawer,
-    rotate = args.rotate
-
   this.list = []
 
   this.ll.push(
@@ -68,7 +65,9 @@ export const Rotater = function (args) {
       r:
         1 +
         // Base Size (change for Front)
-        (args.frontSX !== undefined ? rotate.front * (args.frontSX - 1) : 0),
+        (args.frontSX !== undefined
+          ? args.rotate.front * (args.frontSX - 1)
+          : 0),
       // + ( args.sideSX !== undefined ? rotate.side * ( args.sideSX - 1 ) : 0 ), 	// change for Side
       useSize: args.baseSX,
       odd: true,
@@ -80,7 +79,7 @@ export const Rotater = function (args) {
       args.side.sX = this.sX
     }
 
-    this.x = this.moveOut(args.side, rotate)
+    this.x = this.moveOut(args.side, args.rotate)
   }
 
   if (args.sY) {
@@ -109,13 +108,13 @@ export const Rotater = function (args) {
     })
   }
 
-  this.pusher(rotate.FL, drawer.draw(args, true, false))
+  this.pusher(args.rotate.FL, args.drawer.draw(args, true, false))
 
-  this.pusher(rotate.FR, drawer.draw(args, true, true), true)
+  this.pusher(args.rotate.FR, args.drawer.draw(args, true, true), true)
 
-  this.pusher(rotate.BR, drawer.draw(args, false, true))
+  this.pusher(args.rotate.BR, args.drawer.draw(args, false, true))
 
-  this.pusher(rotate.BL, drawer.draw(args, false, false), true)
+  this.pusher(args.rotate.BL, args.drawer.draw(args, false, false), true)
 
   return {
     get: {
@@ -128,10 +127,11 @@ export const Rotater = function (args) {
       id: args.id,
       cX: true,
       z:
-        (args.z ? args.z * rotate.turnedAway : 0) + (args.zAbs ? args.zAbs : 0),
+        (args.z ? args.z * args.rotate.turnedAway : 0) +
+        (args.zAbs ? args.zAbs : 0),
       list: this.list,
     },
-    rotate,
+    rotate: args.rotate,
     sX: this.sX,
     sY: this.sY,
     x: this.X,

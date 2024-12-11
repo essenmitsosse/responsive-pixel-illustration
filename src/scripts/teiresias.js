@@ -1,15 +1,10 @@
 import { helper } from '@/renderengine/helper.js'
 
 function teiresias() {
-  var help = helper,
-    getSmallerDim = help.getSmallerDim,
-    getBiggerDim = help.getBiggerDim,
-    mult = help.mult,
-    sub = help.sub,
-    shadowColor = [255, 200, 255],
-    shadow = help.darken(shadowColor, 0.7),
-    detail = help.darken(shadowColor, 0.4),
-    lighten = help.lighten(shadowColor, 0.3),
+  var shadowColor = [255, 200, 255],
+    shadow = helper.darken(shadowColor, 0.7),
+    detail = helper.darken(shadowColor, 0.4),
+    lighten = helper.lighten(shadowColor, 0.3),
     trees = [40, 74, 95],
     frame = lighten(trees),
     frameDark = shadow(frame),
@@ -119,7 +114,7 @@ function teiresias() {
     snake = function (nr, vert) {
       var x = !vert ? ['snakeWeight', -1] : undefined,
         y = vert ? ['snakeWeight', -1] : undefined,
-        s = { r: 1, add: [sub('snakeWeight')] }
+        s = { r: 1, add: [helper.sub('snakeWeight')] }
 
       return nr === 2
         ? [{ save: 'snake2' }]
@@ -205,7 +200,7 @@ function teiresias() {
         list: [
           {
             sX: {
-              add: ['imgWidth', mult(-3, 'teiresias')],
+              add: ['imgWidth', helper.mult(-3, 'teiresias')],
               min: { r: 0.15 },
             },
             color: treesDark,
@@ -224,7 +219,7 @@ function teiresias() {
           {
             fX: true,
             sX: {
-              add: ['imgWidth', mult(-1.5, 'teiresias')],
+              add: ['imgWidth', helper.mult(-1.5, 'teiresias')],
               min: { r: 0.15 },
             },
             sY: { r: 2 },
@@ -247,14 +242,17 @@ function teiresias() {
           // Tree Trunks
           {
             color: stickDark,
-            sX: { add: ['imgWidth', mult(-2, 'teiresias')] },
+            sX: { add: ['imgWidth', helper.mult(-2, 'teiresias')] },
             fX: true,
             list: treeTrunk(),
           },
           {
             color: stickDark,
             sX: {
-              add: [mult(0.2, 'imgWidth'), mult(-0.5, 'teiresias')],
+              add: [
+                helper.mult(0.2, 'imgWidth'),
+                helper.mult(-0.5, 'teiresias'),
+              ],
             },
             list: treeTrunk(),
           },
@@ -264,7 +262,7 @@ function teiresias() {
             sY: { r: 0.05 },
             fX: true,
             sX: {
-              add: ['imgWidth', mult(-0.5, 'teiresias')],
+              add: ['imgWidth', helper.mult(-0.5, 'teiresias')],
               min: { r: 0.3, otherDim: true },
             },
             color: trees,
@@ -273,7 +271,7 @@ function teiresias() {
           {
             sY: { r: 0.4 },
             fX: true,
-            sX: { add: ['imgWidth', mult(-1.2, 'teiresias')] },
+            sX: { add: ['imgWidth', helper.mult(-1.2, 'teiresias')] },
             color: trees,
             list: treeLeaves,
           },
@@ -282,7 +280,10 @@ function teiresias() {
           {
             sY: { r: 0.3 },
             sX: {
-              add: [mult(0.2, 'imgWidth'), mult(-0.3, 'teiresias')],
+              add: [
+                helper.mult(0.2, 'imgWidth'),
+                helper.mult(-0.3, 'teiresias'),
+              ],
               min: { r: 0.1, otherDim: true },
             },
             color: trees,
@@ -323,7 +324,7 @@ function teiresias() {
             m: 'imgPadding',
             list: [
               {
-                y: mult(0.5, 'imgPadding'),
+                y: helper.mult(0.5, 'imgPadding'),
                 list: [
                   // TEIRESIAS Shadow
                   {
@@ -382,7 +383,10 @@ function teiresias() {
                       { x: { r: 0.2 }, y: 'handLeft' },
                       {
                         x: { r: 0.5 },
-                        y: [mult(0.4, 'stickLeft'), mult(0.4, 'stickRight')],
+                        y: [
+                          helper.mult(0.4, 'stickLeft'),
+                          helper.mult(0.4, 'stickRight'),
+                        ],
                       },
                       {
                         x: { r: 0.2 },
@@ -390,7 +394,7 @@ function teiresias() {
                         fX: true,
                       },
                       {
-                        y: ['stickRight', sub('stickWeight')],
+                        y: ['stickRight', helper.sub('stickWeight')],
                         fX: true,
                       },
                     ],
@@ -399,7 +403,7 @@ function teiresias() {
                   {
                     name: 'Line',
                     save: 'stick',
-                    weight: mult(0.7, 'stickWeight'),
+                    weight: helper.mult(0.7, 'stickWeight'),
                     points: [
                       { x: { r: 0.15 }, y: 'stickPoint' },
                       {
@@ -540,27 +544,27 @@ function teiresias() {
                       },
                       // Right Hip
                       {
-                        x: ['kneeRightX', sub('armWeight')],
+                        x: ['kneeRightX', helper.sub('armWeight')],
                         y: ['kneeRightY', 'armWeight'],
                         fX: true,
                         fY: true,
                       },
                       // Right Knee
                       {
-                        x: ['skirtRightX', sub('armWeight')],
+                        x: ['skirtRightX', helper.sub('armWeight')],
                         y: 'skirtRightY',
                         fX: true,
                         fY: true,
                       },
                       // Middle Right
                       {
-                        x: ['skirtLeftX', sub('armWeight')],
+                        x: ['skirtLeftX', helper.sub('armWeight')],
                         y: 'skirtLeftY',
                         fY: true,
                       },
                       // Middle Left
                       {
-                        x: ['kneeLeftX', sub('armWeight')],
+                        x: ['kneeLeftX', helper.sub('armWeight')],
                         y: ['kneeLeftY', 'armWeight'],
                         fY: true,
                       },
@@ -573,12 +577,12 @@ function teiresias() {
                     color: teiresiasShadow,
                     points: [
                       {
-                        x: ['skirtLeftX', mult(2, 'armWeight')],
-                        y: ['skirtLeftY', mult(2, 'armWeight')],
+                        x: ['skirtLeftX', helper.mult(2, 'armWeight')],
+                        y: ['skirtLeftY', helper.mult(2, 'armWeight')],
                         fY: true,
                       },
                       {
-                        x: ['skirtRightX', mult(4, 'armWeight')],
+                        x: ['skirtRightX', helper.mult(4, 'armWeight')],
                         y: ['skirtRightY'],
                         fX: true,
                         fY: true,
@@ -591,13 +595,13 @@ function teiresias() {
                     color: teiresiasShadow,
                     points: [
                       {
-                        x: ['skirtLeftX', mult(4, 'armWeight')],
-                        y: ['skirtLeftY', mult(5, 'armWeight')],
+                        x: ['skirtLeftX', helper.mult(4, 'armWeight')],
+                        y: ['skirtLeftY', helper.mult(5, 'armWeight')],
                         fY: true,
                       },
                       {
-                        x: ['skirtRightX', mult(2, 'armWeight')],
-                        y: ['skirtRightY', mult(2.5, 'armWeight')],
+                        x: ['skirtRightX', helper.mult(2, 'armWeight')],
+                        y: ['skirtRightY', helper.mult(2.5, 'armWeight')],
                         fX: true,
                         fY: true,
                       },
@@ -697,7 +701,7 @@ function teiresias() {
                             color: hair,
                             sY: {
                               r: 0,
-                              add: [mult(1, 'sXRest')],
+                              add: [helper.mult(1, 'sXRest')],
                               max: { r: 5 },
                             },
                             list: [
@@ -716,7 +720,7 @@ function teiresias() {
                             color: hair,
                             sY: {
                               r: 0.2,
-                              add: [mult(-0.5, 'sYRest')],
+                              add: [helper.mult(-0.5, 'sYRest')],
                             },
                             list: [
                               {
@@ -772,7 +776,7 @@ function teiresias() {
                               {
                                 sY: {
                                   r: 2,
-                                  add: [mult(-1.5, 'sXRest')],
+                                  add: [helper.mult(-1.5, 'sXRest')],
                                 },
                                 list: [
                                   {
@@ -881,11 +885,11 @@ function teiresias() {
                   { name: 'Dot', clear: true, fY: true },
 
                   {
-                    x: mult(2, 'snakePeriode'),
+                    x: helper.mult(2, 'snakePeriode'),
                     minY: 5,
                     sX: {
                       r: 1,
-                      add: [sub('snakePeriode')],
+                      add: [helper.sub('snakePeriode')],
                     },
                     stripes: {
                       strip: 'snakePeriode',
@@ -1104,10 +1108,10 @@ function teiresias() {
 
                   // SNAKE BODIES
                   {
-                    x: mult(2, 'snakePeriode'),
+                    x: helper.mult(2, 'snakePeriode'),
                     sX: {
                       r: 1,
-                      add: [sub('snakePeriode')],
+                      add: [helper.sub('snakePeriode')],
                     },
                     stripes: {
                       strip: 'snakePeriode',
@@ -1287,50 +1291,56 @@ function teiresias() {
       fullRect: { r: 1, max: { r: 1, height: true } },
       borderWidth: { r: 0.06, a: 1, useSize: 'fullRect', min: 1 },
       borderInner: ['borderWidth', -4],
-      dekoOffset: mult(0.4, 'borderInner'),
-      dekoheight: ['borderWidth', -2, sub('dekoOffset')],
-      bigEdgeSize: mult(2, 'borderWidth'),
+      dekoOffset: helper.mult(0.4, 'borderInner'),
+      dekoheight: ['borderWidth', -2, helper.sub('dekoOffset')],
+      bigEdgeSize: helper.mult(2, 'borderWidth'),
 
-      imgWidth: [{ r: 1 }, mult(-2, 'borderWidth')],
-      imgheight: [{ r: 1, height: true }, mult(-2, 'borderWidth')],
+      imgWidth: [{ r: 1 }, helper.mult(-2, 'borderWidth')],
+      imgheight: [{ r: 1, height: true }, helper.mult(-2, 'borderWidth')],
 
-      imgSqu: getSmallerDim({ r: 1, useSize: imgDims }),
-      imgSquBigger: getBiggerDim({ r: 1, useSize: imgDims }),
+      imgSqu: helper.getSmallerDim({ r: 1, useSize: imgDims }),
+      imgSquBigger: helper.getBiggerDim({ r: 1, useSize: imgDims }),
 
-      imgPadding: mult(0.05, 'imgSqu'),
+      imgPadding: helper.mult(0.05, 'imgSqu'),
 
-      motiveWidth: ['imgWidth', mult(-2, 'imgPadding')],
-      motiveheight: ['imgheight', mult(-2, 'imgPadding')],
+      motiveWidth: ['imgWidth', helper.mult(-2, 'imgPadding')],
+      motiveheight: ['imgheight', helper.mult(-2, 'imgPadding')],
 
-      motiveSqu: getSmallerDim({ r: 1, useSize: motiveDims }),
-      motiveSquBigger: getBiggerDim({ r: 1, useSize: motiveDims }),
+      motiveSqu: helper.getSmallerDim({ r: 1, useSize: motiveDims }),
+      motiveSquBigger: helper.getBiggerDim({ r: 1, useSize: motiveDims }),
 
-      sXRest: { add: ['motiveWidth', sub('motiveSqu')], min: 0 },
-      sYRest: { add: ['motiveheight', sub('motiveSqu')], min: 0 },
+      sXRest: { add: ['motiveWidth', helper.sub('motiveSqu')], min: 0 },
+      sYRest: { add: ['motiveheight', helper.sub('motiveSqu')], min: 0 },
 
-      teiresias: { a: 'motiveSqu', max: mult(0.6, 'motiveSquBigger') },
-      teiresiasX: mult(0.1, 'sXRest'),
-      teiresiasY: mult(0.1, 'sYRest'),
+      teiresias: { a: 'motiveSqu', max: helper.mult(0.6, 'motiveSquBigger') },
+      teiresiasX: helper.mult(0.1, 'sXRest'),
+      teiresiasY: helper.mult(0.1, 'sYRest'),
 
-      armLength: mult(0.2, 'teiresias'),
+      armLength: helper.mult(0.2, 'teiresias'),
       armWeight: { r: 0.025, useSize: 'teiresias', min: 1 },
 
-      maxStick: mult(0.3, 'teiresias'),
+      maxStick: helper.mult(0.3, 'teiresias'),
       stickLeft: { r: 0.5, useSize: 'sXRest', max: 'maxStick' },
       stickRight: { r: 0.5, useSize: 'sYRest', max: 'maxStick' },
       stickWeight: { r: 0.03, useSize: 'teiresias', min: 1 },
-      stickPoint: [mult(0.85, 'stickLeft'), mult(0.15, 'stickRight')],
+      stickPoint: [
+        helper.mult(0.85, 'stickLeft'),
+        helper.mult(0.15, 'stickRight'),
+      ],
 
       torsoY: { r: torsoTop, useSize: 'teiresias' },
       torsoheight: { r: 0.2, useSize: 'teiresias' },
       torsoBottom: ['torsoY', 'torsoheight'],
 
-      legLength: mult(1.3, 'armLength'),
+      legLength: helper.mult(1.3, 'armLength'),
 
-      handSize: mult(1.5, 'stickWeight', 1),
-      halfHandSizeNeg: mult(-0.5, 'handSize'),
-      handLeft: [mult(0.8, 'stickLeft'), mult(0.2, 'stickRight')],
-      handRight: [mult(0.2, 'stickLeft'), mult(0.8, 'stickRight')],
+      handSize: helper.mult(1.5, 'stickWeight', 1),
+      halfHandSizeNeg: helper.mult(-0.5, 'handSize'),
+      handLeft: [helper.mult(0.8, 'stickLeft'), helper.mult(0.2, 'stickRight')],
+      handRight: [
+        helper.mult(0.2, 'stickLeft'),
+        helper.mult(0.8, 'stickRight'),
+      ],
 
       torsoMargin: { r: torsoMargin, useSize: 'teiresias' },
 
@@ -1341,62 +1351,78 @@ function teiresias() {
       feetRightY: {
         r: 0.2,
         useSize: 'teiresias',
-        add: [sub('sYRest')],
+        add: [helper.sub('sYRest')],
         min: 2,
       },
 
       kneeRightX: [
         'feetRightX',
-        { add: [mult(-0.5, 'sYRest')], min: { r: -0.02 } },
+        { add: [helper.mult(-0.5, 'sYRest')], min: { r: -0.02 } },
       ],
       kneeRightY: ['feetRightY', 'legLength'],
 
       kneeLeftX: [
         'feetLeftX',
-        { add: [mult(-0.5, 'sYRest')], min: { r: -0.1 } },
+        { add: [helper.mult(-0.5, 'sYRest')], min: { r: -0.1 } },
       ],
       kneeLeftY: ['feetLeftY', 'legLength'],
 
-      skirtRightX: [mult(0.5, 'feetRightX'), mult(0.5, 'kneeRightX')],
-      skirtRightY: [mult(0.5, 'feetRightY'), mult(0.5, 'kneeRightY')],
+      skirtRightX: [
+        helper.mult(0.5, 'feetRightX'),
+        helper.mult(0.5, 'kneeRightX'),
+      ],
+      skirtRightY: [
+        helper.mult(0.5, 'feetRightY'),
+        helper.mult(0.5, 'kneeRightY'),
+      ],
 
-      skirtLeftX: [mult(0.5, 'feetLeftX'), mult(0.5, 'kneeLeftX')],
-      skirtLeftY: [mult(0.5, 'feetLeftY'), mult(0.5, 'kneeLeftY')],
+      skirtLeftX: [
+        helper.mult(0.5, 'feetLeftX'),
+        helper.mult(0.5, 'kneeLeftX'),
+      ],
+      skirtLeftY: [
+        helper.mult(0.5, 'feetLeftY'),
+        helper.mult(0.5, 'kneeLeftY'),
+      ],
 
       snakeheight: {
-        add: ['motiveheight', sub('teiresias'), sub('teiresiasY')],
+        add: [
+          'motiveheight',
+          helper.sub('teiresias'),
+          helper.sub('teiresiasY'),
+        ],
         min: {
-          add: [mult(0.3, 'motiveSquBigger')],
+          add: [helper.mult(0.3, 'motiveSquBigger')],
           min: 6,
-          max: mult(0.4, 'motiveheight'),
+          max: helper.mult(0.4, 'motiveheight'),
         },
-        max: mult(0.3, 'motiveheight'),
+        max: helper.mult(0.3, 'motiveheight'),
       },
       snakeWidth: {
-        add: ['motiveWidth', sub('teiresias'), sub('teiresiasX')],
+        add: ['motiveWidth', helper.sub('teiresias'), helper.sub('teiresiasX')],
         min: {
-          add: [mult(0.5, 'motiveSquBigger')],
+          add: [helper.mult(0.5, 'motiveSquBigger')],
           max: { a: 'motiveWidth' },
         },
       },
-      snakeSqu: getSmallerDim({
+      snakeSqu: helper.getSmallerDim({
         r: 1,
         useSize: ['snakeheight', 'snakeWidth'],
       }),
       snakeWeight: { r: 0.07, useSize: 'snakeSqu', min: 1 },
 
       snakeheightMargin: ['snakeheight'],
-      snakeWidthMargin: ['snakeWidth', mult(-2, 'snakeWeight')],
+      snakeWidthMargin: ['snakeWidth', helper.mult(-2, 'snakeWeight')],
 
       snakePeriode: [{ r: 2, useSize: 'snakeWeight', a: 2 }],
-      snakePeriodeHalf: mult(0.5, 'snakePeriode'),
+      snakePeriodeHalf: helper.mult(0.5, 'snakePeriode'),
       snakeOffset: {
         r: 1,
         useSize: 'snakeWeight',
         a: 1,
-        max: mult(0.1, 'snakeheight'),
+        max: helper.mult(0.1, 'snakeheight'),
       },
-      snakeheightReal: ['snakeheightMargin', sub('snakeOffset')],
+      snakeheightReal: ['snakeheightMargin', helper.sub('snakeOffset')],
 
       snakeHeadSize: { r: 1.5, useSize: 'snakeWeight', min: 2 },
       snakeTongueLength: { r: 0.7, useSize: 'snakeHeadSize', min: 2 },
@@ -1404,15 +1430,15 @@ function teiresias() {
       snakeDetailSize: ['snakeWeight', -2],
       snakeHeadPos: {
         add: [
-          mult(0.5, 'snakeheight'),
-          mult(-1.5, 'snakeHeadSize'),
-          sub('snakeTongueLength'),
+          helper.mult(0.5, 'snakeheight'),
+          helper.mult(-1.5, 'snakeHeadSize'),
+          helper.sub('snakeTongueLength'),
           -2,
         ],
         min: { a: 0 },
       },
 
-      treeRandom: mult(0.1, 'imgheight'),
+      treeRandom: helper.mult(0.1, 'imgheight'),
     }
 
   return {

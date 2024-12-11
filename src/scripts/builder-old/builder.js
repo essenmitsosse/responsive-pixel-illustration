@@ -30,27 +30,21 @@ import {
 import { TreeFamily, Forrest, Tree } from './tree.js'
 
 export const Builder = function (init) {
-  var help = helper,
-    getSmallerDim = help.getSmallerDim,
-    getBiggerDim = help.getBiggerDim,
-    mult = help.mult,
-    sub = help.sub,
-    margin = help.margin,
-    initID = init.id ? init.id : Math.floor(Math.random() * 4294967296),
-    random = help.random(initID),
+  var initID = init.id ? init.id : Math.floor(Math.random() * 4294967296),
+    random = helper.random(initID),
     joinVariableList = {}
 
-  this.help = help
+  this.help = helper
 
-  this.getSmallerDim = getSmallerDim
+  this.getSmallerDim = helper.getSmallerDim
 
-  this.getBiggerDim = getBiggerDim
+  this.getBiggerDim = helper.getBiggerDim
 
-  this.mult = mult
+  this.mult = helper.mult
 
-  this.sub = sub
+  this.sub = helper.sub
 
-  this.margin = margin
+  this.margin = helper.margin
 
   this.IF = random.getIf
 
@@ -114,21 +108,20 @@ export const Builder = function (init) {
 }
 
 const buildColors = function (info) {
-  var R = this.R,
+  var that = this,
     i = info.colors,
     colors = [],
     createColor = function () {
-      var r = R(0, 200),
-        g = R(0, 200),
-        b = R(0, 200),
+      var r = that.R(0, 200),
+        g = that.R(0, 200),
+        b = that.R(0, 200),
         br = Math.sqrt(
           0.241 * Math.pow(r, 2) +
             0.691 * Math.pow(g, 2) +
             0.068 * Math.pow(b, 2),
         ),
         rgb = [r, g, b],
-        steps = info.steps,
-        maxBr = 255 / steps,
+        maxBr = 255 / info.steps,
         startPos = Math.floor(br / maxBr),
         colorRange = [],
         i,
@@ -150,7 +143,7 @@ const buildColors = function (info) {
       }
 
       // LIGHTER COLORS
-      i = steps - startPos - 1
+      i = info.steps - startPos - 1
 
       fak = 1 / (i + 1)
 

@@ -1,3 +1,5 @@
+import { mult, sub } from '@/renderengine/helper'
+
 import { Object } from './object.js'
 
 // LOWER BODY --------------------------------------------------------------------------------
@@ -51,7 +53,7 @@ LowerBody.prototype.draw = function (args, z) {
     args.crotchSY = this.pushLinkList({
       r: this.crotchSY,
       useSize: args.legSX,
-      max: this.mult(0.4, args.lowerBodySY),
+      max: mult(0.4, args.lowerBodySY),
       min: 1,
     })
   }
@@ -193,7 +195,7 @@ Skirt.prototype.draw = function (args) {
     })
 
     args.feetRestSY = this.pushLinkList({
-      add: [args.lowerBodySY, this.sub(args.skirtSY)],
+      add: [args.lowerBodySY, sub(args.skirtSY)],
     })
   }
 
@@ -270,7 +272,7 @@ Leg.prototype.draw = function (args, z, rightSide, behind) {
     })
 
     args.lowerLegSY = this.pushLinkList({
-      add: [args.lowerBodySY, this.sub(args.upperLegSY)],
+      add: [args.lowerBodySY, sub(args.upperLegSY)],
     })
 
     args.shoeSY = this.pushLinkList(

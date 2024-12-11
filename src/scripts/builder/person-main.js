@@ -1,3 +1,5 @@
+import { sub } from '@/renderengine/helper'
+
 import { Object } from './object.js'
 
 // PERSON --------------------------------------------------------------------------------
@@ -156,7 +158,7 @@ BasicBody.prototype.draw = function (args, right) {
   if (args.calc) {
     args.bodyRestSY = this.pushLinkList({
       add: [args.personSY],
-      max: [args.size, this.sub(args.headMaxSY), this.sub(args.neckSY)],
+      max: [args.size, sub(args.headMaxSY), sub(args.neckSY)],
     })
 
     args.lowerBodySY = this.pushLinkList({
@@ -166,7 +168,7 @@ BasicBody.prototype.draw = function (args, right) {
     })
 
     args.upperBodySY = this.pushLinkList({
-      add: [args.bodyRestSY, this.sub(args.lowerBodySY)],
+      add: [args.bodyRestSY, sub(args.lowerBodySY)],
       min: 1,
     })
 
@@ -288,7 +290,7 @@ Logo.prototype.draw = function (args) {
       },
       y: {
         r: this.Y,
-        max: [args['logoSY' + nrName], this.sub(args['logoSY' + nrName])],
+        max: [args['logoSY' + nrName], sub(args['logoSY' + nrName])],
       },
       cX: args.oneSide || sideView,
       color: this.logoColor.get(),

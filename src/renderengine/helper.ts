@@ -28,165 +28,170 @@ type Max = {
 
 type ColorRgb = [number, number, number]
 
-export const helper = {
-  getSmallerDim<TA, TUse>(x: SizeIn<TA, TUse>): SizeOut<TA, TUse> {
-    const o: SizeOut<TA, TUse> = { r: x.r }
-    const max: Max = {
-      r: x.r2 || x.r,
-      otherDim: true,
-    }
+export const getSmallerDim = <TA, TUse>(
+  x: SizeIn<TA, TUse>,
+): SizeOut<TA, TUse> => {
+  const o: SizeOut<TA, TUse> = { r: x.r }
+  const max: Max = {
+    r: x.r2 || x.r,
+    otherDim: true,
+  }
 
-    if (x.a) {
-      o.a = x.a
+  if (x.a) {
+    o.a = x.a
 
-      max.a = x.a
-    }
+    max.a = x.a
+  }
 
-    if (x.useSize) {
-      o.useSize = x.useSize[0]
+  if (x.useSize) {
+    o.useSize = x.useSize[0]
 
-      max.useSize = x.useSize[1] || x.useSize[0]
-    }
+    max.useSize = x.useSize[1] || x.useSize[0]
+  }
 
-    if (x.r >= 0 && !x.getBiggerDim) {
-      o.max = max
-    } else {
-      o.min = max
-    }
+  if (x.r >= 0 && !x.getBiggerDim) {
+    o.max = max
+  } else {
+    o.min = max
+  }
 
-    return o
-  },
+  return o
+}
 
-  getBiggerDim<TA, TUse>(x: SizeIn<TA, TUse>): SizeOut<TA, TUse> {
-    x.getBiggerDim = true
+export const getBiggerDim = <TA, TUse>(
+  x: SizeIn<TA, TUse>,
+): SizeOut<TA, TUse> => {
+  x.getBiggerDim = true
 
-    return this.getSmallerDim(x)
-  },
+  return getSmallerDim(x)
+}
 
-  mult<TR, TUse, TA>(
-    r: TR,
-    use: TUse,
-    a: TA,
-  ): {
-    a: TA
-    r: TR
-    useSize: TUse
-  } {
-    return { r, useSize: use, a }
-  },
+export const mult = <TR, TUse, TA>(
+  r: TR,
+  use: TUse,
+  a: TA,
+): {
+  a: TA
+  r: TR
+  useSize: TUse
+} => ({ r, useSize: use, a })
 
-  sub<TUse>(use: TUse): { r: number; useSize: TUse } {
-    return { r: -1, useSize: use }
-  },
+export const sub = <TUse>(use: TUse): { r: number; useSize: TUse } => ({
+  r: -1,
+  useSize: use,
+})
 
-  margin<TFull, TMargin, TMin>(
-    full: TFull,
-    margin: TMargin,
-    min: TMin,
-  ): {
-    add: [TFull, { r: number; useSize: TMargin }]
-    min: TMin
-  } {
-    return { add: [full, { r: -2, useSize: margin }], min }
-  },
+export const margin = <TFull, TMargin, TMin>(
+  full: TFull,
+  margin: TMargin,
+  min: TMin,
+): {
+  add: [TFull, { r: number; useSize: TMargin }]
+  min: TMin
+} => ({ add: [full, { r: -2, useSize: margin }], min })
 
-  darken(darken: ColorRgb, strength: number) {
-    let l = darken.length
+export const darken = (darken: ColorRgb, strength: number) => {
+  let l = darken.length
 
-    const finalDarken: Array<number> = []
+  const finalDarken: Array<number> = []
 
-    strength /= 255
+  strength /= 255
 
-    while (l--) {
-      finalDarken[l] = darken[l] * strength
-    }
+  while (l--) {
+    finalDarken[l] = darken[l] * strength
+  }
 
-    return (color: ColorRgb, copy?: ColorRgb): ColorRgb => {
-      let l = color.length
-
-      const newColor: ColorRgb = copy || [0, 0, 0]
-
-      while (l--) {
-        newColor[l] = Math.floor(color[l] * finalDarken[l])
-      }
-
-      return newColor
-    }
-  },
-
-  lighten(lighten: ColorRgb, strength: number) {
-    let l = lighten.length
-
-    const finaleLighten: ColorRgb = [0, 0, 0]
-
-    while (l--) {
-      finaleLighten[l] = lighten[l] * strength
-    }
-
-    return (color: ColorRgb): ColorRgb => {
-      let l = color.length
-
-      const newColor: ColorRgb = [0, 0, 0]
-
-      let thisC: number
-
-      while (l--) {
-        newColor[l] = (thisC = color[l] + finaleLighten[l]) > 255 ? 255 : thisC
-      }
-
-      return newColor
-    }
-  },
-
-  addC(add: ColorRgb) {
-    return (color: ColorRgb): ColorRgb => {
-      let l = color.length
-
-      const newColor: ColorRgb = [0, 0, 0]
-
-      let thisC: number
-
-      while (l--) {
-        newColor[l] =
-          (thisC = color[l] + add[l]) > 255 ? 255 : thisC < 0 ? 0 : thisC
-      }
-
-      return newColor
-    }
-  },
-
-  lessSat(color: ColorRgb, s: number): ColorRgb {
-    const total = ((color[0] + color[1] + color[2]) * (1 - s)) / 3
-
-    return [color[0] * s + total, color[1] * s + total, color[2] * s + total]
-  },
-
-  getBrightness(color: ColorRgb): number {
+  return (color: ColorRgb, copy?: ColorRgb): ColorRgb => {
     let l = color.length
-    let b = 0
+
+    const newColor: ColorRgb = copy || [0, 0, 0]
 
     while (l--) {
-      b += color[l]
+      newColor[l] = Math.floor(color[l] * finalDarken[l])
     }
 
-    return b / 3
-  },
+    return newColor
+  }
+}
 
-  colorAdd(rgb: ColorRgb, add: number): ColorRgb {
-    return [rgb[0] + add, rgb[1] + add, rgb[2] + add]
-  },
+export const lighten = (lighten: ColorRgb, strength: number) => {
+  let l = lighten.length
 
-  multiplyColor(rgb: ColorRgb, factor: number): ColorRgb {
-    return [rgb[0] * factor, rgb[1] * factor, rgb[2] * factor]
-  },
+  const finaleLighten: ColorRgb = [0, 0, 0]
 
-  getLinkListPusher<T>(linkList: Array<T>): (link: T) => T {
-    return function (link) {
-      linkList.push(link)
+  while (l--) {
+    finaleLighten[l] = lighten[l] * strength
+  }
 
-      return link
+  return (color: ColorRgb): ColorRgb => {
+    let l = color.length
+
+    const newColor: ColorRgb = [0, 0, 0]
+
+    let thisC: number
+
+    while (l--) {
+      newColor[l] = (thisC = color[l] + finaleLighten[l]) > 255 ? 255 : thisC
     }
-  },
+
+    return newColor
+  }
+}
+
+export const addC =
+  (add: ColorRgb) =>
+  (color: ColorRgb): ColorRgb => {
+    let l = color.length
+
+    const newColor: ColorRgb = [0, 0, 0]
+
+    let thisC: number
+
+    while (l--) {
+      newColor[l] =
+        (thisC = color[l] + add[l]) > 255 ? 255 : thisC < 0 ? 0 : thisC
+    }
+
+    return newColor
+  }
+
+export const lessSat = (color: ColorRgb, s: number): ColorRgb => {
+  const total = ((color[0] + color[1] + color[2]) * (1 - s)) / 3
+
+  return [color[0] * s + total, color[1] * s + total, color[2] * s + total]
+}
+
+export const getBrightness = (color: ColorRgb): number => {
+  let l = color.length
+  let b = 0
+
+  while (l--) {
+    b += color[l]
+  }
+
+  return b / 3
+}
+
+export const colorAdd = (rgb: ColorRgb, add: number): ColorRgb => [
+  rgb[0] + add,
+  rgb[1] + add,
+  rgb[2] + add,
+]
+
+export const multiplyColor = (rgb: ColorRgb, factor: number): ColorRgb => [
+  rgb[0] * factor,
+  rgb[1] * factor,
+  rgb[2] * factor,
+]
+
+export const getLinkListPusher = <T>(linkList: Array<T>): ((link: T) => T) =>
+  function (link) {
+    linkList.push(link)
+
+    return link
+  }
+
+export const helper = {
   setValue<T>(what: Size<T>, value: T): void {
     what.r = value
   },
@@ -316,7 +321,6 @@ export const helper = {
           })
         }
       },
-
       hover(args: Record<string, number>): void {
         let somethingToChange = false
 
@@ -389,56 +393,56 @@ export const helper = {
       },
     }
   },
+}
 
-  getRandomInt(i: number): number {
-    return Math.floor(Math.random() * i)
-  },
+export const getRandomInt = (i: number): number => Math.floor(Math.random() * i)
 
-  random(seed: number): {
-    getFloat(): number
-    getIf(chance?: number): boolean
-    getRandom(min: number, max: number): number
-    getRandomFloat(min: number, max: number): number
-  } {
-    const denom = Math.pow(2, 31)
-    const a = 11
-    const b = 19
-    const c = 8
+export const getRandom = (
+  seed: number,
+): {
+  getFloat(): number
+  getIf(chance?: number): boolean
+  getRandom(min: number, max: number): number
+  getRandomFloat(min: number, max: number): number
+} => {
+  const denom = Math.pow(2, 31)
+  const a = 11
+  const b = 19
+  const c = 8
 
-    // x = Math.pow( seed, 3 ) + 88675123 || 88675123,
-    let x = seed || Math.floor(Math.random() * 4294967296)
-    let t = x ^ (x << a)
+  // x = Math.pow( seed, 3 ) + 88675123 || 88675123,
+  let x = seed || Math.floor(Math.random() * 4294967296)
+  let t = x ^ (x << a)
 
-    const getFloat = (): number => {
-      const t = x ^ (x << a)
+  const getFloat = (): number => {
+    const t = x ^ (x << a)
 
-      return (x = x ^ (x >> c) ^ (t ^ (t >> b))) / denom
-    }
+    return (x = x ^ (x >> c) ^ (t ^ (t >> b))) / denom
+  }
 
-    x = x ^ (x >> c) ^ (t ^ (t >> b))
+  x = x ^ (x >> c) ^ (t ^ (t >> b))
 
-    t = x ^ (x << a)
+  t = x ^ (x << a)
 
-    x = x ^ (x >> c) ^ (t ^ (t >> b))
+  x = x ^ (x >> c) ^ (t ^ (t >> b))
 
-    t = x ^ (x << a)
+  t = x ^ (x << a)
 
-    x = x ^ (x >> c) ^ (t ^ (t >> b))
+  x = x ^ (x >> c) ^ (t ^ (t >> b))
 
-    return {
-      getFloat,
+  return {
+    getFloat,
 
-      getIf(chance): boolean {
-        return (chance || 0.2) > getFloat()
-      },
+    getIf(chance): boolean {
+      return (chance || 0.2) > getFloat()
+    },
 
-      getRandom(min, max): number {
-        return Math.floor((max - min + 1) * getFloat() + min)
-      },
+    getRandom(min, max): number {
+      return Math.floor((max - min + 1) * getFloat() + min)
+    },
 
-      getRandomFloat(min, max): number {
-        return (max - min) * getFloat() + min
-      },
-    }
-  },
+    getRandomFloat(min, max): number {
+      return (max - min) * getFloat() + min
+    },
+  }
 }

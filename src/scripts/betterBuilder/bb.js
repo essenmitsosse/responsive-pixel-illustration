@@ -1,4 +1,4 @@
-import { helper } from '@/renderengine/helper'
+import { getRandom } from '@/renderengine/helper'
 
 import { BBObj, RotateInfo, Rotater } from './object.js'
 import { Head, HeadBottom, HeadTop, Neck, Nose } from './person-head.js'
@@ -9,9 +9,7 @@ import { Chest } from './person-upperBody.js'
 export const BB = function (init) {
   const args = {}
   const ObjProto = BB.prototype.Obj.prototype
-  const random = helper.random(
-    init.id || Math.floor(Math.random() * 4294967296),
-  )
+  const random = getRandom(init.id || Math.floor(Math.random() * 4294967296))
 
   for (const attr in init) {
     args[attr] = init[attr]

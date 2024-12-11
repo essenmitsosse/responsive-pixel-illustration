@@ -1,3 +1,5 @@
+import { mult, sub } from '@/renderengine/helper'
+
 import { Object } from './object.js'
 
 // TREE FAMILY
@@ -274,7 +276,7 @@ Tree.prototype.draw = function (args, z, size) {
                     {
                       fX: true,
                       sX: 'trunkSX' + code,
-                      sY: ['treeSqu' + code, this.sub('topTrunk' + code)],
+                      sY: ['treeSqu' + code, sub('topTrunk' + code)],
                       fY: true,
                       tY: true,
                     },
@@ -363,7 +365,7 @@ Tree.prototype.addBranches = function (hor, parentLeft, count, level) {
         cX: true,
         rotate: !hor ? 90 : 0,
         fY: !hor || (level >= 3 && hor),
-        y: this.mult(-0.3, (!hor ? 'foliageSX' : 'foliageSY') + this.code),
+        y: mult(-0.3, (!hor ? 'foliageSX' : 'foliageSY') + this.code),
         rY: !parentLeft,
         list: [
           { sX: { r: 0.5, a: this.leaveX }, list: leaves },

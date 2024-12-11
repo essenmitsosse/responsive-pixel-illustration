@@ -1,4 +1,4 @@
-import { helper } from '@/renderengine/helper'
+import { getBiggerDim, getSmallerDim, mult, sub } from '@/renderengine/helper'
 
 function sphinx() {
   const c1 = [255, 0, 0]
@@ -100,34 +100,34 @@ function sphinx() {
           color: g4,
           sY: { r: 0.01, a: 1 },
           sX: { r: 0.3 },
-          y: ['groundSY', helper.mult(0.3, 'skySY')],
+          y: ['groundSY', mult(0.3, 'skySY')],
           fY: true,
-          stripes: { strip: 3, random: helper.mult(0.02, 'skySY') },
+          stripes: { strip: 3, random: mult(0.02, 'skySY') },
         },
         {
           color: g4,
           sY: { r: 0.05, a: 1 },
           sX: { r: 0.1 },
-          y: ['groundSY', helper.mult(0.3, 'skySY')],
+          y: ['groundSY', mult(0.3, 'skySY')],
           fY: true,
-          stripes: { strip: 3, random: helper.mult(0.02, 'skySY') },
+          stripes: { strip: 3, random: mult(0.02, 'skySY') },
         },
 
         {
           color: g4,
           sY: { r: 0.02, a: 1 },
-          y: ['groundSY', helper.mult(0.05, 'skySY')],
+          y: ['groundSY', mult(0.05, 'skySY')],
           fY: true,
-          stripes: { strip: 3, random: helper.mult(0.02, 'skySY') },
+          stripes: { strip: 3, random: mult(0.02, 'skySY') },
         },
         {
           color: g4,
           sY: { r: 0.1, a: 1 },
           sX: { r: 0.6 },
           fX: true,
-          y: ['groundSY', helper.mult(0.05, 'skySY')],
+          y: ['groundSY', mult(0.05, 'skySY')],
           fY: true,
-          stripes: { strip: 3, random: helper.mult(0.1, 'skySY') },
+          stripes: { strip: 3, random: mult(0.1, 'skySY') },
         },
 
         {
@@ -135,9 +135,9 @@ function sphinx() {
           sY: { r: 0.4, a: 1 },
           sX: { r: 0.3 },
           fX: true,
-          y: ['groundSY', helper.mult(0.05, 'skySY')],
+          y: ['groundSY', mult(0.05, 'skySY')],
           fY: true,
-          stripes: { strip: 3, random: helper.mult(0.1, 'skySY') },
+          stripes: { strip: 3, random: mult(0.1, 'skySY') },
         },
 
         // CONTENT
@@ -527,12 +527,7 @@ function sphinx() {
                     {
                       fY: true,
                       sY: 'feetSY',
-                      sX: [
-                        'sBodySX',
-                        helper.sub('frontLegSX'),
-                        helper.sub('frontLegX'),
-                        -1,
-                      ],
+                      sX: ['sBodySX', sub('frontLegSX'), sub('frontLegX'), -1],
                       list: [
                         {
                           fX: true,
@@ -614,7 +609,7 @@ function sphinx() {
                         { fX: true, y: -1 },
                         {
                           fX: true,
-                          y: [helper.mult(1.2, 'sHeadSY'), 'sHeadTop'],
+                          y: [mult(1.2, 'sHeadSY'), 'sHeadTop'],
                         },
                         {
                           fY: true,
@@ -706,11 +701,7 @@ function sphinx() {
                           x: 'sHeadLeft',
                           y: { r: 0.15, min: 1 },
                           sY: { r: 0.08, a: 1 },
-                          sX: [
-                            'sHeadSX',
-                            helper.sub('sHeadLeft'),
-                            helper.sub('sHeadRight'),
-                          ],
+                          sX: ['sHeadSX', sub('sHeadLeft'), sub('sHeadRight')],
                           list: [
                             {
                               mX: { r: 0.15 },
@@ -811,7 +802,7 @@ function sphinx() {
                       fX: true,
                       sY: {
                         r: 1,
-                        add: [helper.mult(0.05, 'motiveSqu')],
+                        add: [mult(0.05, 'motiveSqu')],
                       },
                       sX: { r: 0.2 },
                       list: [
@@ -874,13 +865,13 @@ function sphinx() {
 
                 // LEGS
                 {
-                  sY: ['pSY', helper.sub('pUpperbodySY')],
+                  sY: ['pSY', sub('pUpperbodySY')],
                   fY: true,
                   color: g1,
                   list: [
                     {
                       sX: {
-                        add: [{ r: 1 }, helper.mult(-2, 'pTorsoLeft')],
+                        add: [{ r: 1 }, mult(-2, 'pTorsoLeft')],
                       },
                       x: 'pTorsoLeft',
                       list: [
@@ -922,7 +913,7 @@ function sphinx() {
                       cX: true,
                       x: {
                         a: 'pMoveTorso',
-                        max: [helper.mult(0.5, 'pSX'), helper.sub('pHeadS')],
+                        max: [mult(0.5, 'pSX'), sub('pHeadS')],
                       },
                       id: 'pHead',
                       list: [
@@ -1031,14 +1022,9 @@ function sphinx() {
                       tX: true,
                       tY: true,
                       y: ['pHeadS', 'pArmWeight'],
-                      x: [
-                        'pShoulderLeft',
-                        helper.sub('pArmWeight'),
-                        -1,
-                        'pTorsoSX',
-                      ],
-                      sX: helper.mult(0.7, 'pArmSX'),
-                      sY: helper.mult(1.3, 'pArmSY'),
+                      x: ['pShoulderLeft', sub('pArmWeight'), -1, 'pTorsoSX'],
+                      sX: mult(0.7, 'pArmSX'),
+                      sY: mult(1.3, 'pArmSY'),
                       list: arm,
                     },
                   ],
@@ -1061,50 +1047,50 @@ function sphinx() {
     border: 2,
 
     // IMAGE
-    imageSX: { add: [{ r: 1 }, helper.mult(-2, 'border')] },
-    imageSY: [{ r: 1, height: true }, helper.mult(-2, 'border')],
+    imageSX: { add: [{ r: 1 }, mult(-2, 'border')] },
+    imageSY: [{ r: 1, height: true }, mult(-2, 'border')],
     margin: 1,
 
     // MOTIVE
-    motiveSX: { add: ['imageSX', helper.mult(-2, 'margin')] },
-    motiveSY: ['imageSY', helper.mult(-2, 'margin')],
+    motiveSX: { add: ['imageSX', mult(-2, 'margin')] },
+    motiveSY: ['imageSY', mult(-2, 'margin')],
 
-    motiveSqu: helper.getSmallerDim({
+    motiveSqu: getSmallerDim({
       r: 1,
       useSize: ['motiveSX', 'motiveSY'],
     }),
-    motiveSquBigger: helper.getBiggerDim({
+    motiveSquBigger: getBiggerDim({
       r: 1,
       useSize: ['motiveSX', 'motiveSY'],
     }),
 
-    restSX: ['motiveSX', helper.sub('motiveSqu')],
-    restSY: ['motiveSY', helper.sub('motiveSqu')],
+    restSX: ['motiveSX', sub('motiveSqu')],
+    restSY: ['motiveSY', sub('motiveSqu')],
 
     restSXSuper: {
-      add: ['restSX', helper.mult(-0.2, 'motiveSqu')],
+      add: ['restSX', mult(-0.2, 'motiveSqu')],
       min: { a: 0 },
     },
-    switch: helper.mult(1000, 'restSXSuper'),
+    switch: mult(1000, 'restSXSuper'),
 
-    restSquBigger: helper.getBiggerDim({
+    restSquBigger: getBiggerDim({
       r: 1,
       useSize: ['restSX', 'restSY'],
     }),
     squary: {
-      add: ['motiveSqu', helper.sub('restSquBigger')],
+      add: ['motiveSqu', sub('restSquBigger')],
       min: { a: 0 },
     },
     squarySuper: {
-      add: ['squary', helper.mult(-0.5, 'motiveSqu')],
+      add: ['squary', mult(-0.5, 'motiveSqu')],
       min: { a: 0 },
     },
 
     // GROUND
-    groundSY: helper.mult(0.2, 'motiveSqu'),
-    skySY: ['motiveSY', helper.sub('groundSY')],
-    feetSY: helper.mult(0.05, 'motiveSqu'),
-    bottomSY: { add: ['groundSY', helper.sub('feetSY'), -2], min: 1 },
+    groundSY: mult(0.2, 'motiveSqu'),
+    skySY: ['motiveSY', sub('groundSY')],
+    feetSY: mult(0.05, 'motiveSqu'),
+    bottomSY: { add: ['groundSY', sub('feetSY'), -2], min: 1 },
 
     //PERSON
     pSX: {
@@ -1112,90 +1098,85 @@ function sphinx() {
       useSize: 'motiveSX',
       max: { r: 0.5 / personRatio, useSize: 'motiveSY' },
     },
-    pSY: helper.mult(personRatio, 'pSX'),
+    pSY: mult(personRatio, 'pSX'),
 
-    pTorsoSX: helper.mult(0.6, 'pSX'),
-    pTorsoLeft: [helper.mult(0.5, 'pSX'), helper.mult(-0.5, 'pTorsoSX')],
-    pMoveTorso: helper.mult(0.1, 'restSY'),
+    pTorsoSX: mult(0.6, 'pSX'),
+    pTorsoLeft: [mult(0.5, 'pSX'), mult(-0.5, 'pTorsoSX')],
+    pMoveTorso: mult(0.1, 'restSY'),
     pUpperbodySY: { r: 0.5, useSize: 'pSY' },
     pTorsoSY: { r: 0.75, useSize: 'pUpperbodySY' },
-    pHeadS: ['pUpperbodySY', helper.sub('pTorsoSY')],
+    pHeadS: ['pUpperbodySY', sub('pTorsoSY')],
     pShoulderLeft: {
       add: ['pTorsoLeft', 'pMoveTorso'],
-      max: helper.mult(2, 'pTorsoLeft'),
+      max: mult(2, 'pTorsoLeft'),
       min: 'pTorsoLeft',
     },
     pShoulderRight: {
-      add: ['pTorsoLeft', helper.sub('pMoveTorso')],
+      add: ['pTorsoLeft', sub('pMoveTorso')],
       min: { a: 0 },
       max: 'pTorsoLeft',
     },
 
     pArmSX: {
       add: [
-        helper.mult(1, 'pSX'),
-        helper.mult(-0.2, 'restSY'),
-        helper.mult(-0.15, 'squary'),
-        helper.mult(0.05, 'squarySuper'),
+        mult(1, 'pSX'),
+        mult(-0.2, 'restSY'),
+        mult(-0.15, 'squary'),
+        mult(0.05, 'squarySuper'),
       ],
       min: 1,
     },
     pArmSY: {
       add: [
-        helper.mult(1, 'pSX'),
-        helper.mult(-0.2, 'restSX'),
-        helper.mult(-0.15, 'squary'),
-        helper.mult(0.05, 'squarySuper'),
+        mult(1, 'pSX'),
+        mult(-0.2, 'restSX'),
+        mult(-0.15, 'squary'),
+        mult(0.05, 'squarySuper'),
       ],
       min: 1,
     },
     pArmWeight: { r: 0.12, useSize: 'pTorsoSX', min: 1 },
 
     //SPHINX
-    sSX: helper.mult(0.8, 'motiveSX'),
-    sSY: ['motiveSY', helper.sub('bottomSY')],
+    sSX: mult(0.8, 'motiveSX'),
+    sSY: ['motiveSY', sub('bottomSY')],
 
-    psOvershotSX: [helper.sub('motiveSX'), 'sSX', 'pSX'],
+    psOvershotSX: [sub('motiveSX'), 'sSX', 'pSX'],
 
-    sSquare: helper.getSmallerDim({ r: 1, useSize: ['sSX', 'sSY'] }),
-    sHeadTop: helper.mult(0.05, 'sSquare'),
-    sHeadSX: helper.mult(0.1, 'sSquare'),
-    sHeadSY: helper.mult(0.15, 'sSquare'),
-    sHeadLeft: helper.mult(0.3, 'sHeadSX'),
-    sHeadRight: helper.mult(0.25, 'sHeadSX'),
+    sSquare: getSmallerDim({ r: 1, useSize: ['sSX', 'sSY'] }),
+    sHeadTop: mult(0.05, 'sSquare'),
+    sHeadSX: mult(0.1, 'sSquare'),
+    sHeadSY: mult(0.15, 'sSquare'),
+    sHeadLeft: mult(0.3, 'sHeadSX'),
+    sHeadRight: mult(0.25, 'sHeadSX'),
 
-    sTailSX: [helper.mult(0.15, 'sSX'), helper.mult(0.05, 'restSX')],
+    sTailSX: [mult(0.15, 'sSX'), mult(0.05, 'restSX')],
     sRightSX: {
-      add: [helper.mult(0.5, 'sHeadSX'), helper.mult(0.15, 'restSX')],
+      add: [mult(0.5, 'sHeadSX'), mult(0.15, 'restSX')],
       min: ['psOvershotSX', 1],
     },
 
-    sBodySX: [
-      'sSX',
-      helper.sub('sTailSX'),
-      helper.sub('sRightSX'),
-      helper.mult(-0.1, 'restSX'),
-    ],
-    sBodySY: ['sSY', helper.mult(-0.5, 'sHeadSY'), helper.mult(-0.3, 'restSY')],
-    sBodyTop: ['sSY', helper.sub('sBodySY')],
-    sBodyRight: ['sSX', helper.sub('sBodySX'), helper.sub('sTailSX')],
+    sBodySX: ['sSX', sub('sTailSX'), sub('sRightSX'), mult(-0.1, 'restSX')],
+    sBodySY: ['sSY', mult(-0.5, 'sHeadSY'), mult(-0.3, 'restSY')],
+    sBodyTop: ['sSY', sub('sBodySY')],
+    sBodyRight: ['sSX', sub('sBodySX'), sub('sTailSX')],
 
     sHairSX: {
       r: 3,
       useSize: 'sHeadSX',
-      min: helper.mult(1.2, 'sBodyRight'),
+      min: mult(1.2, 'sBodyRight'),
     },
     sHairSY: {
-      add: ['sBodyTop', helper.mult(0.2, 'sBodySY')],
-      min: ['sHeadTop', helper.mult(2.5, 'sHeadSY')],
+      add: ['sBodyTop', mult(0.2, 'sBodySY')],
+      min: ['sHeadTop', mult(2.5, 'sHeadSY')],
     },
-    hairOvershotSX: ['sHairSX', helper.sub('sBodyRight')],
-    hairOvershotSY: [helper.sub('sSY'), 'sBodySY', 'sHairSY'],
+    hairOvershotSX: ['sHairSX', sub('sBodyRight')],
+    hairOvershotSY: [sub('sSY'), 'sBodySY', 'sHairSY'],
 
-    sWingSX: ['sSX', helper.sub('sHairSX'), -1],
+    sWingSX: ['sSX', sub('sHairSX'), -1],
     sWingSY: { r: 1.8, useSize: 'sBodyTop', min: 3 },
 
-    pointSize: helper.getSmallerDim({
+    pointSize: getSmallerDim({
       r: 0.02,
       useSize: ['sBodySX', 'sBodySY'],
     }),

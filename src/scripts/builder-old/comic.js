@@ -1,3 +1,5 @@
+import { mult, sub } from '@/renderengine/helper'
+
 import { Object } from './object.js'
 
 /*jshint -W008 */
@@ -38,12 +40,9 @@ export const Comic = function (init) {
   }
 
   // IMAGE
-  this.vL.imgSX = { add: [{ r: 1 }, this.mult(-2, 'borderX')] }
+  this.vL.imgSX = { add: [{ r: 1 }, mult(-2, 'borderX')] }
 
-  this.vL.imgSY = [
-    { r: 1, height: true },
-    this.mult(this.GR(-3.5, -2), 'borderY'),
-  ]
+  this.vL.imgSY = [{ r: 1, height: true }, mult(this.GR(-3.5, -2), 'borderY')]
 
   this.vL.imgSqu = { a: 'imgSX', max: 'imgSY' }
 
@@ -103,26 +102,23 @@ export const Comic = function (init) {
     ],
   }
 
-  this.vL.panelRestSX = [
-    '_effectiveImgSX',
-    this.mult(-1 * panelsCalc, 'gutterX'),
-  ]
+  this.vL.panelRestSX = ['_effectiveImgSX', mult(-1 * panelsCalc, 'gutterX')]
 
-  this.vL.panelSX = this.mult(1 / panelsCalc, 'panelRestSX')
+  this.vL.panelSX = mult(1 / panelsCalc, 'panelRestSX')
 
-  this.vL.panelRest2SY = ['imgSY', this.mult(-1, 'gutterY')]
+  this.vL.panelRest2SY = ['imgSY', mult(-1, 'gutterY')]
 
-  this.vL.panelRest3SY = ['imgSY', this.mult(-2, 'gutterY')]
+  this.vL.panelRest3SY = ['imgSY', mult(-2, 'gutterY')]
 
   this.vL.panelSY = {
     add: [
       {
-        add: ['imgSY', this.mult(-1, '_panelOvershot2IF')],
-        min: this.mult(0.5, 'panelRest2SY'),
+        add: ['imgSY', mult(-1, '_panelOvershot2IF')],
+        min: mult(0.5, 'panelRest2SY'),
       },
-      this.mult(-1, '_panelOvershot3IF'),
+      mult(-1, '_panelOvershot3IF'),
     ],
-    min: [this.mult(1 / 3, 'panelRest3SY')],
+    min: [mult(1 / 3, 'panelRest3SY')],
   }
 
   this.vL.panelSqu = { a: 'panelSX', max: 'panelSY' }
@@ -140,7 +136,7 @@ export const Comic = function (init) {
 
   this.vL['2rowY'] = {
     a: '_panelOvershot2IF',
-    add: [this.sub('_panelOvershot3IF')],
+    add: [sub('_panelOvershot3IF')],
     max: ['panelSY', 'gutterY'],
     min: { a: 0 },
   }
@@ -179,7 +175,7 @@ export const Comic = function (init) {
   ]
 
   if (bigPanel !== false) {
-    this.vL.panelBigSX = [this.mult(2, 'panelSX'), 'gutterX']
+    this.vL.panelBigSX = [mult(2, 'panelSX'), 'gutterX']
   }
 
   args.panels = panels
@@ -370,7 +366,7 @@ Panel.prototype.draw = function (args) {
 
   args.groundShadowColor = this.groundShadowColor
 
-  this.vL['thingS' + nr] = this.mult(
+  this.vL['thingS' + nr] = mult(
     closeUp ? 2 : wideShot ? 0.5 : superWideShot ? 0.2 : 1,
     'panelSqu',
   )
@@ -391,7 +387,7 @@ Panel.prototype.draw = function (args) {
     cX: true,
     fY: true,
     sY: 'thingS' + nr,
-    sX: this.mult(1.5, 'thingS' + nr),
+    sX: mult(1.5, 'thingS' + nr),
     x: { r: this.IF(0.5) ? 0.2 : -0.2, useSize: 'thingS' + nr },
     y:
       wideShot || superWideShot
@@ -437,16 +433,16 @@ Panel.prototype.draw = function (args) {
         sY: 'panelSY',
         m: 'gutterBorderS',
         x: [
-          this.mult(args.i, 'panelSX'),
-          this.mult(args.i, 'gutterX'),
+          mult(args.i, 'panelSX'),
+          mult(args.i, 'gutterX'),
           args.row2 ? '2rowX' : { a: 0 },
           args.row3a ? '3rowX' : { a: 0 },
           args.row3b ? '3rowX' : { a: 0 },
         ],
         y: [
-          this.mult(args.row2 ? 1 : 0, '2rowY'),
-          this.mult(args.row3a ? 1 : 0, '3rowY'),
-          this.mult(args.row3b ? 1 : 0, '3rowY'),
+          mult(args.row2 ? 1 : 0, '2rowY'),
+          mult(args.row3a ? 1 : 0, '3rowY'),
+          mult(args.row3b ? 1 : 0, '3rowY'),
         ],
         color: this.outerBorderColor.get(),
       },
@@ -454,16 +450,16 @@ Panel.prototype.draw = function (args) {
         sX: args.big ? 'panelBigSX' : 'panelSX',
         sY: 'panelSY',
         x: [
-          this.mult(args.i, 'panelSX'),
-          this.mult(args.i, 'gutterX'),
+          mult(args.i, 'panelSX'),
+          mult(args.i, 'gutterX'),
           args.row2 ? '2rowX' : { a: 0 },
           args.row3a ? '3rowX' : { a: 0 },
           args.row3b ? '3rowX' : { a: 0 },
         ],
         y: [
-          this.mult(args.row2 ? 1 : 0, '2rowY'),
-          this.mult(args.row3a ? 1 : 0, '3rowY'),
-          this.mult(args.row3b ? 1 : 0, '3rowY'),
+          mult(args.row2 ? 1 : 0, '2rowY'),
+          mult(args.row3a ? 1 : 0, '3rowY'),
+          mult(args.row3b ? 1 : 0, '3rowY'),
         ],
         mask: true,
         list: [

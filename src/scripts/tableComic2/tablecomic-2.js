@@ -1,3 +1,5 @@
+import { multiplyColor } from '@/renderengine/helper'
+
 // BEGINN getTableComic /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const getTableComic = function getTableComic(args) {
   this.panel = new this.basic.Panel()
@@ -1582,7 +1584,7 @@ getColorScheme.prototype.getColor = function (args) {
           : args.nr || 0
     ]
 
-  return shade ? this.multiplyColor(baseColor, shade) : baseColor
+  return shade ? multiplyColor(baseColor, shade) : baseColor
 }
 
 getColorScheme.prototype.getColorMap = function (args) {

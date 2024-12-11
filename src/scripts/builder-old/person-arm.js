@@ -1,3 +1,5 @@
+import { mult, sub } from '@/renderengine/helper'
+
 import { Object } from './object.js'
 
 // ARM --------------------------------------------------------------------------------
@@ -98,7 +100,7 @@ Arm.prototype.draw = function (args, rightSide, behind) {
     }
 
     this.vL['shoulderFullSX' + args.nr] = [
-      this.mult(args.sideView ? 2 : 1, 'shoulderSX' + args.nr),
+      mult(args.sideView ? 2 : 1, 'shoulderSX' + args.nr),
       'chestSX' + args.nr,
     ]
 
@@ -120,7 +122,7 @@ Arm.prototype.draw = function (args, rightSide, behind) {
 
     this.vL['lowerArmSY' + args.nr] = [
       'armSY' + args.nr,
-      this.sub('upperArmSY' + args.nr),
+      sub('upperArmSY' + args.nr),
     ]
 
     if (this.sleeves) {
@@ -247,10 +249,10 @@ Arm.prototype.draw = function (args, rightSide, behind) {
       {
         fX: true,
         x: {
-          add: [this.sub('armHalfSX' + nrName)],
+          add: [sub('armHalfSX' + nrName)],
           a: renderFromRight && -1,
         },
-        y: [this.mult(0.49, 'armSX' + args.nr)],
+        y: [mult(0.49, 'armSX' + args.nr)],
         list: [
           // Upper Arm
           {
@@ -515,7 +517,7 @@ ShoulderPad.prototype.draw = function (args, z) {
           r: this.topDetailX,
           max: [
             'shoulderPadSX' + args.nr,
-            this.sub('shoulderPadDetailSX' + args.nr),
+            sub('shoulderPadDetailSX' + args.nr),
           ],
         },
         y: 1,

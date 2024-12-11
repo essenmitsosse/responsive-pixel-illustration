@@ -1,7 +1,7 @@
-import { helper } from '@/renderengine/helper'
+import { getRandom } from '@/renderengine/helper'
 
 function randomDistribution(init) {
-  const random = helper.random(init.id)
+  const random = getRandom(init.id)
   const backgroundColor = [0, 0, 0]
   const width = { main: true }
   const height = { main: true, height: true }

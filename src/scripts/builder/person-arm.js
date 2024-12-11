@@ -1,3 +1,5 @@
+import { mult, sub } from '@/renderengine/helper'
+
 import { Object } from './object.js'
 
 // ARM --------------------------------------------------------------------------------
@@ -102,7 +104,7 @@ Arm.prototype.draw = function (args, rightSide, behind) {
     })
 
     args.shoulderFullSX = this.pushLinkList([
-      this.mult(args.sideView ? 2 : 1, args.shoulderSX),
+      mult(args.sideView ? 2 : 1, args.shoulderSX),
       args.chestSX,
     ])
 
@@ -122,7 +124,7 @@ Arm.prototype.draw = function (args, rightSide, behind) {
       useSize: args.armSY,
     })
 
-    args.lowerArmSY = this.pushLinkList([args.armSY, this.sub(args.upperArmSY)])
+    args.lowerArmSY = this.pushLinkList([args.armSY, sub(args.upperArmSY)])
 
     if (this.sleeves) {
       if (!this.fullUpper) {
@@ -250,10 +252,10 @@ Arm.prototype.draw = function (args, rightSide, behind) {
       {
         fX: true,
         x: {
-          add: [this.sub(args['armHalfSX' + nrName])],
+          add: [sub(args['armHalfSX' + nrName])],
           a: renderFromRight && -1,
         },
-        y: [this.mult(0.49, args.armSX)],
+        y: [mult(0.49, args.armSX)],
         list: [
           // Upper Arm
           {
@@ -513,7 +515,7 @@ ShoulderPad.prototype.draw = function (args, z) {
         sY: { r: this.topDetailSY },
         x: !this.topDetailStrip && {
           r: this.topDetailX,
-          max: [args.shoulderPadSX, this.sub(args.shoulderPadDetailSX)],
+          max: [args.shoulderPadSX, sub(args.shoulderPadDetailSX)],
         },
         y: 1,
         list: this.topDetailStrip

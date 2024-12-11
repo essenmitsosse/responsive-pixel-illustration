@@ -1,4 +1,4 @@
-import { helper } from '@/renderengine/helper'
+import { getBiggerDim, getSmallerDim, mult, sub } from '@/renderengine/helper'
 
 function argos() {
   const wood = [155, 114, 70]
@@ -84,7 +84,7 @@ function argos() {
           color: string,
           sX: {
             r: 0.2,
-            add: [helper.mult(0.4, 'motiveSY')],
+            add: [mult(0.4, 'motiveSY')],
             max: { r: 1.3, max: 'innerShipSX' },
             otherDim: true,
             save: 'sail',
@@ -211,7 +211,7 @@ function argos() {
       list: [
         {},
         {
-          stripes: { horizontal: true, random: helper.sub('backSX') },
+          stripes: { horizontal: true, random: sub('backSX') },
           fX: true,
           list: [
             {
@@ -221,7 +221,7 @@ function argos() {
                   save: 'waterGapLength',
                 },
                 strip: {
-                  add: ['waterLength', helper.mult(-0.012, 'motiveSX')],
+                  add: ['waterLength', mult(-0.012, 'motiveSX')],
                   save: 'waterLength',
                   random: 'backSX',
                 },
@@ -235,7 +235,7 @@ function argos() {
           sX: 2,
           stripes: {
             horizontal: true,
-            random: helper.mult(0.5, 'frontSX'),
+            random: mult(0.5, 'frontSX'),
           },
           color: water,
         },
@@ -259,7 +259,7 @@ function argos() {
         // BACK
         {
           sY: {
-            add: [helper.mult(2, 'boatSY'), helper.mult(-1, 'deckSYreal')],
+            add: [mult(2, 'boatSY'), mult(-1, 'deckSYreal')],
             save: 'backSY',
           },
           sX: 'backSX',
@@ -271,24 +271,24 @@ function argos() {
                 { y: 5, fX: true },
                 {
                   x: { r: 0.2 },
-                  y: [helper.mult(0.3, 'upperEnd'), 3],
+                  y: [mult(0.3, 'upperEnd'), 3],
                   fX: true,
                 },
                 {
                   x: { r: 0.3 },
-                  y: [helper.mult(0.5, 'upperEnd'), 3],
+                  y: [mult(0.5, 'upperEnd'), 3],
                   fX: true,
                 },
                 {
                   x: { r: 0.2 },
-                  y: [helper.mult(0.7, 'upperEnd'), 3],
+                  y: [mult(0.7, 'upperEnd'), 3],
                   fX: true,
                 },
 
                 {
                   fY: true,
                   fX: true,
-                  y: ['boatSY', helper.sub('deckSYreal')],
+                  y: ['boatSY', sub('deckSYreal')],
                 },
                 { fY: true, fX: true },
 
@@ -312,24 +312,24 @@ function argos() {
                 { y: 5, fX: true },
                 {
                   x: { r: 0.2 },
-                  y: [helper.mult(0.3, 'upperEnd'), 3],
+                  y: [mult(0.3, 'upperEnd'), 3],
                   fX: true,
                 },
                 {
                   x: { r: 0.3 },
-                  y: [helper.mult(0.5, 'upperEnd'), 3],
+                  y: [mult(0.5, 'upperEnd'), 3],
                   fX: true,
                 },
                 {
                   x: { r: 0.2 },
-                  y: [helper.mult(0.7, 'upperEnd'), 3],
+                  y: [mult(0.7, 'upperEnd'), 3],
                   fX: true,
                 },
 
                 {
                   fY: true,
                   fX: true,
-                  y: ['boatSY', helper.sub('deckSYreal')],
+                  y: ['boatSY', sub('deckSYreal')],
                 },
               ],
             },
@@ -358,7 +358,7 @@ function argos() {
             {
               sX: { a: 0 },
               sY: {
-                add: ['backSY', helper.sub('boatSY'), 'deckSYreal'],
+                add: ['backSY', sub('boatSY'), 'deckSYreal'],
                 save: 'upperEnd',
               },
             },
@@ -377,8 +377,8 @@ function argos() {
               list: [
                 {
                   tY: true,
-                  y: helper.sub('deckSYreal'),
-                  sY: helper.mult(0.3, 'airSY'),
+                  y: sub('deckSYreal'),
+                  sY: mult(0.3, 'airSY'),
                   sX: 'ramFullSX',
                   list: [
                     {
@@ -408,7 +408,7 @@ function argos() {
                 // Upper Deck
                 {
                   tY: true,
-                  y: helper.sub('deckSYreal'),
+                  y: sub('deckSYreal'),
                   sX: 'overshot',
                   sY: 4,
                   list: [
@@ -431,7 +431,7 @@ function argos() {
                 {
                   sX: 'ramFullSX',
                   sY: {
-                    add: ['lowerTrunk', helper.sub('ramSY')],
+                    add: ['lowerTrunk', sub('ramSY')],
                     save: 'faceSY',
                   },
                   list: [
@@ -558,7 +558,7 @@ function argos() {
 
                 // RAM
                 {
-                  x: helper.sub('ramX'),
+                  x: sub('ramX'),
                   sX: {
                     r: 1,
                     add: [{ r: 0.2, save: 'ramX' }],
@@ -569,7 +569,7 @@ function argos() {
                     {
                       sX: {
                         r: 1,
-                        add: [helper.sub('ramTipSX')],
+                        add: [sub('ramTipSX')],
                       },
                       list: [
                         {},
@@ -709,7 +709,7 @@ function argos() {
             {
               fY: true,
               sY: {
-                add: ['boatSY', helper.sub('deckSYreal')],
+                add: ['boatSY', sub('deckSYreal')],
                 save: 'lowerTrunk',
               },
               sX: ['innerShipSX', 'ramUpperSX'],
@@ -758,7 +758,7 @@ function argos() {
                 // FRONT MASTS
                 {
                   fX: true,
-                  sX: helper.mult(0.5, 'boatSX'),
+                  sX: mult(0.5, 'boatSX'),
                   list: [
                     {
                       sX: { r: 0.9 },
@@ -777,7 +777,7 @@ function argos() {
 
                 // BACK MASTS
                 {
-                  sX: helper.mult(0.5, 'boatSX'),
+                  sX: mult(0.5, 'boatSX'),
                   list: [
                     {
                       sX: { r: 0.7 },
@@ -890,7 +890,7 @@ function argos() {
             // LOWER ROWERS
             {
               y: 'deckSYreal',
-              sY: { r: 0.8, add: [helper.sub('deckSYreal')] },
+              sY: { r: 0.8, add: [sub('deckSYreal')] },
               stripes: {
                 strip: 10,
                 horizontal: true,
@@ -908,7 +908,7 @@ function argos() {
                       list: [
                         { color: holes },
                         {
-                          s: helper.mult(0.4, 'boatSY'),
+                          s: mult(0.4, 'boatSY'),
                           fY: true,
                           tY: true,
                           tX: true,
@@ -973,7 +973,7 @@ function argos() {
                               color: slaveSkin,
                             },
                             {
-                              s: helper.mult(0.5, 'boatSY'),
+                              s: mult(0.5, 'boatSY'),
                               fY: true,
                               tY: true,
                               tX: true,
@@ -1046,17 +1046,17 @@ function argos() {
 
     // BORDER
     border: { a: 0 },
-    borderSub: helper.sub('border'),
+    borderSub: sub('border'),
 
     // MOTIVE
-    motiveSX: { add: [{ r: 1 }, helper.mult(-2, 'border')] },
-    motiveSY: [{ r: 1, height: true }, helper.mult(-2, 'border')],
+    motiveSX: { add: [{ r: 1 }, mult(-2, 'border')] },
+    motiveSY: [{ r: 1, height: true }, mult(-2, 'border')],
 
-    motiveSqu: helper.getSmallerDim({
+    motiveSqu: getSmallerDim({
       r: 1,
       useSize: ['motiveSX', 'motiveSY'],
     }),
-    motiveSquBigger: helper.getBiggerDim({
+    motiveSquBigger: getBiggerDim({
       r: 1,
       useSize: ['motiveSX', 'motiveSY'],
     }),
@@ -1069,11 +1069,11 @@ function argos() {
       min: 5,
     },
     gridYReal: ['gridY', -1],
-    gridYNeg: helper.sub('gridYReal'),
+    gridYNeg: sub('gridYReal'),
     gridX: { r: 2, useSize: 'gridY' },
 
-    waterSY: { a: 20, max: helper.mult(0.2, 'motiveSY'), min: 1 },
-    airSY: ['motiveSY', helper.sub('waterSY')],
+    waterSY: { a: 20, max: mult(0.2, 'motiveSY'), min: 1 },
+    airSY: ['motiveSY', sub('waterSY')],
 
     // BOAT
     boatSX: ['motiveSX', -2],
@@ -1081,7 +1081,7 @@ function argos() {
     deckTarget: 10,
     deckSY: { r: 0.75, useSize: 'boatSY', max: 'deckTarget' },
 
-    mastSY: { add: ['airSY', helper.sub('boatSY'), -1] },
+    mastSY: { add: ['airSY', sub('boatSY'), -1] },
     mastSX: 2,
 
     backSX: { r: 0.1, a: 5, useSize: 'boatSX' },
@@ -1089,16 +1089,16 @@ function argos() {
       { r: 0.2, a: 5, useSize: 'boatSX' },
       { r: 0.2, useSize: 'boatSY' },
     ],
-    innerShipSX: ['boatSX', helper.sub('frontSX'), helper.sub('backSX')],
+    innerShipSX: ['boatSX', sub('frontSX'), sub('backSX')],
 
     ramFullSX: {
       r: 0.5,
-      add: [helper.mult(0.2, 'boatSY')],
+      add: [mult(0.2, 'boatSY')],
       useSize: 'frontSX',
     },
     ramDiag: { r: 0.6, useSize: 'ramFullSX' },
-    ramUpperSX: ['ramFullSX', helper.sub('ramDiag')],
-    ramFaceSlopSX: ['ramFullSX', helper.sub('ramUpperSX')],
+    ramUpperSX: ['ramFullSX', sub('ramDiag')],
+    ramFaceSlopSX: ['ramFullSX', sub('ramUpperSX')],
   }
 
   return {

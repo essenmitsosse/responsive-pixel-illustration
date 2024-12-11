@@ -61,6 +61,13 @@ const listConfigEslintBase: ReadonlyArray<Linter.Config> = [
       'no-useless-computed-key': 'error',
 
       /**
+       * Require `let` or `const` instead of var
+       *
+       * {@link https://eslint.org/docs/latest/rules/no-var}
+       */
+      'no-var': 'error',
+
+      /**
        * Require or disallow method and property shorthand syntax for object
        * literals {@link https://eslint.org/docs/latest/rules/object-shorthand}
        */

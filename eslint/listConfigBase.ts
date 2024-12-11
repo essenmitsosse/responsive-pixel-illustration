@@ -60,6 +60,24 @@ const listConfigEslintBase: ReadonlyArray<Linter.Config> = [
       'no-useless-computed-key': 'error',
 
       /**
+       * This rule enforces usage of destructuring instead of accessing a
+       * property through a member expression. This is only enforced for
+       * variable declarations, not for assignment expressions. Destructering in
+       * assignment expressions clashes with not using semicolons and leads to
+       * weird syntax.
+       *
+       * {@link https://eslint.org/docs/latest/rules/prefer-destructuring}
+       */
+      'prefer-destructuring': [
+        'error',
+        {
+          AssignmentExpression: { array: false, object: false },
+          VariableDeclarator: { array: true, object: true },
+        },
+        { enforceForRenamedProperties: false },
+      ],
+
+      /**
        * Require or disallow method and property shorthand syntax for object
        * literals {@link https://eslint.org/docs/latest/rules/object-shorthand}
        */

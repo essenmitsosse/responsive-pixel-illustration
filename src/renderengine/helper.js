@@ -33,7 +33,7 @@ export const helper = new (function () {
   }
 
   this.mult = function (r, use, a) {
-    return { r: r, useSize: use, a: a }
+    return { r, useSize: use, a }
   }
 
   this.sub = function (use) {
@@ -41,7 +41,7 @@ export const helper = new (function () {
   }
 
   this.margin = function (full, margin, min) {
-    return { add: [full, { r: -2, useSize: margin }], min: min }
+    return { add: [full, { r: -2, useSize: margin }], min }
   }
 
   this.darken = function (darken, strength) {
@@ -152,9 +152,9 @@ export const helper = new (function () {
       pushRelativeStandard = function (min, max, map, variable) {
         changersRelativeStandardList.push({
           change: max - min,
-          min: min,
-          map: map,
-          variable: variable,
+          min,
+          map,
+          variable,
         })
       },
       changeColor = function (value, map) {
@@ -178,15 +178,15 @@ export const helper = new (function () {
 
     return {
       list: changersRelativeStandardList,
-      changersRelativeCustomList: changersRelativeCustomList,
-      changersCustomList: changersCustomList,
+      changersRelativeCustomList,
+      changersCustomList,
       pushColorStandard: changersColorStandardList,
 
-      pushRelativeStandard: pushRelativeStandard,
+      pushRelativeStandard,
 
       // Takes an object, where the keys have the names of dimensions from the object which called it
       // This dimension "r" is linked to the variables max, min and can be changed by what is defined by map
-      pushRelativeStandardAutomatic: function (info) {
+      pushRelativeStandardAutomatic(info) {
         var key, currentInfo, currentSize
 
         if (info) {
@@ -198,10 +198,10 @@ export const helper = new (function () {
               if (typeof currentInfo === 'object') {
                 if (currentInfo.map !== undefined) {
                   pushRelativeStandard(
-                    currentInfo.min, // max
-                    currentInfo.max, // min
-                    currentInfo.map, // map
-                    currentSize, // variable
+                    currentInfo.min,
+                    currentInfo.max,
+                    currentInfo.map,
+                    currentSize,
                   )
                 } else {
                   // Just assign the max or min value
@@ -216,7 +216,7 @@ export const helper = new (function () {
         }
       },
 
-      hover: function (args) {
+      hover(args) {
         var changersRelativeStandard = changersRelativeStandardList,
           changersRelativeCustom = changersRelativeCustomList,
           changersColorStandard = changersColorStandardList,
@@ -282,7 +282,7 @@ export const helper = new (function () {
         }
       },
 
-      ready: function () {
+      ready() {
         setValue = that.setValueNew
       },
     }
@@ -321,17 +321,17 @@ export const helper = new (function () {
     x = x ^ (x >> c) ^ (t ^ (t >> b))
 
     return {
-      getFloat: getFloat,
+      getFloat,
 
-      getIf: function (chance) {
+      getIf(chance) {
         return (chance || 0.2) > getFloat()
       },
 
-      getRandom: function (min, max) {
+      getRandom(min, max) {
         return Math.floor((max - min + 1) * getFloat() + min)
       },
 
-      getRandomFloat: function (min, max) {
+      getRandomFloat(min, max) {
         return (max - min) * getFloat() + min
       },
     }

@@ -1133,9 +1133,11 @@ function zeus() {
                 ],
               },
             ],
-          }, // END MOTIVE ZEUS
+          },
+          // END MOTIVE ZEUS
         ],
-      }, // END IMAGE
+      },
+      // END IMAGE
 
       // FRAME
       {
@@ -1355,8 +1357,8 @@ function zeus() {
     }
 
   return {
-    renderList: renderList,
-    variableList: variableList,
+    renderList,
+    variableList,
     background: backgroundColor,
   }
 }

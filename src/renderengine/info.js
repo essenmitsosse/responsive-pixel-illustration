@@ -6,7 +6,8 @@ var startTime = Date.now()
 
 export const PixelGraphics = function (options) {
   var that = this,
-    pU = this.getPixelUnits() // Initialize PixelUnits with Variables
+    // Initialize PixelUnits with Variables
+    pU = this.getPixelUnits()
 
   this.pixelUnits = pU
 
@@ -51,8 +52,8 @@ export const PixelGraphics = function (options) {
     that.initUserInput(options, redraw, canvas, options.slide.unchangeable)
 
     return {
-      resize: resize,
-      redraw: redraw,
+      resize,
+      redraw,
     }
   }
 }
@@ -530,13 +531,13 @@ PixelGraphics.prototype.getRandom = (function () {
     var thisZ = seed || z
 
     return {
-      one: function () {
+      one() {
         return (thisZ = (a * thisZ + c) % m) / m
       },
-      count: function (c) {
+      count(c) {
         return Math.floor(((thisZ = (a * thisZ + c) % m) / m) * c)
       },
-      seed: function () {
+      seed() {
         return (thisZ = (a * thisZ + c) % m) + (i += 1)
       },
     }

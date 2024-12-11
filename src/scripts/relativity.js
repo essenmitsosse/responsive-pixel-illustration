@@ -53,9 +53,9 @@ function relativity() {
     }
 
   return {
-    renderList: renderList,
+    renderList,
     background: backgroundColor,
-    variableList: variableList,
+    variableList,
   }
 }
 

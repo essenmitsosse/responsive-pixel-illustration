@@ -105,7 +105,8 @@ function graien() {
     treeRandomGap2 = linkListPush(mult(15, treeMinGap)),
     trunkWidth = linkListPush(mult(3, treeMinGap)),
     // BREAD
-    breadAdd = linkListPush({ r: 0.05, a: 2, useSize: imgSquare }), // Adds a little bit to each side of the bread to make it more rec )t
+    /** Adds a little bit to each side of the bread to make it more rect ) */
+    breadAdd = linkListPush({ r: 0.05, a: 2, useSize: imgSquare }),
     breadWidth = linkListPush([breadAdd, { r: 0.08, min: 3, useSize: sXMain }]),
     breadHeight = linkListPush([
       breadAdd,
@@ -413,7 +414,8 @@ function graien() {
         fX: true,
         sX: { r: 1, a: 1 },
         y: { r: -0.1, a: 1, min: -1 },
-      }, // eyeBrow
+      },
+      // eyeBrow
       { fY: true, sY: { a: -2, r: 1, min: 1 } },
       { fX: true, sY: { a: -2, r: 1 }, y: 1, sX: { r: 0.7 } },
       { fX: true, sY: { a: -2, r: 1 }, sX: { r: 0.4 } },
@@ -428,8 +430,10 @@ function graien() {
           x: 1,
           sX: { r: 1, a: -2 },
           fY: true,
-        }, // shadow
-        { color: graie1Shadow, sX: graie1BreastShadow }, // shadow
+        },
+        // shadow
+        { color: graie1Shadow, sX: graie1BreastShadow },
+        // shadow
         {
           color: graie1Detail,
           sX: { r: 0.4, min: 1 },
@@ -438,7 +442,8 @@ function graien() {
           fX: true,
           y: -1,
           cX: true,
-        }, // Nipples
+        },
+        // Nipples
         {
           fX: true,
           fY: true,
@@ -637,7 +642,9 @@ function graien() {
       var shadow = getShadow(nr),
         skin = getSkin(nr)
 
-      if (!obj) obj = {}
+      if (!obj) {
+        obj = {}
+      }
 
       obj.list = [
         { color: shadow },
@@ -950,7 +957,8 @@ function graien() {
                         ],
                       },
                     ],
-                  }, // end graie III
+                  },
+                  // end graie III
 
                   // ---- GRAIE II BACK ----------------
                   {
@@ -1142,7 +1150,8 @@ function graien() {
                         ],
                       },
                     ],
-                  }, // end graie II
+                  },
+                  // end graie II
 
                   // ---- BREAD ---------------------------------------------------------------------------------------------------------------------------
                   {
@@ -1187,7 +1196,8 @@ function graien() {
                         ],
                       },
                     ],
-                  }, // end bread ------------------------------------------------------------------------------------------------------------------------
+                  },
+                  // end bread ------------------------------------------------------------------------------------------------------------------------
 
                   // ---- GRAIE I Front ----------------
                   {
@@ -1353,7 +1363,8 @@ function graien() {
                                     },
                                     fX: true,
                                     sX: 1,
-                                  }, // Right Hair
+                                  },
+                                  // Right Hair
                                   {
                                     color: hair,
                                     sY: {
@@ -1381,7 +1392,8 @@ function graien() {
                                       r: 0.2,
                                     },
                                     fX: true,
-                                  }), // skin Point
+                                  }),
+                                  // skin Point
                                   skinPoint(1, true, {
                                     x: {
                                       r: 0.4,
@@ -1402,7 +1414,8 @@ function graien() {
                                     },
                                     fX: true,
                                     fY: true,
-                                  }, // Chin Shadow
+                                  },
+                                  // Chin Shadow
                                   {
                                     color: graie1Shadow,
                                     sY: {
@@ -1625,7 +1638,8 @@ function graien() {
                                     sX: {
                                       r: 0.05,
                                     },
-                                  }, // Right Hair
+                                  },
+                                  // Right Hair
 
                                   // Nose
                                   {
@@ -1697,7 +1711,8 @@ function graien() {
                                     sY: 1,
                                     mX: 1,
                                     y: -1,
-                                  }, // TopHair
+                                  },
+                                  // TopHair
 
                                   {
                                     color: hair,
@@ -1706,7 +1721,8 @@ function graien() {
                                       add: [graie1BreadArmLength],
                                     },
                                     sX: graie1HairLeftWidth,
-                                  }, // Left Hair
+                                  },
+                                  // Left Hair
                                   {
                                     color: hair,
                                     sY: {
@@ -1734,7 +1750,8 @@ function graien() {
                                         ],
                                       },
                                     ],
-                                  }, // Hair behind Shoulder
+                                  },
+                                  // Hair behind Shoulder
 
                                   {
                                     color: hair,
@@ -1749,7 +1766,8 @@ function graien() {
                                       r: 0.45,
                                     },
                                     y: -2,
-                                  }, // strand
+                                  },
+                                  // strand
                                   {
                                     color: hair,
                                     sX: {
@@ -1799,7 +1817,8 @@ function graien() {
                                     color: graie1Shadow,
                                   },
                                 ],
-                              }, // UpperArm
+                              },
+                              // UpperArm
                             ],
                           },
                         ],
@@ -1854,14 +1873,16 @@ function graien() {
                                   r: 1,
                                   add: [sub(legWidth)],
                                 },
-                              }, // Upper Leg Shadow
+                              },
+                              // Upper Leg Shadow
 
                               // Butt
                               {
                                 sX: armShadow,
                                 color: graie1Shadow,
                                 sY: 1,
-                              }, // Upper Butt Shadow
+                              },
+                              // Upper Butt Shadow
                               {
                                 sX: 1,
                                 sY: {
@@ -1902,7 +1923,8 @@ function graien() {
                         ],
                       },
                     ],
-                  }, // end graie I front
+                  },
+                  // end graie I front
 
                   // ---- GRAIE II FRONT ----------------
                   {
@@ -2158,7 +2180,8 @@ function graien() {
                         ],
                       },
                     ],
-                  }, // end graie II front
+                  },
+                  // end graie II front
 
                   // ---- GRAIE III FRONT ----------------
                   {
@@ -2644,13 +2667,17 @@ function graien() {
                         ],
                       },
                     ],
-                  }, // end graie III front
+                  },
+                  // end graie III front
                 ],
-              }, // end foreground
+              },
+              // end foreground
             ],
-          }, // end image
+          },
+          // end image
         ],
-      }, // end frame
+      },
+      // end frame
 
       // ---- OUTER BLACK BORDER ----
       { color: grey, sY: framePadding },
@@ -2878,11 +2905,11 @@ function graien() {
   // }
 
   return {
-    renderList: renderList,
-    background: background,
-    linkList: linkList,
-    hover: hover,
-    changeValueSetter: function () {
+    renderList,
+    background,
+    linkList,
+    hover,
+    changeValueSetter() {
       setValue = helper.setValueNew
     },
   }

@@ -106,7 +106,8 @@ function landscape() {
             sY: 'horizontSY',
             fY: true,
             color: [c2, c3, c2, c3][dayNight + sunPos],
-          }, // Ground
+          },
+          // Ground
           tree === 0
             ? {
                 color: c4,
@@ -124,7 +125,8 @@ function landscape() {
               }
             : undefined,
         ],
-      }, // END images
+      },
+      // END images
 
       {
         color: c4,
@@ -198,8 +200,8 @@ function landscape() {
   // } )( .1, args.x * args.y, 2*2*2*2*4 );
 
   return {
-    renderList: renderList,
-    variableList: variableList,
+    renderList,
+    variableList,
     background: backgroundColor,
   }
 }

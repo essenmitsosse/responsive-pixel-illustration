@@ -1003,8 +1003,8 @@ function tantalos() {
     backgroundColor = [31, 29, 29]
 
   return {
-    renderList: renderList,
-    linkList: linkList,
+    renderList,
+    linkList,
     background: backgroundColor,
   }
 }

@@ -12,7 +12,7 @@ export const Renderer = function (canvas, info, options, pixelStarter) {
     )
 
   return {
-    rescaleWindow: function () {
+    rescaleWindow() {
       w = canvas.offsetWidth
 
       h = canvas.offsetHeight
@@ -90,7 +90,7 @@ Renderer.prototype.Color.prototype.draw = function (c, zInd, id) {
     oldZInd
 
   if (i === -1 || (oldZInd = s[i].zInd) < zInd) {
-    s.push({ id: id, c: c, zInd: zInd })
+    s.push({ id, c, zInd })
   } else {
     if (oldZInd !== zInd) {
       do {
@@ -99,7 +99,7 @@ Renderer.prototype.Color.prototype.draw = function (c, zInd, id) {
         }
       } while (i--)
 
-      s.splice(i + 1, 0, { id: id, c: c, zInd: zInd })
+      s.splice(i + 1, 0, { id, c, zInd })
     }
   }
 }
@@ -139,7 +139,7 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
     maxY = canvasHeight
 
   return {
-    setMask: function (dimensions, push) {
+    setMask(dimensions, push) {
       var old = {
         posX: minX,
         width: maxX - minX,
@@ -190,7 +190,7 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
       return old
     },
 
-    getSet: function (color, zInd, id) {
+    getSet(color, zInd, id) {
       return function (x, y) {
         if (x >= minX && x < maxX && y >= minY && y < maxY) {
           pixelArray[x][y].draw(color, zInd, id)
@@ -198,7 +198,7 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
       }
     },
 
-    getClear: function (id) {
+    getClear(id) {
       return function (x, y) {
         if (x >= minX && x < maxX && y >= minY && y < maxY) {
           pixelArray[x][y].clear(id)
@@ -206,7 +206,7 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
       }
     },
 
-    getSetForRect: function (color, zInd, id) {
+    getSetForRect(color, zInd, id) {
       // Set Color for Rectangle for better Performance
       var pA = pixelArray
 
@@ -234,7 +234,7 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
       }
     },
 
-    getClearForRect: function (id) {
+    getClearForRect(id) {
       var pA = pixelArray
 
       return function (args) {
@@ -259,7 +259,7 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
       }
     },
 
-    getSaveForRect: function (save, mask) {
+    getSaveForRect(save, mask) {
       return function (args) {
         var endX = args.width + args.posX,
           endY = args.height + args.posY,
@@ -285,7 +285,8 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
       }
     },
 
-    getClearSaveForRect: function (save, mask) {
+    /** Return prepared Color-Array, with default Color; */
+    getClearSaveForRect(save, mask) {
       return function (args) {
         var endX = args.width + args.posX,
           endY = args.height + args.posY,
@@ -311,7 +312,7 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
     },
 
     get: pixelArray,
-  } // Return prepared Color-Array, with default Color;
+  }
 }
 
 Renderer.prototype.getRenderPixelToImage = function (backgroundColor) {

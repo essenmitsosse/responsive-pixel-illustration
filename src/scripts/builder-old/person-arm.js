@@ -49,7 +49,8 @@ export const Arm = function (args) {
     new (this.IF(0.5) ? this.basic.Shield : this.basic.Sword)(args, true)
 
   this.headGear = args.headGear
-} // END Arm
+}
+// END Arm
 
 Arm.prototype = new Object()
 
@@ -375,7 +376,8 @@ Arm.prototype.draw = function (args, rightSide, behind) {
       },
     ],
   }
-} // END Arm draw
+}
+// END Arm draw
 
 // SHOULDER PAD --------------------------------------------------------------------------------
 export const ShoulderPad = function (args) {
@@ -433,7 +435,8 @@ export const ShoulderPad = function (args) {
   }
 
   // Assets
-} // END ShoulderPad
+}
+// END ShoulderPad
 
 ShoulderPad.prototype = new Object()
 
@@ -455,7 +458,7 @@ ShoulderPad.prototype.draw = function (args, z) {
     y: { r: this.Y, useSize: 'armSX' + nr, max: { a: 0 } },
     x: { r: this.X, useSize: 'trapSX' + nr },
     id: 'shoulderPad' + nr,
-    z: z,
+    z,
     color: this.shoulderPadColor.get(),
     // rX:sideView && args.right,
     list: [
@@ -527,13 +530,15 @@ ShoulderPad.prototype.draw = function (args, z) {
       },
     ],
   }
-} // END ShoulderPad draw
+}
+// END ShoulderPad draw
 
 // TOOL --------------------------------------------------------------------------------
 export const Tool = function () {
   // Form & Sizes
   // Assets
-} // END Tool
+}
+// END Tool
 
 Tool.prototype = new Object()
 
@@ -551,7 +556,8 @@ Tool.prototype.draw = function (args) {
       // ]}
     ],
   }
-} // END Tool draw
+}
+// END Tool draw
 
 // SWORD --------------------------------------------------------------------------------
 export const Sword = function (args, right) {
@@ -591,7 +597,8 @@ export const Sword = function (args, right) {
   this.bladeShadowColor = this.bladeColor.copy({ brContrast: -1 })
 
   // Assets
-} // END Sword
+}
+// END Sword
 
 Sword.prototype = new Object()
 
@@ -627,7 +634,7 @@ Sword.prototype.draw = function (args, z) {
 
   return {
     sY: 'handleSY' + nrName,
-    z: z,
+    z,
     cY: true,
     color: this.hiltColor.get(),
     id: 'tool' + nrName,
@@ -693,7 +700,8 @@ Sword.prototype.draw = function (args, z) {
       },
     ],
   }
-} // END Sword draw
+}
+// END Sword draw
 
 // SHIELD --------------------------------------------------------------------------------
 export const Shield = function (args, right) {
@@ -732,7 +740,8 @@ export const Shield = function (args, right) {
         : this.shieldShadowColor,
     )
   }
-} // END Shield
+}
+// END Shield
 
 Shield.prototype = new Object()
 
@@ -795,4 +804,5 @@ Shield.prototype.draw = function (args, z) {
       },
     ],
   }
-} // END Shield draw
+}
+// END Shield draw

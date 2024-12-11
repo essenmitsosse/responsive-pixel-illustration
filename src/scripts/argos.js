@@ -46,16 +46,21 @@ function argos() {
             list: [
               {
                 points: [
-                  { x: { r: 0.3 }, y: { r: 0.15 } }, // Upper Left Tip
+                  // Upper Left Tip
+                  { x: { r: 0.3 }, y: { r: 0.15 } },
                   { x: { r: 0.65 }, y: { r: 0.13 } },
                   { x: { r: 0.85 }, y: { r: 0.07 } },
-                  { x: { r: 0.95 } }, // Upper Right Tip
+
+                  // Upper Right Tip
+                  { x: { r: 0.95 } },
 
                   { y: { r: 0.4 }, fX: true },
                   { y: { r: 0.6 }, x: { r: 0.95 } },
 
                   { y: { r: 0.9 }, x: { r: 0.8 } },
-                  { fY: true, x: { r: 0.6 } }, // Lower Right Tip
+
+                  // Lower Right Tip
+                  { fY: true, x: { r: 0.6 } },
 
                   { y: { r: 0.8 }, x: { r: 0.8 } },
 
@@ -686,13 +691,14 @@ function argos() {
                     ],
                   },
 
+                  // reset
                   {
                     sY: { a: 0 },
                     sX: {
                       a: 'ramUpperSX',
                       save: 'overshot',
                     },
-                  }, // reset
+                  },
                 ],
               },
             ],
@@ -810,7 +816,8 @@ function argos() {
                     ],
                   },
                 ],
-              }, // END MAST
+              },
+              // END MAST
 
               // ARGONAUTS
               {
@@ -882,7 +889,8 @@ function argos() {
                   { sY: 1, fY: true, y: 1 },
                   { sY: 1, color: woodDark, fY: true },
                 ],
-              }, // END RAIL
+              },
+              // END RAIL
 
               // LOWER ROWERS
               {
@@ -985,16 +993,19 @@ function argos() {
                     ],
                   },
                 ],
-              }, // END DECK
+              },
+              // END DECK
             ],
-          }, // END INNER SHIP
+          },
+          // END INNER SHIP
 
           // TEST DECK
           {
             sY: 'deckSY',
             minY: ['deckTarget', -1],
             list: [{ sY: { save: 'deckSYreal' }, sX: { a: 0 } }],
-          }, // END TEST DECK
+          },
+          // END TEST DECK
 
           // RESET DECK
           { sY: { a: 0, save: 'deckSYreal' } },
@@ -1096,8 +1107,8 @@ function argos() {
     }
 
   return {
-    renderList: renderList,
-    variableList: variableList,
+    renderList,
+    variableList,
     background: backgroundColor,
   }
 }

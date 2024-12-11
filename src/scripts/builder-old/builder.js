@@ -101,7 +101,7 @@ export const Builder = function (init) {
     Person: this.Person,
     Tree: this.Tree,
     basic: this,
-    joinVariableList: joinVariableList,
+    joinVariableList,
     backgroundColor: this.backgroundColor,
     backgroundColorDark: this.backgroundColor.copy({
       nextColor: true,

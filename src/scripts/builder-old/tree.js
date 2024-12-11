@@ -117,7 +117,8 @@ export const Tree = function (args) {
   // this.branches = this.addBranches( true, true, this.branchCount, 1 );
 
   // Copy
-} // END Tree
+}
+// END Tree
 
 Tree.prototype = new Object()
 
@@ -293,7 +294,8 @@ Tree.prototype.draw = function (args, z, size) {
     // 	y:{r:.2}
     // }
   ]
-} // END Tree draw
+}
+// END Tree draw
 
 Tree.prototype.addBranches = function (hor, parentLeft, count, level) {
   var list = [],
@@ -472,11 +474,11 @@ Forrest.prototype.draw = function (args, z, size) {
 
   return [
     {
-      z: z,
+      z,
       sY: size,
       sX: { r: 4, useSize: size },
       cX: true,
-      list: list,
+      list,
     },
   ]
 }

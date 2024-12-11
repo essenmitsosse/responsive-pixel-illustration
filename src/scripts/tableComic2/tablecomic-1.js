@@ -21,7 +21,7 @@ export const getFace = function () {
           },
           {
             what: new basic.Head({
-              actor: actor,
+              actor,
               baseSX_: 1,
               noHat: true,
             }),
@@ -29,17 +29,17 @@ export const getFace = function () {
               ? { map: 'side', min: -0.5, max: 0.5 }
               : { map: 'side', min: 0.5, max: -0.5 },
             eyeLeft: {
-              openSY: openSY,
+              openSY,
               sY: { map: 'e', min: 0.3, max: 1 },
-              pupilS: pupilS,
+              pupilS,
               pupilPosXrel: { map: 'b', min: -0, max: 1 },
               pupilPosYrel: pupilPosY,
               eyeBrowMove: { map: 'g', max: -0.5, min: 0.5 },
             },
             eyeRight: {
-              openSY: openSY,
+              openSY,
               sY: { map: 'f', min: 0.3, max: 1 },
-              pupilS: pupilS,
+              pupilS,
               pupilPosXrel: { map: 'b', max: -0, min: 1 },
               pupilPosYrel: pupilPosY,
               eyeBrowMove: { map: 'h', max: -0.5, min: 0.5 },
@@ -63,7 +63,7 @@ export const getFace = function () {
     basicPanel: this.panel,
     background: new this.basic.Background({
       blank: true,
-      backgroundColor: backgroundColor,
+      backgroundColor,
     }),
     panels: [
       getPanel(),
@@ -180,7 +180,7 @@ export const getCombiner = function (finals, defaults, inventory) {
 export const getStripInfo = function () {
   var background = new this.basic.Background({}),
     basicPanel = new this.basic.Panel({
-      background: background,
+      background,
     }),
     ratio = 1.3,
     furnitureColor = [30, 50, 50],
@@ -242,7 +242,7 @@ export const getStripInfo = function () {
         i = 0
 
       return function () {
-        var zoom = { map: 'a', min: min, max: max }
+        var zoom = { map: 'a', min, max }
 
         if (i > 0) {
           // min += zoomOut;
@@ -261,20 +261,32 @@ export const getStripInfo = function () {
       }
     })(),
     panY = [
-      -0.15, //0
-      { map: 'a', min: -0.15, max: -0.18 }, //1
-      { map: 'a', min: -0.15, max: -0.21 }, //2
-      { map: 'a', min: -0.15, max: -0.25 }, //3
-      { map: 'a', min: -0.15, max: -0.275 }, //4
-      { map: 'a', min: 0.1, max: 0.1 }, // 5
+      -0.15,
+      //0
+      { map: 'a', min: -0.15, max: -0.18 },
+      //1
+      { map: 'a', min: -0.15, max: -0.21 },
+      //2
+      { map: 'a', min: -0.15, max: -0.25 },
+      //3
+      { map: 'a', min: -0.15, max: -0.275 },
+      //4
+      { map: 'a', min: 0.1, max: 0.1 },
+      // 5
     ],
     panX = [
-      0, //0
-      0, //1
-      0, //2
-      0, //3
-      0, //4
-      noCameraMovement ? 0.2 : { map: 'a', min: 0.3, max: 0.25 }, //5
+      //0
+      0,
+      //1
+      0,
+      //2
+      0,
+      //3
+      0,
+      //4
+      0,
+      //5
+      noCameraMovement ? 0.2 : { map: 'a', min: 0.3, max: 0.25 },
     ],
     actor1PosRel = 0.1,
     actor2PosRel = 0.85,
@@ -1075,25 +1087,25 @@ export const getStripInfo = function () {
     paperColor: [220, 220, 220],
     roundTopCorners: this.rIf(0.5),
     roundBottomCorners: this.rIf(0.5),
-    basicPanel: basicPanel,
-    ratio: ratio,
+    basicPanel,
+    ratio,
     inventory: {
-      stage: stage,
+      stage,
 
-      actor1: actor1,
-      actor2: actor2,
+      actor1,
+      actor2,
 
-      table: table,
-      chair1: chair1,
-      chair2: chair2,
+      table,
+      chair1,
+      chair2,
 
-      glass: glass,
+      glass,
 
-      emotion1: emotion1,
-      emotion2: emotion2,
+      emotion1,
+      emotion2,
     },
     defaultPanels: {
-      background: background,
+      background,
       list: {
         stage: {},
         chair1: chair1basic,
@@ -1131,7 +1143,7 @@ export const getStripInfo = function () {
         },
       },
     },
-    panels: panels,
+    panels,
   }
 }
 // END getStrip \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/

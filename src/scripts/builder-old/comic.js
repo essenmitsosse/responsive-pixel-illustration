@@ -25,72 +25,72 @@ export const Comic = function (init) {
     horRatio = this.R(1.1, 2),
     panel
 
-  this.vL['fullSqu'] = { r: 1, max: { r: 1, height: true } }
+  this.vL.fullSqu = { r: 1, max: { r: 1, height: true } }
 
   // BORDER
-  this.vL['borderX'] = { r: border, useSize: 'fullSqu', min: 2 }
+  this.vL.borderX = { r: border, useSize: 'fullSqu', min: 2 }
 
-  this.vL['borderY'] = {
+  this.vL.borderY = {
     r: border * horRatio,
     useSize: 'fullSqu',
     min: ['borderX', 1],
   }
 
   // IMAGE
-  this.vL['imgSX'] = { add: [{ r: 1 }, this.mult(-2, 'borderX')] }
+  this.vL.imgSX = { add: [{ r: 1 }, this.mult(-2, 'borderX')] }
 
-  this.vL['imgSY'] = [
+  this.vL.imgSY = [
     { r: 1, height: true },
     this.mult(this.GR(-3.5, -2), 'borderY'),
   ]
 
-  this.vL['imgSqu'] = { a: 'imgSX', max: 'imgSY' }
+  this.vL.imgSqu = { a: 'imgSX', max: 'imgSY' }
 
-  this.vL['imgSquBigger'] = { a: 'imgSX', min: 'imgSY' }
+  this.vL.imgSquBigger = { a: 'imgSX', min: 'imgSY' }
 
-  this.vL['_panelWid'] = { r: 1 / panelsCalc, useSize: 'imgSX' }
+  this.vL._panelWid = { r: 1 / panelsCalc, useSize: 'imgSX' }
 
-  this.vL['_panelOvershot2'] = {
+  this.vL._panelOvershot2 = {
     add: ['imgSY', { r: this.R(-2.5, -1.5), useSize: '_panelWid' }],
     min: { a: 0 },
     max: 1,
   }
 
-  this.vL['_panelOvershot2IF'] = { r: 10000000, useSize: '_panelOvershot2' }
+  this.vL._panelOvershot2IF = { r: 10000000, useSize: '_panelOvershot2' }
 
-  this.vL['_panelOvershot3'] = {
+  this.vL._panelOvershot3 = {
     add: ['imgSY', { r: -8, useSize: '_panelWid' }],
     min: { a: 0 },
     max: 1,
   }
 
-  this.vL['_panelOvershot3IF'] =
+  this.vL._panelOvershot3IF =
     panels === 4
       ? { a: 0 }
       : { r: 10000000, useSize: '_panelOvershot3', min: { a: 0 } }
 
-  this.vL['gutterX'] = {
+  this.vL.gutterX = {
     r: gutter,
     useSize: 'imgSqu',
     min: 3,
     max: ['borderX', -1],
   }
 
-  this.vL['gutterY'] = {
+  this.vL.gutterY = {
     r: gutter * horRatio,
     useSize: 'imgSqu',
     min: ['gutterX', 1],
     max: ['borderY', -1],
   }
 
-  this.vL['gutterBorderS'] = {
+  this.vL.gutterBorderS = {
     r: this.GR(-1, 1),
     useSize: 'gutterX',
     max: -1,
     min: { r: -0.5, useSize: 'gutterX', a: 0.5 },
   }
 
-  this.vL['_effectiveImgSX'] = {
+  this.vL._effectiveImgSX = {
     max: { r: 3, useSize: 'imgSX' },
     add: [
       '_panelOvershot3IF',
@@ -102,18 +102,18 @@ export const Comic = function (init) {
     ],
   }
 
-  this.vL['panelRestSX'] = [
+  this.vL.panelRestSX = [
     '_effectiveImgSX',
     this.mult(-1 * panelsCalc, 'gutterX'),
   ]
 
-  this.vL['panelSX'] = this.mult(1 / panelsCalc, 'panelRestSX')
+  this.vL.panelSX = this.mult(1 / panelsCalc, 'panelRestSX')
 
-  this.vL['panelRest2SY'] = ['imgSY', this.mult(-1, 'gutterY')]
+  this.vL.panelRest2SY = ['imgSY', this.mult(-1, 'gutterY')]
 
-  this.vL['panelRest3SY'] = ['imgSY', this.mult(-2, 'gutterY')]
+  this.vL.panelRest3SY = ['imgSY', this.mult(-2, 'gutterY')]
 
-  this.vL['panelSY'] = {
+  this.vL.panelSY = {
     add: [
       {
         add: ['imgSY', this.mult(-1, '_panelOvershot2IF')],
@@ -124,7 +124,7 @@ export const Comic = function (init) {
     min: [this.mult(1 / 3, 'panelRest3SY')],
   }
 
-  this.vL['panelSqu'] = { a: 'panelSX', max: 'panelSY' }
+  this.vL.panelSqu = { a: 'panelSX', max: 'panelSY' }
 
   this.vL['2rowX'] = {
     r: -1,
@@ -155,7 +155,7 @@ export const Comic = function (init) {
 
   this.vL['3rowY'] = { a: '_panelOvershot3IF', max: ['panelSY', 'gutterY'] }
 
-  this.vL['fullSX'] = [
+  this.vL.fullSX = [
     { r: panelsCalc, useSize: 'panelSX' },
     { r: panelsCalc - 1, useSize: 'gutterX' },
     {
@@ -178,7 +178,7 @@ export const Comic = function (init) {
   ]
 
   if (bigPanel !== false) {
-    this.vL['panelBigSX'] = [this.mult(2, 'panelSX'), 'gutterX']
+    this.vL.panelBigSX = [this.mult(2, 'panelSX'), 'gutterX']
   }
 
   args.panels = panels
@@ -190,7 +190,7 @@ export const Comic = function (init) {
   for (i = 0; i < panelsCalc; i += 1) {
     list.push(
       panel.draw({
-        i: i,
+        i,
         row2: panelsCalc / 2 <= i,
         row3a: panels / 3 <= i,
         row3b: (2 * panels) / 3 <= i,
@@ -232,11 +232,12 @@ export const Comic = function (init) {
       cX: true,
       sX: 'fullSX',
       mY: 'borderY',
-      list: list,
+      list,
     },
     init.cs === 'true' && this.basic.colorScheme(),
   ]
-} // END Comic
+}
+// END Comic
 
 Comic.prototype = new Object()
 // Comic.prototype.draw = function () {
@@ -301,7 +302,8 @@ export const Panel = function (args) {
   this.actor3 = this.IF(0.1) && new this.basic.Actor(args)
 
   this.forrest = this.IF(0.4) && new this.basic.Forrest(args)
-} // END Panel
+}
+// END Panel
 
 Panel.prototype = new Object()
 
@@ -515,12 +517,14 @@ Panel.prototype.draw = function (args) {
       },
     ],
   }
-} // END Panel draw
+}
+// END Panel draw
 
 // ACTOR --------------------------------------------------------------------------------
 export const Actor = function (args) {
   this.person = new this.basic.Person(args)
-} // END Actor
+}
+// END Actor
 
 Actor.prototype = new Object()
 
@@ -643,7 +647,8 @@ Actor.prototype.draw = function (args, z, size) {
   args.hatDown = this.IF(0.02)
 
   return this.person.draw(args, z)
-} // END Actor draw
+}
+// END Actor draw
 
 // GROUND --------------------------------------------------------------------------------
 export const Ground = function (args) {
@@ -660,7 +665,8 @@ export const Ground = function (args) {
   })
 
   // Assets
-} // END Ground
+}
+// END Ground
 
 Ground.prototype = new Object()
 
@@ -670,7 +676,8 @@ Ground.prototype.draw = function (args, z) {
   return {
     color: this.groundColor.get(),
     fY: true,
-    z: z,
+    z,
     sY: 'horizont' + nr,
   }
-} // END Ground draw
+}
+// END Ground draw

@@ -154,21 +154,21 @@ Floor.prototype.draw = function FloorDraw(args) {
             {
               sX: args.stageSX,
               x: args.panX,
-              stripes: stripes,
-              list: list,
+              stripes,
+              list,
             },
 
             // Left
             {
               sX: args.panX,
-              list: [{ stripes: stripes, fX: true, list: list }],
+              list: [{ stripes, fX: true, list }],
             },
 
             // Right
             {
               sX: args.panX,
               fX: true,
-              list: [{ stripes: stripes, list: list }],
+              list: [{ stripes, list }],
             },
           ],
         },

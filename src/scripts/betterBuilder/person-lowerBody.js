@@ -5,7 +5,8 @@ export const LowerBody = function (args) {
   this.color = args.color
 
   this.colorDark = args.colorDark
-} // End LowerBody
+}
+// End LowerBody
 
 LowerBody.prototype = new BBObj()
 
@@ -15,4 +16,5 @@ LowerBody.prototype.draw = function (args, front, right) {
       color: [front ? 150 : 100, right ? 150 : 100, front || right ? 0 : 0],
     },
   ]
-} // End LowerBody Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+}
+// End LowerBody Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

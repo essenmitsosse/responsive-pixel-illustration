@@ -291,7 +291,8 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
         ],
         lengthAbs: 3,
         priority: 13,
-      }, // - - -  END step 0 - - - - - - - - - - - - -
+      },
+      // - - -  END step 0 - - - - - - - - - - - - -
       {
         // - - -  START step 1 - - - - - - - - - - - - - STANDING UP
         list: {
@@ -555,7 +556,8 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
         ],
         lengthAbs: 2,
         priority: 9,
-      }, // - - -  START step 1 - - - - - - - - - - - - -
+      },
+      // - - -  START step 1 - - - - - - - - - - - - -
       {
         // - - -  START step 2 - - - - - - - - - - - - - ON THE TABLE
         list: {
@@ -706,7 +708,8 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
         ],
         lengthAbs: 1,
         priority: 7,
-      }, // - - -  END step 2 - - - - - - - - - - - - -
+      },
+      // - - -  END step 2 - - - - - - - - - - - - -
       {
         // - - -  START step 3 - - - - - - - - - - - - - REACTION
         list: {
@@ -896,7 +899,8 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
         ],
         lengthAbs: 2,
         priority: 6,
-      }, // - - -  END step 3 - - - - - - - - - - - - -
+      },
+      // - - -  END step 3 - - - - - - - - - - - - -
       {
         // - - -  START step 4 - - - - - - - - - - - - - LEAVING
         list: {
@@ -983,7 +987,8 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
         ],
         lengthAbs: 1,
         priority: 12,
-      }, // - - -  END step 4 - - - - - - - - - - - - -
+      },
+      // - - -  END step 4 - - - - - - - - - - - - -
     ],
     count,
     panelCount = 0,

@@ -354,12 +354,12 @@ export const getPixelUnits = function () {
       DistanceX.prototype.axis = true
 
       return {
-        createSize: createSize,
-        Width: Width,
-        Height: Height,
-        DistanceX: DistanceX,
-        DistanceY: DistanceY,
-        set: function (dimensions) {
+        createSize,
+        Width,
+        Height,
+        DistanceX,
+        DistanceY,
+        set(dimensions) {
           var r = Math.round,
             x = dimensions.posX || 0,
             y = dimensions.posY || 0,
@@ -495,23 +495,23 @@ export const getPixelUnits = function () {
       }
 
       Axis.prototype.getCalcPos = {
-        normal: function () {
+        normal() {
           return this.pos.getReal() + this.realMargin
         },
-        toOther: function () {
+        toOther() {
           return this.pos.getReal() + this.realMargin - this.realSize
         },
-        center: function () {
+        center() {
           return this.pos.getReal() + Math.floor((this.dim - this.realSize) / 2)
         },
 
-        fromOther: function () {
+        fromOther() {
           return this.pos.fromOtherSide(this.realSize) - this.realMargin
         },
-        fromOtherToOther: function () {
+        fromOtherToOther() {
           return this.pos.fromOtherSide(0) + this.realMargin
         },
-        fromOtherCenter: function () {
+        fromOtherCenter() {
           return (
             this.pos.fromOtherSide(this.realSize) -
             Math.floor((this.dim - this.realSize) / 2)
@@ -530,23 +530,23 @@ export const getPixelUnits = function () {
       }
 
       Pos.prototype.getCalcPos = {
-        normal: function () {
+        normal() {
           return this.pos.getReal()
         },
-        toOther: function () {
+        toOther() {
           return this.pos.getReal() - 1
         },
-        center: function () {
+        center() {
           return this.pos.getReal() + Math.floor(this.dim / 2)
         },
 
-        fromOther: function () {
+        fromOther() {
           return this.pos.fromOtherSide(1)
         },
-        fromOtherToOther: function () {
+        fromOtherToOther() {
           return this.pos.fromOtherSide(0)
         },
-        fromOtherCenter: function () {
+        fromOtherCenter() {
           return this.pos.fromOtherSide(1) - Math.floor(this.dim / 2)
         },
       }
@@ -558,9 +558,9 @@ export const getPixelUnits = function () {
       return {
         X: AxisX,
         Y: AxisY,
-        PosX: PosX,
-        PosY: PosY,
-        set: function (dimensions) {
+        PosX,
+        PosY,
+        set(dimensions) {
           AxisX.prototype.dim = PosX.prototype.dim = dimensions.width
 
           AxisY.prototype.dim = PosY.prototype.dim = dimensions.height
@@ -705,8 +705,8 @@ export const getPixelUnits = function () {
       }
 
       return {
-        Position: Position,
-        Dimensions: Dimensions,
+        Position,
+        Dimensions,
       }
     })()
 
@@ -716,17 +716,17 @@ export const getPixelUnits = function () {
     createSize: oneD.createSize,
     Width: oneD.Width,
     Height: oneD.Height,
-    setList: function (listLink, listCreate, updater) {
+    setList(listLink, listCreate, updater) {
       variableListLink = listLink
 
       variableListCreate = listCreate
 
       updateList = updater
     },
-    linkList: function (calc) {
+    linkList(calc) {
       calculateList = calc
     },
-    init: function (dimensions) {
+    init(dimensions) {
       oneD.set(dimensions)
 
       Axis.set(dimensions)
@@ -739,7 +739,7 @@ export const getPixelUnits = function () {
         updateList()
       }
     },
-    pop: function () {
+    pop() {
       var o = old[old.length - 2]
 
       if (o) {
@@ -750,7 +750,7 @@ export const getPixelUnits = function () {
         old.pop()
       }
     },
-    push: function (dimensions) {
+    push(dimensions) {
       oneD.set(dimensions)
 
       Axis.set(dimensions)

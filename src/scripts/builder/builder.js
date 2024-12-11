@@ -109,8 +109,8 @@ export const Builder = function (init) {
     Tree: this.Tree,
     TreeFamily: this.TreeFamily,
     basic: this,
-    linkList: linkList,
-    pushLinkList: pushLinkList,
+    linkList,
+    pushLinkList,
     backgroundColor: this.backgroundColor,
     backgroundColorDark: this.backgroundColor.copy({
       nextColor: true,
@@ -119,7 +119,7 @@ export const Builder = function (init) {
     Color: this.Color,
     colorInfo: this.colorInfo,
     colorScheme: this.colorScheme,
-    hover: hover,
+    hover,
   }
 }
 

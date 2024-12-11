@@ -193,8 +193,8 @@ function builder(init, slide, createSlider) {
         }
 
         list.push({
-          sX: sX,
-          sY: sY,
+          sX,
+          sY,
           list: [
             {
               sX: square,
@@ -267,7 +267,7 @@ function builder(init, slide, createSlider) {
   }
 
   return {
-    renderList: renderList,
+    renderList,
     linkList: builder.linkList,
     background: builder.backgroundColor.get(),
     hover: hover.hover,

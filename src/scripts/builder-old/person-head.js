@@ -69,7 +69,8 @@ export const Head = function (args) {
           : this.basic.Hat)(args)
 
   this.hair = this.IF(0.9) && new this.basic.Hair(args)
-} // END Head
+}
+// END Head
 
 Head.prototype = new Object()
 
@@ -344,7 +345,8 @@ export const Eye = function (args) {
   })
 
   // Assets
-} // END Eye
+}
+// END Eye
 
 Eye.prototype = new Object()
 
@@ -503,8 +505,8 @@ Eye.prototype.draw = function (args) {
                       color: this.pupilColor.get(),
                       fY: !lookUp,
                       rY: lookUp,
-                      rX: lookSide && args.right == lookRight,
-                      fX: lookSide && args.right == lookRight,
+                      rX: lookSide && args.right === lookRight,
+                      fX: lookSide && args.right === lookRight,
                       cY: lookForward,
                       id: 'pupil' + nr,
                       list: !this.highPupil && [
@@ -642,7 +644,8 @@ Eye.prototype.draw = function (args) {
       ],
     }
   )
-} // END Eye draw
+}
+// END Eye draw
 
 // MOUTH --------------------------------------------------------------------------------
 export const Mouth = function (args) {
@@ -663,7 +666,8 @@ export const Mouth = function (args) {
   this.teethShadowColor = this.teethColor.copy({ brAdd: -1 })
 
   // Assets
-} // END Mouth
+}
+// END Mouth
 
 Mouth.prototype = new Object()
 
@@ -770,7 +774,8 @@ Mouth.prototype.draw = function (args) {
           ],
     }
   )
-} // END Mouth draw
+}
+// END Mouth draw
 
 // HAIR --------------------------------------------------------------------------------
 export const Hair = function (args) {
@@ -799,7 +804,8 @@ export const Hair = function (args) {
   this.hairDetailColor = args.hairDetailColor
 
   // Assets
-} // END Hair
+}
+// END Hair
 
 Hair.prototype = new Object()
 
@@ -968,7 +974,8 @@ Hair.prototype.draw = function (args) {
       },
     ],
   }
-} // END Hair draw
+}
+// END Hair draw
 
 // BEARD --------------------------------------------------------------------------------
 export const Beard = function (args) {
@@ -1001,7 +1008,8 @@ export const Beard = function (args) {
   this.hairDetailColor = args.hairDetailColor
 
   // Assets
-} // END Beard
+}
+// END Beard
 
 Beard.prototype = new Object()
 
@@ -1090,7 +1098,8 @@ Beard.prototype.draw = function (args) {
       },
     ],
   }
-} // END Beard draw
+}
+// END Beard draw
 
 // HAT --------------------------------------------------------------------------------
 export const Hat = function (args) {
@@ -1140,7 +1149,8 @@ export const Hat = function (args) {
     : this.hatColor
 
   // Assets
-} // END Hat
+}
+// END Hat
 
 Hat.prototype = new Object()
 
@@ -1245,7 +1255,8 @@ Hat.prototype.draw = function (args) {
       },
     ],
   }
-} // END Hat draw
+}
+// END Hat draw
 
 // HELM --------------------------------------------------------------------------------
 export const Helm = function (args) {
@@ -1279,7 +1290,8 @@ export const Helm = function (args) {
 
   // Assets
   this.horns = this.IF(0.1) && new this.basic.Horns(args)
-} // END Helm
+}
+// END Helm
 
 Helm.prototype = new Object()
 
@@ -1386,7 +1398,8 @@ Helm.prototype.draw = function (args) {
       },
     ],
   }
-} // END Helm draw
+}
+// END Helm draw
 
 // HEADBAND --------------------------------------------------------------------------------
 export const HeadBand = function (args) {
@@ -1396,7 +1409,8 @@ export const HeadBand = function (args) {
   this.headBandColor = args.hatColor
 
   // Assets
-} // END HeadBand
+}
+// END HeadBand
 
 HeadBand.prototype = new Object()
 
@@ -1405,7 +1419,7 @@ HeadBand.prototype.draw = function (args, z) {
     sideView = args.sideView
 
   return {
-    z: z,
+    z,
     sY: {
       r: 0.3,
       useSize: 'foreheadSY' + nr,
@@ -1421,7 +1435,8 @@ HeadBand.prototype.draw = function (args, z) {
       max: ['foreheadSY' + nr, this.sub('headBandSX' + nr)],
     },
   }
-} // END HeadBand draw
+}
+// END HeadBand draw
 
 // HORNS --------------------------------------------------------------------------------
 export const Horns = function (args) {
@@ -1438,7 +1453,8 @@ export const Horns = function (args) {
   this.hornColor = this.IF() ? args.skinColor : args.hairColor
 
   // Assets
-} // END Horns
+}
+// END Horns
 
 Horns.prototype = new Object()
 
@@ -1482,4 +1498,5 @@ Horns.prototype.draw = function (args, z) {
       {},
     ],
   }
-} // END Horns draw
+}
+// END Horns draw

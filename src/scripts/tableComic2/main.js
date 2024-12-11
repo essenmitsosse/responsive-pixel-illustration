@@ -125,11 +125,12 @@ export const TableComic = function (init, slide, createSlider) {
 
   assignFunctionToComicConstructor(TableComic.prototype)
 
+  // !!!! REMOVE ONE OF THEM !!!!!
   this.stripInfo = faceVersion
     ? new this.getFace()
     : init.altVersion
       ? this.getStrip()
-      : new this.getTableComic(init) // !!!! REMOVE ONE OF THEM !!!!!
+      : new this.getTableComic(init)
 
   this.paperColor = this.stripInfo.paperColor || [255, 255, 255]
 
@@ -408,8 +409,8 @@ export const TableComic = function (init, slide, createSlider) {
   }
 
   return {
-    renderList: renderList,
-    linkList: linkList,
+    renderList,
+    linkList,
     background: this.paperColor,
     hover: hover.hover,
     changeValueSetter: hover.ready,
@@ -559,22 +560,28 @@ TableComic.prototype.getObject = function (object) {
 TableComic.prototype.getFocus = function (zoomSX, zoomSY, focus) {
   var x = this.pushLinkList({
       add: [
-        { r: 0.5, useSize: zoomSX }, // normalize pan
-        { r: -1, useSize: this.x }, // pos,
-        { r: -focus.posX, useSize: this.sX }, // relative to Head
+        { r: 0.5, useSize: zoomSX },
+        // normalize pan
+        { r: -1, useSize: this.x },
+        // pos,
+        { r: -focus.posX, useSize: this.sX },
+        // relative to Head
       ],
     }),
     y = this.pushLinkList({
       add: [
-        { r: 0.5, useSize: zoomSY }, // normalize pan
-        { r: -1, useSize: this.y }, // pos,
-        { r: -focus.posY, useSize: this.sY }, // size
+        { r: 0.5, useSize: zoomSY },
+        // normalize pan
+        { r: -1, useSize: this.y },
+        // pos,
+        { r: -focus.posY, useSize: this.sY },
+        // size
       ],
     })
 
   return {
-    x: x,
-    y: y,
+    x,
+    y,
   }
 }
 

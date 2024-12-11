@@ -66,8 +66,6 @@ export const TableComic = function (init, slide, createSlider) {
     (controlerY = { r: 0, useSize: sY }),
   ]
 
-  let renderList
-
   hover.list.push(
     { change: 1, min: 0, map: 'a', variable: controlerX },
     { change: 1, min: 0, map: 'b', variable: controlerY },
@@ -138,7 +136,7 @@ export const TableComic = function (init, slide, createSlider) {
 
   this.paperColor = this.stripInfo.paperColor || [255, 255, 255]
 
-  renderList = [
+  const renderList = [
     {
       c: true,
       sX: innerSX,

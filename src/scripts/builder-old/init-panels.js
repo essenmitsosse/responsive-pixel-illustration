@@ -3,9 +3,7 @@ import { Builder } from './builder.js'
 function builderOld(init) {
   const builder = new Builder(init)
 
-  let renderList
-
-  renderList = new builder.basic.Comic(init)
+  const renderList = new builder.basic.Comic(init)
 
   return {
     renderList,

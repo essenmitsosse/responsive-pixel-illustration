@@ -286,26 +286,22 @@ Eyes.prototype.draw = function (args) {
     max: eyeSY,
   })
 
-  let eyeLeftSX
-  let eyeRightSX
-  let x
-
   this.side = this.pushLinkList({ r: 0, useSize: maxEyesCombinedSX })
 
-  eyeLeftSX = this.pushLinkList({
+  const eyeLeftSX = this.pushLinkList({
     r: 0.5,
     useSize: maxEyesCombinedSX,
     add: [{ r: 0.5, useSize: this.side }],
   })
 
-  eyeRightSX = this.pushLinkList([
+  const eyeRightSX = this.pushLinkList([
     maxEyesCombinedSX,
     { r: -1, useSize: eyeLeftSX },
   ])
 
   this.sideRestSX = this.pushLinkList({ r: 0, useSize: args.eyeRestSX })
 
-  x = this.pushLinkList({
+  const x = this.pushLinkList({
     add: [
       { r: 0.5, useSize: args.eyeRestSX },
       { r: 0.5, useSize: this.sideRestSX },
@@ -703,7 +699,10 @@ Mouth.prototype.draw = function MouthDraw(args) {
 
   const teethTopMax = this.pushLinkList({ r: 0.55, useSize: sY })
 
-  const teethBottomMax = this.pushLinkList([sY, { r: -1, useSize: teethTopMax }])
+  const teethBottomMax = this.pushLinkList([
+    sY,
+    { r: -1, useSize: teethTopMax },
+  ])
 
   /*0_1 */
   const teethTopSY = (this.teethTopSY = this.pushLinkList({

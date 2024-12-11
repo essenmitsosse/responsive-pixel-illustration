@@ -15,8 +15,6 @@ function randomDistribution(init) {
 
   const linkList = [width, height, square, biggerSquare]
 
-  let renderList
-
   const backgroundGrid = true
 
   const minSize = random.getRandomFloat(0, 0.8)
@@ -35,7 +33,7 @@ function randomDistribution(init) {
 
   const maxB = random.getRandom(minB, 255)
 
-  renderList = (function () {
+  const renderList = (function () {
     const count = random.getRandom(5, 20)
 
     const s_ = 1 / (count - 1)

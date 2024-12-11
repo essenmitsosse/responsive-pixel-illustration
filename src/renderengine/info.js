@@ -504,10 +504,9 @@ PixelGraphics.prototype.createVariableList = function (vl) {
   }
 
   Variable.prototype.set = function () {
-    let value
     let { l } = this
 
-    value = this.vari.getReal()
+    const value = this.vari.getReal()
 
     while (l--) {
       this.linkedP[l].abs = value

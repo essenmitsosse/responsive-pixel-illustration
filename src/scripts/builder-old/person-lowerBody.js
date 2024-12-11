@@ -33,15 +33,13 @@ export const LowerBody = function (args) {
 LowerBody.prototype = new Object()
 
 LowerBody.prototype.draw = function (args, z) {
-  let list
-
   if (args.calc) {
     this.vL['lowerBodySX' + args.nr] = 'personRealSX' + args.nr
   }
 
   this.skirt = (!args.demo || args.skirt) && this.skirt
 
-  list = {
+  const list = {
     sX: this.wideHips ? ['lowerBodySX' + args.nr, 1] : 'lowerBodySX' + args.nr,
     sY: 'lowerBodySY' + args.nr,
     cX: args.sideView,

@@ -182,7 +182,6 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     return function (args, inherit) {
       inherit = inherit || {}
 
-      let newArgs
       let reflectX = inherit.reflectX || false
       let reflectY = inherit.reflectY || false
       let rotate = inherit.rotate || 0
@@ -215,7 +214,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
         reflectY = !reflectY
       }
 
-      newArgs =
+      const newArgs =
         this.prepareSizeAndPos(
           args,
           reflectX,
@@ -397,9 +396,6 @@ export const DrawingTools = function (pixelUnit, getRandom) {
         let y0
         let x1
         let y1
-        let dx
-        let dy
-        let sy
         let err
         let e2
 
@@ -425,11 +421,11 @@ export const DrawingTools = function (pixelUnit, getRandom) {
           y1 = p1.y
         }
 
-        dx = Math.abs(x1 - x0)
+        const dx = Math.abs(x1 - x0)
 
-        dy = -Math.abs(y1 - y0)
+        const dy = -Math.abs(y1 - y0)
 
-        sy = y0 < y1 ? 1 : -1
+        const sy = y0 < y1 ? 1 : -1
 
         err = dx + dy
 
@@ -493,13 +489,9 @@ export const DrawingTools = function (pixelUnit, getRandom) {
         let y0
         let x1
         let y1
-        let dx
-        let dy
-        let sy
         let err
         let e2
         let first
-        let last
 
         if (p0.x > p1.x) {
           x1 = p0.x
@@ -525,11 +517,11 @@ export const DrawingTools = function (pixelUnit, getRandom) {
         // 	return p1;
         // }
 
-        dx = Math.abs(x1 - x0)
+        const dx = Math.abs(x1 - x0)
 
-        dy = -Math.abs(y1 - y0)
+        const dy = -Math.abs(y1 - y0)
 
-        sy = y0 < y1 ? 1 : -1
+        const sy = y0 < y1 ? 1 : -1
 
         err = dx + dy
 
@@ -537,7 +529,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
         first = sy === -1
 
-        last = !first
+        const last = !first
 
         if (first) {
           edgeList[(i += 1)] = { x0, y: y0 }
@@ -1905,7 +1897,6 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     let fullDistance = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))
     let lengthToDistanceRatio
     let innerAngle
-    let upperArmAngle
 
     // - - - - Calculate End Point
     this.fullLength *= this.maxStraight
@@ -1960,7 +1951,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     }
 
     // get the angle of the upper arm triangle
-    upperArmAngle = this.straightAngle + innerAngle
+    const upperArmAngle = this.straightAngle + innerAngle
 
     // get one sides of the upper arm triangle
     this.jointX.real = Math.round(this.upperArmLength * Math.sin(upperArmAngle))

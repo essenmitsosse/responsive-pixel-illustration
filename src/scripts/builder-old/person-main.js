@@ -116,8 +116,6 @@ export const BasicBody = function (args) {
 BasicBody.prototype = new Object()
 
 BasicBody.prototype.draw = function (args, right) {
-  let head
-
   args.right = right
 
   args.calc = args.backView !== right || args.sideView
@@ -132,7 +130,7 @@ BasicBody.prototype.draw = function (args, right) {
     this.vL['personSY' + args.nr] = { r: this.sY, min: 5, useSize: args.size }
   }
 
-  head = this.head.draw(args)
+  const head = this.head.draw(args)
 
   if (args.calc) {
     this.vL['bodyRestSY' + args.nr] = {

@@ -21,8 +21,6 @@ export const InitPixel = function (args) {
 
   const canvasRenderer = this.createSingleCanvas(canvasDataList, args.div)
 
-  let callback
-
   const [body] = document.getElementsByTagName('body')
 
   this.parent = queryString.admin || queryString.parent
@@ -44,7 +42,7 @@ export const InitPixel = function (args) {
     })
   }
 
-  callback = this.getCallback(
+  const callback = this.getCallback(
     canvasRenderer,
     queryString,
     imageName,

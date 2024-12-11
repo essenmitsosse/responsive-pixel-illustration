@@ -178,9 +178,7 @@ Head.prototype.getSizes = function (args) {
 }
 
 Head.prototype.draw = function (args) {
-  let list
-
-  list = {
+  const list = {
     y: args.fullBodySY,
     fY: true,
     color: this.skinColor.get(),

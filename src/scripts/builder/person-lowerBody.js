@@ -33,16 +33,13 @@ export const LowerBody = function (args) {
 LowerBody.prototype = new Object()
 
 LowerBody.prototype.draw = function (args, z) {
-  let list
-  let leg
-
   if (args.calc) {
     args.lowerBodySX = this.pushLinkList(args.personRealSX)
   }
 
   this.skirt = (!args.demo || args.skirt) && this.skirt
 
-  leg = {
+  const leg = {
     sY: this.skirt && args.feetRestSY,
     list: [
       // Check if Skirt is so long, that it covers all the feet
@@ -59,7 +56,7 @@ LowerBody.prototype.draw = function (args, z) {
     })
   }
 
-  list = {
+  const list = {
     sX: this.wideHips ? [args.lowerBodySX, 1] : args.lowerBodySX,
     sY: args.lowerBodySY,
     cX: args.sideView,

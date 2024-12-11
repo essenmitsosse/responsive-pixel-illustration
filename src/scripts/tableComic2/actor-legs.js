@@ -59,8 +59,6 @@ Legs.prototype.draw = function LegsDraw(args) {
 
   const bendLeg = sitting || args.info.bendLeg
 
-  let leg
-
   this.sX = args.sX
 
   this.sY = args.sY
@@ -105,7 +103,7 @@ Legs.prototype.draw = function LegsDraw(args) {
     shoeSY: { map: 'actor-accessoirs', min: 0, max: this.shoeSY_ },
   })
 
-  leg = [
+  const leg = [
     {
       sX: this.legSX,
       // sY: this.fullLegSY,

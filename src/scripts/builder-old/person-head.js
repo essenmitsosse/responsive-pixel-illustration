@@ -75,8 +75,6 @@ export const Head = function (args) {
 Head.prototype = new Object()
 
 Head.prototype.draw = function (args) {
-  let list
-
   if (args.calc) {
     this.vL['headMinSY' + args.nr] = {
       r: this.headSY,
@@ -116,7 +114,7 @@ Head.prototype.draw = function (args) {
     }
   }
 
-  list = {
+  const list = {
     y: ['fullBodySY' + args.nr],
     fY: true,
     color: this.skinColor.get(),

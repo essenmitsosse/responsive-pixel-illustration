@@ -34,8 +34,6 @@ export const Comic = function (init) {
 
   const horRatio = this.R(1.1, 2)
 
-  let panel
-
   this.vL.fullSqu = { r: 1, max: { r: 1, height: true } }
 
   // BORDER
@@ -196,7 +194,7 @@ export const Comic = function (init) {
 
   args.outerBorderColor = outerBorderColor
 
-  panel = new this.basic.Panel(args)
+  const panel = new this.basic.Panel(args)
 
   for (i = 0; i < panelsCalc; i += 1) {
     list.push(
@@ -331,7 +329,6 @@ Panel.prototype.draw = function (args) {
     this.IF(0.01 + (closeUp ? 0.3 : 0) + (wideShot ? 0.05 : 0)) &&
     this.skyColor.copy({ nextColor: true, brSet: this.GR(0, 5) })
 
-  let actors
   let stars
   let darkness
 
@@ -402,7 +399,7 @@ Panel.prototype.draw = function (args) {
     this.basic.getDark(darkness < -2 ? -2 : darkness > 2 ? 2 : darkness)
   }
 
-  actors = {
+  const actors = {
     cX: true,
     fY: true,
     sY: 'thingS' + nr,

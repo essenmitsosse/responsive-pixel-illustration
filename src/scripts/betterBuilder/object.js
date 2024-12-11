@@ -3,10 +3,6 @@ export const BBObj = function () {}
 // GET ROTATION
 BBObj.prototype.calcRotation = function (rotate) {
   let realRotation = rotate - 45
-  let rad
-  let sin
-  let cos
-  let front
 
   if (realRotation > 180) {
     realRotation -= 360
@@ -20,13 +16,13 @@ BBObj.prototype.calcRotation = function (rotate) {
     rotate += 360
   }
 
-  rad = (realRotation * Math.PI) / 180
+  const rad = (realRotation * Math.PI) / 180
 
-  sin = Math.sin(rad)
+  const sin = Math.sin(rad)
 
-  cos = Math.cos(rad)
+  const cos = Math.cos(rad)
 
-  front = Math.abs(Math.abs(rotate - 180) - 90) / 90
+  const front = Math.abs(Math.abs(rotate - 180) - 90) / 90
 
   return {
     FL: this.getRotation(realRotation),

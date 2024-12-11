@@ -1153,7 +1153,6 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
   let panelCount = 0
   let totalArcLength = 0
   let current
-  let removePanels
   let relArcEnd = 0
   let panelsLeft = totalPanelCount
   let arcLength = mainSteps.length
@@ -1195,7 +1194,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
     count += 1
   }
 
-  removePanels = panelsLeft > 0 ? 1 : -1
+  const removePanels = panelsLeft > 0 ? 1 : -1
 
   while (panelsLeft) {
     let arcStart = 0

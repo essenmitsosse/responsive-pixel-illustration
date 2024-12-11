@@ -23,6 +23,12 @@ const listConfigEslintBase: ReadonlyArray<Linter.Config> = [
        */
       'curly': 'error',
 
+      /**
+       * Enforce dot notation whenever possible
+       * {@link https://eslint.org/docs/latest/rules/dot-notation#allowpattern}
+       */
+      'dot-notation': 'error',
+
       'no-unused-vars': 'off',
     },
   },

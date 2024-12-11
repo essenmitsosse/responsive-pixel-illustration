@@ -220,11 +220,6 @@ class Helper {
       },
 
       hover(args) {
-        const changersRelativeStandard = changersRelativeStandardList
-        const changersRelativeCustom = changersRelativeCustomList
-        const changersColorStandard = changersColorStandardList
-        const changersCustom = changersCustomList
-
         let somethingToChange = false
 
         for (const key in args) {
@@ -235,12 +230,12 @@ class Helper {
         }
 
         if (somethingToChange) {
-          let l0 = changersRelativeStandard.length
+          let l0 = changersRelativeStandardList.length
 
           // Change the RELATIVE VALUE of the variable, by the STANDARD map scheme
           if (l0) {
             while (l0--) {
-              const current = changersRelativeStandard[l0]
+              const current = changersRelativeStandardList[l0]
 
               if (args[current.map] !== undefined) {
                 that.setValue(
@@ -252,11 +247,11 @@ class Helper {
           }
 
           // Change the RELATIVE VALUE of the variable, by a CUSTOM map scheme
-          let l1 = changersRelativeCustom.length
+          let l1 = changersRelativeCustomList.length
 
           if (l1) {
             while (l1--) {
-              const current = changersRelativeCustom[l1]
+              const current = changersRelativeCustomList[l1]
               const currentValue = current[1](args)
 
               if (currentValue !== undefined) {
@@ -265,12 +260,12 @@ class Helper {
             }
           }
 
-          let l2 = changersColorStandard.length
+          let l2 = changersColorStandardList.length
 
           // Change a COLOR, by a STANDARD map scheme
           if (l2) {
             while (l2--) {
-              const current = changersColorStandard[l2]
+              const current = changersColorStandardList[l2]
 
               if (args[current.map] !== undefined) {
                 changeColor(args[current.map], current)
@@ -278,12 +273,12 @@ class Helper {
             }
           }
 
-          let l3 = changersCustom.length
+          let l3 = changersCustomList.length
 
           // Execute a CUSTOM FUNCTION
           if (l3) {
             while (l3--) {
-              changersCustom[l3](args)
+              changersCustomList[l3](args)
             }
           }
 

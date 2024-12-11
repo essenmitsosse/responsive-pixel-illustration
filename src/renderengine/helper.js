@@ -1,3 +1,6 @@
+import getIsUnknownObject from '@/lib/getIsUnknownObject'
+import getObjectKeys from '@/lib/getObjectKeys'
+
 class Helper {
   constructor() {}
 
@@ -187,17 +190,15 @@ class Helper {
       // Takes an object, where the keys have the names of dimensions from the object which called it
       // This dimension "r" is linked to the variables max, min and can be changed by what is defined by map
       pushRelativeStandardAutomatic(info) {
-        let key
-        let currentInfo
-        let currentSize
-
         if (info) {
-          for (key in info) {
-            if ((currentSize = this[key])) {
-              // Assignment
-              currentInfo = info[key]
+          getObjectKeys(info).forEach((key) => {
+            let currentSize = this[key]
 
-              if (typeof currentInfo === 'object') {
+            if (currentSize) {
+              // Assignment
+              const currentInfo = info[key]
+
+              if (getIsUnknownObject(currentInfo)) {
                 if (currentInfo.map !== undefined) {
                   pushRelativeStandard(
                     currentInfo.min,
@@ -214,7 +215,7 @@ class Helper {
                 currentSize.r = currentInfo
               }
             }
-          }
+          })
         }
       },
 

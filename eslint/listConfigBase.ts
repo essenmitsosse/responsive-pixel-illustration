@@ -35,6 +35,12 @@ const listConfigEslintBase: ReadonlyArray<Linter.Config> = [
        */
       'eqeqeq': ['error', 'always'],
 
+      /**
+       * Disable use of `console`
+       * {@link https://eslint.org/docs/latest/rules/no-console}
+       */
+      'no-console': 'error',
+
       'no-unused-vars': 'off',
     },
   },

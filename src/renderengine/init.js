@@ -133,7 +133,7 @@ InitPixel.prototype.createSingleCanvas = function (canvasData, div) {
   }
 }
 
-export const loadScript = function (callback, currentSlide) {
+const loadScript = function (callback, currentSlide) {
   currentSlide.import().then((imageImport) => {
     callback(imageImport.default)
   })

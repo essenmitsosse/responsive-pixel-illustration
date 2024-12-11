@@ -113,7 +113,7 @@ export const Builder = function (init) {
   }
 }
 
-export const buildColors = function (info) {
+const buildColors = function (info) {
   var R = this.R,
     i = info.colors,
     colors = [],
@@ -172,34 +172,7 @@ export const buildColors = function (info) {
   return colors
 }
 
-export const colorScheme = function () {
-  var colors = this.Color,
-    info = this.colorInfo,
-    i = info.colors,
-    j,
-    steps = info.steps,
-    list = [],
-    s = 10,
-    ss = s
-
-  while (i--) {
-    j = steps
-
-    while (j--) {
-      list.push({
-        s: s,
-        x: i * ss,
-        y: j * ss,
-        fY: true,
-        color: new colors(i, j).get(),
-      })
-    }
-  }
-
-  return { z: 1000000, list: list }
-}
-
-export const Color = function (nr, br) {
+const Color = function (nr, br) {
   this.nr = nr
 
   this.br = br

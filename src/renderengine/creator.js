@@ -383,9 +383,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
           var x0, y0, x1, y1, dx, dy, sy, err, e2
 
           if (isNaN(p0.x) || isNaN(p0.y) || isNaN(p1.x) || isNaN(p1.y)) {
-            console.log('Line with NaN found!', p0.x, p0.y, p1.x, p1.y)
-
-            return p1
+            throw new Error('Line with NaN found!', p0.x, p0.y, p1.x, p1.y)
           }
 
           if (p0.x > p1.x) {

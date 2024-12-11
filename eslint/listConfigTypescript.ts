@@ -53,7 +53,10 @@ const listConfigTypeScript: ReadonlyArray<Linter.Config> = [
       /** Sort members (interface keys etc.) */
       '@typescript-eslint/member-ordering': [
         'error',
-        { default: { order: 'alphabetically' } },
+        {
+          classes: { order: 'as-written' },
+          default: { order: 'alphabetically' },
+        },
       ],
 
       /**

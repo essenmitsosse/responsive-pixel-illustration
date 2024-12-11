@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/member-ordering -- would cause to change in this file for now */
 class Helper {
   constructor() {}
 
@@ -339,6 +338,5 @@ class Helper {
     }
   }
 }
-/* eslint-enable @typescript-eslint/member-ordering */
 
 export const helper = new Helper()

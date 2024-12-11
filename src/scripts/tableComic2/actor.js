@@ -54,7 +54,7 @@ Actor.prototype.getSize = function (args) {
   // calculates this.sX & this.sY
   this.getSizeWithRatio({
     sX: args.stageSX,
-    sY: sY,
+    sY,
   })
 
   // this.getSizeWithSizeXY( {
@@ -149,7 +149,7 @@ Actor.prototype.getBetterPosX = function (rel) {
     add.push(this.x, this.square, { r: -1 + rel, useSize: this.sY })
   }
 
-  return this.pushLinkList({ add: add })
+  return this.pushLinkList({ add })
 }
 
 Actor.prototype.getBetterPosY = function (rel) {
@@ -167,7 +167,7 @@ Actor.prototype.getBetterPosY = function (rel) {
     add.push(this.pushLinkList({ r: -rel, useSize: this.sX }))
   }
 
-  return this.pushLinkList({ add: add })
+  return this.pushLinkList({ add })
 }
 
 Actor.prototype.getFocus = function (zoomSX, zoomSY, focus) {
@@ -214,8 +214,8 @@ Actor.prototype.getFocus = function (zoomSX, zoomSY, focus) {
   }
 
   return {
-    x: x,
-    y: y,
+    x,
+    y,
   }
 }
 
@@ -294,7 +294,7 @@ Actor.prototype.draw = function (args) {
         sX: this.sX,
         sY: this.bodySY,
         lean: this.lean,
-        info: info,
+        info,
       }),
 
       // Head
@@ -302,7 +302,7 @@ Actor.prototype.draw = function (args) {
         sX: this.headSX,
         sY: this.headSY,
         x: this.lean,
-        info: info,
+        info,
       }),
     ])),
     this,

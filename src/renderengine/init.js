@@ -25,11 +25,11 @@ export const InitPixel = function (args) {
   // Admin
   if (queryString.admin || showcase || sliders) {
     new Admin({
-      body: body,
-      showcase: showcase,
+      body,
+      showcase,
       admin: queryString.admin,
-      sliders: sliders,
-      slides: slides,
+      sliders,
+      slides,
       pixel: this,
       hasRandom: currentSlide.hasRandom || false,
     })
@@ -171,14 +171,14 @@ InitPixel.prototype.getCallback = function (
       renderObject = {
         showInfos: false,
         slide: currentSlide,
-        imageFunction: imageFunction,
-        queryString: queryString,
+        imageFunction,
+        queryString,
         pixelSize:
           (queryString.p || currentSlide.p || 7) * 1 +
           (queryString.pAdd || imageFunction.recommendedPixelSize || 0) * 1,
         sliderObject: that.sliderObject,
         sliderValues: that.sliderValues,
-        info: info,
+        info,
         defaultValues: that.defaultValues,
         init: that,
       }
@@ -231,9 +231,9 @@ InitPixel.prototype.info = function (options) {
   }
 
   return {
-    swap: swap,
-    change: change,
-    logInitTime: function (initTime) {
+    swap,
+    change,
+    logInitTime(initTime) {
       initString = [
         "<span class='init' style='width:",
         initTime * 5,
@@ -242,7 +242,7 @@ InitPixel.prototype.info = function (options) {
         'ms<br>Init</span>',
       ].join('')
     },
-    logRenderTime: function (draw, fullDuration) {
+    logRenderTime(draw, fullDuration) {
       var what,
         lo = logs,
         render = fullDuration - draw,
@@ -332,7 +332,7 @@ InitPixel.prototype.nextSlide = function (next) {
     slide = 0
   }
 
-  this.changeForceRedraw({ slide: slide })
+  this.changeForceRedraw({ slide })
 }
 
 InitPixel.prototype.getNewId = function (id) {

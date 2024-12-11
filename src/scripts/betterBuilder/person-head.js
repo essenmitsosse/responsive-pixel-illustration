@@ -38,7 +38,7 @@ Head.prototype.draw = function (args) {
   var headBottom = new this.basic.Rotater({
       drawer: this.headBottom,
       id: 'lowerHead',
-      rotate: rotate,
+      rotate,
       baseSX: this.sX,
       sideSX: this.headSideRatio,
       sY: { r: this.headTopSY, useSize: args.sY },
@@ -49,7 +49,7 @@ Head.prototype.draw = function (args) {
     headTop = new this.basic.Rotater({
       drawer: this.headTop,
       id: 'topHead',
-      rotate: rotate,
+      rotate,
       baseSX: this.sX,
       frontSX: this.headTopFrontSX,
       sideSX: this.headTopSideSX,
@@ -62,7 +62,7 @@ Head.prototype.draw = function (args) {
     nose = new this.basic.Rotater({
       drawer: this.nose,
       id: 'nose',
-      rotate: rotate,
+      rotate,
       baseSX: this.sX,
       frontSX: 0.1,
       sideSX: 0.5,
@@ -88,12 +88,12 @@ Head.prototype.draw = function (args) {
       sY: args.sY,
       list: [headTop.get, headBottom.get, nose.get],
     },
-    headTop: headTop,
-    headBottom: headBottom,
-    nose: nose,
+    headTop,
+    headBottom,
+    nose,
     sX: headBottom.sX,
     sY: args.sY,
-    rotate: rotate,
+    rotate,
   }
 }
 // End Head Main Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

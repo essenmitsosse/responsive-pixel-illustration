@@ -232,7 +232,7 @@ function brothers() {
       ]
 
       return {
-        color: color,
+        color,
         sY: { r: hades ? 0.15 : 0.1, a: 1 },
         list: [
           { sX: 'eye', list: eye },
@@ -1486,8 +1486,8 @@ function brothers() {
     }
 
   return {
-    renderList: renderList,
-    variableList: variableList,
+    renderList,
+    variableList,
     background: backgroundColor,
   }
 }

@@ -82,8 +82,8 @@ function randomDistribution(init) {
   })()
 
   return {
-    renderList: renderList,
-    linkList: linkList,
+    renderList,
+    linkList,
     background: backgroundColor,
   }
 }

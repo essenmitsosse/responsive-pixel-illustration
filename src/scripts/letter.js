@@ -173,9 +173,9 @@ function letter(args, init, createSlider) {
   // console.log( serifeSX_ );
 
   return {
-    renderList: renderList,
+    renderList,
     background: backgroundColor,
-    linkList: linkList,
+    linkList,
     hover: hover.hover,
     changeValueSetter: hover.ready,
     recommendedPixelSize: 16,

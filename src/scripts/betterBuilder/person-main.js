@@ -147,8 +147,8 @@ BodyMain.prototype.draw = function (args) {
       z: args.z,
       list: [chest.get, lowerBody.get],
     },
-    chest: chest,
-    lowerBody: lowerBody,
+    chest,
+    lowerBody,
   }
 }
 // End BodyMain Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

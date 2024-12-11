@@ -458,7 +458,7 @@ ShoulderPad.prototype.draw = function (args, z) {
     y: { r: this.Y, useSize: 'armSX' + nr, max: { a: 0 } },
     x: { r: this.X, useSize: 'trapSX' + nr },
     id: 'shoulderPad' + nr,
-    z: z,
+    z,
     color: this.shoulderPadColor.get(),
     // rX:sideView && args.right,
     list: [
@@ -634,7 +634,7 @@ Sword.prototype.draw = function (args, z) {
 
   return {
     sY: 'handleSY' + nrName,
-    z: z,
+    z,
     cY: true,
     color: this.hiltColor.get(),
     id: 'tool' + nrName,

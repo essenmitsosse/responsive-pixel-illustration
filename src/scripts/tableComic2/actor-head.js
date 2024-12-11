@@ -58,7 +58,7 @@ Head.prototype.getBetterPosX = function (rel) {
     add.push({ r: rel, useSize: this.sY })
   }
 
-  return this.pushLinkList({ add: add })
+  return this.pushLinkList({ add })
 }
 
 Head.prototype.getBetterPosY = function (rel) {
@@ -77,7 +77,7 @@ Head.prototype.getBetterPosY = function (rel) {
     )
   }
 
-  return this.pushLinkList({ add: add })
+  return this.pushLinkList({ add })
 }
 
 Head.prototype.draw = function (args) {
@@ -123,14 +123,14 @@ Head.prototype.draw = function (args) {
 
   // Check if there are hover changers and add them
   this.pushRelativeStandardAutomatic({
-    side: side,
+    side,
   })
 
   sY.odd = true
 
   return {
     sY: { add: [sY], min: 4 },
-    sX: sX,
+    sX,
     cX: true,
     color: this.color[0],
     x: (this.x = args.x),
@@ -167,7 +167,7 @@ Head.prototype.draw = function (args) {
       this.hair &&
         this.hair.draw({
           side: this.side,
-          eyeRestSX: eyeRestSX,
+          eyeRestSX,
           sY: eyeAreaSY,
         }),
 
@@ -175,11 +175,11 @@ Head.prototype.draw = function (args) {
       this.eyes.draw({
         sX: eyeAreaSX,
         sY: eyeAreaSY,
-        eyeRestSX: eyeRestSX,
+        eyeRestSX,
         info: info.eyes,
         left: info.eyeLeft,
         right: info.eyeRight,
-        side: side,
+        side,
       }),
 
       // Mouth
@@ -188,14 +188,14 @@ Head.prototype.draw = function (args) {
         sY: mouthAreaSY,
         headSX: sX,
         info: info.mouth,
-        side: side,
+        side,
       }),
 
       // Hat
       this.hat &&
         this.hat.draw({
-          sY: sY,
-          sX: sX,
+          sY,
+          sX,
           side: this.side,
         }),
     ],
@@ -307,7 +307,7 @@ Eyes.prototype.draw = function (args) {
   })
 
   return {
-    x: x,
+    x,
     // fX: side < 0,
     sX: args.sX,
     sY: args.sY,
@@ -315,14 +315,14 @@ Eyes.prototype.draw = function (args) {
       this.eyeLeft.draw({
         sX: eyeLeftSX,
         sY: eyeSY,
-        square: square,
+        square,
         info: args.left || args.info,
         // away: side > 0 && side
       }),
       this.eyeRight.draw({
         sX: eyeRightSX,
         sY: eyeSY,
-        square: square,
+        square,
         info: args.right || args.info,
         // away: side < 0 && -side
       }),
@@ -464,8 +464,8 @@ Eye.prototype.draw = function EyeDraw(args) {
   // this.pushRelativeStandardAutomatic( { pupilS: { map:"test", min:0, max:2 } } )
 
   return {
-    sX: sX,
-    sY: sY,
+    sX,
+    sY,
     fY: true,
     rX: this.left,
     fX: !this.left,
@@ -687,9 +687,9 @@ Mouth.prototype.draw = function MouthDraw(args) {
     list: [
       {
         sX: finalSX,
-        sY: sY,
-        x: x,
-        y: y,
+        sY,
+        x,
+        y,
         list: [
           { sY: smirkTop, sX: 1, x: -1, tY: true },
           { sY: smirkTop, sX: 1, x: -1, tY: true, fX: true },

@@ -1357,8 +1357,8 @@ function zeus() {
     }
 
   return {
-    renderList: renderList,
-    variableList: variableList,
+    renderList,
+    variableList,
     background: backgroundColor,
   }
 }

@@ -49,8 +49,8 @@ export const Strip = function (args) {
     )
 
     sizeList.push({
-      sX: sX,
-      sY: sY,
+      sX,
+      sY,
     })
   } while ((i += 1) < count)
 
@@ -62,12 +62,12 @@ export const Strip = function (args) {
     sizeCurrent = sizeList[i]
 
     current = basicPanel[panelsInfo[i].method || 'draw']({
-      i: i,
+      i,
       rel: i / (count - 1),
       sX: sizeCurrent.sX,
       sY: sizeCurrent.sY,
-      minSX: minSX,
-      minSY: minSY,
+      minSX,
+      minSY,
       info: panelsInfo[i],
     })
 
@@ -110,10 +110,10 @@ export const Strip = function (args) {
 
   return {
     mask: true,
-    gutterX: gutterX,
-    gutterY: gutterY,
-    imgRatio: imgRatio,
-    panels: panels,
+    gutterX,
+    gutterY,
+    imgRatio,
+    panels,
   }
 }
 // END Strip \/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/.\/

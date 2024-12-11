@@ -2905,11 +2905,11 @@ function graien() {
   // }
 
   return {
-    renderList: renderList,
-    background: background,
-    linkList: linkList,
-    hover: hover,
-    changeValueSetter: function () {
+    renderList,
+    background,
+    linkList,
+    hover,
+    changeValueSetter() {
       setValue = helper.setValueNew
     },
   }

@@ -409,8 +409,8 @@ export const TableComic = function (init, slide, createSlider) {
   }
 
   return {
-    renderList: renderList,
-    linkList: linkList,
+    renderList,
+    linkList,
     background: this.paperColor,
     hover: hover.hover,
     changeValueSetter: hover.ready,
@@ -580,8 +580,8 @@ TableComic.prototype.getFocus = function (zoomSX, zoomSY, focus) {
     })
 
   return {
-    x: x,
-    y: y,
+    x,
+    y,
   }
 }
 

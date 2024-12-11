@@ -34,11 +34,11 @@ BBObj.prototype.calcRotation = function (rotate) {
     BL: this.getRotation(realRotation - 90),
     BR: this.getRotation(realRotation + 180),
     position: (sin + cos) / (Math.sin(Math.PI * 0.25) * 2),
-    sin: sin,
-    cos: cos,
-    rotate: rotate,
+    sin,
+    cos,
+    rotate,
     turnedAway: rotate > 90 && rotate < 270 ? -1 : 1,
-    front: front,
+    front,
     side: 1 - front,
   }
 }
@@ -131,7 +131,7 @@ export const Rotater = function (args) {
         (args.z ? args.z * rotate.turnedAway : 0) + (args.zAbs ? args.zAbs : 0),
       list: this.list,
     },
-    rotate: rotate,
+    rotate,
     sX: this.sX,
     sY: this.sY,
     x: this.X,
@@ -148,7 +148,7 @@ Rotater.prototype.pusher = function (rotate, list, reflect) {
     sX: { r: front ? rotate.abs : -rotate.abs },
     fX: rotate.real > 0,
     z: front ? 50 : -50,
-    list: list,
+    list,
     rX: reflect,
   })
 }
@@ -162,7 +162,7 @@ BBObj.prototype.moveOut = function (args, rotate) {
   var diff,
     add = [],
     X = {
-      add: add,
+      add,
     }
 
   if (args.sXBase && args.xBase) {
@@ -219,7 +219,7 @@ BBObj.prototype.mover = function (what, move) {
   what.x = x = this.moveOut(move, what.rotate)
 
   what.get = this.merge(what.get, {
-    x: x,
+    x,
     y: move.y,
     z:
       (move.xRel
@@ -261,7 +261,7 @@ export const RotateInfo = function (rotate) {
       {
         color: [150, 150, 150],
         c: true,
-        s: s,
+        s,
         list: [
           {},
           { sX: 1, color: this.c1 },

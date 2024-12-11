@@ -7,7 +7,7 @@ function builderOld(init) {
   renderList = new builder.basic.Comic(init)
 
   return {
-    renderList: renderList,
+    renderList,
     variableList: builder.joinVariableList,
     background: builder.backgroundColor,
   }

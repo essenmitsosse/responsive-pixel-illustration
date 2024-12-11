@@ -135,8 +135,8 @@ function teiresias() {
                 gap: 'snakeDetailSize',
                 horizontal: vert,
               },
-              x: x,
-              y: y,
+              x,
+              y,
               sY: vert ? s : undefined,
               sX: !vert ? s : undefined,
             },
@@ -1416,8 +1416,8 @@ function teiresias() {
     }
 
   return {
-    renderList: renderList,
-    variableList: variableList,
+    renderList,
+    variableList,
     background: backgroundColor,
   }
 }

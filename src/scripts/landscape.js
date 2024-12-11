@@ -200,8 +200,8 @@ function landscape() {
   // } )( .1, args.x * args.y, 2*2*2*2*4 );
 
   return {
-    renderList: renderList,
-    variableList: variableList,
+    renderList,
+    variableList,
     background: backgroundColor,
   }
 }

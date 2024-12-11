@@ -1419,7 +1419,7 @@ HeadBand.prototype.draw = function (args, z) {
     sideView = args.sideView
 
   return {
-    z: z,
+    z,
     sY: {
       r: 0.3,
       useSize: 'foreheadSY' + nr,

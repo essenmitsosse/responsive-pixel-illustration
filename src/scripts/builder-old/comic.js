@@ -190,7 +190,7 @@ export const Comic = function (init) {
   for (i = 0; i < panelsCalc; i += 1) {
     list.push(
       panel.draw({
-        i: i,
+        i,
         row2: panelsCalc / 2 <= i,
         row3a: panels / 3 <= i,
         row3b: (2 * panels) / 3 <= i,
@@ -232,7 +232,7 @@ export const Comic = function (init) {
       cX: true,
       sX: 'fullSX',
       mY: 'borderY',
-      list: list,
+      list,
     },
     init.cs === 'true' && this.basic.colorScheme(),
   ]
@@ -676,7 +676,7 @@ Ground.prototype.draw = function (args, z) {
   return {
     color: this.groundColor.get(),
     fY: true,
-    z: z,
+    z,
     sY: 'horizont' + nr,
   }
 }

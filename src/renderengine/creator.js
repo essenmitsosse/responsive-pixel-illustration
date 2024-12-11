@@ -7,14 +7,14 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       i = []
 
     return {
-      reset: function () {
+      reset() {
         var l = count
 
         while (l--) {
           i[l] = 0
         }
       },
-      get: function (j) {
+      get(j) {
         var seed = j || getSeed(),
           nr = (count += 1)
 
@@ -91,7 +91,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       }
 
     return {
-      setArray: function (newArray) {
+      setArray(newArray) {
         var forms = formSave,
           key
 
@@ -102,7 +102,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
         colorArray = newArray
       },
 
-      setColorArray: function (color, clear, zInd, id, isRect, save) {
+      setColorArray(color, clear, zInd, id, isRect, save) {
         return clear
           ? isRect
             ? save
@@ -122,11 +122,11 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
       setColorMask: getColorMask,
 
-      getSave: function (name) {
+      getSave(name) {
         return formSave[name] ? formSave[name].save : false
       },
 
-      getMask: function (name) {
+      getMask(name) {
         return formSave[name] ? formSave[name].mask : false
       },
     }
@@ -508,7 +508,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
           last = !first
 
           if (first) {
-            edgeList[(i += 1)] = { x0: x0, y: y0 }
+            edgeList[(i += 1)] = { x0, y: y0 }
           }
 
           while (true) {
@@ -949,15 +949,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   }
 
   this.Stripes.prototype.drawers = {
-    normal: function (
-      drawer,
-      fromOtherSide,
-      stripWidth,
-      endX,
-      startY,
-      endY,
-      overflow,
-    ) {
+    normal(drawer, fromOtherSide, stripWidth, endX, startY, endY, overflow) {
       return function (startX, currentHeightChange, randomWidth) {
         var end = startX + stripWidth + randomWidth,
           start = startY - (fromOtherSide ? currentHeightChange : 0)
@@ -970,7 +962,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
         })
       }
     },
-    horizontal: function (
+    horizontal(
       drawer,
       fromOtherSide,
       stripWidth,
@@ -1268,8 +1260,8 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
       if (x * y - x < l) {
         current = {
-          x: x,
-          y: y,
+          x,
+          y,
           singleSXWithGutter: Math.floor((this.sX + this.gutterX) / x),
           singleSYWithGutter: Math.floor((this.sY + this.gutterY) / y),
         }
@@ -1470,8 +1462,8 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       currentPanel.sY.real = height
 
       currentPanel.dimensions = {
-        width: width,
-        height: height,
+        width,
+        height,
         posX: posX + this.dimensions.posX,
         posY: posY + this.dimensions.posY,
       }
@@ -1927,8 +1919,8 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   this.init = function (width, height, pixelArray) {
     pixelUnit.init({
-      width: width,
-      height: height,
+      width,
+      height,
     })
 
     that.pixelSetter.setArray(pixelArray)

@@ -49,7 +49,7 @@ LowerBody.prototype.draw = function (args, z) {
     cX: sideView,
     fY: true,
     color: this.pantsColor.get(),
-    z: z,
+    z,
     list: [
       // Leg SideView
       sideView && this.leg.draw(args, z + 100, !args.right, true),
@@ -315,7 +315,7 @@ Leg.prototype.draw = function (args, z, rightSide, behind) {
     s: 'legSX' + nr,
     fX: !behind,
     x: !sideView && this.legsIn && { r: 0.3, max: 1 },
-    z: z,
+    z,
     rY: hipBend && (args.backView || (sideView && args.right === rightSide)),
     rX:
       (!hipBend && sideView) ||

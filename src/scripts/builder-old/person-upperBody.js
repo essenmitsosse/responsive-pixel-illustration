@@ -230,7 +230,7 @@ Stripes.prototype.draw = function (args, z) {
   return (
     (sideView || !args.right) && {
       fX: true,
-      z: z,
+      z,
       sX: !sideView && { r: 2, useSize: 'upperBodySX' + nr, a: -1 },
       color: this.stripColor.get(),
       stripes: !this.dots && {
@@ -299,7 +299,7 @@ Buttons.prototype.draw = function (args, z) {
       fY: true,
       cX: sideView,
       color: this.buttonsColor.get(),
-      z: z,
+      z,
       // rX:sideView && args.right,
       list: !this.zipper && [
         {
@@ -366,7 +366,7 @@ Suspenders.prototype.draw = function (args, z) {
   }
 
   return {
-    z: z,
+    z,
     color: this.strapColor.get(),
     id: 'strap' + nr,
     fX: true,
@@ -558,7 +558,7 @@ Cleavage.prototype.draw = function (args, z) {
         fX: true,
       },
       this.cleavage && {
-        z: z,
+        z,
         color: this.skinColor.get(),
         sY: { r: this.cleavageSY },
         x: sideView && 'cleavageX' + nr,
@@ -603,7 +603,7 @@ Nipples.prototype.draw = function (args, z) {
     y: { r: this.nipplePos, min: 1 },
     x: { r: 0.2, min: 1 },
     fX: !sideView,
-    z: z,
+    z,
   }
 }
 // END Nipples draw
@@ -709,7 +709,7 @@ Strap.prototype.draw = function (args, z) {
           mX: this.sub('strapTickness' + nr),
         },
         {
-          z: z,
+          z,
           weight: 'strapTickness' + nr,
           color: this.strapColor.get(),
           points: [

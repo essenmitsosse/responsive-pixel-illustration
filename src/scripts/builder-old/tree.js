@@ -474,11 +474,11 @@ Forrest.prototype.draw = function (args, z, size) {
 
   return [
     {
-      z: z,
+      z,
       sY: size,
       sX: { r: 4, useSize: size },
       cX: true,
-      list: list,
+      list,
     },
   ]
 }

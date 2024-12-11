@@ -1107,8 +1107,8 @@ function argos() {
     }
 
   return {
-    renderList: renderList,
-    variableList: variableList,
+    renderList,
+    variableList,
     background: backgroundColor,
   }
 }

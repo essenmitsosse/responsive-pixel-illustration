@@ -184,7 +184,7 @@ function trex() {
     backgroundColor = [170, 190, 230]
 
   return {
-    renderList: renderList,
+    renderList,
     background: backgroundColor,
   }
 }

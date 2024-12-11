@@ -53,11 +53,19 @@ const listConfigEslintBase: ReadonlyArray<Linter.Config> = [
        */
       'no-restricted-imports': [1, { patterns: ['../'] }],
 
+      'no-unused-vars': 'off',
+
       /**
        * Disallow unnecessary computed property keys in objects and classes
        * {@link https://eslint.org/docs/latest/rules/no-useless-computed-key#rule-details}
        */
       'no-useless-computed-key': 'error',
+
+      /**
+       * Require or disallow method and property shorthand syntax for object
+       * literals {@link https://eslint.org/docs/latest/rules/object-shorthand}
+       */
+      'object-shorthand': 'error',
 
       /**
        * This rule enforces usage of destructuring instead of accessing a
@@ -78,12 +86,18 @@ const listConfigEslintBase: ReadonlyArray<Linter.Config> = [
       ],
 
       /**
-       * Require or disallow method and property shorthand syntax for object
-       * literals {@link https://eslint.org/docs/latest/rules/object-shorthand}
+       * This works alongside `import/order` to make sure to also order named
+       * imports {@link https://eslint.org/docs/latest/rules/sort-imports}
        */
-      'object-shorthand': 'error',
-
-      'no-unused-vars': 'off',
+      'sort-imports': [
+        'error',
+        {
+          allowSeparatedGroups: false,
+          ignoreCase: false,
+          ignoreDeclarationSort: true,
+          ignoreMemberSort: false,
+        },
+      ],
     },
   },
 

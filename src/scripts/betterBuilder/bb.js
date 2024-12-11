@@ -1,9 +1,9 @@
 import { helper } from '@/renderengine/helper.js'
 
-import { BBObj, Rotater, RotateInfo } from './object.js'
-import { Head, HeadTop, HeadBottom, Nose, Neck } from './person-head.js'
+import { BBObj, RotateInfo, Rotater } from './object.js'
+import { Head, HeadBottom, HeadTop, Neck, Nose } from './person-head.js'
 import { LowerBody } from './person-lowerBody.js'
-import { PersonMain, BodyMain } from './person-main.js'
+import { BodyMain, PersonMain } from './person-main.js'
 import { Chest } from './person-upperBody.js'
 
 export const BB = function (init) {

@@ -1,5 +1,5 @@
 // @ts-check
-import { test, expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 const listScreenshots = [
   { index: 0, niceName: 'The Three Graeae' },

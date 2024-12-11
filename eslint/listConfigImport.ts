@@ -115,7 +115,8 @@ const listConfigImport: ReadonlyArray<Linter.Config> = [
 
   /**
    * Detect unused imports and most importantly: Make them fixable.
-   * {@link https://github.com/sweepline/eslint-plugin-unused-imports} */
+   * {@link https://github.com/sweepline/eslint-plugin-unused-imports}
+   */
   {
     plugins: { 'unused-imports': unusedImportPlugin },
     rules: { 'unused-imports/no-unused-imports': 'error' },

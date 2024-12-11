@@ -3,13 +3,12 @@ import { defineConfig, devices } from '@playwright/test'
 
 /**
  * Read environment variables from file.
- * https://github.com/motdotla/dotenv
+ *
+ * @see https://github.com/motdotla/dotenv
  */
 // require('dotenv').config({ path: path.resolve(__dirname, '.env') });
 
-/**
- * @see https://playwright.dev/docs/test-configuration
- */
+/** @see https://playwright.dev/docs/test-configuration */
 const playwrightConfig = defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,

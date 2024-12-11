@@ -503,8 +503,8 @@ Eye.prototype.draw = function (args) {
                       color: this.pupilColor.get(),
                       fY: !lookUp,
                       rY: lookUp,
-                      rX: lookSide && args.right == lookRight,
-                      fX: lookSide && args.right == lookRight,
+                      rX: lookSide && args.right === lookRight,
+                      fX: lookSide && args.right === lookRight,
                       cY: lookForward,
                       id: 'pupil' + nr,
                       list: !this.highPupil && [

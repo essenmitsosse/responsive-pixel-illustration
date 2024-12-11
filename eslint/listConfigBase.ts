@@ -29,6 +29,12 @@ const listConfigEslintBase: ReadonlyArray<Linter.Config> = [
        */
       'dot-notation': 'error',
 
+      /**
+       * Overwrite AirBnB rule, to _always_ enforce `eqeqeq` (AirBnB allows `==`
+       * for `null`, which can lead to inconsistant style) {@link eqeqeq}
+       */
+      'eqeqeq': ['error', 'always'],
+
       'no-unused-vars': 'off',
     },
   },

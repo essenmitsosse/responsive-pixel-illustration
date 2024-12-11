@@ -23,8 +23,7 @@ export const Arm = function Arm(args) {
 }
 
 Arm.prototype.draw = function ArmDraw(args) {
-  var info = args.info,
-    armSY = this.getSizeSwitch(
+  var armSY = this.getSizeSwitch(
       { r: this.armBaseSY_, useSize: args.torsoSY },
       { r: this.armRelSY_ },
       {
@@ -63,7 +62,7 @@ Arm.prototype.draw = function ArmDraw(args) {
       (this.isRotated ? !args.right : args.right)
         ? [{ r: -1, useSize: armSHalf }]
         : [armSHalf, 1],
-      info.x ? { r: info.x, useSize: this.actor.sX } : 0,
+      args.info.x ? { r: args.info.x, useSize: this.actor.sX } : 0,
     ],
   })
 
@@ -75,8 +74,8 @@ Arm.prototype.draw = function ArmDraw(args) {
 
   this.endY = this.pushLinkList({})
 
-  if (info && info.pos) {
-    this.getMoveableTarget('target', 'getTarget', info.pos)
+  if (args.info && args.info.pos) {
+    this.getMoveableTarget('target', 'getTarget', args.info.pos)
   } else {
     // Default, lowered arms
     this.targetX = this.pushLinkList({ a: 0 })
@@ -84,8 +83,8 @@ Arm.prototype.draw = function ArmDraw(args) {
     this.targetY = armSY
   }
 
-  if (info && info.hand) {
-    this.getMoveableTarget('handTarget', 'getHandTarget', info.hand)
+  if (args.info && args.info.hand) {
+    this.getMoveableTarget('handTarget', 'getHandTarget', args.info.hand)
   } else {
     this.handTargetX = this.pushLinkList({ a: 0 })
 
@@ -99,7 +98,7 @@ Arm.prototype.draw = function ArmDraw(args) {
     x: this.x,
     y: this.y,
     s: 1,
-    z: (info && info.z) || 300,
+    z: (args.info && args.info.z) || 300,
     list: [
       {
         name: 'Arm',
@@ -107,7 +106,7 @@ Arm.prototype.draw = function ArmDraw(args) {
         upperArmWeight: upperArmS,
         length: armSY,
         ratio: this.armRatio,
-        maxStraight: (info && info.maxStraight) || 1,
+        maxStraight: (args.info && args.info.maxStraight) || 1,
 
         upperArmLightColor: this.upperArmColor[0],
         upperArmColor: this.upperArmColor[1],
@@ -122,9 +121,13 @@ Arm.prototype.draw = function ArmDraw(args) {
         jointY: this.pushLinkList({}),
         endX: this.endX,
         endY: this.endY,
-        flip: info ? (info.flip ? this.right : !this.right) : !this.right,
+        flip: args.info
+          ? args.info.flip
+            ? this.right
+            : !this.right
+          : !this.right,
         debug: this.debug,
-        ellbow: info && info.pos && info.pos.ellbow,
+        ellbow: args.info && args.info.pos && args.info.pos.ellbow,
         hand: {
           length: handSY,
           width: handS,

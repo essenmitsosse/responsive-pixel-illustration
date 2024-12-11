@@ -1,17 +1,12 @@
 import { helper } from '@/renderengine/helper.js'
 
 function brothers() {
-  var help = helper,
-    getSmallerDim = help.getSmallerDim,
-    getBiggerDim = help.getBiggerDim,
-    mult = help.mult,
-    sub = help.sub,
-    shadowColor = [255, 255, 255],
-    shadow = help.darken(shadowColor, 0.7),
-    shadowSoft = help.darken(shadowColor, 0.9),
-    darkenColor = help.darken(shadowColor, 0.4),
-    lighten = help.lighten(shadowColor, 0.3),
-    lightenSoft = help.lighten(shadowColor, 0.1),
+  var shadowColor = [255, 255, 255],
+    shadow = helper.darken(shadowColor, 0.7),
+    shadowSoft = helper.darken(shadowColor, 0.9),
+    darkenColor = helper.darken(shadowColor, 0.4),
+    lighten = helper.lighten(shadowColor, 0.3),
+    lightenSoft = helper.lighten(shadowColor, 0.1),
     c3 = [0, 0, 255],
     zBackground = [200, 150, 255],
     zSkin = shadow(zBackground),
@@ -296,7 +291,7 @@ function brothers() {
           color: posei ? cloth : shadow(cloth),
           sX: { r: 2.5, useSize: 'headSY', save: 'torsoSX' },
           sY: {
-            add: ['oSY', sub('headSY'), sub('oHeadTop')],
+            add: ['oSY', helper.sub('headSY'), helper.sub('oHeadTop')],
             save: 'torsoSY',
           },
           fY: true,
@@ -326,7 +321,7 @@ function brothers() {
 
             {
               x: {
-                add: ['torsoSX', sub('headSX'), sub('headRight')],
+                add: ['torsoSX', helper.sub('headSX'), helper.sub('headRight')],
                 debug: true,
                 save: 'torsoLeft',
               },
@@ -348,7 +343,7 @@ function brothers() {
 
             {
               sX: ['borderSmall', 'headRight'],
-              x: sub('borderSmall'),
+              x: helper.sub('borderSmall'),
               fX: true,
               list: [
                 {
@@ -357,7 +352,7 @@ function brothers() {
                 },
                 {
                   fY: true,
-                  sY: { r: 1, add: [sub('oClotherDetail')] },
+                  sY: { r: 1, add: [helper.sub('oClotherDetail')] },
                   stripes: {
                     change: rightShoulder,
                     strip: 'oClotherDetail',
@@ -374,7 +369,7 @@ function brothers() {
         // TRI/DUODENT
         {
           color: skin,
-          sX: ['oSX', sub('headSX'), sub('headRight')],
+          sX: ['oSX', helper.sub('headSX'), helper.sub('headRight')],
           mX: { r: 0.1, useSize: 'oSY' },
           x: { r: -0.01 },
           minX: 5,
@@ -416,7 +411,7 @@ function brothers() {
           sY: { r: headRatio, useSize: 'headSX', save: 'headSY' },
           fX: true,
           x: {
-            add: [mult(0.3, 'oSX'), mult(-0.3, 'headSX')],
+            add: [helper.mult(0.3, 'oSX'), helper.mult(-0.3, 'headSX')],
             save: 'headRight',
           },
           y: 'oHeadTop',
@@ -711,13 +706,13 @@ function brothers() {
         { m: 'borderOutline', color: backgroundColor },
         {
           m: 'borderInner',
-          stripes: { strip: mult(2, 'strip'), overflow: true },
+          stripes: { strip: helper.mult(2, 'strip'), overflow: true },
           list: [
             { sX: 'strip', stripes: areaStrip },
             {
               sX: 'strip',
               y: 1,
-              sY: { r: 1, add: [sub('gap')] },
+              sY: { r: 1, add: [helper.sub('gap')] },
               stripes: areaStrip,
               fX: true,
             },
@@ -837,10 +832,10 @@ function brothers() {
 
               {
                 s: {
-                  add: [mult(0.5, 'zSX'), mult(-0.5, 'zHeadSX')],
-                  max: ['zSY', sub('zHeadBottom')],
+                  add: [helper.mult(0.5, 'zSX'), helper.mult(-0.5, 'zHeadSX')],
+                  max: ['zSY', helper.sub('zHeadBottom')],
                 },
-                m: mult(0.08, 'zSquare'),
+                m: helper.mult(0.08, 'zSquare'),
                 y: { r: -0.05 },
                 x: { r: -0.008 },
                 color: flash,
@@ -1077,7 +1072,7 @@ function brothers() {
               {
                 list: areaPiece('zeus'),
                 sX: 'zSX',
-                sY: ['motiveSY', sub('zSY'), sub('borderSmall')],
+                sY: ['motiveSY', helper.sub('zSY'), helper.sub('borderSmall')],
                 fY: true,
                 y: 'border',
                 cX: true,
@@ -1206,7 +1201,7 @@ function brothers() {
                 ],
               },
               {
-                sY: ['borderSmall', sub('switch')],
+                sY: ['borderSmall', helper.sub('switch')],
                 list: sideBorder,
               },
             ],
@@ -1292,7 +1287,7 @@ function brothers() {
           {
             sX: 'borderSmall',
             sY: {
-              add: ['oSY', sub('switch'), sub('switch2')],
+              add: ['oSY', helper.sub('switch'), helper.sub('switch2')],
               save: 'between',
             },
             fY: true,
@@ -1342,77 +1337,85 @@ function brothers() {
       fullRect: { r: 1, max: { r: 1, height: true } },
 
       // BORDER
-      border: mult(0.05, 'fullRect'),
-      borderSub: sub('border'),
-      borderSmall: mult(0.02, 'fullRect', 1),
-      borderSmallSub: sub('borderSmall'),
+      border: helper.mult(0.05, 'fullRect'),
+      borderSub: helper.sub('border'),
+      borderSmall: helper.mult(0.02, 'fullRect', 1),
+      borderSmallSub: helper.sub('borderSmall'),
 
       // MOTIVE
-      motiveSX: { add: [{ r: 1 }, mult(-2, 'border')] },
-      motiveSY: [{ r: 1, height: true }, mult(-2, 'border')],
+      motiveSX: { add: [{ r: 1 }, helper.mult(-2, 'border')] },
+      motiveSY: [{ r: 1, height: true }, helper.mult(-2, 'border')],
 
-      motiveSqu: getSmallerDim({
+      motiveSqu: helper.getSmallerDim({
         r: 1,
         useSize: ['motiveSX', 'motiveSY'],
       }),
-      motiveSquBigger: getBiggerDim({
+      motiveSquBigger: helper.getBiggerDim({
         r: 1,
         useSize: ['motiveSX', 'motiveSY'],
       }),
 
-      restSX: ['motiveSX', sub('motiveSqu')],
-      restSY: ['motiveSY', sub('motiveSqu')],
+      restSX: ['motiveSX', helper.sub('motiveSqu')],
+      restSY: ['motiveSY', helper.sub('motiveSqu')],
 
       restSXSuper: {
-        add: ['restSX', mult(-0.2, 'motiveSqu')],
+        add: ['restSX', helper.mult(-0.2, 'motiveSqu')],
         min: { a: 0 },
       },
-      switch: mult(1000, 'restSXSuper'),
+      switch: helper.mult(1000, 'restSXSuper'),
 
       restSYSuper: {
-        add: ['restSY', mult(-1.5, 'motiveSqu')],
+        add: ['restSY', helper.mult(-1.5, 'motiveSqu')],
         min: { a: 0 },
       },
-      switch2: mult(1000, 'restSYSuper'),
+      switch2: helper.mult(1000, 'restSYSuper'),
 
       // MAINFRAMES
       zMX: {
         a: 'switch',
-        max: [mult(0.32, 'motiveSX'), mult(-0.05, 'restSX')],
+        max: [helper.mult(0.32, 'motiveSX'), helper.mult(-0.05, 'restSX')],
       },
       zSYHor: {
-        add: [mult(0.6, 'motiveSY'), mult(0.5, 'restSX'), 'switch2'],
+        add: [
+          helper.mult(0.6, 'motiveSY'),
+          helper.mult(0.5, 'restSX'),
+          'switch2',
+        ],
         max: 'motiveSY',
       },
-      zSX: { add: ['motiveSX', mult(-2, 'zMX')] },
+      zSX: { add: ['motiveSX', helper.mult(-2, 'zMX')] },
       zSY: {
         a: 'switch',
         max: 'zSYHor',
         min: [
-          mult(0.5, 'motiveSY'),
-          mult(0.2, 'restSY'),
-          mult(-0.3, 'restSYSuper'),
+          helper.mult(0.5, 'motiveSY'),
+          helper.mult(0.2, 'restSY'),
+          helper.mult(-0.3, 'restSYSuper'),
         ],
       },
-      zSquare: getSmallerDim({ r: 1, useSize: ['zSX', 'zSY'] }),
-      zSquareBigger: getBiggerDim({ r: 1, useSize: ['zSX', 'zSY'] }),
+      zSquare: helper.getSmallerDim({ r: 1, useSize: ['zSX', 'zSY'] }),
+      zSquareBigger: helper.getBiggerDim({ r: 1, useSize: ['zSX', 'zSY'] }),
 
       oBothSX: {
         add: [
           'motiveSX',
           {
-            add: [sub('switch')],
-            min: [sub('zSX'), 'borderSmallSub'],
+            add: [helper.sub('switch')],
+            min: [helper.sub('zSX'), 'borderSmallSub'],
           },
           'borderSmallSub',
         ],
       },
       oSYHor: {
-        add: [mult(0.6, 'motiveSY'), mult(0.5, 'restSX'), 'switch2'],
+        add: [
+          helper.mult(0.6, 'motiveSY'),
+          helper.mult(0.5, 'restSX'),
+          'switch2',
+        ],
         max: 'motiveSY',
       },
       oSYboth: {
-        add: ['motiveSY', sub('zSY'), 'borderSmallSub', 'switch'],
+        add: ['motiveSY', helper.sub('zSY'), 'borderSmallSub', 'switch'],
         max: 'oSYHor',
       },
       oSYwithoutBorder: ['oSYboth', 'borderSmallSub'],
@@ -1424,35 +1427,35 @@ function brothers() {
         max: 'motiveSX',
       },
       oSY: {
-        add: [sub('switch2'), 'oSYboth'],
-        min: mult(0.5, 'oSYwithoutBorder'),
+        add: [helper.sub('switch2'), 'oSYboth'],
+        min: helper.mult(0.5, 'oSYwithoutBorder'),
         max: 'oSYboth',
       },
 
-      oSquare: getSmallerDim({ r: 1, useSize: ['oSX', 'oSY'] }),
-      oSquareBigger: getBiggerDim({ r: 1, useSize: ['oSX', 'oSY'] }),
+      oSquare: helper.getSmallerDim({ r: 1, useSize: ['oSX', 'oSY'] }),
+      oSquareBigger: helper.getBiggerDim({ r: 1, useSize: ['oSX', 'oSY'] }),
 
       centerBorder: { a: 'switch2', max: ['border', 'oSY'] },
       aboveOther: {
         a: 'switch',
-        max: ['motiveSY', sub('oSY'), sub('borderSmall')],
+        max: ['motiveSY', helper.sub('oSY'), helper.sub('borderSmall')],
       },
 
       // ZEUS
       // Head
-      zHeadSX: getSmallerDim({
+      zHeadSX: helper.getSmallerDim({
         r: 0.8,
         r2: 0.6 / headRatio,
         useSize: ['zSX', 'zSY'],
       }),
-      zHeadSY: mult(headRatio, 'zHeadSX'),
-      zHeadRestSX: ['zSY', sub('zHeadSY')],
-      zHeadTop: [mult(0.2, 'zHeadRestSX')],
-      zHeadBottom: ['zSY', sub('zHeadSY'), sub('zHeadTop')],
+      zHeadSY: helper.mult(headRatio, 'zHeadSX'),
+      zHeadRestSX: ['zSY', helper.sub('zHeadSY')],
+      zHeadTop: [helper.mult(0.2, 'zHeadRestSX')],
+      zHeadBottom: ['zSY', helper.sub('zHeadSY'), helper.sub('zHeadTop')],
 
       // OTHERS
       // Head
-      oHeadTop: mult(0.1, 'oSquare'),
+      oHeadTop: helper.mult(0.1, 'oSquare'),
       beardDetail: 2,
       beardSmallDetail: 1,
 
@@ -1469,8 +1472,12 @@ function brothers() {
       borderOutline: 1,
       borderGap: 1,
       borderInner: ['borderMargin', 'borderOutline'],
-      borderInlineBoth: ['border', mult(-2, 'borderInner'), sub('borderGap')],
-      borderInline: mult(0.5, 'borderInlineBoth'),
+      borderInlineBoth: [
+        'border',
+        helper.mult(-2, 'borderInner'),
+        helper.sub('borderGap'),
+      ],
+      borderInline: helper.mult(0.5, 'borderInlineBoth'),
       strip: { add: ['borderInline', 1], min: 1 },
       gap: { add: ['borderInline', -1], min: 1 },
       detail: ['strip', -3],
@@ -1480,8 +1487,8 @@ function brothers() {
       borderSmallInner: ['borderSmallMargin', 'borderSmallOutline'],
       borderSmallInline: [
         'borderSmall',
-        sub('borderSmallInner'),
-        sub('borderSmallMargin'),
+        helper.sub('borderSmallInner'),
+        helper.sub('borderSmallMargin'),
       ],
     }
 

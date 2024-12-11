@@ -1,18 +1,13 @@
 import { helper } from '@/renderengine/helper.js'
 
 function landscape() {
-  var help = helper,
-    getSmallerDim = help.getSmallerDim,
-    mult = help.mult,
-    sub = help.sub,
-    ranInt = help.getRandomInt,
-    backgroundColor = [0, 0, 0],
-    colorNr = ranInt(4),
-    dayNight = ranInt(2),
-    sunPos = ranInt(2),
-    mountains = ranInt(2),
-    clouds = ranInt(2),
-    tree = ranInt(2),
+  var backgroundColor = [0, 0, 0],
+    colorNr = helper.getRandomInt(4),
+    dayNight = helper.getRandomInt(2),
+    sunPos = helper.getRandomInt(2),
+    mountains = helper.getRandomInt(2),
+    clouds = helper.getRandomInt(2),
+    tree = helper.getRandomInt(2),
     colorScheme = [
       [
         [255, 255, 255],
@@ -145,10 +140,10 @@ function landscape() {
 
       borderS: { r: 0.03, a: 1, useSize: 'squ', min: 1 },
 
-      imgSX: ['width', mult(-2, 'borderS')],
-      imgSY: ['height', mult(-2, 'borderS')],
+      imgSX: ['width', helper.mult(-2, 'borderS')],
+      imgSY: ['height', helper.mult(-2, 'borderS')],
 
-      imgSqu: getSmallerDim({ r: 1, useSize: ['imgSX', 'imgSY'] }),
+      imgSqu: helper.getSmallerDim({ r: 1, useSize: ['imgSX', 'imgSY'] }),
 
       horizontSY: {
         r: [0.1, 0.25, 0.5, 0.7][sunPos + clouds],
@@ -156,12 +151,12 @@ function landscape() {
       },
       mountainSY: { r: [0, 0.6][mountains], useSize: 'imgSqu' },
 
-      skySY: ['imgSY', sub('horizontSY')],
-      skyMountainSY: ['skySY', mult(-0.5, 'mountainSY')],
+      skySY: ['imgSY', helper.sub('horizontSY')],
+      skyMountainSY: ['skySY', helper.mult(-0.5, 'mountainSY')],
 
       sunPosX: { r: [0.2, 0.6][sunPos] },
       sunPosY: { r: [0.1, 0.5][sunPos], useSize: 'skyMountainSY' },
-      sunS: mult(0.15, 'imgSqu'),
+      sunS: helper.mult(0.15, 'imgSqu'),
     }
 
   // ( function ( maxChance, count, variations ) {

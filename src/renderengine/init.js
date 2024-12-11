@@ -9,10 +9,9 @@ export const InitPixel = function (args) {
     currentSlide = !forceName && slides[queryString.slide || 0],
     imageName = forceName || currentSlide.name || 'tantalos',
     sliders = queryString.sliders || currentSlide.sliders,
-    div = args.div,
     /** Change for multiple Canvases */
     canvasDataList = false,
-    canvasRenderer = this.createSingleCanvas(canvasDataList, div),
+    canvasRenderer = this.createSingleCanvas(canvasDataList, args.div),
     callback,
     body = document.getElementsByTagName('body')[0]
 
@@ -318,21 +317,19 @@ InitPixel.prototype.refresh = function (event) {
 }
 
 InitPixel.prototype.nextSlide = function (next) {
-  var slide = this.queryString.slide
-
-  if (!slide) {
-    slide = 0
+  if (!this.queryString.slide) {
+    this.queryString.slide = 0
   }
 
-  slide = slide * 1 + (next ? 1 : -1)
+  this.queryString.slide = this.queryString.slide * 1 + (next ? 1 : -1)
 
-  if (slide > this.slides.length - 1) {
-    slide = this.slides.length - 1
-  } else if (slide < 0) {
-    slide = 0
+  if (this.queryString.slide > this.slides.length - 1) {
+    this.queryString.slide = this.slides.length - 1
+  } else if (this.queryString.slide < 0) {
+    this.queryString.slide = 0
   }
 
-  this.changeForceRedraw({ slide })
+  this.changeForceRedraw({ slide: this.queryString.slide })
 }
 
 InitPixel.prototype.getNewId = function (id) {
@@ -409,32 +406,30 @@ InitPixel.prototype.getShortcuts = function (q) {
   var that = this
 
   return function (event) {
-    var keyCode = event.keyCode
-
     if (event.ctrlKey) {
-      if (keyCode === 82) {
+      if (event.keyCode === 82) {
         // CTRL + R // new id
         that.getNewId()
-      } else if (keyCode === 83) {
+      } else if (event.keyCode === 83) {
         // CTRL + S // toggle scalability
         that.toggleResizability()
-      } else if (keyCode === 70) {
+      } else if (event.keyCode === 70) {
         // CTRL + F // make Fullscreen
 
         that.makeFullScreen()
-      } else if (keyCode === 67) {
+      } else if (event.keyCode === 67) {
         // CTRL + C // toggle Color sheme
 
         q.cs = q.cs !== true ? true : undefined
 
         that.refresh()
-      } else if (keyCode === 68) {
+      } else if (event.keyCode === 68) {
         // CTRL + D // toggle debugging
 
         q.debug = q.debug !== true ? true : undefined
 
         that.refresh()
-      } else if (keyCode === 187) {
+      } else if (event.keyCode === 187) {
         // CTRL + "+" // zoom In
         if (!q.p) {
           q.p = 5
@@ -443,7 +438,7 @@ InitPixel.prototype.getShortcuts = function (q) {
         q.p = q.p * 1 + 1
 
         that.refresh()
-      } else if (keyCode === 189) {
+      } else if (event.keyCode === 189) {
         // CTRL + "-" // zoom Out
         if (!q.p) {
           q.p = 5
@@ -458,7 +453,7 @@ InitPixel.prototype.getShortcuts = function (q) {
         that.refresh()
       }
     } else if (event.altKey) {
-      if (keyCode === 38) {
+      if (event.keyCode === 38) {
         // Arrow Keys Up/Down // Add Rows
         if (!q.panels) {
           q.panels = 1
@@ -467,7 +462,7 @@ InitPixel.prototype.getShortcuts = function (q) {
         q.panels = q.panels * 1 + 1
 
         that.refresh()
-      } else if (keyCode === 40) {
+      } else if (event.keyCode === 40) {
         if (!q.panels) {
           q.panels = 1
         }
@@ -479,10 +474,10 @@ InitPixel.prototype.getShortcuts = function (q) {
         }
 
         that.refresh()
-      } else if (keyCode === 39) {
+      } else if (event.keyCode === 39) {
         // Arrow Keys Left/Right // Next / Prev Image
         that.nextSlide(true)
-      } else if (keyCode === 37) {
+      } else if (event.keyCode === 37) {
         that.nextSlide(false)
       }
     }

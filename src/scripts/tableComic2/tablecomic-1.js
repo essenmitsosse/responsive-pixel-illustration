@@ -1,10 +1,9 @@
 // BEGINN getStrip /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const getFace = function () {
   var backgroundColor = [0, 0, 0],
-    basic = this.basic,
     that = this,
     getPanel = function () {
-      var actor = new basic.Actor({
+      var actor = new this.basic.Actor({
           color: [that.rInt(0, 255), that.rInt(0, 255), that.rInt(0, 255)],
         }),
         pupilS = { map: 'c', min: 0.5, max: 0.8 },
@@ -17,10 +16,10 @@ export const getFace = function () {
         },
         list: [
           {
-            what: new basic.Stage(),
+            what: new this.basic.Stage(),
           },
           {
-            what: new basic.Head({
+            what: new this.basic.Head({
               actor,
               baseSX_: 1,
               noHat: true,
@@ -77,7 +76,6 @@ export const getFace = function () {
 export const getStrip = function getStrip() {
   var stripInfo = new this.getStripInfo(),
     basicPanels = stripInfo.panels,
-    length = basicPanels.length,
     count = 0,
     currentPanel,
     finalPanels = [],
@@ -87,7 +85,7 @@ export const getStrip = function getStrip() {
       stripInfo.inventory,
     )
 
-  while (count < length) {
+  while (count < basicPanels.length) {
     currentPanel = basicPanels[count]
 
     if (currentPanel.draw === 'faceDraw') {

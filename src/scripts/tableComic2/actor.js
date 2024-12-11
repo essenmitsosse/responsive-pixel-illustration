@@ -80,9 +80,7 @@ Actor.prototype.getSizeFromHead = function (args) {
   var mapper = this.headScaling,
     map,
     min,
-    change,
-    ratio = this.ratio,
-    headSY_ = this.headSY_
+    change
 
   // calculates this.sX & this.headSY
   this.getSizeWithRatio({
@@ -90,11 +88,11 @@ Actor.prototype.getSizeFromHead = function (args) {
     sY: args.stageSY,
     sXName: 'sX',
     sYName: 'headSY',
-    ratio: ratio / headSY_,
+    ratio: this.ratio / this.headSY_,
   })
 
   this.bodySY = this.pushLinkList({
-    r: (1 - headSY_) / headSY_,
+    r: (1 - this.headSY_) / this.headSY_,
     useSize: this.headSY,
   })
 
@@ -111,7 +109,7 @@ Actor.prototype.getSizeFromHead = function (args) {
       this.sX,
       function (args) {
         if (args[map] !== undefined) {
-          return ratio / (headSY_ * (args[map] * change + min))
+          return this.ratio / (this.headSY_ * (args[map] * change + min))
         }
       },
     ])
@@ -120,7 +118,7 @@ Actor.prototype.getSizeFromHead = function (args) {
       this.headSY,
       function (args) {
         if (args[map] !== undefined) {
-          return (headSY_ * (args[map] * change + min)) / ratio
+          return (this.headSY_ * (args[map] * change + min)) / this.ratio
         }
       },
     ])
@@ -131,7 +129,7 @@ Actor.prototype.getSizeFromHead = function (args) {
         var headSY
 
         if (args[map] !== undefined) {
-          headSY = headSY_ * (args[map] * change + min)
+          headSY = this.headSY_ * (args[map] * change + min)
 
           return (1 - headSY) / headSY
         }
@@ -220,7 +218,7 @@ Actor.prototype.getFocus = function (zoomSX, zoomSY, focus) {
 }
 
 Actor.prototype.draw = function (args) {
-  var info = args.info
+  var { info } = args
 
   this.zoomToHead = info.zoomToHead
 

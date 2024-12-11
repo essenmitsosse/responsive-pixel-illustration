@@ -1,14 +1,9 @@
 import { helper } from '@/renderengine/helper.js'
 
 function sparta() {
-  var help = helper,
-    getSmallerDim = help.getSmallerDim,
-    getBiggerDim = help.getBiggerDim,
-    mult = help.mult,
-    sub = help.sub,
-    shadowColor = [255, 255, 255],
-    shadow = help.darken(shadowColor, 0.5),
-    detail = help.darken(shadowColor, 0.2),
+  var shadowColor = [255, 255, 255],
+    shadow = helper.darken(shadowColor, 0.5),
+    detail = helper.darken(shadowColor, 0.2),
     backgroundColor = [60, 60, 60],
     water = [36, 44, 53],
     skin = [227, 200, 190],
@@ -16,7 +11,7 @@ function sparta() {
     skinShadow = shadow(skin),
     leftHalf = [
       {
-        sY: { r: 1, add: [sub('headHeight'), sub('legs'), -1] },
+        sY: { r: 1, add: [helper.sub('headHeight'), helper.sub('legs'), -1] },
         y: ['legs'],
         sX: {
           r: 0.6,
@@ -179,7 +174,7 @@ function sparta() {
             sY: 2,
             y: -1,
             cX: true,
-            sX: [mult(2, 'armWidth'), mult(2, 'torsoWidth')],
+            sX: [helper.mult(2, 'armWidth'), helper.mult(2, 'torsoWidth')],
             fY: true,
           },
           { sX: { r: 0.5 }, rX: true, list: leftHalf },
@@ -237,18 +232,18 @@ function sparta() {
       },
     ],
     variableList = {
-      border: getSmallerDim({ r: 0.05 }),
-      imgWidth: [{ r: 1 }, mult(-2, 'border')],
-      imgHeight: [{ r: 1, height: true }, mult(-2, 'border')],
-      imgSquare: getSmallerDim({
+      border: helper.getSmallerDim({ r: 0.05 }),
+      imgWidth: [{ r: 1 }, helper.mult(-2, 'border')],
+      imgHeight: [{ r: 1, height: true }, helper.mult(-2, 'border')],
+      imgSquare: helper.getSmallerDim({
         r: 1,
         useSize: ['imgWidth', 'imgHeight'],
       }),
-      imgSquareBigger: getBiggerDim({
+      imgSquareBigger: helper.getBiggerDim({
         r: 1,
         useSize: ['imgWidth', 'imgHeight'],
       }),
-      eyeSize: mult(0.002, 'imgSquareBigger', 1),
+      eyeSize: helper.mult(0.002, 'imgSquareBigger', 1),
       mouthHeight: 'eyeSize',
     }
 

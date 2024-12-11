@@ -1,4 +1,4 @@
-import { helper as helperGlobal } from '@/renderengine/helper.js'
+import { helper } from '@/renderengine/helper.js'
 
 import { Object } from './object.js'
 import { Arm, Shield, ShoulderPad, Sword, Tool } from './person-arm.js'
@@ -29,13 +29,7 @@ import {
 import { TreeFamily, Forrest, Tree } from './tree.js'
 
 export const Builder = function (init) {
-  var helper = (this.helper = helperGlobal),
-    getSmallerDim = helper.getSmallerDim,
-    getBiggerDim = helper.getBiggerDim,
-    mult = helper.mult,
-    sub = helper.sub,
-    margin = helper.margin,
-    initID = init.id ? init.id : Math.floor(Math.random() * 4294967296),
+  var initID = init.id ? init.id : Math.floor(Math.random() * 4294967296),
     random = helper.random(initID),
     linkList = [],
     hover = helper.getHoverChangers(),
@@ -45,15 +39,17 @@ export const Builder = function (init) {
       return obj
     }
 
-  this.getSmallerDim = getSmallerDim
+  this.helper = helper
 
-  this.getBiggerDim = getBiggerDim
+  this.getSmallerDim = helper.getSmallerDim
 
-  this.mult = mult
+  this.getBiggerDim = helper.getBiggerDim
 
-  this.sub = sub
+  this.mult = helper.mult
 
-  this.margin = margin
+  this.sub = helper.sub
+
+  this.margin = helper.margin
 
   this.IF = random.getIf
 
@@ -137,8 +133,7 @@ const buildColors = function (info) {
             0.068 * Math.pow(b, 2),
         ),
         rgb = [r, g, b],
-        steps = info.steps,
-        maxBr = 255 / steps,
+        maxBr = 255 / info.steps,
         startPos = Math.floor(br / maxBr),
         colorRange = [],
         i,
@@ -160,7 +155,7 @@ const buildColors = function (info) {
       }
 
       // LIGHTER COLORS
-      i = steps - startPos - 1
+      i = info.steps - startPos - 1
 
       fak = 1 / (i + 1)
 

@@ -1,6 +1,4 @@
 export const Admin = function (args) {
-  var body = args.body
-
   this.pixel = args.pixel
 
   this.getClicker = this.getClickerGetter(this.pixel)
@@ -10,7 +8,10 @@ export const Admin = function (args) {
   this.admin = args.admin
 
   // Setup Basic Showcase/Admin Layout
-  body.setAttribute('class', (body.getAttribute('class') || '') + ' showcase')
+  args.body.setAttribute(
+    'class',
+    (args.body.getAttribute('class') || '') + ' showcase',
+  )
 
   this.mainAdmin = document.createElement('div')
 
@@ -36,7 +37,7 @@ export const Admin = function (args) {
 
   this.setupSlider()
 
-  body.appendChild(this.mainAdmin)
+  args.body.appendChild(this.mainAdmin)
 
   this.mainAdmin.setAttribute('id', 'mainAdmin')
 }
@@ -186,18 +187,14 @@ Admin.prototype.setupSlider = function () {
 }
 
 Admin.prototype.getSliderControlGetter = function () {
-  var pixel = this.pixel,
-    lastSliderParent,
-    lastValueName
+  var lastSliderParent,
+    lastValueName,
+    that = this
 
   return {
     slider: function getSliderControl(slider, span, args) {
       var value,
-        parentNode = slider.parentNode.parentNode,
-        valueName = args.valueName,
-        min = args.input.min,
-        max = args.input.max,
-        diff = max - min,
+        diff = args.input.max - args.input.min,
         outputMap = args.output || { min: 0, max: 1 },
         outputMin = outputMap.min,
         outputFactor = (outputMap.max - outputMin) / diff,
@@ -206,7 +203,7 @@ Admin.prototype.getSliderControlGetter = function () {
 
           span.setAttribute(
             'style',
-            'left: ' + (((value - min) / diff) * 100 - 10) + '%;',
+            'left: ' + (((value - args.input.min) / diff) * 100 - 10) + '%;',
           )
         },
         update = function (setValue, single) {
@@ -215,16 +212,17 @@ Admin.prototype.getSliderControlGetter = function () {
           // If update is received with a sepcific value (e.g. from server), than just update the visual slider
           if (typeof setValue === 'number') {
             // obj[ valueName ] = setValue;
-            value = slider.value = (setValue - outputMin) / outputFactor + min
+            value = slider.value =
+              (setValue - outputMin) / outputFactor + args.input.min
 
             if (single) {
-              if (lastValueName !== valueName && lastSliderParent) {
+              if (lastValueName !== args.valueName && lastSliderParent) {
                 lastSliderParent.setAttribute('style', '')
               }
 
-              lastValueName = valueName
+              lastValueName = args.valueName
 
-              lastSliderParent = parentNode
+              lastSliderParent = slider.parentNode.parentNode
             }
 
             updateInfoSpan()
@@ -237,9 +235,10 @@ Admin.prototype.getSliderControlGetter = function () {
 
             updateInfoSpan()
 
-            obj[valueName] = (value - min) * outputFactor + outputMin
+            obj[args.valueName] =
+              (value - args.input.min) * outputFactor + outputMin
 
-            pixel.sliderChange(obj)
+            that.pixel.sliderChange(obj)
           }
         }
 
@@ -254,7 +253,6 @@ Admin.prototype.getSliderControlGetter = function () {
 
     number: function getButtonControl(number, args) {
       var value,
-        valueName = args.valueName,
         update = function (setValue, dontForce) {
           var obj = {}
 
@@ -263,12 +261,12 @@ Admin.prototype.getSliderControlGetter = function () {
           } else if (value !== number.value * 1) {
             value = number.value * 1
 
-            obj[valueName] = value
+            obj[args.valueName] = value
 
             if (!dontForce && args.forceRedraw) {
-              pixel.changeForceRedraw(obj)
+              that.pixel.changeForceRedraw(obj)
             } else {
-              pixel.sliderChange(obj)
+              that.pixel.sliderChange(obj)
             }
           }
         }
@@ -316,7 +314,7 @@ Admin.prototype.setupBasicControls = function (hasRandom) {
 }
 
 Admin.prototype.getButtonCreater = function (div) {
-  var pixel = this.pixel
+  var that = this
 
   return function createButton(args) {
     var button = div.addMessage(
@@ -326,11 +324,11 @@ Admin.prototype.getButtonCreater = function (div) {
         return function () {
           pixel[args.functionName](args.args)
         }
-      })(pixel),
+      })(that.pixel),
     )
 
     if (args.callback) {
-      pixel[args.callback](button)
+      that.pixel[args.callback](button)
     }
   }
 }

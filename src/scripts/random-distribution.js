@@ -1,10 +1,7 @@
 import { helper } from '@/renderengine/helper.js'
 
 function randomDistribution(init) {
-  var help = helper,
-    random = help.random(init.id),
-    rInt = random.getRandom,
-    rFl = random.getRandomFloat,
+  var random = helper.random(init.id),
     backgroundColor = [0, 0, 0],
     width = { main: true },
     height = { main: true, height: true },
@@ -13,17 +10,17 @@ function randomDistribution(init) {
     linkList = [width, height, square, biggerSquare],
     renderList,
     backgroundGrid = true,
-    minSize = rFl(0, 0.8),
-    maxSize = rFl(minSize, 1),
-    minR = rInt(0, 200),
-    maxR = rInt(minR, 255),
-    minG = rInt(0, 200),
-    maxG = rInt(minG, 255),
-    minB = rInt(0, 200),
-    maxB = rInt(minB, 255)
+    minSize = random.getRandomFloat(0, 0.8),
+    maxSize = random.getRandomFloat(minSize, 1),
+    minR = random.getRandom(0, 200),
+    maxR = random.getRandom(minR, 255),
+    minG = random.getRandom(0, 200),
+    maxG = random.getRandom(minG, 255),
+    minB = random.getRandom(0, 200),
+    maxB = random.getRandom(minB, 255)
 
   renderList = (function () {
-    var count = rInt(5, 20),
+    var count = random.getRandom(5, 20),
       s_ = 1 / (count - 1),
       row = count,
       col,
@@ -34,7 +31,7 @@ function randomDistribution(init) {
 
         linkList.push(
           (innerS = {
-            r: rFl(minSize, maxSize),
+            r: random.getRandomFloat(minSize, maxSize),
             useSize: s,
             odd: true,
             test: true,
@@ -43,7 +40,11 @@ function randomDistribution(init) {
 
         list.push({
           s: [s, -1],
-          color: [rFl(minR, maxR), rFl(minG, maxG), rFl(minB, maxB)],
+          color: [
+            random.getRandomFloat(minR, maxR),
+            random.getRandomFloat(minG, maxG),
+            random.getRandomFloat(minB, maxB),
+          ],
           x: { r: row, useSize: s },
           y: { r: col, useSize: s },
           list: [

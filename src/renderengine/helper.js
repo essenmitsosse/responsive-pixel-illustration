@@ -148,7 +148,6 @@ export const helper = new (function () {
       changersRelativeCustomList = [],
       changersColorStandardList = [],
       changersCustomList = [],
-      setValue = that.setValue,
       pushRelativeStandard = function (min, max, map, variable) {
         changersRelativeStandardList.push({
           change: max - min,
@@ -158,22 +157,19 @@ export const helper = new (function () {
         })
       },
       changeColor = function (value, map) {
-        var maxColor = map.max,
-          minColor = map.min,
-          maxR = maxColor[0],
-          maxG = maxColor[1],
-          maxB = maxColor[2],
-          minR = minColor[0],
-          minG = minColor[1],
-          minB = minColor[2],
-          color = map.color,
+        var maxR = map.max[0],
+          maxG = map.max[1],
+          maxB = map.max[2],
+          minR = map.min[0],
+          minG = map.min[1],
+          minB = map.min[2],
           valueNeg = 1 - value
 
-        color[0] = minR * valueNeg + maxR * value
+        map.color[0] = minR * valueNeg + maxR * value
 
-        color[1] = minG * valueNeg + maxG * value
+        map.color[1] = minG * valueNeg + maxG * value
 
-        color[2] = minB * valueNeg + maxB * value
+        map.color[2] = minB * valueNeg + maxB * value
       }
 
     return {
@@ -241,7 +237,7 @@ export const helper = new (function () {
               current = changersRelativeStandard[l]
 
               if (args[current.map] !== undefined) {
-                setValue(
+                that.setValue(
                   current.variable,
                   current.min + current.change * args[current.map],
                 )
@@ -255,7 +251,7 @@ export const helper = new (function () {
               current = changersRelativeCustom[l]
 
               if ((currentValue = current[1](args)) !== undefined) {
-                setValue(current[0], currentValue)
+                that.setValue(current[0], currentValue)
               }
             }
           }
@@ -283,7 +279,7 @@ export const helper = new (function () {
       },
 
       ready() {
-        setValue = that.setValueNew
+        that.setValue = that.setValueNew
       },
     }
   }

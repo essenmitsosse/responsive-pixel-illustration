@@ -3,7 +3,7 @@ export const Renderer = function (canvas, info, options, pixelStarter) {
   var context = canvas.getContext('2d'),
     virtualCanvas = document.createElement('canvas'),
     virtaulContext = virtualCanvas.getContext('2d'),
-    pixelSize = options.pixelSize,
+    { pixelSize } = options,
     w,
     h,
     drawer = this.getDrawer(pixelStarter, options.imageFunction.renderList),
@@ -86,7 +86,7 @@ Renderer.prototype.Color = function () {
 
 Renderer.prototype.Color.prototype.draw = function (c, zInd, id) {
   var i = this.s.length - 1,
-    s = this.s,
+    { s } = this,
     oldZInd
 
   if (i === -1 || (oldZInd = s[i].zInd) < zInd) {
@@ -105,17 +105,14 @@ Renderer.prototype.Color.prototype.draw = function (c, zInd, id) {
 }
 
 Renderer.prototype.Color.prototype.clear = function (id) {
-  var s = this.s
-
-  while (s.length > 0 && s[s.length - 1].id === id) {
+  while (this.s.length > 0 && this.s[this.s.length - 1].id === id) {
     this.s.pop()
   }
 }
 
 Renderer.prototype.getPixelArray = function (width, height) {
   var countH,
-    colorArray = [],
-    Color = this.Color
+    colorArray = []
 
   while (width--) {
     countH = height
@@ -123,7 +120,7 @@ Renderer.prototype.getPixelArray = function (width, height) {
     colorArray[width] = []
 
     while (countH--) {
-      colorArray[width][countH] = new Color()
+      colorArray[width][countH] = new this.Color()
     }
   }
 
@@ -211,15 +208,13 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
       var pA = pixelArray
 
       return function (args) {
-        var posX = args.posX,
-          posY = args.posY,
-          endX = args.width + posX,
-          endY = args.height + posY,
+        var endX = args.width + args.posX,
+          endY = args.height + args.posY,
           sizeX = endX > maxX ? maxX : endX,
           sizeY,
           sizeY_start = endY > maxY ? maxY : endY,
-          startX = posX < minX ? minX : posX,
-          startY = posY < minY ? minY : posY,
+          startX = args.posX < minX ? minX : args.posX,
+          startY = args.posY < minY ? minY : args.posY,
           row
 
         while ((sizeX -= 1) >= startX) {

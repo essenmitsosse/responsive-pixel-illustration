@@ -1,7 +1,6 @@
 // BEGINN Strip /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const Strip = function (args) {
-  var stripInfo = args.stripInfo,
-    panelsInfo = stripInfo.panels,
+  var panelsInfo = args.stripInfo.panels,
     count = panelsInfo.length,
     countSqrt = Math.sqrt(count),
     i = 0,
@@ -25,8 +24,8 @@ export const Strip = function (args) {
       r: 1,
       useSize: gutterBase,
     })),
-    basicPanel = stripInfo.basicPanel || new this.basic.Panel(stripInfo),
-    paperColor = args.paperColor,
+    basicPanel =
+      args.stripInfo.basicPanel || new this.basic.Panel(args.stripInfo),
     imgRatio = { ratio: 1.5 }
 
   this.pushRelativeStandardAutomatic({
@@ -73,33 +72,35 @@ export const Strip = function (args) {
 
     // Rounded Border
     if (
-      stripInfo.roundCorners ||
-      stripInfo.roundTopCorners ||
-      stripInfo.roundBottomCorners
+      args.stripInfo.roundCorners ||
+      args.stripInfo.roundTopCorners ||
+      args.stripInfo.roundBottomCorners
     ) {
       current.list.push({
         minX: 6,
         minY: 6,
         list: [
-          (stripInfo.roundCorners || stripInfo.roundTopCorners) && {
+          (args.stripInfo.roundCorners || args.stripInfo.roundTopCorners) && {
             name: 'Dot',
-            color: paperColor,
+            color: args.paperColor,
           },
-          (stripInfo.roundCorners || stripInfo.roundTopCorners) && {
+          (args.stripInfo.roundCorners || args.stripInfo.roundTopCorners) && {
             name: 'Dot',
             fX: true,
-            color: paperColor,
+            color: args.paperColor,
           },
-          (stripInfo.roundCorners || stripInfo.roundBottomCorners) && {
+          (args.stripInfo.roundCorners ||
+            args.stripInfo.roundBottomCorners) && {
             name: 'Dot',
             fY: true,
-            color: paperColor,
+            color: args.paperColor,
           },
-          (stripInfo.roundCorners || stripInfo.roundBottomCorners) && {
+          (args.stripInfo.roundCorners ||
+            args.stripInfo.roundBottomCorners) && {
             name: 'Dot',
             fX: true,
             fY: true,
-            color: paperColor,
+            color: args.paperColor,
           },
         ],
       })

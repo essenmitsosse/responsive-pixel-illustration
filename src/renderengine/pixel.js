@@ -6,13 +6,12 @@ export const getPixelUnits = function () {
     calculateList,
     oneD = (function () {
       var createSize = function (args) {
-          return args === undefined
-            ? 0
-            : args.height
-              ? new Height(args)
-              : new Width(args)
-        },
-        M = Math
+        return args === undefined
+          ? 0
+          : args.height
+            ? new Height(args)
+            : new Width(args)
+      }
 
       function Dimension() {}
 
@@ -218,10 +217,8 @@ export const getPixelUnits = function () {
       }
 
       Dimension.prototype.getReal = (function () {
-        var round = M.round
-
         return function () {
-          return round(this.realPartCalculation())
+          return Math.round(this.realPartCalculation())
         }
       })()
 
@@ -248,11 +245,10 @@ export const getPixelUnits = function () {
 
       Dimension.prototype.getRealDistanceWithCalc = function () {
         var add = 0,
-          adder = this.adder,
-          l = adder.length
+          l = this.adder.length
 
         while (l--) {
-          add += adder[l].getReal()
+          add += this.adder[l].getReal()
         }
 
         return this.getRealDistanceBasic() + add
@@ -260,11 +256,10 @@ export const getPixelUnits = function () {
 
       Dimension.prototype.getRealDistanceWithCalcOnlyAdding = function () {
         var add = 0,
-          adder = this.adder,
-          l = adder.length
+          l = this.adder.length
 
         while (l--) {
-          add += adder[l].getReal()
+          add += this.adder[l].getReal()
         }
 
         return add
@@ -360,39 +355,30 @@ export const getPixelUnits = function () {
         DistanceX,
         DistanceY,
         set(dimensions) {
-          var r = Math.round,
-            x = dimensions.posX || 0,
+          var x = dimensions.posX || 0,
             y = dimensions.posY || 0,
-            w = dimensions.width,
-            h = dimensions.height,
             getRealPos = function (add) {
-              var round = r
-
               return add
                 ? function () {
-                    return round(this.realPartCalculation() + add)
+                    return Math.round(this.realPartCalculation() + add)
                   }
                 : function () {
-                    return round(this.realPartCalculation())
+                    return Math.round(this.realPartCalculation())
                   }
             },
             getFromOtherSide = function (add) {
-              var round = r,
-                width = w,
-                height = h
-
               return add
                 ? function (size) {
                     return (
-                      (this.axis ? width : height) +
+                      (this.axis ? dimensions.width : dimensions.height) +
                       add -
-                      round(this.realPartCalculation() + size)
+                      Math.round(this.realPartCalculation() + size)
                     )
                   }
                 : function (size) {
                     return (
-                      (this.axis ? width : height) -
-                      round(this.realPartCalculation() + size)
+                      (this.axis ? dimensions.width : dimensions.height) -
+                      Math.round(this.realPartCalculation() + size)
                     )
                   }
             }
@@ -405,9 +391,9 @@ export const getPixelUnits = function () {
 
           DistanceY.prototype.fromOtherSide = getFromOtherSide(y)
 
-          Dimension.prototype.width = w
+          Dimension.prototype.width = dimensions.width
 
-          Dimension.prototype.height = h
+          Dimension.prototype.height = dimensions.height
         },
       }
     })(),

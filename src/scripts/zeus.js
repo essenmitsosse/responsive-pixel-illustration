@@ -1,15 +1,10 @@
 import { helper } from '@/renderengine/helper.js'
 
 function zeus() {
-  var help = helper,
-    getSmallerDim = help.getSmallerDim,
-    getBiggerDim = help.getBiggerDim,
-    mult = help.mult,
-    sub = help.sub,
-    zero = { a: 0 },
+  var zero = { a: 0 },
     shadowColor = [255, 255, 255],
-    shadow = help.darken(shadowColor, 0.7),
-    detail = help.darken(shadowColor, 0.4),
+    shadow = helper.darken(shadowColor, 0.7),
+    detail = helper.darken(shadowColor, 0.4),
     eyes = [182, 0, 234],
     frame = shadow(eyes),
     red = [255, 0, 0],
@@ -37,7 +32,12 @@ function zeus() {
         sX: 'arm',
         y: ['bicepsPos', 'biceps', 2],
         sY: {
-          add: [{ r: 1, otherDim: true }, sub('bicepsPos'), sub('biceps'), -2],
+          add: [
+            { r: 1, otherDim: true },
+            helper.sub('bicepsPos'),
+            helper.sub('biceps'),
+            -2,
+          ],
           save: 'forearm',
         },
         mX: { r: -0.015, useSize: 'restSYSuper', min: -1 },
@@ -60,7 +60,7 @@ function zeus() {
         color: hair,
         sX: { r: 1, a: 2 },
         x: -1,
-        sY: mult(0.05, 'restSY', -1),
+        sY: helper.mult(0.05, 'restSY', -1),
       },
       {
         sX: { r: 1, a: -1, min: 1 },
@@ -81,7 +81,7 @@ function zeus() {
         sX: {
           r: 0.5,
           a: -2,
-          add: [mult(0.01, 'restSYSuper')],
+          add: [helper.mult(0.01, 'restSYSuper')],
           max: { r: 0.5 },
         },
         x: 1,
@@ -94,7 +94,7 @@ function zeus() {
                   change: {
                     r: 0.1,
                     useSize: 'restSYSuper',
-                    max: mult(0.1, 'headSY'),
+                    max: helper.mult(0.1, 'headSY'),
                   },
                 },
                 fY: true,
@@ -198,7 +198,7 @@ function zeus() {
                 save: 'background',
                 fY: true,
                 sY: [{ r: 1, height: true }, 'imgPadding'],
-                mX: sub('imgPadding'),
+                mX: helper.sub('imgPadding'),
               },
 
               {
@@ -257,7 +257,7 @@ function zeus() {
                                     clear: true,
                                     fY: true,
                                     fX: true,
-                                    x: ['halfPeriod', sub('snake')],
+                                    x: ['halfPeriod', helper.sub('snake')],
                                   },
 
                                   {
@@ -334,13 +334,16 @@ function zeus() {
                             color: zeusShadow,
                             sY: {
                               add: [
-                                mult(0.2, 'restSX'),
-                                mult(-0.6, 'restSXMega'),
+                                helper.mult(0.2, 'restSX'),
+                                helper.mult(-0.6, 'restSXMega'),
                               ],
                               max: { r: 0.4 },
                             },
                             sX: {
-                              add: [mult(1, 'restSX'), mult(-3, 'restSXMega')],
+                              add: [
+                                helper.mult(1, 'restSX'),
+                                helper.mult(-3, 'restSXMega'),
+                              ],
                               max: { r: 0.4 },
                             },
                             x: { r: 0.2 },
@@ -445,7 +448,7 @@ function zeus() {
                               max: { r: 0.6 },
                             },
                             sX: {
-                              add: [mult(1, 'restSY')],
+                              add: [helper.mult(1, 'restSY')],
                               max: { r: 0.6 },
                             },
                             cX: true,
@@ -457,15 +460,15 @@ function zeus() {
                                   horizontal: true,
                                   gap: 1,
                                   strip: [
-                                    mult(0.1, 'torsoSX'),
-                                    mult(0.1, 'torsoSY'),
+                                    helper.mult(0.1, 'torsoSX'),
+                                    helper.mult(0.1, 'torsoSY'),
                                   ],
                                 },
                                 list: [
                                   {
                                     sX: {
                                       r: 1,
-                                      add: [sub('abs'), -1],
+                                      add: [helper.sub('abs'), -1],
                                     },
                                     fX: true,
                                     list: abs,
@@ -492,7 +495,7 @@ function zeus() {
                           // CLOTH
                           {
                             color: cloth,
-                            y: sub('shoulder'),
+                            y: helper.sub('shoulder'),
                             sY: [
                               {
                                 r: 1,
@@ -656,9 +659,12 @@ function zeus() {
                         sX: 'tailSX',
                         sY: {
                           r: 1,
-                          add: [mult(-1, 'restSX'), mult(-1, 'restSY')],
+                          add: [
+                            helper.mult(-1, 'restSX'),
+                            helper.mult(-1, 'restSY'),
+                          ],
                           min: {
-                            add: ['arm', mult(0.2, 'restSXMega')],
+                            add: ['arm', helper.mult(0.2, 'restSXMega')],
                             max: 'bodySY',
                           },
                           max: 'bodySY',
@@ -667,7 +673,7 @@ function zeus() {
                         list: [
                           // BULL Tail
                           {
-                            sY: [1, sub('tailStart')],
+                            sY: [1, helper.sub('tailStart')],
                             list: [
                               {
                                 sX: {
@@ -678,7 +684,7 @@ function zeus() {
                                 sY: {
                                   r: 0.4,
                                   useSize: 'restSX',
-                                  max: mult(0.6, 'motiveSY'),
+                                  max: helper.mult(0.6, 'motiveSY'),
                                 },
                                 list: [
                                   {},
@@ -718,7 +724,7 @@ function zeus() {
                                 r: 0.5,
                                 a: -2,
                               },
-                              add: [mult(0.5, 'squarySuper')],
+                              add: [helper.mult(0.5, 'squarySuper')],
                               min: { a: 0 },
                               save: 'tailStart',
                             },
@@ -745,7 +751,7 @@ function zeus() {
                                   },
                                   {
                                     tX: true,
-                                    sX: mult(0.1, 'squarySuper'),
+                                    sX: helper.mult(0.1, 'squarySuper'),
                                     list: [
                                       {
                                         fX: true,
@@ -831,7 +837,7 @@ function zeus() {
                             sX: 1,
                             sY: {
                               r: 1,
-                              add: [sub('toungeTip')],
+                              add: [helper.sub('toungeTip')],
                             },
                           },
                           {
@@ -875,8 +881,8 @@ function zeus() {
                     sY: 'beardLength',
                     list: [
                       {
-                        y: [2, sub('headSY')],
-                        sY: ['headSY', mult(0.6, 'beardLength')],
+                        y: [2, helper.sub('headSY')],
+                        sY: ['headSY', helper.mult(0.6, 'beardLength')],
                         list: [
                           {
                             tX: true,
@@ -930,7 +936,7 @@ function zeus() {
                         mX: {
                           r: -1,
                           useSize: 'earLength',
-                          min: mult(-1, 'earLength'),
+                          min: helper.mult(-1, 'earLength'),
                         },
                         id: 'ears',
                         list: [
@@ -994,7 +1000,7 @@ function zeus() {
                   },
 
                   {
-                    sX: { r: 1, add: [sub('beak')] },
+                    sX: { r: 1, add: [helper.sub('beak')] },
                     list: [
                       {
                         clear: true,
@@ -1037,7 +1043,7 @@ function zeus() {
                         x: {
                           r: 1,
                           useSize: 'squarySuper',
-                          max: mult(0.45, 'eyeDist'),
+                          max: helper.mult(0.45, 'eyeDist'),
                         },
                         sX: 'singleEye',
                         list: eye,
@@ -1046,7 +1052,7 @@ function zeus() {
                         x: {
                           r: 1,
                           useSize: 'squarySuper',
-                          max: mult(0.45, 'eyeDist'),
+                          max: helper.mult(0.45, 'eyeDist'),
                         },
                         sX: {
                           r: 1,
@@ -1070,15 +1076,15 @@ function zeus() {
                   {
                     sY: {
                       add: [
-                        mult(0.15, 'restSXSuper'),
-                        mult(-0.3, 'restSXMega'),
+                        helper.mult(0.15, 'restSXSuper'),
+                        helper.mult(-0.3, 'restSXMega'),
                         1,
                       ],
                     },
                     fY: true,
                     y: {
                       r: 0.3,
-                      add: [mult(-0.2, 'restSXSuper')],
+                      add: [helper.mult(-0.2, 'restSXSuper')],
                       min: zero,
                     },
                     mX: { r: 0.1 },
@@ -1126,7 +1132,7 @@ function zeus() {
                   // BEARD
                   {
                     y: { r: 0.6 },
-                    sY: mult(0.2, 'restSYSuper'),
+                    sY: helper.mult(0.2, 'restSYSuper'),
                     color: hair,
                     list: [{ list: beard }, { list: beard, rX: true }],
                   },
@@ -1181,178 +1187,181 @@ function zeus() {
 
       borderSX: { r: 0.03, a: 1, useSize: 'squ', min: 1 },
 
-      imgSX: ['width', mult(-2, 'borderSX')],
-      imgSY: ['height', mult(-2, 'borderSX')],
+      imgSX: ['width', helper.mult(-2, 'borderSX')],
+      imgSY: ['height', helper.mult(-2, 'borderSX')],
 
-      imgSqu: getSmallerDim({ r: 1, useSize: imgDims }),
+      imgSqu: helper.getSmallerDim({ r: 1, useSize: imgDims }),
 
-      imgPadding: mult(0.1, 'imgSqu'),
+      imgPadding: helper.mult(0.1, 'imgSqu'),
 
-      motiveSX: ['imgSX', mult(-2, 'imgPadding')],
-      motiveSY: ['imgSY', mult(-2, 'imgPadding')],
+      motiveSX: ['imgSX', helper.mult(-2, 'imgPadding')],
+      motiveSY: ['imgSY', helper.mult(-2, 'imgPadding')],
 
-      motiveSqu: getSmallerDim({ r: 1, useSize: motiveDims }),
-      motiveSquBigger: getBiggerDim({ r: 1, useSize: motiveDims }),
+      motiveSqu: helper.getSmallerDim({ r: 1, useSize: motiveDims }),
+      motiveSquBigger: helper.getBiggerDim({ r: 1, useSize: motiveDims }),
 
-      restSX: ['motiveSX', sub('motiveSqu')],
+      restSX: ['motiveSX', helper.sub('motiveSqu')],
       restSXSuper: {
-        add: ['restSX', mult(-0.5, 'motiveSqu')],
+        add: ['restSX', helper.mult(-0.5, 'motiveSqu')],
         min: { a: 0 },
       },
       restSXMega: {
-        add: ['restSX', mult(-1.5, 'motiveSqu')],
+        add: ['restSX', helper.mult(-1.5, 'motiveSqu')],
         min: { a: 0 },
       },
 
-      restSY: ['motiveSY', sub('motiveSqu')],
+      restSY: ['motiveSY', helper.sub('motiveSqu')],
       restSYSuper: {
-        add: ['restSY', mult(-0.5, 'motiveSqu')],
+        add: ['restSY', helper.mult(-0.5, 'motiveSqu')],
         min: { a: 0 },
       },
       restSYMega: {
-        add: ['restSY', mult(-1.5, 'motiveSqu')],
+        add: ['restSY', helper.mult(-1.5, 'motiveSqu')],
         min: { a: 0 },
       },
 
-      restSquBigger: getBiggerDim({
+      restSquBigger: helper.getBiggerDim({
         r: 1,
         useSize: ['restSX', 'restSY'],
       }),
 
       squary: {
-        add: ['motiveSqu', sub('restSquBigger')],
+        add: ['motiveSqu', helper.sub('restSquBigger')],
         min: { a: 0 },
       },
       squarySuper: {
-        add: ['squary', mult(-0.5, 'motiveSqu')],
+        add: ['squary', helper.mult(-0.5, 'motiveSqu')],
         min: { a: 0 },
       },
 
       // EARS
       earLength: {
-        add: [mult(0.2, 'restSXSuper'), mult(-0.4, 'restSXMega')],
+        add: [helper.mult(0.2, 'restSXSuper'), helper.mult(-0.4, 'restSXMega')],
         min: zero,
       },
 
       // HEAD
       headSX: {
         add: [
-          mult(0.2, 'motiveSqu'),
-          mult(0.15, 'squarySuper'),
-          mult(0.1, 'restSXMega'),
+          helper.mult(0.2, 'motiveSqu'),
+          helper.mult(0.15, 'squarySuper'),
+          helper.mult(0.1, 'restSXMega'),
           4,
         ],
         max: 'motiveSX',
       },
       headSY: {
         add: [
-          mult(1.333, 'headSX'),
-          mult(-0.5, 'squarySuper'),
-          mult(0.3, 'restSXSuper'),
+          helper.mult(1.333, 'headSX'),
+          helper.mult(-0.5, 'squarySuper'),
+          helper.mult(0.3, 'restSXSuper'),
         ],
-        max: ['motiveSY', mult(-0.2, 'motiveSY')],
+        max: ['motiveSY', helper.mult(-0.2, 'motiveSY')],
       },
       headRight: {
         add: [
-          mult(0.5, 'motiveSX'),
-          mult(-0.5, 'headSX'),
+          helper.mult(0.5, 'motiveSX'),
+          helper.mult(-0.5, 'headSX'),
           {
-            add: [mult(-0.5, 'motiveSX'), mult(0.5, 'restSY')],
+            add: [helper.mult(-0.5, 'motiveSX'), helper.mult(0.5, 'restSY')],
             max: { a: 0 },
           },
         ],
         min: 'earLength',
       },
-      headTop: mult(1.5, 'squarySuper'),
-      headBottom: ['motiveSY', sub('headTop'), sub('headSY')],
+      headTop: helper.mult(1.5, 'squarySuper'),
+      headBottom: ['motiveSY', helper.sub('headTop'), helper.sub('headSY')],
 
-      beardLength: mult(0.5, 'restSYSuper'),
+      beardLength: helper.mult(0.5, 'restSYSuper'),
       beardWidth: {
         r: 0.4,
         useSize: 'restSYSuper',
         a: -2,
-        max: mult(0.05, 'motiveSquBigger'),
+        max: helper.mult(0.05, 'motiveSquBigger'),
       },
 
-      beak: [mult(0.2, 'squarySuper')],
+      beak: [helper.mult(0.2, 'squarySuper')],
 
       // BODY
-      birdTop: mult(0.8, 'squarySuper'),
+      birdTop: helper.mult(0.8, 'squarySuper'),
       bodyRight: {
-        add: ['headSX', mult(-0.5, 'restSY')],
+        add: ['headSX', helper.mult(-0.5, 'restSY')],
         min: 'earLength',
       },
       bodyTop: {
         add: [
           'headSY',
-          mult(0.4, 'squarySuper'),
-          mult(-1, 'restSX'),
+          helper.mult(0.4, 'squarySuper'),
+          helper.mult(-1, 'restSX'),
           'birdTop',
         ],
         min: { a: 0 },
       },
-      bodySX: ['motiveSX', sub('bodyRight')],
-      bodySY: { add: ['motiveSY', sub('bodyTop')] },
+      bodySX: ['motiveSX', helper.sub('bodyRight')],
+      bodySY: { add: ['motiveSY', helper.sub('bodyTop')] },
 
       // LEGS
       legSY: {
         a: 'restSX',
         max: [
-          mult(-1.2, 'squarySuper'),
-          mult(0.5, 'motiveSY'),
-          mult(-2, 'restSXMega'),
+          helper.mult(-1.2, 'squarySuper'),
+          helper.mult(0.5, 'motiveSY'),
+          helper.mult(-2, 'restSXMega'),
         ],
         min: { a: 0 },
       },
       legSX: {
         r: 1,
         useSize: 'bodySX',
-        add: [mult(-0.1, 'restSXSuper')],
+        add: [helper.mult(-0.1, 'restSXSuper')],
       },
       humanLegSY: {
         r: -0.5,
         useSize: 'squarySuper',
         a: 'restSY',
-        max: [mult(0.5, 'motiveSY')],
+        max: [helper.mult(0.5, 'motiveSY')],
         min: zero,
       },
 
       // SNAKE BODY
       snakeGap: {
-        add: [mult(0.15, 'restSXMega')],
-        max: mult(0.7, 'bodySY'),
+        add: [helper.mult(0.15, 'restSXMega')],
+        max: helper.mult(0.7, 'bodySY'),
       },
-      snake: { add: ['bodySY', sub('snakeGap')] },
+      snake: { add: ['bodySY', helper.sub('snakeGap')] },
       halfPeriod: ['snakeGap', 'snake'],
-      snakePeriod: mult(2, 'halfPeriod'),
+      snakePeriod: helper.mult(2, 'halfPeriod'),
       snakeEdge: ['snake', -1],
       snakeInnerEdge: ['snakeGap', -1],
       snakeInnerEdge2: ['halfPeriod', -1],
 
       // ARM
-      armSX: { add: [mult(0.2, 'restSY')], max: mult(0.2, 'bodySX') },
-      armSY: ['restSY', mult(-1, 'squary')],
-      arm: mult(0.1, 'motiveSqu'),
+      armSX: {
+        add: [helper.mult(0.2, 'restSY')],
+        max: helper.mult(0.2, 'bodySX'),
+      },
+      armSY: ['restSY', helper.mult(-1, 'squary')],
+      arm: helper.mult(0.1, 'motiveSqu'),
 
       // LEG
-      leg: mult(0.02, 'motiveSquBigger'),
+      leg: helper.mult(0.02, 'motiveSquBigger'),
 
       // TORSO Y
-      torsoSY: ['bodySY', sub('legSY'), sub('humanLegSY')],
+      torsoSY: ['bodySY', helper.sub('legSY'), helper.sub('humanLegSY')],
 
       // TAIL
       tailSX: {
         add: [
-          mult(0.3, 'squarySuper'),
-          mult(0.1, 'restSX'),
-          mult(-0.5, 'restSXMega'),
+          helper.mult(0.3, 'squarySuper'),
+          helper.mult(0.1, 'restSX'),
+          helper.mult(-0.5, 'restSXMega'),
         ],
         min: zero,
         max: 'torsoSY',
       },
 
       // TORSO X
-      torsoSX: ['bodySX', mult(-2, 'armSX'), sub('tailSX')],
+      torsoSX: ['bodySX', helper.mult(-2, 'armSX'), helper.sub('tailSX')],
       torsoLeft: 'armSX',
     }
 

@@ -1,11 +1,7 @@
-import { helper as helperGlobal } from '@/renderengine/helper.js'
+import { helper } from '@/renderengine/helper.js'
 
 function typo() {
-  var help = helperGlobal,
-    getSmallerDim = help.getSmallerDim,
-    mult = help.mult,
-    sub = help.sub,
-    backgroundColor = [170, 190, 230],
+  var backgroundColor = [170, 190, 230],
     font = [30, 30, 30],
     letterCount = 0,
     spacingCount = 0,
@@ -423,12 +419,11 @@ function typo() {
         var thisLetter =
             Letters[letter] ||
             (letter === ' ' ? Letters.space : Letters.missing),
-          sX = thisLetter.sX,
           letterObject = {
-            sX: mult(sX, 'wordUnit'),
+            sX: helper.mult(thisLetter.sX, 'wordUnit'),
             x: [
-              mult(letterCount, 'wordUnit'),
-              mult(spacingCount, 'spacingUnit'),
+              helper.mult(letterCount, 'wordUnit'),
+              helper.mult(spacingCount, 'spacingUnit'),
             ],
             fX: true,
             list: thisLetter.half
@@ -444,7 +439,7 @@ function typo() {
               : thisLetter.list,
           }
 
-        letterCount += sX
+        letterCount += thisLetter.sX
 
         return letterObject
       }
@@ -466,7 +461,10 @@ function typo() {
     renderList = [
       {
         mY: 'border',
-        sX: [mult(letterCount, 'wordUnit'), mult(spacingCount, 'spacingUnit')],
+        sX: [
+          helper.mult(letterCount, 'wordUnit'),
+          helper.mult(spacingCount, 'spacingUnit'),
+        ],
         cX: true,
         color: font,
         list: letters,
@@ -474,34 +472,34 @@ function typo() {
       // { gap:{a:0}, color:[255,255,0], change:{r:-1} },
     ],
     variableList = {
-      border: getSmallerDim({ r: 0.08 }),
+      border: helper.getSmallerDim({ r: 0.08 }),
       borderSide: { r: 0.04 },
-      imgWidth: { r: 1, add: [mult(-2, 'borderSide', -spacingCount)] },
-      imgheight: { r: 1, height: true, add: [mult(-2, 'border')] },
-      wordUnit: mult(1 / (letterCount + spacingCount), 'imgWidth'),
-      spaces: ['imgWidth', mult(-letterCount, 'wordUnit')],
+      imgWidth: { r: 1, add: [helper.mult(-2, 'borderSide', -spacingCount)] },
+      imgheight: { r: 1, height: true, add: [helper.mult(-2, 'border')] },
+      wordUnit: helper.mult(1 / (letterCount + spacingCount), 'imgWidth'),
+      spaces: ['imgWidth', helper.mult(-letterCount, 'wordUnit')],
       spacingUnit: {
         r: 1 / spacingCount,
         useSize: 'spaces',
         min: 2,
         max: ['wordUnit', -1],
       },
-      stem: mult(0.8, 'wordUnit'),
+      stem: helper.mult(0.8, 'wordUnit'),
       stemVert: { r: contrast, useSize: 'stem', min: 1 },
-      stemHalf: mult(0.5, 'stem'),
-      stemNeg: sub('stem'),
+      stemHalf: helper.mult(0.5, 'stem'),
+      stemNeg: helper.sub('stem'),
       serifPadding: { r: serifWidth, useSize: 'spacingUnit' },
-      serifWidth: [mult(2, 'serifPadding'), 'stem'],
+      serifWidth: [helper.mult(2, 'serifPadding'), 'stem'],
       serifWidthHalf: ['serifPadding', 'stemHalf'],
       serifheight: 'stemVert',
-      serifOut: sub('serifPadding'),
+      serifOut: helper.sub('serifPadding'),
       serifHorheight: {
         add: ['stemVert', 'serifPadding'],
-        max: mult(0.4, 'imgheight'),
+        max: helper.mult(0.4, 'imgheight'),
       },
       serifCenterHorheight: {
-        add: ['stemVert', mult(2, 'serifPadding')],
-        max: mult(0.5, 'imgheight'),
+        add: ['stemVert', helper.mult(2, 'serifPadding')],
+        max: helper.mult(0.5, 'imgheight'),
       },
     }
 

@@ -31,14 +31,12 @@ export const Head = function (args) {
 Head.prototype = new BBObj()
 
 Head.prototype.draw = function (args) {
-  var rotate = args.rotate
-
   this.ll.push((this.sX = { r: this._sX, useSize: args.sY }))
 
   var headBottom = new this.basic.Rotater({
       drawer: this.headBottom,
       id: 'lowerHead',
-      rotate,
+      rotate: args.rotate,
       baseSX: this.sX,
       sideSX: this.headSideRatio,
       sY: { r: this.headTopSY, useSize: args.sY },
@@ -49,7 +47,7 @@ Head.prototype.draw = function (args) {
     headTop = new this.basic.Rotater({
       drawer: this.headTop,
       id: 'topHead',
-      rotate,
+      rotate: args.rotate,
       baseSX: this.sX,
       frontSX: this.headTopFrontSX,
       sideSX: this.headTopSideSX,
@@ -62,7 +60,7 @@ Head.prototype.draw = function (args) {
     nose = new this.basic.Rotater({
       drawer: this.nose,
       id: 'nose',
-      rotate,
+      rotate: args.rotate,
       baseSX: this.sX,
       frontSX: 0.1,
       sideSX: 0.5,
@@ -93,7 +91,7 @@ Head.prototype.draw = function (args) {
     nose,
     sX: headBottom.sX,
     sY: args.sY,
-    rotate,
+    rotate: args.rotate,
   }
 }
 // End Head Main Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

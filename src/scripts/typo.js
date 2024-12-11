@@ -422,7 +422,7 @@ function typo() {
       return function (letter) {
         var thisLetter =
             Letters[letter] ||
-            (letter === ' ' ? Letters['space'] : Letters['missing']),
+            (letter === ' ' ? Letters.space : Letters.missing),
           sX = thisLetter.sX,
           letterObject = {
             sX: mult(sX, 'wordUnit'),

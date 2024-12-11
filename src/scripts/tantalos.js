@@ -1,4 +1,4 @@
-import { helper } from '@/renderengine/helper'
+import { getBiggerDim, getSmallerDim } from '@/renderengine/helper'
 
 function tantalos() {
   const water = [36, 44, 53]
@@ -42,10 +42,10 @@ function tantalos() {
   })
   const motiveSY = linkListPush([sYMain, { r: -2, useSize: borderSX }])
   const motiveSqu = linkListPush(
-    helper.getSmallerDim({ r: 1, useSize: [motiveSX, motiveSY] }),
+    getSmallerDim({ r: 1, useSize: [motiveSX, motiveSY] }),
   )
   const motiveSquBigger = linkListPush(
-    helper.getBiggerDim({ r: 1, useSize: [motiveSX, motiveSY] }),
+    getBiggerDim({ r: 1, useSize: [motiveSX, motiveSY] }),
   )
   const overshotSX = linkListPush({
     add: [motiveSX, { r: -1, useSize: motiveSqu }],

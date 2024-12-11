@@ -1,4 +1,9 @@
-import { helper } from '@/renderengine/helper'
+import {
+  getLinkListPusher,
+  getRandom,
+  helper,
+  multiplyColor,
+} from '@/renderengine/helper'
 
 import { Chair, Emotion, Glass, Table } from './accessoir.js'
 import { Arm } from './actor-arm.js'
@@ -32,7 +37,7 @@ export const TableComic = function (init, slide, createSlider) {
   let controlerX
   let controlerY
 
-  const random = helper.random(init.id)
+  const random = getRandom(init.id)
   const rFl = random.getRandomFloat
   const rInt = random.getRandom
   const rIf = random.getIf
@@ -79,7 +84,7 @@ export const TableComic = function (init, slide, createSlider) {
 
       current.linkList = linkList
 
-      current.pushLinkList = helper.getLinkListPusher(linkList)
+      current.pushLinkList = getLinkListPusher(linkList)
 
       current.pushRelativeStandardAutomatic =
         hover.pushRelativeStandardAutomatic
@@ -109,8 +114,6 @@ export const TableComic = function (init, slide, createSlider) {
       current.getPosY = comicPrototype.getPosY
 
       current.getSizeSwitch = comicPrototype.getSizeSwitch
-
-      current.multiplyColor = helper.multiplyColor
 
       current.getColorShades = comicPrototype.getColorShades
 
@@ -613,22 +616,22 @@ TableComic.prototype.getColorShades = function (color) {
 
     this.colorList.push({
       map: color.map,
-      min: this.multiplyColor(color.min, 0.9),
-      max: this.multiplyColor(color.max, 0.9),
+      min: multiplyColor(color.min, 0.9),
+      max: multiplyColor(color.max, 0.9),
       color: (c1 = []),
     })
 
     this.colorList.push({
       map: color.map,
-      min: this.multiplyColor(color.min, 0.7),
-      max: this.multiplyColor(color.max, 0.7),
+      min: multiplyColor(color.min, 0.7),
+      max: multiplyColor(color.max, 0.7),
       color: (c2 = []),
     })
 
     this.colorList.push({
       map: color.map,
-      min: this.multiplyColor(color.min, 0.5),
-      max: this.multiplyColor(color.max, 0.5),
+      min: multiplyColor(color.min, 0.5),
+      max: multiplyColor(color.max, 0.5),
       color: (c3 = []),
     })
 
@@ -636,9 +639,9 @@ TableComic.prototype.getColorShades = function (color) {
   } else {
     return [
       color,
-      this.multiplyColor(color, 0.9),
-      this.multiplyColor(color, 0.7),
-      this.multiplyColor(color, 0.5),
+      multiplyColor(color, 0.9),
+      multiplyColor(color, 0.7),
+      multiplyColor(color, 0.5),
     ]
   }
 }

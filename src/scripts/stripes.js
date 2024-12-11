@@ -1,7 +1,6 @@
-import { helper as helperGlobal } from '@/renderengine/helper'
+import { helper } from '@/renderengine/helper'
 
 function stripes(args, init, createSlider) {
-  const helper = helperGlobal
   const hover = helper.getHoverChangers()
   const pushChanger = hover.pushRelativeStandard
   const backgroundColor = [100, 100, 120]

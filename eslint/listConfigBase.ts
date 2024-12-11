@@ -41,6 +41,12 @@ const listConfigEslintBase: ReadonlyArray<Linter.Config> = [
        */
       'no-console': 'error',
 
+      /**
+       * Disallow comments on the same line as the code
+       * {@link https://eslint.org/docs/latest/rules/no-inline-comments}
+       */
+      'no-inline-comments': 'error',
+
       'no-unused-vars': 'off',
     },
   },

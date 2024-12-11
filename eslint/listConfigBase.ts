@@ -47,6 +47,12 @@ const listConfigEslintBase: ReadonlyArray<Linter.Config> = [
        */
       'no-inline-comments': 'error',
 
+      /**
+       * Disallows importing via relative parent folders
+       * {@link https://eslint.org/docs/latest/rules/no-restricted-imports}
+       */
+      'no-restricted-imports': [1, { patterns: ['../'] }],
+
       'no-unused-vars': 'off',
     },
   },

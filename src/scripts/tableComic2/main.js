@@ -5,8 +5,8 @@ import { Arm } from './actor-arm.js'
 import { Eye, Eyes, Hair, Hat, Head, Mouth } from './actor-head.js'
 import { Legs } from './actor-legs.js'
 import { Actor, Body, Torso } from './actor.js'
-import { Stage, Background, Floor } from './stage.js'
-import { Strip, Panel } from './strip.js'
+import { Background, Floor, Stage } from './stage.js'
+import { Panel, Strip } from './strip.js'
 import { getCombiner, getFace, getStrip, getStripInfo } from './tablecomic-1.js'
 import {
   RenderObjectContainer,

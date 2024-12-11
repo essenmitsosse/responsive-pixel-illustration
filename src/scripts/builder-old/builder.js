@@ -15,7 +15,7 @@ import {
   Mouth,
 } from './person-head.js'
 import { Belt, Leg, LowerBody, Skirt } from './person-lowerBody.js'
-import { Person, BasicBody, Logo } from './person-main.js'
+import { BasicBody, Logo, Person } from './person-main.js'
 import {
   Buttons,
   Cape,
@@ -27,7 +27,7 @@ import {
   Suspenders,
   UpperBody,
 } from './person-upperBody.js'
-import { TreeFamily, Forrest, Tree } from './tree.js'
+import { Forrest, Tree, TreeFamily } from './tree.js'
 
 export const Builder = function (init) {
   var initID = init.id ? init.id : Math.floor(Math.random() * 4294967296),

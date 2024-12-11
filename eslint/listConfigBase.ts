@@ -53,6 +53,12 @@ const listConfigEslintBase: ReadonlyArray<Linter.Config> = [
        */
       'no-restricted-imports': [1, { patterns: ['../'] }],
 
+      /**
+       * Disallow unnecessary computed property keys in objects and classes
+       * {@link https://eslint.org/docs/latest/rules/no-useless-computed-key#rule-details}
+       */
+      'no-useless-computed-key': 'error',
+
       'no-unused-vars': 'off',
     },
   },

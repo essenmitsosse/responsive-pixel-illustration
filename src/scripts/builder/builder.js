@@ -182,33 +182,6 @@ const buildColors = function (info) {
   return colors
 }
 
-export const colorScheme = function () {
-  var Colors = this.Color,
-    info = this.colorInfo,
-    i = info.colors,
-    j,
-    steps = info.steps,
-    list = [],
-    s = 10,
-    ss = s
-
-  while (i--) {
-    j = steps
-
-    while (j--) {
-      list.push({
-        s: s,
-        x: i * ss,
-        y: j * ss,
-        fY: true,
-        color: new Colors(i, j).get(),
-      })
-    }
-  }
-
-  return { z: 1000000, list: list }
-}
-
 const Color = function (nr, br) {
   this.nr = nr
 
@@ -315,24 +288,6 @@ Color.prototype.get = Color.prototype.getNormal
 
 Color.prototype.getBr = function () {
   return this.br
-}
-
-export const getDark = function (darkness) {
-  Color.prototype.get = function () {
-    var br = this.dontChange ? this.br : this.br + darkness
-
-    if (br < 0) {
-      br = 0
-    } else if (br > 5) {
-      br = 5
-    }
-
-    return (this.finalColor = this.colors[this.nr][br] || [200, 0, 155])
-  }
-}
-
-export const getNormalColor = function () {
-  Color.prototype.get = Color.prototype.getNormal
 }
 
 Builder.prototype.Color = Color

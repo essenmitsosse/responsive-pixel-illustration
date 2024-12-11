@@ -23,8 +23,6 @@ function randomDistribution(init) {
     maxB = rInt(minB, 255)
 
   renderList = (function () {
-    console.log(random)
-
     var count = rInt(5, 20),
       s_ = 1 / (count - 1),
       row = count,

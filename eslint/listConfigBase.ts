@@ -9,6 +9,13 @@ const listConfigEslintBase: ReadonlyArray<Linter.Config> = [
     rules: {
       ...js.configs.recommended.rules,
 
+      /**
+       * Enforces braces around arrow function bodies as needed.
+       *
+       * {@link https://eslint.org/docs/latest/rules/arrow-body-style}
+       */
+      'arrow-body-style': 'error',
+
       'no-unused-vars': 'off',
     },
   },

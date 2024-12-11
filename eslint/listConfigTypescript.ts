@@ -114,8 +114,8 @@ const listConfigTypeScript: ReadonlyArray<Linter.Config> = [
     // @ts-expect-error - TODO: Check for updates so this actually works
     plugins: { '@typescript-eslint': typescript },
     rules: {
-      'no-redeclare': 'off',
       '@typescript-eslint/no-redeclare': 'error',
+      'no-redeclare': 'off',
     },
   },
 
@@ -128,14 +128,14 @@ const listConfigTypeScript: ReadonlyArray<Linter.Config> = [
     // @ts-expect-error - TODO: Check for updates so this actually works
     plugins: { '@typescript-eslint': typescript },
     rules: {
-      'no-unused-vars': 'off',
-
       /**
        * This also adds some exception, where an unused variable is followed by
        * a used parameter, in which case fixing this rule would mean changing
        * the function signature.
        */
       '@typescript-eslint/no-unused-vars': ['error', { args: 'after-used' }],
+
+      'no-unused-vars': 'off',
     },
   },
 ]

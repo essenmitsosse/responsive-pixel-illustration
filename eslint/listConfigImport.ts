@@ -18,7 +18,7 @@ const listConfigImport: ReadonlyArray<Linter.Config> = [
        */
       'import/extensions': [
         'error',
-        { ts: 'never', tsx: 'never', js: 'always' },
+        { js: 'always', ts: 'never', tsx: 'never' },
       ],
 
       /**

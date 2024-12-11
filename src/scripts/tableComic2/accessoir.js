@@ -260,7 +260,7 @@ Emotion.prototype.draw = function EmotionDraw(args) {
     return
   }
 
-  let actor = args.info.pos.obj
+  const actor = args.info.pos.obj
 
   if (!actor) {
     return

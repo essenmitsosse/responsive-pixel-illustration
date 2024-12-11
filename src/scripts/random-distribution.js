@@ -1,33 +1,52 @@
 import { helper } from '@/renderengine/helper.js'
 
 function randomDistribution(init) {
-  let random = helper.random(init.id)
-  let backgroundColor = [0, 0, 0]
-  let width = { main: true }
-  let height = { main: true, height: true }
-  let square = { r: 1, useSize: width, max: height }
-  let biggerSquare = { r: 1, useSize: width, min: height }
-  let linkList = [width, height, square, biggerSquare]
+  const random = helper.random(init.id)
+
+  const backgroundColor = [0, 0, 0]
+
+  const width = { main: true }
+
+  const height = { main: true, height: true }
+
+  const square = { r: 1, useSize: width, max: height }
+
+  const biggerSquare = { r: 1, useSize: width, min: height }
+
+  const linkList = [width, height, square, biggerSquare]
+
   let renderList
-  let backgroundGrid = true
-  let minSize = random.getRandomFloat(0, 0.8)
-  let maxSize = random.getRandomFloat(minSize, 1)
-  let minR = random.getRandom(0, 200)
-  let maxR = random.getRandom(minR, 255)
-  let minG = random.getRandom(0, 200)
-  let maxG = random.getRandom(minG, 255)
-  let minB = random.getRandom(0, 200)
-  let maxB = random.getRandom(minB, 255)
+
+  const backgroundGrid = true
+
+  const minSize = random.getRandomFloat(0, 0.8)
+
+  const maxSize = random.getRandomFloat(minSize, 1)
+
+  const minR = random.getRandom(0, 200)
+
+  const maxR = random.getRandom(minR, 255)
+
+  const minG = random.getRandom(0, 200)
+
+  const maxG = random.getRandom(minG, 255)
+
+  const minB = random.getRandom(0, 200)
+
+  const maxB = random.getRandom(minB, 255)
 
   renderList = (function () {
-    let count = random.getRandom(5, 20)
-    let s_ = 1 / (count - 1)
+    const count = random.getRandom(5, 20)
+
+    const s_ = 1 / (count - 1)
+
     let row = count
     let col
     let s
-    let list = []
 
-    let getSquare = function () {
+    const list = []
+
+    const getSquare = function () {
       let innerS
 
       linkList.push(

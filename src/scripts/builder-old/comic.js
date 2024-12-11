@@ -4,25 +4,36 @@ import { Object } from './object.js'
 
 // COMIC --------------------------------------------------------------------------------
 export const Comic = function (init) {
-  let list = []
-  let args = {}
-  let panels = this.IF(0.05) ? 1 : this.GR(3, 6)
-  let borderColor = (args.borderColor = new this.Color(
+  const list = []
+
+  const args = {}
+
+  const panels = this.IF(0.05) ? 1 : this.GR(3, 6)
+
+  const borderColor = (args.borderColor = new this.Color(
     this.IF() ? 1 : 0,
     this.IF(0.1) ? (this.IF(0.5) ? 2 : 3) : this.IF(0.5) ? 5 : 0,
   ))
-  let outerBorderColor =
+
+  const outerBorderColor =
     this.IF(0.9) &&
     borderColor.copy({
       brContrast: this.IF(0.8) ? 5 : 3,
       dontChange: this.IF(0.5),
     })
-  let bigPanel = panels % 2 !== 0 && (this.IF(0.5) ? 0 : panels - 1)
-  let panelsCalc = bigPanel !== false ? panels + 1 : panels
+
+  const bigPanel = panels % 2 !== 0 && (this.IF(0.5) ? 0 : panels - 1)
+
+  const panelsCalc = bigPanel !== false ? panels + 1 : panels
+
   let i = 0
-  let border = this.R(0.01, 0.04)
-  let gutter = this.R(0.02, 0.05)
-  let horRatio = this.R(1.1, 2)
+
+  const border = this.R(0.01, 0.04)
+
+  const gutter = this.R(0.02, 0.05)
+
+  const horRatio = this.R(1.1, 2)
+
   let panel
 
   this.vL.fullSqu = { r: 1, max: { r: 1, height: true } }
@@ -308,13 +319,18 @@ export const Panel = function (args) {
 Panel.prototype = new Object()
 
 Panel.prototype.draw = function (args) {
-  let nr = args.i
-  let closeUp = this.IF(0.1)
-  let wideShot = !closeUp && this.IF(0.2)
-  let superWideShot = !closeUp && !wideShot && this.IF(0.1)
-  let actionBackground =
+  const nr = args.i
+
+  const closeUp = this.IF(0.1)
+
+  const wideShot = !closeUp && this.IF(0.2)
+
+  const superWideShot = !closeUp && !wideShot && this.IF(0.1)
+
+  const actionBackground =
     this.IF(0.01 + (closeUp ? 0.3 : 0) + (wideShot ? 0.05 : 0)) &&
     this.skyColor.copy({ nextColor: true, brSet: this.GR(0, 5) })
+
   let actors
   let stars
   let darkness
@@ -529,9 +545,11 @@ export const Actor = function (args) {
 Actor.prototype = new Object()
 
 Actor.prototype.draw = function (args, z, size) {
-  let eyeLookVert = ['', '', '', 'left', 'right']
-  let eyeLookHor = ['', '', '', '', '', 'up', 'down', 'up', 'down', 'verDown']
-  let eyeLids = [
+  const eyeLookVert = ['', '', '', 'left', 'right']
+
+  const eyeLookHor = ['', '', '', '', '', 'up', 'down', 'up', 'down', 'verDown']
+
+  const eyeLids = [
     '',
     '',
     '',
@@ -548,7 +566,8 @@ Actor.prototype.draw = function (args, z, size) {
     'closed',
     'wink',
   ]
-  let eyeBrow = [
+
+  const eyeBrow = [
     '',
     '',
     '',
@@ -559,7 +578,8 @@ Actor.prototype.draw = function (args, z, size) {
     'angry',
     'sad',
   ]
-  let mouthHeight = [
+
+  const mouthHeight = [
     '',
     '',
     '',
@@ -574,11 +594,16 @@ Actor.prototype.draw = function (args, z, size) {
     'half',
     'full',
   ]
-  let mouthWid = ['', '', '', 'narrow']
-  let mouthForm = ['', '', '', 'sceptical', 'grin', 'D:']
-  let teethPos = ['', 'top', 'bottom', 'both', 'full']
-  let legPos = ['', '', '', '', '', '', '', '', '', '', '', 'legRaise']
-  let views = [
+
+  const mouthWid = ['', '', '', 'narrow']
+
+  const mouthForm = ['', '', '', 'sceptical', 'grin', 'D:']
+
+  const teethPos = ['', 'top', 'bottom', 'both', 'full']
+
+  const legPos = ['', '', '', '', '', '', '', '', '', '', '', 'legRaise']
+
+  const views = [
     '',
     '',
     '',

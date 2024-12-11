@@ -2,7 +2,7 @@ import { Object } from './object.js'
 
 // HEAD --------------------------------------------------------------------------------
 export const Head = function (args) {
-  let hairNext = this.IF(0.7)
+  const hairNext = this.IF(0.7)
 
   // Form & Sizes
   this.headSY = this.IF(0.01) ? this.R(0, 0.4) : this.R(0.1, 0.15)
@@ -399,28 +399,42 @@ Eye.prototype.getSizes = function (args) {
 }
 
 Eye.prototype.draw = function (args) {
-  let thisEye = args.eye || {}
-  let eyeSad = thisEye.lids === 'sad'
-  let eyeAngry = eyeSad || thisEye.lids === 'angry'
-  let eyeClosed =
+  const thisEye = args.eye || {}
+
+  const eyeSad = thisEye.lids === 'sad'
+
+  const eyeAngry = eyeSad || thisEye.lids === 'angry'
+
+  const eyeClosed =
     eyeAngry ||
     thisEye.lids === 'closed' ||
     thisEye.lids === 'sleepy' ||
     (args.right && thisEye.lids === 'wink')
-  let eyeHalfClosed = !eyeClosed && thisEye.lids === 'halfClosed'
-  let lookUp = thisEye.lookHor === 'up'
-  let lookDown = thisEye.lookHor === 'down' || thisEye.lookHor === 'veryDown'
-  let lookExtrem = lookUp || thisEye.lookHor === 'veryDown'
-  let lookForward = !lookUp && !lookDown
-  let lookSide = thisEye.lookVert
-  let lookRight = thisEye.lookVert === 'right'
-  let eyeBrowRaised =
+
+  const eyeHalfClosed = !eyeClosed && thisEye.lids === 'halfClosed'
+
+  const lookUp = thisEye.lookHor === 'up'
+
+  const lookDown = thisEye.lookHor === 'down' || thisEye.lookHor === 'veryDown'
+
+  const lookExtrem = lookUp || thisEye.lookHor === 'veryDown'
+
+  const lookForward = !lookUp && !lookDown
+
+  const lookSide = thisEye.lookVert
+
+  const lookRight = thisEye.lookVert === 'right'
+
+  const eyeBrowRaised =
     thisEye.brow === 'raised' || (args.right && thisEye.brow === 'sceptical')
-  let eyeBrowLow =
+
+  const eyeBrowLow =
     thisEye.brow === 'low' || (!args.right && thisEye.brow === 'sceptical')
-  let eyeBrowSad =
+
+  const eyeBrowSad =
     thisEye.brow === 'sad' || (args.right && thisEye.brow === 'superSceptical')
-  let eyeBrowAngry =
+
+  const eyeBrowAngry =
     eyeBrowSad ||
     thisEye.brow === 'angry' ||
     (!args.right && thisEye.brow === 'superSceptical')
@@ -670,23 +684,36 @@ export const Mouth = function (args) {
 Mouth.prototype = new Object()
 
 Mouth.prototype.draw = function (args) {
-  let thisMouth = args.mouth || {}
-  let mouthWidth = thisMouth.width
-  let mouthHeight = thisMouth.height
-  let mouthForm = thisMouth.form
-  let mouthD = mouthForm === 'D: '
-  let mouthGrin = mouthD || mouthForm === 'grin'
-  let mouthNarrow = mouthWidth === 'narrow'
-  let mouthSlight = mouthHeight === 'slight'
-  let mouthHalfOpen = mouthHeight === 'half'
-  let mouthOpen = mouthSlight || mouthHalfOpen || mouthHeight === 'full'
-  let mouthSmile = mouthGrin && !mouthOpen
-  let teethFull =
+  const thisMouth = args.mouth || {}
+
+  const mouthWidth = thisMouth.width
+
+  const mouthHeight = thisMouth.height
+
+  const mouthForm = thisMouth.form
+
+  const mouthD = mouthForm === 'D: '
+
+  const mouthGrin = mouthD || mouthForm === 'grin'
+
+  const mouthNarrow = mouthWidth === 'narrow'
+
+  const mouthSlight = mouthHeight === 'slight'
+
+  const mouthHalfOpen = mouthHeight === 'half'
+
+  const mouthOpen = mouthSlight || mouthHalfOpen || mouthHeight === 'full'
+
+  const mouthSmile = mouthGrin && !mouthOpen
+
+  const teethFull =
     !mouthSlight && mouthOpen && !mouthNarrow && thisMouth.teeth === 'full'
-  let teethTop =
+
+  const teethTop =
     !mouthSlight &&
     ((mouthOpen && thisMouth.teeth === 'top') || thisMouth.teeth === 'both')
-  let teethBottom =
+
+  const teethBottom =
     !mouthSlight &&
     ((mouthOpen && thisMouth.teeth === 'bottom') || thisMouth.teeth === 'both')
 
@@ -815,8 +842,9 @@ export const Hair = function (args) {
 Hair.prototype = new Object()
 
 Hair.prototype.draw = function (args) {
-  let rightSide = args.sideView || !args.right
-  let name = args.id + '_' + args.right + args.nr
+  const rightSide = args.sideView || !args.right
+
+  const name = args.id + '_' + args.right + args.nr
 
   if (args.calc) {
     args.hairS = this.pushLinkList({

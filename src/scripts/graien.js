@@ -1,213 +1,310 @@
 import { helper } from '@/renderengine/helper.js'
 
 function graien() {
-  let background = [60, 120, 110]
-  let bSS = 0.5
-  let shadowAdd = 195
-  let shadowColor = [
+  const background = [60, 120, 110]
+
+  const bSS = 0.5
+
+  const shadowAdd = 195
+
+  const shadowColor = [
     background[0] * bSS + shadowAdd,
     background[1] * bSS + shadowAdd,
     background[2] * bSS + shadowAdd,
   ]
-  let shadow = helper.darken(shadowColor, 0.7)
-  let detail = helper.darken(shadowColor, 0.4)
-  let grey = [204, 204, 204]
-  let bread = [150, 130, 100]
-  let breadDark = shadow(bread)
-  let backgroundMedium = shadow(background)
-  let backgroundDark = detail(background)
-  let hair = [255, 255, 255]
-  let graie1 = [227, 200, 190]
-  let graie2 = [192, 176, 133]
-  let graie3 = [232, 204, 151]
+
+  const shadow = helper.darken(shadowColor, 0.7)
+
+  const detail = helper.darken(shadowColor, 0.4)
+
+  const grey = [204, 204, 204]
+
+  const bread = [150, 130, 100]
+
+  const breadDark = shadow(bread)
+
+  const backgroundMedium = shadow(background)
+
+  const backgroundDark = detail(background)
+
+  const hair = [255, 255, 255]
+
+  const graie1 = [227, 200, 190]
+
+  const graie2 = [192, 176, 133]
+
+  const graie3 = [232, 204, 151]
+
   let graie1Shadow = shadow(graie1)
   let graie1Detail = detail(graie1)
   let graie2Shadow = shadow(graie2)
   let graie2Detail = detail(graie2)
   let graie3Shadow = shadow(graie3)
   let graie3Detail = detail(graie3)
-  let imgDifference = 0.05
-  let linkList = []
 
-  let linkListPush = function (obj) {
+  const imgDifference = 0.05
+
+  const linkList = []
+
+  const linkListPush = function (obj) {
     linkList.push(obj)
 
     return obj
   }
 
-  let sXMain = linkListPush({ main: true })
-  let sYMain = linkListPush({ main: true, height: true })
-  let fullSquare = linkListPush({ add: [sXMain], max: sYMain })
-  let framePadding = linkListPush({ r: 0.02, useSize: fullSquare })
-  let frameWidth = linkListPush({ r: 0.05, useSize: fullSquare })
-  let graienPaddingX = linkListPush({
+  const sXMain = linkListPush({ main: true })
+
+  const sYMain = linkListPush({ main: true, height: true })
+
+  const fullSquare = linkListPush({ add: [sXMain], max: sYMain })
+
+  const framePadding = linkListPush({ r: 0.02, useSize: fullSquare })
+
+  const frameWidth = linkListPush({ r: 0.05, useSize: fullSquare })
+
+  const graienPaddingX = linkListPush({
     r: imgDifference,
     useSize: sXMain,
     add: [1, { r: -imgDifference, useSize: sYMain }],
     min: 1,
   })
-  let graienPaddingY = linkListPush({
+
+  const graienPaddingY = linkListPush({
     a: 1,
     r: imgDifference,
     useSize: sYMain,
     add: [1, { r: -imgDifference, useSize: sXMain }],
     min: 2,
   })
-  let border = linkListPush([framePadding, frameWidth])
-  let fullBorderX = linkListPush([border, graienPaddingX])
-  let fullBorderY = linkListPush([border, graienPaddingY])
-  let edgeOvershot = linkListPush({ r: 1, useSize: framePadding, a: -1 })
-  let edgeOvershotNeg = linkListPush(helper.sub(edgeOvershot))
-  let edgeSize = linkListPush([helper.mult(2, edgeOvershot), frameWidth])
-  let imgWidth = linkListPush([sXMain, { useSize: fullBorderX, r: -2 }])
-  let imgHeight = linkListPush([sYMain, { useSize: fullBorderY, r: -2 }])
-  let backWidth = linkListPush([sXMain, { useSize: border, r: -2 }])
-  let backHeight = linkListPush([sYMain, { useSize: border, r: -2 }])
-  let backSquare = linkListPush(
+
+  const border = linkListPush([framePadding, frameWidth])
+
+  const fullBorderX = linkListPush([border, graienPaddingX])
+
+  const fullBorderY = linkListPush([border, graienPaddingY])
+
+  const edgeOvershot = linkListPush({ r: 1, useSize: framePadding, a: -1 })
+
+  const edgeOvershotNeg = linkListPush(helper.sub(edgeOvershot))
+
+  const edgeSize = linkListPush([helper.mult(2, edgeOvershot), frameWidth])
+
+  const imgWidth = linkListPush([sXMain, { useSize: fullBorderX, r: -2 }])
+
+  const imgHeight = linkListPush([sYMain, { useSize: fullBorderY, r: -2 }])
+
+  const backWidth = linkListPush([sXMain, { useSize: border, r: -2 }])
+
+  const backHeight = linkListPush([sYMain, { useSize: border, r: -2 }])
+
+  const backSquare = linkListPush(
     helper.getSmallerDim({ r: 1, useSize: [backWidth, backHeight] }),
   )
-  let imgSquare = linkListPush(
+
+  const imgSquare = linkListPush(
     helper.getSmallerDim({ r: 1, useSize: [imgWidth, imgHeight] }),
   )
-  let imgSquareBigger = linkListPush(
+
+  const imgSquareBigger = linkListPush(
     helper.getBiggerDim({ r: 1, useSize: [imgWidth, imgHeight] }),
   )
+
   // BORDER DETAILS
-  let borderMargin = linkListPush({ r: 0.1, useSize: border, min: 1 })
-  let frameDetailSize = linkListPush({
+  const borderMargin = linkListPush({ r: 0.1, useSize: border, min: 1 })
+
+  const frameDetailSize = linkListPush({
     min: 1,
     add: [frameWidth, helper.mult(-2, borderMargin), -2],
   })
+
   // BACKGROUND
-  let groundHeight = linkListPush(helper.mult(0.2, backHeight))
-  let hillHeight = linkListPush({
+  const groundHeight = linkListPush(helper.mult(0.2, backHeight))
+
+  const hillHeight = linkListPush({
     r: 0.05,
     useSize: backHeight,
     add: [helper.mult(0.1, backWidth)],
   })
-  let hillDifference = linkListPush({ r: 0.4, useSize: backHeight })
-  let hillWidth = linkListPush({
+
+  const hillDifference = linkListPush({ r: 0.4, useSize: backHeight })
+
+  const hillWidth = linkListPush({
     r: 0.1,
     useSize: backWidth,
     add: [helper.mult(0.1, backSquare)],
   })
-  let treeWidth = linkListPush({ a: 2 })
-  let treeMinGap = linkListPush({
+
+  const treeWidth = linkListPush({ a: 2 })
+
+  const treeMinGap = linkListPush({
     r: 0.005,
     useSize: backWidth,
     add: [{ r: 0.02, useSize: backHeight }],
     min: 1,
   })
-  let treeRandomGap = linkListPush(helper.mult(10, treeMinGap))
-  let treeRandomGap2 = linkListPush(helper.mult(15, treeMinGap))
-  let trunkWidth = linkListPush(helper.mult(3, treeMinGap))
+
+  const treeRandomGap = linkListPush(helper.mult(10, treeMinGap))
+
+  const treeRandomGap2 = linkListPush(helper.mult(15, treeMinGap))
+
+  const trunkWidth = linkListPush(helper.mult(3, treeMinGap))
+
   // BREAD
   /** Adds a little bit to each side of the bread to make it more rect ) */
-  let breadAdd = linkListPush({ r: 0.05, a: 2, useSize: imgSquare })
-  let breadWidth = linkListPush([
+  const breadAdd = linkListPush({ r: 0.05, a: 2, useSize: imgSquare })
+
+  const breadWidth = linkListPush([
     breadAdd,
     { r: 0.08, min: 3, useSize: sXMain },
   ])
-  let breadHeight = linkListPush([
+
+  const breadHeight = linkListPush([
     breadAdd,
     { r: 0.08, useSize: sYMain, min: 3 },
   ])
-  let breadSquare = linkListPush(
+
+  const breadSquare = linkListPush(
     helper.getSmallerDim({ r: 1, useSize: [breadWidth, breadHeight] }),
   )
-  let breadDetail = linkListPush({ r: 0.15, useSize: breadSquare })
+
+  const breadDetail = linkListPush({ r: 0.15, useSize: breadSquare })
+
   // FULL GRAIEN
-  let graieHalfWidth = linkListPush(helper.mult(0.5, imgWidth))
-  let graieHeight = linkListPush(imgHeight)
-  let graieHalfHeight = linkListPush(helper.mult(0.5, imgHeight))
+  const graieHalfWidth = linkListPush(helper.mult(0.5, imgWidth))
+
+  const graieHeight = linkListPush(imgHeight)
+
+  const graieHalfHeight = linkListPush(helper.mult(0.5, imgHeight))
+
   // HAND
-  let handWidth = linkListPush({ r: 0.08, useSize: imgSquare, min: 2 })
-  let fingerLength = linkListPush(helper.mult(0.2, handWidth))
-  let armWidth = linkListPush({ r: 0.05, useSize: imgSquare, a: -1, min: 1 })
-  let armDetailLength = linkListPush(helper.mult(2.5, armWidth))
-  let handArmDifference = linkListPush([handWidth, helper.sub(armWidth)])
-  let handToBreadSub = linkListPush({ useSize: handWidth, r: -0.3 })
-  let handToBread = linkListPush(helper.sub(handToBreadSub))
-  let graieArmLengt = linkListPush([
+  const handWidth = linkListPush({ r: 0.08, useSize: imgSquare, min: 2 })
+
+  const fingerLength = linkListPush(helper.mult(0.2, handWidth))
+
+  const armWidth = linkListPush({ r: 0.05, useSize: imgSquare, a: -1, min: 1 })
+
+  const armDetailLength = linkListPush(helper.mult(2.5, armWidth))
+
+  const handArmDifference = linkListPush([handWidth, helper.sub(armWidth)])
+
+  const handToBreadSub = linkListPush({ useSize: handWidth, r: -0.3 })
+
+  const handToBread = linkListPush(helper.sub(handToBreadSub))
+
+  const graieArmLengt = linkListPush([
     graieHalfWidth,
     helper.mult(-0.5, breadWidth, -1),
     handWidth,
     handToBreadSub,
   ])
-  let graieArmLengtDown = linkListPush([
+
+  const graieArmLengtDown = linkListPush([
     graieHalfHeight,
     helper.mult(-0.5, breadHeight),
     handWidth,
     handToBreadSub,
   ])
-  let armShadow = linkListPush({ r: 0.4, max: 1, useSize: armWidth })
-  let subArmWidth = linkListPush([helper.sub(armWidth), 1])
+
+  const armShadow = linkListPush({ r: 0.4, max: 1, useSize: armWidth })
+
+  const subArmWidth = linkListPush([helper.sub(armWidth), 1])
+
   // LEG
-  let legWidth = linkListPush({ r: 0.15, useSize: imgSquare, a: -1, min: 1 })
-  let legLowerWidth = linkListPush({ r: 0.07, useSize: imgSquare, min: 1 })
-  let legDetailWidth = linkListPush(helper.mult(0.5, legWidth))
-  let footFrontLength = linkListPush({ r: 0.1, useSize: imgSquare, min: 1 })
-  let footLength = linkListPush([footFrontLength, legLowerWidth, 1])
-  let footWidth = linkListPush({ r: 0.08, useSize: imgSquare, min: 1 })
-  let legBack = linkListPush({ r: 0.2, useSize: legLowerWidth, max: 1 })
-  let moveFootBack = linkListPush(helper.sub(legBack))
-  let toeSize = linkListPush({ r: 0.2, useSize: footWidth })
-  let fingerSize = linkListPush({ add: [toeSize, -1], min: 1 })
-  let subLegLowerWidth = linkListPush([helper.sub(legLowerWidth), 1])
+  const legWidth = linkListPush({ r: 0.15, useSize: imgSquare, a: -1, min: 1 })
+
+  const legLowerWidth = linkListPush({ r: 0.07, useSize: imgSquare, min: 1 })
+
+  const legDetailWidth = linkListPush(helper.mult(0.5, legWidth))
+
+  const footFrontLength = linkListPush({ r: 0.1, useSize: imgSquare, min: 1 })
+
+  const footLength = linkListPush([footFrontLength, legLowerWidth, 1])
+
+  const footWidth = linkListPush({ r: 0.08, useSize: imgSquare, min: 1 })
+
+  const legBack = linkListPush({ r: 0.2, useSize: legLowerWidth, max: 1 })
+
+  const moveFootBack = linkListPush(helper.sub(legBack))
+
+  const toeSize = linkListPush({ r: 0.2, useSize: footWidth })
+
+  const fingerSize = linkListPush({ add: [toeSize, -1], min: 1 })
+
+  const subLegLowerWidth = linkListPush([helper.sub(legLowerWidth), 1])
+
   // GRAIE I
-  let graie1ShoulderHeight = linkListPush(helper.mult(0.6, imgHeight))
-  let graie1ToTop = linkListPush([imgHeight, helper.sub(graie1ShoulderHeight)])
-  let graie1ToLeft = linkListPush([footWidth, { r: 0.01, useSize: imgWidth }])
-  let graie1Width = linkListPush(
+  const graie1ShoulderHeight = linkListPush(helper.mult(0.6, imgHeight))
+
+  const graie1ToTop = linkListPush([imgHeight, helper.sub(graie1ShoulderHeight)])
+
+  const graie1ToLeft = linkListPush([footWidth, { r: 0.01, useSize: imgWidth }])
+
+  const graie1Width = linkListPush(
     helper.getSmallerDim({
       r: 0.15,
       r2: 0.6,
       useSize: [imgWidth, imgHeight],
     }),
   )
-  let graie1LegHeight = linkListPush([legWidth, legLowerWidth, footFrontLength])
-  let graie1TorsoHeight = linkListPush([
+
+  const graie1LegHeight = linkListPush([legWidth, legLowerWidth, footFrontLength])
+
+  const graie1TorsoHeight = linkListPush([
     graie1ShoulderHeight,
     helper.sub(graie1LegHeight),
   ])
-  let graie1ArmHeight = linkListPush(helper.mult(0.3, imgHeight))
-  let graie1BreadArmPos = linkListPush(graieHalfHeight)
-  let graie1RightSide = linkListPush([graie1Width, graie1ToLeft])
-  let graie1HeadSize = linkListPush(helper.mult(0.18, imgSquare))
-  let graie1HeadHeight = linkListPush({
+
+  const graie1ArmHeight = linkListPush(helper.mult(0.3, imgHeight))
+
+  const graie1BreadArmPos = linkListPush(graieHalfHeight)
+
+  const graie1RightSide = linkListPush([graie1Width, graie1ToLeft])
+
+  const graie1HeadSize = linkListPush(helper.mult(0.18, imgSquare))
+
+  const graie1HeadHeight = linkListPush({
     add: [helper.mult(2, graie1HeadSize), helper.mult(-0.03, imgWidth)],
     min: 3,
     max: [graie1ToTop, -1],
   })
-  let graie1HeadWidth = linkListPush({
+
+  const graie1HeadWidth = linkListPush({
     add: [graie1HeadSize, helper.mult(-0.02, imgHeight)],
     min: 2,
     max: graie1Width,
   })
-  let graie1ShoulderWidth = linkListPush([
+
+  const graie1ShoulderWidth = linkListPush([
     graie1Width,
     helper.sub(graie1HeadWidth),
   ])
-  let graie1HeadPos = linkListPush(helper.mult(0.3, graie1ShoulderWidth))
-  let graie1HairLeftWidth = linkListPush({
+
+  const graie1HeadPos = linkListPush(helper.mult(0.3, graie1ShoulderWidth))
+
+  const graie1HairLeftWidth = linkListPush({
     r: 0.25,
     min: 1,
     useSize: graie1HeadWidth,
   })
-  let graie1FaceWidth = linkListPush([
+
+  const graie1FaceWidth = linkListPush([
     graie1HeadWidth,
     helper.sub(graie1HairLeftWidth),
   ])
-  let graie1NosePos = linkListPush(helper.mult(0.5, graie1HeadHeight))
+
+  const graie1NosePos = linkListPush(helper.mult(0.5, graie1HeadHeight))
+
   // Eyes
-  let minEyesWidth = linkListPush({ r: 0.8, useSize: graie1FaceWidth })
-  let graie1eyeWidth = linkListPush({
+  const minEyesWidth = linkListPush({ r: 0.8, useSize: graie1FaceWidth })
+
+  const graie1eyeWidth = linkListPush({
     r: 0.3,
     useSize: minEyesWidth,
     min: 1,
     max: { r: 0.5, a: -1, useSize: graie1FaceWidth },
   })
-  let graie1eyesWidth = linkListPush({
+
+  const graie1eyesWidth = linkListPush({
     add: [
       helper.mult(2, graie1eyeWidth),
       { r: 0.05, useSize: graie1FaceWidth, min: 0 },
@@ -216,158 +313,201 @@ function graien() {
     max: graie1FaceWidth,
     min: { r: 2, useSize: graie1eyeWidth, min: 3 },
   })
-  let graie1faceRest = linkListPush([
+
+  const graie1faceRest = linkListPush([
     graie1FaceWidth,
     helper.sub(graie1eyesWidth),
   ])
-  let graie1eyePosLeft = linkListPush({
+
+  const graie1eyePosLeft = linkListPush({
     r: 0.5,
     useSize: graie1faceRest,
     min: 0,
   })
-  let graie1eyeHeight = linkListPush({
+
+  const graie1eyeHeight = linkListPush({
     add: [graie1NosePos, { r: -0.1, useSize: graie1HeadHeight }],
     min: 1,
   })
-  let graie1eyePosTop = linkListPush([
+
+  const graie1eyePosTop = linkListPush([
     graie1NosePos,
     helper.sub(graie1eyeHeight),
   ])
-  let graie1NoseHeight = linkListPush(helper.mult(0.8, armWidth))
-  let graie1MouthOuterPart = linkListPush({
+
+  const graie1NoseHeight = linkListPush(helper.mult(0.8, armWidth))
+
+  const graie1MouthOuterPart = linkListPush({
     r: 0.1,
     useSize: graie1eyesWidth,
     min: 1,
   })
-  let graie1MouthInnerPart = linkListPush(helper.mult(0.3, graie1eyesWidth))
-  let graie1BreastWidth = linkListPush({ useSize: graie1Width, r: 0.3 })
-  let graie1BreastMargin = linkListPush({
+
+  const graie1MouthInnerPart = linkListPush(helper.mult(0.3, graie1eyesWidth))
+
+  const graie1BreastWidth = linkListPush({ useSize: graie1Width, r: 0.3 })
+
+  const graie1BreastMargin = linkListPush({
     useSize: graie1Width,
     r: 0.2,
     a: -1,
   })
-  let graie1BreastShadow = linkListPush({
+
+  const graie1BreastShadow = linkListPush({
     useSize: graie1BreastWidth,
     r: 0.3,
     max: 1,
   })
-  let graie1NippleHeight = linkListPush({
+
+  const graie1NippleHeight = linkListPush({
     useSize: graie1BreastWidth,
     r: 0.2,
     min: 2,
   })
-  let graie1BreadArmLength = linkListPush([
+
+  const graie1BreadArmLength = linkListPush([
     graie1ShoulderHeight,
     helper.mult(-0.52, graieHeight),
     armWidth,
   ])
+
   // GRAIE II
-  let graie2ToLeft = linkListPush(
+  const graie2ToLeft = linkListPush(
     helper.getSmallerDim({ r: 0.35, r2: 4, useSize: [imgWidth, imgHeight] }),
   )
-  let graie2ToRight = linkListPush(helper.mult(0.3, imgWidth))
-  let graie2Width = linkListPush([
+
+  const graie2ToRight = linkListPush(helper.mult(0.3, imgWidth))
+
+  const graie2Width = linkListPush([
     imgWidth,
     helper.sub(graie2ToLeft),
     helper.sub(graie2ToRight),
   ])
-  let graie2BodyHeight = linkListPush(helper.mult(0.2, imgHeight))
-  let graie2HeadHeight = linkListPush({ r: 0.8, useSize: graie2BodyHeight })
-  let graie2HeadWidth = linkListPush({
+
+  const graie2BodyHeight = linkListPush(helper.mult(0.2, imgHeight))
+
+  const graie2HeadHeight = linkListPush({ r: 0.8, useSize: graie2BodyHeight })
+
+  const graie2HeadWidth = linkListPush({
     r: 1.5,
     useSize: graie2HeadHeight,
     max: { r: 0.5, useSize: graie2Width },
   })
-  let graie2LegLength = linkListPush([helper.mult(0.32, graieHalfHeight)])
-  let graie2ArmLength = linkListPush([
+
+  const graie2LegLength = linkListPush([helper.mult(0.32, graieHalfHeight)])
+
+  const graie2ArmLength = linkListPush([
     imgHeight,
     helper.sub(graie1BreadArmPos),
     helper.sub(armWidth),
     -1,
   ])
-  let graie2LegPos = linkListPush([
+
+  const graie2LegPos = linkListPush([
     helper.mult(0.05, graie2Width),
     helper.mult(-0.005, imgHeight),
     armWidth,
   ])
-  let graie2graie1Dist = linkListPush([
+
+  const graie2graie1Dist = linkListPush([
     graie2ToLeft,
     helper.sub(graie1RightSide),
   ])
-  let graie2ArmToArmWidth = linkListPush(helper.mult(0.5, graie2graie1Dist))
-  let graie2HeadShadow = linkListPush({
+
+  const graie2ArmToArmWidth = linkListPush(helper.mult(0.5, graie2graie1Dist))
+
+  const graie2HeadShadow = linkListPush({
     r: 0.15,
     useSize: graie2HeadHeight,
     max: 1,
   })
-  let graie1LegLength = linkListPush([
+
+  const graie1LegLength = linkListPush([
     graie1Width,
     helper.mult(0.5, graie2graie1Dist),
     helper.mult(0.1, imgHeight),
   ])
-  let graie1ArmRest = linkListPush([
+
+  const graie1ArmRest = linkListPush([
     graie1RightSide,
     graie2ToRight,
     graie2LegPos,
     legLowerWidth,
     1,
   ])
-  let graie1ArmLength = linkListPush([imgWidth, helper.mult(-1, graie1ArmRest)])
+
+  const graie1ArmLength = linkListPush([imgWidth, helper.mult(-1, graie1ArmRest)])
+
   // GRAIE III
-  let graie3ShoulderHeight = linkListPush(helper.mult(0.75, imgHeight))
-  let graie3ToTop = linkListPush([imgHeight, helper.sub(graie3ShoulderHeight)])
-  let graie3GripPoint = linkListPush([
+  const graie3ShoulderHeight = linkListPush(helper.mult(0.75, imgHeight))
+
+  const graie3ToTop = linkListPush([imgHeight, helper.sub(graie3ShoulderHeight)])
+
+  const graie3GripPoint = linkListPush([
     graie2BodyHeight,
     helper.mult(0.05, imgHeight),
   ])
-  let graie3ToRight = linkListPush(
+
+  const graie3ToRight = linkListPush(
     helper.getSmallerDim({ r: 0.1, r2: 0.5, useSize: [imgWidth, imgHeight] }),
   )
-  let graie3Width = linkListPush(graie1Width)
-  let graie3LegLength = linkListPush([
+
+  const graie3Width = linkListPush(graie1Width)
+
+  const graie3LegLength = linkListPush([
     graie2LegLength,
     helper.mult(0.2, imgHeight),
   ])
-  let graie3LegHeight = linkListPush([graie3LegLength, footFrontLength])
-  let graie3TorsoHeight = linkListPush([
+
+  const graie3LegHeight = linkListPush([graie3LegLength, footFrontLength])
+
+  const graie3TorsoHeight = linkListPush([
     graie3ShoulderHeight,
     helper.sub(graie3LegHeight),
   ])
-  let graie3lowerLegLength = linkListPush([
+
+  const graie3lowerLegLength = linkListPush([
     graie3ToRight,
     graie3Width,
     helper.sub(legWidth),
   ])
-  let graie3BehindLegLength = linkListPush([
+
+  const graie3BehindLegLength = linkListPush([
     graie2ToRight,
     graie2LegPos,
     helper.mult(2, legLowerWidth),
     helper.sub(graie3ToRight),
     1,
   ])
-  let graie3HeadHeight = linkListPush({
+
+  const graie3HeadHeight = linkListPush({
     add: [graie1HeadHeight, -1],
     max: [graie3ToTop, -1],
   })
-  let graie3HeadWidth = linkListPush({ r: 1, useSize: graie3Width })
-  let graie3NeckHeight = linkListPush({
+
+  const graie3HeadWidth = linkListPush({ r: 1, useSize: graie3Width })
+
+  const graie3NeckHeight = linkListPush({
     r: 0.6,
     useSize: graie3HeadHeight,
     add: [helper.mult(-0.1, graie3HeadWidth), 1],
   })
-  let graie3FaceHeight = linkListPush([
+
+  const graie3FaceHeight = linkListPush([
     helper.sub(graie3NeckHeight),
     1,
     graie3HeadHeight,
   ])
-  let graie3EarSize = linkListPush(helper.mult(0.3, graie3FaceHeight))
-  let graie3EarPos = linkListPush(helper.mult(0.1, graie3FaceHeight))
 
-  let graienValues = function (what, faktor, value) {
+  const graie3EarSize = linkListPush(helper.mult(0.3, graie3FaceHeight))
+
+  const graie3EarPos = linkListPush(helper.mult(0.1, graie3FaceHeight))
+
+  const graienValues = function (what, faktor, value) {
     helper.setValue(what, faktor * value * 2 + value * 0.2)
   }
 
-  let hover = function (args) {
+  const hover = function (args) {
     if (args.a) {
       graienValues(handWidth, args.a, 0.07)
 
@@ -423,15 +563,15 @@ function graien() {
     }
   }
 
-  let getShadow = function (nr) {
+  const getShadow = function (nr) {
     return nr === 1 ? graie1Shadow : nr === 2 ? graie2Shadow : graie3Shadow
   }
 
-  let getSkin = function (nr) {
+  const getSkin = function (nr) {
     return nr === 1 ? graie1 : nr === 2 ? graie2 : graie3
   }
 
-  let graie1Eye = [
+  const graie1Eye = [
     {
       color: graie1Shadow,
       sY: { r: 0.05, max: 1 },
@@ -445,7 +585,7 @@ function graien() {
     { fX: true, sY: { a: -2, r: 1 }, sX: { r: 0.4 } },
   ]
 
-  let breast = function (left) {
+  const breast = function (left) {
     return [
       {},
       {
@@ -487,13 +627,18 @@ function graien() {
     ]
   }
 
-  let foot = function (hor, down, fX, nr) {
-    let shadow = getShadow(nr)
-    let withoutToes = { r: 1, add: [helper.sub(toeSize)] }
-    let anklePos = { r: 0.5, useSize: legLowerWidth }
-    let ankleSize = { r: 0.6, useSize: legLowerWidth }
-    let ankleWidth = { r: 1, a: -1 }
-    let ankleHeight = { r: 1, a: -2 }
+  const foot = function (hor, down, fX, nr) {
+    const shadow = getShadow(nr)
+
+    const withoutToes = { r: 1, add: [helper.sub(toeSize)] }
+
+    const anklePos = { r: 0.5, useSize: legLowerWidth }
+
+    const ankleSize = { r: 0.6, useSize: legLowerWidth }
+
+    const ankleWidth = { r: 1, a: -1 }
+
+    const ankleHeight = { r: 1, a: -2 }
 
     return [
       {
@@ -575,13 +720,15 @@ function graien() {
     ]
   }
 
-  let legStructure = (function () {
+  const legStructure = (function () {
     let i = 0
-    let s = { a: 0, random: legDetailWidth }
-    let armSize = { a: 0, random: armDetailLength }
+
+    const s = { a: 0, random: legDetailWidth }
+
+    const armSize = { a: 0, random: armDetailLength }
 
     return function (nr, hor, arm) {
-      let shadow = getShadow(nr)
+      const shadow = getShadow(nr)
 
       hor = arm ? !hor : hor
 
@@ -606,8 +753,8 @@ function graien() {
     }
   })()
 
-  let armToLeft = function (nr, down) {
-    let shadow = getShadow(nr)
+  const armToLeft = function (nr, down) {
+    const shadow = getShadow(nr)
 
     return [
       legStructure(nr, false, true),
@@ -667,9 +814,10 @@ function graien() {
     ]
   }
 
-  let skinPoint = function (nr, big, obj) {
-    let shadow = getShadow(nr)
-    let skin = getSkin(nr)
+  const skinPoint = function (nr, big, obj) {
+    const shadow = getShadow(nr)
+
+    const skin = getSkin(nr)
 
     if (!obj) {
       obj = {}
@@ -684,7 +832,7 @@ function graien() {
     return obj
   }
 
-  let graieEyes = function () {
+  const graieEyes = function () {
     return [
       { sY: { r: 1, a: -1, min: 1 }, sX: { r: 1, a: -1, min: 1 } },
       {
@@ -696,8 +844,9 @@ function graien() {
     ]
   }
 
-  let graie3butt = [{}, { name: 'Dot', fY: true, color: graie3Shadow }]
-  let borderVert = [
+  const graie3butt = [{}, { name: 'Dot', fY: true, color: graie3Shadow }]
+
+  const borderVert = [
     {},
     {
       stripes: { gap: 1, strip: frameDetailSize },
@@ -716,7 +865,8 @@ function graien() {
       cY: true,
     },
   ]
-  let borderHor = [
+
+  const borderHor = [
     {},
     {
       stripes: { gap: 1, strip: frameDetailSize, horizontal: true },
@@ -725,7 +875,8 @@ function graien() {
       cX: true,
     },
   ]
-  let bottomEdge = [
+
+  const bottomEdge = [
     {},
     { color: backgroundDark, m: 1 },
     {
@@ -764,7 +915,8 @@ function graien() {
       ],
     },
   ]
-  let renderList = [
+
+  const renderList = [
     // ---- FRAME ----------------
     {
       mX: framePadding,

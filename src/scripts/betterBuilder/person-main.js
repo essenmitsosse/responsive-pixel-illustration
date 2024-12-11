@@ -6,7 +6,7 @@ export const PersonMain = function (args) {
   this._headSY = this.R(0.1, 0.4)
 
   // Colors
-  let color = this.GR(1, 6)
+  const color = this.GR(1, 6)
 
   this.color = args.color = this['c' + color]
 
@@ -41,7 +41,8 @@ PersonMain.prototype.draw = function (args) {
     sY: this.headSY,
     rotate: args.rotate,
   })
-  let bodyMain = this.bodyMain.draw({
+
+  const bodyMain = this.bodyMain.draw({
     sX: args.sX,
     sY: this.bodySY,
     rotate: args.rotate,
@@ -124,7 +125,8 @@ BodyMain.prototype.draw = function (args) {
     fY: true,
     z: 20,
   })
-  let chest = new this.basic.Rotater({
+
+  const chest = new this.basic.Rotater({
     drawer: this.chest,
     id: 'chest',
     rotate: args.rotate,

@@ -1,11 +1,13 @@
 export const getPixelUnits = function () {
-  let old = []
+  const old = []
+
   let variableListLink
   let variableListCreate
   let updateList
   let calculateList
-  let oneD = (function () {
-    let createSize = function (args) {
+
+  const oneD = (function () {
+    const createSize = function (args) {
       return args === undefined
         ? 0
         : args.height
@@ -36,7 +38,7 @@ export const getPixelUnits = function () {
     // DIMENSIONS --- Width & Height
 
     Dimension.prototype.prepare = function (args) {
-      let objType = typeof args
+      const objType = typeof args
 
       if (objType === 'object') {
         // is Object
@@ -147,7 +149,7 @@ export const getPixelUnits = function () {
       this.getRealForSave = this.realPartCalculation
 
       return function () {
-        let real = this.getRealForSave()
+        const real = this.getRealForSave()
 
         saver.set(real)
 
@@ -159,7 +161,7 @@ export const getPixelUnits = function () {
       this.getRealForOdd = this.realPartCalculation
 
       return function () {
-        let real = Math.round(this.getRealForOdd())
+        const real = Math.round(this.getRealForOdd())
 
         return real === 0
           ? 0
@@ -192,8 +194,10 @@ export const getPixelUnits = function () {
 
     Dimension.prototype.createAdder = function (add, onlyAdd) {
       let l = add.length
-      let adder = (this.adder = [])
-      let Size = this.dim ? Height : Width
+
+      const adder = (this.adder = [])
+
+      const Size = this.dim ? Height : Width
 
       while (l--) {
         adder.push(new Size(add[l]))
@@ -273,8 +277,10 @@ export const getPixelUnits = function () {
       return max && min
         ? function () {
             let a
-            let realMin = typeof min === 'number' ? min : min.getReal()
-            let realMax = typeof max === 'number' ? max : max.getReal()
+
+            const realMin = typeof min === 'number' ? min : min.getReal()
+
+            const realMax = typeof max === 'number' ? max : max.getReal()
 
             return (a = this.getRealDistance()) > realMax
               ? realMax < realMin
@@ -287,13 +293,15 @@ export const getPixelUnits = function () {
         : max
           ? function () {
               let a
-              let realMax = typeof max === 'number' ? max : max.getReal()
+
+              const realMax = typeof max === 'number' ? max : max.getReal()
 
               return (a = this.getRealDistance()) > realMax ? realMax : a
             }
           : function () {
               let a
-              let realMin = typeof min === 'number' ? min : min.getReal()
+
+              const realMin = typeof min === 'number' ? min : min.getReal()
 
               return (a = this.getRealDistance()) < realMin ? realMin : a
             }
@@ -355,10 +363,11 @@ export const getPixelUnits = function () {
       DistanceX,
       DistanceY,
       set(dimensions) {
-        let x = dimensions.posX || 0
-        let y = dimensions.posY || 0
+        const x = dimensions.posX || 0
 
-        let getRealPos = function (add) {
+        const y = dimensions.posY || 0
+
+        const getRealPos = function (add) {
           return add
             ? function () {
                 return Math.round(this.realPartCalculation() + add)
@@ -368,7 +377,7 @@ export const getPixelUnits = function () {
               }
         }
 
-        let getFromOtherSide = function (add) {
+        const getFromOtherSide = function (add) {
           return add
             ? function (size) {
                 return (
@@ -399,10 +408,11 @@ export const getPixelUnits = function () {
       },
     }
   })()
-  let Axis = (function () {
-    let D = oneD
 
-    let createAxis = function (Size, Pos) {
+  const Axis = (function () {
+    const D = oneD
+
+    const createAxis = function (Size, Pos) {
       return function (args) {
         this.pos = new Pos(args.pos)
 
@@ -434,7 +444,7 @@ export const getPixelUnits = function () {
       }
     }
 
-    let createPos = function (Pos) {
+    const createPos = function (Pos) {
       return function (args) {
         this.pos = new Pos(args.pos)
 
@@ -458,15 +468,17 @@ export const getPixelUnits = function () {
       }
     }
 
-    let Axis = function () {}
+    const Axis = function () {}
 
-    let AxisX = createAxis(D.Width, D.DistanceX)
-    let AxisY = createAxis(D.Height, D.DistanceY)
+    const AxisX = createAxis(D.Width, D.DistanceX)
 
-    let Pos = function () {}
+    const AxisY = createAxis(D.Height, D.DistanceY)
 
-    let PosX = createPos(D.DistanceX)
-    let PosY = createPos(D.DistanceY)
+    const Pos = function () {}
+
+    const PosX = createPos(D.DistanceX)
+
+    const PosY = createPos(D.DistanceY)
 
     Axis.prototype = {
       get getSize() {
@@ -561,15 +573,20 @@ export const getPixelUnits = function () {
       },
     }
   })()
-  let twoD = (function () {
-    let A = Axis
-    let XAxis = A.X
-    let YAxis = A.Y
 
-    let Position = function (args, reflectX, reflectY, rotate) {
-      let fromRight = (args.fX || false) !== reflectX
-      let fromBottom = (args.fY || false) !== reflectY
-      let x = new A.PosX(
+  const twoD = (function () {
+    const A = Axis
+
+    const XAxis = A.X
+
+    const YAxis = A.Y
+
+    const Position = function (args, reflectX, reflectY, rotate) {
+      const fromRight = (args.fX || false) !== reflectX
+
+      const fromBottom = (args.fY || false) !== reflectY
+
+      const x = new A.PosX(
         rotate
           ? {
               pos: args.y,
@@ -584,7 +601,8 @@ export const getPixelUnits = function () {
               center: args.centerY || args.center,
             },
       )
-      let y = new A.PosY(
+
+      const y = new A.PosY(
         rotate
           ? {
               pos: args.x,
@@ -608,7 +626,7 @@ export const getPixelUnits = function () {
       }
     }
 
-    let Dimensions = function (args, fromRight, fromBottom, rotate) {
+    const Dimensions = function (args, fromRight, fromBottom, rotate) {
       if (args.sX === undefined) {
         args.sX = args.s
       }
@@ -736,7 +754,7 @@ export const getPixelUnits = function () {
       }
     },
     pop() {
-      let o = old[old.length - 2]
+      const o = old[old.length - 2]
 
       if (o) {
         oneD.set(o)

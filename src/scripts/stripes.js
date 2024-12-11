@@ -1,55 +1,78 @@
 import { helper as helperGlobal } from '@/renderengine/helper.js'
 
 function stripes(args, init, createSlider) {
-  let helper = helperGlobal
-  let hover = helper.getHoverChangers()
-  let pushChanger = hover.pushRelativeStandard
-  let backgroundColor = [100, 100, 120]
-  let linkList = []
+  const helper = helperGlobal
 
-  let linkListPush = function (obj) {
+  const hover = helper.getHoverChangers()
+
+  const pushChanger = hover.pushRelativeStandard
+
+  const backgroundColor = [100, 100, 120]
+
+  const linkList = []
+
+  const linkListPush = function (obj) {
     linkList.push(obj)
 
     return obj
   }
 
-  let white = [220, 220, 255]
-  let red = [220, 50, 40]
-  let count = 5
-  let width = linkListPush({ main: true })
-  let height = linkListPush({ main: true, height: true })
-  let heightOvershot = linkListPush({
+  const white = [220, 220, 255]
+
+  const red = [220, 50, 40]
+
+  const count = 5
+
+  const width = linkListPush({ main: true })
+
+  const height = linkListPush({ main: true, height: true })
+
+  const heightOvershot = linkListPush({
     add: [height, { r: -1, useSize: width }],
     min: { a: 0 },
   })
-  let widthOvershot = linkListPush({
+
+  const widthOvershot = linkListPush({
     add: [width, { r: -1, useSize: height }],
     min: { a: 0 },
   })
-  let smallerSide = linkListPush({
+
+  const smallerSide = linkListPush({
     add: [width, -count],
     max: [height, -count],
   })
-  let biggerSide = linkListPush({
+
+  const biggerSide = linkListPush({
     add: [width, -count],
     min: [height, -count],
   })
-  let singleSY = linkListPush({ r: 1 / count, useSize: smallerSide })
-  let stripMinSX = singleSY
-  let stripRealRelSX = linkListPush({ r: 1, useSize: biggerSide })
-  let stripRealSX = linkListPush({ add: [stripRealRelSX], min: stripMinSX })
-  let redSX_ = 0.2
-  let redSXrel = linkListPush({ r: redSX_, useSize: stripRealSX })
-  let redSXabs = linkListPush({ r: redSX_, useSize: stripMinSX })
-  let redSXmin = redSXabs
-  let redSXminMaxDiff = linkListPush({
+
+  const singleSY = linkListPush({ r: 1 / count, useSize: smallerSide })
+
+  const stripMinSX = singleSY
+
+  const stripRealRelSX = linkListPush({ r: 1, useSize: biggerSide })
+
+  const stripRealSX = linkListPush({ add: [stripRealRelSX], min: stripMinSX })
+
+  const redSX_ = 0.2
+
+  const redSXrel = linkListPush({ r: redSX_, useSize: stripRealSX })
+
+  const redSXabs = linkListPush({ r: redSX_, useSize: stripMinSX })
+
+  const redSXmin = redSXabs
+
+  const redSXminMaxDiff = linkListPush({
     a: 100,
     add: [{ add: [redSXrel, { r: -1, useSize: redSXmin }, -100], min: 0 }],
   })
-  let redSXa = redSXrel
-  let redSXb = linkListPush([redSXabs, redSXminMaxDiff])
 
-  let versions = function () {
+  const redSXa = redSXrel
+
+  const redSXb = linkListPush([redSXabs, redSXminMaxDiff])
+
+  const versions = function () {
     return [
       [
         { color: white },
@@ -82,9 +105,10 @@ function stripes(args, init, createSlider) {
     ]
   }
 
-  let sizes = (function (count) {
+  const sizes = (function (count) {
     let i = 0
-    let obj = {}
+
+    const obj = {}
 
     while (i < count) {
       obj['s' + i] = stripRealSX
@@ -95,10 +119,12 @@ function stripes(args, init, createSlider) {
     return obj
   })(count)
 
-  let getSquares = function () {
-    let list = []
+  const getSquares = function () {
+    const list = []
+
     let i = 0
-    let max = count
+
+    const max = count
 
     while (i < max) {
       list.push({
@@ -118,7 +144,7 @@ function stripes(args, init, createSlider) {
     return list
   }
 
-  let renderList = [
+  const renderList = [
     {
       sX: {
         add: [{ r: 10000, useSize: heightOvershot }],

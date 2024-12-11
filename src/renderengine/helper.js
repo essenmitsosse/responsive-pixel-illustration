@@ -1,9 +1,10 @@
 export const helper = new (function () {
-  let that = this
+  const that = this
 
   this.getSmallerDim = function (x) {
-    let o = { r: x.r }
-    let max = { r: x.r2 || x.r, otherDim: true }
+    const o = { r: x.r }
+
+    const max = { r: x.r2 || x.r, otherDim: true }
 
     if (x.a) {
       o.a = x.a
@@ -46,7 +47,8 @@ export const helper = new (function () {
 
   this.darken = function (darken, strength) {
     let l = darken.length
-    let finalDarken = []
+
+    const finalDarken = []
 
     strength /= 255
 
@@ -56,7 +58,8 @@ export const helper = new (function () {
 
     return function (color, copy) {
       let l = color.length
-      let newColor = copy || []
+
+      const newColor = copy || []
 
       while (l--) {
         newColor[l] = Math.floor(color[l] * finalDarken[l])
@@ -68,7 +71,8 @@ export const helper = new (function () {
 
   this.lighten = function (lighten, strength) {
     let l = lighten.length
-    let finaleLighten = []
+
+    const finaleLighten = []
 
     while (l--) {
       finaleLighten[l] = lighten[l] * strength
@@ -76,7 +80,9 @@ export const helper = new (function () {
 
     return function (color) {
       let l = color.length
-      let newColor = []
+
+      const newColor = []
+
       let thisC
 
       while (l--) {
@@ -90,7 +96,9 @@ export const helper = new (function () {
   this.addC = function (add) {
     return function (color) {
       let l = color.length
-      let newColor = []
+
+      const newColor = []
+
       let thisC
 
       while (l--) {
@@ -103,7 +111,7 @@ export const helper = new (function () {
   }
 
   this.lessSat = function (color, s) {
-    let total = ((color[0] + color[1] + color[2]) * (1 - s)) / 3
+    const total = ((color[0] + color[1] + color[2]) * (1 - s)) / 3
 
     return [color[0] * s + total, color[1] * s + total, color[2] * s + total]
   }
@@ -144,12 +152,15 @@ export const helper = new (function () {
   }
 
   this.getHoverChangers = function () {
-    let changersRelativeStandardList = []
-    let changersRelativeCustomList = []
-    let changersColorStandardList = []
-    let changersCustomList = []
+    const changersRelativeStandardList = []
 
-    let pushRelativeStandard = function (min, max, map, variable) {
+    const changersRelativeCustomList = []
+
+    const changersColorStandardList = []
+
+    const changersCustomList = []
+
+    const pushRelativeStandard = function (min, max, map, variable) {
       changersRelativeStandardList.push({
         change: max - min,
         min,
@@ -158,10 +169,12 @@ export const helper = new (function () {
       })
     }
 
-    let changeColor = function (value, map) {
-      let [maxR, maxG, maxB] = map.max
-      let [minR, minG, minB] = map.min
-      let valueNeg = 1 - value
+    const changeColor = function (value, map) {
+      const [maxR, maxG, maxB] = map.max
+
+      const [minR, minG, minB] = map.min
+
+      const valueNeg = 1 - value
 
       map.color[0] = minR * valueNeg + maxR * value
 
@@ -213,10 +226,14 @@ export const helper = new (function () {
       },
 
       hover(args) {
-        let changersRelativeStandard = changersRelativeStandardList
-        let changersRelativeCustom = changersRelativeCustomList
-        let changersColorStandard = changersColorStandardList
-        let changersCustom = changersCustomList
+        const changersRelativeStandard = changersRelativeStandardList
+
+        const changersRelativeCustom = changersRelativeCustomList
+
+        const changersColorStandard = changersColorStandardList
+
+        const changersCustom = changersCustomList
+
         let l
         let current
         let currentValue
@@ -293,16 +310,20 @@ export const helper = new (function () {
   }
 
   this.random = function (seed) {
-    let denom = Math.pow(2, 31)
-    let a = 11
-    let b = 19
-    let c = 8
+    const denom = Math.pow(2, 31)
+
+    const a = 11
+
+    const b = 19
+
+    const c = 8
+
     // x = Math.pow( seed, 3 ) + 88675123 || 88675123,
     let x = seed || Math.floor(Math.random() * 4294967296)
     let t = x ^ (x << a)
 
-    let getFloat = function () {
-      let t = x ^ (x << a)
+    const getFloat = function () {
+      const t = x ^ (x << a)
 
       return (x = x ^ (x >> c) ^ (t ^ (t >> b))) / denom
     }

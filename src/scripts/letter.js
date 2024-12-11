@@ -1,65 +1,89 @@
 import { helper as helperGlobal } from '@/renderengine/helper.js'
 
 function letter(args, init, createSlider) {
-  let helper = helperGlobal
-  let hover = helper.getHoverChangers()
-  let pushChanger = hover.pushRelativeStandard
-  let backgroundColor = [200, 200, 240]
-  let linkList = []
+  const helper = helperGlobal
 
-  let linkListPush = function (obj) {
+  const hover = helper.getHoverChangers()
+
+  const pushChanger = hover.pushRelativeStandard
+
+  const backgroundColor = [200, 200, 240]
+
+  const linkList = []
+
+  const linkListPush = function (obj) {
     linkList.push(obj)
 
     return obj
   }
 
-  let width = linkListPush({ main: true })
-  let height = linkListPush({ main: true, height: true })
-  let halfHeight = { r: 0.5, useSize: height, a: -1 }
-  let halfWidth = { r: 0.5, useSize: width, a: -1 }
-  let square = linkListPush({
+  const width = linkListPush({ main: true })
+
+  const height = linkListPush({ main: true, height: true })
+
+  const halfHeight = { r: 0.5, useSize: height, a: -1 }
+
+  const halfWidth = { r: 0.5, useSize: width, a: -1 }
+
+  const square = linkListPush({
     add: [{ add: [width], max: height }],
     max: { add: [halfWidth], min: halfHeight },
   })
-  let letterSquareMax = linkListPush({ r: 1, useSize: square })
-  let letterSquare = linkListPush({ r: 1, useSize: letterSquareMax })
-  let innerLetterSquare = linkListPush({ add: [letterSquare, -2] })
-  let heightOvershot = linkListPush({
+
+  const letterSquareMax = linkListPush({ r: 1, useSize: square })
+
+  const letterSquare = linkListPush({ r: 1, useSize: letterSquareMax })
+
+  const innerLetterSquare = linkListPush({ add: [letterSquare, -2] })
+
+  const heightOvershot = linkListPush({
     add: [height, { r: -1, useSize: width }],
     min: { a: 0 },
   })
-  let widthOvershot = linkListPush({
+
+  const widthOvershot = linkListPush({
     add: [width, { r: -1, useSize: height }],
     min: { a: 0 },
   })
-  let letter2PosX = linkListPush({
+
+  const letter2PosX = linkListPush({
     r: 1000,
     useSize: widthOvershot,
     max: letterSquareMax,
   })
-  let letter2PosY = linkListPush({
+
+  const letter2PosY = linkListPush({
     r: 1000,
     useSize: heightOvershot,
     max: letterSquareMax,
   })
-  let serifeSX_ = 0.48
-  let stammSX_ = 0.27
-  let stammX_ = (serifeSX_ - stammSX_) / 2
-  let serifeSY_ = 0.03
-  let barSY_ = 0.06
-  let serifeSX = linkListPush({ r: 0.5, useSize: innerLetterSquare, a: -1 })
-  let stammX = linkListPush({ r: 0.25, useSize: serifeSX })
-  let stammSX = linkListPush({
+
+  const serifeSX_ = 0.48
+
+  const stammSX_ = 0.27
+
+  const stammX_ = (serifeSX_ - stammSX_) / 2
+
+  const serifeSY_ = 0.03
+
+  const barSY_ = 0.06
+
+  const serifeSX = linkListPush({ r: 0.5, useSize: innerLetterSquare, a: -1 })
+
+  const stammX = linkListPush({ r: 0.25, useSize: serifeSX })
+
+  const stammSX = linkListPush({
     add: [serifeSX, { r: -2, useSize: stammX }],
     min: 1,
   })
-  let serifeSY = linkListPush({
+
+  const serifeSY = linkListPush({
     r: serifeSY_,
     useSize: innerLetterSquare,
     min: 1,
   })
 
-  let getLetter = function (args) {
+  const getLetter = function (args) {
     return {
       x: args.x,
       y: args.y,
@@ -102,7 +126,7 @@ function letter(args, init, createSlider) {
     }
   }
 
-  let renderList = [
+  const renderList = [
     getLetter({
       letter: [
         // Stämme

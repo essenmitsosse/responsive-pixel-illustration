@@ -1,10 +1,12 @@
 export const DrawingTools = function (pixelUnit, getRandom) {
-  let that = this
+  const that = this
 
   this.seed = (function (getRandom) {
-    let getSeed = getRandom().seed
+    const getSeed = getRandom().seed
+
     let count = 0
-    let i = []
+
+    const i = []
 
     return {
       reset() {
@@ -15,8 +17,9 @@ export const DrawingTools = function (pixelUnit, getRandom) {
         }
       },
       get(j) {
-        let seed = j || getSeed()
-        let nr = (count += 1)
+        const seed = j || getSeed()
+
+        const nr = (count += 1)
 
         return function () {
           return getRandom(seed + i[nr]++ || 0)
@@ -27,37 +30,40 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   this.pixelSetter = (function () {
     let colorArray
-    let formSave = {}
 
-    let getSet = function (color, zInd, id) {
+    const formSave = {}
+
+    const getSet = function (color, zInd, id) {
       return function () {
         return colorArray.getSet(color, zInd, id)
       }
     }
 
-    let getClear = function (id) {
+    const getClear = function (id) {
       return function () {
         return colorArray.getClear(id)
       }
     }
 
-    let getSetForRect = function (color, zInd, id) {
+    const getSetForRect = function (color, zInd, id) {
       return function () {
         return colorArray.getSetForRect(color, zInd, id)
       }
     }
 
-    let getClearForRect = function (id) {
+    const getClearForRect = function (id) {
       return function () {
         return colorArray.getClearForRect(id)
       }
     }
 
-    let getSave = function (name, isRect) {
+    const getSave = function (name, isRect) {
       return function () {
-        let thisSave = formSave[name] ? formSave[name] : (formSave[name] = {})
-        let save = thisSave.save ? thisSave.save : (thisSave.save = [])
-        let mask = thisSave.mask ? thisSave.mask : (thisSave.mask = [])
+        const thisSave = formSave[name] ? formSave[name] : (formSave[name] = {})
+
+        const save = thisSave.save ? thisSave.save : (thisSave.save = [])
+
+        const mask = thisSave.mask ? thisSave.mask : (thisSave.mask = [])
 
         return isRect
           ? colorArray.getSaveForRect(save, mask)
@@ -73,9 +79,10 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       }
     }
 
-    let getClearSave = function (name, isRect) {
+    const getClearSave = function (name, isRect) {
       return function () {
-        let thisSave = formSave[name]
+        const thisSave = formSave[name]
+
         let save
         let mask
 
@@ -91,13 +98,14 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       }
     }
 
-    let getColorMask = function (dimensions, push) {
+    const getColorMask = function (dimensions, push) {
       return colorArray.setMask(dimensions, push)
     }
 
     return {
       setArray(newArray) {
-        let forms = formSave
+        const forms = formSave
+
         let key
 
         for (key in forms) {
@@ -295,7 +303,8 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   this.Dot.prototype.getName = 'Dot'
 
   this.Dot.prototype.draw = function () {
-    let pos = this.args.getRealPosition()
+    const pos = this.args.getRealPosition()
+
     this.getColorArray()(pos.x, pos.y)
   }
 
@@ -326,13 +335,16 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   this.Line.prototype.getLineSetter = function (weight) {
     return weight
       ? (function () {
-          let w = pixelUnit.createSize(weight)
+          const w = pixelUnit.createSize(weight)
 
           return function () {
-            let thisW = w.getReal()
-            let first = -Math.round(thisW / 2)
-            let second = Math.round(thisW + first)
-            let set = this.getColorArray()
+            const thisW = w.getReal()
+
+            const first = -Math.round(thisW / 2)
+
+            const second = Math.round(thisW + first)
+
+            const set = this.getColorArray()
 
             return function (x, y) {
               let i = first
@@ -357,7 +369,8 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     reflectY,
     rotate,
   ) {
-    let newPoints = []
+    const newPoints = []
+
     let l = args.points.length
 
     reflectX = (args.rX || false) !== reflectX
@@ -377,7 +390,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   }
 
   this.Line.prototype.draw = (function () {
-    let getDrawLine = function (set) {
+    const getDrawLine = function (set) {
       return function (p0, p1) {
         // Draw a single Lines
         let x0
@@ -446,11 +459,14 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
     return function () {
       // Draw all Lines
-      let p = this.args.points
+      const p = this.args.points
+
       let l = this.args.LineCount
       let nextPoint = p[l]()
-      let firstPoint = this.args.closed ? nextPoint : false
-      let drawLine = getDrawLine(this.lineSetter())
+
+      const firstPoint = this.args.closed ? nextPoint : false
+
+      const drawLine = getDrawLine(this.lineSetter())
 
       while (l--) {
         nextPoint = drawLine(nextPoint, p[l]())
@@ -468,7 +484,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   this.Polygon.prototype.getName = 'Polygon'
 
   this.Polygon.prototype.draw = (function () {
-    let getLineEdgeGetter = function (edgeList) {
+    const getLineEdgeGetter = function (edgeList) {
       let i = -1
 
       return function (p0, p1) {
@@ -567,7 +583,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       }
     }
 
-    let getDrawRow = function (set) {
+    const getDrawRow = function (set) {
       return function (p0, p1) {
         do {
           set(p0.x0, p1.y)
@@ -575,8 +591,8 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       }
     }
 
-    let sortFunction = function (a, b) {
-      let n = b.y - a.y
+    const sortFunction = function (a, b) {
+      const n = b.y - a.y
 
       if (n !== 0) {
         return n
@@ -587,14 +603,20 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
     return function () {
       // Draw all Lines
-      let edgeList = []
-      let colorArraySet = this.getColorArray()
-      let drawRow = getDrawRow(colorArraySet)
-      let getLineEdge = getLineEdgeGetter(edgeList)
-      let p = this.args.points
+      const edgeList = []
+
+      const colorArraySet = this.getColorArray()
+
+      const drawRow = getDrawRow(colorArraySet)
+
+      const getLineEdge = getLineEdgeGetter(edgeList)
+
+      const p = this.args.points
+
       let l = this.args.LineCount
       let nextPoint = p[l](true)
-      let firstPoint = nextPoint
+
+      const firstPoint = nextPoint
 
       while (l--) {
         nextPoint = getLineEdge(nextPoint, p[l](true))
@@ -624,8 +646,9 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   this.Fill.prototype.prepareSizeAndPos = (function (pixelUnit) {
     // Prepare Size and Position Data for Basic Objects
     return function (args, reflectX, reflectY, rotate) {
-      let width = (rotate ? args.sY : args.sX) || args.s
-      let height = (rotate ? args.sX : args.sY) || args.s
+      const width = (rotate ? args.sY : args.sX) || args.s
+
+      const height = (rotate ? args.sX : args.sY) || args.s
 
       this.width = width ? new pixelUnit.Width(width) : false
 
@@ -634,8 +657,10 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   })(pixelUnit)
 
   this.Fill.prototype.draw = function () {
-    let color = this.getColorArray()
-    let array = that.pixelSetter.getSave(this.use)
+    const color = this.getColorArray()
+
+    const array = that.pixelSetter.getSave(this.use)
+
     let l = array ? array.length - 1 : -1
     let current
 
@@ -651,8 +676,9 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   this.FillRandom.prototype.getName = 'Random Fill'
 
   this.FillRandom.prototype.init = function (args) {
-    let width = this.rotate ? args.sY : args.sX
-    let height = this.rotate ? args.sX : args.sY
+    const width = this.rotate ? args.sY : args.sX
+
+    const height = this.rotate ? args.sX : args.sY
 
     this.use = args.use
 
@@ -676,25 +702,39 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   }
 
   this.FillRandom.prototype.draw = function () {
-    let width = this.width ? this.width.getReal() : 1
-    let height = this.height ? this.height.getReal() : 1
-    let sizeRandom = this.sizeRandom ? this.sizeRandom.getReal() + 1 : false
-    let heightRandom = this.heightRandom
+    const width = this.width ? this.width.getReal() : 1
+
+    const height = this.height ? this.height.getReal() : 1
+
+    const sizeRandom = this.sizeRandom ? this.sizeRandom.getReal() + 1 : false
+
+    const heightRandom = this.heightRandom
       ? this.heightRandom.getReal() + 1
       : false
-    let widthRandom = this.widthRandom ? this.widthRandom.getReal() + 1 : false
-    let color = this.getColorArray()
-    let array = that.pixelSetter.getSave(this.use)
-    let l = array ? array.length : 0
+
+    const widthRandom = this.widthRandom
+      ? this.widthRandom.getReal() + 1
+      : false
+
+    const color = this.getColorArray()
+
+    const array = that.pixelSetter.getSave(this.use)
+
+    const l = array ? array.length : 0
+
     let count = Math.floor(
       l *
         (this.chance /
           ((width + (widthRandom || sizeRandom || 0) / 2) *
             (height + (heightRandom || sizeRandom || 0) / 2))),
     )
-    let mask = this.mask ? that.pixelSetter.getMask(this.use) : false
-    let dontCheck = !mask
-    let random = this.random().one
+
+    const mask = this.mask ? that.pixelSetter.getMask(this.use) : false
+
+    const dontCheck = !mask
+
+    const random = this.random().one
+
     let current
     let currentX
     let currentY
@@ -773,7 +813,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   this.Rect.prototype.isRect = true
 
   this.Rect.prototype.draw = function () {
-    let dimensions = this.dimensions.calc()
+    const dimensions = this.dimensions.calc()
 
     if (dimensions.checkMin()) {
       return
@@ -798,11 +838,14 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   this.Obj.prototype.init = (function (drawingTool) {
     // Initing a new Object, converting its List into real Objects.
-    let convertList = function (list, inherit) {
+    const convertList = function (list, inherit) {
       // Loops through the List of an Object
-      let l = list ? list.length : 0
+      const l = list ? list.length : 0
+
       let i = 0
-      let newList = []
+
+      const newList = []
+
       let newTool
 
       do {
@@ -838,7 +881,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     }
 
     return function () {
-      let list = this.args.list || this.list
+      const list = this.args.list || this.list
 
       if (this.args.list || this.list) {
         this.args.list = convertList(list, {
@@ -861,7 +904,9 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     // Draws Object, consisting of other Objects and Primitives.
     return function () {
       let l = this.args.list.length
-      let dimensions = this.dimensions.calc()
+
+      const dimensions = this.dimensions.calc()
+
       let oldMask
 
       if (dimensions.checkMin()) {
@@ -897,11 +942,13 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   this.Stripes.prototype.detailInit = function (args) {
     let random
+
     /** Width of a single Line */
-    let horizontal = (this.horizontal =
+    const horizontal = (this.horizontal =
       (this.rotate ? !args.stripes.horizontal : args.stripes.horizontal) ||
       false)
-    let Dimension = horizontal ? pixelUnit.Height : pixelUnit.Width
+
+    const Dimension = horizontal ? pixelUnit.Height : pixelUnit.Width
 
     /** Width of a single Line */
     this.stripWidth = new Dimension(args.stripes.strip || { a: 1 })
@@ -963,8 +1010,9 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   this.Stripes.prototype.drawers = {
     normal(drawer, fromOtherSide, stripWidth, endX, startY, endY, overflow) {
       return function (startX, currentHeightChange, randomWidth) {
-        let end = startX + stripWidth + randomWidth
-        let start = startY - (fromOtherSide ? currentHeightChange : 0)
+        const end = startX + stripWidth + randomWidth
+
+        const start = startY - (fromOtherSide ? currentHeightChange : 0)
 
         drawer({
           posX: startX,
@@ -984,8 +1032,9 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       overflow,
     ) {
       return function (startY, currentHeightChange, randomWidth) {
-        let end = startY + stripWidth + randomWidth
-        let start = startX - (fromOtherSide ? currentHeightChange : 0)
+        const end = startY + stripWidth + randomWidth
+
+        const start = startX - (fromOtherSide ? currentHeightChange : 0)
 
         drawer({
           posX: start,
@@ -998,7 +1047,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   }
 
   this.Stripes.prototype.draw = function () {
-    let dimensions = this.dimensions.calc()
+    const dimensions = this.dimensions.calc()
 
     if (dimensions.checkMin()) {
       return
@@ -1006,11 +1055,14 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
     let stripWidth = this.stripWidth.getReal()
     let gapWidth = this.gapWidth.getReal()
-    let size = this.horizontal ? dimensions.height : dimensions.width
+
+    const size = this.horizontal ? dimensions.height : dimensions.width
+
     let singleSX = gapWidth + stripWidth
 
     if (this.round) {
-      let ratio = singleSX / stripWidth
+      const ratio = singleSX / stripWidth
+
       singleSX = Math.floor(size / Math.floor(size / singleSX))
 
       stripWidth = Math.round(singleSX / ratio)
@@ -1018,54 +1070,71 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       gapWidth = singleSX - stripWidth
     }
 
-    let lengthChange = this.lengthChange ? this.lengthChange.getReal() : 0
-    let lengthChangeStep =
+    const lengthChange = this.lengthChange ? this.lengthChange.getReal() : 0
+
+    const lengthChangeStep =
       (lengthChange /
         (this.horizontal ? dimensions.height : dimensions.width)) *
       (this.fromOtherSide ? -1 : 1)
+
     let totalHeightChange = Math.round(
       this.fromOtherSide ? -lengthChangeStep : 0,
     )
-    let startX =
+
+    const startX =
       dimensions.posX -
       (this.horizontal && this.fromRight && this.fromBottom ? lengthChange : 0)
-    let startY =
+
+    const startY =
       dimensions.posY -
       (!this.horizontal && this.fromRight && this.fromBottom ? lengthChange : 0)
-    let width =
+
+    const width =
       dimensions.width +
       (this.horizontal && !this.fromRight && this.fromBottom
         ? lengthChange
         : 0) +
       (this.horizontal && this.fromRight && this.fromBottom ? lengthChange : 0)
-    let height =
+
+    const height =
       dimensions.height +
       (!this.horizontal && this.fromRight && !this.fromBottom
         ? lengthChange
         : 0) +
       (!this.horizontal && this.fromRight && this.fromBottom ? lengthChange : 0)
-    let endX = startX + width
-    let endY = startY + height
+
+    const endX = startX + width
+
+    const endY = startY + height
+
     let start =
       (this.horizontal ? startY : startX) +
       (this.fromOtherSide && !this.fromStart
         ? Math.round((this.horizontal ? height : width) % singleSX) -
           (this.overflow ? singleSX : 0)
         : 0)
-    let end = this.horizontal ? endY : endX
-    let random = this.random ? this.random().one : false
-    let stripWidthRandom = this.stripWidthRandom
+
+    const end = this.horizontal ? endY : endX
+
+    const random = this.random ? this.random().one : false
+
+    const stripWidthRandom = this.stripWidthRandom
       ? this.stripWidthRandom.getReal() + 1
       : 0
-    let gapWidthRandom = this.gapWidthRandom
+
+    const gapWidthRandom = this.gapWidthRandom
       ? this.gapWidthRandom.getReal() + 1
       : 0
-    let lengthRandom = this.lengthRandom ? this.lengthRandom.getReal() : 0
+
+    const lengthRandom = this.lengthRandom ? this.lengthRandom.getReal() : 0
+
     let randomWidth
     let totalWidth
     let l
-    let length = this.args.list ? this.args.list.length : 0
-    let draw = this.getDraw(
+
+    const length = this.args.list ? this.args.list.length : 0
+
+    const draw = this.getDraw(
       this.args.list
         ? pixelUnit.push
         : this.getColorArray
@@ -1170,8 +1239,11 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   this.Panels.prototype.init = (function (pX) {
     return function (args) {
       let l = args.panels.length
-      let inherit = {}
-      let newPanels = (this.args.list = [])
+
+      const inherit = {}
+
+      const newPanels = (this.args.list = [])
+
       let current
 
       while (l--) {
@@ -1237,7 +1309,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       // Find best combination of rows/cols
       this.findBestRows(this.args.list)
 
-      let panels = this.sortRows(this.args.list)
+      const panels = this.sortRows(this.args.list)
 
       // calculate the finale size of the panel
       this.calcPanelsSizes(panels)
@@ -1250,9 +1322,13 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   this.Panels.prototype.findBestRows = function (list) {
     let y = 0
     let x
-    let l = list.length
+
+    const l = list.length
+
     let current
-    let imgRatio = this.imgRatio.ratio
+
+    const imgRatio = this.imgRatio.ratio
+
     let last = {
       lastSquarness: Infinity,
       lastRatioDiff: imgRatio,
@@ -1304,14 +1380,18 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   }
 
   this.Panels.prototype.sortRows = function (list) {
-    let panels = []
+    const panels = []
+
     let i
     let j
-    let l = list.length
+
+    const l = list.length
+
     let c = l - 1
     let total = this.countX * this.countY
     let odd = true
-    let priorites = [
+
+    const priorites = [
       l - 1,
       0,
       l - 1,
@@ -1345,6 +1425,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
       l - 1,
       0,
     ]
+
     let current
 
     i = l
@@ -1405,7 +1486,9 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
   this.Panels.prototype.calcPanelsSizes = function (panels) {
     let c = 0
-    let l = panels.length
+
+    const l = panels.length
+
     let currentPanel
     let x
     let y
@@ -1482,7 +1565,9 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     let currentPanel
     let currentDim
     let oldMask
-    let l = panels.length
+
+    const l = panels.length
+
     let c = 0
 
     do {
@@ -1702,7 +1787,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   })(pixelUnit)
 
   this.Arm.prototype.draw = function () {
-    let dimensions = this.dimensions.calc()
+    const dimensions = this.dimensions.calc()
 
     this.fullLength = this.length.s.getReal()
 
@@ -1775,7 +1860,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   }
 
   this.Arm.prototype.calculateFromEllbow = function () {
-    let jointY = this.targetY.s.getReal()
+    const jointY = this.targetY.s.getReal()
 
     if (this.upperArmLength >= Math.abs(jointY)) {
       // if ellbow can reach
@@ -1894,13 +1979,19 @@ export const DrawingTools = function (pixelUnit, getRandom) {
   }
 
   this.Arm.prototype.drawHand = function () {
-    let endX = this.endX.real
-    let endY = this.endY.real
-    let targetX = this.handTargetX.s.getReal()
-    let targetY = this.handTargetY.s.getReal()
-    let length = this.handLength.getReal()
-    let distance = Math.sqrt(Math.pow(targetX, 2) + Math.pow(targetY, 2))
-    let ratio = length / (distance || 0.1)
+    const endX = this.endX.real
+
+    const endY = this.endY.real
+
+    const targetX = this.handTargetX.s.getReal()
+
+    const targetY = this.handTargetY.s.getReal()
+
+    const length = this.handLength.getReal()
+
+    const distance = Math.sqrt(Math.pow(targetX, 2) + Math.pow(targetY, 2))
+
+    const ratio = length / (distance || 0.1)
 
     this.handEndX.real = endX + targetX * ratio
 

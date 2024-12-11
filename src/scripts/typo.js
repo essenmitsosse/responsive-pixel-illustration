@@ -1,18 +1,26 @@
 import { helper } from '@/renderengine/helper.js'
 
 function typo() {
-  let backgroundColor = [170, 190, 230]
-  let font = [30, 30, 30]
+  const backgroundColor = [170, 190, 230]
+
+  const font = [30, 30, 30]
+
   let letterCount = 0
   let spacingCount = 0
-  let word = 'MAUTZN'
-  let contrast = 0.4
-  let serif = true
-  let roundSerif = true
-  let middleStemLength = 0.8
-  let serifWidth = 0.6
 
-  let getSerif = serif
+  const word = 'MAUTZN'
+
+  const contrast = 0.4
+
+  const serif = true
+
+  const roundSerif = true
+
+  const middleStemLength = 0.8
+
+  const serifWidth = 0.6
+
+  const getSerif = serif
     ? function (args) {
         args = args || {}
 
@@ -130,9 +138,10 @@ function typo() {
       }
   // letterCount * letterWidth + letterCount
 
-  let getLetter = (function () {
-    let Letters = new (function () {
-      let vertStem = { sY: 'stemVert', cY: true }
+  const getLetter = (function () {
+    const Letters = new (function () {
+      const vertStem = { sY: 'stemVert', cY: true }
+
       this.missing = {
         sX: 2,
         list: [
@@ -417,9 +426,10 @@ function typo() {
     })()
 
     return function (letter) {
-      let thisLetter =
+      const thisLetter =
         Letters[letter] || (letter === ' ' ? Letters.space : Letters.missing)
-      let letterObject = {
+
+      const letterObject = {
         sX: helper.mult(thisLetter.sX, 'wordUnit'),
         x: [
           helper.mult(letterCount, 'wordUnit'),
@@ -444,8 +454,10 @@ function typo() {
       return letterObject
     }
   })()
-  let letters = (function () {
-    let list = []
+
+  const letters = (function () {
+    const list = []
+
     let l = word.length
 
     while (l--) {
@@ -458,7 +470,8 @@ function typo() {
 
     return list
   })()
-  let renderList = [
+
+  const renderList = [
     {
       mY: 'border',
       sX: [
@@ -471,7 +484,8 @@ function typo() {
     },
     // { gap:{a:0}, color:[255,255,0], change:{r:-1} },
   ]
-  let variableList = {
+
+  const variableList = {
     border: helper.getSmallerDim({ r: 0.08 }),
     borderSide: { r: 0.04 },
     imgWidth: { r: 1, add: [helper.mult(-2, 'borderSide', -spacingCount)] },

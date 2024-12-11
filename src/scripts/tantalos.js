@@ -1,73 +1,107 @@
 import { helper } from '@/renderengine/helper.js'
 
 function tantalos() {
-  let water = [36, 44, 53]
-  let waterLight = [74, 81, 88]
-  let ground = [72, 71, 68]
-  let groundDark = [65, 54, 57]
-  let groundWater = [54, 58, 61]
-  let tree = [100, 118, 64]
-  let treeShadow = [90, 90, 53]
-  let treeBackground = [49, 45, 35]
-  let fruit = [123, 35, 35]
-  let trunk = [82, 76, 68]
-  let trunkShadow = [74, 58, 58]
-  let skin = [193, 180, 163]
-  let skinWater = [69, 74, 79]
-  let skinShadow = [162, 146, 129]
-  let borderColor = [111, 67, 29]
-  let borderDetailColor = [123, 87, 35]
-  let shorts = [139, 146, 154]
-  let shortsWater = [60, 68, 77]
-  // Variables
-  let linkList = []
+  const water = [36, 44, 53]
 
-  let linkListPush = function (obj) {
+  const waterLight = [74, 81, 88]
+
+  const ground = [72, 71, 68]
+
+  const groundDark = [65, 54, 57]
+
+  const groundWater = [54, 58, 61]
+
+  const tree = [100, 118, 64]
+
+  const treeShadow = [90, 90, 53]
+
+  const treeBackground = [49, 45, 35]
+
+  const fruit = [123, 35, 35]
+
+  const trunk = [82, 76, 68]
+
+  const trunkShadow = [74, 58, 58]
+
+  const skin = [193, 180, 163]
+
+  const skinWater = [69, 74, 79]
+
+  const skinShadow = [162, 146, 129]
+
+  const borderColor = [111, 67, 29]
+
+  const borderDetailColor = [123, 87, 35]
+
+  const shorts = [139, 146, 154]
+
+  const shortsWater = [60, 68, 77]
+
+  // Variables
+  const linkList = []
+
+  const linkListPush = function (obj) {
     linkList.push(obj)
 
     return obj
   }
 
-  let sXMain = linkListPush({ main: true })
-  let sYMain = linkListPush({ main: true, height: true })
-  let fullRect = linkListPush(linkListPush({ add: [sXMain], max: sYMain }))
-  let borderSX = linkListPush({ r: 0.05, useSize: fullRect })
-  let borderDetail = linkListPush({ r: 0.08, useSize: fullRect })
-  let borderBottomDetail = linkListPush({ r: 0.06, useSize: fullRect })
-  let borderBottomMargin = linkListPush([
+  const sXMain = linkListPush({ main: true })
+
+  const sYMain = linkListPush({ main: true, height: true })
+
+  const fullRect = linkListPush(linkListPush({ add: [sXMain], max: sYMain }))
+
+  const borderSX = linkListPush({ r: 0.05, useSize: fullRect })
+
+  const borderDetail = linkListPush({ r: 0.08, useSize: fullRect })
+
+  const borderBottomDetail = linkListPush({ r: 0.06, useSize: fullRect })
+
+  const borderBottomMargin = linkListPush([
     { r: 0.5 },
     { r: -0.5, useSize: borderDetail },
   ])
-  let frameDetailSize = linkListPush({ add: [borderSX, -2], min: 1 })
-  let motiveSX = linkListPush({
+
+  const frameDetailSize = linkListPush({ add: [borderSX, -2], min: 1 })
+
+  const motiveSX = linkListPush({
     add: [sXMain, { r: -2, useSize: borderSX }],
   })
-  let motiveSY = linkListPush([sYMain, { r: -2, useSize: borderSX }])
-  let motiveSqu = linkListPush(
+
+  const motiveSY = linkListPush([sYMain, { r: -2, useSize: borderSX }])
+
+  const motiveSqu = linkListPush(
     helper.getSmallerDim({ r: 1, useSize: [motiveSX, motiveSY] }),
   )
-  let motiveSquBigger = linkListPush(
+
+  const motiveSquBigger = linkListPush(
     helper.getBiggerDim({ r: 1, useSize: [motiveSX, motiveSY] }),
   )
-  let overshotSX = linkListPush({
+
+  const overshotSX = linkListPush({
     add: [motiveSX, { r: -1, useSize: motiveSqu }],
   })
-  let overshotSY = linkListPush({
+
+  const overshotSY = linkListPush({
     add: [motiveSY, { r: -1, useSize: motiveSqu }],
   })
+
   // Teiresias
-  let centerX = linkListPush({
+  const centerX = linkListPush({
     r: 0.5,
     useSize: motiveSX,
     add: [{ r: 0.05, useSize: overshotSY }],
   })
-  let centerY = linkListPush({
+
+  const centerY = linkListPush({
     r: 0.5,
     useSize: motiveSY,
     add: [{ r: -0.02, useSize: overshotSX }],
     min: 1,
   })
-  let movementSY = linkListPush({
+
+  const movementSY = linkListPush({
     add: [
       { r: 0.9, useSize: motiveSY },
       { r: -1, useSize: centerY },
@@ -75,7 +109,8 @@ function tantalos() {
       { r: -0.1, useSize: overshotSY },
     ],
   })
-  let movementSX = linkListPush({
+
+  const movementSX = linkListPush({
     add: [
       { r: 0.7, useSize: motiveSquBigger },
       { r: -1, useSize: overshotSY },
@@ -83,16 +118,23 @@ function tantalos() {
     min: { r: 0.2, useSize: movementSY, max: centerX },
     max: { r: 7, useSize: movementSY },
   })
-  let movementL = linkListPush({ getLength: [movementSX, movementSY] })
-  let perspectiveY = linkListPush({ r: 0.1, useSize: movementSY })
-  let groundThickness = perspectiveY
-  // General Sizes
-  let handRel = 0.05
-  let armRel = 0.2
-  let torsoRel = 0.25
-  let upperArmRel = handRel * 0.4
 
-  let getBodyPartSize = function (rel, height, min) {
+  const movementL = linkListPush({ getLength: [movementSX, movementSY] })
+
+  const perspectiveY = linkListPush({ r: 0.1, useSize: movementSY })
+
+  const groundThickness = perspectiveY
+
+  // General Sizes
+  const handRel = 0.05
+
+  const armRel = 0.2
+
+  const torsoRel = 0.25
+
+  const upperArmRel = handRel * 0.4
+
+  const getBodyPartSize = function (rel, height, min) {
     return linkListPush({
       r: rel,
       useSize: height ? movementSY : movementSX,
@@ -100,45 +142,67 @@ function tantalos() {
     })
   }
 
-  let handSX_ = getBodyPartSize(handRel, false, true)
-  let handSY_ = getBodyPartSize(handRel, true, true)
-  let armSX = getBodyPartSize(armRel)
-  let armSY = getBodyPartSize(armRel, true)
-  let torsoSX = getBodyPartSize(torsoRel)
-  let torsoSY = getBodyPartSize(torsoRel, true)
-  let bodyWithoutLegsX = linkListPush([handSX_, armSX, torsoSX])
-  let bodyWithoutLegsY = linkListPush([handSY_, armSY, torsoSY])
-  let lowerBodySX = linkListPush({
+  const handSX_ = getBodyPartSize(handRel, false, true)
+
+  const handSY_ = getBodyPartSize(handRel, true, true)
+
+  const armSX = getBodyPartSize(armRel)
+
+  const armSY = getBodyPartSize(armRel, true)
+
+  const torsoSX = getBodyPartSize(torsoRel)
+
+  const torsoSY = getBodyPartSize(torsoRel, true)
+
+  const bodyWithoutLegsX = linkListPush([handSX_, armSX, torsoSX])
+
+  const bodyWithoutLegsY = linkListPush([handSY_, armSY, torsoSY])
+
+  const lowerBodySX = linkListPush({
     add: [movementSX, { r: -1, useSize: bodyWithoutLegsX }],
   })
-  let lowerBodySY = linkListPush({
+
+  const lowerBodySY = linkListPush({
     add: [movementSY, { r: -1, useSize: bodyWithoutLegsY }],
   })
-  let shoulderX = linkListPush([handSX_, armSX])
-  let shoulderY = linkListPush([handSY_, armSY])
-  let hipX_ = linkListPush({ add: [shoulderX, torsoSX] })
-  let hipY = linkListPush({ add: [shoulderY, torsoSY] })
+
+  const shoulderX = linkListPush([handSX_, armSX])
+
+  const shoulderY = linkListPush([handSY_, armSY])
+
+  const hipX_ = linkListPush({ add: [shoulderX, torsoSX] })
+
+  const hipY = linkListPush({ add: [shoulderY, torsoSY] })
+
   // Hand
-  let handRatio = 0.5
-  let handSX = linkListPush({
+  const handRatio = 0.5
+
+  const handSX = linkListPush({
     add: [handSX_],
     min: { r: handRatio, useSize: handSY_ },
   })
-  let handSY = linkListPush({
+
+  const handSY = linkListPush({
     add: [handSY_],
     min: { r: handRatio, useSize: handSX_ },
   })
+
   // Arm
-  let upperArmL = linkListPush({
+  const upperArmL = linkListPush({
     r: upperArmRel,
     useSize: movementL,
     min: 1,
   })
-  let armL = linkListPush({ getLength: [armSX, armSY] })
-  let armHandX = handSX
-  let armHandY = linkListPush({ a: 0 })
-  let armShoulderX = shoulderX
-  let armShoulderY = linkListPush([shoulderY, { r: 0.5, useSize: upperArmL }])
+
+  const armL = linkListPush({ getLength: [armSX, armSY] })
+
+  const armHandX = handSX
+
+  const armHandY = linkListPush({ a: 0 })
+
+  const armShoulderX = shoulderX
+
+  const armShoulderY = linkListPush([shoulderY, { r: 0.5, useSize: upperArmL }])
   // armBentPos = 0.4,
   // armBent = -0.1,
 
@@ -148,64 +212,84 @@ function tantalos() {
   // armEllbowX = linkListPush( { add: [ armEllbowX_, { r: armBent, useSize: armEllbowY_ } ] } ),
   // armEllbowY = linkListPush( { add: [ armEllbowY_, { r: -armBent * 1.2, useSize: armEllbowX_ } ] } ),
 
-  let foreArmS = linkListPush({ r: 0.008, useSize: movementL, min: 1 })
-  let upperArmS = linkListPush({
+  const foreArmS = linkListPush({ r: 0.008, useSize: movementL, min: 1 })
+
+  const upperArmS = linkListPush({
     r: 1,
     useSize: foreArmS,
     max: [foreArmS, 1],
   })
-  let arm2Y = linkListPush([shoulderY, upperArmS])
-  let arm2SYMax1 = linkListPush({
+
+  const arm2Y = linkListPush([shoulderY, upperArmS])
+
+  const arm2SYMax1 = linkListPush({
     add: [armL, { r: 0.2, useSize: movementSY }],
   })
-  let arm2SYMax2 = linkListPush({
+
+  const arm2SYMax2 = linkListPush({
     add: [movementSY, { r: -1, useSize: arm2Y }],
   })
-  let arm2SY = linkListPush({ add: [arm2SYMax1], max: arm2SYMax2 })
-  let arm2SX = linkListPush({ r: 0.2, useSize: arm2SYMax1 })
-  let ellbowS = linkListPush({
+
+  const arm2SY = linkListPush({ add: [arm2SYMax1], max: arm2SYMax2 })
+
+  const arm2SX = linkListPush({ r: 0.2, useSize: arm2SYMax1 })
+
+  const ellbowS = linkListPush({
     r: 1.5,
     useSize: upperArmS,
     max: [upperArmS, 2],
   })
   // ellbowSHalf = linkListPush( {r: -0.5, useSize: ellbowS } ),
 
-  let legLowerS = foreArmS
-  let legUpperS = upperArmS
-  let kneeS = ellbowS
+  const legLowerS = foreArmS
+
+  const legUpperS = upperArmS
+
+  const kneeS = ellbowS
+
   // Shoulder
-  let shoulderSXRel = 0.1
-  let shoulderSYRel = shoulderSXRel * 0.5
-  let shoulderSX = linkListPush({
+  const shoulderSXRel = 0.1
+
+  const shoulderSYRel = shoulderSXRel * 0.5
+
+  const shoulderSX = linkListPush({
     r: shoulderSXRel,
     useSize: movementL,
     min: 1,
   })
-  let shoulderSY = linkListPush({
+
+  const shoulderSY = linkListPush({
     r: shoulderSYRel,
     useSize: movementL,
     min: 1,
     max: { r: 0.2, useSize: movementSY },
   })
-  let hipSXRel = 0.08
-  let hipSX = linkListPush({ r: hipSXRel, useSize: movementL, min: 1 })
-  let hipX = linkListPush({ add: [hipX_, { r: -1, useSize: hipSX }] })
-  let torsoL = linkListPush({
+
+  const hipSXRel = 0.08
+
+  const hipSX = linkListPush({ r: hipSXRel, useSize: movementL, min: 1 })
+
+  const hipX = linkListPush({ add: [hipX_, { r: -1, useSize: hipSX }] })
+
+  const torsoL = linkListPush({
     getLength: [
       linkListPush({ add: [{ r: -1, useSize: shoulderX, hipX }] }),
       linkListPush({ add: [{ r: -1, useSize: shoulderY, hipY }] }),
     ],
   })
+
   // Hip
-  let hipSYRel = shoulderSXRel * 0.4
-  let hipSY = linkListPush({
+  const hipSYRel = shoulderSXRel * 0.4
+
+  const hipSY = linkListPush({
     r: hipSYRel,
     useSize: movementL,
     min: 1,
     max: { r: 0.15, useSize: movementSY },
   })
+
   // Legs
-  let legL = linkListPush({
+  const legL = linkListPush({
     r: 0.6,
     useSize: linkListPush({
       add: [
@@ -214,23 +298,31 @@ function tantalos() {
       ],
     }),
   })
-  let upperLeg = linkListPush({ r: 0.5, useSize: legL })
-  let legSX = hipSX
-  let legSY = linkListPush([
+
+  const upperLeg = linkListPush({ r: 0.5, useSize: legL })
+
+  const legSX = hipSX
+
+  const legSY = linkListPush([
     movementSY,
     { r: -1, useSize: hipY },
     { r: -1, useSize: hipSY },
   ])
-  let legX = hipX
-  let legY = linkListPush([hipY, hipSY])
+
+  const legX = hipX
+
+  const legY = linkListPush([hipY, hipSY])
+
   // legFrontX = linkListPush( { r: -0.2, useSize: legSY } ),
-  let legUpper1L = legSY
-  let legLower1L = linkListPush({
+  const legUpper1L = legSY
+
+  const legLower1L = linkListPush({
     add: [legL, { r: -1, useSize: legSY }],
     min: { a: 0 },
     max: { r: 1.5, useSize: legUpper1L },
   })
-  let legUpper2L = linkListPush({
+
+  const legUpper2L = linkListPush({
     add: [{ r: 1.3, useSize: upperLeg }],
     max: linkListPush([
       legSY,
@@ -238,7 +330,8 @@ function tantalos() {
       { r: -0.5, useSize: legUpperS },
     ]),
   })
-  let legLower2L = linkListPush({
+
+  const legLower2L = linkListPush({
     add: [legL, { r: -0.8, useSize: legUpper2L }],
     min: { a: 0 },
     max: { r: 1.5, useSize: legUpper1L },
@@ -248,14 +341,19 @@ function tantalos() {
   // knee1Pos = { fX: true, fY: true, x: legFrontX, y: knee1Y },
 
   // Head
-  let headSYRel = 0.3
-  let headSXRel = headSYRel * 0.6
-  let headSX = linkListPush({ r: headSXRel, useSize: torsoL })
-  let headSY = linkListPush({ r: headSYRel, useSize: torsoL })
-  let headX = linkListPush({
+  const headSYRel = 0.3
+
+  const headSXRel = headSYRel * 0.6
+
+  const headSX = linkListPush({ r: headSXRel, useSize: torsoL })
+
+  const headSY = linkListPush({ r: headSYRel, useSize: torsoL })
+
+  const headX = linkListPush({
     add: [shoulderX, { r: 0.02, useSize: overshotSY }],
   })
-  let headY = linkListPush({
+
+  const headY = linkListPush({
     add: [
       shoulderY,
       { r: -1, useSize: headSY },
@@ -266,13 +364,20 @@ function tantalos() {
       },
     ],
   })
-  let eyeSY = linkListPush({ r: 0.2, min: 1, useSize: headSY })
-  let eyesSX = linkListPush({ r: 0.6, min: 1, useSize: headSX })
-  let eyeX = linkListPush({ r: 0.1, useSize: headSX })
-  let eyeY = linkListPush({ r: 0.3, useSize: headSY })
-  let eyeSX = linkListPush({ r: 0.5, a: -1 })
-  let mouthSX = linkListPush({ r: 0.7, useSize: headSX })
-  let mouthSY = linkListPush({
+
+  const eyeSY = linkListPush({ r: 0.2, min: 1, useSize: headSY })
+
+  const eyesSX = linkListPush({ r: 0.6, min: 1, useSize: headSX })
+
+  const eyeX = linkListPush({ r: 0.1, useSize: headSX })
+
+  const eyeY = linkListPush({ r: 0.3, useSize: headSY })
+
+  const eyeSX = linkListPush({ r: 0.5, a: -1 })
+
+  const mouthSX = linkListPush({ r: 0.7, useSize: headSX })
+
+  const mouthSY = linkListPush({
     r: 0.5,
     useSize: linkListPush([
       headSY,
@@ -281,8 +386,10 @@ function tantalos() {
     ]),
     min: 1,
   })
-  let mouthX = linkListPush({ a: 0 })
-  let mouthY = linkListPush({
+
+  const mouthX = linkListPush({ a: 0 })
+
+  const mouthY = linkListPush({
     r: 0.3,
     useSize: linkListPush([
       headSY,
@@ -291,42 +398,53 @@ function tantalos() {
       { r: -1, useSize: mouthSY },
     ]),
   })
+
   // Fruit
-  let fruitSXrel = 0.03
-  let fruitSXBigRel = 0.01
-  let fruitRatio = 1.8
-  let fruitSYrel = fruitSXrel * fruitRatio
-  let fruitSYBigRel = fruitSXBigRel * fruitRatio
-  let fruitSX = linkListPush({
+  const fruitSXrel = 0.03
+
+  const fruitSXBigRel = 0.01
+
+  const fruitRatio = 1.8
+
+  const fruitSYrel = fruitSXrel * fruitRatio
+
+  const fruitSYBigRel = fruitSXBigRel * fruitRatio
+
+  const fruitSX = linkListPush({
     r: fruitSXrel,
     min: 2,
     useSize: motiveSqu,
     add: [{ r: fruitSXBigRel, useSize: motiveSquBigger }],
     max: { r: 0.1, useSize: motiveSqu },
   })
-  let fruitSY = linkListPush({
+
+  const fruitSY = linkListPush({
     r: fruitSYrel,
     min: 3,
     useSize: motiveSqu,
     add: [{ r: fruitSYBigRel, useSize: motiveSquBigger }],
     max: { r: 0.1 * 1.8, useSize: motiveSqu },
   })
-  let fruitHandMaxX = linkListPush({
+
+  const fruitHandMaxX = linkListPush({
     add: [handSX, foreArmS, 1, { r: -0.1, useSize: overshotSY }],
     min: linkListPush({
       add: [-1, { r: 0.5, useSize: handSX }, { r: -0.5, useSize: fruitSX }],
     }),
   })
-  let fruitHandMaxY = linkListPush({
+
+  const fruitHandMaxY = linkListPush({
     add: [handSY, foreArmS, 1, { r: -0.1, useSize: overshotSX }],
     min: linkListPush({
       add: [-1, { r: 0.5, useSize: handSY }, { r: -0.5, useSize: fruitSY }],
     }),
   })
-  let fruitX = linkListPush({
+
+  const fruitX = linkListPush({
     add: [centerX, { r: -1, useSize: handSX }, fruitHandMaxX],
   })
-  let fruitY = linkListPush({
+
+  const fruitY = linkListPush({
     add: [
       centerY,
       handSY,
@@ -334,8 +452,9 @@ function tantalos() {
       { r: -1, useSize: fruitHandMaxY },
     ],
   })
+
   // Island
-  let shadowSY = linkListPush({
+  const shadowSY = linkListPush({
     add: [
       perspectiveY,
       { r: 2, useSize: legLowerS },
@@ -343,50 +462,67 @@ function tantalos() {
     ],
     min: 2,
   })
-  let islandSX = linkListPush([movementSX, { r: -0.1, useSize: overshotSX }])
-  let islandSY = linkListPush([shadowSY, { r: 1, useSize: groundThickness }])
-  let islandX = linkListPush([centerX, { r: -1, useSize: movementSX }])
-  let islandY = linkListPush([
+
+  const islandSX = linkListPush([movementSX, { r: -0.1, useSize: overshotSX }])
+
+  const islandSY = linkListPush([shadowSY, { r: 1, useSize: groundThickness }])
+
+  const islandX = linkListPush([centerX, { r: -1, useSize: movementSX }])
+
+  const islandY = linkListPush([
     centerY,
     movementSY,
     { r: -1, useSize: shadowSY },
   ])
-  let waterY = linkListPush([islandY, { r: -1, useSize: islandSY }])
-  let waterSY = linkListPush([sYMain, { r: -1, useSize: waterY }])
-  let mainTreeSX = linkListPush([sXMain, { r: -1, useSize: fruitX }, fruitSX])
-  let mainTreeSY = fruitY
-  let trunkSize = 0.02
-  let trunkSizeBack = 0.015
-  let trunkRatio = 0.5
-  let trunkHor = linkListPush({ r: trunkSize, useSize: sXMain, a: 1 })
-  let trunkVert = linkListPush({
+
+  const waterY = linkListPush([islandY, { r: -1, useSize: islandSY }])
+
+  const waterSY = linkListPush([sYMain, { r: -1, useSize: waterY }])
+
+  const mainTreeSX = linkListPush([sXMain, { r: -1, useSize: fruitX }, fruitSX])
+
+  const mainTreeSY = fruitY
+
+  const trunkSize = 0.02
+
+  const trunkSizeBack = 0.015
+
+  const trunkRatio = 0.5
+
+  const trunkHor = linkListPush({ r: trunkSize, useSize: sXMain, a: 1 })
+
+  const trunkVert = linkListPush({
     r: trunkSize * trunkRatio,
     useSize: sXMain,
     a: 1,
   })
-  let trunkHorBack = linkListPush({
+
+  const trunkHorBack = linkListPush({
     r: trunkSizeBack,
     useSize: sXMain,
     a: 1,
   })
-  let trunkVertBack = linkListPush({
+
+  const trunkVertBack = linkListPush({
     r: trunkSizeBack * trunkRatio,
     useSize: sXMain,
     a: 1,
   })
   // End Variables
 
-  let leg = [
+  const leg = [
     // {color:c1},
     { sX: legUpperS },
     { fY: true, sY: legLowerS },
     { s: kneeS, fY: true, x: -1 },
   ]
 
-  let teiresias = function (reflect) {
-    let skinColor = reflect ? skinWater : skin
-    let skinShadowColor = reflect ? skinWater : skinShadow
-    let shortsColor = reflect ? shortsWater : shorts
+  const teiresias = function (reflect) {
+    const skinColor = reflect ? skinWater : skin
+
+    const skinShadowColor = reflect ? skinWater : skinShadow
+
+    const shortsColor = reflect ? shortsWater : shorts
 
     return {
       color: skinColor,
@@ -586,7 +722,7 @@ function tantalos() {
     }
   }
 
-  let trunkObj = function (shadowColor, hor, vert) {
+  const trunkObj = function (shadowColor, hor, vert) {
     return [
       { fY: true, sY: hor },
       { sX: vert },
@@ -603,7 +739,7 @@ function tantalos() {
     ]
   }
 
-  let mainImage = function () {
+  const mainImage = function () {
     return [
       // Background Tree
       {
@@ -825,8 +961,8 @@ function tantalos() {
     ]
   }
 
-  let border = function () {
-    let edgeDetail = [
+  const border = function () {
+    const edgeDetail = [
       {},
       { sX: 1, sY: { r: 0.3, max: 1 }, color: borderColor },
       {
@@ -842,7 +978,8 @@ function tantalos() {
         fY: true,
       },
     ]
-    let borderEdgeTop = [
+
+    const borderEdgeTop = [
       {
         clear: true,
         sX: 1,
@@ -865,7 +1002,8 @@ function tantalos() {
         ],
       },
     ]
-    let borderEdgeBottom = [
+
+    const borderEdgeBottom = [
       { clear: true, sX: 1, sY: { r: 0.2, max: 1 }, fX: true },
       {},
       {
@@ -875,7 +1013,8 @@ function tantalos() {
         rX: true,
       },
     ]
-    let borderVertDetail = [
+
+    const borderVertDetail = [
       {
         clear: true,
         sY: 1,
@@ -899,7 +1038,8 @@ function tantalos() {
         ],
       },
     ]
-    let borderVert = [
+
+    const borderVert = [
       {
         stripes: { strip: frameDetailSize },
         sX: { r: 0.5 },
@@ -915,7 +1055,8 @@ function tantalos() {
         list: borderVertDetail,
       },
     ]
-    let borderHor = [
+
+    const borderHor = [
       {
         stripes: { strip: frameDetailSize, horizontal: true },
         list: [
@@ -1005,12 +1146,13 @@ function tantalos() {
     }
   }
 
-  let renderList = [
+  const renderList = [
     // Image
     { list: mainImage() },
     border(),
   ]
-  let backgroundColor = [31, 29, 29]
+
+  const backgroundColor = [31, 29, 29]
 
   return {
     renderList,

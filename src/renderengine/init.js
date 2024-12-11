@@ -2,18 +2,28 @@ import { Admin } from './admin.js'
 import { PixelGraphics } from './info.js'
 
 export const InitPixel = function (args) {
-  let queryString = this.getQueryString()
-  let showcase = (this.showcase = true)
-  let forceName = args.imageName || window.location.hash.substr(1)
-  let slides = showcase ? this.showcaseSlides : this.slides
-  let currentSlide = !forceName && slides[queryString.slide || 0]
-  let imageName = forceName || currentSlide.name || 'tantalos'
-  let sliders = queryString.sliders || currentSlide.sliders
+  const queryString = this.getQueryString()
+
+  const showcase = (this.showcase = true)
+
+  const forceName = args.imageName || window.location.hash.substr(1)
+
+  const slides = showcase ? this.showcaseSlides : this.slides
+
+  const currentSlide = !forceName && slides[queryString.slide || 0]
+
+  const imageName = forceName || currentSlide.name || 'tantalos'
+
+  const sliders = queryString.sliders || currentSlide.sliders
+
   /** Change for multiple Canvases */
-  let canvasDataList = false
-  let canvasRenderer = this.createSingleCanvas(canvasDataList, args.div)
+  const canvasDataList = false
+
+  const canvasRenderer = this.createSingleCanvas(canvasDataList, args.div)
+
   let callback
-  let [body] = document.getElementsByTagName('body')
+
+  const [body] = document.getElementsByTagName('body')
 
   this.parent = queryString.admin || queryString.parent
 
@@ -54,13 +64,17 @@ export const InitPixel = function (args) {
 }
 
 InitPixel.prototype.getQueryString = function () {
-  let list = {}
-  let vars = location.search.substr(1).split('&')
+  const list = {}
+
+  const vars = location.search.substr(1).split('&')
+
   let i = 0
-  let l = vars.length
+
+  const l = vars.length
+
   let pair
 
-  let convert = function (value) {
+  const convert = function (value) {
     if (value === 'true') {
       value = true
     } else if (value === 'false') {
@@ -113,7 +127,8 @@ InitPixel.prototype.getQueryString = function () {
 
 // Create a new Canvas, add it to the div and return it
 InitPixel.prototype.createSingleCanvas = function (canvasData, div) {
-  let canvas = document.createElement('canvas')
+  const canvas = document.createElement('canvas')
+
   let key
 
   canvas.resize = true
@@ -148,7 +163,7 @@ InitPixel.prototype.getCallback = function (
   currentSlide,
   info,
 ) {
-  let that = this
+  const that = this
 
   return function callback(ImageFunction) {
     let imageFunction
@@ -196,14 +211,19 @@ InitPixel.prototype.getCallback = function (
 }
 
 InitPixel.prototype.info = function (options) {
-  let logs = []
+  const logs = []
+
   let initString
-  let d = document
-  let [body] = d.getElementsByTagName('body')
-  let info = d.createElement('div')
+
+  const d = document
+
+  const [body] = d.getElementsByTagName('body')
+
+  const info = d.createElement('div')
+
   let show = options.showInfos
 
-  let swap = function () {
+  const swap = function () {
     if ((show = !show)) {
       body.appendChild(info)
     } else {
@@ -211,7 +231,7 @@ InitPixel.prototype.info = function (options) {
     }
   }
 
-  let change = function (name, value) {
+  const change = function (name, value) {
     logs[name] = value
   }
 
@@ -222,7 +242,7 @@ InitPixel.prototype.info = function (options) {
   }
 
   document.onkeydown = function () {
-    let k = event.keyCode
+    const k = event.keyCode
 
     if (event.ctrlKey) {
       if (k === 73) {
@@ -247,9 +267,12 @@ InitPixel.prototype.info = function (options) {
     },
     logRenderTime(draw, fullDuration) {
       let what
-      let lo = logs
-      let render = fullDuration - draw
-      let string = []
+
+      const lo = logs
+
+      const render = fullDuration - draw
+
+      const string = []
 
       if (show) {
         change('Duration', fullDuration + 'ms')
@@ -286,7 +309,9 @@ InitPixel.prototype.info = function (options) {
 
 InitPixel.prototype.addToQueryString = function (newObj, dontRefresh) {
   let key
-  let q = this.queryString
+
+  const q = this.queryString
+
   let somethingChanged = false
 
   for (key in newObj) {
@@ -303,9 +328,11 @@ InitPixel.prototype.addToQueryString = function (newObj, dontRefresh) {
 }
 
 InitPixel.prototype.refresh = function (event) {
-  let newString = []
+  const newString = []
+
   let key
-  let q = this.queryString
+
+  const q = this.queryString
 
   if (event) {
     event.preventDefault()
@@ -346,7 +373,7 @@ InitPixel.prototype.sliderChange = function (obj) {
   if (this.renderer) {
     this.renderer.redraw(obj)
   } else {
-    for (let key in obj) {
+    for (const key in obj) {
       this.defaultValues[key] = obj[key]
     }
   }
@@ -379,7 +406,7 @@ InitPixel.prototype.setupToggleResizabilityLinkButton = function (button) {
 }
 
 InitPixel.prototype.toggleResizability = function (value) {
-  let resizeable = (this.queryString.resizeable =
+  const resizeable = (this.queryString.resizeable =
     value === undefined ? !this.queryString.resizeable : value)
 
   if (this.toggleResizabilityButton) {
@@ -407,7 +434,7 @@ InitPixel.prototype.getDocumentTitle = function (imageName, queryString) {
 }
 
 InitPixel.prototype.getShortcuts = function (q) {
-  let that = this
+  const that = this
 
   return function (event) {
     if (event.ctrlKey) {
@@ -516,11 +543,14 @@ InitPixel.prototype.getShortcuts = function (q) {
 }
 
 InitPixel.prototype.getTimerAnimation = function () {
-  let that = this
-  let fps = 20
+  const that = this
+
+  const fps = 20
+
   /* how often per second should the chance be checked */
-  let waitTimer = fps * 0.5
-  let animations = {
+  const waitTimer = fps * 0.5
+
+  const animations = {
     camera: { duration: 6, chance: 0.1 },
     side: { duration: 3, chance: 0.3 },
     a: { duration: 2, chance: 0.3 },
@@ -538,11 +568,13 @@ InitPixel.prototype.getTimerAnimation = function () {
     m: { duration: 2, chance: 0.3 },
     n: { duration: 2, chance: 0.3 },
   }
+
   let key
   let current
 
-  let getFrame = function () {
-    let renderObject = {}
+  const getFrame = function () {
+    const renderObject = {}
+
     let current
     let key
 

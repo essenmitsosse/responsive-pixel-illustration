@@ -256,10 +256,13 @@ export const Leg = function (args) {
 Leg.prototype = new Object()
 
 Leg.prototype.draw = function (args, z, rightSide, behind) {
-  let legPos = args.leg && args.leg[rightSide ? 'right' : 'left']
-  let hipBend = legPos === 'legHigh'
-  let legBend = hipBend || legPos === 'kneeBend'
-  let legRaise = !hipBend && !legBend && legPos === 'legRaise'
+  const legPos = args.leg && args.leg[rightSide ? 'right' : 'left']
+
+  const hipBend = legPos === 'legHigh'
+
+  const legBend = hipBend || legPos === 'kneeBend'
+
+  const legRaise = !hipBend && !legBend && legPos === 'legRaise'
 
   if (args.calc) {
     this.vL['legSX' + args.nr] = {

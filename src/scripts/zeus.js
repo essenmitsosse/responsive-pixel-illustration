@@ -1,21 +1,35 @@
 import { helper } from '@/renderengine/helper.js'
 
 function zeus() {
-  let zero = { a: 0 }
-  let shadowColor = [255, 255, 255]
-  let shadow = helper.darken(shadowColor, 0.7)
-  let detail = helper.darken(shadowColor, 0.4)
-  let eyes = [182, 0, 234]
-  let frame = shadow(eyes)
-  let red = [255, 0, 0]
-  let backgroundColor = [31, 14, 63]
-  let zeus = [240, 240, 240]
-  let zeusShadow = shadow(zeus)
-  let flesh = [190, 160, 160]
-  let fleshShadow = shadow(flesh)
-  let hair = zeusShadow
-  let cloth = eyes
-  let arm = [
+  const zero = { a: 0 }
+
+  const shadowColor = [255, 255, 255]
+
+  const shadow = helper.darken(shadowColor, 0.7)
+
+  const detail = helper.darken(shadowColor, 0.4)
+
+  const eyes = [182, 0, 234]
+
+  const frame = shadow(eyes)
+
+  const red = [255, 0, 0]
+
+  const backgroundColor = [31, 14, 63]
+
+  const zeus = [240, 240, 240]
+
+  const zeusShadow = shadow(zeus)
+
+  const flesh = [190, 160, 160]
+
+  const fleshShadow = shadow(flesh)
+
+  const hair = zeusShadow
+
+  const cloth = eyes
+
+  const arm = [
     { sX: 'arm' },
     { sY: 'arm' },
     {
@@ -54,7 +68,8 @@ function zeus() {
       list: [{}],
     },
   ]
-  let eye = [
+
+  const eye = [
     {
       tY: true,
       color: hair,
@@ -76,7 +91,8 @@ function zeus() {
       fY: true,
     },
   ]
-  let beard = [
+
+  const beard = [
     {
       sX: {
         r: 0.5,
@@ -105,10 +121,14 @@ function zeus() {
       ],
     },
   ]
-  let beak = [{}, { fX: true, fY: true }, { fY: true }]
-  let menLeg = [{}]
-  let cowleg = [{}, { sY: { r: 1, otherDim: true }, fY: true, color: hair }]
-  let beardSide = [
+
+  const beak = [{}, { fX: true, fY: true }, { fY: true }]
+
+  const menLeg = [{}]
+
+  const cowleg = [{}, { sY: { r: 1, otherDim: true }, fY: true, color: hair }]
+
+  const beardSide = [
     {
       sY: { r: 0.3 },
       y: { r: 0.7 },
@@ -135,7 +155,8 @@ function zeus() {
       fX: true,
     },
   ]
-  let chest = [
+
+  const chest = [
     { color: zeus },
     { sY: 1, fY: true },
     {
@@ -146,12 +167,15 @@ function zeus() {
       sY: { r: 0.07, min: 1, otherDim: true },
     },
   ]
-  let abs = [
+
+  const abs = [
     { sY: 1, sX: { r: 1, a: -1 }, fY: true },
     { sX: 1, sY: { r: 1, a: -1 }, fX: true },
   ]
-  let teeth = [{ points: [{}, { fX: true }, { fY: true, x: { r: 0.5 } }] }]
-  let border = [
+
+  const teeth = [{ points: [{}, { fX: true }, { fY: true, x: { r: 0.5 } }] }]
+
+  const border = [
     { minY: 3, list: [{ color: backgroundColor, y: 1, sY: 1, mX: 1 }] },
     {
       minY: 5,
@@ -159,7 +183,7 @@ function zeus() {
     },
   ]
 
-  let clothing = function (down) {
+  const clothing = function (down) {
     return [
       {
         points: [
@@ -173,7 +197,7 @@ function zeus() {
     ]
   }
 
-  let renderList = [
+  const renderList = [
     // IMAGE
     {
       m: 'borderSX',
@@ -1180,9 +1204,12 @@ function zeus() {
     // { sY:2, y:2, fromBottom:true, sX:"squary", color:[255,255,0] },
     // { sY:2, y:2, fromBottom:true, sX:"squarySuper", color:[160,160,0] },
   ]
-  let imgDims = ['imgSX', 'imgSY']
-  let motiveDims = ['motiveSX', 'motiveSY']
-  let variableList = {
+
+  const imgDims = ['imgSX', 'imgSY']
+
+  const motiveDims = ['motiveSX', 'motiveSY']
+
+  const variableList = {
     width: { r: 1 },
     height: { r: 1, height: true },
     squ: { a: 'width', max: 'height' },

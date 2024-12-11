@@ -30,9 +30,11 @@ import {
 import { Forrest, Tree, TreeFamily } from './tree.js'
 
 export const Builder = function (init) {
-  let initID = init.id ? init.id : Math.floor(Math.random() * 4294967296)
-  let random = helper.random(initID)
-  let joinVariableList = {}
+  const initID = init.id ? init.id : Math.floor(Math.random() * 4294967296)
+
+  const random = helper.random(initID)
+
+  const joinVariableList = {}
 
   this.help = helper
 
@@ -108,21 +110,31 @@ export const Builder = function (init) {
 }
 
 const buildColors = function (info) {
-  let that = this
-  let i = info.colors
-  let colors = []
+  const that = this
 
-  let createColor = function () {
-    let r = that.R(0, 200)
-    let g = that.R(0, 200)
-    let b = that.R(0, 200)
-    let br = Math.sqrt(
+  let i = info.colors
+
+  const colors = []
+
+  const createColor = function () {
+    const r = that.R(0, 200)
+
+    const g = that.R(0, 200)
+
+    const b = that.R(0, 200)
+
+    const br = Math.sqrt(
       0.241 * Math.pow(r, 2) + 0.691 * Math.pow(g, 2) + 0.068 * Math.pow(b, 2),
     )
-    let rgb = [r, g, b]
-    let maxBr = 255 / info.steps
-    let startPos = Math.floor(br / maxBr)
-    let colorRange = []
+
+    const rgb = [r, g, b]
+
+    const maxBr = 255 / info.steps
+
+    const startPos = Math.floor(br / maxBr)
+
+    const colorRange = []
+
     let i
     let fak
 
@@ -173,7 +185,7 @@ const Color = function (nr, br) {
 Color.prototype.copy = function (args) {
   args = args || {}
 
-  let color = new this.Color(args.nr !== undefined ? args.nr : this.nr, this.br)
+  const color = new this.Color(args.nr !== undefined ? args.nr : this.nr, this.br)
 
   if (args.nextColor) {
     color.nextColor()

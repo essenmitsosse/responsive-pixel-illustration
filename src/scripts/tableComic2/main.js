@@ -31,14 +31,22 @@ export const TableComic = function (init, slide, createSlider) {
   let innerSquareAverage
   let controlerX
   let controlerY
-  let random = helper.random(init.id)
-  let rFl = random.getRandomFloat
-  let rInt = random.getRandom
-  let rIf = random.getIf
-  let debug = init.debug || slide.debug
-  let hover = helper.getHoverChangers()
-  let faceVersion = init.faceVersion || slide.faceVersion
-  let linkList = [
+
+  const random = helper.random(init.id)
+
+  const rFl = random.getRandomFloat
+
+  const rInt = random.getRandom
+
+  const rIf = random.getIf
+
+  const debug = init.debug || slide.debug
+
+  const hover = helper.getHoverChangers()
+
+  const faceVersion = init.faceVersion || slide.faceVersion
+
+  const linkList = [
     (sX = { main: true }),
     (sY = { main: true, height: true }),
     (square = { add: [sX], max: sY }),
@@ -57,6 +65,7 @@ export const TableComic = function (init, slide, createSlider) {
     (controlerX = { r: 0, useSize: sX }),
     (controlerY = { r: 0, useSize: sY }),
   ]
+
   let renderList
 
   hover.list.push(
@@ -68,7 +77,7 @@ export const TableComic = function (init, slide, createSlider) {
   function assignFunctionToComicConstructor(comicPrototype) {
     let current
 
-    for (let key in comicPrototype) {
+    for (const key in comicPrototype) {
       current = comicPrototype[key].prototype
 
       current.rIf = rIf
@@ -414,7 +423,8 @@ export const TableComic = function (init, slide, createSlider) {
 }
 
 TableComic.prototype.getSizeWithRatio = function (args) {
-  let ratio = args.ratio || this.ratio
+  const ratio = args.ratio || this.ratio
+
   let sX
   let sY
 
@@ -484,7 +494,8 @@ TableComic.prototype.getRelativePosition = function (obj, pos) {
 }
 
 TableComic.prototype.getPosition = function (args) {
-  let info = args.info || {}
+  const info = args.info || {}
+
   let obj
 
   this.square = this.pushLinkList({ add: [this.sX], max: this.sY })
@@ -553,7 +564,7 @@ TableComic.prototype.getObject = function (object) {
 }
 
 TableComic.prototype.getFocus = function (zoomSX, zoomSY, focus) {
-  let x = this.pushLinkList({
+  const x = this.pushLinkList({
     add: [
       { r: 0.5, useSize: zoomSX },
       // normalize pan
@@ -563,7 +574,8 @@ TableComic.prototype.getFocus = function (zoomSX, zoomSY, focus) {
       // relative to Head
     ],
   })
-  let y = this.pushLinkList({
+
+  const y = this.pushLinkList({
     add: [
       { r: 0.5, useSize: zoomSY },
       // normalize pan

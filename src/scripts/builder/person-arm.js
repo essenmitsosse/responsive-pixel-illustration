@@ -57,16 +57,25 @@ export const Arm = function (args) {
 Arm.prototype = new Object()
 
 Arm.prototype.draw = function (args, rightSide, behind) {
-  let name = rightSide ? 'right' : 'left'
-  let nrName = name + args.nr
-  let renderFromRight = args.sideView ? rightSide : args.right !== args.backView
-  let tool = rightSide ? this.toolRight : this.toolLeft
-  let otherHand = !rightSide ? this.toolRight : this.toolLeft
-  let finger = args.finger && args.finger[name]
-  let shoulderAngle = ((args.shoulder && args.shoulder[name]) || 0) * Math.PI
-  let armAngle = ((args.arm && args.arm[name]) || 0) * Math.PI + shoulderAngle
+  const name = rightSide ? 'right' : 'left'
+
+  const nrName = name + args.nr
+
+  const renderFromRight = args.sideView ? rightSide : args.right !== args.backView
+
+  const tool = rightSide ? this.toolRight : this.toolLeft
+
+  const otherHand = !rightSide ? this.toolRight : this.toolLeft
+
+  const finger = args.finger && args.finger[name]
+
+  const shoulderAngle = ((args.shoulder && args.shoulder[name]) || 0) * Math.PI
+
+  const armAngle = ((args.arm && args.arm[name]) || 0) * Math.PI + shoulderAngle
+
   let fullAngle = (armAngle / Math.PI) * 180
-  let upperZ = shoulderAngle < 1.5 ? -150 : 0
+
+  const upperZ = shoulderAngle < 1.5 ? -150 : 0
 
   if (fullAngle > 180) {
     fullAngle -= 360
@@ -606,8 +615,9 @@ export const Sword = function (args, right) {
 Sword.prototype = new Object()
 
 Sword.prototype.draw = function (args, z) {
-  let name = this.rightSide ? 'right' : 'left'
-  let nrName = name + args.nr
+  const name = this.rightSide ? 'right' : 'left'
+
+  const nrName = name + args.nr
 
   args['handleSY' + nrName] = this.pushLinkList({
     add: [args.handSX, -2],
@@ -754,8 +764,9 @@ export const Shield = function (args, right) {
 Shield.prototype = new Object()
 
 Shield.prototype.draw = function (args, z) {
-  let nrName = this.name + args.nr
-  let logo = [this.logo.draw(args, z + 805)]
+  const nrName = this.name + args.nr
+
+  const logo = [this.logo.draw(args, z + 805)]
 
   args['shieldSX' + nrName] = this.pushLinkList({
     r: this.shieldSX,

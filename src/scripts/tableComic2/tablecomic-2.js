@@ -27,21 +27,23 @@ export const getStory = function getStory() {
 }
 
 getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
-  let actor0StandUp = 0.1
+  const actor0StandUp = 0.1
   // emotion0 = actorsList.emotion0.renderObject,
   // emotion1 = actorsList.emotion1.renderObject,
 
-  let actor0sitting = {
+  const actor0sitting = {
     posX: 0.2,
     posY: 1,
     obj: this.actorsList.chair0.renderObject,
   }
-  let chair0Pos = {
+
+  const chair0Pos = {
     obj: this.stage,
     posX: 0.1,
     posY: 0,
   }
-  let mainSteps = [
+
+  const mainSteps = [
     {
       // - - -  START step 0 - - - - - - - - - - - - - SITTING
       list: {
@@ -1146,6 +1148,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
     },
     // - - -  END step 4 - - - - - - - - - - - - -
   ]
+
   let count
   let panelCount = 0
   let totalArcLength = 0
@@ -1154,7 +1157,8 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
   let relArcEnd = 0
   let panelsLeft = totalPanelCount
   let arcLength = mainSteps.length
-  let panels = []
+
+  const panels = []
 
   // get the total Length of all Story Arcs
   count = 0
@@ -1245,11 +1249,16 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
   while (count < mainSteps.length) {
     current = mainSteps[count]
 
-    let totalCount = current.absLength
+    const totalCount = current.absLength
+
     let innerCount = 0
-    let camerasLength = current.cameras && current.cameras.length
+
+    const camerasLength = current.cameras && current.cameras.length
+
     let cameraCount = 0
-    let currentStart = panelCount
+
+    const currentStart = panelCount
+
     let currentCam
 
     if (totalCount === 0) {
@@ -1300,7 +1309,8 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
 }
 
 getStory.prototype.getPanels = function getStoryPanels(totalPanelCount) {
-  let panels = []
+  const panels = []
+
   let currentPanelNumber = 0
   let currentFrame
 
@@ -1333,8 +1343,10 @@ getStory.prototype.getPanels = function getStoryPanels(totalPanelCount) {
 }
 
 getStory.prototype.getPanel = function (frame, rel) {
-  let main = frame.main.list
-  let list = [{ what: this.stage }]
+  const main = frame.main.list
+
+  const list = [{ what: this.stage }]
+
   let key
 
   for (key in main) {
@@ -1354,7 +1366,8 @@ getStory.prototype.getPanel = function (frame, rel) {
 
 // BEGINN getAnimation /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const getAnimation = function getAnimation(args) {
-  let steps = args.endPanelNumber - args.startPanelNumber || 1
+  const steps = args.endPanelNumber - args.startPanelNumber || 1
+
   let process = (args.currentPanelNumber - args.startPanelNumber) / steps
 
   if (process < 0) {
@@ -1377,12 +1390,13 @@ export const getAnimation = function getAnimation(args) {
 
 // BEGINN getActors /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const getActors = function (story) {
-  let colorSchemes = [
+  const colorSchemes = [
     [0, 1, 2, 1, 2, 1],
     [0, 1, 1, 1, 2, 2],
     [0, 2, 1, 2, 1, 0],
   ]
-  let colorScheme = colorSchemes[this.rInt(0, colorSchemes.length - 1)]
+
+  const colorScheme = colorSchemes[this.rInt(0, colorSchemes.length - 1)]
 
   this.colors = story.colors
 
@@ -1474,9 +1488,12 @@ export const RenderObjectContainer = function (renderObject) {
 
 RenderObjectContainer.prototype.getAction = function (args) {
   let obj = {}
-  let start = (args.info && args.info.start) || args.info
-  let end = args.info && args.info.end
-  let actionProcessor = new this.getActionProcessor(args.relPosition)
+
+  const start = (args.info && args.info.start) || args.info
+
+  const end = args.info && args.info.end
+
+  const actionProcessor = new this.getActionProcessor(args.relPosition)
 
   // Check if start or end is needed or a position inbetween
   obj = actionProcessor.checkIfObject(obj, start, end)
@@ -1548,12 +1565,13 @@ RenderObjectContainer.prototype.getActionProcessor.prototype.checkIfObject =
 
 // BEGINN getColorScheme /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const getColorScheme = function getColorScheme() {
-  let colors = [
+  const colors = [
     [this.rInt(150, 200), this.rInt(50, 100), this.rInt(100, 150)],
     [this.rInt(50, 100), this.rInt(100, 150), this.rInt(150, 200)],
     [this.rInt(100, 150), this.rInt(150, 200), this.rInt(50, 100)],
   ]
-  let first = this.rInt(0, 2)
+
+  const first = this.rInt(0, 2)
 
   this.colors = [
     colors[first],
@@ -1563,8 +1581,9 @@ export const getColorScheme = function getColorScheme() {
 }
 
 getColorScheme.prototype.getColor = function (args) {
-  let shade = args.maxShade ? this.rFl(args.maxShade, 1) : args.shade
-  let baseColor =
+  const shade = args.maxShade ? this.rFl(args.maxShade, 1) : args.shade
+
+  const baseColor =
     this.colors[
       typeof args === 'number'
         ? args

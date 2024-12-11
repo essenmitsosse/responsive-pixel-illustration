@@ -1,7 +1,7 @@
 import { BB } from './bb.js'
 
 function betterBuilder(init) {
-  let bb = new BB(init)
+  const bb = new BB(init)
 
   return {
     renderList: new bb.Overview(init, 'Head'),

@@ -50,7 +50,7 @@ export const Head = function (args) {
 }
 
 Head.prototype.getBetterPosX = function (rel) {
-  let add = [this.actor.getBetterPosX(0), this.x]
+  const add = [this.actor.getBetterPosX(0), this.x]
 
   if (!this.rotate) {
     add.push(this.actor.sX, { r: -1 + rel, useSize: this.sX })
@@ -62,7 +62,7 @@ Head.prototype.getBetterPosX = function (rel) {
 }
 
 Head.prototype.getBetterPosY = function (rel) {
-  let add = []
+  const add = []
 
   if (!this.rotate) {
     add.push(
@@ -81,39 +81,47 @@ Head.prototype.getBetterPosY = function (rel) {
 }
 
 Head.prototype.draw = function (args) {
-  let side = (args.info.body && args.info.body.side) || args.info.side || 0
-  let sX = (this.sX = this.getSizeSwitch(
+  const side = (args.info.body && args.info.body.side) || args.info.side || 0
+
+  const sX = (this.sX = this.getSizeSwitch(
     { r: this.baseSX_, useSize: args.sX || args.stageSX },
     { r: this.relSX_ },
     { min: 4 },
     'actor-features',
     0,
   ))
-  let sY = (this.sY = args.sY || args.stageSY)
-  let eyeAreaSX = this.getSizeSwitch(
+
+  const sY = (this.sY = args.sY || args.stageSY)
+
+  const eyeAreaSX = this.getSizeSwitch(
     { r: this.eyeAreaBaseSX_, useSize: sX },
     { r: this.eyeAreaRelSX_ },
     { min: 3, a: 1, max: sX, odd: true },
     'actor-features',
   )
-  let eyeAreaSY = this.getSizeSwitch(
+
+  const eyeAreaSY = this.getSizeSwitch(
     { r: this.eyeAreaBaseSY_, useSize: sY },
     { r: this.eyeAreaRelSY_ },
     { min: 1 },
     'actor-features',
   )
-  let eyeRestSX = this.pushLinkList([sX, { r: -1, useSize: eyeAreaSX }])
-  let mouthAreaSX = this.getSizeSwitch(
+
+  const eyeRestSX = this.pushLinkList([sX, { r: -1, useSize: eyeAreaSX }])
+
+  const mouthAreaSX = this.getSizeSwitch(
     { r: this.mouthAreaBaseSX_, useSize: sX },
     { r: this.mouthAreaRelSX_ },
     { min: 1, odd: true },
     'actor-features',
   )
-  let mouthAreaSY = this.pushLinkList({
+
+  const mouthAreaSY = this.pushLinkList({
     add: [sY, { r: -1, useSize: eyeAreaSY }, -2],
     min: 1,
   })
-  let info = args.info || {}
+
+  const info = args.info || {}
 
   this.square = this.pushLinkList({ add: [sX], max: sY })
 
@@ -257,23 +265,27 @@ export const Eyes = function (args) {
 }
 
 Eyes.prototype.draw = function (args) {
-  let maxEyesSX = this.pushLinkList([args.sX, -1])
-  let maxEyesCombinedSX = this.getSizeSwitch(
+  const maxEyesSX = this.pushLinkList([args.sX, -1])
+
+  const maxEyesCombinedSX = this.getSizeSwitch(
     { r: this.eyeBaseSX_, useSize: maxEyesSX },
     { r: this.eyeSXRel_ },
     { a: 2, max: maxEyesSX, even: true },
     'actor-features',
   )
-  let eyeSY = this.getSizeSwitch(
+
+  const eyeSY = this.getSizeSwitch(
     { r: this.eyeBaseSY_, useSize: args.sY },
     { r: this.eyeSYRel_ },
     { min: 1 },
     'actor-features',
   )
-  let square = this.pushLinkList({
+
+  const square = this.pushLinkList({
     add: [{ r: 0.5, useSize: maxEyesCombinedSX }],
     max: eyeSY,
   })
+
   let eyeLeftSX
   let eyeRightSX
   let x
@@ -356,46 +368,54 @@ Eye.prototype.draw = function EyeDraw(args) {
   // sYNormal is the normal eye height, sY can be changed for smaller or bigger eyes, but is recommended to only be used for bigger eyes.
   // for closed eyes use openSY;
   // use eyeLidTopSY to change percentage of lower and upper eye;
-  let sYNormal = this.pushLinkList({
+  const sYNormal = this.pushLinkList({
     r: args.away ? 1 - args.away : 1,
     useSize: args.sY,
     min: 1,
     max: args.sY,
   })
+
   /*0_1+*/
-  let sY = (this.sY = this.pushLinkList({
+  const sY = (this.sY = this.pushLinkList({
     r: 1,
     useSize: sYNormal,
     min: 1,
   }))
+
   /*0_1 */
-  let openSY = (this.openSY = this.pushLinkList({
+  const openSY = (this.openSY = this.pushLinkList({
     r: 1,
     useSize: sY,
   }))
-  let eyeLidsFullSY = this.pushLinkList([sY, { r: -1, useSize: openSY }])
+
+  const eyeLidsFullSY = this.pushLinkList([sY, { r: -1, useSize: openSY }])
+
   /*0_1 */
-  let eyeLidTopSY = (this.eyeLidTopSY = this.pushLinkList({
+  const eyeLidTopSY = (this.eyeLidTopSY = this.pushLinkList({
     r: 0.55,
     useSize: eyeLidsFullSY,
   }))
-  let eyeLidBottomSY = this.pushLinkList([
+
+  const eyeLidBottomSY = this.pushLinkList([
     eyeLidsFullSY,
     { r: -1, useSize: eyeLidTopSY },
   ])
+
   /*-1_1*/
-  let eyeBrowMove = (this.eyeBrowMove = this.pushLinkList({
+  const eyeBrowMove = (this.eyeBrowMove = this.pushLinkList({
     r: 0,
     useSize: openSY,
   }))
-  let eyeBrowInnerY = this.pushLinkList({
+
+  const eyeBrowInnerY = this.pushLinkList({
     r: -1,
     useSize: eyeBrowMove,
     min: { a: -1 },
     a: -1,
     add: [eyeLidTopSY],
   })
-  let eyeBrowOuterY = this.pushLinkList({
+
+  const eyeBrowOuterY = this.pushLinkList({
     r: 1,
     useSize: eyeBrowMove,
     min: { a: -1 },
@@ -406,56 +426,66 @@ Eye.prototype.draw = function EyeDraw(args) {
   // square =							this.pushLinkList( { add:[ sX, 1 ], max: [ sYNormal, 1 ], min:1 } ),
 
   /*0_1+*/
-  let pupilS = (this.pupilS = this.pushLinkList({
+  const pupilS = (this.pupilS = this.pushLinkList({
     r: 1,
     useSize: args.square,
     a: -1,
   }))
+
   /*0_1 */
-  let pupilSX = (this.pupilSX = this.pushLinkList({
+  const pupilSX = (this.pupilSX = this.pushLinkList({
     r: this.pupilSX_,
     useSize: pupilS,
     min: { r: 0.5, useSize: args.square, max: 2, min: 1 },
   }))
+
   /*0_1 */
-  let pupilSY = (this.pupilSX = this.pushLinkList({
+  const pupilSY = (this.pupilSX = this.pushLinkList({
     r: this.pupilSY_,
     useSize: pupilS,
     min: { r: 0.5, useSize: args.square, max: 2, min: 1 },
   }))
+
   // pupilPosrel moves relative to the white, pupilPos moves relative to the pupil
-  let pupilRestSX = this.pushLinkList({
+  const pupilRestSX = this.pushLinkList({
     add: [args.sX, { r: -1, useSize: pupilSX }],
     min: 1,
   })
-  let pupilRestSY = this.pushLinkList({
+
+  const pupilRestSY = this.pushLinkList({
     add: [sY, { r: -1, useSize: pupilSY }],
     min: 1,
   })
+
   /*0_1+*/
-  let pupilPosXrel = (this.pupilPosXrel = this.pushLinkList({
+  const pupilPosXrel = (this.pupilPosXrel = this.pushLinkList({
     r: 0,
     useSize: pupilRestSX,
   }))
+
   /*0_1+*/
-  let pupilPosYrel = (this.pupilPosYrel = this.pushLinkList({
+  const pupilPosYrel = (this.pupilPosYrel = this.pushLinkList({
     r: 0,
     useSize: pupilRestSY,
   }))
+
   /*0_1+*/
-  let pupilPosX = (this.pupilPosX = this.pushLinkList({
+  const pupilPosX = (this.pupilPosX = this.pushLinkList({
     r: 0,
     useSize: pupilSX,
     add: [pupilPosXrel],
   }))
+
   /*0_1+*/
-  let pupilPosY = (this.pupilPosY = this.pushLinkList({
+  const pupilPosY = (this.pupilPosY = this.pushLinkList({
     r: 0,
     useSize: pupilSY,
     add: [pupilPosYrel],
   }))
-  let eyeLidOvershot = this.pushLinkList({ r: 0.1, max: 1, useSize: args.sX })
-  let rotate = this.actor.isRotated
+
+  const eyeLidOvershot = this.pushLinkList({ r: 0.1, max: 1, useSize: args.sX })
+
+  const rotate = this.actor.isRotated
 
   // if( args.info ) { args.info.sY = false; }
   this.pushRelativeStandardAutomatic(args.info)
@@ -589,15 +619,17 @@ export const Mouth = function Mouth(args) {
 }
 
 Mouth.prototype.draw = function MouthDraw(args) {
-  let cutOff = (this.cutOff = this.pushLinkList({ r: 1, useSize: args.sX }))
+  const cutOff = (this.cutOff = this.pushLinkList({ r: 1, useSize: args.sX }))
+
   /*0_1 */
-  let sX = (this.sX = this.pushLinkList({
+  const sX = (this.sX = this.pushLinkList({
     r: 1,
     useSize: args.sX,
     a: -2,
     min: 1,
   }))
-  let finalSX = (this.finalSX = this.pushLinkList({
+
+  const finalSX = (this.finalSX = this.pushLinkList({
     add: [
       sX,
       {
@@ -610,63 +642,85 @@ Mouth.prototype.draw = function MouthDraw(args) {
     ],
     min: 1,
   }))
+
   /*0_1 */
-  let sY = (this.sY = this.pushLinkList({
+  const sY = (this.sY = this.pushLinkList({
     r: 0,
     useSize: args.sY,
     min: 1,
   }))
-  let restSX = this.pushLinkList([args.headSX, { r: -1, useSize: finalSX }])
-  let halfRestSX = this.pushLinkList({ r: 0.5, useSize: restSX })
-  let restSY = this.pushLinkList([args.sY, { r: -1, useSize: sY }, -1])
-  let sideRestSX = (this.sideRestSX = this.pushLinkList({
+
+  const restSX = this.pushLinkList([args.headSX, { r: -1, useSize: finalSX }])
+
+  const halfRestSX = this.pushLinkList({ r: 0.5, useSize: restSX })
+
+  const restSY = this.pushLinkList([args.sY, { r: -1, useSize: sY }, -1])
+
+  const sideRestSX = (this.sideRestSX = this.pushLinkList({
     r: 0,
     useSize: halfRestSX,
   }))
+
   /*0_1 */
-  let x = (this.x = this.pushLinkList({
+  const x = (this.x = this.pushLinkList({
     add: [halfRestSX, sideRestSX],
     max: restSX,
   }))
+
   /*0_1 */
-  let y = (this.y = this.pushLinkList({ r: 0.3, useSize: restSY }))
-  let curveSX = (this.curveSX = this.pushLinkList({
+  const y = (this.y = this.pushLinkList({ r: 0.3, useSize: restSY }))
+
+  const curveSX = (this.curveSX = this.pushLinkList({
     r: 0.3,
     useSize: finalSX,
   }))
-  let curveSideSX = (this.curveSideSX = this.pushLinkList({
+
+  const curveSideSX = (this.curveSideSX = this.pushLinkList({
     r: 0,
     useSize: curveSX,
   }))
-  let outerLeftSX = this.pushLinkList({ add: [curveSX, curveSideSX] })
-  let outerRightSX = this.pushLinkList({
+
+  const outerLeftSX = this.pushLinkList({ add: [curveSX, curveSideSX] })
+
+  const outerRightSX = this.pushLinkList({
     add: [curveSX, { r: -1, useSize: curveSideSX }],
   })
+
   /*-1_1*/
-  let curveSY = (this.curveSY = this.pushLinkList({
+  const curveSY = (this.curveSY = this.pushLinkList({
     r: 0,
     useSize: sY,
   }))
-  let curveTopSY = this.pushLinkList({
+
+  const curveTopSY = this.pushLinkList({
     add: [{ r: -1, useSize: curveSY }],
     min: 0,
   })
-  let curveBottomSY = this.pushLinkList({ add: [curveSY], min: 0 })
-  let curveMax = this.pushLinkList([sY, -1])
-  let teethTopMax = this.pushLinkList({ r: 0.55, useSize: sY })
-  let teethBottomMax = this.pushLinkList([sY, { r: -1, useSize: teethTopMax }])
+
+  const curveBottomSY = this.pushLinkList({ add: [curveSY], min: 0 })
+
+  const curveMax = this.pushLinkList([sY, -1])
+
+  const teethTopMax = this.pushLinkList({ r: 0.55, useSize: sY })
+
+  const teethBottomMax = this.pushLinkList([sY, { r: -1, useSize: teethTopMax }])
+
   /*0_1 */
-  let teethTopSY = (this.teethTopSY = this.pushLinkList({
+  const teethTopSY = (this.teethTopSY = this.pushLinkList({
     r: 0,
     useSize: teethTopMax,
   }))
+
   /*0_1 */
-  let teethBottomSY = (this.teethBottomSY = this.pushLinkList({
+  const teethBottomSY = (this.teethBottomSY = this.pushLinkList({
     r: 0,
     useSize: teethBottomMax,
   }))
-  let smirkTop = this.pushLinkList({ r: 0.5, useSize: curveSY, max: 1 })
-  let smirkBottom = this.pushLinkList({ r: -0.1, useSize: curveSY, max: 1 })
+
+  const smirkTop = this.pushLinkList({ r: 0.5, useSize: curveSY, max: 1 })
+
+  const smirkBottom = this.pushLinkList({ r: -0.1, useSize: curveSY, max: 1 })
+
   let mouthOuter
 
   if (!args.info) {

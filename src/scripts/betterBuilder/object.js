@@ -142,7 +142,7 @@ export const Rotater = function (args) {
 Rotater.prototype = new BBObj()
 
 Rotater.prototype.pusher = function (rotate, list, reflect) {
-  let front = rotate.abs > 0
+  const front = rotate.abs > 0
 
   this.list.push({
     sX: { r: front ? rotate.abs : -rotate.abs },
@@ -160,8 +160,10 @@ BBObj.prototype.moveOut = function (args, rotate) {
   //	XRel
 
   let diff
-  let add = []
-  let X = {
+
+  const add = []
+
+  const X = {
     add,
   }
 
@@ -237,7 +239,7 @@ BBObj.prototype.mover = function (what, move) {
 }
 
 BBObj.prototype.merge = function (what, args) {
-  for (let attr in args) {
+  for (const attr in args) {
     what[attr] = args[attr]
   }
 
@@ -245,7 +247,7 @@ BBObj.prototype.merge = function (what, args) {
 }
 
 export const RotateInfo = function (rotate) {
-  let s = { a: 5 }
+  const s = { a: 5 }
 
   this.ll.push(s)
 

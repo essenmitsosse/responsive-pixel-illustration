@@ -71,6 +71,7 @@ const listConfigEslintBase: ReadonlyArray<Linter.Config> = [
        * Require or disallow method and property shorthand syntax for object
        * literals {@link https://eslint.org/docs/latest/rules/object-shorthand}
        */
+
       'object-shorthand': 'error',
 
       /**
@@ -80,6 +81,14 @@ const listConfigEslintBase: ReadonlyArray<Linter.Config> = [
        * {@link https://eslint.org/docs/latest/rules/one-var}
        */
       'one-var': ['error', 'never'],
+
+      /**
+       * Require `const` declarations for variables that are never reassigned
+       * after declared
+       *
+       * {@link https://eslint.org/docs/latest/rules/prefer-const#rule-details}
+       */
+      'prefer-const': 'error',
 
       /**
        * This rule enforces usage of destructuring instead of accessing a

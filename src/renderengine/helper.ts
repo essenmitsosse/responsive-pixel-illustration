@@ -28,9 +28,7 @@ type Max = {
 
 type ColorRgb = [number, number, number]
 
-class Helper {
-  constructor() {}
-
+export const helper = {
   getSmallerDim<TA, TUse>(x: SizeIn<TA, TUse>): SizeOut<TA, TUse> {
     const o: SizeOut<TA, TUse> = { r: x.r }
     const max: Max = {
@@ -57,13 +55,13 @@ class Helper {
     }
 
     return o
-  }
+  },
 
   getBiggerDim<TA, TUse>(x: SizeIn<TA, TUse>): SizeOut<TA, TUse> {
     x.getBiggerDim = true
 
     return this.getSmallerDim(x)
-  }
+  },
 
   mult<TR, TUse, TA>(
     r: TR,
@@ -75,11 +73,11 @@ class Helper {
     useSize: TUse
   } {
     return { r, useSize: use, a }
-  }
+  },
 
   sub<TUse>(use: TUse): { r: number; useSize: TUse } {
     return { r: -1, useSize: use }
-  }
+  },
 
   margin<TFull, TMargin, TMin>(
     full: TFull,
@@ -90,7 +88,7 @@ class Helper {
     min: TMin
   } {
     return { add: [full, { r: -2, useSize: margin }], min }
-  }
+  },
 
   darken(darken: ColorRgb, strength: number) {
     let l = darken.length
@@ -114,7 +112,7 @@ class Helper {
 
       return newColor
     }
-  }
+  },
 
   lighten(lighten: ColorRgb, strength: number) {
     let l = lighten.length
@@ -138,7 +136,7 @@ class Helper {
 
       return newColor
     }
-  }
+  },
 
   addC(add: ColorRgb) {
     return (color: ColorRgb): ColorRgb => {
@@ -155,13 +153,13 @@ class Helper {
 
       return newColor
     }
-  }
+  },
 
   lessSat(color: ColorRgb, s: number): ColorRgb {
     const total = ((color[0] + color[1] + color[2]) * (1 - s)) / 3
 
     return [color[0] * s + total, color[1] * s + total, color[2] * s + total]
-  }
+  },
 
   getBrightness(color: ColorRgb): number {
     let l = color.length
@@ -172,15 +170,15 @@ class Helper {
     }
 
     return b / 3
-  }
+  },
 
   colorAdd(rgb: ColorRgb, add: number): ColorRgb {
     return [rgb[0] + add, rgb[1] + add, rgb[2] + add]
-  }
+  },
 
   multiplyColor(rgb: ColorRgb, factor: number): ColorRgb {
     return [rgb[0] * factor, rgb[1] * factor, rgb[2] * factor]
-  }
+  },
 
   getLinkListPusher<T>(linkList: Array<T>): (link: T) => T {
     return function (link) {
@@ -188,14 +186,14 @@ class Helper {
 
       return link
     }
-  }
+  },
   setValue<T>(what: Size<T>, value: T): void {
     what.r = value
-  }
+  },
 
   setValueNew<TRele>(what: Size<TRele>, value: TRele): void {
     what.s.rele = value
-  }
+  },
 
   getHoverChangers(): {
     changersCustomList: Array<unknown>
@@ -390,11 +388,11 @@ class Helper {
         that.setValue = that.setValueNew
       },
     }
-  }
+  },
 
   getRandomInt(i: number): number {
     return Math.floor(Math.random() * i)
-  }
+  },
 
   random(seed: number): {
     getFloat(): number
@@ -442,7 +440,5 @@ class Helper {
         return (max - min) * getFloat() + min
       },
     }
-  }
+  },
 }
-
-export const helper = new Helper()

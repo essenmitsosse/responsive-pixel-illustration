@@ -81,9 +81,9 @@ test('interact with sliders', async ({ page }) => {
 
   const sliderTrack = page.locator('input[type="range"]').first()
 
-  const sliderOffsetWidth = await sliderTrack.evaluate((el) => {
-    return el.getBoundingClientRect()
-  })
+  const sliderOffsetWidth = await sliderTrack.evaluate((el) =>
+    el.getBoundingClientRect(),
+  )
 
   await page.mouse.click(
     sliderOffsetWidth.x + sliderOffsetWidth.width - 10,

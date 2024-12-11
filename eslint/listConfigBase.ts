@@ -9,7 +9,6 @@ const listConfigEslintBase: ReadonlyArray<Linter.Config> = [
     rules: {
       ...js.configs.recommended.rules,
 
-      /**  */
       'no-unused-vars': 'off',
     },
   },

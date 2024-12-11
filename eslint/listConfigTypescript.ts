@@ -74,7 +74,7 @@ const listConfigTypeScript: ReadonlyArray<Linter.Config> = [
        * docs, this rule for now only enforces a consistent alias name `that`.
        *
        * TODO: Refactor code in such a way that aliasing `this` is not needed.
-       * */
+       */
       '@typescript-eslint/no-this-alias': ['error', { allowedNames: ['that'] }],
 
       /**
@@ -104,8 +104,8 @@ const listConfigTypeScript: ReadonlyArray<Linter.Config> = [
   },
 
   /**
-   * This rule extends the base eslint/no-redeclare rule. It adds support
-   * for TypeScript function overloads, and declaration merging.
+   * This rule extends the base eslint/no-redeclare rule. It adds support for
+   * TypeScript function overloads, and declaration merging.
    * {@link https://typescript-eslint.io/rules/no-redeclare/}
    *
    * Replaces the ESLint rule `no-redeclare`.
@@ -131,9 +131,9 @@ const listConfigTypeScript: ReadonlyArray<Linter.Config> = [
       'no-unused-vars': 'off',
 
       /**
-       * This also adds some exception, where an unused variable is followed
-       * by a used parameter, in which case fixing this rule would mean
-       * changing the function signature.
+       * This also adds some exception, where an unused variable is followed by
+       * a used parameter, in which case fixing this rule would mean changing
+       * the function signature.
        */
       '@typescript-eslint/no-unused-vars': ['error', { args: 'after-used' }],
     },

@@ -17,7 +17,7 @@ const listConfigPlaywright: ReadonlyArray<Linter.Config> = [
       /**
        * This rule is redundant, because this is already checked by TypeScript
        * and it actually gives false negatives.
-       **/
+       */
       'playwright/valid-title': 'off',
     },
   },

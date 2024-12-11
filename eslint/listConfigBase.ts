@@ -84,6 +84,20 @@ const listConfigEslintBase: ReadonlyArray<Linter.Config> = [
         },
         { enforceForRenamedProperties: false },
       ],
+
+      /**
+       * This works alongside `import/order` to make sure to also order named
+       * imports {@link https://eslint.org/docs/latest/rules/sort-imports}
+       */
+      'sort-imports': [
+        'error',
+        {
+          allowSeparatedGroups: false,
+          ignoreCase: false,
+          ignoreDeclarationSort: true,
+          ignoreMemberSort: false,
+        },
+      ],
     },
   },
 

@@ -294,10 +294,6 @@ function Helper() {
     return Math.floor(Math.random() * i)
   }
 
-  this.random = function (c, bonus, bonusC) {
-    return Math.random() < (c || 0.2) + (bonus ? bonusC : 0)
-  }
-
   this.random = function (seed) {
     const denom = Math.pow(2, 31)
     const a = 11

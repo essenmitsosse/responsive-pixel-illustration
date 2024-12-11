@@ -16,6 +16,13 @@ const listConfigEslintBase: ReadonlyArray<Linter.Config> = [
        */
       'arrow-body-style': 'error',
 
+      /**
+       * Enforce curly braces for all statements. Otherwise it would for example
+       * be possible to have `if` statements without curly braces, leading to
+       * inconsistant style. {@link https://eslint.org/docs/latest/rules/curly}
+       */
+      'curly': 'error',
+
       'no-unused-vars': 'off',
     },
   },

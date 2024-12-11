@@ -1,7 +1,8 @@
-function Helper() {
-  const that = this
+/* eslint-disable @typescript-eslint/member-ordering -- would cause to change in this file for now */
+class Helper {
+  constructor() {}
 
-  this.getSmallerDim = function (x) {
+  getSmallerDim = function (x) {
     const o = { r: x.r }
     const max = { r: x.r2 || x.r, otherDim: true }
 
@@ -26,25 +27,25 @@ function Helper() {
     return o
   }
 
-  this.getBiggerDim = function (x) {
+  getBiggerDim = function (x) {
     x.getBiggerDim = true
 
-    return that.getSmallerDim(x)
+    return this.getSmallerDim(x)
   }
 
-  this.mult = function (r, use, a) {
+  mult = function (r, use, a) {
     return { r, useSize: use, a }
   }
 
-  this.sub = function (use) {
+  sub = function (use) {
     return { r: -1, useSize: use }
   }
 
-  this.margin = function (full, margin, min) {
+  margin = function (full, margin, min) {
     return { add: [full, { r: -2, useSize: margin }], min }
   }
 
-  this.darken = function (darken, strength) {
+  darken = function (darken, strength) {
     let l = darken.length
 
     const finalDarken = []
@@ -68,7 +69,7 @@ function Helper() {
     }
   }
 
-  this.lighten = function (lighten, strength) {
+  lighten = function (lighten, strength) {
     let l = lighten.length
 
     const finaleLighten = []
@@ -92,7 +93,7 @@ function Helper() {
     }
   }
 
-  this.addC = function (add) {
+  addC = function (add) {
     return function (color) {
       let l = color.length
 
@@ -109,13 +110,13 @@ function Helper() {
     }
   }
 
-  this.lessSat = function (color, s) {
+  lessSat = function (color, s) {
     const total = ((color[0] + color[1] + color[2]) * (1 - s)) / 3
 
     return [color[0] * s + total, color[1] * s + total, color[2] * s + total]
   }
 
-  this.getBrightness = function (color) {
+  getBrightness = function (color) {
     let l = color.length
     let b = 0
 
@@ -126,15 +127,15 @@ function Helper() {
     return b / 3
   }
 
-  this.colorAdd = function (rgb, add) {
+  colorAdd = function (rgb, add) {
     return [rgb[0] + add, rgb[1] + add, rgb[2] + add]
   }
 
-  this.multiplyColor = function (rgb, factor) {
+  multiplyColor = function (rgb, factor) {
     return [rgb[0] * factor, rgb[1] * factor, rgb[2] * factor]
   }
 
-  this.getLinkListPusher = function (linkList) {
+  getLinkListPusher = function (linkList) {
     return function (link) {
       linkList.push(link)
 
@@ -142,15 +143,16 @@ function Helper() {
     }
   }
 
-  this.setValue = function (what, value) {
+  setValue = function (what, value) {
     what.r = value
   }
 
-  this.setValueNew = function (what, value) {
+  setValueNew = function (what, value) {
     what.s.rele = value
   }
 
-  this.getHoverChangers = function () {
+  getHoverChangers = function () {
+    const that = this
     const changersRelativeStandardList = []
     const changersRelativeCustomList = []
     const changersColorStandardList = []
@@ -290,11 +292,11 @@ function Helper() {
     }
   }
 
-  this.getRandomInt = function (i) {
+  getRandomInt = function (i) {
     return Math.floor(Math.random() * i)
   }
 
-  this.random = function (seed) {
+  random = function (seed) {
     const denom = Math.pow(2, 31)
     const a = 11
     const b = 19
@@ -337,5 +339,6 @@ function Helper() {
     }
   }
 }
+/* eslint-enable @typescript-eslint/member-ordering */
 
 export const helper = new Helper()

@@ -2,7 +2,7 @@
 class Helper {
   constructor() {}
 
-  getSmallerDim = function (x) {
+  getSmallerDim(x) {
     const o = { r: x.r }
     const max = { r: x.r2 || x.r, otherDim: true }
 
@@ -27,25 +27,25 @@ class Helper {
     return o
   }
 
-  getBiggerDim = function (x) {
+  getBiggerDim(x) {
     x.getBiggerDim = true
 
     return this.getSmallerDim(x)
   }
 
-  mult = function (r, use, a) {
+  mult(r, use, a) {
     return { r, useSize: use, a }
   }
 
-  sub = function (use) {
+  sub(use) {
     return { r: -1, useSize: use }
   }
 
-  margin = function (full, margin, min) {
+  margin(full, margin, min) {
     return { add: [full, { r: -2, useSize: margin }], min }
   }
 
-  darken = function (darken, strength) {
+  darken(darken, strength) {
     let l = darken.length
 
     const finalDarken = []
@@ -69,7 +69,7 @@ class Helper {
     }
   }
 
-  lighten = function (lighten, strength) {
+  lighten(lighten, strength) {
     let l = lighten.length
 
     const finaleLighten = []
@@ -93,7 +93,7 @@ class Helper {
     }
   }
 
-  addC = function (add) {
+  addC(add) {
     return function (color) {
       let l = color.length
 
@@ -110,13 +110,13 @@ class Helper {
     }
   }
 
-  lessSat = function (color, s) {
+  lessSat(color, s) {
     const total = ((color[0] + color[1] + color[2]) * (1 - s)) / 3
 
     return [color[0] * s + total, color[1] * s + total, color[2] * s + total]
   }
 
-  getBrightness = function (color) {
+  getBrightness(color) {
     let l = color.length
     let b = 0
 
@@ -127,15 +127,15 @@ class Helper {
     return b / 3
   }
 
-  colorAdd = function (rgb, add) {
+  colorAdd(rgb, add) {
     return [rgb[0] + add, rgb[1] + add, rgb[2] + add]
   }
 
-  multiplyColor = function (rgb, factor) {
+  multiplyColor(rgb, factor) {
     return [rgb[0] * factor, rgb[1] * factor, rgb[2] * factor]
   }
 
-  getLinkListPusher = function (linkList) {
+  getLinkListPusher(linkList) {
     return function (link) {
       linkList.push(link)
 
@@ -143,21 +143,21 @@ class Helper {
     }
   }
 
-  setValue = function (what, value) {
+  setValue(what, value) {
     what.r = value
   }
 
-  setValueNew = function (what, value) {
+  setValueNew(what, value) {
     what.s.rele = value
   }
 
-  getHoverChangers = function () {
+  getHoverChangers() {
     const that = this
     const changersRelativeStandardList = []
     const changersRelativeCustomList = []
     const changersColorStandardList = []
     const changersCustomList = []
-    const pushRelativeStandard = function (min, max, map, variable) {
+    const pushRelativeStandard = (min, max, map, variable) => {
       changersRelativeStandardList.push({
         change: max - min,
         min,
@@ -165,7 +165,7 @@ class Helper {
         variable,
       })
     }
-    const changeColor = function (value, map) {
+    const changeColor = (value, map) => {
       const [maxR, maxG, maxB] = map.max
       const [minR, minG, minB] = map.min
       const valueNeg = 1 - value
@@ -292,11 +292,11 @@ class Helper {
     }
   }
 
-  getRandomInt = function (i) {
+  getRandomInt(i) {
     return Math.floor(Math.random() * i)
   }
 
-  random = function (seed) {
+  random(seed) {
     const denom = Math.pow(2, 31)
     const a = 11
     const b = 19
@@ -306,7 +306,7 @@ class Helper {
     let x = seed || Math.floor(Math.random() * 4294967296)
     let t = x ^ (x << a)
 
-    const getFloat = function () {
+    const getFloat = () => {
       const t = x ^ (x << a)
 
       return (x = x ^ (x >> c) ^ (t ^ (t >> b))) / denom

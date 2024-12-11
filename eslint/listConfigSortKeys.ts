@@ -10,6 +10,7 @@ import type { Linter } from 'eslint'
  */
 const listConfigSortKeys: ReadonlyArray<Linter.Config> = [
   {
+    files: ['*.config.*', 'eslint/**'],
     plugins: {
       'sort-keys': sortKeys,
     },
@@ -21,7 +22,6 @@ const listConfigSortKeys: ReadonlyArray<Linter.Config> = [
        */
       'sort-keys/sort-keys-fix': 'error',
     },
-    files: ['*.config.*'],
   },
 ]
 

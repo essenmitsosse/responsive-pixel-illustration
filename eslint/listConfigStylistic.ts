@@ -30,6 +30,12 @@ const listConfigStylistic: ReadonlyArray<Linter.Config> = [
         /** No new line between const */
         { blankLine: 'never', next: 'const', prev: 'const' },
 
+        /** Always new line around const blocks */
+        { blankLine: 'always', next: 'let', prev: '*' },
+        { blankLine: 'always', next: '*', prev: 'let' },
+        /** No new line between let */
+        { blankLine: 'never', next: 'let', prev: 'let' },
+
         /** New line before export */
         { blankLine: 'always', next: 'export', prev: '*' },
       ],

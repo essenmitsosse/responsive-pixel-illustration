@@ -34,9 +34,7 @@ function landscape() {
         [40, 40, 0],
       ],
     ][colorNr],
-    c2 = colorScheme[1],
-    c3 = colorScheme[2],
-    c4 = colorScheme[3],
+    [, c2, c3, c4] = colorScheme,
     renderList = [
       {
         m: 'borderS',

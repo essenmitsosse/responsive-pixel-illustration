@@ -13,7 +13,7 @@ export const InitPixel = function (args) {
     canvasDataList = false,
     canvasRenderer = this.createSingleCanvas(canvasDataList, args.div),
     callback,
-    body = document.getElementsByTagName('body')[0]
+    [body] = document.getElementsByTagName('body')
 
   this.parent = queryString.admin || queryString.parent
 
@@ -197,7 +197,7 @@ InitPixel.prototype.info = function (options) {
   var logs = [],
     initString,
     d = document,
-    body = d.getElementsByTagName('body')[0],
+    [body] = d.getElementsByTagName('body'),
     info = d.createElement('div'),
     show = options.showInfos,
     swap = function () {

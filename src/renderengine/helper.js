@@ -157,12 +157,8 @@ export const helper = new (function () {
         })
       },
       changeColor = function (value, map) {
-        var maxR = map.max[0],
-          maxG = map.max[1],
-          maxB = map.max[2],
-          minR = map.min[0],
-          minG = map.min[1],
-          minB = map.min[2],
+        var [maxR, maxG, maxB] = map.max,
+          [minR, minG, minB] = map.min,
           valueNeg = 1 - value
 
         map.color[0] = minR * valueNeg + maxR * value

@@ -23,32 +23,32 @@ export const Arm = function Arm(args) {
 }
 
 Arm.prototype.draw = function ArmDraw(args) {
-  var armSY = this.getSizeSwitch(
-      { r: this.armBaseSY_, useSize: args.torsoSY },
-      { r: this.armRelSY_ },
-      {
-        min: { r: 1, useSize: args.torsoSX },
-        max: { r: 0.8, useSize: this.actor.bodySY },
-      },
-      'actor-features',
-    ),
-    armS = (this.armS = this.pushLinkList({
-      r: 0.08,
-      useSize: armSY,
-      min: 1,
-    })),
-    upperArmS = this.pushLinkList({ r: 0.1, useSize: armSY, min: 1 }),
-    armSHalf = (this.armSHalf = this.pushLinkList({
-      r: 0.5,
-      useSize: upperArmS,
-      a: -1,
-    })),
-    handS = (this.handS = this.pushLinkList({
-      r: 0.1,
-      useSize: armSY,
-      min: 1,
-    })),
-    handSY = this.pushLinkList({ r: 0.14, useSize: armSY, min: 1 })
+  const armSY = this.getSizeSwitch(
+    { r: this.armBaseSY_, useSize: args.torsoSY },
+    { r: this.armRelSY_ },
+    {
+      min: { r: 1, useSize: args.torsoSX },
+      max: { r: 0.8, useSize: this.actor.bodySY },
+    },
+    'actor-features',
+  )
+  const armS = (this.armS = this.pushLinkList({
+    r: 0.08,
+    useSize: armSY,
+    min: 1,
+  }))
+  const upperArmS = this.pushLinkList({ r: 0.1, useSize: armSY, min: 1 })
+  const armSHalf = (this.armSHalf = this.pushLinkList({
+    r: 0.5,
+    useSize: upperArmS,
+    a: -1,
+  }))
+  const handS = (this.handS = this.pushLinkList({
+    r: 0.1,
+    useSize: armSY,
+    min: 1,
+  }))
+  const handSY = this.pushLinkList({ r: 0.14, useSize: armSY, min: 1 })
 
   this.right = args.right
 
@@ -150,8 +150,8 @@ Arm.prototype.draw = function ArmDraw(args) {
 }
 
 Arm.prototype.getHandTarget = function (target, name) {
-  var x = name + 'X',
-    y = name + 'Y'
+  const x = name + 'X'
+  const y = name + 'Y'
 
   if (target.angle) {
     this[x] = this.pushLinkList({
@@ -179,8 +179,8 @@ Arm.prototype.getHandTarget = function (target, name) {
 }
 
 Arm.prototype.getTarget = function (target, name) {
-  var xAdd = [],
-    yAdd = []
+  const xAdd = []
+  const yAdd = []
 
   xAdd.push(
     // Actor relative to Stage
@@ -203,7 +203,6 @@ Arm.prototype.getTarget = function (target, name) {
   )
 
   const add = this.isRotated ? xAdd : yAdd
-
   const addOtherAxis = !this.isRotated ? xAdd : yAdd
 
   add.push({ r: -1, useSize: this.y }, this.actor.bodySY, -1)
@@ -225,11 +224,11 @@ Arm.prototype.getTarget = function (target, name) {
 }
 
 Arm.prototype.getMoveableTarget = function (name, targetFunc, info) {
-  var mainX = name + 'X',
-    mainY = name + 'Y',
-    moveXName = name + 'moveX',
-    moveYName = name + 'moveY',
-    pushRelativeStandardAutomaticObject = {}
+  const mainX = name + 'X'
+  const mainY = name + 'Y'
+  const moveXName = name + 'moveX'
+  const moveYName = name + 'moveY'
+  const pushRelativeStandardAutomaticObject = {}
 
   if (info.map !== undefined) {
     this[targetFunc](info.max, name)

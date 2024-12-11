@@ -27,348 +27,113 @@ export const getStory = function getStory() {
 }
 
 getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
-  var actor0StandUp = 0.1,
-    // emotion0 = actorsList.emotion0.renderObject,
-    // emotion1 = actorsList.emotion1.renderObject,
-
-    actor0sitting = {
-      posX: 0.2,
-      posY: 1,
-      obj: this.actorsList.chair0.renderObject,
-    },
-    chair0Pos = {
-      obj: this.stage,
-      posX: 0.1,
-      posY: 0,
-    },
-    mainSteps = [
-      {
-        // - - -  START step 0 - - - - - - - - - - - - - SITTING
-        list: {
-          table: {
+  const actor0StandUp = 0.1
+  // emotion0 = actorsList.emotion0.renderObject,
+  // emotion1 = actorsList.emotion1.renderObject,
+  const actor0sitting = {
+    posX: 0.2,
+    posY: 1,
+    obj: this.actorsList.chair0.renderObject,
+  }
+  const chair0Pos = {
+    obj: this.stage,
+    posX: 0.1,
+    posY: 0,
+  }
+  const mainSteps = [
+    {
+      // - - -  START step 0 - - - - - - - - - - - - - SITTING
+      list: {
+        table: {
+          pos: {
+            obj: this.stage,
+            posX: 0.5,
+            posY: -0.05,
+          },
+        },
+        chair0: {
+          start: {
+            pos: chair0Pos,
+            z: -5000,
+            rotate: 0,
+          },
+        },
+        chair1: {
+          start: {
             pos: {
               obj: this.stage,
-              posX: 0.5,
-              posY: -0.05,
+              posX: 0.85,
             },
+            z: -5000,
           },
-          chair0: {
-            start: {
-              pos: chair0Pos,
-              z: -5000,
-              rotate: 0,
+        },
+        actor0: {
+          // actor 0 — frame 0
+          start: {
+            pos: actor0sitting,
+            body: {
+              lean: { map: 'a', min: -0.1, max: -0.1 },
+              side: 0.2,
             },
-          },
-          chair1: {
-            start: {
+            eyeLeft: {
+              pupilPosXrel: 0.8,
+              eyeBrowMove: {},
+            },
+            eyeRight: {
+              pupilPosXrel: 0.2,
+              eyeBrowMove: {},
+            },
+            mouth: {
+              sY: 0.3,
+              sX: 0.4,
+              curveSY: { map: 'a', min: 0, max: 0 },
+            },
+            armLeft: {
               pos: {
-                obj: this.stage,
-                posX: 0.85,
-              },
-              z: -5000,
-            },
-          },
-          actor0: {
-            // actor 0 — frame 0
-            start: {
-              pos: actor0sitting,
-              body: {
-                lean: { map: 'a', min: -0.1, max: -0.1 },
-                side: 0.2,
-              },
-              eyeLeft: {
-                pupilPosXrel: 0.8,
-                eyeBrowMove: {},
-              },
-              eyeRight: {
-                pupilPosXrel: 0.2,
-                eyeBrowMove: {},
-              },
-              mouth: {
-                sY: 0.3,
-                sX: 0.4,
-                curveSY: { map: 'a', min: 0, max: 0 },
-              },
-              armLeft: {
-                pos: {
-                  obj: this.actorsList.actor0.renderObject.body.legs,
-                  posX: 0.8,
-                  posY: 1,
-                },
-                hand: { angle: -0.5 },
-              },
-              armRight: {
-                pos: {
-                  obj: this.actorsList.actor0.renderObject.body.legs,
-                  posX: 0.5,
-                  posY: 0.8,
-                },
-                hand: { angle: 0.5 },
-              },
-              sitting: true,
-              z: -2000,
-            },
-            end: {
-              body: {
-                lean: { map: 'a', min: -0.3, max: 0.3 },
-                side: 0.5,
-              },
-              eyeLeft: {
-                pupilPosXrel: 0,
-                eyeBrowMove: {
-                  relPos: 0.8,
-                  value: { map: 'a', min: -0.3, max: 0.3 },
-                },
-              },
-              eyeRight: {
-                pupilPosXrel: 1,
-                eyeBrowMove: {
-                  relPos: 0.8,
-                  value: { map: 'a', min: -0.3, max: 0.3 },
-                },
-              },
-              mouth: {
-                sY: 0.5,
-                sX: 0.8,
-                curveSY: { map: 'a', min: -0.2, max: 0.2 },
-              },
-              armRight: {
-                relPos: 0.5,
-                value: {
-                  pos: {
-                    obj: this.actorsList.table.renderObject,
-                    posY: 1,
-                    ellbow: true,
-                  },
-                  hand: { angle: 0.5 },
-                },
-              },
-            },
-          },
-          actor1: {
-            // actor 1 — frame 0
-            start: {
-              pos: {
-                posX: 0.5,
-                posY: 1,
-                obj: this.actorsList.chair1.renderObject,
-              },
-              body: {
-                lean: 0.1,
-                side: 0.1,
-              },
-              eyeLeft: {
-                eyeBrowMove: { map: 'a', min: 0, max: 0 },
-                pupilPosXrel: 0.2,
-              },
-              eyeRight: {
-                eyeBrowMove: { map: 'a', min: 0, max: 0 },
-                pupilPosXrel: 0.8,
-              },
-              mouth: {
-                sY: 0,
-                sX: 0.5,
-                curveSY: { map: 'a', min: 0, max: 0 },
-              },
-              armLeft: {
-                pos: {
-                  obj: this.actorsList.table.renderObject,
-                  posY: 1,
-                  posX: 0.5,
-                },
-                hand: { angle: -0.5 },
-                flip: true,
-                z: -100,
-              },
-              armRight: {
-                pos: {
-                  obj: this.actorsList.table.renderObject,
-                  posY: 1,
-                  posX: 0.8,
-                },
-                hand: { angle: -0.5 },
-              },
-              sitting: true,
-              z: -1000,
-            },
-            end: {
-              body: {
-                side: -0.4,
-              },
-              eyeLeft: {
-                eyeBrowMove: { map: 'a', min: -0.5, max: 0.5 },
-                pupilPosXrel: 1,
-              },
-              eyeRight: {
-                eyeBrowMove: { map: 'a', min: -0.5, max: 0.5 },
-                pupilPosXrel: 0,
-              },
-              mouth: {
-                sY: { map: 'a', min: 0.5, max: 0.25 },
-                sX: 0.9,
-                curveSY: { map: 'a', min: -0.3, max: 0.3 },
-              },
-              armRight: {
-                relPos: 0.7,
-                value: {
-                  pos: {
-                    obj: this.actorsList.glass.renderObject,
-                    posX: 1,
-                    posY: 0.6,
-                  },
-                  hand: { angle: -0.5 },
-                  z: 100000,
-                },
-              },
-            },
-          },
-          glass: {
-            start: {
-              pos: {
-                obj: this.actorsList.table.renderObject,
+                obj: this.actorsList.actor0.renderObject.body.legs,
                 posX: 0.8,
                 posY: 1,
               },
-              rotate: 0,
-              level: { map: 'a', min: 0.15, max: 0.75 },
+              hand: { angle: -0.5 },
             },
-          },
-
-          emotion0: {
-            start: {
-              pos: {},
-              size: -1,
-            },
-            end: {
+            armRight: {
               pos: {
-                relPos: 0.5,
-                value: {
-                  obj: this.actorsList.actor0.renderObject,
-                  posY: 1,
-                  posX: 0,
-                },
+                obj: this.actorsList.actor0.renderObject.body.legs,
+                posX: 0.5,
+                posY: 0.8,
               },
-              size: 1,
+              hand: { angle: 0.5 },
             },
+            sitting: true,
+            z: -2000,
           },
-
-          emotion1: {
-            start: {
-              pos: {},
-              size: -0.1,
-              right: true,
+          end: {
+            body: {
+              lean: { map: 'a', min: -0.3, max: 0.3 },
+              side: 0.5,
             },
-            end: {
-              pos: {
-                relPos: 0.5,
-                value: {
-                  obj: this.actorsList.actor1.renderObject,
-                  posY: 1,
-                  posX: 0,
-                },
-              },
-              size: 0.9,
-            },
-          },
-        },
-        cameras: [
-          {
-            minPanels: 3,
-            pos: 0.5,
-            camera: {
-              zoom: 0.5,
-              focus: {
-                map: 'altCamera',
-                min: {
-                  obj: this.actorsList.actor0.renderObject,
-                  posX: 0.5,
-                  posY: 0.5,
-                },
-                max: {
-                  obj: this.actorsList.actor1.renderObject,
-                  posX: 0.5,
-                  posY: 0.5,
-                },
+            eyeLeft: {
+              pupilPosXrel: 0,
+              eyeBrowMove: {
+                relPos: 0.8,
+                value: { map: 'a', min: -0.3, max: 0.3 },
               },
             },
-          },
-          {
-            minPanels: 1,
-            pos: 0,
-            camera: {
-              zoom: 1,
-              focus: {
-                map: 'altCamera',
-                min: {
-                  obj: this.actorsList.glass.renderObject,
-                  posX: 0.5,
-                  posY: 0.6,
-                },
-                max: {
-                  obj: this.actorsList.actor1.renderObject,
-                  posX: 0.5,
-                  posY: 0.5,
-                },
+            eyeRight: {
+              pupilPosXrel: 1,
+              eyeBrowMove: {
+                relPos: 0.8,
+                value: { map: 'a', min: -0.3, max: 0.3 },
               },
             },
-          },
-        ],
-        lengthAbs: 3,
-        priority: 13,
-      },
-      // - - -  END step 0 - - - - - - - - - - - - -
-      {
-        // - - -  START step 1 - - - - - - - - - - - - - STANDING UP
-        list: {
-          table: {},
-          chair0: {
-            start: { pos: chair0Pos, rotate: 0 },
-            end: {
-              pos: {
-                posX: { relPos: actor0StandUp, value: -0.1 },
-                posY: { relPos: actor0StandUp, value: 0.1 },
-              },
-              rotate: { relPos: actor0StandUp, value: -90 },
+            mouth: {
+              sY: 0.5,
+              sX: 0.8,
+              curveSY: { map: 'a', min: -0.2, max: 0.2 },
             },
-          },
-          chair1: {
-            start: {
-              pos: { obj: this.stage, posX: 1.2 },
-            },
-          },
-          glass: {
-            start: { rotate: -90, level: 0 },
-          },
-          actor0: {
-            // actor 0 — frame 1
-            start: {
-              pos: actor0sitting,
-              body: {
-                side: 0.5,
-                lean: { map: 'a', min: -0.3, max: 0.5 },
-              },
-              eyes: {
-                pupilPosXrel: 0,
-                eyeBrowMove: { map: 'a', min: -0.7, max: 0.6 },
-                pupilS: { map: 'a', min: 1, max: 1 },
-              },
-              mouth: {
-                sX: { map: 'a', min: 0.3, max: 1 },
-                sY: { map: 'a', min: 0.5, max: 0.5 },
-                posY: { map: 'a', min: 1, max: 0 },
-                curveSY: { map: 'a', min: -0.7, max: 0.7 },
-                teethTopSY: { map: 'a', min: 0.3, max: 1 },
-                teethBottomSY: { map: 'a', min: 0.3, max: 1 },
-              },
-              armLeft: {
-                pos: {
-                  obj: this.actorsList.actor0.renderObject.body.legs,
-                  posX: 0.8,
-                  posY: 1,
-                },
-                hand: { angle: -0.5 },
-              },
-              armRight: {
+            armRight: {
+              relPos: 0.5,
+              value: {
                 pos: {
                   obj: this.actorsList.table.renderObject,
                   posY: 1,
@@ -376,119 +141,387 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                 },
                 hand: { angle: 0.5 },
               },
-              sitting: true,
-            },
-            end: {
-              pos: {
-                relPos: actor0StandUp,
-                value: {
-                  posX: 0.3,
-                  posY: 0,
-                  obj: this.stage,
-                },
-              },
-              eyes: {
-                eyeBrowMove: { map: 'a', min: -1, max: 0.8 },
-                pupilS: { map: 'a', min: 0.7, max: 1 },
-              },
-              mouth: {
-                sX: { map: 'a', min: 1, max: 0.3 },
-                sY: { map: 'a', min: 1, max: 0 },
-              },
-              body: { side: 0.7 },
-              armLeft: {
-                relPos: actor0StandUp,
-                value: {
-                  pos: {
-                    map: 'a',
-                    min: {
-                      obj: this.actorsList.actor1.renderObject.head,
-                      posX: 0.5,
-                      posY: -0.2,
-                    },
-                    max: {
-                      obj: this.actorsList.actor0.renderObject.head,
-                      posX: -1,
-                      posY: 0.5,
-                    },
-                  },
-                  hand: {
-                    map: 'a',
-                    min: {
-                      target: {
-                        obj: this.actorsList.actor1.renderObject.head,
-                        posX: 0.5,
-                        posY: 0.5,
-                      },
-                    },
-                    max: { angle: 1 },
-                  },
-                  flip: true,
-                },
-              },
-
-              armRight: {
-                relPos: actor0StandUp,
-                value: {
-                  pos: {
-                    map: 'a',
-                    min: {
-                      obj: this.actorsList.actor1.renderObject.head,
-                      posX: 0.5,
-                      posY: 0.5,
-                    },
-                    max: {
-                      obj: this.actorsList.actor0.renderObject.head,
-                      posX: 1.5,
-                      posY: 0.8,
-                    },
-                  },
-                  hand: {
-                    map: 'a',
-                    min: {
-                      target: {
-                        obj: this.actorsList.actor1.renderObject.head,
-                        posX: 0.5,
-                        posY: 0.5,
-                      },
-                    },
-                    max: { angle: 0.55 },
-                  },
-                  flip: true,
-                },
-              },
-              sitting: { value: false, relPos: actor0StandUp },
             },
           },
-          actor1: {
-            // actor 1 — frame 1
-            start: {
-              pos: { posX: 0.8, posY: 0, obj: this.stage },
-              body: {
-                side: -0.7,
-                lean: { map: 'a', min: -0.4, max: 0.3 },
+        },
+        actor1: {
+          // actor 1 — frame 0
+          start: {
+            pos: {
+              posX: 0.5,
+              posY: 1,
+              obj: this.actorsList.chair1.renderObject,
+            },
+            body: {
+              lean: 0.1,
+              side: 0.1,
+            },
+            eyeLeft: {
+              eyeBrowMove: { map: 'a', min: 0, max: 0 },
+              pupilPosXrel: 0.2,
+            },
+            eyeRight: {
+              eyeBrowMove: { map: 'a', min: 0, max: 0 },
+              pupilPosXrel: 0.8,
+            },
+            mouth: {
+              sY: 0,
+              sX: 0.5,
+              curveSY: { map: 'a', min: 0, max: 0 },
+            },
+            armLeft: {
+              pos: {
+                obj: this.actorsList.table.renderObject,
+                posY: 1,
+                posX: 0.5,
               },
-              armRight: {
+              hand: { angle: -0.5 },
+              flip: true,
+              z: -100,
+            },
+            armRight: {
+              pos: {
+                obj: this.actorsList.table.renderObject,
+                posY: 1,
+                posX: 0.8,
+              },
+              hand: { angle: -0.5 },
+            },
+            sitting: true,
+            z: -1000,
+          },
+          end: {
+            body: {
+              side: -0.4,
+            },
+            eyeLeft: {
+              eyeBrowMove: { map: 'a', min: -0.5, max: 0.5 },
+              pupilPosXrel: 1,
+            },
+            eyeRight: {
+              eyeBrowMove: { map: 'a', min: -0.5, max: 0.5 },
+              pupilPosXrel: 0,
+            },
+            mouth: {
+              sY: { map: 'a', min: 0.5, max: 0.25 },
+              sX: 0.9,
+              curveSY: { map: 'a', min: -0.3, max: 0.3 },
+            },
+            armRight: {
+              relPos: 0.7,
+              value: {
                 pos: {
-                  obj: this.actorsList.table.renderObject,
-                  posY: 1,
-                  posX: 0.9,
+                  obj: this.actorsList.glass.renderObject,
+                  posX: 1,
+                  posY: 0.6,
                 },
                 hand: { angle: -0.5 },
-                maxStraight: 0.95,
+                z: 100000,
               },
-              armLeft: {
+            },
+          },
+        },
+        glass: {
+          start: {
+            pos: {
+              obj: this.actorsList.table.renderObject,
+              posX: 0.8,
+              posY: 1,
+            },
+            rotate: 0,
+            level: { map: 'a', min: 0.15, max: 0.75 },
+          },
+        },
+
+        emotion0: {
+          start: {
+            pos: {},
+            size: -1,
+          },
+          end: {
+            pos: {
+              relPos: 0.5,
+              value: {
+                obj: this.actorsList.actor0.renderObject,
+                posY: 1,
+                posX: 0,
+              },
+            },
+            size: 1,
+          },
+        },
+
+        emotion1: {
+          start: {
+            pos: {},
+            size: -0.1,
+            right: true,
+          },
+          end: {
+            pos: {
+              relPos: 0.5,
+              value: {
+                obj: this.actorsList.actor1.renderObject,
+                posY: 1,
+                posX: 0,
+              },
+            },
+            size: 0.9,
+          },
+        },
+      },
+      cameras: [
+        {
+          minPanels: 3,
+          pos: 0.5,
+          camera: {
+            zoom: 0.5,
+            focus: {
+              map: 'altCamera',
+              min: {
+                obj: this.actorsList.actor0.renderObject,
+                posX: 0.5,
+                posY: 0.5,
+              },
+              max: {
+                obj: this.actorsList.actor1.renderObject,
+                posX: 0.5,
+                posY: 0.5,
+              },
+            },
+          },
+        },
+        {
+          minPanels: 1,
+          pos: 0,
+          camera: {
+            zoom: 1,
+            focus: {
+              map: 'altCamera',
+              min: {
+                obj: this.actorsList.glass.renderObject,
+                posX: 0.5,
+                posY: 0.6,
+              },
+              max: {
+                obj: this.actorsList.actor1.renderObject,
+                posX: 0.5,
+                posY: 0.5,
+              },
+            },
+          },
+        },
+      ],
+      lengthAbs: 3,
+      priority: 13,
+    },
+    // - - -  END step 0 - - - - - - - - - - - - -
+    {
+      // - - -  START step 1 - - - - - - - - - - - - - STANDING UP
+      list: {
+        table: {},
+        chair0: {
+          start: { pos: chair0Pos, rotate: 0 },
+          end: {
+            pos: {
+              posX: { relPos: actor0StandUp, value: -0.1 },
+              posY: { relPos: actor0StandUp, value: 0.1 },
+            },
+            rotate: { relPos: actor0StandUp, value: -90 },
+          },
+        },
+        chair1: {
+          start: {
+            pos: { obj: this.stage, posX: 1.2 },
+          },
+        },
+        glass: {
+          start: { rotate: -90, level: 0 },
+        },
+        actor0: {
+          // actor 0 — frame 1
+          start: {
+            pos: actor0sitting,
+            body: {
+              side: 0.5,
+              lean: { map: 'a', min: -0.3, max: 0.5 },
+            },
+            eyes: {
+              pupilPosXrel: 0,
+              eyeBrowMove: { map: 'a', min: -0.7, max: 0.6 },
+              pupilS: { map: 'a', min: 1, max: 1 },
+            },
+            mouth: {
+              sX: { map: 'a', min: 0.3, max: 1 },
+              sY: { map: 'a', min: 0.5, max: 0.5 },
+              posY: { map: 'a', min: 1, max: 0 },
+              curveSY: { map: 'a', min: -0.7, max: 0.7 },
+              teethTopSY: { map: 'a', min: 0.3, max: 1 },
+              teethBottomSY: { map: 'a', min: 0.3, max: 1 },
+            },
+            armLeft: {
+              pos: {
+                obj: this.actorsList.actor0.renderObject.body.legs,
+                posX: 0.8,
+                posY: 1,
+              },
+              hand: { angle: -0.5 },
+            },
+            armRight: {
+              pos: {
+                obj: this.actorsList.table.renderObject,
+                posY: 1,
+                ellbow: true,
+              },
+              hand: { angle: 0.5 },
+            },
+            sitting: true,
+          },
+          end: {
+            pos: {
+              relPos: actor0StandUp,
+              value: {
+                posX: 0.3,
+                posY: 0,
+                obj: this.stage,
+              },
+            },
+            eyes: {
+              eyeBrowMove: { map: 'a', min: -1, max: 0.8 },
+              pupilS: { map: 'a', min: 0.7, max: 1 },
+            },
+            mouth: {
+              sX: { map: 'a', min: 1, max: 0.3 },
+              sY: { map: 'a', min: 1, max: 0 },
+            },
+            body: { side: 0.7 },
+            armLeft: {
+              relPos: actor0StandUp,
+              value: {
                 pos: {
                   map: 'a',
                   min: {
-                    obj: this.actorsList.actor0.renderObject,
-                    posY: 0.5,
-                    posX: -0.2,
+                    obj: this.actorsList.actor1.renderObject.head,
+                    posX: 0.5,
+                    posY: -0.2,
                   },
                   max: {
-                    obj: this.actorsList.actor0.renderObject,
+                    obj: this.actorsList.actor0.renderObject.head,
+                    posX: -1,
                     posY: 0.5,
-                    posX: -0.2,
+                  },
+                },
+                hand: {
+                  map: 'a',
+                  min: {
+                    target: {
+                      obj: this.actorsList.actor1.renderObject.head,
+                      posX: 0.5,
+                      posY: 0.5,
+                    },
+                  },
+                  max: { angle: 1 },
+                },
+                flip: true,
+              },
+            },
+
+            armRight: {
+              relPos: actor0StandUp,
+              value: {
+                pos: {
+                  map: 'a',
+                  min: {
+                    obj: this.actorsList.actor1.renderObject.head,
+                    posX: 0.5,
+                    posY: 0.5,
+                  },
+                  max: {
+                    obj: this.actorsList.actor0.renderObject.head,
+                    posX: 1.5,
+                    posY: 0.8,
+                  },
+                },
+                hand: {
+                  map: 'a',
+                  min: {
+                    target: {
+                      obj: this.actorsList.actor1.renderObject.head,
+                      posX: 0.5,
+                      posY: 0.5,
+                    },
+                  },
+                  max: { angle: 0.55 },
+                },
+                flip: true,
+              },
+            },
+            sitting: { value: false, relPos: actor0StandUp },
+          },
+        },
+        actor1: {
+          // actor 1 — frame 1
+          start: {
+            pos: { posX: 0.8, posY: 0, obj: this.stage },
+            body: {
+              side: -0.7,
+              lean: { map: 'a', min: -0.4, max: 0.3 },
+            },
+            armRight: {
+              pos: {
+                obj: this.actorsList.table.renderObject,
+                posY: 1,
+                posX: 0.9,
+              },
+              hand: { angle: -0.5 },
+              maxStraight: 0.95,
+            },
+            armLeft: {
+              pos: {
+                map: 'a',
+                min: {
+                  obj: this.actorsList.actor0.renderObject,
+                  posY: 0.5,
+                  posX: -0.2,
+                },
+                max: {
+                  obj: this.actorsList.actor0.renderObject,
+                  posY: 0.5,
+                  posX: -0.2,
+                },
+              },
+              hand: {
+                map: 'a',
+                min: {
+                  target: {
+                    obj: this.actorsList.actor0.renderObject,
+                    posX: 1,
+                    posY: 0.5,
+                  },
+                },
+                max: { angle: 1 },
+              },
+              flip: true,
+              z: -1000,
+              maxStraight: 0.95,
+            },
+            sitting: false,
+          },
+          end: {
+            armRight: {
+              relPos: 0.5,
+              value: {
+                pos: {
+                  map: 'a',
+                  min: {
+                    obj: this.actorsList.actor0.renderObject.head,
+                    posY: 0.5,
+                    posX: 0.5,
+                  },
+                  max: {
+                    obj: this.actorsList.actor1.renderObject,
+                    posY: 1,
+                    posX: 0.9,
                   },
                 },
                 hand: {
@@ -496,665 +529,632 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
                   min: {
                     target: {
                       obj: this.actorsList.actor0.renderObject,
-                      posX: 1,
-                      posY: 0.5,
+                      posX: 0,
+                      posY: 0.8,
                     },
                   },
-                  max: { angle: 1 },
-                },
-                flip: true,
-                z: -1000,
-                maxStraight: 0.95,
-              },
-              sitting: false,
-            },
-            end: {
-              armRight: {
-                relPos: 0.5,
-                value: {
-                  pos: {
-                    map: 'a',
-                    min: {
-                      obj: this.actorsList.actor0.renderObject.head,
-                      posY: 0.5,
-                      posX: 0.5,
-                    },
-                    max: {
-                      obj: this.actorsList.actor1.renderObject,
-                      posY: 1,
-                      posX: 0.9,
-                    },
-                  },
-                  hand: {
-                    map: 'a',
-                    min: {
-                      target: {
-                        obj: this.actorsList.actor0.renderObject,
-                        posX: 0,
-                        posY: 0.8,
-                      },
-                    },
-                    max: { angle: 0.55 },
-                  },
-                },
-              },
-              armLeft: {
-                pos: {
-                  map: 'a',
-                  min: {
-                    obj: this.actorsList.actor1.renderObject,
-                    posY: 0.6,
-                    posX: -1.5,
-                  },
-                  max: {
-                    obj: this.actorsList.actor1.renderObject,
-                    posY: 1,
-                    posX: -1.2,
-                  },
+                  max: { angle: 0.55 },
                 },
               },
             },
-          },
-
-          emotion0: {
-            start: {
-              pos: {},
-              size: 0.5,
-              heart: true,
-            },
-            end: {
+            armLeft: {
               pos: {
-                relPos: 0.5,
-                value: { obj: this.actorsList.actor0.renderObject, posY: 1.1 },
+                map: 'a',
+                min: {
+                  obj: this.actorsList.actor1.renderObject,
+                  posY: 0.6,
+                  posX: -1.5,
+                },
+                max: {
+                  obj: this.actorsList.actor1.renderObject,
+                  posY: 1,
+                  posX: -1.2,
+                },
               },
-              size: 1,
-            },
-          },
-
-          emotion1: {
-            start: {
-              pos: {},
-              size: 0.6,
-              right: true,
-              heart: true,
-              thunder: true,
-            },
-            end: {
-              pos: {
-                relPos: 0.5,
-                value: { obj: this.actorsList.actor1.renderObject, posY: 1 },
-              },
-              size: 0.9,
             },
           },
         },
-        cameras: [
-          {
-            minPanels: 3,
-            pos: 0.3,
-            camera: {
-              zoom: 1,
-              focus: {
-                map: 'altCamera',
+
+        emotion0: {
+          start: {
+            pos: {},
+            size: 0.5,
+            heart: true,
+          },
+          end: {
+            pos: {
+              relPos: 0.5,
+              value: { obj: this.actorsList.actor0.renderObject, posY: 1.1 },
+            },
+            size: 1,
+          },
+        },
+
+        emotion1: {
+          start: {
+            pos: {},
+            size: 0.6,
+            right: true,
+            heart: true,
+            thunder: true,
+          },
+          end: {
+            pos: {
+              relPos: 0.5,
+              value: { obj: this.actorsList.actor1.renderObject, posY: 1 },
+            },
+            size: 0.9,
+          },
+        },
+      },
+      cameras: [
+        {
+          minPanels: 3,
+          pos: 0.3,
+          camera: {
+            zoom: 1,
+            focus: {
+              map: 'altCamera',
+              min: {
+                obj: this.actorsList.glass.renderObject,
+                posX: 0.5,
+                posY: 0.6,
+              },
+              max: {
+                obj: this.actorsList.actor1.renderObject,
+                posX: 0.5,
+                posY: 0.5,
+              },
+            },
+          },
+        },
+      ],
+      lengthAbs: 2,
+      priority: 9,
+    },
+    // - - -  START step 1 - - - - - - - - - - - - -
+    {
+      // - - -  START step 2 - - - - - - - - - - - - - ON THE TABLE
+      list: {
+        table: {},
+        chair0: {},
+        chair1: {},
+        glass: {
+          pos: { obj: this.stage, posY: 0, posX: 0.8 },
+          rotate: 90,
+        },
+        actor0: {
+          // actor 0 — frame 2
+          start: {
+            body: { lean: -0.1, side: 1 },
+            pos: {
+              obj: this.actorsList.table.renderObject,
+              posX: 1,
+              posY: 1,
+            },
+            eyes: {
+              eyeBrowMove: { map: 'a', min: 0.5, max: 0.8 },
+              pupilPosXrel: { map: 'a', min: 0.5, max: 0 },
+              pupilPosYrel: { map: 'a', min: 0.5, max: 0 },
+              pupilS: { map: 'a', min: 0.1, max: 1 },
+              openSY: { map: 'a', min: 2, max: 1 },
+              a: true,
+            },
+            mouth: {
+              sY: { map: 'a', min: 1, max: 0 },
+              posY: { map: 'a', min: 1, max: 0 },
+              curveSY: { map: 'a', min: -1, max: 0.7 },
+              sX: { map: 'a', min: 1, max: 0.1 },
+              teethBottomSY: { map: 'a', min: 1, max: 0 },
+            },
+            armLeft: {
+              pos: {
+                map: 'a',
                 min: {
-                  obj: this.actorsList.glass.renderObject,
-                  posX: 0.5,
-                  posY: 0.6,
-                },
-                max: {
                   obj: this.actorsList.actor1.renderObject,
                   posX: 0.5,
                   posY: 0.5,
                 },
+                max: { obj: this.stage, posX: -0.6, posY: 0.3 },
               },
+              hand: {
+                map: 'a',
+                min: { angle: -0.8 },
+                max: { angle: -0.3 },
+              },
+              z: 100000,
             },
-          },
-        ],
-        lengthAbs: 2,
-        priority: 9,
-      },
-      // - - -  START step 1 - - - - - - - - - - - - -
-      {
-        // - - -  START step 2 - - - - - - - - - - - - - ON THE TABLE
-        list: {
-          table: {},
-          chair0: {},
-          chair1: {},
-          glass: {
-            pos: { obj: this.stage, posY: 0, posX: 0.8 },
-            rotate: 90,
-          },
-          actor0: {
-            // actor 0 — frame 2
-            start: {
-              body: { lean: -0.1, side: 1 },
+            armRight: {
               pos: {
-                obj: this.actorsList.table.renderObject,
+                map: 'a',
+                min: {
+                  obj: this.actorsList.actor1.renderObject,
+                  posX: 0.5,
+                  posY: 0.5,
+                },
+                max: { obj: this.stage, posX: -0.5, posY: 0.5 },
+              },
+              hand: {
+                map: 'a',
+                min: { angle: -0.5 },
+                max: { angle: -0.3 },
+              },
+              flip: true,
+              z: -500,
+            },
+            sitting: false,
+            rotate: -90,
+          },
+        },
+        actor1: {
+          // actor 1 — frame 2
+          start: {
+            pos: {
+              obj: this.actorsList.actor0.renderObject,
+              posX: 0,
+              posY: 1,
+            },
+            body: {
+              side: -1,
+              lean: { map: 'a', min: -1, max: -0.3 },
+            },
+            eyes: {
+              eyeBrowMove: { map: 'a', min: -1, max: 0.8 },
+              pupilS: 1,
+              a: true,
+            },
+            mouth: {
+              sY: { map: 'a', min: 1, max: 0 },
+              curveSY: { map: 'a', min: -0.7, max: 0.7 },
+              sX: { map: 'a', min: 1, max: 0.3 },
+              teethTopSY: { map: 'a', min: 1, max: 0 },
+              teethBottomSY: { map: 'a', min: 1, max: 0.2 },
+            },
+            armLeft: {
+              pos: {
+                obj: this.actorsList.actor0.renderObject.head,
                 posX: 1,
-                posY: 1,
+                posY: 0.8,
               },
-              eyes: {
-                eyeBrowMove: { map: 'a', min: 0.5, max: 0.8 },
-                pupilPosXrel: { map: 'a', min: 0.5, max: 0 },
-                pupilPosYrel: { map: 'a', min: 0.5, max: 0 },
-                pupilS: { map: 'a', min: 0.1, max: 1 },
-                openSY: { map: 'a', min: 2, max: 1 },
-                a: true,
-              },
-              mouth: {
-                sY: { map: 'a', min: 1, max: 0 },
-                posY: { map: 'a', min: 1, max: 0 },
-                curveSY: { map: 'a', min: -1, max: 0.7 },
-                sX: { map: 'a', min: 1, max: 0.1 },
-                teethBottomSY: { map: 'a', min: 1, max: 0 },
-              },
-              armLeft: {
-                pos: {
-                  map: 'a',
-                  min: {
-                    obj: this.actorsList.actor1.renderObject,
-                    posX: 0.5,
-                    posY: 0.5,
-                  },
-                  max: { obj: this.stage, posX: -0.6, posY: 0.3 },
-                },
-                hand: {
-                  map: 'a',
-                  min: { angle: -0.8 },
-                  max: { angle: -0.3 },
-                },
-                z: 100000,
-              },
-              armRight: {
-                pos: {
-                  map: 'a',
-                  min: {
-                    obj: this.actorsList.actor1.renderObject,
-                    posX: 0.5,
-                    posY: 0.5,
-                  },
-                  max: { obj: this.stage, posX: -0.5, posY: 0.5 },
-                },
-                hand: {
-                  map: 'a',
-                  min: { angle: -0.5 },
-                  max: { angle: -0.3 },
-                },
-                flip: true,
-                z: -500,
-              },
-              sitting: false,
-              rotate: -90,
-            },
-          },
-          actor1: {
-            // actor 1 — frame 2
-            start: {
-              pos: {
-                obj: this.actorsList.actor0.renderObject,
-                posX: 0,
-                posY: 1,
-              },
-              body: {
-                side: -1,
-                lean: { map: 'a', min: -1, max: -0.3 },
-              },
-              eyes: {
-                eyeBrowMove: { map: 'a', min: -1, max: 0.8 },
-                pupilS: 1,
-                a: true,
-              },
-              mouth: {
-                sY: { map: 'a', min: 1, max: 0 },
-                curveSY: { map: 'a', min: -0.7, max: 0.7 },
-                sX: { map: 'a', min: 1, max: 0.3 },
-                teethTopSY: { map: 'a', min: 1, max: 0 },
-                teethBottomSY: { map: 'a', min: 1, max: 0.2 },
-              },
-              armLeft: {
-                pos: {
+              // flip: true,
+              x: 0.15,
+              z: -20000,
+              hand: {
+                target: {
                   obj: this.actorsList.actor0.renderObject.head,
                   posX: 1,
-                  posY: 0.8,
+                  posY: 1,
                 },
-                // flip: true,
-                x: 0.15,
-                z: -20000,
-                hand: {
+              },
+            },
+            armRight: {
+              pos: {
+                map: 'a',
+                min: {
+                  obj: this.actorsList.actor0.renderObject.head,
+                  posX: 0.8,
+                  posY: 0.5,
+                },
+                max: {
+                  obj: this.actorsList.actor0.renderObject.head,
+                  posX: 1.1,
+                  posY: 1,
+                },
+              },
+              x: 0.7,
+              hand: {
+                map: 'a',
+                min: {
                   target: {
                     obj: this.actorsList.actor0.renderObject.head,
-                    posX: 1,
-                    posY: 1,
+                    posX: 0,
+                    posY: 0,
                   },
                 },
+                max: { angle: 0 },
               },
-              armRight: {
-                pos: {
-                  map: 'a',
-                  min: {
-                    obj: this.actorsList.actor0.renderObject.head,
-                    posX: 0.8,
-                    posY: 0.5,
-                  },
-                  max: {
-                    obj: this.actorsList.actor0.renderObject.head,
-                    posX: 1.1,
-                    posY: 1,
-                  },
-                },
-                x: 0.7,
-                hand: {
-                  map: 'a',
-                  min: {
-                    target: {
-                      obj: this.actorsList.actor0.renderObject.head,
-                      posX: 0,
-                      posY: 0,
-                    },
-                  },
-                  max: { angle: 0 },
-                },
-              },
-              rotate: -90,
-              z: 3000,
             },
-            end: {
-              body: { lean: { map: 'a', min: -0.5, max: 0 } },
+            rotate: -90,
+            z: 3000,
+          },
+          end: {
+            body: { lean: { map: 'a', min: -0.5, max: 0 } },
+          },
+        },
+      },
+
+      cameras: [
+        {
+          minPanels: 1,
+          pos: 0,
+          camera: {
+            zoom: { map: 'altCamera', min: 0.3, max: 0.6 },
+            focus: {
+              obj: this.actorsList.actor1.renderObject,
+              posX: 0.5,
+              posY: -0.2,
             },
           },
         },
-
-        cameras: [
-          {
-            minPanels: 1,
-            pos: 0,
-            camera: {
-              zoom: { map: 'altCamera', min: 0.3, max: 0.6 },
-              focus: {
+        {
+          minPanels: 2,
+          pos: 0.5,
+          camera: {
+            zoom: { map: 'altCamera', min: 0.3, max: 0.6 },
+            focus: {
+              obj: this.actorsList.glass.renderObject,
+              posX: 0.5,
+              posY: 0.5,
+            },
+          },
+        },
+      ],
+      lengthAbs: 1,
+      priority: 7,
+    },
+    // - - -  END step 2 - - - - - - - - - - - - -
+    {
+      // - - -  START step 3 - - - - - - - - - - - - - REACTION
+      list: {
+        table: { z: 10000 },
+        chair0: {},
+        chair1: {},
+        glass: {},
+        actor0: {
+          // actor 0 — frame 2
+          start: {
+            body: {
+              lean: -0.1,
+              side: { map: 'b', min: 0.2, max: 1 },
+            },
+            eyes: false,
+            eyeLeft: {
+              openSY: { map: 'b', max: 0.2, min: 0.1 },
+              sY: { map: 'b', max: 1, min: 0.8 },
+              pupilPosXrel: { map: 'b', max: 0, min: 1 },
+              pupilPosY: { map: 'b', max: 0, min: -0.65 },
+            },
+            eyeRight: {
+              openSY: { map: 'b', max: 0.2, min: 0.5 },
+              sY: { map: 'b', max: 1, min: 0.8 },
+              pupilPosXrel: { map: 'b', max: 0, min: 0.6 },
+              pupilPosYrel: { map: 'b', max: 0, min: 0.5 },
+              pupilPosY: { map: 'b', max: 0, min: 0.5 },
+            },
+            mouth: {
+              sY: { map: 'b', max: 0, min: 0.3 },
+              curveSY: { map: 'b', max: 1, min: -0.75 },
+            },
+            armRight: {
+              pos: {
+                obj: this.actorsList.table.renderObject,
+                posY: 1,
+                ellbow: true,
+              },
+              hand: { angle: -0.8 },
+              maxStraight: 0.9,
+              flip: true,
+              z: -5000000,
+            },
+            armLeft: {
+              pos: {
+                obj: this.actorsList.table.renderObject,
+                posY: 1,
+                ellbow: true,
+              },
+              hand: { angle: -0.6 },
+              maxStraight: 0.9,
+              flip: true,
+              z: 1000000,
+            },
+            z: 10000,
+            sitting: false,
+            rotate: -90,
+          },
+        },
+        actor1: {
+          // actor 1 — frame 2
+          start: {
+            rotate: 0,
+            pos: { obj: this.stage, posX: 1, posY: 0 },
+            body: { lean: { relPos: 0.3, value: 0 } },
+            eyeLeft: {
+              eyeBrowMove: { map: 'b', max: 0.5, min: 0.3 },
+              pupilPosX: { map: 'b', max: -0.2, min: 0 },
+              pupilPosY: { map: 'b', max: -0.2, min: 0 },
+              pupilPosXrel: { map: 'b', max: 0, min: 0.4 },
+              pupilPosYrel: { map: 'b', max: 0, min: 0.5 },
+              pupilS: { map: 'b', max: 1, min: 0.25 },
+              openSY: { map: 'b', max: 1, min: 0.8 },
+              sY: { map: 'b', max: 1, min: 2 },
+            },
+            eyeRight: {
+              eyeBrowMove: { map: 'b', max: -0, min: 0.3 },
+              pupilPosX: { map: 'b', max: -0.2, min: 0 },
+              pupilPosY: { map: 'b', max: -0.2, min: 0 },
+              pupilPosXrel: { map: 'b', max: 0, min: 0.4 },
+              pupilPosYrel: { map: 'b', max: 0, min: 0.5 },
+              pupilS: { map: 'b', max: 1, min: 0.25 },
+              openSY: { map: 'b', max: 0.9, min: 1 },
+              sY: { map: 'b', max: 0.5, min: 2 },
+            },
+            mouth: {
+              posY: { map: 'b', max: 0.2, min: 0.5 },
+              sY: { map: 'b', max: 0.4, min: 0.5 },
+              curveSY: { map: 'b', max: 0.5, min: -1 },
+              teethTopSY: { map: 'b', max: 1, min: 0 },
+              teethBottomSY: { map: 'b', max: 1, min: 0.2 },
+            },
+            armRight: {
+              pos: {
+                map: 'b',
+                min: {
+                  obj: this.actorsList.actor1.renderObject,
+                  posX: 1.5,
+                  posY: 0.5,
+                },
+                max: {
+                  obj: this.actorsList.actor1.renderObject.head,
+                  posX: 1.2,
+                  posY: 1.2,
+                },
+              },
+              hand: {
+                map: 'b',
+                min: { angle: 0.8 },
+                max: { angle: -0.9 },
+              },
+              maxStraight: 0.9,
+              flip: true,
+            },
+            armLeft: {
+              pos: {
+                map: 'b',
+                min: {
+                  obj: this.actorsList.actor1.renderObject,
+                  posX: -0.2,
+                  posY: 0,
+                },
+                max: {
+                  obj: this.actorsList.actor1.renderObject.head,
+                  posX: -0.3,
+                  posY: 0.3,
+                },
+              },
+              hand: {
+                map: 'b',
+                min: { angle: -0.9 },
+                max: { angle: 0.6 },
+              },
+              maxStraight: 1,
+              flip: true,
+            },
+          },
+          end: {
+            armRight: {
+              pos: {
+                map: 'b',
+                min: {
+                  obj: this.actorsList.actor1.renderObject,
+                  posX: 1.5,
+                  posY: 0,
+                },
+                max: {
+                  obj: this.actorsList.actor1.renderObject.head,
+                  posX: 1.2,
+                  posY: 1.2,
+                },
+              },
+              hand: {
+                map: 'b',
+                min: { angle: 0.8 },
+                max: { angle: -0.9 },
+              },
+              maxStraight: 1,
+              flip: true,
+            },
+            armLeft: {
+              pos: {
+                map: 'b',
+                min: {
+                  obj: this.actorsList.actor1.renderObject,
+                  posX: -0.5,
+                  posY: 0.5,
+                },
+                max: {
+                  obj: this.actorsList.actor1.renderObject.head,
+                  posX: 0.1,
+                  posY: 1,
+                },
+              },
+              hand: {
+                map: 'b',
+                min: { angle: -0.9 },
+                max: { angle: 0.6 },
+              },
+              maxStraight: 0.95,
+              flip: true,
+            },
+          },
+        },
+      },
+      cameras: [
+        {
+          minPanels: 1,
+          pos: 0,
+          camera: {
+            zoom: { map: 'altCamera', min: 1, max: 0.8 },
+            focus: {
+              map: 'altCamera',
+              min: {
                 obj: this.actorsList.actor1.renderObject,
                 posX: 0.5,
-                posY: -0.2,
+                posY: 0.5,
+              },
+              max: {
+                obj: this.actorsList.actor0.renderObject,
+                posX: 0.5,
+                posY: 0.5,
               },
             },
           },
-          {
-            minPanels: 2,
-            pos: 0.5,
-            camera: {
-              zoom: { map: 'altCamera', min: 0.3, max: 0.6 },
-              focus: {
+        },
+        {
+          minPanels: 2,
+          pos: 0.5,
+          camera: {
+            zoom: { map: 'altCamera', min: 0.8, max: 1 },
+            focus: {
+              map: 'altCamera',
+              min: {
+                obj: this.actorsList.actor0.renderObject,
+                posX: 0.5,
+                posY: 0.5,
+              },
+              max: {
+                obj: this.actorsList.actor1.renderObject,
+                posX: 0.5,
+                posY: 0.5,
+              },
+            },
+          },
+        },
+      ],
+      lengthAbs: 2,
+      priority: 6,
+    },
+    // - - -  END step 3 - - - - - - - - - - - - -
+    {
+      // - - -  START step 4 - - - - - - - - - - - - - LEAVING
+      list: {
+        table: {},
+        chair0: {},
+        chair1: {},
+        glass: {},
+        actor0: {
+          // actor 0 — frame 4
+        },
+        actor1: {
+          // actor 1 — frame 4
+          start: {
+            eyeLeft: {
+              openSY: 1,
+              sY: 1.2,
+              pupilPosY: 0.5,
+            },
+            eyeRight: {
+              openSY: 1,
+              sY: 1.2,
+              pupilPosY: 0.5,
+            },
+            mouth: {
+              sX: 0,
+            },
+            pos: { obj: this.stage, posX: 0.8, posY: -0.1 },
+            body: { side: 0.2 },
+            armRight: {
+              pos: {
+                obj: this.actorsList.actor1.renderObject,
+                posX: -0.3,
+                posY: 0.6,
+              },
+
+              hand: { angle: 0.8 },
+              maxStraight: 0.9,
+              flip: true,
+            },
+            armLeft: {
+              pos: {
+                obj: this.actorsList.actor1.renderObject,
+                posX: 1.5,
+                posY: 0.4,
+              },
+              hand: { angle: -0.3 },
+              maxStraight: 0.9,
+            },
+          },
+          end: {
+            pos: {
+              obj: this.stage,
+              posX: 1.5,
+              posY: -0.2,
+            },
+            body: { side: 1 },
+
+            armRight: {
+              pos: {
+                obj: this.actorsList.actor1.renderObject,
+                posX: 1.5,
+                posY: 0.6,
+              },
+            },
+            armLeft: {
+              pos: {
+                obj: this.actorsList.actor1.renderObject,
+                posX: -0.3,
+                posY: 0.4,
+              },
+            },
+          },
+        },
+      },
+      cameras: [
+        {
+          minPanels: 2,
+          pos: 0.3,
+          camera: {
+            zoom: 0.8,
+            focus: {
+              map: 'altCamera',
+              min: {
+                obj: this.actorsList.actor1.renderObject,
+                posX: 0.5,
+                posY: 0.5,
+              },
+              max: {
                 obj: this.actorsList.glass.renderObject,
                 posX: 0.5,
                 posY: 0.5,
               },
             },
           },
-        ],
-        lengthAbs: 1,
-        priority: 7,
-      },
-      // - - -  END step 2 - - - - - - - - - - - - -
-      {
-        // - - -  START step 3 - - - - - - - - - - - - - REACTION
-        list: {
-          table: { z: 10000 },
-          chair0: {},
-          chair1: {},
-          glass: {},
-          actor0: {
-            // actor 0 — frame 2
-            start: {
-              body: {
-                lean: -0.1,
-                side: { map: 'b', min: 0.2, max: 1 },
+        },
+        {
+          minPanels: 3,
+          pos: 0.8,
+          camera: {
+            zoom: 0.8,
+            focus: {
+              map: 'altCamera',
+              min: {
+                obj: this.actorsList.glass.renderObject,
+                posX: 0.5,
+                posY: 0.5,
               },
-              eyes: false,
-              eyeLeft: {
-                openSY: { map: 'b', max: 0.2, min: 0.1 },
-                sY: { map: 'b', max: 1, min: 0.8 },
-                pupilPosXrel: { map: 'b', max: 0, min: 1 },
-                pupilPosY: { map: 'b', max: 0, min: -0.65 },
-              },
-              eyeRight: {
-                openSY: { map: 'b', max: 0.2, min: 0.5 },
-                sY: { map: 'b', max: 1, min: 0.8 },
-                pupilPosXrel: { map: 'b', max: 0, min: 0.6 },
-                pupilPosYrel: { map: 'b', max: 0, min: 0.5 },
-                pupilPosY: { map: 'b', max: 0, min: 0.5 },
-              },
-              mouth: {
-                sY: { map: 'b', max: 0, min: 0.3 },
-                curveSY: { map: 'b', max: 1, min: -0.75 },
-              },
-              armRight: {
-                pos: {
-                  obj: this.actorsList.table.renderObject,
-                  posY: 1,
-                  ellbow: true,
-                },
-                hand: { angle: -0.8 },
-                maxStraight: 0.9,
-                flip: true,
-                z: -5000000,
-              },
-              armLeft: {
-                pos: {
-                  obj: this.actorsList.table.renderObject,
-                  posY: 1,
-                  ellbow: true,
-                },
-                hand: { angle: -0.6 },
-                maxStraight: 0.9,
-                flip: true,
-                z: 1000000,
-              },
-              z: 10000,
-              sitting: false,
-              rotate: -90,
-            },
-          },
-          actor1: {
-            // actor 1 — frame 2
-            start: {
-              rotate: 0,
-              pos: { obj: this.stage, posX: 1, posY: 0 },
-              body: { lean: { relPos: 0.3, value: 0 } },
-              eyeLeft: {
-                eyeBrowMove: { map: 'b', max: 0.5, min: 0.3 },
-                pupilPosX: { map: 'b', max: -0.2, min: 0 },
-                pupilPosY: { map: 'b', max: -0.2, min: 0 },
-                pupilPosXrel: { map: 'b', max: 0, min: 0.4 },
-                pupilPosYrel: { map: 'b', max: 0, min: 0.5 },
-                pupilS: { map: 'b', max: 1, min: 0.25 },
-                openSY: { map: 'b', max: 1, min: 0.8 },
-                sY: { map: 'b', max: 1, min: 2 },
-              },
-              eyeRight: {
-                eyeBrowMove: { map: 'b', max: -0, min: 0.3 },
-                pupilPosX: { map: 'b', max: -0.2, min: 0 },
-                pupilPosY: { map: 'b', max: -0.2, min: 0 },
-                pupilPosXrel: { map: 'b', max: 0, min: 0.4 },
-                pupilPosYrel: { map: 'b', max: 0, min: 0.5 },
-                pupilS: { map: 'b', max: 1, min: 0.25 },
-                openSY: { map: 'b', max: 0.9, min: 1 },
-                sY: { map: 'b', max: 0.5, min: 2 },
-              },
-              mouth: {
-                posY: { map: 'b', max: 0.2, min: 0.5 },
-                sY: { map: 'b', max: 0.4, min: 0.5 },
-                curveSY: { map: 'b', max: 0.5, min: -1 },
-                teethTopSY: { map: 'b', max: 1, min: 0 },
-                teethBottomSY: { map: 'b', max: 1, min: 0.2 },
-              },
-              armRight: {
-                pos: {
-                  map: 'b',
-                  min: {
-                    obj: this.actorsList.actor1.renderObject,
-                    posX: 1.5,
-                    posY: 0.5,
-                  },
-                  max: {
-                    obj: this.actorsList.actor1.renderObject.head,
-                    posX: 1.2,
-                    posY: 1.2,
-                  },
-                },
-                hand: {
-                  map: 'b',
-                  min: { angle: 0.8 },
-                  max: { angle: -0.9 },
-                },
-                maxStraight: 0.9,
-                flip: true,
-              },
-              armLeft: {
-                pos: {
-                  map: 'b',
-                  min: {
-                    obj: this.actorsList.actor1.renderObject,
-                    posX: -0.2,
-                    posY: 0,
-                  },
-                  max: {
-                    obj: this.actorsList.actor1.renderObject.head,
-                    posX: -0.3,
-                    posY: 0.3,
-                  },
-                },
-                hand: {
-                  map: 'b',
-                  min: { angle: -0.9 },
-                  max: { angle: 0.6 },
-                },
-                maxStraight: 1,
-                flip: true,
-              },
-            },
-            end: {
-              armRight: {
-                pos: {
-                  map: 'b',
-                  min: {
-                    obj: this.actorsList.actor1.renderObject,
-                    posX: 1.5,
-                    posY: 0,
-                  },
-                  max: {
-                    obj: this.actorsList.actor1.renderObject.head,
-                    posX: 1.2,
-                    posY: 1.2,
-                  },
-                },
-                hand: {
-                  map: 'b',
-                  min: { angle: 0.8 },
-                  max: { angle: -0.9 },
-                },
-                maxStraight: 1,
-                flip: true,
-              },
-              armLeft: {
-                pos: {
-                  map: 'b',
-                  min: {
-                    obj: this.actorsList.actor1.renderObject,
-                    posX: -0.5,
-                    posY: 0.5,
-                  },
-                  max: {
-                    obj: this.actorsList.actor1.renderObject.head,
-                    posX: 0.1,
-                    posY: 1,
-                  },
-                },
-                hand: {
-                  map: 'b',
-                  min: { angle: -0.9 },
-                  max: { angle: 0.6 },
-                },
-                maxStraight: 0.95,
-                flip: true,
+              max: {
+                obj: this.actorsList.actor1.renderObject,
+                posX: 0.5,
+                posY: 0.5,
               },
             },
           },
         },
-        cameras: [
-          {
-            minPanels: 1,
-            pos: 0,
-            camera: {
-              zoom: { map: 'altCamera', min: 1, max: 0.8 },
-              focus: {
-                map: 'altCamera',
-                min: {
-                  obj: this.actorsList.actor1.renderObject,
-                  posX: 0.5,
-                  posY: 0.5,
-                },
-                max: {
-                  obj: this.actorsList.actor0.renderObject,
-                  posX: 0.5,
-                  posY: 0.5,
-                },
-              },
-            },
-          },
-          {
-            minPanels: 2,
-            pos: 0.5,
-            camera: {
-              zoom: { map: 'altCamera', min: 0.8, max: 1 },
-              focus: {
-                map: 'altCamera',
-                min: {
-                  obj: this.actorsList.actor0.renderObject,
-                  posX: 0.5,
-                  posY: 0.5,
-                },
-                max: {
-                  obj: this.actorsList.actor1.renderObject,
-                  posX: 0.5,
-                  posY: 0.5,
-                },
-              },
-            },
-          },
-        ],
-        lengthAbs: 2,
-        priority: 6,
-      },
-      // - - -  END step 3 - - - - - - - - - - - - -
-      {
-        // - - -  START step 4 - - - - - - - - - - - - - LEAVING
-        list: {
-          table: {},
-          chair0: {},
-          chair1: {},
-          glass: {},
-          actor0: {
-            // actor 0 — frame 4
-          },
-          actor1: {
-            // actor 1 — frame 4
-            start: {
-              eyeLeft: {
-                openSY: 1,
-                sY: 1.2,
-                pupilPosY: 0.5,
-              },
-              eyeRight: {
-                openSY: 1,
-                sY: 1.2,
-                pupilPosY: 0.5,
-              },
-              mouth: {
-                sX: 0,
-              },
-              pos: { obj: this.stage, posX: 0.8, posY: -0.1 },
-              body: { side: 0.2 },
-              armRight: {
-                pos: {
-                  obj: this.actorsList.actor1.renderObject,
-                  posX: -0.3,
-                  posY: 0.6,
-                },
+      ],
+      lengthAbs: 1,
+      priority: 12,
+    },
+    // - - -  END step 4 - - - - - - - - - - - - -
+  ]
 
-                hand: { angle: 0.8 },
-                maxStraight: 0.9,
-                flip: true,
-              },
-              armLeft: {
-                pos: {
-                  obj: this.actorsList.actor1.renderObject,
-                  posX: 1.5,
-                  posY: 0.4,
-                },
-                hand: { angle: -0.3 },
-                maxStraight: 0.9,
-              },
-            },
-            end: {
-              pos: {
-                obj: this.stage,
-                posX: 1.5,
-                posY: -0.2,
-              },
-              body: { side: 1 },
+  let count
+  let panelCount = 0
+  let totalArcLength = 0
+  let current
+  let relArcEnd = 0
+  let panelsLeft = totalPanelCount
+  let arcLength = mainSteps.length
 
-              armRight: {
-                pos: {
-                  obj: this.actorsList.actor1.renderObject,
-                  posX: 1.5,
-                  posY: 0.6,
-                },
-              },
-              armLeft: {
-                pos: {
-                  obj: this.actorsList.actor1.renderObject,
-                  posX: -0.3,
-                  posY: 0.4,
-                },
-              },
-            },
-          },
-        },
-        cameras: [
-          {
-            minPanels: 2,
-            pos: 0.3,
-            camera: {
-              zoom: 0.8,
-              focus: {
-                map: 'altCamera',
-                min: {
-                  obj: this.actorsList.actor1.renderObject,
-                  posX: 0.5,
-                  posY: 0.5,
-                },
-                max: {
-                  obj: this.actorsList.glass.renderObject,
-                  posX: 0.5,
-                  posY: 0.5,
-                },
-              },
-            },
-          },
-          {
-            minPanels: 3,
-            pos: 0.8,
-            camera: {
-              zoom: 0.8,
-              focus: {
-                map: 'altCamera',
-                min: {
-                  obj: this.actorsList.glass.renderObject,
-                  posX: 0.5,
-                  posY: 0.5,
-                },
-                max: {
-                  obj: this.actorsList.actor1.renderObject,
-                  posX: 0.5,
-                  posY: 0.5,
-                },
-              },
-            },
-          },
-        ],
-        lengthAbs: 1,
-        priority: 12,
-      },
-      // - - -  END step 4 - - - - - - - - - - - - -
-    ],
-    count,
-    panelCount = 0,
-    totalArcLength = 0,
-    current,
-    removePanels,
-    relArcEnd = 0,
-    panelsLeft = totalPanelCount,
-    arcLength = mainSteps.length,
-    panels = []
+  const panels = []
 
   // get the total Length of all Story Arcs
   count = 0
@@ -1191,15 +1191,15 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
     count += 1
   }
 
-  removePanels = panelsLeft > 0 ? 1 : -1
+  const removePanels = panelsLeft > 0 ? 1 : -1
 
   while (panelsLeft) {
-    var arcStart = 0,
-      arcEnd = mainSteps.length - 1,
-      forward = true,
-      lowestPriority = panelsLeft > 0 ? -Infinity : Infinity,
-      biggestArc,
-      currentNr
+    let arcStart = 0
+    let arcEnd = mainSteps.length - 1
+    let forward = true
+    let lowestPriority = panelsLeft > 0 ? -Infinity : Infinity
+    let biggestArc
+    let currentNr
 
     arcLength = mainSteps.length
 
@@ -1245,12 +1245,17 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
   while (count < mainSteps.length) {
     current = mainSteps[count]
 
-    var totalCount = current.absLength,
-      innerCount = 0,
-      camerasLength = current.cameras && current.cameras.length,
-      cameraCount = 0,
-      currentStart = panelCount,
-      currentCam
+    const totalCount = current.absLength
+
+    let innerCount = 0
+
+    const camerasLength = current.cameras && current.cameras.length
+
+    let cameraCount = 0
+
+    const currentStart = panelCount
+
+    let currentCam
 
     if (totalCount === 0) {
       panels.push({
@@ -1300,9 +1305,10 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
 }
 
 getStory.prototype.getPanels = function getStoryPanels(totalPanelCount) {
-  var panels = [],
-    currentPanelNumber = 0,
-    currentFrame
+  const panels = []
+
+  let currentPanelNumber = 0
+  let currentFrame
 
   this.storyFramework = this.getStoryFrameWork(totalPanelCount)
 
@@ -1333,9 +1339,10 @@ getStory.prototype.getPanels = function getStoryPanels(totalPanelCount) {
 }
 
 getStory.prototype.getPanel = function (frame, rel) {
-  var main = frame.main.list,
-    list = [{ what: this.stage }],
-    key
+  const main = frame.main.list
+  const list = [{ what: this.stage }]
+
+  let key
 
   for (key in main) {
     list.push(
@@ -1354,8 +1361,9 @@ getStory.prototype.getPanel = function (frame, rel) {
 
 // BEGINN getAnimation /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const getAnimation = function getAnimation(args) {
-  var steps = args.endPanelNumber - args.startPanelNumber || 1,
-    process = (args.currentPanelNumber - args.startPanelNumber) / steps
+  const steps = args.endPanelNumber - args.startPanelNumber || 1
+
+  let process = (args.currentPanelNumber - args.startPanelNumber) / steps
 
   if (process < 0) {
     process = 0
@@ -1377,12 +1385,12 @@ export const getAnimation = function getAnimation(args) {
 
 // BEGINN getActors /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const getActors = function (story) {
-  var colorSchemes = [
-      [0, 1, 2, 1, 2, 1],
-      [0, 1, 1, 1, 2, 2],
-      [0, 2, 1, 2, 1, 0],
-    ],
-    colorScheme = colorSchemes[this.rInt(0, colorSchemes.length - 1)]
+  const colorSchemes = [
+    [0, 1, 2, 1, 2, 1],
+    [0, 1, 1, 1, 2, 2],
+    [0, 2, 1, 2, 1, 0],
+  ]
+  const colorScheme = colorSchemes[this.rInt(0, colorSchemes.length - 1)]
 
   this.colors = story.colors
 
@@ -1473,10 +1481,11 @@ export const RenderObjectContainer = function (renderObject) {
 }
 
 RenderObjectContainer.prototype.getAction = function (args) {
-  var obj = {},
-    start = (args.info && args.info.start) || args.info,
-    end = args.info && args.info.end,
-    actionProcessor = new this.getActionProcessor(args.relPosition)
+  let obj = {}
+
+  const start = (args.info && args.info.start) || args.info
+  const end = args.info && args.info.end
+  const actionProcessor = new this.getActionProcessor(args.relPosition)
 
   // Check if start or end is needed or a position inbetween
   obj = actionProcessor.checkIfObject(obj, start, end)
@@ -1491,7 +1500,7 @@ RenderObjectContainer.prototype.getAction = function (args) {
 }
 
 RenderObjectContainer.prototype.joinObject = function (main, defaults) {
-  var key
+  let key
 
   for (key in defaults) {
     if (main[key] === undefined) {
@@ -1508,7 +1517,7 @@ RenderObjectContainer.prototype.getActionProcessor = function (rel) {
 
 RenderObjectContainer.prototype.getActionProcessor.prototype.processObject =
   function (obj, start, end) {
-    var key
+    let key
 
     for (key in start) {
       obj[key] = this.checkIfObject(obj[key] || {}, start[key], end && end[key])
@@ -1548,12 +1557,12 @@ RenderObjectContainer.prototype.getActionProcessor.prototype.checkIfObject =
 
 // BEGINN getColorScheme /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const getColorScheme = function getColorScheme() {
-  var colors = [
-      [this.rInt(150, 200), this.rInt(50, 100), this.rInt(100, 150)],
-      [this.rInt(50, 100), this.rInt(100, 150), this.rInt(150, 200)],
-      [this.rInt(100, 150), this.rInt(150, 200), this.rInt(50, 100)],
-    ],
-    first = this.rInt(0, 2)
+  const colors = [
+    [this.rInt(150, 200), this.rInt(50, 100), this.rInt(100, 150)],
+    [this.rInt(50, 100), this.rInt(100, 150), this.rInt(150, 200)],
+    [this.rInt(100, 150), this.rInt(150, 200), this.rInt(50, 100)],
+  ]
+  const first = this.rInt(0, 2)
 
   this.colors = [
     colors[first],
@@ -1563,15 +1572,15 @@ export const getColorScheme = function getColorScheme() {
 }
 
 getColorScheme.prototype.getColor = function (args) {
-  var shade = args.maxShade ? this.rFl(args.maxShade, 1) : args.shade,
-    baseColor =
-      this.colors[
-        typeof args === 'number'
-          ? args
-          : args.random
-            ? this.rInt(0, this.colors.length - 1)
-            : args.nr || 0
-      ]
+  const shade = args.maxShade ? this.rFl(args.maxShade, 1) : args.shade
+  const baseColor =
+    this.colors[
+      typeof args === 'number'
+        ? args
+        : args.random
+          ? this.rInt(0, this.colors.length - 1)
+          : args.nr || 0
+    ]
 
   return shade ? this.multiplyColor(baseColor, shade) : baseColor
 }

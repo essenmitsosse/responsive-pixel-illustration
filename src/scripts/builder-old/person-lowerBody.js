@@ -33,15 +33,13 @@ export const LowerBody = function (args) {
 LowerBody.prototype = new Object()
 
 LowerBody.prototype.draw = function (args, z) {
-  var list
-
   if (args.calc) {
     this.vL['lowerBodySX' + args.nr] = 'personRealSX' + args.nr
   }
 
   this.skirt = (!args.demo || args.skirt) && this.skirt
 
-  list = {
+  const list = {
     sX: this.wideHips ? ['lowerBodySX' + args.nr, 1] : 'lowerBodySX' + args.nr,
     sY: 'lowerBodySY' + args.nr,
     cX: args.sideView,
@@ -256,10 +254,10 @@ export const Leg = function (args) {
 Leg.prototype = new Object()
 
 Leg.prototype.draw = function (args, z, rightSide, behind) {
-  var legPos = args.leg && args.leg[rightSide ? 'right' : 'left'],
-    hipBend = legPos === 'legHigh',
-    legBend = hipBend || legPos === 'kneeBend',
-    legRaise = !hipBend && !legBend && legPos === 'legRaise'
+  const legPos = args.leg && args.leg[rightSide ? 'right' : 'left']
+  const hipBend = legPos === 'legHigh'
+  const legBend = hipBend || legPos === 'kneeBend'
+  const legRaise = !hipBend && !legBend && legPos === 'legRaise'
 
   if (args.calc) {
     this.vL['legSX' + args.nr] = {

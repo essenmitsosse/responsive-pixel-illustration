@@ -53,19 +53,42 @@ const listConfigEslintBase: ReadonlyArray<Linter.Config> = [
        */
       'no-restricted-imports': [1, { patterns: ['../'] }],
 
-      'no-unused-vars': 'off',
-
       /**
        * Disallow unnecessary computed property keys in objects and classes
        * {@link https://eslint.org/docs/latest/rules/no-useless-computed-key#rule-details}
        */
+
       'no-useless-computed-key': 'error',
+
+      /**
+       * Require `let` or `const` instead of var
+       *
+       * {@link https://eslint.org/docs/latest/rules/no-var}
+       */
+      'no-var': 'error',
 
       /**
        * Require or disallow method and property shorthand syntax for object
        * literals {@link https://eslint.org/docs/latest/rules/object-shorthand}
        */
+
       'object-shorthand': 'error',
+
+      /**
+       * Enforce variables to be declared separately in functions, instead of as
+       * a list.
+       *
+       * {@link https://eslint.org/docs/latest/rules/one-var}
+       */
+      'one-var': ['error', 'never'],
+
+      /**
+       * Require `const` declarations for variables that are never reassigned
+       * after declared
+       *
+       * {@link https://eslint.org/docs/latest/rules/prefer-const#rule-details}
+       */
+      'prefer-const': 'error',
 
       /**
        * This rule enforces usage of destructuring instead of accessing a

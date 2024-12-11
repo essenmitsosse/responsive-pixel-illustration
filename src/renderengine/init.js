@@ -2,18 +2,17 @@ import { Admin } from './admin.js'
 import { PixelGraphics } from './info.js'
 
 export const InitPixel = function (args) {
-  var queryString = this.getQueryString(),
-    showcase = (this.showcase = true),
-    forceName = args.imageName || window.location.hash.substr(1),
-    slides = showcase ? this.showcaseSlides : this.slides,
-    currentSlide = !forceName && slides[queryString.slide || 0],
-    imageName = forceName || currentSlide.name || 'tantalos',
-    sliders = queryString.sliders || currentSlide.sliders,
-    /** Change for multiple Canvases */
-    canvasDataList = false,
-    canvasRenderer = this.createSingleCanvas(canvasDataList, args.div),
-    callback,
-    [body] = document.getElementsByTagName('body')
+  const queryString = this.getQueryString()
+  const showcase = (this.showcase = true)
+  const forceName = args.imageName || window.location.hash.substr(1)
+  const slides = showcase ? this.showcaseSlides : this.slides
+  const currentSlide = !forceName && slides[queryString.slide || 0]
+  const imageName = forceName || currentSlide.name || 'tantalos'
+  const sliders = queryString.sliders || currentSlide.sliders
+  /** Change for multiple Canvases */
+  const canvasDataList = false
+  const canvasRenderer = this.createSingleCanvas(canvasDataList, args.div)
+  const [body] = document.getElementsByTagName('body')
 
   this.parent = queryString.admin || queryString.parent
 
@@ -34,7 +33,7 @@ export const InitPixel = function (args) {
     })
   }
 
-  callback = this.getCallback(
+  const callback = this.getCallback(
     canvasRenderer,
     queryString,
     imageName,
@@ -54,22 +53,26 @@ export const InitPixel = function (args) {
 }
 
 InitPixel.prototype.getQueryString = function () {
-  var list = {},
-    vars = location.search.substr(1).split('&'),
-    i = 0,
-    l = vars.length,
-    pair,
-    convert = function (value) {
-      if (value === 'true') {
-        value = true
-      } else if (value === 'false') {
-        value = false
-      } else {
-        value = value * 1
-      }
+  const list = {}
+  const vars = location.search.substr(1).split('&')
 
-      return value
+  let i = 0
+
+  const l = vars.length
+
+  let pair
+
+  const convert = function (value) {
+    if (value === 'true') {
+      value = true
+    } else if (value === 'false') {
+      value = false
+    } else {
+      value = value * 1
     }
+
+    return value
+  }
 
   while (i < l) {
     pair = vars[i].split('=')
@@ -112,8 +115,9 @@ InitPixel.prototype.getQueryString = function () {
 
 // Create a new Canvas, add it to the div and return it
 InitPixel.prototype.createSingleCanvas = function (canvasData, div) {
-  var canvas = document.createElement('canvas'),
-    key
+  const canvas = document.createElement('canvas')
+
+  let key
 
   canvas.resize = true
 
@@ -147,10 +151,11 @@ InitPixel.prototype.getCallback = function (
   currentSlide,
   info,
 ) {
-  var that = this
+  const that = this
 
   return function callback(ImageFunction) {
-    var imageFunction, renderObject
+    let imageFunction
+    let renderObject
 
     if (ImageFunction) {
       if (that.createSlider) {
@@ -194,22 +199,26 @@ InitPixel.prototype.getCallback = function (
 }
 
 InitPixel.prototype.info = function (options) {
-  var logs = [],
-    initString,
-    d = document,
-    [body] = d.getElementsByTagName('body'),
-    info = d.createElement('div'),
-    show = options.showInfos,
-    swap = function () {
-      if ((show = !show)) {
-        body.appendChild(info)
-      } else {
-        body.removeChild(info)
-      }
-    },
-    change = function (name, value) {
-      logs[name] = value
+  const logs = []
+
+  let initString
+
+  const d = document
+  const [body] = d.getElementsByTagName('body')
+  const info = d.createElement('div')
+
+  let show = options.showInfos
+
+  const swap = function () {
+    if ((show = !show)) {
+      body.appendChild(info)
+    } else {
+      body.removeChild(info)
     }
+  }
+  const change = function (name, value) {
+    logs[name] = value
+  }
 
   info.setAttribute('id', 'infos')
 
@@ -218,7 +227,7 @@ InitPixel.prototype.info = function (options) {
   }
 
   document.onkeydown = function () {
-    var k = event.keyCode
+    const k = event.keyCode
 
     if (event.ctrlKey) {
       if (k === 73) {
@@ -242,10 +251,11 @@ InitPixel.prototype.info = function (options) {
       ].join('')
     },
     logRenderTime(draw, fullDuration) {
-      var what,
-        lo = logs,
-        render = fullDuration - draw,
-        string = []
+      let what
+
+      const lo = logs
+      const render = fullDuration - draw
+      const string = []
 
       if (show) {
         change('Duration', fullDuration + 'ms')
@@ -281,9 +291,11 @@ InitPixel.prototype.info = function (options) {
 }
 
 InitPixel.prototype.addToQueryString = function (newObj, dontRefresh) {
-  var key,
-    q = this.queryString,
-    somethingChanged = false
+  let key
+
+  const q = this.queryString
+
+  let somethingChanged = false
 
   for (key in newObj) {
     if (q[key] !== newObj[key]) {
@@ -299,9 +311,11 @@ InitPixel.prototype.addToQueryString = function (newObj, dontRefresh) {
 }
 
 InitPixel.prototype.refresh = function (event) {
-  var newString = [],
-    key,
-    q = this.queryString
+  const newString = []
+
+  let key
+
+  const q = this.queryString
 
   if (event) {
     event.preventDefault()
@@ -342,7 +356,7 @@ InitPixel.prototype.sliderChange = function (obj) {
   if (this.renderer) {
     this.renderer.redraw(obj)
   } else {
-    for (var key in obj) {
+    for (const key in obj) {
       this.defaultValues[key] = obj[key]
     }
   }
@@ -375,7 +389,7 @@ InitPixel.prototype.setupToggleResizabilityLinkButton = function (button) {
 }
 
 InitPixel.prototype.toggleResizability = function (value) {
-  var resizeable = (this.queryString.resizeable =
+  const resizeable = (this.queryString.resizeable =
     value === undefined ? !this.queryString.resizeable : value)
 
   if (this.toggleResizabilityButton) {
@@ -386,7 +400,7 @@ InitPixel.prototype.toggleResizability = function (value) {
 }
 
 InitPixel.prototype.getDocumentTitle = function (imageName, queryString) {
-  var name = imageName
+  let name = imageName
 
   // add resizeable to the title
   if (queryString.resizeable) {
@@ -403,7 +417,7 @@ InitPixel.prototype.getDocumentTitle = function (imageName, queryString) {
 }
 
 InitPixel.prototype.getShortcuts = function (q) {
-  var that = this
+  const that = this
 
   return function (event) {
     if (event.ctrlKey) {
@@ -512,88 +526,91 @@ InitPixel.prototype.getShortcuts = function (q) {
 }
 
 InitPixel.prototype.getTimerAnimation = function () {
-  var that = this,
-    fps = 20,
-    /* how often per second should the chance be checked */
-    waitTimer = fps * 0.5,
-    animations = {
-      camera: { duration: 6, chance: 0.1 },
-      side: { duration: 3, chance: 0.3 },
-      a: { duration: 2, chance: 0.3 },
-      b: { duration: 2, chance: 0.3 },
-      c: { duration: 2, chance: 0.3 },
-      // eye open
-      d: { duration: 2, chance: 0.1 },
-      // eye open
-      e: { duration: 2, chance: 0.1 },
-      f: { duration: 2, chance: 0.3 },
-      g: { duration: 2, chance: 0.3 },
-      h: { duration: 2, chance: 0.3 },
-      k: { duration: 2, chance: 0.3 },
-      l: { duration: 2, chance: 0.3 },
-      m: { duration: 2, chance: 0.3 },
-      n: { duration: 2, chance: 0.3 },
-    },
-    key,
-    current,
-    getFrame = function () {
-      var renderObject = {},
-        current,
-        key
+  const that = this
+  const fps = 20
+  /* how often per second should the chance be checked */
+  const waitTimer = fps * 0.5
+  const animations = {
+    camera: { duration: 6, chance: 0.1 },
+    side: { duration: 3, chance: 0.3 },
+    a: { duration: 2, chance: 0.3 },
+    b: { duration: 2, chance: 0.3 },
+    c: { duration: 2, chance: 0.3 },
+    // eye open
+    d: { duration: 2, chance: 0.1 },
+    // eye open
+    e: { duration: 2, chance: 0.1 },
+    f: { duration: 2, chance: 0.3 },
+    g: { duration: 2, chance: 0.3 },
+    h: { duration: 2, chance: 0.3 },
+    k: { duration: 2, chance: 0.3 },
+    l: { duration: 2, chance: 0.3 },
+    m: { duration: 2, chance: 0.3 },
+    n: { duration: 2, chance: 0.3 },
+  }
 
-      for (key in animations) {
-        current = animations[key]
+  let key
+  let current
 
-        if (current.move) {
-          current.pos += current.step * (current.forward ? 1 : -1)
+  const getFrame = function () {
+    const renderObject = {}
 
-          if (current.pos > 1) {
-            current.pos = 1
+    let current
+    let key
 
-            current.move = false
+    for (key in animations) {
+      current = animations[key]
 
-            current.forward = false
-          } else if (current.pos < 0) {
-            current.pos = 0
+      if (current.move) {
+        current.pos += current.step * (current.forward ? 1 : -1)
 
-            current.move = false
+        if (current.pos > 1) {
+          current.pos = 1
 
-            current.forward = true
-          }
+          current.move = false
 
-          // randomly stopp in the middle
-          if (current.waitTimer > 0) {
-            current.waitTimer -= 1
-          } else {
-            current.waitTimer = waitTimer
+          current.forward = false
+        } else if (current.pos < 0) {
+          current.pos = 0
 
-            if (current.middleChance > Math.random()) {
-              current.forward = !current.forward
+          current.move = false
 
-              current.move = false
-            }
-          }
+          current.forward = true
+        }
 
-          renderObject[key] = current.pos
+        // randomly stopp in the middle
+        if (current.waitTimer > 0) {
+          current.waitTimer -= 1
         } else {
-          if (current.waitTimer > 0) {
-            current.waitTimer -= 1
-          } else {
-            current.waitTimer = waitTimer
+          current.waitTimer = waitTimer
 
-            if (current.chance > Math.random()) {
-              current.move = true
-            }
+          if (current.middleChance > Math.random()) {
+            current.forward = !current.forward
+
+            current.move = false
+          }
+        }
+
+        renderObject[key] = current.pos
+      } else {
+        if (current.waitTimer > 0) {
+          current.waitTimer -= 1
+        } else {
+          current.waitTimer = waitTimer
+
+          if (current.chance > Math.random()) {
+            current.move = true
           }
         }
       }
-
-      // console.log( animations.camera.pos );
-
-      setTimeout(getFrame, 1000 / fps)
-
-      that.renderer.redraw(renderObject)
     }
+
+    // console.log( animations.camera.pos );
+
+    setTimeout(getFrame, 1000 / fps)
+
+    that.renderer.redraw(renderObject)
+  }
 
   for (key in animations) {
     current = animations[key]

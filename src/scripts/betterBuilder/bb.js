@@ -7,11 +7,13 @@ import { BodyMain, PersonMain } from './person-main.js'
 import { Chest } from './person-upperBody.js'
 
 export const BB = function (init) {
-  var args = {},
-    ObjProto = BB.prototype.Obj.prototype,
-    random = helper.random(init.id || Math.floor(Math.random() * 4294967296))
+  const args = {}
+  const ObjProto = BB.prototype.Obj.prototype
+  const random = helper.random(
+    init.id || Math.floor(Math.random() * 4294967296),
+  )
 
-  for (var attr in init) {
+  for (const attr in init) {
     args[attr] = init[attr]
   }
 
@@ -64,16 +66,18 @@ BB.prototype.Obj = BBObj
 
 // OVERVIEW
 BB.prototype.Overview = function (init) {
-  var list = [],
-    rotations = [],
-    rows = init.rows || 2,
-    vari = init.vari || 3,
-    reps = Math.round(rows / vari / 0.55),
-    cols = reps === 0 ? vari : vari * reps,
-    i = 0,
-    j = 0,
-    k = 0,
-    inner = init.inner * 1 || 0.8
+  const list = []
+  const rotations = []
+  const rows = init.rows || 2
+  const vari = init.vari || 3
+  const reps = Math.round(rows / vari / 0.55)
+  const cols = reps === 0 ? vari : vari * reps
+
+  let i = 0
+  let j = 0
+  let k = 0
+
+  const inner = init.inner * 1 || 0.8
 
   this.counter = 1
 

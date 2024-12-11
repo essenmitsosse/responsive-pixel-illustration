@@ -198,8 +198,6 @@ export const Glass = function Glass(args) {
 }
 
 Glass.prototype.draw = function GlassDraw(args) {
-  var normalGlass
-
   this.sX = this.pushLinkList({ r: this.sX_, useSize: args.square, min: 1 })
 
   this.sY = this.pushLinkList({ r: this.sY_, useSize: args.square })
@@ -214,7 +212,7 @@ Glass.prototype.draw = function GlassDraw(args) {
 
   this.pushRelativeStandardAutomatic(args.info)
 
-  normalGlass = [
+  const normalGlass = [
     { sY: { r: 0.08, min: 1, useSize: this.sY }, fY: true },
     { sX: 1 },
     { sX: 1, fX: true },
@@ -260,7 +258,7 @@ Emotion.prototype.draw = function EmotionDraw(args) {
     return
   }
 
-  var actor = args.info.pos.obj
+  const actor = args.info.pos.obj
 
   if (!actor) {
     return

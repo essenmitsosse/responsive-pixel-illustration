@@ -55,9 +55,8 @@ Legs.prototype.getBetterPosY = function (rel) {
 }
 
 Legs.prototype.draw = function LegsDraw(args) {
-  var sitting = (this.sitting = args.info.sitting),
-    bendLeg = sitting || args.info.bendLeg,
-    leg
+  const sitting = (this.sitting = args.info.sitting)
+  const bendLeg = sitting || args.info.bendLeg
 
   this.sX = args.sX
 
@@ -103,7 +102,7 @@ Legs.prototype.draw = function LegsDraw(args) {
     shoeSY: { map: 'actor-accessoirs', min: 0, max: this.shoeSY_ },
   })
 
-  leg = [
+  const leg = [
     {
       sX: this.legSX,
       // sY: this.fullLegSY,

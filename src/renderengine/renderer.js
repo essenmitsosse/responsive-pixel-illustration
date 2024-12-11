@@ -1,15 +1,17 @@
 export const Renderer = function (canvas, info, options, pixelStarter) {
   // Render Engine to convert basic image into absolute Pixels
-  var context = canvas.getContext('2d'),
-    virtualCanvas = document.createElement('canvas'),
-    virtaulContext = virtualCanvas.getContext('2d'),
-    { pixelSize } = options,
-    w,
-    h,
-    drawer = this.getDrawer(pixelStarter, options.imageFunction.renderList),
-    renderPixelToImage = this.getRenderPixelToImage(
-      options.imageFunction.background,
-    )
+  const context = canvas.getContext('2d')
+  const virtualCanvas = document.createElement('canvas')
+  const virtaulContext = virtualCanvas.getContext('2d')
+  const { pixelSize } = options
+
+  let w
+  let h
+
+  const drawer = this.getDrawer(pixelStarter, options.imageFunction.renderList)
+  const renderPixelToImage = this.getRenderPixelToImage(
+    options.imageFunction.background,
+  )
 
   return {
     rescaleWindow() {
@@ -19,12 +21,13 @@ export const Renderer = function (canvas, info, options, pixelStarter) {
     },
 
     resize: function resize(widthFactor, heightFactor) {
-      var countW = Math.round(((widthFactor || 1) * w) / pixelSize),
-        countH = Math.round(((heightFactor || 1) * h) / pixelSize),
-        image =
-          countW && countH && virtaulContext.createImageData(countW, countH),
-        drawing,
-        time = -1
+      const countW = Math.round(((widthFactor || 1) * w) / pixelSize)
+      const countH = Math.round(((heightFactor || 1) * h) / pixelSize)
+      const image =
+        countW && countH && virtaulContext.createImageData(countW, countH)
+
+      let drawing
+      let time = -1
 
       if (image && countW > 0 && countH > 0) {
         // Resize Canvas to new Windows-Size
@@ -85,9 +88,11 @@ Renderer.prototype.Color = function () {
 }
 
 Renderer.prototype.Color.prototype.draw = function (c, zInd, id) {
-  var i = this.s.length - 1,
-    { s } = this,
-    oldZInd
+  let i = this.s.length - 1
+
+  const { s } = this
+
+  let oldZInd
 
   if (i === -1 || (oldZInd = s[i].zInd) < zInd) {
     s.push({ id, c, zInd })
@@ -111,8 +116,9 @@ Renderer.prototype.Color.prototype.clear = function (id) {
 }
 
 Renderer.prototype.getPixelArray = function (width, height) {
-  var countH,
-    colorArray = []
+  let countH
+
+  const colorArray = []
 
   while (width--) {
     countH = height
@@ -129,15 +135,16 @@ Renderer.prototype.getPixelArray = function (width, height) {
 
 Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
   // Create PixelArray
-  var pixelArray = this.getPixelArray(canvasWidth, canvasHeight),
-    minX = 0,
-    minY = 0,
-    maxX = canvasWidth,
-    maxY = canvasHeight
+  const pixelArray = this.getPixelArray(canvasWidth, canvasHeight)
+
+  let minX = 0
+  let minY = 0
+  let maxX = canvasWidth
+  let maxY = canvasHeight
 
   return {
     setMask(dimensions, push) {
-      var old = {
+      const old = {
         posX: minX,
         width: maxX - minX,
         posY: minY,
@@ -205,17 +212,20 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
 
     getSetForRect(color, zInd, id) {
       // Set Color for Rectangle for better Performance
-      var pA = pixelArray
+      const pA = pixelArray
 
       return function (args) {
-        var endX = args.width + args.posX,
-          endY = args.height + args.posY,
-          sizeX = endX > maxX ? maxX : endX,
-          sizeY,
-          sizeY_start = endY > maxY ? maxY : endY,
-          startX = args.posX < minX ? minX : args.posX,
-          startY = args.posY < minY ? minY : args.posY,
-          row
+        const endX = args.width + args.posX
+        const endY = args.height + args.posY
+
+        let sizeX = endX > maxX ? maxX : endX
+        let sizeY
+
+        const sizeY_start = endY > maxY ? maxY : endY
+        const startX = args.posX < minX ? minX : args.posX
+        const startY = args.posY < minY ? minY : args.posY
+
+        let row
 
         while ((sizeX -= 1) >= startX) {
           sizeY = sizeY_start
@@ -230,17 +240,20 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
     },
 
     getClearForRect(id) {
-      var pA = pixelArray
+      const pA = pixelArray
 
       return function (args) {
-        var endX = args.width + args.posX,
-          endY = args.height + args.posY,
-          sizeX = endX > maxX ? maxX : endX,
-          sizeY,
-          initSizeY = endY > maxY ? maxY : endY,
-          startX = args.posX < minX ? minX : args.posX,
-          startY = args.posY < minY ? minY : args.posY,
-          row
+        const endX = args.width + args.posX
+        const endY = args.height + args.posY
+
+        let sizeX = endX > maxX ? maxX : endX
+        let sizeY
+
+        const initSizeY = endY > maxY ? maxY : endY
+        const startX = args.posX < minX ? minX : args.posX
+        const startY = args.posY < minY ? minY : args.posY
+
+        let row
 
         while ((sizeX -= 1) >= startX) {
           sizeY = initSizeY
@@ -256,15 +269,18 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
 
     getSaveForRect(save, mask) {
       return function (args) {
-        var endX = args.width + args.posX,
-          endY = args.height + args.posY,
-          sizeX = endX > canvasWidth ? canvasWidth : endX,
-          sizeY,
-          initSizeY = endY > canvasHeight ? canvasHeight : endY,
-          startX = args.posX < 0 ? 0 : args.posX,
-          startY = args.posY < 0 ? 0 : args.posY,
-          s = save,
-          col
+        const endX = args.width + args.posX
+        const endY = args.height + args.posY
+
+        let sizeX = endX > canvasWidth ? canvasWidth : endX
+        let sizeY
+
+        const initSizeY = endY > canvasHeight ? canvasHeight : endY
+        const startX = args.posX < 0 ? 0 : args.posX
+        const startY = args.posY < 0 ? 0 : args.posY
+        const s = save
+
+        let col
 
         while ((sizeX -= 1) >= startX) {
           sizeY = initSizeY
@@ -283,14 +299,17 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
     /** Return prepared Color-Array, with default Color; */
     getClearSaveForRect(save, mask) {
       return function (args) {
-        var endX = args.width + args.posX,
-          endY = args.height + args.posY,
-          sizeX = endX > canvasWidth ? canvasWidth : endX,
-          sizeY,
-          initSizeY = endY > canvasHeight ? canvasHeight : endY,
-          startX = args.posX < 0 ? 0 : args.posX,
-          startY = args.posY < 0 ? 0 : args.posY,
-          col
+        const endX = args.width + args.posX
+        const endY = args.height + args.posY
+
+        let sizeX = endX > canvasWidth ? canvasWidth : endX
+        let sizeY
+
+        const initSizeY = endY > canvasHeight ? canvasHeight : endY
+        const startX = args.posX < 0 ? 0 : args.posX
+        const startY = args.posY < 0 ? 0 : args.posY
+
+        let col
 
         while ((sizeX -= 1) >= startX) {
           sizeY = initSizeY
@@ -312,20 +331,25 @@ Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
 
 Renderer.prototype.getRenderPixelToImage = function (backgroundColor) {
   return function renderPixelToImage(pixelW, pixelH, pixelArray, imageData) {
-    var pW = pixelW,
-      w4 = pW * 4,
-      wFull = w4,
-      pH,
-      pHSave = pixelH,
-      fullSave = w4 * pHSave,
-      full,
-      c,
-      i,
-      row,
-      pA = pixelArray,
-      defaultRed = backgroundColor && backgroundColor[0],
-      defaultGreen = backgroundColor && backgroundColor[1],
-      defaultBlue = backgroundColor && backgroundColor[2]
+    let pW = pixelW
+    let w4 = pW * 4
+
+    const wFull = w4
+
+    let pH
+
+    const pHSave = pixelH
+    const fullSave = w4 * pHSave
+
+    let full
+    let c
+    let i
+    let row
+
+    const pA = pixelArray
+    const defaultRed = backgroundColor && backgroundColor[0]
+    const defaultGreen = backgroundColor && backgroundColor[1]
+    const defaultBlue = backgroundColor && backgroundColor[2]
 
     while (pW--) {
       w4 -= 4
@@ -367,16 +391,16 @@ Renderer.prototype.getRenderPixelToImage = function (backgroundColor) {
 
 Renderer.prototype.getDrawer = function (pixelStarter, renderList) {
   // Initialize the drawingTool
-  var that = this,
-    pixelUnit = pixelStarter.pixelUnits,
-    drawingTool = new pixelStarter.DrawingTools(
-      pixelUnit,
-      pixelStarter.getRandom,
-    ),
-    canvasTool = new drawingTool.Obj().create({ list: renderList })
+  const that = this
+  const pixelUnit = pixelStarter.pixelUnits
+  const drawingTool = new pixelStarter.DrawingTools(
+    pixelUnit,
+    pixelStarter.getRandom,
+  )
+  const canvasTool = new drawingTool.Obj().create({ list: renderList })
 
   return function drawer(countW, countH) {
-    var pixelArray = that.createPixelArray(countW, countH)
+    const pixelArray = that.createPixelArray(countW, countH)
 
     drawingTool.init(countW, countH, pixelArray)
 

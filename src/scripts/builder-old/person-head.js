@@ -2,7 +2,7 @@ import { Object } from './object.js'
 
 // HEAD --------------------------------------------------------------------------------
 export const Head = function (args) {
-  var hairNext = this.IF(0.7)
+  const hairNext = this.IF(0.7)
 
   // Form & Sizes
   this.headSY = this.IF(0.01) ? this.R(0, 0.4) : this.R(0.1, 0.15)
@@ -75,8 +75,6 @@ export const Head = function (args) {
 Head.prototype = new Object()
 
 Head.prototype.draw = function (args) {
-  var list
-
   if (args.calc) {
     this.vL['headMinSY' + args.nr] = {
       r: this.headSY,
@@ -116,7 +114,7 @@ Head.prototype.draw = function (args) {
     }
   }
 
-  list = {
+  const list = {
     y: ['fullBodySY' + args.nr],
     fY: true,
     color: this.skinColor.get(),
@@ -353,32 +351,31 @@ export const Eye = function (args) {
 Eye.prototype = new Object()
 
 Eye.prototype.draw = function (args) {
-  var thisEye = args.eye || {},
-    eyeSad = thisEye.lids === 'sad',
-    eyeAngry = eyeSad || thisEye.lids === 'angry',
-    eyeClosed =
-      eyeAngry ||
-      thisEye.lids === 'closed' ||
-      thisEye.lids === 'sleepy' ||
-      (args.right && thisEye.lids === 'wink'),
-    eyeHalfClosed = !eyeClosed && thisEye.lids === 'halfClosed',
-    lookUp = thisEye.lookHor === 'up',
-    lookDown = thisEye.lookHor === 'down' || thisEye.lookHor === 'veryDown',
-    lookExtrem = lookUp || thisEye.lookHor === 'veryDown',
-    lookForward = !lookUp && !lookDown,
-    lookSide = thisEye.lookVert,
-    lookRight = thisEye.lookVert === 'right',
-    eyeBrowRaised =
-      thisEye.brow === 'raised' || (args.right && thisEye.brow === 'sceptical'),
-    eyeBrowLow =
-      thisEye.brow === 'low' || (!args.right && thisEye.brow === 'sceptical'),
-    eyeBrowSad =
-      thisEye.brow === 'sad' ||
-      (args.right && thisEye.brow === 'superSceptical'),
-    eyeBrowAngry =
-      eyeBrowSad ||
-      thisEye.brow === 'angry' ||
-      (!args.right && thisEye.brow === 'superSceptical')
+  const thisEye = args.eye || {}
+  const eyeSad = thisEye.lids === 'sad'
+  const eyeAngry = eyeSad || thisEye.lids === 'angry'
+  const eyeClosed =
+    eyeAngry ||
+    thisEye.lids === 'closed' ||
+    thisEye.lids === 'sleepy' ||
+    (args.right && thisEye.lids === 'wink')
+  const eyeHalfClosed = !eyeClosed && thisEye.lids === 'halfClosed'
+  const lookUp = thisEye.lookHor === 'up'
+  const lookDown = thisEye.lookHor === 'down' || thisEye.lookHor === 'veryDown'
+  const lookExtrem = lookUp || thisEye.lookHor === 'veryDown'
+  const lookForward = !lookUp && !lookDown
+  const lookSide = thisEye.lookVert
+  const lookRight = thisEye.lookVert === 'right'
+  const eyeBrowRaised =
+    thisEye.brow === 'raised' || (args.right && thisEye.brow === 'sceptical')
+  const eyeBrowLow =
+    thisEye.brow === 'low' || (!args.right && thisEye.brow === 'sceptical')
+  const eyeBrowSad =
+    thisEye.brow === 'sad' || (args.right && thisEye.brow === 'superSceptical')
+  const eyeBrowAngry =
+    eyeBrowSad ||
+    thisEye.brow === 'angry' ||
+    (!args.right && thisEye.brow === 'superSceptical')
 
   if (args.calc) {
     this.vL['eyeFullSX' + args.nr] = {
@@ -683,26 +680,25 @@ export const Mouth = function (args) {
 Mouth.prototype = new Object()
 
 Mouth.prototype.draw = function (args) {
-  var thisMouth = args.mouth || {},
-    mouthWidth = thisMouth.width,
-    mouthHeight = thisMouth.height,
-    mouthForm = thisMouth.form,
-    mouthD = mouthForm === 'D:',
-    mouthGrin = mouthD || mouthForm === 'grin',
-    mouthNarrow = mouthWidth === 'narrow',
-    mouthSlight = mouthHeight === 'slight',
-    mouthHalfOpen = mouthHeight === 'half',
-    mouthOpen = mouthSlight || mouthHalfOpen || mouthHeight === 'full',
-    mouthSmile = mouthGrin && !mouthOpen,
-    teethFull =
-      !mouthSlight && mouthOpen && !mouthNarrow && thisMouth.teeth === 'full',
-    teethTop =
-      !mouthSlight &&
-      ((mouthOpen && thisMouth.teeth === 'top') || thisMouth.teeth === 'both'),
-    teethBottom =
-      !mouthSlight &&
-      ((mouthOpen && thisMouth.teeth === 'bottom') ||
-        thisMouth.teeth === 'both')
+  const thisMouth = args.mouth || {}
+  const mouthWidth = thisMouth.width
+  const mouthHeight = thisMouth.height
+  const mouthForm = thisMouth.form
+  const mouthD = mouthForm === 'D:'
+  const mouthGrin = mouthD || mouthForm === 'grin'
+  const mouthNarrow = mouthWidth === 'narrow'
+  const mouthSlight = mouthHeight === 'slight'
+  const mouthHalfOpen = mouthHeight === 'half'
+  const mouthOpen = mouthSlight || mouthHalfOpen || mouthHeight === 'full'
+  const mouthSmile = mouthGrin && !mouthOpen
+  const teethFull =
+    !mouthSlight && mouthOpen && !mouthNarrow && thisMouth.teeth === 'full'
+  const teethTop =
+    !mouthSlight &&
+    ((mouthOpen && thisMouth.teeth === 'top') || thisMouth.teeth === 'both')
+  const teethBottom =
+    !mouthSlight &&
+    ((mouthOpen && thisMouth.teeth === 'bottom') || thisMouth.teeth === 'both')
 
   if (args.calc) {
     this.vL['mouthSX' + args.nr] = {
@@ -827,8 +823,8 @@ export const Hair = function (args) {
 Hair.prototype = new Object()
 
 Hair.prototype.draw = function (args) {
-  var rightSide = args.sideView || !args.right,
-    name = args.id + '_' + args.right + args.nr
+  const rightSide = args.sideView || !args.right
+  const name = args.id + '_' + args.right + args.nr
 
   if (args.calc) {
     this.vL['hairS' + args.nr] = {

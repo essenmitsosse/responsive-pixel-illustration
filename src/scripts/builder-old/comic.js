@@ -4,26 +4,27 @@ import { Object } from './object.js'
 
 // COMIC --------------------------------------------------------------------------------
 export const Comic = function (init) {
-  var list = [],
-    args = {},
-    panels = this.IF(0.05) ? 1 : this.GR(3, 6),
-    borderColor = (args.borderColor = new this.Color(
-      this.IF() ? 1 : 0,
-      this.IF(0.1) ? (this.IF(0.5) ? 2 : 3) : this.IF(0.5) ? 5 : 0,
-    )),
-    outerBorderColor =
-      this.IF(0.9) &&
-      borderColor.copy({
-        brContrast: this.IF(0.8) ? 5 : 3,
-        dontChange: this.IF(0.5),
-      }),
-    bigPanel = panels % 2 !== 0 && (this.IF(0.5) ? 0 : panels - 1),
-    panelsCalc = bigPanel !== false ? panels + 1 : panels,
-    i = 0,
-    border = this.R(0.01, 0.04),
-    gutter = this.R(0.02, 0.05),
-    horRatio = this.R(1.1, 2),
-    panel
+  const list = []
+  const args = {}
+  const panels = this.IF(0.05) ? 1 : this.GR(3, 6)
+  const borderColor = (args.borderColor = new this.Color(
+    this.IF() ? 1 : 0,
+    this.IF(0.1) ? (this.IF(0.5) ? 2 : 3) : this.IF(0.5) ? 5 : 0,
+  ))
+  const outerBorderColor =
+    this.IF(0.9) &&
+    borderColor.copy({
+      brContrast: this.IF(0.8) ? 5 : 3,
+      dontChange: this.IF(0.5),
+    })
+  const bigPanel = panels % 2 !== 0 && (this.IF(0.5) ? 0 : panels - 1)
+  const panelsCalc = bigPanel !== false ? panels + 1 : panels
+
+  let i = 0
+
+  const border = this.R(0.01, 0.04)
+  const gutter = this.R(0.02, 0.05)
+  const horRatio = this.R(1.1, 2)
 
   this.vL.fullSqu = { r: 1, max: { r: 1, height: true } }
 
@@ -185,7 +186,7 @@ export const Comic = function (init) {
 
   args.outerBorderColor = outerBorderColor
 
-  panel = new this.basic.Panel(args)
+  const panel = new this.basic.Panel(args)
 
   for (i = 0; i < panelsCalc; i += 1) {
     list.push(
@@ -308,16 +309,16 @@ export const Panel = function (args) {
 Panel.prototype = new Object()
 
 Panel.prototype.draw = function (args) {
-  var nr = args.i,
-    closeUp = this.IF(0.1),
-    wideShot = !closeUp && this.IF(0.2),
-    superWideShot = !closeUp && !wideShot && this.IF(0.1),
-    actionBackground =
-      this.IF(0.01 + (closeUp ? 0.3 : 0) + (wideShot ? 0.05 : 0)) &&
-      this.skyColor.copy({ nextColor: true, brSet: this.GR(0, 5) }),
-    actors,
-    stars,
-    darkness
+  const nr = args.i
+  const closeUp = this.IF(0.1)
+  const wideShot = !closeUp && this.IF(0.2)
+  const superWideShot = !closeUp && !wideShot && this.IF(0.1)
+  const actionBackground =
+    this.IF(0.01 + (closeUp ? 0.3 : 0) + (wideShot ? 0.05 : 0)) &&
+    this.skyColor.copy({ nextColor: true, brSet: this.GR(0, 5) })
+
+  let stars
+  let darkness
 
   this.finalSkyColor = this.skyColor
 
@@ -386,7 +387,7 @@ Panel.prototype.draw = function (args) {
     this.basic.getDark(darkness < -2 ? -2 : darkness > 2 ? 2 : darkness)
   }
 
-  actors = {
+  const actors = {
     cX: true,
     fY: true,
     sY: 'thingS' + nr,
@@ -529,72 +530,72 @@ export const Actor = function (args) {
 Actor.prototype = new Object()
 
 Actor.prototype.draw = function (args, z, size) {
-  var eyeLookVert = ['', '', '', 'left', 'right'],
-    eyeLookHor = ['', '', '', '', '', 'up', 'down', 'up', 'down', 'verDown'],
-    eyeLids = [
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      'halfClosed',
-      'halfClosed',
-      'halfClosed',
-      'closed',
-      'closed',
-      'wink',
-    ],
-    eyeBrow = [
-      '',
-      '',
-      '',
-      'raised',
-      'low',
-      'sceptical',
-      'superSceptical',
-      'angry',
-      'sad',
-    ],
-    mouthHeight = [
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      'slight',
-      'slight',
-      'half',
-      'full',
-    ],
-    mouthWid = ['', '', '', 'narrow'],
-    mouthForm = ['', '', '', 'sceptical', 'grin', 'D:'],
-    teethPos = ['', 'top', 'bottom', 'both', 'full'],
-    legPos = ['', '', '', '', '', '', '', '', '', '', '', 'legRaise'],
-    views = [
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      'rightView',
-      'leftView',
-      'rightView',
-      'leftView',
-      'rightView',
-      'leftView',
-      'rightView',
-      'leftView',
-      'backView',
-    ]
+  const eyeLookVert = ['', '', '', 'left', 'right']
+  const eyeLookHor = ['', '', '', '', '', 'up', 'down', 'up', 'down', 'verDown']
+  const eyeLids = [
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    'halfClosed',
+    'halfClosed',
+    'halfClosed',
+    'closed',
+    'closed',
+    'wink',
+  ]
+  const eyeBrow = [
+    '',
+    '',
+    '',
+    'raised',
+    'low',
+    'sceptical',
+    'superSceptical',
+    'angry',
+    'sad',
+  ]
+  const mouthHeight = [
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    'slight',
+    'slight',
+    'half',
+    'full',
+  ]
+  const mouthWid = ['', '', '', 'narrow']
+  const mouthForm = ['', '', '', 'sceptical', 'grin', 'D:']
+  const teethPos = ['', 'top', 'bottom', 'both', 'full']
+  const legPos = ['', '', '', '', '', '', '', '', '', '', '', 'legRaise']
+  const views = [
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    'rightView',
+    'leftView',
+    'rightView',
+    'leftView',
+    'rightView',
+    'leftView',
+    'rightView',
+    'leftView',
+    'backView',
+  ]
 
   args.size = size
 

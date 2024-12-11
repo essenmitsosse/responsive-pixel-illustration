@@ -45,7 +45,7 @@ export const Actor = function (args) {
 }
 
 Actor.prototype.getSize = function (args) {
-  var sY = (this.maxSize = this.pushLinkList({
+  const sY = (this.maxSize = this.pushLinkList({
     r: 1,
     useSize: args.stageSY,
     max: args.stageSY,
@@ -77,10 +77,11 @@ Actor.prototype.getSize = function (args) {
 }
 
 Actor.prototype.getSizeFromHead = function (args) {
-  var mapper = this.headScaling,
-    map,
-    min,
-    change
+  const mapper = this.headScaling
+
+  let map
+  let min
+  let change
 
   // calculates this.sX & this.headSY
   this.getSizeWithRatio({
@@ -126,7 +127,7 @@ Actor.prototype.getSizeFromHead = function (args) {
     this.changersRelativeCustomList.push([
       this.bodySY,
       function (args) {
-        var headSY
+        let headSY
 
         if (args[map] !== undefined) {
           headSY = this.headSY_ * (args[map] * change + min)
@@ -139,7 +140,7 @@ Actor.prototype.getSizeFromHead = function (args) {
 }
 
 Actor.prototype.getBetterPosX = function (rel) {
-  var add = []
+  const add = []
 
   if (!this.isRotated) {
     add.push(this.getPosX(rel))
@@ -151,7 +152,7 @@ Actor.prototype.getBetterPosX = function (rel) {
 }
 
 Actor.prototype.getBetterPosY = function (rel) {
-  var add = [{ r: -1, useSize: this.y }]
+  const add = [{ r: -1, useSize: this.y }]
 
   if (!this.isRotated) {
     add.push(
@@ -169,22 +170,22 @@ Actor.prototype.getBetterPosY = function (rel) {
 }
 
 Actor.prototype.getFocus = function (zoomSX, zoomSY, focus) {
-  var x = this.pushLinkList({
-      add: [
-        { r: 0.5, useSize: zoomSX },
-        // normalize pan
-        { r: -1, useSize: this.x },
-        // pos
-      ],
-    }),
-    y = this.pushLinkList({
-      add: [
-        { r: 0.5, useSize: zoomSY },
-        // normalize pan
-        { r: -1, useSize: this.y },
-        // pos
-      ],
-    })
+  const x = this.pushLinkList({
+    add: [
+      { r: 0.5, useSize: zoomSX },
+      // normalize pan
+      { r: -1, useSize: this.x },
+      // pos
+    ],
+  })
+  const y = this.pushLinkList({
+    add: [
+      { r: 0.5, useSize: zoomSY },
+      // normalize pan
+      { r: -1, useSize: this.y },
+      // pos
+    ],
+  })
 
   if (this.isRotated) {
     x.add.push({ r: -1, useSize: this.square }, this.sY, {
@@ -218,7 +219,7 @@ Actor.prototype.getFocus = function (zoomSX, zoomSY, focus) {
 }
 
 Actor.prototype.draw = function (args) {
-  var { info } = args
+  const { info } = args
 
   this.zoomToHead = info.zoomToHead
 

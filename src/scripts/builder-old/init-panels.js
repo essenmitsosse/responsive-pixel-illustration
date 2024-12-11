@@ -1,10 +1,8 @@
 import { Builder } from './builder.js'
 
 function builderOld(init) {
-  var builder = new Builder(init),
-    renderList
-
-  renderList = new builder.basic.Comic(init)
+  const builder = new Builder(init)
+  const renderList = new builder.basic.Comic(init)
 
   return {
     renderList,

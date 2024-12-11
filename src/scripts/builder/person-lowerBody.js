@@ -33,15 +33,13 @@ export const LowerBody = function (args) {
 LowerBody.prototype = new Object()
 
 LowerBody.prototype.draw = function (args, z) {
-  var list, leg
-
   if (args.calc) {
     args.lowerBodySX = this.pushLinkList(args.personRealSX)
   }
 
   this.skirt = (!args.demo || args.skirt) && this.skirt
 
-  leg = {
+  const leg = {
     sY: this.skirt && args.feetRestSY,
     list: [
       // Check if Skirt is so long, that it covers all the feet
@@ -58,7 +56,7 @@ LowerBody.prototype.draw = function (args, z) {
     })
   }
 
-  list = {
+  const list = {
     sX: this.wideHips ? [args.lowerBodySX, 1] : args.lowerBodySX,
     sY: args.lowerBodySY,
     cX: args.sideView,
@@ -253,10 +251,10 @@ export const Leg = function (args) {
 Leg.prototype = new Object()
 
 Leg.prototype.draw = function (args, z, rightSide, behind) {
-  var legPos = args.leg && args.leg[rightSide ? 'right' : 'left'],
-    hipBend = legPos === 'legHigh',
-    legBend = hipBend || legPos === 'kneeBend',
-    legRaise = !hipBend && !legBend && legPos === 'legRaise'
+  const legPos = args.leg && args.leg[rightSide ? 'right' : 'left']
+  const hipBend = legPos === 'legHigh'
+  const legBend = hipBend || legPos === 'kneeBend'
+  const legRaise = !hipBend && !legBend && legPos === 'legRaise'
 
   if (args.calc) {
     args.legSX = this.pushLinkList({

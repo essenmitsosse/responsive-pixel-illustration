@@ -16,9 +16,9 @@ export const Person = function (args) {
 Person.prototype = new Object()
 
 Person.prototype.draw = function (args, z) {
-  var nr = (args.nr = this.basic.objectCount += 1),
-    backView = (args.backView = args.view === 'backView'),
-    sideView = (args.sideView = !backView && args.view ? true : false)
+  const nr = (args.nr = this.basic.objectCount += 1)
+  const backView = (args.backView = args.view === 'backView')
+  const sideView = (args.sideView = !backView && args.view ? true : false)
 
   args.id = this.id
 
@@ -47,7 +47,7 @@ Person.prototype.draw = function (args, z) {
 
 // BASICBODY --------------------------------------------------------------------------------
 export const BasicBody = function (args) {
-  var hues = [
+  const hues = [
     [0, 1, 2],
     [0, 2, 2],
     [0, 1, 1],
@@ -114,8 +114,6 @@ export const BasicBody = function (args) {
 BasicBody.prototype = new Object()
 
 BasicBody.prototype.draw = function (args, right) {
-  var head
-
   args.right = right
 
   args.calc = args.backView !== right || args.sideView
@@ -130,7 +128,7 @@ BasicBody.prototype.draw = function (args, right) {
     this.vL['personSY' + args.nr] = { r: this.sY, min: 5, useSize: args.size }
   }
 
-  head = this.head.draw(args)
+  const head = this.head.draw(args)
 
   if (args.calc) {
     this.vL['bodyRestSY' + args.nr] = {
@@ -208,7 +206,7 @@ BasicBody.prototype.draw = function (args, right) {
 
 // LOGO --------------------------------------------------------------------------------
 export const Logo = function (args, right, symetrical, logoColor) {
-  var color = !logoColor && this.IF(0.5)
+  const color = !logoColor && this.IF(0.5)
 
   this.name = symetrical ? (right ? 'right' : 'left') : 'chest'
 
@@ -259,7 +257,7 @@ export const Logo = function (args, right, symetrical, logoColor) {
 Logo.prototype = new Object()
 
 Logo.prototype.draw = function (args) {
-  var nrName = args.nr + this.name
+  const nrName = args.nr + this.name
 
   return (
     (!this.oneSide || args.right === this.side) && {

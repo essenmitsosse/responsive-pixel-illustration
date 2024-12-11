@@ -30,9 +30,9 @@ import {
 import { Forrest, Tree, TreeFamily } from './tree.js'
 
 export const Builder = function (init) {
-  var initID = init.id ? init.id : Math.floor(Math.random() * 4294967296),
-    random = helper.random(initID),
-    joinVariableList = {}
+  const initID = init.id ? init.id : Math.floor(Math.random() * 4294967296)
+  const random = helper.random(initID)
+  const joinVariableList = {}
 
   this.help = helper
 
@@ -108,55 +108,56 @@ export const Builder = function (init) {
 }
 
 const buildColors = function (info) {
-  var that = this,
-    i = info.colors,
-    colors = [],
-    createColor = function () {
-      var r = that.R(0, 200),
-        g = that.R(0, 200),
-        b = that.R(0, 200),
-        br = Math.sqrt(
-          0.241 * Math.pow(r, 2) +
-            0.691 * Math.pow(g, 2) +
-            0.068 * Math.pow(b, 2),
-        ),
-        rgb = [r, g, b],
-        maxBr = 255 / info.steps,
-        startPos = Math.floor(br / maxBr),
-        colorRange = [],
-        i,
-        fak
+  const that = this
 
-      colorRange[startPos] = rgb
+  let i = info.colors
 
-      // DARKER COLORS
-      i = startPos
+  const colors = []
+  const createColor = function () {
+    const r = that.R(0, 200)
+    const g = that.R(0, 200)
+    const b = that.R(0, 200)
+    const br = Math.sqrt(
+      0.241 * Math.pow(r, 2) + 0.691 * Math.pow(g, 2) + 0.068 * Math.pow(b, 2),
+    )
+    const rgb = [r, g, b]
+    const maxBr = 255 / info.steps
+    const startPos = Math.floor(br / maxBr)
+    const colorRange = []
 
-      fak = 1 / (i + 1)
+    let i
+    let fak
 
-      while (i--) {
-        colorRange[i] = [
-          r * fak * (i + 1) + 0 * (1 - fak * (i + 1)),
-          g * fak * (i + 1) + 0 * (1 - fak * (i + 1)),
-          b * fak * (i + 1) + 0 * (1 - fak * (i + 1)),
-        ]
-      }
+    colorRange[startPos] = rgb
 
-      // LIGHTER COLORS
-      i = info.steps - startPos - 1
+    // DARKER COLORS
+    i = startPos
 
-      fak = 1 / (i + 1)
+    fak = 1 / (i + 1)
 
-      while (i--) {
-        colorRange[startPos + i + 1] = [
-          r * (1 - fak * (i + 1)) + 255 * fak * (i + 1),
-          g * (1 - fak * (i + 1)) + 255 * fak * (i + 1),
-          b * (1 - fak * (i + 1)) + 255 * fak * (i + 1),
-        ]
-      }
-
-      colors.push(colorRange)
+    while (i--) {
+      colorRange[i] = [
+        r * fak * (i + 1) + 0 * (1 - fak * (i + 1)),
+        g * fak * (i + 1) + 0 * (1 - fak * (i + 1)),
+        b * fak * (i + 1) + 0 * (1 - fak * (i + 1)),
+      ]
     }
+
+    // LIGHTER COLORS
+    i = info.steps - startPos - 1
+
+    fak = 1 / (i + 1)
+
+    while (i--) {
+      colorRange[startPos + i + 1] = [
+        r * (1 - fak * (i + 1)) + 255 * fak * (i + 1),
+        g * (1 - fak * (i + 1)) + 255 * fak * (i + 1),
+        b * (1 - fak * (i + 1)) + 255 * fak * (i + 1),
+      ]
+    }
+
+    colors.push(colorRange)
+  }
 
   while (i--) {
     createColor()
@@ -164,7 +165,6 @@ const buildColors = function (info) {
 
   return colors
 }
-
 const Color = function (nr, br) {
   this.nr = nr
 
@@ -174,7 +174,10 @@ const Color = function (nr, br) {
 Color.prototype.copy = function (args) {
   args = args || {}
 
-  var color = new this.Color(args.nr !== undefined ? args.nr : this.nr, this.br)
+  const color = new this.Color(
+    args.nr !== undefined ? args.nr : this.nr,
+    this.br,
+  )
 
   if (args.nextColor) {
     color.nextColor()
@@ -275,7 +278,7 @@ Color.prototype.getBr = function () {
 
 Builder.prototype.getDark = function (darkness) {
   Color.prototype.get = function () {
-    var br = this.dontChange ? this.br : this.br + darkness
+    let br = this.dontChange ? this.br : this.br + darkness
 
     if (br < 0) {
       br = 0

@@ -1387,7 +1387,10 @@ export const DrawingTools = function (pixelUnit, getRandom) {
         current.odd = odd
 
         c -= 1
-        if (c < 0) break
+
+        if (c < 0) {
+          break
+        }
       }
     }
 

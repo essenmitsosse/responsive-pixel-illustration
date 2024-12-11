@@ -637,7 +637,9 @@ function graien() {
       var shadow = getShadow(nr),
         skin = getSkin(nr)
 
-      if (!obj) obj = {}
+      if (!obj) {
+        obj = {}
+      }
 
       obj.list = [
         { color: shadow },

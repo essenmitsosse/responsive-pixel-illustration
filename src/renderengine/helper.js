@@ -1,4 +1,4 @@
-export const helper = new (function () {
+function Helper() {
   const that = this
 
   this.getSmallerDim = function (x) {
@@ -340,4 +340,6 @@ export const helper = new (function () {
       },
     }
   }
-})()
+}
+
+export const helper = new Helper()

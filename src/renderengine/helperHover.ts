@@ -10,24 +10,24 @@ export const setValue = <TRele>(what: Size<TRele>, value: TRele): void => {
 }
 
 const getHoverChangers = (): {
-  changersCustomList: Array<unknown>
-  changersRelativeCustomList: Array<unknown>
+  changersCustomList: Array<(args: Record<string, number>) => void>
+  changersRelativeCustomList: Array<[Size<unknown>, (args: Record<string, number>) => void]>
   pushColorStandard: Array<{
     color: ColorRgb
     map: string
     max: ColorRgb
     min: ColorRgb
   }>
-  hover(args: unknown): void
+  hover(args: Record<string, number>): void
   pushRelativeStandard(
     min: number,
     max: number,
     map: string,
-    variable: unknown,
+    variable: { r?: unknown; s: { rele?: unknown } },
   ): void
   pushRelativeStandardAutomatic<T extends string>(
     parent: Record<T, Size<unknown>>,
-    info: Record<T, { map?: unknown; max?: number; min?: number }>,
+    info: Record<T, { map: string; max: number; min: number }>,
   ): void
 } => {
   const changersRelativeStandardList: Array<{

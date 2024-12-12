@@ -31,7 +31,7 @@ Table.prototype.draw = function TableDraw(args) {
 
   this.footSX = this.pushLinkList({ r: 0.35, useSize: this.sX })
 
-  this.pushRelativeStandardAutomatic(this, {
+  this.hover.pushRelativeStandardAutomatic(this, {
     sY: { map: 'props', min: 0, max: this.sY_ },
   })
 
@@ -120,7 +120,7 @@ Chair.prototype.draw = function ChairDraw(args) {
 
   this.backSY = this.pushLinkList({ r: 2, useSize: this.sY })
 
-  this.pushRelativeStandardAutomatic(this, {
+  this.hover.pushRelativeStandardAutomatic(this, {
     sY: { map: 'props', min: 0, max: this.sY_ },
   })
 
@@ -202,7 +202,7 @@ Glass.prototype.draw = function GlassDraw(args) {
 
   this.sY = this.pushLinkList({ r: this.sY_, useSize: args.square })
 
-  this.pushRelativeStandardAutomatic(this, {
+  this.hover.pushRelativeStandardAutomatic(this, {
     sY: { map: 'props', min: 0, max: this.sY_ },
   })
 
@@ -210,7 +210,7 @@ Glass.prototype.draw = function GlassDraw(args) {
 
   this.getPosition(args)
 
-  this.pushRelativeStandardAutomatic(this, args.info)
+  this.hover.pushRelativeStandardAutomatic(this, args.info)
 
   const normalGlass = [
     { sY: { r: 0.08, min: 1, useSize: this.sY }, fY: true },
@@ -245,7 +245,7 @@ export const Emotion = function Emotion(args) {
 
   this.heartColor = [-1, -1, -1]
 
-  this.listColorStandard.push({
+  this.hover.listColorStandard.push({
     map: 'a',
     min: [120, 120, 120],
     max: [200, 100, 100],
@@ -277,7 +277,7 @@ Emotion.prototype.draw = function EmotionDraw(args) {
 
   this.innerS = this.pushLinkList({ r: 1, useSize: this.innerS })
 
-  this.pushRelativeStandardAutomatic(this, {
+  this.hover.pushRelativeStandardAutomatic(this, {
     innerS: { map: 'emotions', min: 0, max: 1 },
   })
 
@@ -304,7 +304,7 @@ Emotion.prototype.draw = function EmotionDraw(args) {
       this.thunderSY = this.pushLinkList({ r: 0, useSize: this.innerS })
     }
 
-    this.pushRelativeStandardAutomatic(this, {
+    this.hover.pushRelativeStandardAutomatic(this, {
       cloudBottomY: { map: 'a', min: 0.0001, max: 0.6 },
       cloudLeftX: { map: 'a', min: -0.5, max: 0 },
       thunderSY: { map: 'a', min: 1, max: -4 },

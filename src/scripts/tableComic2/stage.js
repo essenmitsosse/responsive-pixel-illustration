@@ -48,7 +48,7 @@ Background.prototype.draw = function BackgroundDraw(args) {
 
   this.floorSY = this.pushLinkList({ r: 1, useSize: floorY })
 
-  this.pushRelativeStandardAutomatic(this, {
+  this.hover.pushRelativeStandardAutomatic(this, {
     backgroundSY: { map: 'set', min: 0, max: 1 },
     borderFinalSY: { map: 'set', min: 0, max: 1 },
     floorSY: { map: 'set', min: 0, max: 1 },
@@ -61,7 +61,7 @@ Background.prototype.draw = function BackgroundDraw(args) {
   })
 
   if (args.info) {
-    this.pushRelativeStandardAutomatic(this, {
+    this.hover.pushRelativeStandardAutomatic(this, {
       borderFinalSY: args.info.zoom,
       stripeFinalSX: args.info.zoom,
     })

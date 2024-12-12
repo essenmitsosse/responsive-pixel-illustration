@@ -34,12 +34,12 @@ export const Strip = function (args) {
     args.stripInfo.basicPanel || new this.basic.Panel(args.stripInfo)
   const imgRatio = { ratio: 1.5 }
 
-  this.pushRelativeStandardAutomatic(this, {
+  this.hover.pushRelativeStandardAutomatic(this, {
     gutterX: { map: 'gutter-width', min: 0, max: 1 },
     gutterY: { map: 'gutter-height', min: 0, max: 1 },
   })
 
-  this.changersCustomList.push(function (args) {
+  this.hover.changersCustomList.push(function (args) {
     if (args.imgRatio) {
       imgRatio.ratio = 1 / args.imgRatio
     }
@@ -323,12 +323,12 @@ Panel.prototype.draw = function (args) {
   }
 
   // Camera Zoom
-  this.changersRelativeCustomList.push([
+  this.hover.changersRelativeCustomList.push([
     this.zoomDiffSX,
     this.cameraZoomFunction,
   ])
 
-  this.changersRelativeCustomList.push([
+  this.hover.changersRelativeCustomList.push([
     this.zoomDiffSY,
     this.cameraZoomFunction,
   ])
@@ -439,12 +439,12 @@ Panel.prototype.draw = function (args) {
     }
 
     // Camera Pan
-    this.changersRelativeCustomList.push([
+    this.hover.changersRelativeCustomList.push([
       this.actorFocusX,
       this.cameraPanFunction,
     ])
 
-    this.changersRelativeCustomList.push([
+    this.hover.changersRelativeCustomList.push([
       this.actorFocusY,
       this.cameraPanFunction,
     ])
@@ -502,7 +502,7 @@ Panel.prototype.draw = function (args) {
 
   // END Camera Pan - - - - - - - - - - - - - - - - - - - - - - - -
 
-  this.pushRelativeStandardAutomatic(this, info.camera)
+  this.hover.pushRelativeStandardAutomatic(this, info.camera)
 
   return {
     sX: args.sX,

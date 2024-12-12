@@ -70,7 +70,7 @@ Actor.prototype.getSize = function (args) {
     add: [this.sY, { r: -1, useSize: this.headSY }],
   })
 
-  this.pushRelativeStandardAutomatic(this, {
+  this.hover.pushRelativeStandardAutomatic(this, {
     maxSize: this.sizeMap,
     headSY: this.headScaling,
   })
@@ -106,7 +106,7 @@ Actor.prototype.getSizeFromHead = function (args) {
 
     change = mapper.max - min
 
-    this.changersRelativeCustomList.push([
+    this.hover.changersRelativeCustomList.push([
       this.sX,
       function (args) {
         if (args[map] !== undefined) {
@@ -115,7 +115,7 @@ Actor.prototype.getSizeFromHead = function (args) {
       },
     ])
 
-    this.changersRelativeCustomList.push([
+    this.hover.changersRelativeCustomList.push([
       this.headSY,
       function (args) {
         if (args[map] !== undefined) {
@@ -124,7 +124,7 @@ Actor.prototype.getSizeFromHead = function (args) {
       },
     ])
 
-    this.changersRelativeCustomList.push([
+    this.hover.changersRelativeCustomList.push([
       this.bodySY,
       function (args) {
         let headSY
@@ -237,7 +237,7 @@ Actor.prototype.draw = function (args) {
 
   this.headSX = this.pushLinkList({ r: 1, useSize: this.sX })
 
-  this.pushRelativeStandardAutomatic(this, {
+  this.hover.pushRelativeStandardAutomatic(this, {
     headSX: this.headScaling,
   })
 
@@ -256,7 +256,7 @@ Actor.prototype.draw = function (args) {
 
   this.baseShift = this.pushLinkList({ r: 1, useSize: this.baseShift })
 
-  this.pushRelativeStandardAutomatic(this, {
+  this.hover.pushRelativeStandardAutomatic(this, {
     baseShift: { map: 'props', min: 0, max: 1 },
   })
 
@@ -270,7 +270,7 @@ Actor.prototype.draw = function (args) {
   // this.torsoLean = this.pushLinkList( { r: 0.66, useSize: this.lean } );
 
   // Check if there are hover changers and add them
-  this.pushRelativeStandardAutomatic(this, info.body)
+  this.hover.pushRelativeStandardAutomatic(this, info.body)
 
   this.armRightInfo = info.armRight
 
@@ -433,7 +433,7 @@ Torso.prototype.draw = function TorsoDraw(args) {
 
     this.leanWay = this.pushLinkList({ r: 0.5, useSize: args.lean })
 
-    this.pushRelativeStandardAutomatic(this, {
+    this.hover.pushRelativeStandardAutomatic(this, {
       zipperY: { map: 'actor-accessoirs', min: 0, max: this.zipperSY },
       leanWay: { map: 'actor-accessoirs', min: this.zipperSY, max: 0 },
     })

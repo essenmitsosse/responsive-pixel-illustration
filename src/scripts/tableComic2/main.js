@@ -86,16 +86,7 @@ export const TableComic = function (init, slide, createSlider) {
 
       current.pushLinkList = getLinkListPusher(linkList)
 
-      current.pushRelativeStandardAutomatic =
-        hover.pushRelativeStandardAutomatic
-
-      current.changersRelativeCustomList = hover.changersRelativeCustomList
-
-      current.pushRelativeStandard = hover.pushRelativeStandard
-
-      current.changersCustomList = hover.changersCustomList
-
-      current.listColorStandard = hover.listColorStandard
+      current.hover = hover
 
       current.getSizeWithRatio = comicPrototype.getSizeWithRatio
 
@@ -469,7 +460,7 @@ TableComic.prototype.getSizeSwitch = function (
     }),
   })
 
-  this.pushRelativeStandard(0, 1, link, this.difference)
+  this.hover.pushRelativeStandard(0, 1, link, this.difference)
 
   finalSize.add = [baseSize, this.difference]
 
@@ -606,28 +597,28 @@ TableComic.prototype.getColorShades = function (color) {
   let c3
 
   if (color.max) {
-    this.listColorStandard.push({
+    this.hover.listColorStandard.push({
       map: color.map,
       min: color.min,
       max: color.max,
       color: (c0 = []),
     })
 
-    this.listColorStandard.push({
+    this.hover.listColorStandard.push({
       map: color.map,
       min: multiplyColor(color.min, 0.9),
       max: multiplyColor(color.max, 0.9),
       color: (c1 = []),
     })
 
-    this.listColorStandard.push({
+    this.hover.listColorStandard.push({
       map: color.map,
       min: multiplyColor(color.min, 0.7),
       max: multiplyColor(color.max, 0.7),
       color: (c2 = []),
     })
 
-    this.listColorStandard.push({
+    this.hover.listColorStandard.push({
       map: color.map,
       min: multiplyColor(color.min, 0.5),
       max: multiplyColor(color.max, 0.5),

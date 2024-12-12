@@ -169,7 +169,7 @@ export const getHoverChangers = (): {
     variable: unknown,
   ): void
   pushRelativeStandardAutomatic<T extends string>(
-    this: Record<T, Size<unknown>>,
+    parent: Record<T, Size<unknown>>,
     info: Record<T, { map?: unknown; max?: number; min?: number }>,
   ): void
 } => {
@@ -228,7 +228,7 @@ export const getHoverChangers = (): {
     // Takes an object, where the keys have the names of dimensions from the object which called it
     // This dimension "r" is linked to the variables max, min and can be changed by what is defined by map
     pushRelativeStandardAutomatic<T extends string>(
-      this: Record<T, Size<unknown>>,
+      parent: Record<T, Size<unknown>>,
       info: Record<T, { map: string; max: number; min: number }>,
     ): void {
       if (info) {
@@ -239,7 +239,7 @@ export const getHoverChangers = (): {
                 r?: unknown
                 s: { rele?: unknown }
               }
-            | undefined = this[key]
+            | undefined = parent[key]
 
           if (currentSize) {
             // Assignment

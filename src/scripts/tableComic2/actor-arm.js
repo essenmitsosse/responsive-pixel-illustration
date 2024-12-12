@@ -262,7 +262,10 @@ Arm.prototype.getMoveableTarget = function (name, targetFunc, info) {
       max: 1,
     }
 
-    this.pushRelativeStandardAutomatic(pushRelativeStandardAutomaticObject)
+    this.pushRelativeStandardAutomatic(
+      this,
+      pushRelativeStandardAutomaticObject,
+    )
 
     this[mainX] = this.pushLinkList({
       add: [this[mainX], this[moveXName]],

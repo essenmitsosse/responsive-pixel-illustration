@@ -7,7 +7,7 @@ import {
   sub,
 } from '@/renderengine/helper'
 
-function graien() {
+function graien(_, __, createSlider) {
   const background = [60, 120, 110]
   const bSS = 0.5
   const shadowAdd = 195
@@ -2907,15 +2907,39 @@ function graien() {
     },
   ]
 
-  // if( createSlider ) {
-  // 	createSlider.title( { title: "Graien" } );
-  // 	createSlider.slider( { niceName: "Dicke", 		valueName: "a",	defaultValue: 0.5, 	input: { min: 0, max: 1, step: 0.01 } } );
-  // 	createSlider.slider( { niceName: "Kopfgröße",	valueName: "b",	defaultValue: 0.5, 	input: { min: 0, max: 1, step: 0.01 } } );
+  if (createSlider) {
+    createSlider.title({ title: 'Graeae' })
 
-  // 	// createSlider.title( { title: "Farbe" } );
-  // 	// createSlider.slider( { niceName: "Farbe 1", 	valueName: "c",	defaultValue: 1, 	input: { min: 0, max: 1, step: 0.01 } } );
-  // 	// createSlider.slider( { niceName: "Farbe 2", 	valueName: "d",	defaultValue: 1, 	input: { min: 0, max: 1, step: 0.01 } } );
-  // }
+    createSlider.slider({
+      niceName: 'Thickness',
+      valueName: 'a',
+      defaultValue: 0.5,
+      input: { min: 0, max: 1, step: 0.01 },
+    })
+
+    createSlider.slider({
+      niceName: 'Headsize',
+      valueName: 'b',
+      defaultValue: 0.5,
+      input: { min: 0, max: 1, step: 0.01 },
+    })
+
+    createSlider.title({ title: 'Colors' })
+
+    createSlider.slider({
+      niceName: 'Color 1',
+      valueName: 'c',
+      defaultValue: 1,
+      input: { min: 0, max: 1, step: 0.01 },
+    })
+
+    createSlider.slider({
+      niceName: 'Color 2',
+      valueName: 'd',
+      defaultValue: 1,
+      input: { min: 0, max: 1, step: 0.01 },
+    })
+  }
 
   return {
     renderList,

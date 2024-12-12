@@ -45,6 +45,17 @@ const listScreenshots = [
     query:
       'p=1&id=646298878&slide=12&panels=6&imgRatio=0.42&gutter-width=0.26&gutter-height=0.44&a=1&b=1&camera=1&altCamera=1&actor-size=1&actor-color=1&actor-features=1&actor-accessoirs=1&emotions=1&set=1&props=1',
   },
+  {
+    index: 12,
+    niceName: 'faceversion',
+    query: 'id=234243242&slide=12&faceVersion=true',
+  },
+  {
+    index: 12,
+    niceName: 'faceversion (alt)',
+    query:
+      'id=32423423&slide=12&p=2&faceVersion=true&a=1&b=0&c=0.2&d=0.8&e=0.8&f=0.3&g=0.7&h=0.4&i=0.6&j=0.1&k=0.9&l=0.9&m=0.9&n=0.1&camera=0&side=1',
+  },
   { index: 13, niceName: 'Relativity' },
   { index: 14, niceName: 'Stripe' },
   { index: 16, niceName: 'Sparta' },

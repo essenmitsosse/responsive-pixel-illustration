@@ -64,9 +64,9 @@ export const TableComic = function (init, slide, createSlider) {
     (controlerY = { r: 0, useSize: sY }),
   ]
 
-  hover.list.push(
-    { change: 1, min: 0, map: 'a', variable: controlerX },
-    { change: 1, min: 0, map: 'b', variable: controlerY },
+  hover.pushRelativeStandard(
+    { max: 1, min: 0, map: 'a', variable: controlerX },
+    { max: 1, min: 0, map: 'b', variable: controlerY },
   )
 
   // Assign global Functions to all Comic Constructors

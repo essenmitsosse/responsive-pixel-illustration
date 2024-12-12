@@ -149,12 +149,6 @@ export const setValue = <TRele>(what: Size<TRele>, value: TRele): void => {
 export const getHoverChangers = (): {
   changersCustomList: Array<unknown>
   changersRelativeCustomList: Array<unknown>
-  list: Array<{
-    change: number
-    map: string
-    min: number
-    variable: unknown
-  }>
   pushColorStandard: Array<{
     color: ColorRgb
     map: string
@@ -218,7 +212,6 @@ export const getHoverChangers = (): {
   }
 
   return {
-    list: changersRelativeStandardList,
     changersRelativeCustomList,
     changersCustomList,
     pushColorStandard: changersColorStandardList,

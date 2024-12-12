@@ -11,7 +11,9 @@ export const setValue = <TRele>(what: Size<TRele>, value: TRele): void => {
 
 const getHoverChangers = (): {
   changersCustomList: Array<(args: Record<string, number>) => void>
-  changersRelativeCustomList: Array<[Size<unknown>, (args: Record<string, number>) => void]>
+  changersRelativeCustomList: Array<
+    [Size<unknown>, (args: Record<string, number>) => void]
+  >
   pushColorStandard: Array<{
     color: ColorRgb
     map: string
@@ -25,6 +27,12 @@ const getHoverChangers = (): {
     map: string,
     variable: { r?: unknown; s: { rele?: unknown } },
   ): void
+
+  /**
+   * Takes two objects, where the keys of the second object have the names of
+   * dimensions from the first object. This dimension "r" is linked to the
+   * variables max, min and can be changed by what is defined by map
+   */
   pushRelativeStandardAutomatic<T extends string>(
     parent: Record<T, Size<unknown>>,
     info: Record<T, { map: string; max: number; min: number }>,
@@ -81,8 +89,6 @@ const getHoverChangers = (): {
 
     pushRelativeStandard,
 
-    // Takes an object, where the keys have the names of dimensions from the object which called it
-    // This dimension "r" is linked to the variables max, min and can be changed by what is defined by map
     pushRelativeStandardAutomatic<T extends string>(
       parent: Record<T, Size<unknown>>,
       info: Record<T, { map: string; max: number; min: number }>,

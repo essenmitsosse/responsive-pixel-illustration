@@ -94,3 +94,40 @@ test('interact with sliders', async ({ page }) => {
 
   await expect(page).toHaveScreenshot('slider-before.png')
 })
+
+test('interact with sliders (Graeae)', async ({ page }) => {
+  await page.goto('/?slide=0')
+
+  await page.waitForURL('/?slide=0')
+
+  const inputs = page.locator('input[type="range"]')
+  const sliderOffsetWidth0 = await inputs
+    .nth(0)
+    .evaluate((el) => el.getBoundingClientRect())
+  const sliderOffsetWidth1 = await inputs
+    .nth(1)
+    .evaluate((el) => el.getBoundingClientRect())
+  const sliderOffsetWidth2 = await inputs
+    .nth(2)
+    .evaluate((el) => el.getBoundingClientRect())
+
+  await page.mouse.click(
+    sliderOffsetWidth0.x + 10,
+    sliderOffsetWidth0.y + sliderOffsetWidth0.height / 2,
+  )
+
+  await page.mouse.click(
+    sliderOffsetWidth1.x + sliderOffsetWidth1.width - 10,
+    sliderOffsetWidth1.y + sliderOffsetWidth1.height / 2,
+  )
+
+  await page.mouse.click(
+    sliderOffsetWidth2.x + 10,
+    sliderOffsetWidth2.y + sliderOffsetWidth2.height / 2,
+  )
+
+  // eslint-disable-next-line playwright/no-wait-for-timeout -- Currently there is no better way to make sure the slider updated
+  await page.waitForTimeout(1000)
+
+  await expect(page).toHaveScreenshot('The-Three-Graeae-slider.png')
+})

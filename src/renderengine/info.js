@@ -17,10 +17,6 @@ export const PixelGraphics = function (options) {
     this.prepareVariableList(options.imageFunction.linkList)
   }
 
-  if (options.imageFunction.changeValueSetter) {
-    options.imageFunction.changeValueSetter()
-  }
-
   return function (canvas) {
     const isParent = options.queryString.parent
     const finalRenderer = new Renderer(canvas, options.info, options, that)

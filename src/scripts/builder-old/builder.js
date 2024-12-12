@@ -1,4 +1,4 @@
-import { helper } from '@/renderengine/helper.js'
+import { getRandom } from '@/renderengine/helper'
 
 import { Actor, Comic, Ground, Panel } from './comic.js'
 import { Object } from './object.js'
@@ -31,20 +31,8 @@ import { Forrest, Tree, TreeFamily } from './tree.js'
 
 export const Builder = function (init) {
   const initID = init.id ? init.id : Math.floor(Math.random() * 4294967296)
-  const random = helper.random(initID)
+  const random = getRandom(initID)
   const joinVariableList = {}
-
-  this.help = helper
-
-  this.getSmallerDim = helper.getSmallerDim
-
-  this.getBiggerDim = helper.getBiggerDim
-
-  this.mult = helper.mult
-
-  this.sub = helper.sub
-
-  this.margin = helper.margin
 
   this.IF = random.getIf
 
@@ -74,12 +62,6 @@ export const Builder = function (init) {
   this.Object.prototype.GR = this.GR
 
   this.Object.prototype.R = this.R
-
-  this.Object.prototype.mult = this.mult
-
-  this.Object.prototype.sub = this.sub
-
-  this.Object.prototype.margin = this.margin
 
   this.Object.prototype.colorGen = this.colorGen
 

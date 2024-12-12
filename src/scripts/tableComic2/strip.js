@@ -34,7 +34,7 @@ export const Strip = function (args) {
     args.stripInfo.basicPanel || new this.basic.Panel(args.stripInfo)
   const imgRatio = { ratio: 1.5 }
 
-  this.pushRelativeStandardAutomatic({
+  this.pushRelativeStandardAutomatic(this, {
     gutterX: { map: 'gutter-width', min: 0, max: 1 },
     gutterY: { map: 'gutter-height', min: 0, max: 1 },
   })
@@ -502,7 +502,7 @@ Panel.prototype.draw = function (args) {
 
   // END Camera Pan - - - - - - - - - - - - - - - - - - - - - - - -
 
-  this.pushRelativeStandardAutomatic(info.camera)
+  this.pushRelativeStandardAutomatic(this, info.camera)
 
   return {
     sX: args.sX,

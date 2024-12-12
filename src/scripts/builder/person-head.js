@@ -1,3 +1,5 @@
+import { mult, sub } from '@/renderengine/helper'
+
 import { Object } from './object.js'
 
 // HEAD --------------------------------------------------------------------------------
@@ -117,7 +119,7 @@ Head.prototype.getSizes = function (args) {
       min: { a: 0 },
     })
 
-    this.simpleAddHoverChange(0.3, 1.7, 'head-size', args.headBaseSY)
+    this.hover.pushRelativeStandard(0.3, 1.7, 'head-size', args.headBaseSY)
   }
 
   this.mouthDrawn = this.mouth.draw(args, args.backView ? -500 : 50)
@@ -162,11 +164,11 @@ Head.prototype.getSizes = function (args) {
     })
 
     args.lowerHeadSY = this.pushLinkList({
-      add: [args.headSY, this.sub(args.upperHeadSY), 1],
+      add: [args.headSY, sub(args.upperHeadSY), 1],
     })
 
     args.eyeOutX = this.pushLinkList({
-      add: [args.headSX, this.sub(args.eyeSX), this.sub(args.eyeX)],
+      add: [args.headSX, sub(args.eyeSX), sub(args.eyeX)],
     })
 
     args.lowerHeadSX = this.pushLinkList({
@@ -560,7 +562,7 @@ Eye.prototype.draw = function (args) {
                       {
                         sY: {
                           r: 1,
-                          add: [this.sub(args.lowerLids), -1],
+                          add: [sub(args.lowerLids), -1],
                         },
                       },
                       {
@@ -612,7 +614,7 @@ Eye.prototype.draw = function (args) {
             : {
                 r: 1,
                 a: 1,
-                max: [args.headSX, this.sub(args.eyeX)],
+                max: [args.headSX, sub(args.eyeX)],
               },
           sY: eyeBrowAngry
             ? [args.eyeBrowSY, { r: 0.2, useSize: args.eyeSY, max: 1 }]
@@ -706,7 +708,7 @@ Mouth.prototype.draw = function (args) {
         ? { a: 2, max: args.mouthMaxSY }
         : mouthOpen
           ? mouthHalfOpen
-            ? this.mult(0.5, args.mouthMaxSY)
+            ? mult(0.5, args.mouthMaxSY)
             : args.mouthMaxSY
           : { a: 1, max: args.mouthMaxSY },
     )
@@ -1410,7 +1412,7 @@ HeadBand.prototype.draw = function (args, z) {
     y: {
       r: 0.5,
       useSize: args.foreheadSY,
-      max: [args.foreheadSY, this.sub(args.headBandSX)],
+      max: [args.foreheadSY, sub(args.headBandSX)],
     },
   }
 }

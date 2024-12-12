@@ -1,3 +1,5 @@
+import { mult, sub } from '@/renderengine/helper'
+
 import { Object } from './object.js'
 
 // UPPER BODY --------------------------------------------------------------------------------
@@ -100,12 +102,12 @@ UpperBody.prototype.draw = function (args) {
 
     if (this.chestWide) {
       args.stomachSY = this.pushLinkList({
-        add: [args.upperBodySY, this.sub(args.chestSY)],
+        add: [args.upperBodySY, sub(args.chestSY)],
       })
     }
 
     args.trapSX = this.pushLinkList({
-      add: [args.chestSX, this.mult(args.sideView ? -2 : -1, args.neckSX)],
+      add: [args.chestSX, mult(args.sideView ? -2 : -1, args.neckSX)],
     })
 
     args.collarSX = this.pushLinkList(this.shirt ? 1 : { a: 0 })
@@ -352,7 +354,7 @@ Suspenders.prototype.draw = function (args, z) {
 
   if (args.calc) {
     args.trapSX = this.pushLinkList({
-      add: [args.upperBodySX, this.sub(args.neckSX)],
+      add: [args.upperBodySX, sub(args.neckSX)],
     })
   }
 
@@ -372,7 +374,7 @@ Suspenders.prototype.draw = function (args, z) {
         x: {
           r: this.strapX * (args.sideView ? 0.5 : 1),
           useSize: args.trapSX,
-          max: [args.trapSX, this.sub(args.strapSX)],
+          max: [args.trapSX, sub(args.strapSX)],
           min: { a: 0 },
         },
         fX: true,
@@ -388,7 +390,7 @@ Suspenders.prototype.draw = function (args, z) {
         x: {
           r: this.strapX * (args.sideView ? 0.5 : 1),
           useSize: args.trapSX,
-          max: [args.trapSX, this.sub(args.strapSX)],
+          max: [args.trapSX, sub(args.strapSX)],
         },
         list: detail,
       },
@@ -504,21 +506,17 @@ Cleavage.prototype.draw = function (args, z) {
     args.cleavageX = this.pushLinkList(
       args.sideView
         ? [
-            this.mult(0.5, args.chestSX),
-            this.mult(-0.5, args.cleavageSX),
-            this.sub(args.collarSX),
+            mult(0.5, args.chestSX),
+            mult(-0.5, args.cleavageSX),
+            sub(args.collarSX),
           ]
-        : [args.chestSX, this.mult(-1, args.cleavageSX)],
+        : [args.chestSX, mult(-1, args.cleavageSX)],
     )
 
     if (this.sleeveless) {
       if (args.sideView) {
         args.cleavageRightX = this.pushLinkList({
-          add: [
-            args.chestSX,
-            this.sub(args.cleavageX),
-            this.sub(args.cleavageSX),
-          ],
+          add: [args.chestSX, sub(args.cleavageX), sub(args.cleavageSX)],
         })
       }
 
@@ -633,7 +631,7 @@ Cape.prototype.draw = function (args) {
     sX: args.shoulderFullSX,
     sY: args.capeSY,
     fX: args.sideView,
-    x: args.sideView && this.sub(args.shoulderSX),
+    x: args.sideView && sub(args.shoulderSX),
   }
 }
 // END Cape Back draw
@@ -642,7 +640,7 @@ Cape.prototype.drawFront = function (args) {
   return {
     color: this.capeColor.get(),
     sX: args.shoulderFullSX,
-    x: args.sideView && this.sub(args.shoulderSX),
+    x: args.sideView && sub(args.shoulderSX),
     sY: args.capeFrontSY,
   }
 }
@@ -685,7 +683,7 @@ Strap.prototype.draw = function (args, z) {
           tX: true,
           clear: true,
           sY: args.strapTickness,
-          mX: this.sub(args.strapTickness),
+          mX: sub(args.strapTickness),
         },
         {
           z,
@@ -695,14 +693,14 @@ Strap.prototype.draw = function (args, z) {
             {
               fX: true,
               fY: true,
-              x: this.mult(0.5, args.strapTickness),
+              x: mult(0.5, args.strapTickness),
             },
             {
               fX: true,
               x: {
                 r: args.sideView ? 1 : 2,
                 useSize: args.personSX,
-                add: [this.mult(-0.5, args.strapTickness), -2],
+                add: [mult(-0.5, args.strapTickness), -2],
               },
             },
           ],

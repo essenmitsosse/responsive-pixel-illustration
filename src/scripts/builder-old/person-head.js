@@ -1,3 +1,5 @@
+import { mult, sub } from '@/renderengine/helper'
+
 import { Object } from './object.js'
 
 // HEAD --------------------------------------------------------------------------------
@@ -275,14 +277,14 @@ Head.prototype.draw = function (args) {
 
     this.vL['lowerHeadSY' + args.nr] = [
       'headSY' + args.nr,
-      this.sub('upperHeadSY' + args.nr),
+      sub('upperHeadSY' + args.nr),
       1,
     ]
 
     this.vL['eyeOutX' + args.nr] = [
       'headSX' + args.nr,
-      this.sub('eyeSX' + args.nr),
-      this.sub('eyeX' + args.nr),
+      sub('eyeSX' + args.nr),
+      sub('eyeX' + args.nr),
     ]
 
     this.vL['lowerHeadSX' + args.nr] = {
@@ -561,7 +563,7 @@ Eye.prototype.draw = function (args) {
                       {
                         sY: {
                           r: 1,
-                          add: [this.sub('lowerLids' + args.nr), -1],
+                          add: [sub('lowerLids' + args.nr), -1],
                         },
                       },
                       {
@@ -613,7 +615,7 @@ Eye.prototype.draw = function (args) {
             : {
                 r: 1,
                 a: 1,
-                max: ['headSX' + args.nr, this.sub('eyeX' + args.nr)],
+                max: ['headSX' + args.nr, sub('eyeX' + args.nr)],
               },
           sY: eyeBrowAngry
             ? [
@@ -718,7 +720,7 @@ Mouth.prototype.draw = function (args) {
         ? { a: 2, max: 'mouthMaxSY' + args.nr }
         : mouthOpen
           ? mouthHalfOpen
-            ? this.mult(0.5, 'mouthMaxSY' + args.nr)
+            ? mult(0.5, 'mouthMaxSY' + args.nr)
             : 'mouthMaxSY' + args.nr
           : { a: 1, max: 'mouthMaxSY' + args.nr }
 
@@ -1432,7 +1434,7 @@ HeadBand.prototype.draw = function (args, z) {
     y: {
       r: 0.5,
       useSize: 'foreheadSY' + args.nr,
-      max: ['foreheadSY' + args.nr, this.sub('headBandSX' + args.nr)],
+      max: ['foreheadSY' + args.nr, sub('headBandSX' + args.nr)],
     },
   }
 }

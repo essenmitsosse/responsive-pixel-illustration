@@ -122,7 +122,7 @@ Head.prototype.draw = function (args) {
   this.side = this.pushLinkList({ r: 0, useSize: sX })
 
   // Check if there are hover changers and add them
-  this.pushRelativeStandardAutomatic({
+  this.pushRelativeStandardAutomatic(this, {
     side,
   })
 
@@ -297,7 +297,7 @@ Eyes.prototype.draw = function (args) {
   })
 
   // Check if there are hover changers and add them
-  this.pushRelativeStandardAutomatic({
+  this.pushRelativeStandardAutomatic(this, {
     side: args.side,
     sideRestSX: args.side,
   })
@@ -453,9 +453,9 @@ Eye.prototype.draw = function EyeDraw(args) {
   const rotate = this.actor.isRotated
 
   // if( args.info ) { args.info.sY = false; }
-  this.pushRelativeStandardAutomatic(args.info)
+  this.pushRelativeStandardAutomatic(this, args.info)
 
-  // this.pushRelativeStandardAutomatic( { pupilS: { map:"test", min:0, max:2 } } )
+  // this.pushRelativeStandardAutomatic(this, { pupilS: { map:"test", min:0, max:2 } } )
 
   return {
     sX: args.sX,
@@ -675,7 +675,7 @@ Mouth.prototype.draw = function MouthDraw(args) {
   // Assign the side value to the info, so it can be added to the changers.
   args.info.curveSideSX = args.info.cutOff = args.info.sideRestSX = args.side
 
-  this.pushRelativeStandardAutomatic(args.info)
+  this.pushRelativeStandardAutomatic(this, args.info)
 
   return {
     sX: args.headSX,
@@ -775,7 +775,7 @@ export const Hair = function Hair() {
 Hair.prototype.draw = function HairDraw(args) {
   this.sY = this.pushLinkList({ r: this.sY_, useSize: args.sY })
 
-  this.pushRelativeStandardAutomatic({
+  this.pushRelativeStandardAutomatic(this, {
     sY: { map: 'actor-accessoirs', min: 0, max: this.sY_ },
   })
 
@@ -846,7 +846,7 @@ Hat.prototype.draw = function HatDraw(args) {
 
   this.topSY = this.pushLinkList({ r: 0, useSize: args.sY })
 
-  this.pushRelativeStandardAutomatic({
+  this.pushRelativeStandardAutomatic(this, {
     sY: { map: 'actor-accessoirs', min: 0, max: this.sY_ },
     topSY: { map: 'actor-accessoirs', min: 0, max: this.topSY_ },
   })

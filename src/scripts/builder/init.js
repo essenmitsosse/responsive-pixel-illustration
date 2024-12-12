@@ -272,8 +272,6 @@ function builder(init, slide, createSlider) {
     linkList: builder.linkList,
     background: builder.backgroundColor.get(),
     hover: builder.hover.hover,
-    hoverAlt: builder.hoverAlt,
-    changeValueSetter: builder.hover.ready,
   }
 }
 

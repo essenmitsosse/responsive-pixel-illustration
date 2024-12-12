@@ -2946,7 +2946,6 @@ function graien(_, __, createSlider) {
     background,
     linkList,
     hover,
-    changeValueSetter() {},
   }
 }
 

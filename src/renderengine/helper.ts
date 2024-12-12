@@ -172,7 +172,6 @@ export const getHoverChangers = (): {
     this: Record<T, Size<unknown>>,
     info: Record<T, { map?: unknown; max?: number; min?: number }>,
   ): void
-  ready(): void
 } => {
   const changersRelativeStandardList: Array<{
     change: number
@@ -332,8 +331,6 @@ export const getHoverChangers = (): {
         }
       }
     },
-
-    ready(): void {},
   }
 }
 

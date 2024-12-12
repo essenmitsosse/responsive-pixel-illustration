@@ -175,7 +175,6 @@ function letter(args, init, createSlider) {
     background: backgroundColor,
     linkList,
     hover: hover.hover,
-    changeValueSetter: hover.ready,
     recommendedPixelSize: 16,
   }
 }

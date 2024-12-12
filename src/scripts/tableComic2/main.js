@@ -411,7 +411,6 @@ export const TableComic = function (init, slide, createSlider) {
     linkList,
     background: this.paperColor,
     hover: hover.hover,
-    changeValueSetter: hover.ready,
     recommendedPixelSize: 3,
   }
 }

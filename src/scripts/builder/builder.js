@@ -78,9 +78,7 @@ export const Builder = function (init) {
 
   this.Object.prototype.pushLinkList = pushLinkList
 
-  this.Object.prototype.addHoverChange = hover.pushRelativeStandardAutomatic
-
-  this.Object.prototype.simpleAddHoverChange = hover.pushRelativeStandard
+  this.Object.prototype.hover = hover
 
   return {
     Person: this.Person,

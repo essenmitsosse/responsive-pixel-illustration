@@ -282,60 +282,60 @@ export const getHoverChangers = (): {
         }
       }
 
-      if (somethingToChange) {
-        let l0 = changersRelativeStandardList.length
+      if (!somethingToChange) {
+        return
+      }
 
-        // Change the RELATIVE VALUE of the variable, by the STANDARD map scheme
-        if (l0) {
-          while (l0--) {
-            const current = changersRelativeStandardList[l0]
+      let l0 = changersRelativeStandardList.length
 
-            if (args[current.map] !== undefined) {
-              setValueInner(
-                current.variable,
-                current.min + current.change * args[current.map],
-              )
-            }
+      // Change the RELATIVE VALUE of the variable, by the STANDARD map scheme
+      if (l0) {
+        while (l0--) {
+          const current = changersRelativeStandardList[l0]
+
+          if (args[current.map] !== undefined) {
+            setValueInner(
+              current.variable,
+              current.min + current.change * args[current.map],
+            )
           }
         }
+      }
 
-        // Change the RELATIVE VALUE of the variable, by a CUSTOM map scheme
-        let l1 = changersRelativeCustomList.length
+      // Change the RELATIVE VALUE of the variable, by a CUSTOM map scheme
+      let l1 = changersRelativeCustomList.length
 
-        if (l1) {
-          while (l1--) {
-            const current = changersRelativeCustomList[l1]
-            const currentValue = current[1](args)
+      if (l1) {
+        while (l1--) {
+          const current = changersRelativeCustomList[l1]
+          const currentValue = current[1](args)
 
-            if (currentValue !== undefined) {
-              setValueInner(current[0], currentValue)
-            }
+          if (currentValue !== undefined) {
+            setValueInner(current[0], currentValue)
           }
         }
+      }
 
-        let l2 = changersColorStandardList.length
+      let l2 = changersColorStandardList.length
 
-        // Change a COLOR, by a STANDARD map scheme
-        if (l2) {
-          while (l2--) {
-            const current = changersColorStandardList[l2]
+      // Change a COLOR, by a STANDARD map scheme
+      if (l2) {
+        while (l2--) {
+          const current = changersColorStandardList[l2]
 
-            if (args[current.map] !== undefined) {
-              changeColor(args[current.map], current)
-            }
+          if (args[current.map] !== undefined) {
+            changeColor(args[current.map], current)
           }
         }
+      }
 
-        let l3 = changersCustomList.length
+      let l3 = changersCustomList.length
 
-        // Execute a CUSTOM FUNCTION
-        if (l3) {
-          while (l3--) {
-            changersCustomList[l3](args)
-          }
+      // Execute a CUSTOM FUNCTION
+      if (l3) {
+        while (l3--) {
+          changersCustomList[l3](args)
         }
-
-        // TODO: Set Color after adding;
       }
     },
 

@@ -14,7 +14,7 @@ const getHoverChangers = (): {
   changersRelativeCustomList: Array<
     [Size<unknown>, (args: Record<string, number>) => void]
   >
-  pushColorStandard: Array<{
+  listColorStandard: Array<{
     color: ColorRgb
     map: string
     max: ColorRgb
@@ -47,7 +47,7 @@ const getHoverChangers = (): {
   const changersRelativeCustomList: Array<
     [Size<unknown>, (args: Record<string, number>) => void]
   > = []
-  const changersColorStandardList: Array<{
+  const listColorStandard: Array<{
     color: ColorRgb
     map: string
     max: ColorRgb
@@ -85,7 +85,7 @@ const getHoverChangers = (): {
   return {
     changersRelativeCustomList,
     changersCustomList,
-    pushColorStandard: changersColorStandardList,
+    listColorStandard,
 
     pushRelativeStandard,
 
@@ -171,12 +171,12 @@ const getHoverChangers = (): {
         }
       }
 
-      let l2 = changersColorStandardList.length
+      let l2 = listColorStandard.length
 
       // Change a COLOR, by a STANDARD map scheme
       if (l2) {
         while (l2--) {
-          const current = changersColorStandardList[l2]
+          const current = listColorStandard[l2]
 
           if (args[current.map] !== undefined) {
             changeColor(args[current.map], current)

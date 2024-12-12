@@ -245,7 +245,7 @@ export const Emotion = function Emotion(args) {
 
   this.heartColor = [-1, -1, -1]
 
-  this.colorList.push({
+  this.listColorStandard.push({
     map: 'a',
     min: [120, 120, 120],
     max: [200, 100, 100],

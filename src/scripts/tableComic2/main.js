@@ -95,7 +95,7 @@ export const TableComic = function (init, slide, createSlider) {
 
       current.changersCustomList = hover.changersCustomList
 
-      current.colorList = hover.pushColorStandard
+      current.listColorStandard = hover.listColorStandard
 
       current.getSizeWithRatio = comicPrototype.getSizeWithRatio
 
@@ -606,28 +606,28 @@ TableComic.prototype.getColorShades = function (color) {
   let c3
 
   if (color.max) {
-    this.colorList.push({
+    this.listColorStandard.push({
       map: color.map,
       min: color.min,
       max: color.max,
       color: (c0 = []),
     })
 
-    this.colorList.push({
+    this.listColorStandard.push({
       map: color.map,
       min: multiplyColor(color.min, 0.9),
       max: multiplyColor(color.max, 0.9),
       color: (c1 = []),
     })
 
-    this.colorList.push({
+    this.listColorStandard.push({
       map: color.map,
       min: multiplyColor(color.min, 0.7),
       max: multiplyColor(color.max, 0.7),
       color: (c2 = []),
     })
 
-    this.colorList.push({
+    this.listColorStandard.push({
       map: color.map,
       min: multiplyColor(color.min, 0.5),
       max: multiplyColor(color.max, 0.5),

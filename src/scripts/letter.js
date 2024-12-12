@@ -2,7 +2,6 @@ import { helper } from '@/renderengine/helper'
 
 function letter(args, init, createSlider) {
   const hover = helper.getHoverChangers()
-  const pushChanger = hover.pushRelativeStandard
   const backgroundColor = [200, 200, 240]
   const linkList = []
   const linkListPush = function (obj) {
@@ -158,7 +157,7 @@ function letter(args, init, createSlider) {
       }),
   ]
 
-  pushChanger(0, 1, 'letterS', letterSquare)
+  hover.pushRelativeStandard(0, 1, 'letterS', letterSquare)
 
   if (createSlider) {
     createSlider.slider({

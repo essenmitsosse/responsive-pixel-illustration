@@ -81,15 +81,6 @@ export const sub = <TUse>(use: TUse): { r: number; useSize: TUse } => ({
   useSize: use,
 })
 
-export const margin = <TFull, TMargin, TMin>(
-  full: TFull,
-  margin: TMargin,
-  min: TMin,
-): {
-  add: [TFull, { r: number; useSize: TMargin }]
-  min: TMin
-} => ({ add: [full, { r: -2, useSize: margin }], min })
-
 export const darken = (darken: ColorRgb, strength: number) => {
   let l = darken.length
 
@@ -137,46 +128,6 @@ export const lighten = (lighten: ColorRgb, strength: number) => {
     return newColor
   }
 }
-
-export const addC =
-  (add: ColorRgb) =>
-  (color: ColorRgb): ColorRgb => {
-    let l = color.length
-
-    const newColor: ColorRgb = [0, 0, 0]
-
-    let thisC: number
-
-    while (l--) {
-      newColor[l] =
-        (thisC = color[l] + add[l]) > 255 ? 255 : thisC < 0 ? 0 : thisC
-    }
-
-    return newColor
-  }
-
-export const lessSat = (color: ColorRgb, s: number): ColorRgb => {
-  const total = ((color[0] + color[1] + color[2]) * (1 - s)) / 3
-
-  return [color[0] * s + total, color[1] * s + total, color[2] * s + total]
-}
-
-export const getBrightness = (color: ColorRgb): number => {
-  let l = color.length
-  let b = 0
-
-  while (l--) {
-    b += color[l]
-  }
-
-  return b / 3
-}
-
-export const colorAdd = (rgb: ColorRgb, add: number): ColorRgb => [
-  rgb[0] + add,
-  rgb[1] + add,
-  rgb[2] + add,
-]
 
 export const multiplyColor = (rgb: ColorRgb, factor: number): ColorRgb => [
   rgb[0] * factor,

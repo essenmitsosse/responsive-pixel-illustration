@@ -142,11 +142,7 @@ export const getLinkListPusher = <T>(linkList: Array<T>): ((link: T) => T) =>
     return link
   }
 
-export const setValue = <T>(what: Size<T>, value: T): void => {
-  what.r = value
-}
-
-export const setValueNew = <TRele>(what: Size<TRele>, value: TRele): void => {
+export const setValue = <TRele>(what: Size<TRele>, value: TRele): void => {
   what.s.rele = value
 }
 
@@ -292,7 +288,7 @@ export const getHoverChangers = (): {
           const current = changersRelativeStandardList[l0]
 
           if (args[current.map] !== undefined) {
-            setValueNew(
+            setValue(
               current.variable,
               current.min + current.change * args[current.map],
             )
@@ -309,7 +305,7 @@ export const getHoverChangers = (): {
           const currentValue = current[1](args)
 
           if (currentValue !== undefined) {
-            setValueNew(current[0], currentValue)
+            setValue(current[0], currentValue)
           }
         }
       }

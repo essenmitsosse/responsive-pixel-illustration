@@ -358,8 +358,11 @@ function graien(_, __, createSlider) {
   ])
   const graie3EarSize = linkListPush(mult(0.3, graie3FaceHeight))
   const graie3EarPos = linkListPush(mult(0.1, graie3FaceHeight))
+
+  let { setValue } = helper
+
   const graienValues = function (what, faktor, value) {
-    helper.setValue(what, faktor * value * 2 + value * 0.2)
+    setValue(what, faktor * value * 2 + value * 0.2)
   }
   const hover = function (args) {
     if (args.a) {
@@ -2947,7 +2950,7 @@ function graien(_, __, createSlider) {
     linkList,
     hover,
     changeValueSetter() {
-      helper.setValue = helper.setValueNew
+      setValue = helper.setValueNew
     },
   }
 }

@@ -178,8 +178,6 @@ export const getHoverChangers = (): {
   ): void
   ready(): void
 } => {
-  let setValueInner = setValue
-
   const changersRelativeStandardList: Array<{
     change: number
     map: string
@@ -294,7 +292,7 @@ export const getHoverChangers = (): {
           const current = changersRelativeStandardList[l0]
 
           if (args[current.map] !== undefined) {
-            setValueInner(
+            setValueNew(
               current.variable,
               current.min + current.change * args[current.map],
             )
@@ -311,7 +309,7 @@ export const getHoverChangers = (): {
           const currentValue = current[1](args)
 
           if (currentValue !== undefined) {
-            setValueInner(current[0], currentValue)
+            setValueNew(current[0], currentValue)
           }
         }
       }
@@ -339,9 +337,7 @@ export const getHoverChangers = (): {
       }
     },
 
-    ready(): void {
-      setValueInner = setValueNew
-    },
+    ready(): void {},
   }
 }
 

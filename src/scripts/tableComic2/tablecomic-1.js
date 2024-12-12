@@ -3,7 +3,7 @@ export const getFace = function () {
   const backgroundColor = [0, 0, 0]
   const that = this
   const getPanel = function () {
-    const actor = new this.basic.Actor({
+    const actor = new that.basic.Actor({
       color: [that.rInt(0, 255), that.rInt(0, 255), that.rInt(0, 255)],
     })
     const pupilS = { map: 'c', min: 0.5, max: 0.8 }
@@ -16,10 +16,10 @@ export const getFace = function () {
       },
       list: [
         {
-          what: new this.basic.Stage(),
+          what: new that.basic.Stage(),
         },
         {
-          what: new this.basic.Head({
+          what: new that.basic.Head({
             actor,
             baseSX_: 1,
             noHat: true,
@@ -59,8 +59,8 @@ export const getFace = function () {
   return {
     paperColor: backgroundColor,
     ratio: 1,
-    basicPanel: this.panel,
-    background: new this.basic.Background({
+    basicPanel: that.panel,
+    background: new that.basic.Background({
       blank: true,
       backgroundColor,
     }),

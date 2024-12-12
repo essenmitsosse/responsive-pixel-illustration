@@ -1,7 +1,7 @@
-import { helper } from '@/renderengine/helper'
+import { getHoverChangers } from '@/renderengine/helper'
 
 function letter(args, init, createSlider) {
-  const hover = helper.getHoverChangers()
+  const hover = getHoverChangers()
   const backgroundColor = [200, 200, 240]
   const linkList = []
   const linkListPush = function (obj) {

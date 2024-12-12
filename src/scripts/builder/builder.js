@@ -1,4 +1,4 @@
-import { getRandom, helper } from '@/renderengine/helper'
+import { getHoverChangers, getRandom } from '@/renderengine/helper'
 
 import { Object } from './object.js'
 import { Arm, Shield, ShoulderPad, Sword, Tool } from './person-arm.js'
@@ -32,7 +32,7 @@ export const Builder = function (init) {
   const initID = init.id ? init.id : Math.floor(Math.random() * 4294967296)
   const random = getRandom(initID)
   const linkList = []
-  const hover = helper.getHoverChangers()
+  const hover = getHoverChangers()
   const pushLinkList = function (obj) {
     linkList.push(obj)
 

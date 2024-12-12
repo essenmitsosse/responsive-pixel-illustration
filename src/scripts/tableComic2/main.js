@@ -1,7 +1,7 @@
 import {
+  getHoverChangers,
   getLinkListPusher,
   getRandom,
-  helper,
   multiplyColor,
 } from '@/renderengine/helper'
 
@@ -42,7 +42,7 @@ export const TableComic = function (init, slide, createSlider) {
   const rInt = random.getRandom
   const rIf = random.getIf
   const debug = init.debug || slide.debug
-  const hover = helper.getHoverChangers()
+  const hover = getHoverChangers()
   const faceVersion = init.faceVersion || slide.faceVersion
   const linkList = [
     (sX = { main: true }),

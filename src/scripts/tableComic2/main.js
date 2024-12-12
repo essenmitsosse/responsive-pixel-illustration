@@ -1,9 +1,9 @@
 import {
-  getHoverChangers,
   getLinkListPusher,
   getRandom,
   multiplyColor,
 } from '@/renderengine/helper'
+import getHoverChangers from '@/renderengine/helperHover'
 
 import { Chair, Emotion, Glass, Table } from './accessoir.js'
 import { Arm } from './actor-arm.js'

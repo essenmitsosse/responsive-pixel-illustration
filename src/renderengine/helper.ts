@@ -142,15 +142,15 @@ export const getLinkListPusher = <T>(linkList: Array<T>): ((link: T) => T) =>
     return link
   }
 
+export const setValue = <T>(what: Size<T>, value: T): void => {
+  what.r = value
+}
+
+export const setValueNew = <TRele>(what: Size<TRele>, value: TRele): void => {
+  what.s.rele = value
+}
+
 export const helper = {
-  setValue<T>(what: Size<T>, value: T): void {
-    what.r = value
-  },
-
-  setValueNew<TRele>(what: Size<TRele>, value: TRele): void {
-    what.s.rele = value
-  },
-
   getHoverChangers(): {
     changersCustomList: Array<unknown>
     changersRelativeCustomList: Array<unknown>
@@ -179,7 +179,8 @@ export const helper = {
     ): void
     ready(): void
   } {
-    const that = this
+    let setValueInner = setValue
+
     const changersRelativeStandardList: Array<{
       change: number
       map: string
@@ -291,7 +292,7 @@ export const helper = {
               const current = changersRelativeStandardList[l0]
 
               if (args[current.map] !== undefined) {
-                that.setValue(
+                setValueInner(
                   current.variable,
                   current.min + current.change * args[current.map],
                 )
@@ -308,7 +309,7 @@ export const helper = {
               const currentValue = current[1](args)
 
               if (currentValue !== undefined) {
-                that.setValue(current[0], currentValue)
+                setValueInner(current[0], currentValue)
               }
             }
           }
@@ -340,7 +341,7 @@ export const helper = {
       },
 
       ready(): void {
-        that.setValue = that.setValueNew
+        setValueInner = setValueNew
       },
     }
   },

@@ -2,8 +2,9 @@ import {
   darken,
   getBiggerDim,
   getSmallerDim,
-  helper,
   mult,
+  setValueNew,
+  setValue as setValueStart,
   sub,
 } from '@/renderengine/helper'
 
@@ -359,7 +360,7 @@ function graien(_, __, createSlider) {
   const graie3EarSize = linkListPush(mult(0.3, graie3FaceHeight))
   const graie3EarPos = linkListPush(mult(0.1, graie3FaceHeight))
 
-  let { setValue } = helper
+  let { setValue } = setValueStart
 
   const graienValues = function (what, faktor, value) {
     setValue(what, faktor * value * 2 + value * 0.2)
@@ -2950,7 +2951,7 @@ function graien(_, __, createSlider) {
     linkList,
     hover,
     changeValueSetter() {
-      setValue = helper.setValueNew
+      setValue = setValueNew
     },
   }
 }

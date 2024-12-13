@@ -141,21 +141,26 @@ BasicBody.prototype.draw = function (args, right) {
       useSize: args.basicSY,
     })
 
-    // this.hoverChangers.pushRelativeStandard(
-    // 	0.1,
-    // 	1,
-    // 	1,
-    // 	args.personSY
-    // );
+    // this.hoverChangerStandard.push({
+    // 	min: 0.1,
+    // 	max: 1,
+    // 	map: 	1,
+    // 	variable: 	args.personSY
+    // });
 
-    this.hoverChangers.pushRelativeStandard(
-      0.3,
-      1.7,
-      'body-width',
-      args.basicSX,
-    )
+    this.hoverChangerStandard.push({
+      min: 0.3,
+      max: 1.7,
+      map: 'body-width',
+      variable: args.basicSX,
+    })
 
-    this.hoverChangers.pushRelativeStandard(0.1, 1, 'body-height', args.basicSY)
+    this.hoverChangerStandard.push({
+      min: 0.1,
+      max: 1,
+      map: 'body-height',
+      variable: args.basicSY,
+    })
   }
 
   this.head.getSizes(args)
@@ -191,12 +196,12 @@ BasicBody.prototype.draw = function (args, right) {
       add: [args.fullBodySY, args.headMinSY, args.neckSY],
     })
 
-    this.hoverChangers.pushRelativeStandard(
-      0.1,
-      1,
-      'leg-length',
-      args.lowerBodySY,
-    )
+    this.hoverChangerStandard.push({
+      min: 0.1,
+      max: 1,
+      map: 'leg-length',
+      variable: args.lowerBodySY,
+    })
   }
 
   return [

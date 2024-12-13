@@ -86,7 +86,7 @@ Legs.prototype.draw = function LegsDraw(args) {
 
   this.shoeSY = this.pushLinkList({ r: 1, useSize: this.lowerLegSY, min: 1 })
 
-  this.hoverChangers.pushRelativeStandardAutomatic(this, {
+  this.hoverChangerStandard.pushAutomatic(this, {
     side: args.info.body && args.info.body.side,
     lowerLegSY: bendLeg && { map: 'props', min: 1, max: 0.5 },
     beltSY: this.belt && {

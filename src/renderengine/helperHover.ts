@@ -66,6 +66,104 @@ export const getHoverChangerRelative = (): {
   }
 }
 
+export const getHoverChangerStandard = (): {
+  doHover: DoHover
+  push: (args: {
+    map: string
+    max: number
+    min: number
+    variable: { r?: unknown; s: { rele?: unknown } }
+  }) => void
+
+  /**
+   * Takes two objects, where the keys of the second object have the names of
+   * dimensions from the first object. This dimension "r" is linked to the
+   * variables max, min and can be changed by what is defined by map
+   */
+  pushAutomatic: <T extends string>(
+    parent: Record<T, Size<unknown>>,
+    info: Record<T, { map: string; max: number; min: number }>,
+  ) => void
+} => {
+  const listChangerStandard: Array<{
+    change: number
+    map: string
+    min: number
+    variable: { r?: unknown; s: { rele?: unknown } }
+  }> = []
+  const push = (args: {
+    map: string
+    max: number
+    min: number
+    variable: { r?: unknown; s: { rele?: unknown } }
+  }): void => {
+    listChangerStandard.push({
+      change: args.max - args.min,
+      min: args.min,
+      map: args.map,
+      variable: args.variable,
+    })
+  }
+
+  return {
+    push,
+    pushAutomatic: <T extends string>(
+      parent: Record<T, Size<unknown>>,
+      info: Record<T, { map: string; max: number; min: number }>,
+    ): void => {
+      if (info) {
+        getObjectKeys(info).forEach((key) => {
+          let currentSize:
+            | number
+            | {
+                r?: unknown
+                s: { rele?: unknown }
+              }
+            | undefined = parent[key]
+
+          if (currentSize) {
+            // Assignment
+            const currentInfo = info[key]
+
+            if (getIsUnknownObject(currentInfo)) {
+              if (currentInfo.map !== undefined) {
+                push({
+                  min: currentInfo.min,
+                  max: currentInfo.max,
+                  map: currentInfo.map,
+                  variable: currentSize,
+                })
+              } else {
+                // Just assign the max or min value
+                currentSize = currentInfo.max || currentInfo.min
+              }
+            } else {
+              // Just assign the value
+              currentSize.r = currentInfo
+            }
+          }
+        })
+      }
+    },
+    doHover(args: Record<string, number>): void {
+      let lengthRemaining = listChangerStandard.length
+
+      if (lengthRemaining) {
+        while (lengthRemaining--) {
+          const current = listChangerStandard[lengthRemaining]
+
+          if (args[current.map] !== undefined) {
+            setValue(
+              current.variable,
+              current.min + current.change * args[current.map],
+            )
+          }
+        }
+      }
+    },
+  }
+}
+
 const getHoverChangers = (): {
   listColorStandard: Array<{
     color: ColorRgb
@@ -74,48 +172,13 @@ const getHoverChangers = (): {
     min: ColorRgb
   }>
   doHover(args: Record<string, number>): void
-  pushRelativeStandard(
-    min: number,
-    max: number,
-    map: string,
-    variable: { r?: unknown; s: { rele?: unknown } },
-  ): void
-
-  /**
-   * Takes two objects, where the keys of the second object have the names of
-   * dimensions from the first object. This dimension "r" is linked to the
-   * variables max, min and can be changed by what is defined by map
-   */
-  pushRelativeStandardAutomatic<T extends string>(
-    parent: Record<T, Size<unknown>>,
-    info: Record<T, { map: string; max: number; min: number }>,
-  ): void
 } => {
-  const changersRelativeStandardList: Array<{
-    change: number
-    map: string
-    min: number
-    variable: { r?: unknown; s: { rele?: unknown } }
-  }> = []
   const listColorStandard: Array<{
     color: ColorRgb
     map: string
     max: ColorRgb
     min: ColorRgb
   }> = []
-  const pushRelativeStandard = (
-    min: number,
-    max: number,
-    map: string,
-    variable: { r?: unknown; s: { rele?: unknown } },
-  ): void => {
-    changersRelativeStandardList.push({
-      change: max - min,
-      min,
-      map,
-      variable,
-    })
-  }
   const changeColor = (
     value: number,
     map: { color: ColorRgb; max: ColorRgb; min: ColorRgb },
@@ -134,46 +197,6 @@ const getHoverChangers = (): {
   return {
     listColorStandard,
 
-    pushRelativeStandard,
-
-    pushRelativeStandardAutomatic<T extends string>(
-      parent: Record<T, Size<unknown>>,
-      info: Record<T, { map: string; max: number; min: number }>,
-    ): void {
-      if (info) {
-        getObjectKeys(info).forEach((key) => {
-          let currentSize:
-            | number
-            | {
-                r?: unknown
-                s: { rele?: unknown }
-              }
-            | undefined = parent[key]
-
-          if (currentSize) {
-            // Assignment
-            const currentInfo = info[key]
-
-            if (getIsUnknownObject(currentInfo)) {
-              if (currentInfo.map !== undefined) {
-                pushRelativeStandard(
-                  currentInfo.min,
-                  currentInfo.max,
-                  currentInfo.map,
-                  currentSize,
-                )
-              } else {
-                // Just assign the max or min value
-                currentSize = currentInfo.max || currentInfo.min
-              }
-            } else {
-              // Just assign the value
-              currentSize.r = currentInfo
-            }
-          }
-        })
-      }
-    },
     doHover(args: Record<string, number>): void {
       let somethingToChange = false
 
@@ -186,22 +209,6 @@ const getHoverChangers = (): {
 
       if (!somethingToChange) {
         return
-      }
-
-      let l0 = changersRelativeStandardList.length
-
-      // Change the RELATIVE VALUE of the variable, by the STANDARD map scheme
-      if (l0) {
-        while (l0--) {
-          const current = changersRelativeStandardList[l0]
-
-          if (args[current.map] !== undefined) {
-            setValue(
-              current.variable,
-              current.min + current.change * args[current.map],
-            )
-          }
-        }
       }
 
       let l2 = listColorStandard.length

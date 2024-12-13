@@ -70,7 +70,7 @@ Actor.prototype.getSize = function (args) {
     add: [this.sY, { r: -1, useSize: this.headSY }],
   })
 
-  this.hoverChangers.pushRelativeStandardAutomatic(this, {
+  this.hoverChangerStandard.pushAutomatic(this, {
     maxSize: this.sizeMap,
     headSY: this.headScaling,
   })
@@ -228,7 +228,7 @@ Actor.prototype.draw = function (args) {
 
   this.headSX = this.pushLinkList({ r: 1, useSize: this.sX })
 
-  this.hoverChangers.pushRelativeStandardAutomatic(this, {
+  this.hoverChangerStandard.pushAutomatic(this, {
     headSX: this.headScaling,
   })
 
@@ -247,7 +247,7 @@ Actor.prototype.draw = function (args) {
 
   this.baseShift = this.pushLinkList({ r: 1, useSize: this.baseShift })
 
-  this.hoverChangers.pushRelativeStandardAutomatic(this, {
+  this.hoverChangerStandard.pushAutomatic(this, {
     baseShift: { map: 'props', min: 0, max: 1 },
   })
 
@@ -261,7 +261,7 @@ Actor.prototype.draw = function (args) {
   // this.torsoLean = this.pushLinkList( { r: 0.66, useSize: this.lean } );
 
   // Check if there are hover changers and add them
-  this.hoverChangers.pushRelativeStandardAutomatic(this, info.body)
+  this.hoverChangerStandard.pushAutomatic(this, info.body)
 
   this.armRightInfo = info.armRight
 
@@ -424,7 +424,7 @@ Torso.prototype.draw = function TorsoDraw(args) {
 
     this.leanWay = this.pushLinkList({ r: 0.5, useSize: args.lean })
 
-    this.hoverChangers.pushRelativeStandardAutomatic(this, {
+    this.hoverChangerStandard.pushAutomatic(this, {
       zipperY: { map: 'actor-accessoirs', min: 0, max: this.zipperSY },
       leanWay: { map: 'actor-accessoirs', min: this.zipperSY, max: 0 },
     })

@@ -1,7 +1,7 @@
-import getHoverChangers from '@/renderengine/helperHover'
+import { getHoverChangerStandard } from '@/renderengine/helperHover'
 
 function letter(args, init, createSlider) {
-  const hoverChangers = getHoverChangers()
+  const hoverChangerStandard = getHoverChangerStandard()
   const backgroundColor = [200, 200, 240]
   const linkList = []
   const linkListPush = function (obj) {
@@ -157,7 +157,12 @@ function letter(args, init, createSlider) {
       }),
   ]
 
-  hoverChangers.pushRelativeStandard(0, 1, 'letterS', letterSquare)
+  hoverChangerStandard.push({
+    min: 0,
+    max: 1,
+    map: 'letterS',
+    variable: letterSquare,
+  })
 
   if (createSlider) {
     createSlider.slider({
@@ -174,7 +179,7 @@ function letter(args, init, createSlider) {
     renderList,
     background: backgroundColor,
     linkList,
-    listDoHover: [hoverChangers.doHover],
+    listDoHover: [hoverChangerStandard.doHover],
     recommendedPixelSize: 16,
   }
 }

@@ -686,13 +686,13 @@ InitPixel.prototype.showcaseSlides = [
   {
     name: 'persons_lessrandom',
     niceName: 'Trees',
-    import: () => import('@/scripts/builder/init.js'),
+    import: () => import('@/scripts/persons-and-trees/init.js'),
     hasRandom: true,
   },
   {
     name: 'persons_lessrandom',
     niceName: 'Persons',
-    import: () => import('@/scripts/builder/init.js'),
+    import: () => import('@/scripts/persons-and-trees/init.js'),
     sliders: true,
     showPerson: true,
     hasRandom: true,

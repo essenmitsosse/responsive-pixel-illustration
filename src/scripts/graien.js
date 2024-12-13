@@ -2945,7 +2945,7 @@ function graien(_, __, createSlider) {
     renderList,
     background,
     linkList,
-    hover,
+    listDoHover: [hover],
   }
 }
 

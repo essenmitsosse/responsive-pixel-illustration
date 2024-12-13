@@ -118,8 +118,8 @@ PixelGraphics.prototype.getRedraw = function redraw(options, resize) {
 
     options.init.addToQueryString(args, true)
 
-    if (options.imageFunction.hover) {
-      options.imageFunction.hover(args)
+    if (options.imageFunction.listDoHover) {
+      options.imageFunction.listDoHover.forEach((hover) => hover(args))
     }
 
     resize(args.width, args.height)

@@ -262,7 +262,7 @@ Arm.prototype.getMoveableTarget = function (name, targetFunc, info) {
       max: 1,
     }
 
-    this.hover.pushRelativeStandardAutomatic(
+    this.hoverChangers.pushRelativeStandardAutomatic(
       this,
       pushRelativeStandardAutomaticObject,
     )

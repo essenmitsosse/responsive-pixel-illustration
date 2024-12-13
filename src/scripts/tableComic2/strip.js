@@ -323,15 +323,9 @@ Panel.prototype.draw = function (args) {
   }
 
   // Camera Zoom
-  this.hoverChangers.listChangerRelative.push([
-    this.zoomDiffSX,
-    this.cameraZoomFunction,
-  ])
+  this.hoverChangerRelative.push(this.zoomDiffSX, this.cameraZoomFunction)
 
-  this.hoverChangers.listChangerRelative.push([
-    this.zoomDiffSY,
-    this.cameraZoomFunction,
-  ])
+  this.hoverChangerRelative.push(this.zoomDiffSY, this.cameraZoomFunction)
   // END camera zoom  - - - - - - - - - - - - - - - - -
 
   // START render stage  - - - - - - - - - - - - - - - - -
@@ -439,15 +433,9 @@ Panel.prototype.draw = function (args) {
     }
 
     // Camera Pan
-    this.hoverChangers.listChangerRelative.push([
-      this.actorFocusX,
-      this.cameraPanFunction,
-    ])
+    this.hoverChangerRelative.push(this.actorFocusX, this.cameraPanFunction)
 
-    this.hoverChangers.listChangerRelative.push([
-      this.actorFocusY,
-      this.cameraPanFunction,
-    ])
+    this.hoverChangerRelative.push(this.actorFocusY, this.cameraPanFunction)
   }
 
   // pan relative from the stage to the panel size

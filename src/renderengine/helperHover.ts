@@ -9,9 +9,11 @@ export const setValue = <TRele>(what: Size<TRele>, value: TRele): void => {
   what.s.rele = value
 }
 
+type DoHover = (args: Record<string, number>) => void
+
 export const getHoverChangerCustom = (): {
+  doHover: DoHover
   push: (value: (args: Record<string, number>) => void) => void
-  doHover(args: Record<string, number>): void
 } => {
   const listChangerCustom: Array<(args: Record<string, number>) => void> = []
 
@@ -29,10 +31,42 @@ export const getHoverChangerCustom = (): {
   }
 }
 
+export const getHoverChangerRelative = (): {
+  doHover: DoHover
+  push: (
+    size: Size<unknown>,
+    value: (args: Record<string, number>) => number,
+  ) => void
+} => {
+  const listChangerRelative: Array<
+    [Size<unknown>, (args: Record<string, number>) => number]
+  > = []
+
+  return {
+    push(
+      size: Size<unknown>,
+      value: (args: Record<string, number>) => number,
+    ): void {
+      listChangerRelative.push([size, value])
+    },
+    doHover(args: Record<string, number>): void {
+      let lengthRemaining = listChangerRelative.length
+
+      if (lengthRemaining) {
+        while (lengthRemaining--) {
+          const current = listChangerRelative[lengthRemaining]
+          const currentValue = current[1](args)
+
+          if (currentValue !== undefined) {
+            setValue(current[0], currentValue)
+          }
+        }
+      }
+    },
+  }
+}
+
 const getHoverChangers = (): {
-  listChangerRelative: Array<
-    [Size<unknown>, (args: Record<string, number>) => void]
-  >
   listColorStandard: Array<{
     color: ColorRgb
     map: string
@@ -63,9 +97,6 @@ const getHoverChangers = (): {
     min: number
     variable: { r?: unknown; s: { rele?: unknown } }
   }> = []
-  const listChangerRelative: Array<
-    [Size<unknown>, (args: Record<string, number>) => void]
-  > = []
   const listColorStandard: Array<{
     color: ColorRgb
     map: string
@@ -101,7 +132,6 @@ const getHoverChangers = (): {
   }
 
   return {
-    listChangerRelative,
     listColorStandard,
 
     pushRelativeStandard,
@@ -170,20 +200,6 @@ const getHoverChangers = (): {
               current.variable,
               current.min + current.change * args[current.map],
             )
-          }
-        }
-      }
-
-      // Change the RELATIVE VALUE of the variable, by a CUSTOM map scheme
-      let l1 = listChangerRelative.length
-
-      if (l1) {
-        while (l1--) {
-          const current = listChangerRelative[l1]
-          const currentValue = current[1](args)
-
-          if (currentValue !== undefined) {
-            setValue(current[0], currentValue)
           }
         }
       }

@@ -5,6 +5,7 @@ import {
 } from '@/renderengine/helper'
 import getHoverChangers, {
   getHoverChangerCustom,
+  getHoverChangerRelative,
 } from '@/renderengine/helperHover'
 
 import { Chair, Emotion, Glass, Table } from './accessoir.js'
@@ -46,6 +47,7 @@ export const TableComic = function (init, slide, createSlider) {
   const debug = init.debug || slide.debug
   const hoverChangers = getHoverChangers()
   const hoverChangerCustom = getHoverChangerCustom()
+  const hoverChangerRelative = getHoverChangerRelative()
   const faceVersion = init.faceVersion || slide.faceVersion
   const linkList = [
     (sX = { main: true }),
@@ -92,6 +94,8 @@ export const TableComic = function (init, slide, createSlider) {
       current.hoverChangers = hoverChangers
 
       current.hoverChangerCustom = hoverChangerCustom
+
+      current.hoverChangerRelative = hoverChangerRelative
 
       current.getSizeWithRatio = comicPrototype.getSizeWithRatio
 
@@ -406,7 +410,11 @@ export const TableComic = function (init, slide, createSlider) {
     renderList,
     linkList,
     background: this.paperColor,
-    listDoHover: [hoverChangers.doHover, hoverChangerCustom.doHover],
+    listDoHover: [
+      hoverChangers.doHover,
+      hoverChangerCustom.doHover,
+      hoverChangerRelative.doHover,
+    ],
     recommendedPixelSize: 3,
   }
 }

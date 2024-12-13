@@ -106,36 +106,27 @@ Actor.prototype.getSizeFromHead = function (args) {
 
     change = mapper.max - min
 
-    this.hoverChangers.listChangerRelative.push([
-      this.sX,
-      function (args) {
-        if (args[map] !== undefined) {
-          return this.ratio / (this.headSY_ * (args[map] * change + min))
-        }
-      },
-    ])
+    this.hoverChangerRelative.push(this.sX, function (args) {
+      if (args[map] !== undefined) {
+        return this.ratio / (this.headSY_ * (args[map] * change + min))
+      }
+    })
 
-    this.hoverChangers.listChangerRelative.push([
-      this.headSY,
-      function (args) {
-        if (args[map] !== undefined) {
-          return (this.headSY_ * (args[map] * change + min)) / this.ratio
-        }
-      },
-    ])
+    this.hoverChangerRelative.push(this.headSY, function (args) {
+      if (args[map] !== undefined) {
+        return (this.headSY_ * (args[map] * change + min)) / this.ratio
+      }
+    })
 
-    this.hoverChangers.listChangerRelative.push([
-      this.bodySY,
-      function (args) {
-        let headSY
+    this.hoverChangerRelative.push(this.bodySY, function (args) {
+      let headSY
 
-        if (args[map] !== undefined) {
-          headSY = this.headSY_ * (args[map] * change + min)
+      if (args[map] !== undefined) {
+        headSY = this.headSY_ * (args[map] * change + min)
 
-          return (1 - headSY) / headSY
-        }
-      },
-    ])
+        return (1 - headSY) / headSY
+      }
+    })
   }
 }
 

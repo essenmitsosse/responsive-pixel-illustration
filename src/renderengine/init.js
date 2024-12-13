@@ -700,7 +700,7 @@ InitPixel.prototype.showcaseSlides = [
   {
     name: 'panels',
     niceName: 'Panels',
-    import: () => import('@/scripts/builder-old/init-panels.js'),
+    import: () => import('@/scripts/panels/init-panels.js'),
     unchangeable: true,
     sliders: true,
     hasRandom: true,

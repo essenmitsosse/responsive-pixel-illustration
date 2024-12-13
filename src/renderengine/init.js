@@ -170,8 +170,6 @@ InitPixel.prototype.getCallback = function (
         that.createSlider,
       )
 
-      that.hover = imageFunction.hover
-
       renderObject = {
         showInfos: false,
         slide: currentSlide,

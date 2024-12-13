@@ -99,7 +99,7 @@ export const getHoverChangerStandard = (): {
     push,
     pushAutomatic: <T extends string>(
       parent: Record<T, Size<unknown>>,
-      info: Record<T, { map: string; max: number; min: number }>,
+      info?: Record<T, { map: string; max: number; min: number }>,
     ): void => {
       if (!info) {
         return

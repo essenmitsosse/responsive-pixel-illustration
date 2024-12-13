@@ -106,7 +106,7 @@ Actor.prototype.getSizeFromHead = function (args) {
 
     change = mapper.max - min
 
-    this.hover.changersRelativeCustomList.push([
+    this.hover.listChangerRelative.push([
       this.sX,
       function (args) {
         if (args[map] !== undefined) {
@@ -115,7 +115,7 @@ Actor.prototype.getSizeFromHead = function (args) {
       },
     ])
 
-    this.hover.changersRelativeCustomList.push([
+    this.hover.listChangerRelative.push([
       this.headSY,
       function (args) {
         if (args[map] !== undefined) {
@@ -124,7 +124,7 @@ Actor.prototype.getSizeFromHead = function (args) {
       },
     ])
 
-    this.hover.changersRelativeCustomList.push([
+    this.hover.listChangerRelative.push([
       this.bodySY,
       function (args) {
         let headSY

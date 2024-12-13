@@ -323,12 +323,12 @@ Panel.prototype.draw = function (args) {
   }
 
   // Camera Zoom
-  this.hover.changersRelativeCustomList.push([
+  this.hover.listChangerRelative.push([
     this.zoomDiffSX,
     this.cameraZoomFunction,
   ])
 
-  this.hover.changersRelativeCustomList.push([
+  this.hover.listChangerRelative.push([
     this.zoomDiffSY,
     this.cameraZoomFunction,
   ])
@@ -439,12 +439,12 @@ Panel.prototype.draw = function (args) {
     }
 
     // Camera Pan
-    this.hover.changersRelativeCustomList.push([
+    this.hover.listChangerRelative.push([
       this.actorFocusX,
       this.cameraPanFunction,
     ])
 
-    this.hover.changersRelativeCustomList.push([
+    this.hover.listChangerRelative.push([
       this.actorFocusY,
       this.cameraPanFunction,
     ])

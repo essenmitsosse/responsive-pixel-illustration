@@ -11,7 +11,7 @@ export const setValue = <TRele>(what: Size<TRele>, value: TRele): void => {
 
 const getHoverChangers = (): {
   changersCustomList: Array<(args: Record<string, number>) => void>
-  changersRelativeCustomList: Array<
+  listChangerRelative: Array<
     [Size<unknown>, (args: Record<string, number>) => void]
   >
   listColorStandard: Array<{
@@ -44,7 +44,7 @@ const getHoverChangers = (): {
     min: number
     variable: { r?: unknown; s: { rele?: unknown } }
   }> = []
-  const changersRelativeCustomList: Array<
+  const listChangerRelative: Array<
     [Size<unknown>, (args: Record<string, number>) => void]
   > = []
   const listColorStandard: Array<{
@@ -83,7 +83,7 @@ const getHoverChangers = (): {
   }
 
   return {
-    changersRelativeCustomList,
+    listChangerRelative,
     changersCustomList,
     listColorStandard,
 
@@ -158,11 +158,11 @@ const getHoverChangers = (): {
       }
 
       // Change the RELATIVE VALUE of the variable, by a CUSTOM map scheme
-      let l1 = changersRelativeCustomList.length
+      let l1 = listChangerRelative.length
 
       if (l1) {
         while (l1--) {
-          const current = changersRelativeCustomList[l1]
+          const current = listChangerRelative[l1]
           const currentValue = current[1](args)
 
           if (currentValue !== undefined) {

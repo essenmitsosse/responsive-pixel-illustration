@@ -715,7 +715,7 @@ InitPixel.prototype.showcaseSlides = [
   },
   {
     name: 'table2',
-    niceName: 'Comic 2',
+    niceName: 'Comic',
     import: () => import('@/scripts/tableComic2/init.js'),
     unchangeable: true,
     sliders: true,

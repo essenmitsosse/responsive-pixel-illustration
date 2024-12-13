@@ -103,8 +103,7 @@ export const getHoverChangerStandard = (): {
     ): void => {
       if (info) {
         getObjectKeys(info).forEach((key) => {
-          let currentSize:
-            | number
+          const currentSize:
             | {
                 r?: unknown
                 s: { rele?: unknown }
@@ -123,9 +122,6 @@ export const getHoverChangerStandard = (): {
                   map: currentInfo.map,
                   variable: currentSize,
                 })
-              } else {
-                // Just assign the max or min value
-                currentSize = currentInfo.max || currentInfo.min
               }
             } else {
               // Just assign the value

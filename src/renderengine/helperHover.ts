@@ -19,15 +19,8 @@ export const getHoverChangerCustom = (): {
 
   return {
     push: listChangerCustom.push.bind(listChangerCustom),
-    doHover(args: Record<string, number>): void {
-      let lengthRemaining = listChangerCustom.length
-
-      if (lengthRemaining) {
-        while (lengthRemaining--) {
-          listChangerCustom[lengthRemaining](args)
-        }
-      }
-    },
+    doHover: (args: Record<string, number>): void =>
+      listChangerCustom.forEach((change) => change(args)),
   }
 }
 

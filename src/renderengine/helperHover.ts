@@ -42,19 +42,16 @@ export const getHoverChangerRelative = (): {
     ): void {
       listChangerRelative.push([size, value])
     },
-    doHover(args: Record<string, number>): void {
-      let lengthRemaining = listChangerRelative.length
+    doHover: (args: Record<string, number>): void => {
+      listChangerRelative.forEach((current) => {
+        const currentValue = current[1](args)
 
-      if (lengthRemaining) {
-        while (lengthRemaining--) {
-          const current = listChangerRelative[lengthRemaining]
-          const currentValue = current[1](args)
-
-          if (currentValue !== undefined) {
-            setValue(current[0], currentValue)
-          }
+        if (currentValue === undefined) {
+          return
         }
-      }
+
+        setValue(current[0], current[1](args))
+      })
     },
   }
 }

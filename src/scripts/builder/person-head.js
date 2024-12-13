@@ -119,7 +119,12 @@ Head.prototype.getSizes = function (args) {
       min: { a: 0 },
     })
 
-    this.hover.pushRelativeStandard(0.3, 1.7, 'head-size', args.headBaseSY)
+    this.hoverChangerStandard.push({
+      min: 0.3,
+      max: 1.7,
+      map: 'head-size',
+      variable: args.headBaseSY,
+    })
   }
 
   this.mouthDrawn = this.mouth.draw(args, args.backView ? -500 : 50)

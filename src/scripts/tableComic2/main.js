@@ -1,9 +1,14 @@
 import {
-  getHoverChangers,
   getLinkListPusher,
   getRandom,
   multiplyColor,
 } from '@/renderengine/helper'
+import {
+  getHoverChangerColor,
+  getHoverChangerCustom,
+  getHoverChangerRelative,
+  getHoverChangerStandard,
+} from '@/renderengine/helperHover'
 
 import { Chair, Emotion, Glass, Table } from './accessoir.js'
 import { Arm } from './actor-arm.js'
@@ -34,15 +39,16 @@ export const TableComic = function (init, slide, createSlider) {
   let innerSquare
   let innerSquareBig
   let innerSquareAverage
-  let controlerX
-  let controlerY
 
   const random = getRandom(init.id)
   const rFl = random.getRandomFloat
   const rInt = random.getRandom
   const rIf = random.getIf
   const debug = init.debug || slide.debug
-  const hover = getHoverChangers()
+  const hoverChangerColor = getHoverChangerColor()
+  const hoverChangerCustom = getHoverChangerCustom()
+  const hoverChangerRelative = getHoverChangerRelative()
+  const hoverChangerStandard = getHoverChangerStandard()
   const faceVersion = init.faceVersion || slide.faceVersion
   const linkList = [
     (sX = { main: true }),
@@ -60,14 +66,9 @@ export const TableComic = function (init, slide, createSlider) {
     { r: 0.015, useSize: square, min: 1 },
     { r: 0.01, useSize: square, min: 1 },
 
-    (controlerX = { r: 0, useSize: sX }),
-    (controlerY = { r: 0, useSize: sY }),
+    { r: 0, useSize: sX },
+    { r: 0, useSize: sY },
   ]
-
-  hover.list.push(
-    { change: 1, min: 0, map: 'a', variable: controlerX },
-    { change: 1, min: 0, map: 'b', variable: controlerY },
-  )
 
   // Assign global Functions to all Comic Constructors
   function assignFunctionToComicConstructor(comicPrototype) {
@@ -86,16 +87,13 @@ export const TableComic = function (init, slide, createSlider) {
 
       current.pushLinkList = getLinkListPusher(linkList)
 
-      current.pushRelativeStandardAutomatic =
-        hover.pushRelativeStandardAutomatic
+      current.hoverChangerColor = hoverChangerColor
 
-      current.changersRelativeCustomList = hover.changersRelativeCustomList
+      current.hoverChangerCustom = hoverChangerCustom
 
-      current.pushRelativeStandard = hover.pushRelativeStandard
+      current.hoverChangerRelative = hoverChangerRelative
 
-      current.changersCustomList = hover.changersCustomList
-
-      current.colorList = hover.pushColorStandard
+      current.hoverChangerStandard = hoverChangerStandard
 
       current.getSizeWithRatio = comicPrototype.getSizeWithRatio
 
@@ -410,7 +408,12 @@ export const TableComic = function (init, slide, createSlider) {
     renderList,
     linkList,
     background: this.paperColor,
-    hover: hover.hover,
+    listDoHover: [
+      hoverChangerColor.doHover,
+      hoverChangerCustom.doHover,
+      hoverChangerRelative.doHover,
+      hoverChangerStandard.doHover,
+    ],
     recommendedPixelSize: 3,
   }
 }
@@ -469,7 +472,12 @@ TableComic.prototype.getSizeSwitch = function (
     }),
   })
 
-  this.pushRelativeStandard(0, 1, link, this.difference)
+  this.hoverChangerStandard.push({
+    min: 0,
+    max: 1,
+    map: link,
+    variable: this.difference,
+  })
 
   finalSize.add = [baseSize, this.difference]
 
@@ -606,28 +614,28 @@ TableComic.prototype.getColorShades = function (color) {
   let c3
 
   if (color.max) {
-    this.colorList.push({
+    this.hoverChangerColor.push({
       map: color.map,
       min: color.min,
       max: color.max,
       color: (c0 = []),
     })
 
-    this.colorList.push({
+    this.hoverChangerColor.push({
       map: color.map,
       min: multiplyColor(color.min, 0.9),
       max: multiplyColor(color.max, 0.9),
       color: (c1 = []),
     })
 
-    this.colorList.push({
+    this.hoverChangerColor.push({
       map: color.map,
       min: multiplyColor(color.min, 0.7),
       max: multiplyColor(color.max, 0.7),
       color: (c2 = []),
     })
 
-    this.colorList.push({
+    this.hoverChangerColor.push({
       map: color.map,
       min: multiplyColor(color.min, 0.5),
       max: multiplyColor(color.max, 0.5),

@@ -1,4 +1,5 @@
-import { getHoverChangers, getRandom } from '@/renderengine/helper'
+import { getRandom } from '@/renderengine/helper'
+import { getHoverChangerStandard } from '@/renderengine/helperHover'
 
 import { Object } from './object.js'
 import { Arm, Shield, ShoulderPad, Sword, Tool } from './person-arm.js'
@@ -32,7 +33,7 @@ export const Builder = function (init) {
   const initID = init.id ? init.id : Math.floor(Math.random() * 4294967296)
   const random = getRandom(initID)
   const linkList = []
-  const hover = getHoverChangers()
+  const hoverChangerStandard = getHoverChangerStandard()
   const pushLinkList = function (obj) {
     linkList.push(obj)
 
@@ -78,7 +79,7 @@ export const Builder = function (init) {
 
   this.Object.prototype.pushLinkList = pushLinkList
 
-  this.Object.prototype.hover = hover
+  this.Object.prototype.hoverChangerStandard = hoverChangerStandard
 
   return {
     Person: this.Person,
@@ -95,7 +96,7 @@ export const Builder = function (init) {
     Color: this.Color,
     colorInfo: this.colorInfo,
     colorScheme: this.colorScheme,
-    hover,
+    hoverChangerStandard,
   }
 }
 

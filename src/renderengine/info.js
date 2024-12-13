@@ -102,8 +102,6 @@ PixelGraphics.prototype.getResize = function (options, info, render) {
 }
 
 PixelGraphics.prototype.getRedraw = function redraw(options, resize) {
-  const hoverEvent = options.imageFunction.hover
-
   return function redraw(args) {
     let key
     let first = !args.dontHighlight
@@ -120,8 +118,8 @@ PixelGraphics.prototype.getRedraw = function redraw(options, resize) {
 
     options.init.addToQueryString(args, true)
 
-    if (hoverEvent) {
-      hoverEvent(args)
+    if (options.imageFunction.listDoHover) {
+      options.imageFunction.listDoHover.forEach((hover) => hover(args))
     }
 
     resize(args.width, args.height)

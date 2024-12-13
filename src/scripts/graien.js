@@ -3,9 +3,9 @@ import {
   getBiggerDim,
   getSmallerDim,
   mult,
-  setValue,
   sub,
 } from '@/renderengine/helper'
+import { setValue } from '@/renderengine/helperHover'
 
 function graien(_, __, createSlider) {
   const background = [60, 120, 110]
@@ -361,7 +361,7 @@ function graien(_, __, createSlider) {
   const graienValues = function (what, faktor, value) {
     setValue(what, faktor * value * 2 + value * 0.2)
   }
-  const hover = function (args) {
+  const doHover = function (args) {
     if (args.a) {
       graienValues(handWidth, args.a, 0.07)
 
@@ -2945,7 +2945,7 @@ function graien(_, __, createSlider) {
     renderList,
     background,
     linkList,
-    hover,
+    listDoHover: [doHover],
   }
 }
 

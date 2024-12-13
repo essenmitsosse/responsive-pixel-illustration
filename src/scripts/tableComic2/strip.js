@@ -34,12 +34,12 @@ export const Strip = function (args) {
     args.stripInfo.basicPanel || new this.basic.Panel(args.stripInfo)
   const imgRatio = { ratio: 1.5 }
 
-  this.pushRelativeStandardAutomatic(this, {
+  this.hoverChangerStandard.pushAutomatic(this, {
     gutterX: { map: 'gutter-width', min: 0, max: 1 },
     gutterY: { map: 'gutter-height', min: 0, max: 1 },
   })
 
-  this.changersCustomList.push(function (args) {
+  this.hoverChangerCustom.push(function (args) {
     if (args.imgRatio) {
       imgRatio.ratio = 1 / args.imgRatio
     }
@@ -323,15 +323,9 @@ Panel.prototype.draw = function (args) {
   }
 
   // Camera Zoom
-  this.changersRelativeCustomList.push([
-    this.zoomDiffSX,
-    this.cameraZoomFunction,
-  ])
+  this.hoverChangerRelative.push(this.zoomDiffSX, this.cameraZoomFunction)
 
-  this.changersRelativeCustomList.push([
-    this.zoomDiffSY,
-    this.cameraZoomFunction,
-  ])
+  this.hoverChangerRelative.push(this.zoomDiffSY, this.cameraZoomFunction)
   // END camera zoom  - - - - - - - - - - - - - - - - -
 
   // START render stage  - - - - - - - - - - - - - - - - -
@@ -439,15 +433,9 @@ Panel.prototype.draw = function (args) {
     }
 
     // Camera Pan
-    this.changersRelativeCustomList.push([
-      this.actorFocusX,
-      this.cameraPanFunction,
-    ])
+    this.hoverChangerRelative.push(this.actorFocusX, this.cameraPanFunction)
 
-    this.changersRelativeCustomList.push([
-      this.actorFocusY,
-      this.cameraPanFunction,
-    ])
+    this.hoverChangerRelative.push(this.actorFocusY, this.cameraPanFunction)
   }
 
   // pan relative from the stage to the panel size
@@ -502,7 +490,7 @@ Panel.prototype.draw = function (args) {
 
   // END Camera Pan - - - - - - - - - - - - - - - - - - - - - - - -
 
-  this.pushRelativeStandardAutomatic(this, info.camera)
+  this.hoverChangerStandard.pushAutomatic(this, info.camera)
 
   return {
     sX: args.sX,

@@ -141,16 +141,21 @@ BasicBody.prototype.draw = function (args, right) {
       useSize: args.basicSY,
     })
 
-    // this.hover.pushRelativeStandard(
+    // this.hoverChangers.pushRelativeStandard(
     // 	0.1,
     // 	1,
     // 	1,
     // 	args.personSY
     // );
 
-    this.hover.pushRelativeStandard(0.3, 1.7, 'body-width', args.basicSX)
+    this.hoverChangers.pushRelativeStandard(
+      0.3,
+      1.7,
+      'body-width',
+      args.basicSX,
+    )
 
-    this.hover.pushRelativeStandard(0.1, 1, 'body-height', args.basicSY)
+    this.hoverChangers.pushRelativeStandard(0.1, 1, 'body-height', args.basicSY)
   }
 
   this.head.getSizes(args)
@@ -186,7 +191,12 @@ BasicBody.prototype.draw = function (args, right) {
       add: [args.fullBodySY, args.headMinSY, args.neckSY],
     })
 
-    this.hover.pushRelativeStandard(0.1, 1, 'leg-length', args.lowerBodySY)
+    this.hoverChangers.pushRelativeStandard(
+      0.1,
+      1,
+      'leg-length',
+      args.lowerBodySY,
+    )
   }
 
   return [

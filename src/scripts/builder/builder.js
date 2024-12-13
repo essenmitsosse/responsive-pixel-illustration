@@ -79,7 +79,7 @@ export const Builder = function (init) {
 
   this.Object.prototype.pushLinkList = pushLinkList
 
-  this.Object.prototype.hover = hoverChangers
+  this.Object.prototype.hoverChangers = hoverChangers
 
   return {
     Person: this.Person,

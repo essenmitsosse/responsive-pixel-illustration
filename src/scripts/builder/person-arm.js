@@ -140,7 +140,12 @@ Arm.prototype.draw = function (args, rightSide, behind) {
       }
     }
 
-    this.hover.pushRelativeStandard(0.3, 2.5, 'arm-length', args.armBasicSY)
+    this.hoverChangers.pushRelativeStandard(
+      0.3,
+      2.5,
+      'arm-length',
+      args.armBasicSY,
+    )
   }
 
   args['armHalfSX' + nrName] = this.pushLinkList({

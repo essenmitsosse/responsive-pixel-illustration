@@ -163,7 +163,7 @@ function stripes(args, init, createSlider) {
     renderList,
     background: backgroundColor,
     linkList,
-    listDoHover: [hover.hover],
+    listDoHover: [hover.doHover],
     recommendedPixelSize: 6,
   }
 }

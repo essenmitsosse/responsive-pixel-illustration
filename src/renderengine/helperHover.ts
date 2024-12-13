@@ -20,7 +20,7 @@ const getHoverChangers = (): {
     max: ColorRgb
     min: ColorRgb
   }>
-  hover(args: Record<string, number>): void
+  doHover(args: Record<string, number>): void
   pushRelativeStandard(
     min: number,
     max: number,
@@ -127,7 +127,7 @@ const getHoverChangers = (): {
         })
       }
     },
-    hover(args: Record<string, number>): void {
+    doHover(args: Record<string, number>): void {
       let somethingToChange = false
 
       for (const key in args) {

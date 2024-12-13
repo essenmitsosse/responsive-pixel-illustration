@@ -401,7 +401,7 @@ export const TableComic = function (init, slide, createSlider) {
     renderList,
     linkList,
     background: this.paperColor,
-    listDoHover: [hover.hover],
+    listDoHover: [hover.doHover],
     recommendedPixelSize: 3,
   }
 }

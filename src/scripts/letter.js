@@ -174,7 +174,7 @@ function letter(args, init, createSlider) {
     renderList,
     background: backgroundColor,
     linkList,
-    listDoHover: [hover.hover],
+    listDoHover: [hover.doHover],
     recommendedPixelSize: 16,
   }
 }

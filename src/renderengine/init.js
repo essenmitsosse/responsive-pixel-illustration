@@ -714,9 +714,9 @@ InitPixel.prototype.showcaseSlides = [
     hasRandom: true,
   },
   {
-    name: 'table2',
+    name: 'comic',
     niceName: 'Comic',
-    import: () => import('@/scripts/tableComic2/init.js'),
+    import: () => import('@/scripts/comic/init.js'),
     unchangeable: true,
     sliders: true,
     hasRandom: true,

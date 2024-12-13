@@ -135,21 +135,17 @@ export const getHoverChangerStandard = (): {
         })
       }
     },
-    doHover(args: Record<string, number>): void {
-      let lengthRemaining = listChangerStandard.length
-
-      if (lengthRemaining) {
-        while (lengthRemaining--) {
-          const current = listChangerStandard[lengthRemaining]
-
-          if (args[current.map] !== undefined) {
-            setValue(
-              current.variable,
-              current.min + current.change * args[current.map],
-            )
-          }
+    doHover: (args: Record<string, number>): void => {
+      listChangerStandard.forEach((current) => {
+        if (args[current.map] === undefined) {
+          return
         }
-      }
+
+        setValue(
+          current.variable,
+          current.min + current.change * args[current.map],
+        )
+      })
     },
   }
 }

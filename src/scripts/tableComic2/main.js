@@ -37,8 +37,6 @@ export const TableComic = function (init, slide, createSlider) {
   let innerSquare
   let innerSquareBig
   let innerSquareAverage
-  let controlerX
-  let controlerY
 
   const random = getRandom(init.id)
   const rFl = random.getRandomFloat
@@ -65,14 +63,9 @@ export const TableComic = function (init, slide, createSlider) {
     { r: 0.015, useSize: square, min: 1 },
     { r: 0.01, useSize: square, min: 1 },
 
-    (controlerX = { r: 0, useSize: sX }),
-    (controlerY = { r: 0, useSize: sY }),
+    { r: 0, useSize: sX },
+    { r: 0, useSize: sY },
   ]
-
-  hoverChangers.pushRelativeStandard(
-    { max: 1, min: 0, map: 'a', variable: controlerX },
-    { max: 1, min: 0, map: 'b', variable: controlerY },
-  )
 
   // Assign global Functions to all Comic Constructors
   function assignFunctionToComicConstructor(comicPrototype) {

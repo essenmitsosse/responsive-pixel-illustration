@@ -1,6 +1,6 @@
 import { BB } from './bb.js'
 
-function betterBuilder(init) {
+function turnAround(init) {
   const bb = new BB(init)
 
   return {
@@ -10,4 +10,4 @@ function betterBuilder(init) {
   }
 }
 
-export default betterBuilder
+export default turnAround

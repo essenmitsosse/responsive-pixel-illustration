@@ -708,7 +708,7 @@ InitPixel.prototype.showcaseSlides = [
   {
     name: 'turnaround',
     niceName: 'Turnaround',
-    import: () => import('@/scripts/betterBuilder/init.js'),
+    import: () => import('@/scripts/turnAround/init.js'),
     unchangeable: true,
     sliders: true,
     hasRandom: true,

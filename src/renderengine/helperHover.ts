@@ -9,8 +9,27 @@ export const setValue = <TRele>(what: Size<TRele>, value: TRele): void => {
   what.s.rele = value
 }
 
+export const getHoverChangerCustom = (): {
+  push: (value: (args: Record<string, number>) => void) => void
+  doHover(args: Record<string, number>): void
+} => {
+  const listChangerCustom: Array<(args: Record<string, number>) => void> = []
+
+  return {
+    push: listChangerCustom.push.bind(listChangerCustom),
+    doHover(args: Record<string, number>): void {
+      let lengthRemaining = listChangerCustom.length
+
+      if (lengthRemaining) {
+        while (lengthRemaining--) {
+          listChangerCustom[lengthRemaining](args)
+        }
+      }
+    },
+  }
+}
+
 const getHoverChangers = (): {
-  listChangerCustom: Array<(args: Record<string, number>) => void>
   listChangerRelative: Array<
     [Size<unknown>, (args: Record<string, number>) => void]
   >
@@ -53,7 +72,6 @@ const getHoverChangers = (): {
     max: ColorRgb
     min: ColorRgb
   }> = []
-  const listChangerCustom: Array<(args: Record<string, number>) => void> = []
   const pushRelativeStandard = (
     min: number,
     max: number,
@@ -84,7 +102,6 @@ const getHoverChangers = (): {
 
   return {
     listChangerRelative,
-    listChangerCustom,
     listColorStandard,
 
     pushRelativeStandard,
@@ -181,15 +198,6 @@ const getHoverChangers = (): {
           if (args[current.map] !== undefined) {
             changeColor(args[current.map], current)
           }
-        }
-      }
-
-      let l3 = listChangerCustom.length
-
-      // Execute a CUSTOM FUNCTION
-      if (l3) {
-        while (l3--) {
-          listChangerCustom[l3](args)
         }
       }
     },

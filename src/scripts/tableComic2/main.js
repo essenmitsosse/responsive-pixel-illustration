@@ -3,7 +3,9 @@ import {
   getRandom,
   multiplyColor,
 } from '@/renderengine/helper'
-import getHoverChangers from '@/renderengine/helperHover'
+import getHoverChangers, {
+  getHoverChangerCustom,
+} from '@/renderengine/helperHover'
 
 import { Chair, Emotion, Glass, Table } from './accessoir.js'
 import { Arm } from './actor-arm.js'
@@ -43,6 +45,7 @@ export const TableComic = function (init, slide, createSlider) {
   const rIf = random.getIf
   const debug = init.debug || slide.debug
   const hoverChangers = getHoverChangers()
+  const hoverChangerCustom = getHoverChangerCustom()
   const faceVersion = init.faceVersion || slide.faceVersion
   const linkList = [
     (sX = { main: true }),
@@ -87,6 +90,8 @@ export const TableComic = function (init, slide, createSlider) {
       current.pushLinkList = getLinkListPusher(linkList)
 
       current.hoverChangers = hoverChangers
+
+      current.hoverChangerCustom = hoverChangerCustom
 
       current.getSizeWithRatio = comicPrototype.getSizeWithRatio
 
@@ -401,7 +406,7 @@ export const TableComic = function (init, slide, createSlider) {
     renderList,
     linkList,
     background: this.paperColor,
-    listDoHover: [hoverChangers.doHover],
+    listDoHover: [hoverChangers.doHover, hoverChangerCustom.doHover],
     recommendedPixelSize: 3,
   }
 }

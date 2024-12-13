@@ -101,39 +101,41 @@ export const getHoverChangerStandard = (): {
       parent: Record<T, Size<unknown>>,
       info: Record<T, { map: string; max: number; min: number }>,
     ): void => {
-      if (info) {
-        getObjectKeys(info).forEach((key) => {
-          const currentSize:
-            | {
-                r?: unknown
-                s: { rele?: unknown }
-              }
-            | undefined = parent[key]
+      if (!info) {
+        return
+      }
 
-          if (!currentSize) {
+      getObjectKeys(info).forEach((key) => {
+        const currentSize:
+          | {
+              r?: unknown
+              s: { rele?: unknown }
+            }
+          | undefined = parent[key]
+
+        if (!currentSize) {
+          return
+        }
+
+        // Assignment
+        const currentInfo = info[key]
+
+        if (getIsUnknownObject(currentInfo)) {
+          if (currentInfo.map === undefined) {
             return
           }
 
-          // Assignment
-          const currentInfo = info[key]
-
-          if (getIsUnknownObject(currentInfo)) {
-            if (currentInfo.map === undefined) {
-              return
-            }
-
-            push({
-              min: currentInfo.min,
-              max: currentInfo.max,
-              map: currentInfo.map,
-              variable: currentSize,
-            })
-          } else {
-            // Just assign the value
-            currentSize.r = currentInfo
-          }
-        })
-      }
+          push({
+            min: currentInfo.min,
+            max: currentInfo.max,
+            map: currentInfo.map,
+            variable: currentSize,
+          })
+        } else {
+          // Just assign the value
+          currentSize.r = currentInfo
+        }
+      })
     },
     doHover: (args: Record<string, number>): void => {
       listChangerStandard.forEach((current) => {

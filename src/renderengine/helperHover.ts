@@ -184,18 +184,14 @@ export const getHoverChangerColor = (): {
   return {
     push: listColorStandard.push.bind(listColorStandard),
 
-    doHover(args: Record<string, number>): void {
-      let lengthRemaining = listColorStandard.length
-
-      if (lengthRemaining) {
-        while (lengthRemaining--) {
-          const current = listColorStandard[lengthRemaining]
-
-          if (args[current.map] !== undefined) {
-            changeColor(args[current.map], current)
-          }
+    doHover: (args: Record<string, number>): void => {
+      listColorStandard.forEach((current) => {
+        if (args[current.map] === undefined) {
+          return
         }
-      }
+
+        changeColor(args[current.map], current)
+      })
     },
   }
 }

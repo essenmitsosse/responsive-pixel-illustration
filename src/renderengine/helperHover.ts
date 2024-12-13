@@ -110,23 +110,27 @@ export const getHoverChangerStandard = (): {
               }
             | undefined = parent[key]
 
-          if (currentSize) {
-            // Assignment
-            const currentInfo = info[key]
+          if (!currentSize) {
+            return
+          }
 
-            if (getIsUnknownObject(currentInfo)) {
-              if (currentInfo.map !== undefined) {
-                push({
-                  min: currentInfo.min,
-                  max: currentInfo.max,
-                  map: currentInfo.map,
-                  variable: currentSize,
-                })
-              }
-            } else {
-              // Just assign the value
-              currentSize.r = currentInfo
+          // Assignment
+          const currentInfo = info[key]
+
+          if (getIsUnknownObject(currentInfo)) {
+            if (currentInfo.map === undefined) {
+              return
             }
+
+            push({
+              min: currentInfo.min,
+              max: currentInfo.max,
+              map: currentInfo.map,
+              variable: currentSize,
+            })
+          } else {
+            // Just assign the value
+            currentSize.r = currentInfo
           }
         })
       }

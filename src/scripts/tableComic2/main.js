@@ -3,7 +3,8 @@ import {
   getRandom,
   multiplyColor,
 } from '@/renderengine/helper'
-import getHoverChangers, {
+import {
+  getHoverChangerColor,
   getHoverChangerCustom,
   getHoverChangerRelative,
   getHoverChangerStandard,
@@ -44,7 +45,7 @@ export const TableComic = function (init, slide, createSlider) {
   const rInt = random.getRandom
   const rIf = random.getIf
   const debug = init.debug || slide.debug
-  const hoverChangers = getHoverChangers()
+  const hoverChangerColor = getHoverChangerColor()
   const hoverChangerCustom = getHoverChangerCustom()
   const hoverChangerRelative = getHoverChangerRelative()
   const hoverChangerStandard = getHoverChangerStandard()
@@ -86,7 +87,7 @@ export const TableComic = function (init, slide, createSlider) {
 
       current.pushLinkList = getLinkListPusher(linkList)
 
-      current.hoverChangers = hoverChangers
+      current.hoverChangerColor = hoverChangerColor
 
       current.hoverChangerCustom = hoverChangerCustom
 
@@ -408,7 +409,7 @@ export const TableComic = function (init, slide, createSlider) {
     linkList,
     background: this.paperColor,
     listDoHover: [
-      hoverChangers.doHover,
+      hoverChangerColor.doHover,
       hoverChangerCustom.doHover,
       hoverChangerRelative.doHover,
       hoverChangerStandard.doHover,
@@ -613,28 +614,28 @@ TableComic.prototype.getColorShades = function (color) {
   let c3
 
   if (color.max) {
-    this.hoverChangers.listColorStandard.push({
+    this.hoverChangerColor.push({
       map: color.map,
       min: color.min,
       max: color.max,
       color: (c0 = []),
     })
 
-    this.hoverChangers.listColorStandard.push({
+    this.hoverChangerColor.push({
       map: color.map,
       min: multiplyColor(color.min, 0.9),
       max: multiplyColor(color.max, 0.9),
       color: (c1 = []),
     })
 
-    this.hoverChangers.listColorStandard.push({
+    this.hoverChangerColor.push({
       map: color.map,
       min: multiplyColor(color.min, 0.7),
       max: multiplyColor(color.max, 0.7),
       color: (c2 = []),
     })
 
-    this.hoverChangers.listColorStandard.push({
+    this.hoverChangerColor.push({
       map: color.map,
       min: multiplyColor(color.min, 0.5),
       max: multiplyColor(color.max, 0.5),

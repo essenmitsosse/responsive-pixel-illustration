@@ -271,10 +271,7 @@ function builder(init, slide, createSlider) {
     renderList,
     linkList: builder.linkList,
     background: builder.backgroundColor.get(),
-    listDoHover: [
-      builder.hoverChangers.doHover,
-      builder.hoverChangerStandard.doHover,
-    ],
+    listDoHover: [builder.hoverChangerStandard.doHover],
   }
 }
 

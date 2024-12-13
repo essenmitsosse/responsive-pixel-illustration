@@ -164,13 +164,28 @@ export const getHoverChangerStandard = (): {
   }
 }
 
-const getHoverChangers = (): {
-  listColorStandard: Array<{
+const changeColor = (
+  value: number,
+  map: { color: ColorRgb; max: ColorRgb; min: ColorRgb },
+): void => {
+  const [maxR, maxG, maxB] = map.max
+  const [minR, minG, minB] = map.min
+  const valueNeg = 1 - value
+
+  map.color[0] = minR * valueNeg + maxR * value
+
+  map.color[1] = minG * valueNeg + maxG * value
+
+  map.color[2] = minB * valueNeg + maxB * value
+}
+
+export const getHoverChangerColor = (): {
+  push: (args: {
     color: ColorRgb
     map: string
     max: ColorRgb
     min: ColorRgb
-  }>
+  }) => void
   doHover(args: Record<string, number>): void
 } => {
   const listColorStandard: Array<{
@@ -179,44 +194,16 @@ const getHoverChangers = (): {
     max: ColorRgb
     min: ColorRgb
   }> = []
-  const changeColor = (
-    value: number,
-    map: { color: ColorRgb; max: ColorRgb; min: ColorRgb },
-  ): void => {
-    const [maxR, maxG, maxB] = map.max
-    const [minR, minG, minB] = map.min
-    const valueNeg = 1 - value
-
-    map.color[0] = minR * valueNeg + maxR * value
-
-    map.color[1] = minG * valueNeg + maxG * value
-
-    map.color[2] = minB * valueNeg + maxB * value
-  }
 
   return {
-    listColorStandard,
+    push: listColorStandard.push.bind(listColorStandard),
 
     doHover(args: Record<string, number>): void {
-      let somethingToChange = false
+      let lengthRemaining = listColorStandard.length
 
-      for (const key in args) {
-        if (key !== 'width' && key !== 'height') {
-          somethingToChange = true
-          break
-        }
-      }
-
-      if (!somethingToChange) {
-        return
-      }
-
-      let l2 = listColorStandard.length
-
-      // Change a COLOR, by a STANDARD map scheme
-      if (l2) {
-        while (l2--) {
-          const current = listColorStandard[l2]
+      if (lengthRemaining) {
+        while (lengthRemaining--) {
+          const current = listColorStandard[lengthRemaining]
 
           if (args[current.map] !== undefined) {
             changeColor(args[current.map], current)
@@ -226,5 +213,3 @@ const getHoverChangers = (): {
     },
   }
 }
-
-export default getHoverChangers

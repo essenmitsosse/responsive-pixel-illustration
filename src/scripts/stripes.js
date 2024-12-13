@@ -1,7 +1,7 @@
 import getHoverChangers from '@/renderengine/helperHover'
 
 function stripes(args, init, createSlider) {
-  const hover = getHoverChangers()
+  const hoverChangers = getHoverChangers()
   const backgroundColor = [100, 100, 120]
   const linkList = []
   const linkListPush = function (obj) {
@@ -146,7 +146,7 @@ function stripes(args, init, createSlider) {
   // 	letterSquare
   // );
 
-  hover.pushRelativeStandard(0, 1, 'master', stripRealRelSX)
+  hoverChangers.pushRelativeStandard(0, 1, 'master', stripRealRelSX)
 
   if (createSlider) {
     createSlider.slider({
@@ -163,7 +163,7 @@ function stripes(args, init, createSlider) {
     renderList,
     background: backgroundColor,
     linkList,
-    listDoHover: [hover.doHover],
+    listDoHover: [hoverChangers.doHover],
     recommendedPixelSize: 6,
   }
 }

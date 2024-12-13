@@ -42,7 +42,7 @@ export const TableComic = function (init, slide, createSlider) {
   const rInt = random.getRandom
   const rIf = random.getIf
   const debug = init.debug || slide.debug
-  const hover = getHoverChangers()
+  const hoverChangers = getHoverChangers()
   const faceVersion = init.faceVersion || slide.faceVersion
   const linkList = [
     (sX = { main: true }),
@@ -64,7 +64,7 @@ export const TableComic = function (init, slide, createSlider) {
     (controlerY = { r: 0, useSize: sY }),
   ]
 
-  hover.pushRelativeStandard(
+  hoverChangers.pushRelativeStandard(
     { max: 1, min: 0, map: 'a', variable: controlerX },
     { max: 1, min: 0, map: 'b', variable: controlerY },
   )
@@ -86,7 +86,7 @@ export const TableComic = function (init, slide, createSlider) {
 
       current.pushLinkList = getLinkListPusher(linkList)
 
-      current.hover = hover
+      current.hover = hoverChangers
 
       current.getSizeWithRatio = comicPrototype.getSizeWithRatio
 
@@ -401,7 +401,7 @@ export const TableComic = function (init, slide, createSlider) {
     renderList,
     linkList,
     background: this.paperColor,
-    listDoHover: [hover.doHover],
+    listDoHover: [hoverChangers.doHover],
     recommendedPixelSize: 3,
   }
 }

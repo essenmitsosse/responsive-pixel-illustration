@@ -10,7 +10,7 @@ export const setValue = <TRele>(what: Size<TRele>, value: TRele): void => {
 }
 
 const getHoverChangers = (): {
-  changersCustomList: Array<(args: Record<string, number>) => void>
+  listChangerCustom: Array<(args: Record<string, number>) => void>
   listChangerRelative: Array<
     [Size<unknown>, (args: Record<string, number>) => void]
   >
@@ -53,7 +53,7 @@ const getHoverChangers = (): {
     max: ColorRgb
     min: ColorRgb
   }> = []
-  const changersCustomList: Array<(args: Record<string, number>) => void> = []
+  const listChangerCustom: Array<(args: Record<string, number>) => void> = []
   const pushRelativeStandard = (
     min: number,
     max: number,
@@ -84,7 +84,7 @@ const getHoverChangers = (): {
 
   return {
     listChangerRelative,
-    changersCustomList,
+    listChangerCustom,
     listColorStandard,
 
     pushRelativeStandard,
@@ -184,12 +184,12 @@ const getHoverChangers = (): {
         }
       }
 
-      let l3 = changersCustomList.length
+      let l3 = listChangerCustom.length
 
       // Execute a CUSTOM FUNCTION
       if (l3) {
         while (l3--) {
-          changersCustomList[l3](args)
+          listChangerCustom[l3](args)
         }
       }
     },

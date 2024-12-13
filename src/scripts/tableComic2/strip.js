@@ -39,7 +39,7 @@ export const Strip = function (args) {
     gutterY: { map: 'gutter-height', min: 0, max: 1 },
   })
 
-  this.hover.changersCustomList.push(function (args) {
+  this.hover.listChangerCustom.push(function (args) {
     if (args.imgRatio) {
       imgRatio.ratio = 1 / args.imgRatio
     }

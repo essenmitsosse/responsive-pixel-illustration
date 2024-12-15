@@ -1,6 +1,8 @@
 import getIsUnknownObject from '@/lib/getIsUnknownObject'
 import getObjectKeys from '@/lib/getObjectKeys'
 
+import setValue from './setValue'
+
 import type { ColorRgb } from './typeColor'
 import type { SizeHover } from './typeSize'
 

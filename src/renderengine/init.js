@@ -17,6 +17,97 @@ const doSetDocumentTitle = (imageName, queryString) => {
   // Display the imageName as the title
   document.title = name
 }
+const doShowInfo = (options) => {
+  const logs = []
+
+  let initString
+
+  const d = document
+  const [body] = d.getElementsByTagName('body')
+  const info = d.createElement('div')
+
+  let show = options.showInfos
+
+  const swap = function () {
+    if ((show = !show)) {
+      body.appendChild(info)
+    } else {
+      body.removeChild(info)
+    }
+  }
+  const change = function (name, value) {
+    logs[name] = value
+  }
+
+  info.setAttribute('id', 'infos')
+
+  if (show) {
+    body.appendChild(info)
+  }
+
+  document.onkeydown = function () {
+    const k = event.keyCode
+
+    if (event.ctrlKey) {
+      if (k === 73) {
+        event.preventDefault()
+
+        swap()
+      }
+    }
+  }
+
+  return {
+    swap,
+    change,
+    logInitTime(initTime) {
+      initString = [
+        "<span class='init' style='width:",
+        initTime * 5,
+        "px;'>",
+        initTime,
+        'ms<br>Init</span>',
+      ].join('')
+    },
+    logRenderTime(draw, fullDuration) {
+      let what
+
+      const lo = logs
+      const render = fullDuration - draw
+      const string = []
+
+      if (show) {
+        change('Duration', fullDuration + 'ms')
+
+        change('fps', Math.floor(1000 / fullDuration) + 'fps')
+
+        change('Average-Time', 'false')
+
+        for (what in lo) {
+          string.push('<p><strong>', what, ':</strong> ', lo[what], '</p>')
+        }
+
+        string.push(
+          '<p>',
+          initString,
+          "<span class='drawing' style='width:",
+          draw * 5,
+          "px;'>",
+          draw,
+          'ms<br>Drawing</span>',
+          "<span style='width:",
+          render * 5,
+          "px;'>",
+          render,
+          'ms<br>Render</span>',
+          '</p>',
+        )
+
+        info.innerHTML = string.join('')
+      }
+    },
+  }
+}
 
 export const InitPixel = function (args) {
   const queryString = this.getQueryString()
@@ -55,7 +146,7 @@ export const InitPixel = function (args) {
     queryString,
     imageName,
     currentSlide,
-    this.info(queryString),
+    doShowInfo(queryString),
   )
 
   loadScript(callback, currentSlide)
@@ -210,98 +301,6 @@ InitPixel.prototype.getCallback = function (
     } else {
       throw imageName + ' was loaded but is not a function!'
     }
-  }
-}
-
-InitPixel.prototype.info = function (options) {
-  const logs = []
-
-  let initString
-
-  const d = document
-  const [body] = d.getElementsByTagName('body')
-  const info = d.createElement('div')
-
-  let show = options.showInfos
-
-  const swap = function () {
-    if ((show = !show)) {
-      body.appendChild(info)
-    } else {
-      body.removeChild(info)
-    }
-  }
-  const change = function (name, value) {
-    logs[name] = value
-  }
-
-  info.setAttribute('id', 'infos')
-
-  if (show) {
-    body.appendChild(info)
-  }
-
-  document.onkeydown = function () {
-    const k = event.keyCode
-
-    if (event.ctrlKey) {
-      if (k === 73) {
-        event.preventDefault()
-
-        swap()
-      }
-    }
-  }
-
-  return {
-    swap,
-    change,
-    logInitTime(initTime) {
-      initString = [
-        "<span class='init' style='width:",
-        initTime * 5,
-        "px;'>",
-        initTime,
-        'ms<br>Init</span>',
-      ].join('')
-    },
-    logRenderTime(draw, fullDuration) {
-      let what
-
-      const lo = logs
-      const render = fullDuration - draw
-      const string = []
-
-      if (show) {
-        change('Duration', fullDuration + 'ms')
-
-        change('fps', Math.floor(1000 / fullDuration) + 'fps')
-
-        change('Average-Time', 'false')
-
-        for (what in lo) {
-          string.push('<p><strong>', what, ':</strong> ', lo[what], '</p>')
-        }
-
-        string.push(
-          '<p>',
-          initString,
-          "<span class='drawing' style='width:",
-          draw * 5,
-          "px;'>",
-          draw,
-          'ms<br>Drawing</span>',
-          "<span style='width:",
-          render * 5,
-          "px;'>",
-          render,
-          'ms<br>Render</span>',
-          '</p>',
-        )
-
-        info.innerHTML = string.join('')
-      }
-    },
   }
 }
 

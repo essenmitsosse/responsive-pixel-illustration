@@ -4,10 +4,6 @@ import getObjectKeys from '@/lib/getObjectKeys'
 import type { ColorRgb } from './typeColor'
 import type { SizeHover } from './typeSize'
 
-export const setValue = <TRele>(what: SizeHover<TRele>, value: TRele): void => {
-  what.s.rele = value
-}
-
 type DoHover = (args: Record<string, number>) => void
 
 export const getHoverChangerCustom = (): {

@@ -1,4 +1,4 @@
-import { getHoverChangerColor } from '@/renderengine/helper/getHoverChangerColor'
+import getHoverChangerColor from '@/renderengine/helper/getHoverChangerColor'
 import {
   getLinkListPusher,
   getRandom,

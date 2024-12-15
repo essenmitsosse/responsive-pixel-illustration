@@ -1,5 +1,4 @@
 import getHoverChangerStandard from '@/helper/getHoverChangerStandard'
-import { getLinkListPusher } from '@/helper/getLinkListPusher'
 import { getRandom } from '@/helper/getRandom'
 import { multiplyColor } from '@/helper/helperColor'
 
@@ -11,6 +10,7 @@ import { Actor, Body, Torso } from './actor.js'
 import getHoverChangerColor from './getHoverChangerColor'
 import getHoverChangerCustom from './getHoverChangerCustom'
 import getHoverChangerRelative from './getHoverChangerRelative'
+import { getLinkListPusher } from './getLinkListPusher'
 import { Background, Floor, Stage } from './stage.js'
 import { Panel, Strip } from './strip.js'
 import { getCombiner, getFace, getStrip, getStripInfo } from './tablecomic-1.js'

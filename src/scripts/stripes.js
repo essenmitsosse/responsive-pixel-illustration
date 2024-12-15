@@ -1,4 +1,4 @@
-import { getHoverChangerStandard } from '@/renderengine/helper/helperHover'
+import getHoverChangerStandard from '@/renderengine/helper/getHoverChangerStandard'
 
 function stripes(args, init, createSlider) {
   const hoverChangerStandard = getHoverChangerStandard()

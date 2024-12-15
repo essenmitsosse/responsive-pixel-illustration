@@ -1,4 +1,4 @@
-import { getHoverChangerCustom } from '@/renderengine/helper/getHoverChangerCustom'
+import getHoverChangerCustom from '@/renderengine/helper/getHoverChangerCustom'
 import {
   getLinkListPusher,
   getRandom,

@@ -4,9 +4,8 @@ import getObjectKeys from '@/lib/getObjectKeys'
 import setValue from './setValue'
 
 import type { ColorRgb } from './typeColor'
+import type { DoHover } from './typeHover'
 import type { SizeHover } from './typeSize'
-
-type DoHover = (args: Record<string, number>) => void
 
 export const getHoverChangerCustom = (): {
   doHover: DoHover
@@ -165,13 +164,13 @@ const changeColor = (
 }
 
 export const getHoverChangerColor = (): {
+  doHover: DoHover
   push: (args: {
     color: ColorRgb
     map: string
     max: ColorRgb
     min: ColorRgb
   }) => void
-  doHover(args: Record<string, number>): void
 } => {
   const listColorStandard: Array<{
     color: ColorRgb

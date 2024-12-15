@@ -2,10 +2,9 @@ import getIsUnknownObject from '@/lib/getIsUnknownObject'
 import getObjectKeys from '@/lib/getObjectKeys'
 
 import type { ColorRgb } from './typeColor'
+import type { SizeHover } from './typeSize'
 
-type Size<T> = { r?: T; s: { rele?: T } }
-
-export const setValue = <TRele>(what: Size<TRele>, value: TRele): void => {
+export const setValue = <TRele>(what: SizeHover<TRele>, value: TRele): void => {
   what.s.rele = value
 }
 
@@ -27,17 +26,17 @@ export const getHoverChangerCustom = (): {
 export const getHoverChangerRelative = (): {
   doHover: DoHover
   push: (
-    size: Size<unknown>,
+    size: SizeHover<unknown>,
     value: (args: Record<string, number>) => number,
   ) => void
 } => {
   const listChangerRelative: Array<
-    [Size<unknown>, (args: Record<string, number>) => number]
+    [SizeHover<unknown>, (args: Record<string, number>) => number]
   > = []
 
   return {
     push(
-      size: Size<unknown>,
+      size: SizeHover<unknown>,
       value: (args: Record<string, number>) => number,
     ): void {
       listChangerRelative.push([size, value])
@@ -71,7 +70,7 @@ export const getHoverChangerStandard = (): {
    * variables max, min and can be changed by what is defined by map
    */
   pushAutomatic: <T extends string>(
-    parent: Record<T, Size<unknown>>,
+    parent: Record<T, SizeHover<unknown>>,
     info: Record<T, { map: string; max: number; min: number }>,
   ) => void
 } => {
@@ -98,7 +97,7 @@ export const getHoverChangerStandard = (): {
   return {
     push,
     pushAutomatic: <T extends string>(
-      parent: Record<T, Size<unknown>>,
+      parent: Record<T, SizeHover<unknown>>,
       info?: Record<T, { map: string; max: number; min: number }>,
     ): void => {
       if (!info) {

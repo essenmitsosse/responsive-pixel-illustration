@@ -1,3 +1,5 @@
+export type SizeHover<T> = { r?: T; s: { rele?: T } }
+
 export type SizeIn<TA, TUse> = {
   a: TA
   getBiggerDim: unknown

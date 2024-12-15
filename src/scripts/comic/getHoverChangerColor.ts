@@ -1,5 +1,5 @@
-import type { ColorRgb } from './typeColor'
-import type { DoHover } from './typeHover'
+import type { ColorRgb } from '@/renderengine/helper/typeColor'
+import type { DoHover } from '@/renderengine/helper/typeHover'
 
 const changeColor = (
   value: number,

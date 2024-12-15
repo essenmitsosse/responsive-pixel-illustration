@@ -1,6 +1,3 @@
-import getHoverChangerColor from '@/renderengine/helper/getHoverChangerColor'
-import getHoverChangerCustom from '@/renderengine/helper/getHoverChangerCustom'
-import getHoverChangerRelative from '@/renderengine/helper/getHoverChangerRelative'
 import getHoverChangerStandard from '@/renderengine/helper/getHoverChangerStandard'
 import {
   getLinkListPusher,
@@ -13,6 +10,9 @@ import { Arm } from './actor-arm.js'
 import { Eye, Eyes, Hair, Hat, Head, Mouth } from './actor-head.js'
 import { Legs } from './actor-legs.js'
 import { Actor, Body, Torso } from './actor.js'
+import getHoverChangerColor from './getHoverChangerColor'
+import getHoverChangerCustom from './getHoverChangerCustom'
+import getHoverChangerRelative from './getHoverChangerRelative'
 import { Background, Floor, Stage } from './stage.js'
 import { Panel, Strip } from './strip.js'
 import { getCombiner, getFace, getStrip, getStripInfo } from './tablecomic-1.js'

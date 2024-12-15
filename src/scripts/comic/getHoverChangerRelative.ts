@@ -1,7 +1,7 @@
-import setValue from './setValue'
+import setValue from '@/renderengine/helper/setValue'
 
-import type { DoHover } from './typeHover'
-import type { SizeHover } from './typeSize'
+import type { DoHover } from '@/renderengine/helper/typeHover'
+import type { SizeHover } from '@/renderengine/helper/typeSize'
 
 const getHoverChangerRelative = (): {
   doHover: DoHover

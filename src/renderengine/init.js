@@ -159,477 +159,473 @@ const createSingleCanvas = (canvasData, div) => {
   }
 }
 
-export const InitPixel = function (args) {
-  const queryString = this.getQueryString()
-  const showcase = (this.showcase = true)
-  const forceName = args.imageName || window.location.hash.substr(1)
-  const slides = showcase ? listImage : this.slides
-  const currentSlide = !forceName && slides[queryString.slide || 0]
-  const imageName = forceName || currentSlide.name || 'tantalos'
-  const sliders = queryString.sliders || currentSlide.sliders
-  /** Change for multiple Canvases */
-  const canvasDataList = false
-  const canvasRenderer = createSingleCanvas(canvasDataList, args.div)
-  const [body] = document.getElementsByTagName('body')
-
-  this.parent = queryString.admin || queryString.parent
-
-  if (currentSlide.resizeable) {
-    queryString.resizeable = true
-  }
-
-  // Admin
-  if (queryString.admin || showcase || sliders) {
-    new Admin({
-      body,
-      showcase,
-      admin: queryString.admin,
-      sliders,
-      slides,
-      pixel: this,
-      hasRandom: currentSlide.hasRandom || false,
-    })
-  }
-
-  const callback = this.getCallback(
-    canvasRenderer,
-    queryString,
-    imageName,
-    currentSlide,
-    doShowInfo(queryString),
-  )
-
-  loadScript(callback, currentSlide)
-
-  doSetDocumentTitle(imageName, queryString)
-
-  window.onkeydown = this.getShortcuts(queryString)
-
-  if (currentSlide.timer || queryString.timer) {
-    this.timerAnimation = this.getTimerAnimation(currentSlide.timer)
-  }
-}
-
-InitPixel.prototype.getQueryString = function () {
-  const list = {}
-  const vars = location.search.substr(1).split('&')
-
-  let i = 0
-
-  const l = vars.length
-
-  let pair
-
-  const convert = function (value) {
-    if (value === 'true') {
-      value = true
-    } else if (value === 'false') {
-      value = false
-    } else {
-      value = value * 1
-    }
-
-    return value
-  }
-
-  while (i < l) {
-    pair = vars[i].split('=')
-
-    if (pair[0]) {
-      list[pair[0]] = convert(pair[1])
-    }
-
-    i += 1
-  }
-
-  // if( !list.slide ) { list.slide = "0"; }
-  // else { list.slide = list.slide.toString(); }
-  // if( !list.id ) { list.id = 666; }
-
-  return (this.queryString = list)
-}
-
 const loadScript = function (callback, currentSlide) {
   currentSlide.import().then((imageImport) => {
     callback(imageImport.default)
   })
 }
 
-// Create the Callback Function, when the script is loaded
-InitPixel.prototype.getCallback = function (
-  rendererInit,
-  queryString,
-  imageName,
-  currentSlide,
-  info,
-) {
-  const that = this
+export class InitPixel {
+  constructor(args) {
+    const queryString = this.getQueryString()
+    const showcase = (this.showcase = true)
+    const forceName = args.imageName || window.location.hash.substr(1)
+    const slides = showcase ? listImage : this.slides
+    const currentSlide = !forceName && slides[queryString.slide || 0]
+    const imageName = forceName || currentSlide.name || 'tantalos'
+    const sliders = queryString.sliders || currentSlide.sliders
+    /** Change for multiple Canvases */
+    const canvasDataList = false
+    const canvasRenderer = createSingleCanvas(canvasDataList, args.div)
+    const [body] = document.getElementsByTagName('body')
 
-  return function callback(ImageFunction) {
-    let imageFunction
-    let renderObject
+    this.parent = queryString.admin || queryString.parent
 
-    if (ImageFunction) {
-      if (that.createSlider) {
-        // that.createSlider.title( { title: "Image Size" } );
-        // that.createSlider.slider( { niceName: "Width", valueName: "width", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
-        // that.createSlider.slider( { niceName: "Height", 	 valueName: "height", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
+    if (currentSlide.resizeable) {
+      queryString.resizeable = true
+    }
+
+    // Admin
+    if (queryString.admin || showcase || sliders) {
+      new Admin({
+        body,
+        showcase,
+        admin: queryString.admin,
+        sliders,
+        slides,
+        pixel: this,
+        hasRandom: currentSlide.hasRandom || false,
+      })
+    }
+
+    const callback = this.getCallback(
+      canvasRenderer,
+      queryString,
+      imageName,
+      currentSlide,
+      doShowInfo(queryString),
+    )
+
+    loadScript(callback, currentSlide)
+
+    doSetDocumentTitle(imageName, queryString)
+
+    window.onkeydown = this.getShortcuts(queryString)
+
+    if (currentSlide.timer || queryString.timer) {
+      this.timerAnimation = this.getTimerAnimation(currentSlide.timer)
+    }
+  }
+
+  getQueryString() {
+    const list = {}
+    const vars = location.search.substr(1).split('&')
+
+    let i = 0
+
+    const l = vars.length
+
+    let pair
+
+    const convert = function (value) {
+      if (value === 'true') {
+        value = true
+      } else if (value === 'false') {
+        value = false
+      } else {
+        value = value * 1
       }
 
-      imageFunction = new ImageFunction(
-        queryString,
-        currentSlide,
-        that.createSlider,
-      )
+      return value
+    }
 
-      renderObject = {
-        showInfos: false,
-        slide: currentSlide,
-        imageFunction,
-        queryString,
-        pixelSize:
-          (queryString.p || currentSlide.p || 7) * 1 +
-          (queryString.pAdd || imageFunction.recommendedPixelSize || 0) * 1,
-        sliderObject: that.sliderObject,
-        sliderValues: that.sliderValues,
-        info,
-        defaultValues: that.defaultValues,
-        init: that,
+    while (i < l) {
+      pair = vars[i].split('=')
+
+      if (pair[0]) {
+        list[pair[0]] = convert(pair[1])
       }
 
-      that.renderer = rendererInit(renderObject)
-
-      if (that.timerAnimation) {
-        that.timerAnimation()
-      }
-    } else {
-      throw imageName + ' was loaded but is not a function!'
-    }
-  }
-}
-
-InitPixel.prototype.addToQueryString = function (newObj, dontRefresh) {
-  let key
-
-  const q = this.queryString
-
-  let somethingChanged = false
-
-  for (key in newObj) {
-    if (q[key] !== newObj[key]) {
-      somethingChanged = true
+      i += 1
     }
 
-    q[key] = newObj[key]
+    // if( !list.slide ) { list.slide = "0"; }
+    // else { list.slide = list.slide.toString(); }
+    // if( !list.id ) { list.id = 666; }
+
+    return (this.queryString = list)
   }
 
-  if (!dontRefresh && somethingChanged) {
-    this.refresh()
-  }
-}
+  /** Create the Callback Function, when the script is loaded */
+  getCallback(rendererInit, queryString, imageName, currentSlide, info) {
+    const that = this
 
-InitPixel.prototype.refresh = function (event) {
-  const newString = []
+    return function callback(ImageFunction) {
+      let imageFunction
+      let renderObject
 
-  let key
-
-  const q = this.queryString
-
-  if (event) {
-    event.preventDefault()
-  }
-
-  for (key in q) {
-    if (q[key] !== undefined) {
-      newString.push(key + '=' + q[key])
-    }
-  }
-
-  location.search = newString.join('&')
-}
-
-InitPixel.prototype.nextSlide = function (next) {
-  if (!this.queryString.slide) {
-    this.queryString.slide = 0
-  }
-
-  this.queryString.slide = this.queryString.slide * 1 + (next ? 1 : -1)
-
-  if (this.queryString.slide > this.slides.length - 1) {
-    this.queryString.slide = this.slides.length - 1
-  } else if (this.queryString.slide < 0) {
-    this.queryString.slide = 0
-  }
-
-  this.changeForceRedraw({ slide: this.queryString.slide })
-}
-
-InitPixel.prototype.getNewId = function (id) {
-  this.changeForceRedraw({
-    id: id || Math.floor(Math.random() * Math.pow(2, 32)),
-  })
-}
-
-InitPixel.prototype.sliderChange = function (obj) {
-  if (this.renderer) {
-    this.renderer.redraw(obj)
-  } else {
-    for (const key in obj) {
-      this.defaultValues[key] = obj[key]
-    }
-  }
-}
-
-InitPixel.prototype.changeForceRedraw = function (obj) {
-  if (obj.slide && obj.slide !== this.queryString.slide && this.showcase) {
-    this.queryString = {
-      showcase: true,
-      id: this.queryString.id,
-      slide: obj.slide,
-    }
-
-    this.refresh()
-  } else {
-    this.addToQueryString(obj)
-  }
-}
-
-InitPixel.prototype.makeFullScreen = function () {
-  this.toggleResizability(false)
-
-  this.renderer.redraw({ width: 1, height: 1 })
-}
-
-InitPixel.prototype.setupToggleResizabilityLinkButton = function (button) {
-  this.toggleResizabilityButton = button
-
-  this.toggleResizability(this.queryString.resizeable ? true : false)
-}
-
-InitPixel.prototype.toggleResizability = function (value) {
-  const resizeable = (this.queryString.resizeable =
-    value === undefined ? !this.queryString.resizeable : value)
-
-  if (this.toggleResizabilityButton) {
-    this.toggleResizabilityButton.innerHTML =
-      (resizeable ? 'scaleable' : 'not scaleable') +
-      "<span class='shortcut'>CTRL+S</span>"
-  }
-}
-
-InitPixel.prototype.getShortcuts = function (q) {
-  const that = this
-
-  return function (event) {
-    if (event.ctrlKey) {
-      if (event.keyCode === 82) {
-        // CTRL + R // new id
-        that.getNewId()
-      } else if (event.keyCode === 83) {
-        // CTRL + S // toggle scalability
-        that.toggleResizability()
-      } else if (event.keyCode === 70) {
-        // CTRL + F // make Fullscreen
-
-        that.makeFullScreen()
-      } else if (event.keyCode === 67) {
-        // CTRL + C // toggle Color sheme
-
-        q.cs = q.cs !== true ? true : undefined
-
-        that.refresh()
-      } else if (event.keyCode === 68) {
-        // CTRL + D // toggle debugging
-
-        q.debug = q.debug !== true ? true : undefined
-
-        that.refresh()
-      } else if (event.keyCode === 187) {
-        // CTRL + "+" // zoom In
-        if (!q.p) {
-          q.p = 5
+      if (ImageFunction) {
+        if (that.createSlider) {
+          // that.createSlider.title( { title: "Image Size" } );
+          // that.createSlider.slider( { niceName: "Width", valueName: "width", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
+          // that.createSlider.slider( { niceName: "Height", 	 valueName: "height", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
         }
 
-        q.p = q.p * 1 + 1
+        imageFunction = new ImageFunction(
+          queryString,
+          currentSlide,
+          that.createSlider,
+        )
 
-        that.refresh()
-      } else if (event.keyCode === 189) {
-        // CTRL + "-" // zoom Out
-        if (!q.p) {
-          q.p = 5
+        renderObject = {
+          showInfos: false,
+          slide: currentSlide,
+          imageFunction,
+          queryString,
+          pixelSize:
+            (queryString.p || currentSlide.p || 7) * 1 +
+            (queryString.pAdd || imageFunction.recommendedPixelSize || 0) * 1,
+          sliderObject: that.sliderObject,
+          sliderValues: that.sliderValues,
+          info,
+          defaultValues: that.defaultValues,
+          init: that,
         }
 
-        q.p = q.p * 1 - 1
+        that.renderer = rendererInit(renderObject)
 
-        if (q.p < 1) {
-          q.p = 1
+        if (that.timerAnimation) {
+          that.timerAnimation()
         }
-
-        that.refresh()
-      }
-    } else if (event.altKey) {
-      if (event.keyCode === 38) {
-        // Arrow Keys Up/Down // Add Rows
-        if (!q.panels) {
-          q.panels = 1
-        }
-
-        q.panels = q.panels * 1 + 1
-
-        that.refresh()
-      } else if (event.keyCode === 40) {
-        if (!q.panels) {
-          q.panels = 1
-        }
-
-        q.panels = q.panels * 1 - 1
-
-        if (q.panels < 1) {
-          q.panels = 1
-        }
-
-        that.refresh()
-      } else if (event.keyCode === 39) {
-        // Arrow Keys Left/Right // Next / Prev Image
-        that.nextSlide(true)
-      } else if (event.keyCode === 37) {
-        that.nextSlide(false)
+      } else {
+        throw imageName + ' was loaded but is not a function!'
       }
     }
-    // else if ( event.shiftKey ) {
-    // 	if ( keyCode === 49 ) { q.p = 11; that.refresh(); }
-    // Number Keys 1 — 9 // Set resolution
-    // 	else if ( keyCode === 222 ) { q.p = 12; that.refresh(); }
-    // 	else if ( keyCode === 51 ) { q.p = 13; that.refresh(); }
-    // 	else if ( keyCode === 52 ) { q.p = 14; that.refresh(); }
-    // 	else if ( keyCode === 53 ) { q.p = 15; that.refresh(); }
-    // 	else if ( keyCode === 54 ) { q.p = 16; that.refresh(); }
-    // 	else if ( keyCode === 191 ) { q.p = 17; that.refresh(); }
-    // 	else if ( keyCode === 56 ) { q.p = 18; that.refresh(); }
-    // 	else if ( keyCode === 57 ) { q.p = 19; that.refresh(); }
-    // 	else if ( keyCode === 187 ) { q.p = 20; that.refresh(); }
-    // }
-
-    // else if( !event.metaKey ) {
-    // 	if ( keyCode === 49 ) { q.p = 1; that.refresh(); }
-    // Number Keys 1 — 9 // Set resolution
-    // 	else if ( keyCode === 50 ) { q.p = 2; that.refresh(); }
-    // 	else if ( keyCode === 51 ) { q.p = 3; that.refresh(); }
-    // 	else if ( keyCode === 52 ) { q.p = 4; that.refresh(); }
-    // 	else if ( keyCode === 53 ) { q.p = 5; that.refresh(); }
-    // 	else if ( keyCode === 54 ) { q.p = 6; that.refresh(); }
-    // 	else if ( keyCode === 55 ) { q.p = 7; that.refresh(); }
-    // 	else if ( keyCode === 56 ) { q.p = 8; that.refresh(); }
-    // 	else if ( keyCode === 57 ) { q.p = 9; that.refresh(); }
-    // 	else if ( keyCode === 48 ) { q.p = 10; that.refresh(); }
-    // }
-  }
-}
-
-InitPixel.prototype.getTimerAnimation = function () {
-  const that = this
-  const fps = 20
-  /* how often per second should the chance be checked */
-  const waitTimer = fps * 0.5
-  const animations = {
-    camera: { duration: 6, chance: 0.1 },
-    side: { duration: 3, chance: 0.3 },
-    a: { duration: 2, chance: 0.3 },
-    b: { duration: 2, chance: 0.3 },
-    c: { duration: 2, chance: 0.3 },
-    // eye open
-    d: { duration: 2, chance: 0.1 },
-    // eye open
-    e: { duration: 2, chance: 0.1 },
-    f: { duration: 2, chance: 0.3 },
-    g: { duration: 2, chance: 0.3 },
-    h: { duration: 2, chance: 0.3 },
-    k: { duration: 2, chance: 0.3 },
-    l: { duration: 2, chance: 0.3 },
-    m: { duration: 2, chance: 0.3 },
-    n: { duration: 2, chance: 0.3 },
   }
 
-  let key
-  let current
-
-  const getFrame = function () {
-    const renderObject = {}
-
-    let current
+  addToQueryString(newObj, dontRefresh) {
     let key
+
+    const q = this.queryString
+
+    let somethingChanged = false
+
+    for (key in newObj) {
+      if (q[key] !== newObj[key]) {
+        somethingChanged = true
+      }
+
+      q[key] = newObj[key]
+    }
+
+    if (!dontRefresh && somethingChanged) {
+      this.refresh()
+    }
+  }
+
+  refresh(event) {
+    const newString = []
+
+    let key
+
+    const q = this.queryString
+
+    if (event) {
+      event.preventDefault()
+    }
+
+    for (key in q) {
+      if (q[key] !== undefined) {
+        newString.push(key + '=' + q[key])
+      }
+    }
+
+    location.search = newString.join('&')
+  }
+
+  nextSlide(next) {
+    if (!this.queryString.slide) {
+      this.queryString.slide = 0
+    }
+
+    this.queryString.slide = this.queryString.slide * 1 + (next ? 1 : -1)
+
+    if (this.queryString.slide > this.slides.length - 1) {
+      this.queryString.slide = this.slides.length - 1
+    } else if (this.queryString.slide < 0) {
+      this.queryString.slide = 0
+    }
+
+    this.changeForceRedraw({ slide: this.queryString.slide })
+  }
+
+  getNewId(id) {
+    this.changeForceRedraw({
+      id: id || Math.floor(Math.random() * Math.pow(2, 32)),
+    })
+  }
+
+  sliderChange(obj) {
+    if (this.renderer) {
+      this.renderer.redraw(obj)
+    } else {
+      for (const key in obj) {
+        this.defaultValues[key] = obj[key]
+      }
+    }
+  }
+
+  changeForceRedraw(obj) {
+    if (obj.slide && obj.slide !== this.queryString.slide && this.showcase) {
+      this.queryString = {
+        showcase: true,
+        id: this.queryString.id,
+        slide: obj.slide,
+      }
+
+      this.refresh()
+    } else {
+      this.addToQueryString(obj)
+    }
+  }
+
+  makeFullScreen() {
+    this.toggleResizability(false)
+
+    this.renderer.redraw({ width: 1, height: 1 })
+  }
+
+  setupToggleResizabilityLinkButton(button) {
+    this.toggleResizabilityButton = button
+
+    this.toggleResizability(this.queryString.resizeable ? true : false)
+  }
+
+  toggleResizability(value) {
+    const resizeable = (this.queryString.resizeable =
+      value === undefined ? !this.queryString.resizeable : value)
+
+    if (this.toggleResizabilityButton) {
+      this.toggleResizabilityButton.innerHTML =
+        (resizeable ? 'scaleable' : 'not scaleable') +
+        "<span class='shortcut'>CTRL+S</span>"
+    }
+  }
+
+  getShortcuts(q) {
+    const that = this
+
+    return function (event) {
+      if (event.ctrlKey) {
+        if (event.keyCode === 82) {
+          // CTRL + R // new id
+          that.getNewId()
+        } else if (event.keyCode === 83) {
+          // CTRL + S // toggle scalability
+          that.toggleResizability()
+        } else if (event.keyCode === 70) {
+          // CTRL + F // make Fullscreen
+
+          that.makeFullScreen()
+        } else if (event.keyCode === 67) {
+          // CTRL + C // toggle Color sheme
+
+          q.cs = q.cs !== true ? true : undefined
+
+          that.refresh()
+        } else if (event.keyCode === 68) {
+          // CTRL + D // toggle debugging
+
+          q.debug = q.debug !== true ? true : undefined
+
+          that.refresh()
+        } else if (event.keyCode === 187) {
+          // CTRL + "+" // zoom In
+          if (!q.p) {
+            q.p = 5
+          }
+
+          q.p = q.p * 1 + 1
+
+          that.refresh()
+        } else if (event.keyCode === 189) {
+          // CTRL + "-" // zoom Out
+          if (!q.p) {
+            q.p = 5
+          }
+
+          q.p = q.p * 1 - 1
+
+          if (q.p < 1) {
+            q.p = 1
+          }
+
+          that.refresh()
+        }
+      } else if (event.altKey) {
+        if (event.keyCode === 38) {
+          // Arrow Keys Up/Down // Add Rows
+          if (!q.panels) {
+            q.panels = 1
+          }
+
+          q.panels = q.panels * 1 + 1
+
+          that.refresh()
+        } else if (event.keyCode === 40) {
+          if (!q.panels) {
+            q.panels = 1
+          }
+
+          q.panels = q.panels * 1 - 1
+
+          if (q.panels < 1) {
+            q.panels = 1
+          }
+
+          that.refresh()
+        } else if (event.keyCode === 39) {
+          // Arrow Keys Left/Right // Next / Prev Image
+          that.nextSlide(true)
+        } else if (event.keyCode === 37) {
+          that.nextSlide(false)
+        }
+      }
+      // else if ( event.shiftKey ) {
+      // 	if ( keyCode === 49 ) { q.p = 11; that.refresh(); }
+      // Number Keys 1 — 9 // Set resolution
+      // 	else if ( keyCode === 222 ) { q.p = 12; that.refresh(); }
+      // 	else if ( keyCode === 51 ) { q.p = 13; that.refresh(); }
+      // 	else if ( keyCode === 52 ) { q.p = 14; that.refresh(); }
+      // 	else if ( keyCode === 53 ) { q.p = 15; that.refresh(); }
+      // 	else if ( keyCode === 54 ) { q.p = 16; that.refresh(); }
+      // 	else if ( keyCode === 191 ) { q.p = 17; that.refresh(); }
+      // 	else if ( keyCode === 56 ) { q.p = 18; that.refresh(); }
+      // 	else if ( keyCode === 57 ) { q.p = 19; that.refresh(); }
+      // 	else if ( keyCode === 187 ) { q.p = 20; that.refresh(); }
+      // }
+
+      // else if( !event.metaKey ) {
+      // 	if ( keyCode === 49 ) { q.p = 1; that.refresh(); }
+      // Number Keys 1 — 9 // Set resolution
+      // 	else if ( keyCode === 50 ) { q.p = 2; that.refresh(); }
+      // 	else if ( keyCode === 51 ) { q.p = 3; that.refresh(); }
+      // 	else if ( keyCode === 52 ) { q.p = 4; that.refresh(); }
+      // 	else if ( keyCode === 53 ) { q.p = 5; that.refresh(); }
+      // 	else if ( keyCode === 54 ) { q.p = 6; that.refresh(); }
+      // 	else if ( keyCode === 55 ) { q.p = 7; that.refresh(); }
+      // 	else if ( keyCode === 56 ) { q.p = 8; that.refresh(); }
+      // 	else if ( keyCode === 57 ) { q.p = 9; that.refresh(); }
+      // 	else if ( keyCode === 48 ) { q.p = 10; that.refresh(); }
+      // }
+    }
+  }
+
+  getTimerAnimation() {
+    const that = this
+    const fps = 20
+    /* how often per second should the chance be checked */
+    const waitTimer = fps * 0.5
+    const animations = {
+      camera: { duration: 6, chance: 0.1 },
+      side: { duration: 3, chance: 0.3 },
+      a: { duration: 2, chance: 0.3 },
+      b: { duration: 2, chance: 0.3 },
+      c: { duration: 2, chance: 0.3 },
+      // eye open
+      d: { duration: 2, chance: 0.1 },
+      // eye open
+      e: { duration: 2, chance: 0.1 },
+      f: { duration: 2, chance: 0.3 },
+      g: { duration: 2, chance: 0.3 },
+      h: { duration: 2, chance: 0.3 },
+      k: { duration: 2, chance: 0.3 },
+      l: { duration: 2, chance: 0.3 },
+      m: { duration: 2, chance: 0.3 },
+      n: { duration: 2, chance: 0.3 },
+    }
+
+    let key
+    let current
+
+    const getFrame = function () {
+      const renderObject = {}
+
+      let current
+      let key
+
+      for (key in animations) {
+        current = animations[key]
+
+        if (current.move) {
+          current.pos += current.step * (current.forward ? 1 : -1)
+
+          if (current.pos > 1) {
+            current.pos = 1
+
+            current.move = false
+
+            current.forward = false
+          } else if (current.pos < 0) {
+            current.pos = 0
+
+            current.move = false
+
+            current.forward = true
+          }
+
+          // randomly stopp in the middle
+          if (current.waitTimer > 0) {
+            current.waitTimer -= 1
+          } else {
+            current.waitTimer = waitTimer
+
+            if (current.middleChance > Math.random()) {
+              current.forward = !current.forward
+
+              current.move = false
+            }
+          }
+
+          renderObject[key] = current.pos
+        } else {
+          if (current.waitTimer > 0) {
+            current.waitTimer -= 1
+          } else {
+            current.waitTimer = waitTimer
+
+            if (current.chance > Math.random()) {
+              current.move = true
+            }
+          }
+        }
+      }
+
+      // console.log( animations.camera.pos );
+
+      setTimeout(getFrame, 1000 / fps)
+
+      that.renderer.redraw(renderObject)
+    }
 
     for (key in animations) {
       current = animations[key]
 
-      if (current.move) {
-        current.pos += current.step * (current.forward ? 1 : -1)
+      current.chance = (waitTimer * current.chance) / fps
 
-        if (current.pos > 1) {
-          current.pos = 1
+      current.middleChance = waitTimer / (fps * current.duration)
 
-          current.move = false
+      current.step = 1 / (fps * current.duration)
 
-          current.forward = false
-        } else if (current.pos < 0) {
-          current.pos = 0
+      current.pos = 0
 
-          current.move = false
+      current.forward = true
 
-          current.forward = true
-        }
+      current.move = true
 
-        // randomly stopp in the middle
-        if (current.waitTimer > 0) {
-          current.waitTimer -= 1
-        } else {
-          current.waitTimer = waitTimer
-
-          if (current.middleChance > Math.random()) {
-            current.forward = !current.forward
-
-            current.move = false
-          }
-        }
-
-        renderObject[key] = current.pos
-      } else {
-        if (current.waitTimer > 0) {
-          current.waitTimer -= 1
-        } else {
-          current.waitTimer = waitTimer
-
-          if (current.chance > Math.random()) {
-            current.move = true
-          }
-        }
-      }
+      current.waitTimer = 0
     }
 
-    // console.log( animations.camera.pos );
-
-    setTimeout(getFrame, 1000 / fps)
-
-    that.renderer.redraw(renderObject)
+    return getFrame
   }
-
-  for (key in animations) {
-    current = animations[key]
-
-    current.chance = (waitTimer * current.chance) / fps
-
-    current.middleChance = waitTimer / (fps * current.duration)
-
-    current.step = 1 / (fps * current.duration)
-
-    current.pos = 0
-
-    current.forward = true
-
-    current.move = true
-
-    current.waitTimer = 0
-  }
-
-  return getFrame
 }

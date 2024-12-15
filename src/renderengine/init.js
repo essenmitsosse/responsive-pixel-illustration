@@ -1,6 +1,23 @@
 import { Admin } from './admin.js'
 import { PixelGraphics } from './info.js'
 
+const doSetDocumentTitle = (imageName, queryString) => {
+  let name = imageName
+
+  // add resizeable to the title
+  if (queryString.resizeable) {
+    name += ' resizeable'
+  }
+
+  // Display the id for the Seedable Random Number Generator in the title;
+  if (queryString.id) {
+    name += ' (' + queryString.id + ')'
+  }
+
+  // Display the imageName as the title
+  document.title = name
+}
+
 export const InitPixel = function (args) {
   const queryString = this.getQueryString()
   const showcase = (this.showcase = true)
@@ -43,7 +60,7 @@ export const InitPixel = function (args) {
 
   loadScript(callback, currentSlide)
 
-  this.getDocumentTitle(imageName, queryString)
+  doSetDocumentTitle(imageName, queryString)
 
   window.onkeydown = this.getShortcuts(queryString)
 
@@ -395,23 +412,6 @@ InitPixel.prototype.toggleResizability = function (value) {
       (resizeable ? 'scaleable' : 'not scaleable') +
       "<span class='shortcut'>CTRL+S</span>"
   }
-}
-
-InitPixel.prototype.getDocumentTitle = function (imageName, queryString) {
-  let name = imageName
-
-  // add resizeable to the title
-  if (queryString.resizeable) {
-    name += ' resizeable'
-  }
-
-  // Display the id for the Seedable Random Number Generator in the title;
-  if (queryString.id) {
-    name += ' (' + queryString.id + ')'
-  }
-
-  // Display the imageName as the title
-  document.title = name
 }
 
 InitPixel.prototype.getShortcuts = function (q) {

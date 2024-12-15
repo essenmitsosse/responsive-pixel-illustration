@@ -1,3 +1,5 @@
+import type { ColorRgb } from './typeColor'
+
 type SizeIn<TA, TUse> = {
   a: TA
   getBiggerDim: unknown
@@ -20,8 +22,6 @@ type Max = {
   r: number
   useSize?: unknown
 }
-
-export type ColorRgb = [number, number, number]
 
 export const getSmallerDim = <TA, TUse>(
   x: SizeIn<TA, TUse>,

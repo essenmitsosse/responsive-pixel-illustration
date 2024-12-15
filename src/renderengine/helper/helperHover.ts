@@ -1,7 +1,7 @@
 import getIsUnknownObject from '@/lib/getIsUnknownObject'
 import getObjectKeys from '@/lib/getObjectKeys'
 
-import type { ColorRgb } from './helper'
+import type { ColorRgb } from './typeColor'
 
 type Size<T> = { r?: T; s: { rele?: T } }
 

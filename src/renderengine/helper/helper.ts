@@ -1,27 +1,5 @@
 import type { ColorRgb } from './typeColor'
-
-type SizeIn<TA, TUse> = {
-  a: TA
-  getBiggerDim: unknown
-  r: number
-  r2: number
-  useSize: ReadonlyArray<TUse>
-}
-
-type SizeOut<TA, TUse> = {
-  a?: TA
-  max?: Max
-  min?: Max
-  r: number
-  useSize?: TUse
-}
-
-type Max = {
-  a?: unknown
-  otherDim: boolean
-  r: number
-  useSize?: unknown
-}
+import type { Max, SizeIn, SizeOut } from './typeSize'
 
 export const getSmallerDim = <TA, TUse>(
   x: SizeIn<TA, TUse>,

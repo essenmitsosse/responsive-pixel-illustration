@@ -111,6 +111,52 @@ const doShowInfo = (options) => {
   }
 }
 
+// // If there is a List of Canvases, cycle through the list
+// InitPixel.prototype.createMultipleCanvases = function ( canvasDataList, div ) {
+// 	var canvasList = [],
+// 		length = canvasDataList.length,
+// 		i = length;
+
+// 	while ( i -- ) {
+// 		canvasList.push( this.createSingleCanvas( canvasDataList[ i ], div ) );
+// 	}
+
+// 	return function ( renderer ) {
+// 		var i;
+
+// 		i = length;
+
+// 		while ( i -- ) {
+// 			renderer.debug = i === 0;
+// 			canvasList[ i ]( renderer );
+// 		}
+// 	};
+// };
+
+/** Create a new Canvas, add it to the div and return it */
+const createSingleCanvas = (canvasData, div) => {
+  const canvas = document.createElement('canvas')
+
+  let key
+
+  canvas.resize = true
+
+  canvas.keepalive = true
+  // canvas.style.position = "absolute";
+
+  if (canvasData) {
+    for (key in canvasData) {
+      canvas.style[key] = canvasData[key]
+    }
+  }
+
+  div.appendChild(canvas)
+
+  return function (renderer) {
+    return new PixelGraphics(renderer)(canvas)
+  }
+}
+
 export const InitPixel = function (args) {
   const queryString = this.getQueryString()
   const showcase = (this.showcase = true)
@@ -121,7 +167,7 @@ export const InitPixel = function (args) {
   const sliders = queryString.sliders || currentSlide.sliders
   /** Change for multiple Canvases */
   const canvasDataList = false
-  const canvasRenderer = this.createSingleCanvas(canvasDataList, args.div)
+  const canvasRenderer = createSingleCanvas(canvasDataList, args.div)
   const [body] = document.getElementsByTagName('body')
 
   this.parent = queryString.admin || queryString.parent
@@ -199,52 +245,6 @@ InitPixel.prototype.getQueryString = function () {
   // if( !list.id ) { list.id = 666; }
 
   return (this.queryString = list)
-}
-
-// // If there is a List of Canvases, cycle through the list
-// InitPixel.prototype.createMultipleCanvases = function ( canvasDataList, div ) {
-// 	var canvasList = [],
-// 		length = canvasDataList.length,
-// 		i = length;
-
-// 	while ( i -- ) {
-// 		canvasList.push( this.createSingleCanvas( canvasDataList[ i ], div ) );
-// 	}
-
-// 	return function ( renderer ) {
-// 		var i;
-
-// 		i = length;
-
-// 		while ( i -- ) {
-// 			renderer.debug = i === 0;
-// 			canvasList[ i ]( renderer );
-// 		}
-// 	};
-// };
-
-// Create a new Canvas, add it to the div and return it
-InitPixel.prototype.createSingleCanvas = function (canvasData, div) {
-  const canvas = document.createElement('canvas')
-
-  let key
-
-  canvas.resize = true
-
-  canvas.keepalive = true
-  // canvas.style.position = "absolute";
-
-  if (canvasData) {
-    for (key in canvasData) {
-      canvas.style[key] = canvasData[key]
-    }
-  }
-
-  div.appendChild(canvas)
-
-  return function (renderer) {
-    return new PixelGraphics(renderer)(canvas)
-  }
 }
 
 const loadScript = function (callback, currentSlide) {

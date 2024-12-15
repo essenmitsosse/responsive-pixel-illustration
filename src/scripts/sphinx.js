@@ -1,4 +1,4 @@
-import { getBiggerDim, getSmallerDim, mult, sub } from '@/renderengine/helper'
+import { getBiggerDim, getSmallerDim, mult, sub } from '@/helper/helperDim'
 
 function sphinx() {
   const c1 = [255, 0, 0]

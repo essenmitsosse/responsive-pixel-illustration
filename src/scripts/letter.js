@@ -1,4 +1,4 @@
-import { getHoverChangerStandard } from '@/renderengine/helperHover'
+import getHoverChangerStandard from '@/helper/getHoverChangerStandard'
 
 function letter(args, init, createSlider) {
   const hoverChangerStandard = getHoverChangerStandard()

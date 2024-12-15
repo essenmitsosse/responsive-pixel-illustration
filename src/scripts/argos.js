@@ -1,4 +1,4 @@
-import { getBiggerDim, getSmallerDim, mult, sub } from '@/renderengine/helper'
+import { getBiggerDim, getSmallerDim, mult, sub } from '@/helper/helperDim'
 
 function argos() {
   const wood = [155, 114, 70]

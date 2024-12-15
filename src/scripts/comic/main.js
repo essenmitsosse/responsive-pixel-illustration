@@ -1,20 +1,16 @@
-import {
-  getLinkListPusher,
-  getRandom,
-  multiplyColor,
-} from '@/renderengine/helper'
-import {
-  getHoverChangerColor,
-  getHoverChangerCustom,
-  getHoverChangerRelative,
-  getHoverChangerStandard,
-} from '@/renderengine/helperHover'
+import getHoverChangerStandard from '@/helper/getHoverChangerStandard'
+import { getRandom } from '@/helper/getRandom'
+import { multiplyColor } from '@/helper/helperColor'
 
 import { Chair, Emotion, Glass, Table } from './accessoir.js'
 import { Arm } from './actor-arm.js'
 import { Eye, Eyes, Hair, Hat, Head, Mouth } from './actor-head.js'
 import { Legs } from './actor-legs.js'
 import { Actor, Body, Torso } from './actor.js'
+import getHoverChangerColor from './getHoverChangerColor'
+import getHoverChangerCustom from './getHoverChangerCustom'
+import getHoverChangerRelative from './getHoverChangerRelative'
+import { getLinkListPusher } from './getLinkListPusher'
 import { Background, Floor, Stage } from './stage.js'
 import { Panel, Strip } from './strip.js'
 import { getCombiner, getFace, getStrip, getStripInfo } from './tablecomic-1.js'

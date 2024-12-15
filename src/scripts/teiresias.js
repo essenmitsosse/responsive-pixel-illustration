@@ -1,11 +1,5 @@
-import {
-  darken,
-  getBiggerDim,
-  getSmallerDim,
-  lighten,
-  mult,
-  sub,
-} from '@/renderengine/helper'
+import { darken, lighten } from '@/helper/helperColor'
+import { getBiggerDim, getSmallerDim, mult, sub } from '@/helper/helperDim'
 
 function teiresias() {
   const shadowColor = [255, 200, 255]

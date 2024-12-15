@@ -1,5 +1,5 @@
 import getHoverChangerStandard from '@/helper/getHoverChangerStandard'
-import { getRandom } from '@/helper/helper'
+import { getRandom } from '@/helper/getRandom'
 
 import { Object } from './object.js'
 import { Arm, Shield, ShoulderPad, Sword, Tool } from './person-arm.js'

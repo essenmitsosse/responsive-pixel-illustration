@@ -1,4 +1,4 @@
-import { getBiggerDim, getSmallerDim } from '@/helper/helper'
+import { getBiggerDim, getSmallerDim } from '@/helper/helperDim'
 
 function tantalos() {
   const water = [36, 44, 53]

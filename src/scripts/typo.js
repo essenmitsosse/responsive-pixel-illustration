@@ -1,4 +1,4 @@
-import { getSmallerDim, mult, sub } from '@/helper/helper'
+import { getSmallerDim, mult, sub } from '@/helper/helperDim'
 
 function typo() {
   const backgroundColor = [170, 190, 230]

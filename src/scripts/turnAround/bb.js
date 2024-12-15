@@ -1,4 +1,4 @@
-import { getRandom } from '@/helper/helper'
+import { getRandom } from '@/helper/getRandom'
 
 import { BBObj, RotateInfo, Rotater } from './object.js'
 import { Head, HeadBottom, HeadTop, Neck, Nose } from './person-head.js'

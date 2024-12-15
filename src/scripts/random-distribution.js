@@ -1,4 +1,4 @@
-import { getRandom } from '@/helper/helper'
+import { getRandom } from '@/helper/getRandom'
 
 function randomDistribution(init) {
   const random = getRandom(init.id)

@@ -1,11 +1,5 @@
-import {
-  darken,
-  getBiggerDim,
-  getSmallerDim,
-  lighten,
-  mult,
-  sub,
-} from '@/helper/helper'
+import { darken, lighten } from '@/helper/helperColor'
+import { getBiggerDim, getSmallerDim, mult, sub } from '@/helper/helperDim'
 
 function brothers() {
   const shadowColor = [255, 255, 255]

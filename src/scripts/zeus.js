@@ -4,7 +4,7 @@ import {
   getSmallerDim,
   mult,
   sub,
-} from '@/renderengine/helper'
+} from '@/renderengine/helper/helper'
 
 function zeus() {
   const zero = { a: 0 }

@@ -1,4 +1,4 @@
-import { sub } from '@/renderengine/helper'
+import { sub } from '@/renderengine/helper/helper'
 
 import { Object } from './object.js'
 

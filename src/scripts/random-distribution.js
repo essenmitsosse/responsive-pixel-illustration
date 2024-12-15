@@ -1,4 +1,4 @@
-import { getRandom } from '@/renderengine/helper'
+import { getRandom } from '@/renderengine/helper/helper'
 
 function randomDistribution(init) {
   const random = getRandom(init.id)

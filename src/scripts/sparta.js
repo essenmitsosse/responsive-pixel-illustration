@@ -4,7 +4,7 @@ import {
   getSmallerDim,
   mult,
   sub,
-} from '@/renderengine/helper'
+} from '@/renderengine/helper/helper'
 
 function sparta() {
   const shadowColor = [255, 255, 255]

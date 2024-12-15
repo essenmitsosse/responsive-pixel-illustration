@@ -1,5 +1,5 @@
-import { getRandom } from '@/renderengine/helper'
-import { getHoverChangerStandard } from '@/renderengine/helperHover'
+import { getRandom } from '@/renderengine/helper/helper'
+import { getHoverChangerStandard } from '@/renderengine/helper/helperHover'
 
 import { Object } from './object.js'
 import { Arm, Shield, ShoulderPad, Sword, Tool } from './person-arm.js'

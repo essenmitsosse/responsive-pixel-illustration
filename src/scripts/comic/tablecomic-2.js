@@ -1,4 +1,4 @@
-import { multiplyColor } from '@/renderengine/helper'
+import { multiplyColor } from '@/renderengine/helper/helper'
 
 // BEGINN getTableComic /\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-/\-
 export const getTableComic = function getTableComic(args) {

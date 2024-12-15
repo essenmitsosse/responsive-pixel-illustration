@@ -1,4 +1,4 @@
-import { getRandom } from '@/renderengine/helper'
+import { getRandom } from '@/renderengine/helper/helper'
 
 import { Actor, Comic, Ground, Panel } from './comic.js'
 import { Object } from './object.js'

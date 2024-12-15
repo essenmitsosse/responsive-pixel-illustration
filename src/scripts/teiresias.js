@@ -5,7 +5,7 @@ import {
   lighten,
   mult,
   sub,
-} from '@/renderengine/helper'
+} from '@/renderengine/helper/helper'
 
 function teiresias() {
   const shadowColor = [255, 200, 255]

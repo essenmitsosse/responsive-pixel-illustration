@@ -1,4 +1,4 @@
-import { mult, sub } from '@/renderengine/helper'
+import { mult, sub } from '@/renderengine/helper/helper'
 
 import { Object } from './object.js'
 

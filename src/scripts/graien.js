@@ -4,8 +4,8 @@ import {
   getSmallerDim,
   mult,
   sub,
-} from '@/renderengine/helper'
-import { setValue } from '@/renderengine/helperHover'
+} from '@/renderengine/helper/helper'
+import { setValue } from '@/renderengine/helper/helperHover'
 
 function graien(_, __, createSlider) {
   const background = [60, 120, 110]

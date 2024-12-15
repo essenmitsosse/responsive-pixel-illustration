@@ -2,13 +2,13 @@ import {
   getLinkListPusher,
   getRandom,
   multiplyColor,
-} from '@/renderengine/helper'
+} from '@/renderengine/helper/helper'
 import {
   getHoverChangerColor,
   getHoverChangerCustom,
   getHoverChangerRelative,
   getHoverChangerStandard,
-} from '@/renderengine/helperHover'
+} from '@/renderengine/helper/helperHover'
 
 import { Chair, Emotion, Glass, Table } from './accessoir.js'
 import { Arm } from './actor-arm.js'

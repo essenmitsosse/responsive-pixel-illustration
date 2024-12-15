@@ -5,7 +5,7 @@ import {
   mult,
   sub,
 } from '@/renderengine/helper/helper'
-import { setValue } from '@/renderengine/helper/helperHover'
+import { setValue } from '@/renderengine/helper/setValue'
 
 function graien(_, __, createSlider) {
   const background = [60, 120, 110]

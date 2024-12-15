@@ -1,3 +1,5 @@
+import listImage from '@/scripts/listImage'
+
 import { Admin } from './admin.js'
 import { PixelGraphics } from './info.js'
 
@@ -161,7 +163,7 @@ export const InitPixel = function (args) {
   const queryString = this.getQueryString()
   const showcase = (this.showcase = true)
   const forceName = args.imageName || window.location.hash.substr(1)
-  const slides = showcase ? this.showcaseSlides : this.slides
+  const slides = showcase ? listImage : this.slides
   const currentSlide = !forceName && slides[queryString.slide || 0]
   const imageName = forceName || currentSlide.name || 'tantalos'
   const sliders = queryString.sliders || currentSlide.sliders
@@ -631,139 +633,3 @@ InitPixel.prototype.getTimerAnimation = function () {
 
   return getFrame
 }
-
-InitPixel.prototype.showcaseSlides = [
-  {
-    name: 'graien',
-    niceName: 'The Three Graeae',
-    import: () => import('@/scripts/graien.js'),
-    resizeable: true,
-    unchangeable: true,
-    sliders: true,
-  },
-  {
-    name: 'tantalos',
-    niceName: 'Tantalos',
-    import: () => import('@/scripts/tantalos.js'),
-    resizeable: true,
-  },
-  {
-    name: 'teiresias',
-    niceName: 'Teiresias',
-    import: () => import('@/scripts/teiresias.js'),
-    resizeable: true,
-  },
-  {
-    name: 'brothers',
-    niceName: 'Brothers',
-    import: () => import('@/scripts/brothers.js'),
-    resizeable: true,
-  },
-  {
-    name: 'zeus',
-    niceName: 'Zeus',
-    import: () => import('@/scripts/zeus.js'),
-    resizeable: true,
-  },
-  {
-    name: 'argos',
-    niceName: 'The Argos',
-    import: () => import('@/scripts/argos.js'),
-    resizeable: true,
-  },
-  {
-    name: 'sphinx',
-    niceName: 'The Sphinx',
-    import: () => import('@/scripts/sphinx.js'),
-    resizeable: true,
-  },
-  {
-    name: 'letter',
-    niceName: 'Letter',
-    import: () => import('@/scripts/letter.js'),
-    unchangeable: true,
-    both: true,
-  },
-  {
-    name: 'persons_lessrandom',
-    niceName: 'Trees',
-    import: () => import('@/scripts/persons-and-trees/init.js'),
-    hasRandom: true,
-  },
-  {
-    name: 'persons_lessrandom',
-    niceName: 'Persons',
-    import: () => import('@/scripts/persons-and-trees/init.js'),
-    sliders: true,
-    showPerson: true,
-    hasRandom: true,
-  },
-  {
-    name: 'panels',
-    niceName: 'Panels',
-    import: () => import('@/scripts/panels/init-panels.js'),
-    unchangeable: true,
-    sliders: true,
-    hasRandom: true,
-  },
-  {
-    name: 'turnaround',
-    niceName: 'Turnaround',
-    import: () => import('@/scripts/turnAround/init.js'),
-    unchangeable: true,
-    sliders: true,
-    hasRandom: true,
-  },
-  {
-    name: 'comic',
-    niceName: 'Comic',
-    import: () => import('@/scripts/comic/init.js'),
-    unchangeable: true,
-    sliders: true,
-    hasRandom: true,
-  },
-  {
-    name: 'relativity',
-    niceName: 'Relativity',
-    import: () => import('@/scripts/relativity.js'),
-    resizeable: true,
-  },
-  {
-    name: 'stripes',
-    niceName: 'Stripe',
-    import: () => import('@/scripts/stripes.js'),
-    resizeable: true,
-  },
-  {
-    name: 'landscape',
-    niceName: 'Landscape',
-    import: () => import('@/scripts/landscape.js'),
-    resizeable: true,
-    hasRandom: true,
-  },
-  {
-    name: 'sparta',
-    niceName: 'Sparta',
-    import: () => import('@/scripts/sparta.js'),
-    resizeable: true,
-  },
-  {
-    name: 'trex',
-    niceName: 'T-Rex',
-    import: () => import('@/scripts/trex.js'),
-    resizeable: true,
-  },
-  {
-    name: 'typo',
-    niceName: 'Typo',
-    import: () => import('@/scripts/typo.js'),
-    resizeable: true,
-  },
-  {
-    name: 'random-distribution',
-    niceName: 'Random',
-    hasRandom: true,
-    import: () => import('@/scripts/random-distribution.js'),
-    resizeable: true,
-  },
-]

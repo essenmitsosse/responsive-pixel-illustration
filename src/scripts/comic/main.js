@@ -1,3 +1,4 @@
+import { getHoverChangerStandard } from '@/renderengine/helper/getHoverChangerStandard'
 import {
   getLinkListPusher,
   getRandom,
@@ -7,7 +8,6 @@ import {
   getHoverChangerColor,
   getHoverChangerCustom,
   getHoverChangerRelative,
-  getHoverChangerStandard,
 } from '@/renderengine/helper/helperHover'
 
 import { Chair, Emotion, Glass, Table } from './accessoir.js'

@@ -37,3 +37,6 @@ cypress/screenshotsComponentLocal
 /playwright/.cache/
 
 *-darwin.png
+
+# dependency cruiser output
+dependency-graph.svg

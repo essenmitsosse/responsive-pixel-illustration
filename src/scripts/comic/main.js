@@ -1,3 +1,4 @@
+import { getHoverChangerRelative } from '@/renderengine/helper/getHoverChangerRelative'
 import {
   getLinkListPusher,
   getRandom,
@@ -6,7 +7,6 @@ import {
 import {
   getHoverChangerColor,
   getHoverChangerCustom,
-  getHoverChangerRelative,
   getHoverChangerStandard,
 } from '@/renderengine/helper/helperHover'
 

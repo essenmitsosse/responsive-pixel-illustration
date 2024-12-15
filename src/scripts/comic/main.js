@@ -1,4 +1,4 @@
-import { getHoverChangerRelative } from '@/renderengine/helper/getHoverChangerRelative'
+import getHoverChangerRelative from '@/renderengine/helper/getHoverChangerRelative'
 import {
   getLinkListPusher,
   getRandom,

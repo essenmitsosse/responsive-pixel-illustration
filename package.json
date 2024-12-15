@@ -12,6 +12,7 @@
     "preview": "vite preview",
     "prettier": "prettier --write .",
     "prettierCheck": "prettier --check .",
+    "dep": "npx --yes dependency-cruiser src/main.ts --output-type dot | dot -T svg > dependency-graph.svg",
     "knip": "knip"
   },
   "repository": {

@@ -1,3 +1,4 @@
+import getHoverChangerColor from '@/renderengine/helper/getHoverChangerColor'
 import getHoverChangerCustom from '@/renderengine/helper/getHoverChangerCustom'
 import getHoverChangerRelative from '@/renderengine/helper/getHoverChangerRelative'
 import getHoverChangerStandard from '@/renderengine/helper/getHoverChangerStandard'
@@ -6,7 +7,6 @@ import {
   getRandom,
   multiplyColor,
 } from '@/renderengine/helper/helper'
-import { getHoverChangerColor } from '@/renderengine/helper/helperHover'
 
 import { Chair, Emotion, Glass, Table } from './accessoir.js'
 import { Arm } from './actor-arm.js'

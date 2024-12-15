@@ -35,13 +35,13 @@ const listScreenshots = [
   },
   {
     index: 12,
-    niceName: 'Comic 2',
+    niceName: 'Comic',
     query:
       'id=3547888882&slide=12&panels=6&imgRatio=1&gutter-width=0.25&gutter-height=0.25&a=0&b=0&camera=0&altCamera=0&actor-size=0.5&actor-color=0&actor-features=0&actor-accessoirs=0&emotions=0&set=0&props=0',
   },
   {
     index: 12,
-    niceName: 'Comic 2 (alt)',
+    niceName: 'Comic (alt)',
     query:
       'p=1&id=646298878&slide=12&panels=6&imgRatio=0.42&gutter-width=0.26&gutter-height=0.44&a=1&b=1&camera=1&altCamera=1&actor-size=1&actor-color=1&actor-features=1&actor-accessoirs=1&emotions=1&set=1&props=1',
   },

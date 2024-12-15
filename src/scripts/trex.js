@@ -152,6 +152,7 @@ function trex() {
       ],
     },
   ]
+
   const renderList = [
     { name: 'Rect', sY: { r: 0.4 }, fY: true, color: ground },
     {
@@ -181,6 +182,7 @@ function trex() {
       list: trexsingle,
     },
   ]
+
   const backgroundColor = [170, 190, 230]
 
   return {

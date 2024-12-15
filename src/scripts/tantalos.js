@@ -26,6 +26,7 @@ function tantalos() {
 
     return obj
   }
+
   const sXMain = linkListPush({ main: true })
   const sYMain = linkListPush({ main: true, height: true })
   const fullRect = linkListPush(linkListPush({ add: [sXMain], max: sYMain }))
@@ -36,35 +37,43 @@ function tantalos() {
     { r: 0.5 },
     { r: -0.5, useSize: borderDetail },
   ])
+
   const frameDetailSize = linkListPush({ add: [borderSX, -2], min: 1 })
   const motiveSX = linkListPush({
     add: [sXMain, { r: -2, useSize: borderSX }],
   })
+
   const motiveSY = linkListPush([sYMain, { r: -2, useSize: borderSX }])
   const motiveSqu = linkListPush(
     getSmallerDim({ r: 1, useSize: [motiveSX, motiveSY] }),
   )
+
   const motiveSquBigger = linkListPush(
     getBiggerDim({ r: 1, useSize: [motiveSX, motiveSY] }),
   )
+
   const overshotSX = linkListPush({
     add: [motiveSX, { r: -1, useSize: motiveSqu }],
   })
+
   const overshotSY = linkListPush({
     add: [motiveSY, { r: -1, useSize: motiveSqu }],
   })
+
   // Teiresias
   const centerX = linkListPush({
     r: 0.5,
     useSize: motiveSX,
     add: [{ r: 0.05, useSize: overshotSY }],
   })
+
   const centerY = linkListPush({
     r: 0.5,
     useSize: motiveSY,
     add: [{ r: -0.02, useSize: overshotSX }],
     min: 1,
   })
+
   const movementSY = linkListPush({
     add: [
       { r: 0.9, useSize: motiveSY },
@@ -73,6 +82,7 @@ function tantalos() {
       { r: -0.1, useSize: overshotSY },
     ],
   })
+
   const movementSX = linkListPush({
     add: [
       { r: 0.7, useSize: motiveSquBigger },
@@ -81,6 +91,7 @@ function tantalos() {
     min: { r: 0.2, useSize: movementSY, max: centerX },
     max: { r: 7, useSize: movementSY },
   })
+
   const movementL = linkListPush({ getLength: [movementSX, movementSY] })
   const perspectiveY = linkListPush({ r: 0.1, useSize: movementSY })
   const groundThickness = perspectiveY
@@ -96,6 +107,7 @@ function tantalos() {
       min: min ? 1 : undefined,
     })
   }
+
   const handSX_ = getBodyPartSize(handRel, false, true)
   const handSY_ = getBodyPartSize(handRel, true, true)
   const armSX = getBodyPartSize(armRel)
@@ -107,9 +119,11 @@ function tantalos() {
   const lowerBodySX = linkListPush({
     add: [movementSX, { r: -1, useSize: bodyWithoutLegsX }],
   })
+
   const lowerBodySY = linkListPush({
     add: [movementSY, { r: -1, useSize: bodyWithoutLegsY }],
   })
+
   const shoulderX = linkListPush([handSX_, armSX])
   const shoulderY = linkListPush([handSY_, armSY])
   const hipX_ = linkListPush({ add: [shoulderX, torsoSX] })
@@ -120,16 +134,19 @@ function tantalos() {
     add: [handSX_],
     min: { r: handRatio, useSize: handSY_ },
   })
+
   const handSY = linkListPush({
     add: [handSY_],
     min: { r: handRatio, useSize: handSX_ },
   })
+
   // Arm
   const upperArmL = linkListPush({
     r: upperArmRel,
     useSize: movementL,
     min: 1,
   })
+
   const armL = linkListPush({ getLength: [armSX, armSY] })
   const armHandX = handSX
   const armHandY = linkListPush({ a: 0 })
@@ -147,13 +164,16 @@ function tantalos() {
     useSize: foreArmS,
     max: [foreArmS, 1],
   })
+
   const arm2Y = linkListPush([shoulderY, upperArmS])
   const arm2SYMax1 = linkListPush({
     add: [armL, { r: 0.2, useSize: movementSY }],
   })
+
   const arm2SYMax2 = linkListPush({
     add: [movementSY, { r: -1, useSize: arm2Y }],
   })
+
   const arm2SY = linkListPush({ add: [arm2SYMax1], max: arm2SYMax2 })
   const arm2SX = linkListPush({ r: 0.2, useSize: arm2SYMax1 })
   const ellbowS = linkListPush({
@@ -161,6 +181,7 @@ function tantalos() {
     useSize: upperArmS,
     max: [upperArmS, 2],
   })
+
   // ellbowSHalf = linkListPush( {r: -0.5, useSize: ellbowS } ),
   const legLowerS = foreArmS
   const legUpperS = upperArmS
@@ -173,12 +194,14 @@ function tantalos() {
     useSize: movementL,
     min: 1,
   })
+
   const shoulderSY = linkListPush({
     r: shoulderSYRel,
     useSize: movementL,
     min: 1,
     max: { r: 0.2, useSize: movementSY },
   })
+
   const hipSXRel = 0.08
   const hipSX = linkListPush({ r: hipSXRel, useSize: movementL, min: 1 })
   const hipX = linkListPush({ add: [hipX_, { r: -1, useSize: hipSX }] })
@@ -188,6 +211,7 @@ function tantalos() {
       linkListPush({ add: [{ r: -1, useSize: shoulderY, hipY }] }),
     ],
   })
+
   // Hip
   const hipSYRel = shoulderSXRel * 0.4
   const hipSY = linkListPush({
@@ -196,6 +220,7 @@ function tantalos() {
     min: 1,
     max: { r: 0.15, useSize: movementSY },
   })
+
   // Legs
   const legL = linkListPush({
     r: 0.6,
@@ -206,6 +231,7 @@ function tantalos() {
       ],
     }),
   })
+
   const upperLeg = linkListPush({ r: 0.5, useSize: legL })
   const legSX = hipSX
   const legSY = linkListPush([
@@ -213,6 +239,7 @@ function tantalos() {
     { r: -1, useSize: hipY },
     { r: -1, useSize: hipSY },
   ])
+
   const legX = hipX
   const legY = linkListPush([hipY, hipSY])
   // legFrontX = linkListPush( { r: -0.2, useSize: legSY } ),
@@ -222,6 +249,7 @@ function tantalos() {
     min: { a: 0 },
     max: { r: 1.5, useSize: legUpper1L },
   })
+
   const legUpper2L = linkListPush({
     add: [{ r: 1.3, useSize: upperLeg }],
     max: linkListPush([
@@ -230,11 +258,13 @@ function tantalos() {
       { r: -0.5, useSize: legUpperS },
     ]),
   })
+
   const legLower2L = linkListPush({
     add: [legL, { r: -0.8, useSize: legUpper2L }],
     min: { a: 0 },
     max: { r: 1.5, useSize: legUpper1L },
   })
+
   // knee1X = legFrontX,
   // knee1Y = { r: 0.5, useSize: legUpperS },
   // knee1Pos = { fX: true, fY: true, x: legFrontX, y: knee1Y },
@@ -246,6 +276,7 @@ function tantalos() {
   const headX = linkListPush({
     add: [shoulderX, { r: 0.02, useSize: overshotSY }],
   })
+
   const headY = linkListPush({
     add: [
       shoulderY,
@@ -257,6 +288,7 @@ function tantalos() {
       },
     ],
   })
+
   const eyeSY = linkListPush({ r: 0.2, min: 1, useSize: headSY })
   const eyesSX = linkListPush({ r: 0.6, min: 1, useSize: headSX })
   const eyeX = linkListPush({ r: 0.1, useSize: headSX })
@@ -272,6 +304,7 @@ function tantalos() {
     ]),
     min: 1,
   })
+
   const mouthX = linkListPush({ a: 0 })
   const mouthY = linkListPush({
     r: 0.3,
@@ -282,6 +315,7 @@ function tantalos() {
       { r: -1, useSize: mouthSY },
     ]),
   })
+
   // Fruit
   const fruitSXrel = 0.03
   const fruitSXBigRel = 0.01
@@ -295,6 +329,7 @@ function tantalos() {
     add: [{ r: fruitSXBigRel, useSize: motiveSquBigger }],
     max: { r: 0.1, useSize: motiveSqu },
   })
+
   const fruitSY = linkListPush({
     r: fruitSYrel,
     min: 3,
@@ -302,21 +337,25 @@ function tantalos() {
     add: [{ r: fruitSYBigRel, useSize: motiveSquBigger }],
     max: { r: 0.1 * 1.8, useSize: motiveSqu },
   })
+
   const fruitHandMaxX = linkListPush({
     add: [handSX, foreArmS, 1, { r: -0.1, useSize: overshotSY }],
     min: linkListPush({
       add: [-1, { r: 0.5, useSize: handSX }, { r: -0.5, useSize: fruitSX }],
     }),
   })
+
   const fruitHandMaxY = linkListPush({
     add: [handSY, foreArmS, 1, { r: -0.1, useSize: overshotSX }],
     min: linkListPush({
       add: [-1, { r: 0.5, useSize: handSY }, { r: -0.5, useSize: fruitSY }],
     }),
   })
+
   const fruitX = linkListPush({
     add: [centerX, { r: -1, useSize: handSX }, fruitHandMaxX],
   })
+
   const fruitY = linkListPush({
     add: [
       centerY,
@@ -325,6 +364,7 @@ function tantalos() {
       { r: -1, useSize: fruitHandMaxY },
     ],
   })
+
   // Island
   const shadowSY = linkListPush({
     add: [
@@ -334,6 +374,7 @@ function tantalos() {
     ],
     min: 2,
   })
+
   const islandSX = linkListPush([movementSX, { r: -0.1, useSize: overshotSX }])
   const islandSY = linkListPush([shadowSY, { r: 1, useSize: groundThickness }])
   const islandX = linkListPush([centerX, { r: -1, useSize: movementSX }])
@@ -342,6 +383,7 @@ function tantalos() {
     movementSY,
     { r: -1, useSize: shadowSY },
   ])
+
   const waterY = linkListPush([islandY, { r: -1, useSize: islandSY }])
   const waterSY = linkListPush([sYMain, { r: -1, useSize: waterY }])
   const mainTreeSX = linkListPush([sXMain, { r: -1, useSize: fruitX }, fruitSX])
@@ -355,16 +397,19 @@ function tantalos() {
     useSize: sXMain,
     a: 1,
   })
+
   const trunkHorBack = linkListPush({
     r: trunkSizeBack,
     useSize: sXMain,
     a: 1,
   })
+
   const trunkVertBack = linkListPush({
     r: trunkSizeBack * trunkRatio,
     useSize: sXMain,
     a: 1,
   })
+
   // End Variables
   const leg = [
     // {color:c1},
@@ -372,6 +417,7 @@ function tantalos() {
     { fY: true, sY: legLowerS },
     { s: kneeS, fY: true, x: -1 },
   ]
+
   const teiresias = function (reflect) {
     const skinColor = reflect ? skinWater : skin
     const skinShadowColor = reflect ? skinWater : skinShadow
@@ -574,6 +620,7 @@ function tantalos() {
       ],
     }
   }
+
   const trunkObj = function (shadowColor, hor, vert) {
     return [
       { fY: true, sY: hor },
@@ -590,6 +637,7 @@ function tantalos() {
       { sY: 2, fY: true, color: shadowColor },
     ]
   }
+
   const mainImage = function () {
     return [
       // Background Tree
@@ -811,6 +859,7 @@ function tantalos() {
       },
     ]
   }
+
   const border = function () {
     const edgeDetail = [
       {},
@@ -828,6 +877,7 @@ function tantalos() {
         fY: true,
       },
     ]
+
     const borderEdgeTop = [
       {
         clear: true,
@@ -851,6 +901,7 @@ function tantalos() {
         ],
       },
     ]
+
     const borderEdgeBottom = [
       { clear: true, sX: 1, sY: { r: 0.2, max: 1 }, fX: true },
       {},
@@ -861,6 +912,7 @@ function tantalos() {
         rX: true,
       },
     ]
+
     const borderVertDetail = [
       {
         clear: true,
@@ -885,6 +937,7 @@ function tantalos() {
         ],
       },
     ]
+
     const borderVert = [
       {
         stripes: { strip: frameDetailSize },
@@ -901,6 +954,7 @@ function tantalos() {
         list: borderVertDetail,
       },
     ]
+
     const borderHor = [
       {
         stripes: { strip: frameDetailSize, horizontal: true },
@@ -990,11 +1044,13 @@ function tantalos() {
       ],
     }
   }
+
   const renderList = [
     // Image
     { list: mainImage() },
     border(),
   ]
+
   const backgroundColor = [31, 29, 29]
 
   return {

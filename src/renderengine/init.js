@@ -17,6 +17,7 @@ const doSetDocumentTitle = (imageName, queryString) => {
   // Display the imageName as the title
   document.title = name
 }
+
 const doShowInfo = (options) => {
   const logs = []
 
@@ -35,6 +36,7 @@ const doShowInfo = (options) => {
       body.removeChild(info)
     }
   }
+
   const change = function (name, value) {
     logs[name] = value
   }

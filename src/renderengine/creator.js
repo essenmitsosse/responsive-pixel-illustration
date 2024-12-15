@@ -36,21 +36,25 @@ export const DrawingTools = function (pixelUnit, getRandom) {
         return colorArray.getSet(color, zInd, id)
       }
     }
+
     const getClear = function (id) {
       return function () {
         return colorArray.getClear(id)
       }
     }
+
     const getSetForRect = function (color, zInd, id) {
       return function () {
         return colorArray.getSetForRect(color, zInd, id)
       }
     }
+
     const getClearForRect = function (id) {
       return function () {
         return colorArray.getClearForRect(id)
       }
     }
+
     const getSave = function (name, isRect) {
       return function () {
         const thisSave = formSave[name] ? formSave[name] : (formSave[name] = {})
@@ -70,6 +74,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
             }
       }
     }
+
     const getClearSave = function (name, isRect) {
       return function () {
         const thisSave = formSave[name]
@@ -88,6 +93,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
         }
       }
     }
+
     const getColorMask = function (dimensions, push) {
       return colorArray.setMask(dimensions, push)
     }
@@ -556,6 +562,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
         }
       }
     }
+
     const getDrawRow = function (set) {
       return function (p0, p1) {
         do {
@@ -563,6 +570,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
         } while ((p0.x0 += 1) <= p1.x1)
       }
     }
+
     const sortFunction = function (a, b) {
       const n = b.y - a.y
 
@@ -673,9 +681,11 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     const heightRandom = this.heightRandom
       ? this.heightRandom.getReal() + 1
       : false
+
     const widthRandom = this.widthRandom
       ? this.widthRandom.getReal() + 1
       : false
+
     const color = this.getColorArray()
     const array = that.pixelSetter.getSave(this.use)
     const l = array ? array.length : 0
@@ -903,6 +913,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     const horizontal = (this.horizontal =
       (this.rotate ? !args.stripes.horizontal : args.stripes.horizontal) ||
       false)
+
     const Dimension = horizontal ? pixelUnit.Height : pixelUnit.Width
 
     /** Width of a single Line */
@@ -1036,21 +1047,25 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     const startX =
       dimensions.posX -
       (this.horizontal && this.fromRight && this.fromBottom ? lengthChange : 0)
+
     const startY =
       dimensions.posY -
       (!this.horizontal && this.fromRight && this.fromBottom ? lengthChange : 0)
+
     const width =
       dimensions.width +
       (this.horizontal && !this.fromRight && this.fromBottom
         ? lengthChange
         : 0) +
       (this.horizontal && this.fromRight && this.fromBottom ? lengthChange : 0)
+
     const height =
       dimensions.height +
       (!this.horizontal && this.fromRight && !this.fromBottom
         ? lengthChange
         : 0) +
       (!this.horizontal && this.fromRight && this.fromBottom ? lengthChange : 0)
+
     const endX = startX + width
     const endY = startY + height
 
@@ -1066,9 +1081,11 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     const stripWidthRandom = this.stripWidthRandom
       ? this.stripWidthRandom.getReal() + 1
       : 0
+
     const gapWidthRandom = this.gapWidthRandom
       ? this.gapWidthRandom.getReal() + 1
       : 0
+
     const lengthRandom = this.lengthRandom ? this.lengthRandom.getReal() : 0
 
     let randomWidth

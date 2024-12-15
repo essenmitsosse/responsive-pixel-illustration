@@ -37,11 +37,13 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
     posY: 1,
     obj: this.actorsList.chair0.renderObject,
   }
+
   const chair0Pos = {
     obj: this.stage,
     posX: 0.1,
     posY: 0,
   }
+
   const mainSteps = [
     {
       // - - -  START step 0 - - - - - - - - - - - - - SITTING
@@ -1392,6 +1394,7 @@ export const getActors = function (story) {
     [0, 1, 1, 1, 2, 2],
     [0, 2, 1, 2, 1, 0],
   ]
+
   const colorScheme = colorSchemes[this.rInt(0, colorSchemes.length - 1)]
 
   this.colors = story.colors
@@ -1564,6 +1567,7 @@ export const getColorScheme = function getColorScheme() {
     [this.rInt(50, 100), this.rInt(100, 150), this.rInt(150, 200)],
     [this.rInt(100, 150), this.rInt(150, 200), this.rInt(50, 100)],
   ]
+
   const first = this.rInt(0, 2)
 
   this.colors = [

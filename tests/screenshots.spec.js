@@ -115,9 +115,11 @@ test('interact with sliders (Graeae)', async ({ page }) => {
   const sliderOffsetWidth0 = await inputs
     .nth(0)
     .evaluate((el) => el.getBoundingClientRect())
+
   const sliderOffsetWidth1 = await inputs
     .nth(1)
     .evaluate((el) => el.getBoundingClientRect())
+
   const sliderOffsetWidth2 = await inputs
     .nth(2)
     .evaluate((el) => el.getBoundingClientRect())

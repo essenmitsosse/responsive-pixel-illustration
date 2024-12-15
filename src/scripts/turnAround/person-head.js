@@ -44,6 +44,7 @@ Head.prototype.draw = function (args) {
     roundTop: true,
     roundBottom: true,
   })
+
   const headTop = new this.basic.Rotater({
     drawer: this.headTop,
     id: 'topHead',
@@ -57,6 +58,7 @@ Head.prototype.draw = function (args) {
     roundTop: true,
     roundBottom: true,
   })
+
   const nose = new this.basic.Rotater({
     drawer: this.nose,
     id: 'nose',

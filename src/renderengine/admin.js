@@ -79,6 +79,7 @@ Admin.prototype.setupSlider = function () {
     id: 'sliders',
     container: this.sideBarInnerDiv,
   })
+
   const slidersDivList = slidersDiv.list
   const sliderObject = {}
   const sliderValues = {}
@@ -117,6 +118,7 @@ Admin.prototype.setupSlider = function () {
 
     slidersDivList.appendChild(wrap)
   }
+
   const activateSliders = function () {
     if (!hasSliders) {
       hasSliders = true
@@ -215,6 +217,7 @@ Admin.prototype.getSliderControlGetter = function () {
           'left: ' + (((value - args.input.min) / diff) * 100 - 10) + '%;',
         )
       }
+
       const update = function (setValue, single) {
         const obj = {}
 
@@ -299,6 +302,7 @@ Admin.prototype.setupBasicControls = function (hasRandom) {
     id: 'mainControls',
     container: this.sideBarInnerDiv,
   })
+
   const createButton = this.getButtonCreater(sideBarContentDiv)
 
   // if( this.showcase || this.admin ) {

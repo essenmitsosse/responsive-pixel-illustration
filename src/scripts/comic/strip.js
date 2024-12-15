@@ -22,16 +22,20 @@ export const Strip = function (args) {
     r: 0.2 / countSqrt,
     useSize: args.squareBig,
   }))
+
   const gutterX = (this.gutterX = this.pushLinkList({
     r: 1,
     useSize: gutterBase,
   }))
+
   const gutterY = (this.gutterY = this.pushLinkList({
     r: 1,
     useSize: gutterBase,
   }))
+
   const basicPanel =
     args.stripInfo.basicPanel || new this.basic.Panel(args.stripInfo)
+
   const imgRatio = { ratio: 1.5 }
 
   this.hoverChangerStandard.pushAutomatic(this, {
@@ -164,6 +168,7 @@ Panel.prototype.draw = function (args) {
       const zoomToHead1 = cameraFocus
         ? 1 / (cameraFocus.min.obj.headSY_ || cameraFocus.min.obj.sY_)
         : 1
+
       const zoomToHead2 = cameraFocus
         ? 1 / (cameraFocus.max.obj.headSY_ || cameraFocus.max.obj.sY_)
         : 1
@@ -344,6 +349,7 @@ Panel.prototype.draw = function (args) {
       max: this.stageSY,
     }),
   }
+
   const finishList = []
   const background = info.background || this.background
 

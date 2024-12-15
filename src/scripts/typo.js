@@ -129,6 +129,7 @@ function typo() {
     : function () {
         return undefined
       }
+
   // letterCount * letterWidth + letterCount
   const getLetter = (function () {
     const Letters = new (function () {
@@ -420,6 +421,7 @@ function typo() {
     return function (letter) {
       const thisLetter =
         Letters[letter] || (letter === ' ' ? Letters.space : Letters.missing)
+
       const letterObject = {
         sX: mult(thisLetter.sX, 'wordUnit'),
         x: [mult(letterCount, 'wordUnit'), mult(spacingCount, 'spacingUnit')],
@@ -442,6 +444,7 @@ function typo() {
       return letterObject
     }
   })()
+
   const letters = (function () {
     const list = []
 
@@ -457,6 +460,7 @@ function typo() {
 
     return list
   })()
+
   const renderList = [
     {
       mY: 'border',
@@ -467,6 +471,7 @@ function typo() {
     },
     // { gap:{a:0}, color:[255,255,0], change:{r:-1} },
   ]
+
   const variableList = {
     border: getSmallerDim({ r: 0.08 }),
     borderSide: { r: 0.04 },

@@ -113,6 +113,7 @@ const buildColors = function (info) {
     const br = Math.sqrt(
       0.241 * Math.pow(r, 2) + 0.691 * Math.pow(g, 2) + 0.068 * Math.pow(b, 2),
     )
+
     const rgb = [r, g, b]
     const maxBr = 255 / info.steps
     const startPos = Math.floor(br / maxBr)
@@ -158,6 +159,7 @@ const buildColors = function (info) {
 
   return colors
 }
+
 const Color = function (nr, br) {
   this.nr = nr
 

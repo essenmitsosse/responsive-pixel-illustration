@@ -67,6 +67,7 @@ PixelGraphics.prototype.getResize = function (options, info, render) {
       resize(currentW, currentH)
     }
   }
+
   const resize = function (w, h) {
     // var time = Date.now();
 
@@ -148,6 +149,7 @@ PixelGraphics.prototype.initUserInput = function (
       size ? { width: x, height: y } : alt ? { c: x, d: y } : { a: x, b: y },
     )
   }
+
   const mouseMove = function (event, size) {
     if (
       options.queryString.resizeable ||
@@ -156,6 +158,7 @@ PixelGraphics.prototype.initUserInput = function (
       changeImage(event, size || options.queryString.resizeable)
     }
   }
+
   const touchMove = function (event) {
     event.preventDefault()
 
@@ -270,6 +273,7 @@ PixelGraphics.prototype.getOrientation = function (
 
     setTimeout(resetTilt, 100)
   }
+
   const resetTilt = function () {
     realTilt = tilt
   }
@@ -439,6 +443,7 @@ PixelGraphics.prototype.createVariableList = function (vl) {
       newVL[key].set()
     }
   }
+
   const link = function (name, vari) {
     if (newVL[name]) {
       newVL[name].link(vari)
@@ -448,6 +453,7 @@ PixelGraphics.prototype.createVariableList = function (vl) {
       newVL[name].link(vari)
     }
   }
+
   const creator = function (name) {
     if (!newVL[name]) {
       newVL[name] = new DynamicVariable(name)
@@ -455,6 +461,7 @@ PixelGraphics.prototype.createVariableList = function (vl) {
 
     return newVL[name]
   }
+
   const Variable = function (args, name) {
     if (args) {
       this.name = name
@@ -466,6 +473,7 @@ PixelGraphics.prototype.createVariableList = function (vl) {
       this.l = 0
     }
   }
+
   const DynamicVariable = function (name) {
     this.name = name
 

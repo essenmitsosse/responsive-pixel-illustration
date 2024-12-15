@@ -11,6 +11,7 @@ function graien(_, __, createSlider) {
     background[1] * bSS + shadowAdd,
     background[2] * bSS + shadowAdd,
   ]
+
   const shadow = darken(shadowColor, 0.7)
   const detail = darken(shadowColor, 0.4)
   const grey = [204, 204, 204]
@@ -37,6 +38,7 @@ function graien(_, __, createSlider) {
 
     return obj
   }
+
   const sXMain = linkListPush({ main: true })
   const sYMain = linkListPush({ main: true, height: true })
   const fullSquare = linkListPush({ add: [sXMain], max: sYMain })
@@ -48,6 +50,7 @@ function graien(_, __, createSlider) {
     add: [1, { r: -imgDifference, useSize: sYMain }],
     min: 1,
   })
+
   const graienPaddingY = linkListPush({
     a: 1,
     r: imgDifference,
@@ -55,6 +58,7 @@ function graien(_, __, createSlider) {
     add: [1, { r: -imgDifference, useSize: sXMain }],
     min: 2,
   })
+
   const border = linkListPush([framePadding, frameWidth])
   const fullBorderX = linkListPush([border, graienPaddingX])
   const fullBorderY = linkListPush([border, graienPaddingY])
@@ -68,18 +72,22 @@ function graien(_, __, createSlider) {
   const backSquare = linkListPush(
     getSmallerDim({ r: 1, useSize: [backWidth, backHeight] }),
   )
+
   const imgSquare = linkListPush(
     getSmallerDim({ r: 1, useSize: [imgWidth, imgHeight] }),
   )
+
   const imgSquareBigger = linkListPush(
     getBiggerDim({ r: 1, useSize: [imgWidth, imgHeight] }),
   )
+
   // BORDER DETAILS
   const borderMargin = linkListPush({ r: 0.1, useSize: border, min: 1 })
   const frameDetailSize = linkListPush({
     min: 1,
     add: [frameWidth, mult(-2, borderMargin), -2],
   })
+
   // BACKGROUND
   const groundHeight = linkListPush(mult(0.2, backHeight))
   const hillHeight = linkListPush({
@@ -87,12 +95,14 @@ function graien(_, __, createSlider) {
     useSize: backHeight,
     add: [mult(0.1, backWidth)],
   })
+
   const hillDifference = linkListPush({ r: 0.4, useSize: backHeight })
   const hillWidth = linkListPush({
     r: 0.1,
     useSize: backWidth,
     add: [mult(0.1, backSquare)],
   })
+
   const treeWidth = linkListPush({ a: 2 })
   const treeMinGap = linkListPush({
     r: 0.005,
@@ -100,6 +110,7 @@ function graien(_, __, createSlider) {
     add: [{ r: 0.02, useSize: backHeight }],
     min: 1,
   })
+
   const treeRandomGap = linkListPush(mult(10, treeMinGap))
   const treeRandomGap2 = linkListPush(mult(15, treeMinGap))
   const trunkWidth = linkListPush(mult(3, treeMinGap))
@@ -110,13 +121,16 @@ function graien(_, __, createSlider) {
     breadAdd,
     { r: 0.08, min: 3, useSize: sXMain },
   ])
+
   const breadHeight = linkListPush([
     breadAdd,
     { r: 0.08, useSize: sYMain, min: 3 },
   ])
+
   const breadSquare = linkListPush(
     getSmallerDim({ r: 1, useSize: [breadWidth, breadHeight] }),
   )
+
   const breadDetail = linkListPush({ r: 0.15, useSize: breadSquare })
   // FULL GRAIEN
   const graieHalfWidth = linkListPush(mult(0.5, imgWidth))
@@ -136,12 +150,14 @@ function graien(_, __, createSlider) {
     handWidth,
     handToBreadSub,
   ])
+
   const graieArmLengtDown = linkListPush([
     graieHalfHeight,
     mult(-0.5, breadHeight),
     handWidth,
     handToBreadSub,
   ])
+
   const armShadow = linkListPush({ r: 0.4, max: 1, useSize: armWidth })
   const subArmWidth = linkListPush([sub(armWidth), 1])
   // LEG
@@ -167,15 +183,18 @@ function graien(_, __, createSlider) {
       useSize: [imgWidth, imgHeight],
     }),
   )
+
   const graie1LegHeight = linkListPush([
     legWidth,
     legLowerWidth,
     footFrontLength,
   ])
+
   const graie1TorsoHeight = linkListPush([
     graie1ShoulderHeight,
     sub(graie1LegHeight),
   ])
+
   const graie1ArmHeight = linkListPush(mult(0.3, imgHeight))
   const graie1BreadArmPos = linkListPush(graieHalfHeight)
   const graie1RightSide = linkListPush([graie1Width, graie1ToLeft])
@@ -185,11 +204,13 @@ function graien(_, __, createSlider) {
     min: 3,
     max: [graie1ToTop, -1],
   })
+
   const graie1HeadWidth = linkListPush({
     add: [graie1HeadSize, mult(-0.02, imgHeight)],
     min: 2,
     max: graie1Width,
   })
+
   const graie1ShoulderWidth = linkListPush([graie1Width, sub(graie1HeadWidth)])
   const graie1HeadPos = linkListPush(mult(0.3, graie1ShoulderWidth))
   const graie1HairLeftWidth = linkListPush({
@@ -197,10 +218,12 @@ function graien(_, __, createSlider) {
     min: 1,
     useSize: graie1HeadWidth,
   })
+
   const graie1FaceWidth = linkListPush([
     graie1HeadWidth,
     sub(graie1HairLeftWidth),
   ])
+
   const graie1NosePos = linkListPush(mult(0.5, graie1HeadHeight))
   // Eyes
   const minEyesWidth = linkListPush({ r: 0.8, useSize: graie1FaceWidth })
@@ -210,6 +233,7 @@ function graien(_, __, createSlider) {
     min: 1,
     max: { r: 0.5, a: -1, useSize: graie1FaceWidth },
   })
+
   const graie1eyesWidth = linkListPush({
     add: [
       mult(2, graie1eyeWidth),
@@ -219,16 +243,19 @@ function graien(_, __, createSlider) {
     max: graie1FaceWidth,
     min: { r: 2, useSize: graie1eyeWidth, min: 3 },
   })
+
   const graie1faceRest = linkListPush([graie1FaceWidth, sub(graie1eyesWidth)])
   const graie1eyePosLeft = linkListPush({
     r: 0.5,
     useSize: graie1faceRest,
     min: 0,
   })
+
   const graie1eyeHeight = linkListPush({
     add: [graie1NosePos, { r: -0.1, useSize: graie1HeadHeight }],
     min: 1,
   })
+
   const graie1eyePosTop = linkListPush([graie1NosePos, sub(graie1eyeHeight)])
   const graie1NoseHeight = linkListPush(mult(0.8, armWidth))
   const graie1MouthOuterPart = linkListPush({
@@ -236,6 +263,7 @@ function graien(_, __, createSlider) {
     useSize: graie1eyesWidth,
     min: 1,
   })
+
   const graie1MouthInnerPart = linkListPush(mult(0.3, graie1eyesWidth))
   const graie1BreastWidth = linkListPush({ useSize: graie1Width, r: 0.3 })
   const graie1BreastMargin = linkListPush({
@@ -243,31 +271,37 @@ function graien(_, __, createSlider) {
     r: 0.2,
     a: -1,
   })
+
   const graie1BreastShadow = linkListPush({
     useSize: graie1BreastWidth,
     r: 0.3,
     max: 1,
   })
+
   const graie1NippleHeight = linkListPush({
     useSize: graie1BreastWidth,
     r: 0.2,
     min: 2,
   })
+
   const graie1BreadArmLength = linkListPush([
     graie1ShoulderHeight,
     mult(-0.52, graieHeight),
     armWidth,
   ])
+
   // GRAIE II
   const graie2ToLeft = linkListPush(
     getSmallerDim({ r: 0.35, r2: 4, useSize: [imgWidth, imgHeight] }),
   )
+
   const graie2ToRight = linkListPush(mult(0.3, imgWidth))
   const graie2Width = linkListPush([
     imgWidth,
     sub(graie2ToLeft),
     sub(graie2ToRight),
   ])
+
   const graie2BodyHeight = linkListPush(mult(0.2, imgHeight))
   const graie2HeadHeight = linkListPush({ r: 0.8, useSize: graie2BodyHeight })
   const graie2HeadWidth = linkListPush({
@@ -275,6 +309,7 @@ function graien(_, __, createSlider) {
     useSize: graie2HeadHeight,
     max: { r: 0.5, useSize: graie2Width },
   })
+
   const graie2LegLength = linkListPush([mult(0.32, graieHalfHeight)])
   const graie2ArmLength = linkListPush([
     imgHeight,
@@ -282,11 +317,13 @@ function graien(_, __, createSlider) {
     sub(armWidth),
     -1,
   ])
+
   const graie2LegPos = linkListPush([
     mult(0.05, graie2Width),
     mult(-0.005, imgHeight),
     armWidth,
   ])
+
   const graie2graie1Dist = linkListPush([graie2ToLeft, sub(graie1RightSide)])
   const graie2ArmToArmWidth = linkListPush(mult(0.5, graie2graie1Dist))
   const graie2HeadShadow = linkListPush({
@@ -294,11 +331,13 @@ function graien(_, __, createSlider) {
     useSize: graie2HeadHeight,
     max: 1,
   })
+
   const graie1LegLength = linkListPush([
     graie1Width,
     mult(0.5, graie2graie1Dist),
     mult(0.1, imgHeight),
   ])
+
   const graie1ArmRest = linkListPush([
     graie1RightSide,
     graie2ToRight,
@@ -306,6 +345,7 @@ function graien(_, __, createSlider) {
     legLowerWidth,
     1,
   ])
+
   const graie1ArmLength = linkListPush([imgWidth, mult(-1, graie1ArmRest)])
   // GRAIE III
   const graie3ShoulderHeight = linkListPush(mult(0.75, imgHeight))
@@ -314,9 +354,11 @@ function graien(_, __, createSlider) {
     graie2BodyHeight,
     mult(0.05, imgHeight),
   ])
+
   const graie3ToRight = linkListPush(
     getSmallerDim({ r: 0.1, r2: 0.5, useSize: [imgWidth, imgHeight] }),
   )
+
   const graie3Width = linkListPush(graie1Width)
   const graie3LegLength = linkListPush([graie2LegLength, mult(0.2, imgHeight)])
   const graie3LegHeight = linkListPush([graie3LegLength, footFrontLength])
@@ -324,11 +366,13 @@ function graien(_, __, createSlider) {
     graie3ShoulderHeight,
     sub(graie3LegHeight),
   ])
+
   const graie3lowerLegLength = linkListPush([
     graie3ToRight,
     graie3Width,
     sub(legWidth),
   ])
+
   const graie3BehindLegLength = linkListPush([
     graie2ToRight,
     graie2LegPos,
@@ -336,26 +380,31 @@ function graien(_, __, createSlider) {
     sub(graie3ToRight),
     1,
   ])
+
   const graie3HeadHeight = linkListPush({
     add: [graie1HeadHeight, -1],
     max: [graie3ToTop, -1],
   })
+
   const graie3HeadWidth = linkListPush({ r: 1, useSize: graie3Width })
   const graie3NeckHeight = linkListPush({
     r: 0.6,
     useSize: graie3HeadHeight,
     add: [mult(-0.1, graie3HeadWidth), 1],
   })
+
   const graie3FaceHeight = linkListPush([
     sub(graie3NeckHeight),
     1,
     graie3HeadHeight,
   ])
+
   const graie3EarSize = linkListPush(mult(0.3, graie3FaceHeight))
   const graie3EarPos = linkListPush(mult(0.1, graie3FaceHeight))
   const graienValues = function (what, faktor, value) {
     setValue(what, faktor * value * 2 + value * 0.2)
   }
+
   const doHover = function (args) {
     if (args.a) {
       graienValues(handWidth, args.a, 0.07)
@@ -411,12 +460,15 @@ function graien(_, __, createSlider) {
       graie3Detail = detail(graie3, graie3Detail)
     }
   }
+
   const getShadow = function (nr) {
     return nr === 1 ? graie1Shadow : nr === 2 ? graie2Shadow : graie3Shadow
   }
+
   const getSkin = function (nr) {
     return nr === 1 ? graie1 : nr === 2 ? graie2 : graie3
   }
+
   const graie1Eye = [
     {
       color: graie1Shadow,
@@ -430,6 +482,7 @@ function graien(_, __, createSlider) {
     { fX: true, sY: { a: -2, r: 1 }, y: 1, sX: { r: 0.7 } },
     { fX: true, sY: { a: -2, r: 1 }, sX: { r: 0.4 } },
   ]
+
   const breast = function (left) {
     return [
       {},
@@ -471,6 +524,7 @@ function graien(_, __, createSlider) {
           },
     ]
   }
+
   const foot = function (hor, down, fX, nr) {
     const shadow = getShadow(nr)
     const withoutToes = { r: 1, add: [sub(toeSize)] }
@@ -558,6 +612,7 @@ function graien(_, __, createSlider) {
       },
     ]
   }
+
   const legStructure = (function () {
     let i = 0
 
@@ -589,6 +644,7 @@ function graien(_, __, createSlider) {
       }
     }
   })()
+
   const armToLeft = function (nr, down) {
     const shadow = getShadow(nr)
 
@@ -649,6 +705,7 @@ function graien(_, __, createSlider) {
       },
     ]
   }
+
   const skinPoint = function (nr, big, obj) {
     const shadow = getShadow(nr)
     const skin = getSkin(nr)
@@ -665,6 +722,7 @@ function graien(_, __, createSlider) {
 
     return obj
   }
+
   const graieEyes = function () {
     return [
       { sY: { r: 1, a: -1, min: 1 }, sX: { r: 1, a: -1, min: 1 } },
@@ -676,6 +734,7 @@ function graien(_, __, createSlider) {
       },
     ]
   }
+
   const graie3butt = [{}, { name: 'Dot', fY: true, color: graie3Shadow }]
   const borderVert = [
     {},
@@ -696,6 +755,7 @@ function graien(_, __, createSlider) {
       cY: true,
     },
   ]
+
   const borderHor = [
     {},
     {
@@ -705,6 +765,7 @@ function graien(_, __, createSlider) {
       cX: true,
     },
   ]
+
   const bottomEdge = [
     {},
     { color: backgroundDark, m: 1 },
@@ -744,6 +805,7 @@ function graien(_, __, createSlider) {
       ],
     },
   ]
+
   const renderList = [
     // ---- FRAME ----------------
     {

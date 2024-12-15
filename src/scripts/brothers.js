@@ -40,6 +40,7 @@ function brothers() {
       ],
     },
   ]
+
   const beard = function (hair, center) {
     const beardSideHeight = { r: 0.6, a: -1 }
     const beardSideWidth = center ? 0.4 : 0.2
@@ -54,6 +55,7 @@ function brothers() {
         fY: true,
       },
     ]
+
     const beardOuter = [
       {
         stripes: {
@@ -182,6 +184,7 @@ function brothers() {
       ],
     }
   }
+
   const mustach = function (hades) {
     const mustachHalf = [
       {
@@ -206,6 +209,7 @@ function brothers() {
       },
     ]
   }
+
   const eyes = function (color, hair, hades) {
     const eye = [
       { mX: 2, x: 1 },
@@ -241,6 +245,7 @@ function brothers() {
       ],
     }
   }
+
   const getOthers = function (posei, skin, hair, cloth, background) {
     const clothShadow = !posei ? cloth : shadow(cloth)
     const skinShadow = shadow(skin)
@@ -255,6 +260,7 @@ function brothers() {
         ],
       },
     ]
+
     const rightShoulder = { r: -0.3 }
     const headRatio = posei ? 1.2 : 0.8
     const leftShoulder = { r: -1, useSize: 'torsoSY' }
@@ -530,6 +536,7 @@ function brothers() {
       // { fX:true, tX:true, color:backgroundColor, sX:["borderSmall",1] }
     ]
   }
+
   const hair = [
     {
       stripes: {
@@ -542,17 +549,20 @@ function brothers() {
       fY: true,
     },
   ]
+
   const outerStrip = {
     gap: 'gap',
     strip: 'strip',
     horizontal: true,
     overflow: true,
   }
+
   const detailBorder = [
     {},
     { color: backgroundColor, mY: 1, sX: 1, fX: true },
     { color: backgroundColor, mY: 1, sX: 'detail' },
   ]
+
   const outerBorder = [
     { color: backgroundColor },
     { sX: 'borderOutline', x: 'borderMargin' },
@@ -573,6 +583,7 @@ function brothers() {
       list: detailBorder,
     },
   ]
+
   const borderSmall = [
     { color: backgroundColor },
     { sX: 'borderSmallOutline', x: 'borderSmallMargin' },
@@ -583,6 +594,7 @@ function brothers() {
       list: detailBorder,
     },
   ]
+
   const borderSmallCenter = [
     { color: backgroundColor },
     {
@@ -594,6 +606,7 @@ function brothers() {
     { sX: 'borderSmallOutline', x: 'borderSmallMargin' },
     { sX: 'borderSmallOutline', x: 'borderSmallMargin', fX: true },
   ]
+
   const edgeSmallOuter = [
     { color: backgroundColor },
     { sX: 'borderSmallOutline', x: 'borderSmallMargin' },
@@ -604,6 +617,7 @@ function brothers() {
       fX: true,
     },
   ]
+
   const edgeSmallInner = [
     { sX: 'borderSmallOutline', x: 'borderSmallMargin', fX: true },
     {
@@ -613,6 +627,7 @@ function brothers() {
       fX: true,
     },
   ]
+
   const edgeSmallCenter = [
     {
       sX: 'borderSmallOutline',
@@ -628,6 +643,7 @@ function brothers() {
       fX: true,
     },
   ]
+
   const edgeWide = function (center) {
     return [
       { color: backgroundColor },
@@ -655,6 +671,7 @@ function brothers() {
         : undefined,
     ]
   }
+
   const edgeBig = [
     { color: backgroundColor },
     {
@@ -698,6 +715,7 @@ function brothers() {
       ],
     },
   ]
+
   const areaStrip = { strip: 'strip', gap: 1, horizontal: true }
   const areaPiece = function (who) {
     const hades = who === 'hades'
@@ -783,6 +801,7 @@ function brothers() {
           },
     ]
   }
+
   const sideBorder = [
     {
       sX: 'border',
@@ -801,6 +820,7 @@ function brothers() {
       fX: true,
     },
   ]
+
   const oSideBorder = [
     {
       s: 'borderSmall',
@@ -810,6 +830,7 @@ function brothers() {
       list: edgeSmallInner,
     },
   ]
+
   const renderList = [
     // MAIN IMAGE
     {
@@ -1333,6 +1354,7 @@ function brothers() {
     // { s:{a:"switch", max:5} , color:c5, fX:true, fY:true },
     // { s:{a:"switch2", max:5} , color:c5, fX:true, fY:true },
   ]
+
   const headRatio = 1.33
   const variableList = {
     fullRect: { r: 1, max: { r: 1, height: true } },

@@ -81,6 +81,7 @@ function teiresias() {
       ],
     },
   ]
+
   const bigEdge = [
     { sX: { r: 0.5 } },
     { sY: { r: 0.5 }, fY: true },
@@ -110,6 +111,7 @@ function teiresias() {
       ],
     },
   ]
+
   const hair = [255, 255, 255]
 
   let i = 0
@@ -140,6 +142,7 @@ function teiresias() {
           },
         ]
   }
+
   const treeTrunk = function () {
     const name = 'treeBark' + (i += 1)
 
@@ -161,6 +164,7 @@ function teiresias() {
       },
     ]
   }
+
   const treeLeaves = function (random) {
     const name = 'treeLeaves' + (i += 1)
     const name2 = 'treesSpots' + i
@@ -181,6 +185,7 @@ function teiresias() {
       },
     ]
   }
+
   const shadowGround = [
     {
       sY: { r: 0.5 },
@@ -194,6 +199,7 @@ function teiresias() {
       stripes: { strip: 2, random: { r: 0.15 } },
     },
   ]
+
   const torsoMargin = 0.4
   const torsoTop = 0.35
   const renderList = [
@@ -1279,6 +1285,7 @@ function teiresias() {
       ],
     },
   ]
+
   const imgDims = ['imgWidth', 'imgheight']
   const motiveDims = ['motiveWidth', 'motiveheight']
   const variableList = {

@@ -36,12 +36,14 @@ function sphinx() {
       id: 'eyebrow',
     },
   ]
+
   const arm = [
     {
       weight: 'pArmWeight',
       points: [{}, { x: { r: 0.35 }, y: { r: 0.5 } }, { fX: true, fY: true }],
     },
   ]
+
   const shadow = [
     { fY: true, x: { r: 0.1 } },
     { y: { r: 0.5 } },
@@ -51,6 +53,7 @@ function sphinx() {
     { fX: true, y: { r: 0.5 } },
     { fX: true, fY: true, x: { r: 0.1 } },
   ]
+
   const renderList = [
     // MAIN IMAGE
     {
@@ -1039,6 +1042,7 @@ function sphinx() {
     },
     // END Image
   ]
+
   const personRatio = 2.3
   const variableList = {
     fullRect: { r: 1, max: { r: 1, height: true } },

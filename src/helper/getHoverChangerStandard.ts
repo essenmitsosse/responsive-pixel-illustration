@@ -31,6 +31,7 @@ const getHoverChangerStandard = (): {
     min: number
     variable: { r?: unknown; s: { rele?: unknown } }
   }> = []
+
   const push = (args: {
     map: string
     max: number

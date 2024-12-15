@@ -166,6 +166,7 @@ function sparta() {
       ],
     },
   ]
+
   const person = [
     {
       minX: 5,
@@ -215,6 +216,7 @@ function sparta() {
       ],
     },
   ]
+
   const renderList = [
     {
       m: 'border',
@@ -232,6 +234,7 @@ function sparta() {
       ],
     },
   ]
+
   const variableList = {
     border: getSmallerDim({ r: 0.05 }),
     imgWidth: [{ r: 1 }, mult(-2, 'border')],

@@ -50,6 +50,7 @@ function zeus() {
       list: [{}],
     },
   ]
+
   const eye = [
     {
       tY: true,
@@ -72,6 +73,7 @@ function zeus() {
       fY: true,
     },
   ]
+
   const beard = [
     {
       sX: {
@@ -101,6 +103,7 @@ function zeus() {
       ],
     },
   ]
+
   const beak = [{}, { fX: true, fY: true }, { fY: true }]
   const menLeg = [{}]
   const cowleg = [{}, { sY: { r: 1, otherDim: true }, fY: true, color: hair }]
@@ -131,6 +134,7 @@ function zeus() {
       fX: true,
     },
   ]
+
   const chest = [
     { color: zeus },
     { sY: 1, fY: true },
@@ -142,10 +146,12 @@ function zeus() {
       sY: { r: 0.07, min: 1, otherDim: true },
     },
   ]
+
   const abs = [
     { sY: 1, sX: { r: 1, a: -1 }, fY: true },
     { sX: 1, sY: { r: 1, a: -1 }, fX: true },
   ]
+
   const teeth = [{ points: [{}, { fX: true }, { fY: true, x: { r: 0.5 } }] }]
   const border = [
     { minY: 3, list: [{ color: backgroundColor, y: 1, sY: 1, mX: 1 }] },
@@ -154,6 +160,7 @@ function zeus() {
       list: [{ color: backgroundColor, fY: true, sY: 1, y: 1 }],
     },
   ]
+
   const clothing = function (down) {
     return [
       {
@@ -167,6 +174,7 @@ function zeus() {
       },
     ]
   }
+
   const renderList = [
     // IMAGE
     {
@@ -1168,6 +1176,7 @@ function zeus() {
     // { sY:2, y:2, fromBottom:true, sX:"squary", color:[255,255,0] },
     // { sY:2, y:2, fromBottom:true, sX:"squarySuper", color:[160,160,0] },
   ]
+
   const imgDims = ['imgSX', 'imgSY']
   const motiveDims = ['motiveSX', 'motiveSY']
   const variableList = {

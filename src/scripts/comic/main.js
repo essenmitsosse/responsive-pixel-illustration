@@ -571,6 +571,7 @@ TableComic.prototype.getFocus = function (zoomSX, zoomSY, focus) {
       // relative to Head
     ],
   })
+
   const y = this.pushLinkList({
     add: [
       { r: 0.5, useSize: zoomSY },

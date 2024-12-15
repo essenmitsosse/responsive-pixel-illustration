@@ -1,5 +1,6 @@
-import { getRandomInt } from '@/helper/getRandomInt'
 import { getSmallerDim, mult, sub } from '@/helper/helperDim'
+
+const getRandomInt = (i) => Math.floor(Math.random() * i)
 
 function landscape() {
   const backgroundColor = [0, 0, 0]

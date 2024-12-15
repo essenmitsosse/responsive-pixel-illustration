@@ -1,9 +1,5 @@
-import getHoverChangerStandard from '@/renderengine/helper/getHoverChangerStandard'
-import {
-  getLinkListPusher,
-  getRandom,
-  multiplyColor,
-} from '@/renderengine/helper/helper'
+import getHoverChangerStandard from '@/helper/getHoverChangerStandard'
+import { getLinkListPusher, getRandom, multiplyColor } from '@/helper/helper'
 
 import { Chair, Emotion, Glass, Table } from './accessoir.js'
 import { Arm } from './actor-arm.js'

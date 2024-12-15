@@ -5,7 +5,7 @@ import {
   lighten,
   mult,
   sub,
-} from '@/renderengine/helper/helper'
+} from '@/helper/helper'
 
 function brothers() {
   const shadowColor = [255, 255, 255]

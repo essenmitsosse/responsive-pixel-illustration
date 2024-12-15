@@ -1,4 +1,4 @@
-import type { DoHover } from '@/renderengine/helper/typeHover'
+import type { DoHover } from '@/helper/typeHover'
 
 const getHoverChangerCustom = (): {
   doHover: DoHover

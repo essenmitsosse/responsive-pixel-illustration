@@ -1,9 +1,4 @@
-import {
-  getRandomInt,
-  getSmallerDim,
-  mult,
-  sub,
-} from '@/renderengine/helper/helper'
+import { getRandomInt, getSmallerDim, mult, sub } from '@/helper/helper'
 
 function landscape() {
   const backgroundColor = [0, 0, 0]

@@ -1,11 +1,5 @@
-import {
-  darken,
-  getBiggerDim,
-  getSmallerDim,
-  mult,
-  sub,
-} from '@/renderengine/helper/helper'
-import setValue from '@/renderengine/helper/setValue'
+import { darken, getBiggerDim, getSmallerDim, mult, sub } from '@/helper/helper'
+import setValue from '@/helper/setValue'
 
 function graien(_, __, createSlider) {
   const background = [60, 120, 110]

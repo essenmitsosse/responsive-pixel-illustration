@@ -1,10 +1,4 @@
-import {
-  darken,
-  getBiggerDim,
-  getSmallerDim,
-  mult,
-  sub,
-} from '@/renderengine/helper/helper'
+import { darken, getBiggerDim, getSmallerDim, mult, sub } from '@/helper/helper'
 
 function sparta() {
   const shadowColor = [255, 255, 255]

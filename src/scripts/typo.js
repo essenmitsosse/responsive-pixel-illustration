@@ -1,4 +1,4 @@
-import { getSmallerDim, mult, sub } from '@/renderengine/helper/helper'
+import { getSmallerDim, mult, sub } from '@/helper/helper'
 
 function typo() {
   const backgroundColor = [170, 190, 230]

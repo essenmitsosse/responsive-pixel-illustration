@@ -118,11 +118,6 @@ const createSingleCanvas = (canvasData, div) => {
 
   let key
 
-  canvas.resize = true
-
-  canvas.keepalive = true
-  // canvas.style.position = "absolute";
-
   if (canvasData) {
     for (key in canvasData) {
       canvas.style[key] = canvasData[key]

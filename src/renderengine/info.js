@@ -69,18 +69,15 @@ PixelGraphics.prototype.getResize = function (options, info, render) {
   }
 
   const resize = function (w, h) {
-    // var time = Date.now();
+    const time = Date.now()
 
     // Render the actual image. This takes very long!
     that.canvasSize = render(w || currentW, h || currentH)
 
-    // // Log Drawing Time and Full RenderTime
-    // if( that.canvasSize ) {
-    // 	info.logRenderTime(
-    // 		that.canvasSize[ 2 ],
-    // 		Date.now() - time
-    // 	);
-    // }
+    // Log Drawing Time and Full RenderTime
+    if (that.canvasSize) {
+      info.logRenderTime(that.canvasSize[2], Date.now() - time)
+    }
 
     needsToResize = false
   }

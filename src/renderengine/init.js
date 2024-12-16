@@ -26,7 +26,7 @@ const doShowInfo = (options) => {
   let initString
 
   const d = document
-  const [body] = d.getElementsByTagName('body')
+  const body = d.getElementById('sliders')
   const info = d.createElement('div')
 
   let show = options.showInfos

@@ -49,15 +49,11 @@ const getInfo = (options) => {
     body.appendChild(info)
   }
 
-  document.onkeydown = function () {
-    const k = event.keyCode
+  document.onkeydown = (event) => {
+    if (event.ctrlKey && event.key === 'i') {
+      event.preventDefault()
 
-    if (event.ctrlKey) {
-      if (k === 73) {
-        event.preventDefault()
-
-        swap()
-      }
+      swap()
     }
   }
 

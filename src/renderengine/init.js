@@ -20,7 +20,7 @@ const doSetDocumentTitle = (imageName, queryString) => {
   document.title = name
 }
 
-const doShowInfo = (options) => {
+const getInfo = (options) => {
   const logs = []
 
   let initString
@@ -203,7 +203,7 @@ export class InitPixel {
       queryString,
       imageName,
       currentSlide,
-      doShowInfo(queryString),
+      getInfo(queryString),
     )
 
     loadScript(callback, currentSlide)

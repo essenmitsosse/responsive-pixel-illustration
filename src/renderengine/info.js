@@ -17,7 +17,7 @@ export const PixelGraphics = function (options) {
     this.prepareVariableList(options.imageFunction.linkList)
   }
 
-  return function (canvas) {
+  this.callback = function (canvas) {
     const isParent = options.queryString.parent
     const finalRenderer = new Renderer(canvas, options.info, options, that)
     const resize = that.getResize(options, options.info, finalRenderer.resize)

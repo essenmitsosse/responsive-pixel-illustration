@@ -127,7 +127,7 @@ const createSingleCanvas = (canvasData, div) => {
   div.appendChild(canvas)
 
   return function (renderer) {
-    return new PixelGraphics(renderer)(canvas)
+    return new PixelGraphics(renderer).callback(canvas)
   }
 }
 

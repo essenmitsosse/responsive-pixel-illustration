@@ -6,5 +6,5 @@ inject()
 
 new InitPixel({
   div: document.getElementById('main'),
-  // imageName: window.location.hash.substr(1)
+  // imageName: window.location.hash.substring(1)
 })

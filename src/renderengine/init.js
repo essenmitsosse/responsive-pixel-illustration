@@ -141,7 +141,7 @@ export class InitPixel {
   constructor(args) {
     const queryString = this.getQueryString()
     const showcase = (this.showcase = true)
-    const forceName = args.imageName || window.location.hash.substr(1)
+    const forceName = args.imageName || window.location.hash.substring(1)
     const slides = showcase ? listImage : this.slides
     const currentSlide = !forceName && slides[queryString.slide || 0]
     const imageName = forceName || currentSlide.name || 'tantalos'
@@ -191,7 +191,7 @@ export class InitPixel {
 
   getQueryString() {
     const list = {}
-    const vars = location.search.substr(1).split('&')
+    const vars = location.search.substring(1).split('&')
 
     let i = 0
 

@@ -60,13 +60,7 @@ const getInfo = (options) => {
   return {
     change,
     logInitTime(initTime) {
-      initString = [
-        "<span class='init' style='width:",
-        initTime * 5,
-        "px;'>",
-        initTime,
-        'ms<br>Init</span>',
-      ].join('')
+      initString = `<span class='init' style='width:${initTime * 5}px;'>${initTime}ms<br>Init</span>`
     },
     logRenderTime(draw, fullDuration) {
       let what
@@ -83,23 +77,11 @@ const getInfo = (options) => {
         change('Average-Time', 'false')
 
         for (what in lo) {
-          string.push('<p><strong>', what, ':</strong> ', lo[what], '</p>')
+          string.push(`<p><strong>${what}:</strong> ${lo[what]}</p>`)
         }
 
         string.push(
-          '<p>',
-          initString,
-          "<span class='drawing' style='width:",
-          draw * 5,
-          "px;'>",
-          draw,
-          'ms<br>Drawing</span>',
-          "<span style='width:",
-          render * 5,
-          "px;'>",
-          render,
-          'ms<br>Render</span>',
-          '</p>',
+          `<p>${initString}<span class='drawing' style='width:${draw * 5}px;'>${draw}ms<br>Drawing</span><span style='width:${render * 5}px;'>${render}ms<br>Render</span></p>`,
         )
 
         info.innerHTML = string.join('')

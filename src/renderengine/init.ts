@@ -3,12 +3,18 @@ import getObjectFromEntries from '@/lib/getObjectFromEntries'
 import listImage from '@/scripts/listImage'
 
 import { Admin } from './admin.js'
-import { PixelGraphics } from './info.js'
+// eslint-disable-next-line import/extensions -- this is fine here
+import { PixelGraphics } from './info'
 
-const getNumberDefaultToZero = (value) =>
+import type { DataImage, ImageFunction } from '@/scripts/listImage'
+
+const getNumberDefaultToZero = (value: unknown): number =>
   typeof value === 'number' ? value : 0
 
-const doSetDocumentTitle = (imageName, queryString) => {
+const doSetDocumentTitle = (
+  imageName: string,
+  queryString: { id?: string; resizeable?: boolean },
+): void => {
   let name = imageName
 
   // add resizeable to the title
@@ -25,10 +31,16 @@ const doSetDocumentTitle = (imageName, queryString) => {
   document.title = name
 }
 
-const getInfo = (options) => {
-  const logs = {}
+const getInfo = (options: {
+  showInfos?: boolean
+}): {
+  change: (name: string, value: string) => void
+  logInitTime: (initTime: number) => void
+  logRenderTime: (draw: number, fullDuration: number) => void
+} => {
+  const logs: Record<string, string> = {}
 
-  let initString
+  let initString: string
 
   const d = document
   const body = d.getElementById('sliders')
@@ -36,7 +48,7 @@ const getInfo = (options) => {
 
   let show = options.showInfos
 
-  const swap = () => {
+  const swap = (): void => {
     if (body === null) {
       return
     }
@@ -48,7 +60,7 @@ const getInfo = (options) => {
     }
   }
 
-  const change = (name, value) => {
+  const change = (name: string, value: string): void => {
     logs[name] = value
   }
 
@@ -58,7 +70,7 @@ const getInfo = (options) => {
     body.appendChild(info)
   }
 
-  document.onkeydown = (event) => {
+  document.onkeydown = (event: KeyboardEvent): void => {
     if (event.ctrlKey && event.key.toLocaleLowerCase() === 'i') {
       event.preventDefault()
 
@@ -68,10 +80,10 @@ const getInfo = (options) => {
 
   return {
     change,
-    logInitTime: (initTime) => {
+    logInitTime: (initTime): void => {
       initString = `<span class='init' style='width:${initTime * 5}px;'>${initTime}ms<br>Init</span>`
     },
-    logRenderTime: (draw, fullDuration) => {
+    logRenderTime: (draw, fullDuration): void => {
       const render = fullDuration - draw
       const string = []
 
@@ -119,10 +131,13 @@ const getInfo = (options) => {
 // };
 
 /** Create a new Canvas, add it to the div and return it */
-const createSingleCanvas = (canvasData, div) => {
+const createSingleCanvas = (
+  canvasData: CSSStyleDeclaration | false,
+  div: HTMLElement,
+) => {
   const canvas = document.createElement('canvas')
 
-  let key
+  let key: keyof CSSStyleDeclaration
 
   if (canvasData) {
     for (key in canvasData) {
@@ -132,16 +147,20 @@ const createSingleCanvas = (canvasData, div) => {
 
   div.appendChild(canvas)
 
-  return (renderer) => new PixelGraphics(renderer).callback(canvas)
+  return (renderer: unknown): ReturnType<PixelGraphics['callback']> =>
+    new PixelGraphics(renderer).callback(canvas)
 }
 
-const loadScript = (callback, currentSlide) =>
+const loadScript = (
+  callback: (imageFunction: ImageFunction) => void,
+  currentSlide: DataImage,
+): Promise<void> =>
   currentSlide.import().then((imageImport) => {
     callback(imageImport.default)
   })
 
-const getQueryString = () => {
-  const list = {}
+const getQueryString = (): Record<string, boolean | number | undefined> => {
+  const list: Record<string, boolean | number | undefined> = {}
   const vars = location.search.substring(1).split('&')
 
   let i = 0
@@ -150,7 +169,7 @@ const getQueryString = () => {
 
   let pair
 
-  const convert = (value) => {
+  const convert = (value: string): boolean | number => {
     if (value === 'true') {
       return true
     } else if (value === 'false') {
@@ -178,55 +197,79 @@ const getQueryString = () => {
 }
 
 /** Create the Callback Function, when the script is loaded */
-const getCallback = (args) => (ImageFunction) => {
-  let imageFunction
-  let renderObject
+const getCallback =
+  (args: {
+    context: InitPixel
+    currentSlide: DataImage
+    imageName: string
+    info: unknown
+    queryString: Record<string, boolean | number | undefined>
+    rendererInit: (args: unknown) => ReturnType<PixelGraphics['callback']>
+  }) =>
+  (ImageFunction: ImageFunction): void => {
+    let imageFunction
+    let renderObject
 
-  if (ImageFunction) {
-    // if (args.context.createSlider) {
-    // that.createSlider.title( { title: "Image Size" } );
-    // that.createSlider.slider( { niceName: "Width", valueName: "width", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
-    // that.createSlider.slider( { niceName: "Height", 	 valueName: "height", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
-    // }
+    if (ImageFunction) {
+      // if (args.context.createSlider) {
+      // that.createSlider.title( { title: "Image Size" } );
+      // that.createSlider.slider( { niceName: "Width", valueName: "width", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
+      // that.createSlider.slider( { niceName: "Height", 	 valueName: "height", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
+      // }
 
-    imageFunction = ImageFunction(
-      args.queryString,
-      args.currentSlide,
-      args.context.createSlider,
-    )
+      imageFunction = ImageFunction(
+        args.queryString,
+        args.currentSlide,
+        args.context.createSlider,
+      )
 
-    renderObject = {
-      showInfos: false,
-      slide: args.currentSlide,
-      imageFunction,
-      queryString: args.queryString,
-      pixelSize:
-        (getNumberDefaultToZero(args.queryString.p) ||
-          args.currentSlide.p ||
-          7) *
-          1 +
-        (getNumberDefaultToZero(args.queryString.pAdd) ||
-          imageFunction.recommendedPixelSize ||
-          0) *
-          1,
-      sliderObject: args.context.sliderObject,
-      sliderValues: args.context.sliderValues,
-      info: args.info,
-      init: args.context,
+      renderObject = {
+        showInfos: false,
+        slide: args.currentSlide,
+        imageFunction,
+        queryString: args.queryString,
+        pixelSize:
+          (getNumberDefaultToZero(args.queryString.p) ||
+            args.currentSlide.p ||
+            7) *
+            1 +
+          (getNumberDefaultToZero(args.queryString.pAdd) ||
+            imageFunction.recommendedPixelSize ||
+            0) *
+            1,
+        sliderObject: args.context.sliderObject,
+        sliderValues: args.context.sliderValues,
+        info: args.info,
+        init: args.context,
+      }
+
+      args.context.renderer = args.rendererInit(renderObject)
+
+      if (args.context.timerAnimation) {
+        args.context.timerAnimation()
+      }
+    } else {
+      throw `${args.imageName} was loaded but is not a function!`
     }
-
-    args.context.renderer = args.rendererInit(renderObject)
-
-    if (args.context.timerAnimation) {
-      args.context.timerAnimation()
-    }
-  } else {
-    throw `${args.imageName} was loaded but is not a function!`
   }
-}
 
 export class InitPixel {
-  constructor(args) {
+  showcase?: boolean
+  slides: typeof listImage
+  queryString: Record<string, boolean | number | undefined>
+  parent: unknown
+  timerAnimation?: () => void
+  sliderObject?: unknown
+  sliderValues?: unknown
+  defaultValues?: Record<string, boolean | number | undefined>
+  createSlider?: {
+    number: () => void
+    slide: () => void
+    title: () => void
+  }
+  renderer?: ReturnType<PixelGraphics['callback']>
+  toggleResizabilityButton?: HTMLElement
+  constructor(args: { div: HTMLElement; imageName?: string }) {
     this.queryString = getQueryString()
 
     const forceName = args.imageName || window.location.hash.substring(1)
@@ -285,7 +328,10 @@ export class InitPixel {
     }
   }
 
-  addToQueryString(newObj, dontRefresh) {
+  addToQueryString(
+    newObj: Record<string, boolean | number | undefined>,
+    dontRefresh?: boolean,
+  ): void {
     getObjectEntries(newObj).map(([key, value]) => {
       this.queryString[key] = value
     })
@@ -295,7 +341,7 @@ export class InitPixel {
     }
   }
 
-  refresh() {
+  refresh(): void {
     location.search = getObjectEntries(this.queryString)
       .map(([key, value]) => {
         if (value === undefined) {
@@ -307,7 +353,7 @@ export class InitPixel {
       .join('&')
   }
 
-  nextSlide(isNext) {
+  nextSlide(isNext: boolean): void {
     let newSlide =
       getNumberDefaultToZero(this.queryString.slide) * 1 + (isNext ? 1 : -1)
 
@@ -324,19 +370,19 @@ export class InitPixel {
     this.changeForceRedraw({ slide: this.queryString.slide })
   }
 
-  getNewId() {
+  getNewId(): void {
     this.changeForceRedraw({
       id: Math.floor(Math.random() * Math.pow(2, 32)),
     })
   }
 
-  sliderChange(obj) {
+  sliderChange(obj: Record<string, boolean | number | undefined>): void {
     if (this.renderer) {
       this.renderer.redraw(obj)
     }
   }
 
-  changeForceRedraw(obj) {
+  changeForceRedraw(obj: { id?: number; slide?: number }): void {
     if (obj.slide && obj.slide !== this.queryString.slide && this.showcase) {
       this.queryString = {
         showcase: true,
@@ -350,7 +396,7 @@ export class InitPixel {
     }
   }
 
-  makeFullScreen() {
+  makeFullScreen(): void {
     this.toggleResizability(false)
 
     if (this.renderer) {
@@ -358,13 +404,13 @@ export class InitPixel {
     }
   }
 
-  setupToggleResizabilityLinkButton(button) {
+  setupToggleResizabilityLinkButton(button: HTMLElement): void {
     this.toggleResizabilityButton = button
 
     this.toggleResizability(this.queryString.resizeable ? true : false)
   }
 
-  toggleResizability(value) {
+  toggleResizability(value?: boolean): void {
     const resizeable = (this.queryString.resizeable =
       value === undefined ? !this.queryString.resizeable : value)
 
@@ -375,10 +421,10 @@ export class InitPixel {
     }
   }
 
-  getShortcuts(queryString) {
+  getShortcuts(queryString: Record<string, boolean | number | undefined>) {
     const that = this
 
-    return (event) => {
+    return (event: KeyboardEvent): void => {
       if (event.ctrlKey) {
         if (event.key.toLocaleLowerCase() === 'r') {
           event.preventDefault()
@@ -505,11 +551,23 @@ export class InitPixel {
     }
   }
 
-  getTimerAnimation() {
+  getTimerAnimation(): () => void {
     const that = this
     const fps = 20
     /* how often per second should the chance be checked */
     const waitTimer = fps * 0.5
+
+    type Animation = {
+      chance: number
+      duration: number
+      forward: boolean
+      middleChance: number
+      move: boolean
+      pos: number
+      step: number
+      waitTimer: number
+    }
+
     const animations = getObjectFromEntries(
       getObjectEntries({
         camera: { duration: 6, chance: 0.1 },
@@ -528,23 +586,28 @@ export class InitPixel {
         l: { duration: 2, chance: 0.3 },
         m: { duration: 2, chance: 0.3 },
         n: { duration: 2, chance: 0.3 },
-      }).map(([key, value]) => [
-        key,
-        {
-          ...value,
-          chance: (waitTimer * value.chance) / fps,
-          middleChance: waitTimer / (fps * value.duration),
-          step: 1 / (fps * value.duration),
-          pos: 0,
-          forward: true,
-          move: true,
-          waitTimer: 0,
-        },
-      ]),
+      }).map(
+        <TKey extends string>([key, value]: [
+          TKey,
+          { chance: number; duration: number },
+        ]): [TKey, Animation] => [
+          key,
+          {
+            ...value,
+            chance: (waitTimer * value.chance) / fps,
+            middleChance: waitTimer / (fps * value.duration),
+            step: 1 / (fps * value.duration),
+            pos: 0,
+            forward: true,
+            move: true,
+            waitTimer: 0,
+          },
+        ],
+      ),
     )
 
-    const getFrame = () => {
-      const renderObject = {}
+    const getFrame = (): void => {
+      const renderObject: Record<string, unknown> = {}
 
       getObjectEntries(animations).forEach(([key, value]) => {
         const current = { ...value }

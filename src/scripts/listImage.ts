@@ -1,24 +1,17 @@
-type ImageFunction =
-  | ((
-      queryString: Record<string, boolean | number>,
-      currentSlite: DataImage,
-      createSlider: {
-        number: () => void
-        slide: () => void
-        title: () => void
-      },
-    ) => unknown)
-  | (new (
-      queryString: Record<string, boolean | number>,
-      currentSlite: DataImage,
-      createSlider: {
-        number: () => void
-        slide: () => void
-        title: () => void
-      },
-    ) => unknown)
+export type ImageFunction = (
+  queryString: Record<string, boolean | number | undefined>,
+  currentSlite: DataImage,
+  createSlider?: {
+    number: () => void
+    slide: () => void
+    title: () => void
+  },
+) => {
+  recommendedPixelSize?: number
+  renderList: unknown
+}
 
-type DataImage = {
+export type DataImage = {
   both?: true
   hasRandom?: boolean
   import: () => Promise<{ default: ImageFunction }>

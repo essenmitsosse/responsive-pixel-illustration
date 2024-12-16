@@ -62,7 +62,6 @@ const getInfo = (options) => {
   }
 
   return {
-    swap,
     change,
     logInitTime(initTime) {
       initString = [

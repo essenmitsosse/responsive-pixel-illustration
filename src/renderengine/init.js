@@ -147,16 +147,14 @@ const getQueryString = () => {
 
   let pair
 
-  const convert = function (value) {
+  const convert = (value) => {
     if (value === 'true') {
-      value = true
+      return true
     } else if (value === 'false') {
-      value = false
-    } else {
-      value = value * 1
+      return false
     }
 
-    return value
+    return Number.parseFloat(value)
   }
 
   while (i < l) {

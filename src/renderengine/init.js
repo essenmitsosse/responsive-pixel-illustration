@@ -174,6 +174,51 @@ const getQueryString = () => {
   return list
 }
 
+/** Create the Callback Function, when the script is loaded */
+const getCallback =
+  (context, rendererInit, queryString, imageName, currentSlide, info) =>
+  (ImageFunction) => {
+    let imageFunction
+    let renderObject
+
+    if (ImageFunction) {
+      if (context.createSlider) {
+        // that.createSlider.title( { title: "Image Size" } );
+        // that.createSlider.slider( { niceName: "Width", valueName: "width", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
+        // that.createSlider.slider( { niceName: "Height", 	 valueName: "height", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
+      }
+
+      imageFunction = new ImageFunction(
+        queryString,
+        currentSlide,
+        context.createSlider,
+      )
+
+      renderObject = {
+        showInfos: false,
+        slide: currentSlide,
+        imageFunction,
+        queryString,
+        pixelSize:
+          (queryString.p || currentSlide.p || 7) * 1 +
+          (queryString.pAdd || imageFunction.recommendedPixelSize || 0) * 1,
+        sliderObject: context.sliderObject,
+        sliderValues: context.sliderValues,
+        info,
+        defaultValues: context.defaultValues,
+        init: context,
+      }
+
+      context.renderer = rendererInit(renderObject)
+
+      if (context.timerAnimation) {
+        context.timerAnimation()
+      }
+    } else {
+      throw imageName + ' was loaded but is not a function!'
+    }
+  }
+
 export class InitPixel {
   constructor(args) {
     this.queryString = getQueryString()
@@ -208,7 +253,8 @@ export class InitPixel {
       })
     }
 
-    const callback = this.getCallback(
+    const callback = getCallback(
+      this,
       canvasRenderer,
       this.queryString,
       imageName,
@@ -224,53 +270,6 @@ export class InitPixel {
 
     if (currentSlide.timer || this.queryString.timer) {
       this.timerAnimation = this.getTimerAnimation(currentSlide.timer)
-    }
-  }
-
-  /** Create the Callback Function, when the script is loaded */
-  getCallback(rendererInit, queryString, imageName, currentSlide, info) {
-    const that = this
-
-    return function callback(ImageFunction) {
-      let imageFunction
-      let renderObject
-
-      if (ImageFunction) {
-        if (that.createSlider) {
-          // that.createSlider.title( { title: "Image Size" } );
-          // that.createSlider.slider( { niceName: "Width", valueName: "width", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
-          // that.createSlider.slider( { niceName: "Height", 	 valueName: "height", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
-        }
-
-        imageFunction = new ImageFunction(
-          queryString,
-          currentSlide,
-          that.createSlider,
-        )
-
-        renderObject = {
-          showInfos: false,
-          slide: currentSlide,
-          imageFunction,
-          queryString,
-          pixelSize:
-            (queryString.p || currentSlide.p || 7) * 1 +
-            (queryString.pAdd || imageFunction.recommendedPixelSize || 0) * 1,
-          sliderObject: that.sliderObject,
-          sliderValues: that.sliderValues,
-          info,
-          defaultValues: that.defaultValues,
-          init: that,
-        }
-
-        that.renderer = rendererInit(renderObject)
-
-        if (that.timerAnimation) {
-          that.timerAnimation()
-        }
-      } else {
-        throw imageName + ' was loaded but is not a function!'
-      }
     }
   }
 

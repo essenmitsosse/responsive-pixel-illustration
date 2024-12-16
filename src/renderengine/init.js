@@ -137,32 +137,72 @@ const loadScript = function (callback, currentSlide) {
   })
 }
 
+const getQueryString = () => {
+  const list = {}
+  const vars = location.search.substring(1).split('&')
+
+  let i = 0
+
+  const l = vars.length
+
+  let pair
+
+  const convert = function (value) {
+    if (value === 'true') {
+      value = true
+    } else if (value === 'false') {
+      value = false
+    } else {
+      value = value * 1
+    }
+
+    return value
+  }
+
+  while (i < l) {
+    pair = vars[i].split('=')
+
+    if (pair[0]) {
+      list[pair[0]] = convert(pair[1])
+    }
+
+    i += 1
+  }
+
+  // if( !list.slide ) { list.slide = "0"; }
+  // else { list.slide = list.slide.toString(); }
+  // if( !list.id ) { list.id = 666; }
+
+  return list
+}
+
 export class InitPixel {
   constructor(args) {
-    const queryString = this.getQueryString()
+    this.queryString = getQueryString()
+
     const showcase = (this.showcase = true)
     const forceName = args.imageName || window.location.hash.substring(1)
     const slides = showcase ? listImage : this.slides
-    const currentSlide = !forceName && slides[queryString.slide || 0]
+    const currentSlide = !forceName && slides[this.queryString.slide || 0]
     const imageName = forceName || currentSlide.name || 'tantalos'
-    const sliders = queryString.sliders || currentSlide.sliders
+    const sliders = this.queryString.sliders || currentSlide.sliders
     /** Change for multiple Canvases */
     const canvasDataList = false
     const canvasRenderer = createSingleCanvas(canvasDataList, args.div)
     const [body] = document.getElementsByTagName('body')
 
-    this.parent = queryString.admin || queryString.parent
+    this.parent = this.queryString.admin || this.queryString.parent
 
     if (currentSlide.resizeable) {
-      queryString.resizeable = true
+      this.queryString.resizeable = true
     }
 
     // Admin
-    if (queryString.admin || showcase || sliders) {
+    if (this.queryString.admin || showcase || sliders) {
       new Admin({
         body,
         showcase,
-        admin: queryString.admin,
+        admin: this.queryString.admin,
         sliders,
         slides,
         pixel: this,
@@ -172,60 +212,21 @@ export class InitPixel {
 
     const callback = this.getCallback(
       canvasRenderer,
-      queryString,
+      this.queryString,
       imageName,
       currentSlide,
-      getInfo(queryString),
+      getInfo(this.queryString),
     )
 
     loadScript(callback, currentSlide)
 
-    doSetDocumentTitle(imageName, queryString)
+    doSetDocumentTitle(imageName, this.queryString)
 
-    window.onkeydown = this.getShortcuts(queryString)
+    window.onkeydown = this.getShortcuts(this.queryString)
 
-    if (currentSlide.timer || queryString.timer) {
+    if (currentSlide.timer || this.queryString.timer) {
       this.timerAnimation = this.getTimerAnimation(currentSlide.timer)
     }
-  }
-
-  getQueryString() {
-    const list = {}
-    const vars = location.search.substring(1).split('&')
-
-    let i = 0
-
-    const l = vars.length
-
-    let pair
-
-    const convert = function (value) {
-      if (value === 'true') {
-        value = true
-      } else if (value === 'false') {
-        value = false
-      } else {
-        value = value * 1
-      }
-
-      return value
-    }
-
-    while (i < l) {
-      pair = vars[i].split('=')
-
-      if (pair[0]) {
-        list[pair[0]] = convert(pair[1])
-      }
-
-      i += 1
-    }
-
-    // if( !list.slide ) { list.slide = "0"; }
-    // else { list.slide = list.slide.toString(); }
-    // if( !list.id ) { list.id = 666; }
-
-    return (this.queryString = list)
   }
 
   /** Create the Callback Function, when the script is loaded */

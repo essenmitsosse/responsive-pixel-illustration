@@ -401,29 +401,29 @@ export class InitPixel {
 
     return (event) => {
       if (event.ctrlKey) {
-        if (event.keyCode === 82) {
+        if (event.key === 'r') {
           // CTRL + R // new id
           that.getNewId()
-        } else if (event.keyCode === 83) {
+        } else if (event.key === 's') {
           // CTRL + S // toggle scalability
           that.toggleResizability()
-        } else if (event.keyCode === 70) {
+        } else if (event.key === 'f') {
           // CTRL + F // make Fullscreen
 
           that.makeFullScreen()
-        } else if (event.keyCode === 67) {
+        } else if (event.key === 'c') {
           // CTRL + C // toggle Color sheme
 
           q.cs = q.cs !== true ? true : undefined
 
           that.refresh()
-        } else if (event.keyCode === 68) {
+        } else if (event.key === 'd') {
           // CTRL + D // toggle debugging
 
           q.debug = q.debug !== true ? true : undefined
 
           that.refresh()
-        } else if (event.keyCode === 187) {
+        } else if (event.key === '+') {
           // CTRL + "+" // zoom In
           if (!q.p) {
             q.p = 5
@@ -432,7 +432,7 @@ export class InitPixel {
           q.p = q.p * 1 + 1
 
           that.refresh()
-        } else if (event.keyCode === 189) {
+        } else if (event.key === '-') {
           // CTRL + "-" // zoom Out
           if (!q.p) {
             q.p = 5
@@ -447,7 +447,7 @@ export class InitPixel {
           that.refresh()
         }
       } else if (event.altKey) {
-        if (event.keyCode === 38) {
+        if (event.key === 'ArrowUp') {
           // Arrow Keys Up/Down // Add Rows
           if (!q.panels) {
             q.panels = 1
@@ -456,7 +456,7 @@ export class InitPixel {
           q.panels = q.panels * 1 + 1
 
           that.refresh()
-        } else if (event.keyCode === 40) {
+        } else if (event.key === 'ArrowDown') {
           if (!q.panels) {
             q.panels = 1
           }
@@ -468,10 +468,10 @@ export class InitPixel {
           }
 
           that.refresh()
-        } else if (event.keyCode === 39) {
+        } else if (event.key === 'ArrowRight') {
           // Arrow Keys Left/Right // Next / Prev Image
           that.nextSlide(true)
-        } else if (event.keyCode === 37) {
+        } else if (event.key === 'ArrowLeft') {
           that.nextSlide(false)
         }
       }

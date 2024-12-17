@@ -69,7 +69,6 @@ const getInfo = (options) => {
     logRenderTime(draw, fullDuration) {
       let what
 
-      const lo = logs
       const render = fullDuration - draw
       const string = []
 
@@ -80,8 +79,8 @@ const getInfo = (options) => {
 
         change('Average-Time', 'false')
 
-        for (what in lo) {
-          string.push(`<p><strong>${what}:</strong> ${lo[what]}</p>`)
+        for (what in logs) {
+          string.push(`<p><strong>${what}:</strong> ${logs[what]}</p>`)
         }
 
         string.push(

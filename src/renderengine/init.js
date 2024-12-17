@@ -546,11 +546,8 @@ export class InitPixel {
     const getFrame = () => {
       const renderObject = {}
 
-      let current
-      let key
-
-      for (key in animations) {
-        current = animations[key]
+      getObjectEntries(animations).forEach(([key, value]) => {
+        const current = { ...value }
 
         if (current.move) {
           current.pos += current.step * (current.forward ? 1 : -1)
@@ -594,7 +591,9 @@ export class InitPixel {
             }
           }
         }
-      }
+
+        animations[key] = current
+      })
 
       // console.log( animations.camera.pos );
 

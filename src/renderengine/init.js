@@ -31,7 +31,7 @@ const getInfo = (options) => {
 
   let show = options.showInfos
 
-  const swap = function () {
+  const swap = () => {
     if (body === null) {
       return
     }
@@ -43,7 +43,7 @@ const getInfo = (options) => {
     }
   }
 
-  const change = function (name, value) {
+  const change = (name, value) => {
     logs[name] = value
   }
 

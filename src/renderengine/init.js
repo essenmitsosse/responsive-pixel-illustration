@@ -205,7 +205,6 @@ const getCallback =
         sliderObject: context.sliderObject,
         sliderValues: context.sliderValues,
         info,
-        defaultValues: context.defaultValues,
         init: context,
       }
 
@@ -336,10 +335,6 @@ export class InitPixel {
   sliderChange(obj) {
     if (this.renderer) {
       this.renderer.redraw(obj)
-    } else {
-      for (const key in obj) {
-        this.defaultValues[key] = obj[key]
-      }
     }
   }
 

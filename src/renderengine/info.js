@@ -28,12 +28,9 @@ export const PixelGraphics = function (options) {
     finalRenderer.rescaleWindow()
 
     redraw(
-      that.joinObjects(
-        options.sliderValues,
-        options.queryString,
-        options.defaultValues,
-        { dontHighlight: true },
-      ),
+      that.joinObjects(options.sliderValues, options.queryString, {
+        dontHighlight: true,
+      }),
     )
 
     window.onresize = function () {

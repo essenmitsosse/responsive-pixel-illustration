@@ -360,7 +360,9 @@ export class InitPixel {
   makeFullScreen() {
     this.toggleResizability(false)
 
-    this.renderer.redraw({ width: 1, height: 1 })
+    if (this.renderer) {
+      this.renderer.redraw({ width: 1, height: 1 })
+    }
   }
 
   setupToggleResizabilityLinkButton(button) {

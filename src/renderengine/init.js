@@ -441,7 +441,7 @@ export class InitPixel {
 
           that.refresh()
         }
-      } else if (event.altKey) {
+      } else if (event.metaKey) {
         if (event.key === 'ArrowUp') {
           event.preventDefault()
 

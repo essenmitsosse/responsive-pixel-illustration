@@ -398,7 +398,7 @@ export class InitPixel {
   getShortcuts(q) {
     const that = this
 
-    return function (event) {
+    return (event) => {
       if (event.ctrlKey) {
         if (event.keyCode === 82) {
           // CTRL + R // new id

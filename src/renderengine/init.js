@@ -279,21 +279,11 @@ export class InitPixel {
   }
 
   addToQueryString(newObj, dontRefresh) {
-    let key
+    getObjectEntries(newObj).map(([key, value]) => {
+      this.queryString[key] = value
+    })
 
-    const q = this.queryString
-
-    let somethingChanged = false
-
-    for (key in newObj) {
-      if (q[key] !== newObj[key]) {
-        somethingChanged = true
-      }
-
-      q[key] = newObj[key]
-    }
-
-    if (!dontRefresh && somethingChanged) {
+    if (!dontRefresh) {
       this.refresh()
     }
   }

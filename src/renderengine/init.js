@@ -308,19 +308,15 @@ export class InitPixel {
   }
 
   refresh() {
-    const newString = []
+    location.search = getObjectEntries(this.queryString)
+      .map(([key, value]) => {
+        if (value === undefined) {
+          return
+        }
 
-    let key
-
-    const q = this.queryString
-
-    for (key in q) {
-      if (q[key] !== undefined) {
-        newString.push(key + '=' + q[key])
-      }
-    }
-
-    location.search = newString.join('&')
+        return key + '=' + value
+      })
+      .join('&')
   }
 
   nextSlide(next) {

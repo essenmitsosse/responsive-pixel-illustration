@@ -227,6 +227,8 @@ export class InitPixel {
     const forceName = args.imageName || window.location.hash.substring(1)
     const slides = showcase ? listImage : this.slides
 
+    this.slides = slides
+
     if (slides === undefined) {
       throw new Error('No slides found')
     }
@@ -319,18 +321,18 @@ export class InitPixel {
       .join('&')
   }
 
-  nextSlide(next) {
-    if (!this.queryString.slide) {
-      this.queryString.slide = 0
+  nextSlide(isNext) {
+    let newSlide = (this.queryString.slide ?? 0) * 1 + (isNext ? 1 : -1)
+
+    if (newSlide > this.slides.length - 1) {
+      newSlide = this.slides.length - 1
+    } else if (newSlide < 0) {
+      newSlide = 0
     }
 
-    this.queryString.slide = this.queryString.slide * 1 + (next ? 1 : -1)
+    this.queryString.slide = newSlide
 
-    if (this.queryString.slide > this.slides.length - 1) {
-      this.queryString.slide = this.slides.length - 1
-    } else if (this.queryString.slide < 0) {
-      this.queryString.slide = 0
-    }
+    this.refresh()
 
     this.changeForceRedraw({ slide: this.queryString.slide })
   }

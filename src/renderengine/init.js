@@ -1,4 +1,5 @@
 import getObjectEntries from '@/lib/getObjectEntries'
+import getObjectFromEntries from '@/lib/getObjectFromEntries'
 import listImage from '@/scripts/listImage'
 
 import { Admin } from './admin.js'
@@ -509,27 +510,38 @@ export class InitPixel {
     const fps = 20
     /* how often per second should the chance be checked */
     const waitTimer = fps * 0.5
-    const animations = {
-      camera: { duration: 6, chance: 0.1 },
-      side: { duration: 3, chance: 0.3 },
-      a: { duration: 2, chance: 0.3 },
-      b: { duration: 2, chance: 0.3 },
-      c: { duration: 2, chance: 0.3 },
-      // eye open
-      d: { duration: 2, chance: 0.1 },
-      // eye open
-      e: { duration: 2, chance: 0.1 },
-      f: { duration: 2, chance: 0.3 },
-      g: { duration: 2, chance: 0.3 },
-      h: { duration: 2, chance: 0.3 },
-      k: { duration: 2, chance: 0.3 },
-      l: { duration: 2, chance: 0.3 },
-      m: { duration: 2, chance: 0.3 },
-      n: { duration: 2, chance: 0.3 },
-    }
-
-    let key
-    let current
+    const animations = getObjectFromEntries(
+      getObjectEntries({
+        camera: { duration: 6, chance: 0.1 },
+        side: { duration: 3, chance: 0.3 },
+        a: { duration: 2, chance: 0.3 },
+        b: { duration: 2, chance: 0.3 },
+        c: { duration: 2, chance: 0.3 },
+        // eye open
+        d: { duration: 2, chance: 0.1 },
+        // eye open
+        e: { duration: 2, chance: 0.1 },
+        f: { duration: 2, chance: 0.3 },
+        g: { duration: 2, chance: 0.3 },
+        h: { duration: 2, chance: 0.3 },
+        k: { duration: 2, chance: 0.3 },
+        l: { duration: 2, chance: 0.3 },
+        m: { duration: 2, chance: 0.3 },
+        n: { duration: 2, chance: 0.3 },
+      }).map(([key, value]) => [
+        key,
+        {
+          ...value,
+          chance: (waitTimer * value.chance) / fps,
+          middleChance: waitTimer / (fps * value.duration),
+          step: 1 / (fps * value.duration),
+          pos: 0,
+          forward: true,
+          move: true,
+          waitTimer: 0,
+        },
+      ]),
+    )
 
     const getFrame = () => {
       const renderObject = {}
@@ -589,24 +601,6 @@ export class InitPixel {
       setTimeout(getFrame, 1000 / fps)
 
       that.renderer.redraw(renderObject)
-    }
-
-    for (key in animations) {
-      current = animations[key]
-
-      current.chance = (waitTimer * current.chance) / fps
-
-      current.middleChance = waitTimer / (fps * current.duration)
-
-      current.step = 1 / (fps * current.duration)
-
-      current.pos = 0
-
-      current.forward = true
-
-      current.move = true
-
-      current.waitTimer = 0
     }
 
     return getFrame

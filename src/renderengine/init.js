@@ -226,7 +226,21 @@ export class InitPixel {
     const showcase = (this.showcase = true)
     const forceName = args.imageName || window.location.hash.substring(1)
     const slides = showcase ? listImage : this.slides
-    const currentSlide = !forceName && slides[this.queryString.slide || 0]
+
+    if (slides === undefined) {
+      throw new Error('No slides found')
+    }
+
+    const currentSlide =
+      !forceName &&
+      slides[
+        typeof this.queryString.slide === 'number' ? this.queryString.slide : 0
+      ]
+
+    if (!currentSlide) {
+      throw new Error('No current slide found')
+    }
+
     const imageName = forceName || currentSlide.name || 'tantalos'
     const sliders = this.queryString.sliders || currentSlide.sliders
     /** Change for multiple Canvases */

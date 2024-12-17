@@ -64,10 +64,10 @@ const getInfo = (options) => {
 
   return {
     change,
-    logInitTime(initTime) {
+    logInitTime: (initTime) => {
       initString = `<span class='init' style='width:${initTime * 5}px;'>${initTime}ms<br>Init</span>`
     },
-    logRenderTime(draw, fullDuration) {
+    logRenderTime: (draw, fullDuration) => {
       const render = fullDuration - draw
       const string = []
 

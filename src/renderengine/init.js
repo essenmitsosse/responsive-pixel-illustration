@@ -402,28 +402,37 @@ export class InitPixel {
     return (event) => {
       if (event.ctrlKey) {
         if (event.key === 'r') {
+          event.preventDefault()
+
           // CTRL + R // new id
           that.getNewId()
         } else if (event.key === 's') {
+          event.preventDefault()
+
           // CTRL + S // toggle scalability
           that.toggleResizability()
         } else if (event.key === 'f') {
+          event.preventDefault()
           // CTRL + F // make Fullscreen
 
           that.makeFullScreen()
         } else if (event.key === 'c') {
+          event.preventDefault()
           // CTRL + C // toggle Color sheme
 
           q.cs = q.cs !== true ? true : undefined
 
           that.refresh()
         } else if (event.key === 'd') {
+          event.preventDefault()
           // CTRL + D // toggle debugging
 
           q.debug = q.debug !== true ? true : undefined
 
           that.refresh()
-        } else if (event.key === '+') {
+        } else if (event.key === ']') {
+          event.preventDefault()
+
           // CTRL + "+" // zoom In
           if (!q.p) {
             q.p = 5
@@ -432,7 +441,9 @@ export class InitPixel {
           q.p = q.p * 1 + 1
 
           that.refresh()
-        } else if (event.key === '-') {
+        } else if (event.key === '[') {
+          event.preventDefault()
+
           // CTRL + "-" // zoom Out
           if (!q.p) {
             q.p = 5
@@ -448,6 +459,8 @@ export class InitPixel {
         }
       } else if (event.altKey) {
         if (event.key === 'ArrowUp') {
+          event.preventDefault()
+
           // Arrow Keys Up/Down // Add Rows
           if (!q.panels) {
             q.panels = 1
@@ -457,6 +470,8 @@ export class InitPixel {
 
           that.refresh()
         } else if (event.key === 'ArrowDown') {
+          event.preventDefault()
+
           if (!q.panels) {
             q.panels = 1
           }
@@ -469,9 +484,13 @@ export class InitPixel {
 
           that.refresh()
         } else if (event.key === 'ArrowRight') {
+          event.preventDefault()
+
           // Arrow Keys Left/Right // Next / Prev Image
           that.nextSlide(true)
         } else if (event.key === 'ArrowLeft') {
+          event.preventDefault()
+
           that.nextSlide(false)
         }
       }

@@ -531,7 +531,7 @@ export class InitPixel {
     let key
     let current
 
-    const getFrame = function () {
+    const getFrame = () => {
       const renderObject = {}
 
       let current

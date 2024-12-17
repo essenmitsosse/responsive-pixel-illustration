@@ -5,6 +5,9 @@ import listImage from '@/scripts/listImage'
 import { Admin } from './admin.js'
 import { PixelGraphics } from './info.js'
 
+const getNumberDefaultToZero = (value) =>
+  typeof value === 'number' ? value : 0
+
 const doSetDocumentTitle = (imageName, queryString) => {
   let name = imageName
 
@@ -200,8 +203,11 @@ const getCallback =
         imageFunction,
         queryString,
         pixelSize:
-          (queryString.p || currentSlide.p || 7) * 1 +
-          (queryString.pAdd || imageFunction.recommendedPixelSize || 0) * 1,
+          (getNumberDefaultToZero(queryString.p) || currentSlide.p || 7) * 1 +
+          (getNumberDefaultToZero(queryString.pAdd) ||
+            imageFunction.recommendedPixelSize ||
+            0) *
+            1,
         sliderObject: context.sliderObject,
         sliderValues: context.sliderValues,
         info,
@@ -301,7 +307,8 @@ export class InitPixel {
   }
 
   nextSlide(isNext) {
-    let newSlide = (this.queryString.slide ?? 0) * 1 + (isNext ? 1 : -1)
+    let newSlide =
+      getNumberDefaultToZero(this.queryString.slide) * 1 + (isNext ? 1 : -1)
 
     if (newSlide > this.slides.length - 1) {
       newSlide = this.slides.length - 1
@@ -409,7 +416,7 @@ export class InitPixel {
             queryString.p = 5
           }
 
-          queryString.p = queryString.p * 1 + 1
+          queryString.p = getNumberDefaultToZero(queryString.p) * 1 + 1
 
           that.refresh()
         } else if (event.key === '[') {
@@ -420,7 +427,7 @@ export class InitPixel {
             queryString.p = 5
           }
 
-          queryString.p = queryString.p * 1 - 1
+          queryString.p = getNumberDefaultToZero(queryString.p) * 1 - 1
 
           if (queryString.p < 1) {
             queryString.p = 1
@@ -437,7 +444,8 @@ export class InitPixel {
             queryString.panels = 1
           }
 
-          queryString.panels = queryString.panels * 1 + 1
+          queryString.panels =
+            getNumberDefaultToZero(queryString.panels) * 1 + 1
 
           that.refresh()
         } else if (event.key === 'ArrowDown') {
@@ -447,7 +455,8 @@ export class InitPixel {
             queryString.panels = 1
           }
 
-          queryString.panels = queryString.panels * 1 - 1
+          queryString.panels =
+            getNumberDefaultToZero(queryString.panels) * 1 - 1
 
           if (queryString.panels < 1) {
             queryString.panels = 1

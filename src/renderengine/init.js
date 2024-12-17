@@ -599,7 +599,9 @@ export class InitPixel {
 
       setTimeout(getFrame, 1000 / fps)
 
-      that.renderer.redraw(renderObject)
+      if (that.renderer) {
+        that.renderer.redraw(renderObject)
+      }
     }
 
     return getFrame

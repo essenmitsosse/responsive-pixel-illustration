@@ -307,16 +307,12 @@ export class InitPixel {
     }
   }
 
-  refresh(event) {
+  refresh() {
     const newString = []
 
     let key
 
     const q = this.queryString
-
-    if (event) {
-      event.preventDefault()
-    }
 
     for (key in q) {
       if (q[key] !== undefined) {
@@ -396,7 +392,7 @@ export class InitPixel {
     }
   }
 
-  getShortcuts(q) {
+  getShortcuts(queryString) {
     const that = this
 
     return (event) => {
@@ -420,39 +416,39 @@ export class InitPixel {
           event.preventDefault()
           // CTRL + C // toggle Color sheme
 
-          q.cs = q.cs !== true ? true : undefined
+          queryString.cs = queryString.cs !== true ? true : undefined
 
           that.refresh()
         } else if (event.key === 'd') {
           event.preventDefault()
           // CTRL + D // toggle debugging
 
-          q.debug = q.debug !== true ? true : undefined
+          queryString.debug = queryString.debug !== true ? true : undefined
 
           that.refresh()
         } else if (event.key === ']') {
           event.preventDefault()
 
           // CTRL + "+" // zoom In
-          if (!q.p) {
-            q.p = 5
+          if (!queryString.p) {
+            queryString.p = 5
           }
 
-          q.p = q.p * 1 + 1
+          queryString.p = queryString.p * 1 + 1
 
           that.refresh()
         } else if (event.key === '[') {
           event.preventDefault()
 
           // CTRL + "-" // zoom Out
-          if (!q.p) {
-            q.p = 5
+          if (!queryString.p) {
+            queryString.p = 5
           }
 
-          q.p = q.p * 1 - 1
+          queryString.p = queryString.p * 1 - 1
 
-          if (q.p < 1) {
-            q.p = 1
+          if (queryString.p < 1) {
+            queryString.p = 1
           }
 
           that.refresh()
@@ -462,24 +458,24 @@ export class InitPixel {
           event.preventDefault()
 
           // Arrow Keys Up/Down // Add Rows
-          if (!q.panels) {
-            q.panels = 1
+          if (!queryString.panels) {
+            queryString.panels = 1
           }
 
-          q.panels = q.panels * 1 + 1
+          queryString.panels = queryString.panels * 1 + 1
 
           that.refresh()
         } else if (event.key === 'ArrowDown') {
           event.preventDefault()
 
-          if (!q.panels) {
-            q.panels = 1
+          if (!queryString.panels) {
+            queryString.panels = 1
           }
 
-          q.panels = q.panels * 1 - 1
+          queryString.panels = queryString.panels * 1 - 1
 
-          if (q.panels < 1) {
-            q.panels = 1
+          if (queryString.panels < 1) {
+            queryString.panels = 1
           }
 
           that.refresh()

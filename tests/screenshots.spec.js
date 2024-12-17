@@ -1,4 +1,6 @@
 // @ts-check
+import { describe } from 'node:test'
+
 import { expect, test } from '@playwright/test'
 
 const listScreenshots = [
@@ -69,11 +71,13 @@ const listScreenshots = [
   },
 ]
 
-listScreenshots.forEach(({ niceName, query, index }) => {
-  test(niceName, async ({ page }) => {
-    await page.goto(`/?slide=${index}&${query}`)
+describe('basic screenshots', () => {
+  listScreenshots.forEach(({ niceName, query, index }) => {
+    test(niceName, async ({ page }) => {
+      await page.goto(`/?slide=${index}&${query}`)
 
-    await expect(page).toHaveScreenshot(`${niceName}.png`)
+      await expect(page).toHaveScreenshot(`${niceName}.png`)
+    })
   })
 })
 

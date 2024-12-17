@@ -1,3 +1,4 @@
+import getObjectEntries from '@/lib/getObjectEntries'
 import listImage from '@/scripts/listImage'
 
 import { Admin } from './admin.js'
@@ -67,8 +68,6 @@ const getInfo = (options) => {
       initString = `<span class='init' style='width:${initTime * 5}px;'>${initTime}ms<br>Init</span>`
     },
     logRenderTime(draw, fullDuration) {
-      let what
-
       const render = fullDuration - draw
       const string = []
 
@@ -79,9 +78,9 @@ const getInfo = (options) => {
 
         change('Average-Time', 'false')
 
-        for (what in logs) {
-          string.push(`<p><strong>${what}:</strong> ${logs[what]}</p>`)
-        }
+        getObjectEntries(logs).forEach(([key, value]) => {
+          string.push(`<p><strong>${key}:</strong> ${value}</p>`)
+        })
 
         string.push(
           `<p>${initString}<span class='drawing' style='width:${draw * 5}px;'>${draw}ms<br>Drawing</span><span style='width:${render * 5}px;'>${render}ms<br>Render</span></p>`,

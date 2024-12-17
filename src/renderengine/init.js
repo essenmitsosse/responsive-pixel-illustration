@@ -223,19 +223,13 @@ export class InitPixel {
   constructor(args) {
     this.queryString = getQueryString()
 
-    const showcase = (this.showcase = true)
     const forceName = args.imageName || window.location.hash.substring(1)
-    const slides = showcase ? listImage : this.slides
 
-    this.slides = slides
-
-    if (slides === undefined) {
-      throw new Error('No slides found')
-    }
+    this.slides = listImage
 
     const currentSlide =
       !forceName &&
-      slides[
+      listImage[
         typeof this.queryString.slide === 'number' ? this.queryString.slide : 0
       ]
 
@@ -256,18 +250,14 @@ export class InitPixel {
       this.queryString.resizeable = true
     }
 
-    // Admin
-    if (this.queryString.admin || showcase || sliders) {
-      new Admin({
-        body,
-        showcase,
-        admin: this.queryString.admin,
-        sliders,
-        slides,
-        pixel: this,
-        hasRandom: currentSlide.hasRandom || false,
-      })
-    }
+    new Admin({
+      body,
+      admin: this.queryString.admin,
+      sliders,
+      slides: listImage,
+      pixel: this,
+      hasRandom: currentSlide.hasRandom || false,
+    })
 
     const callback = getCallback(
       this,

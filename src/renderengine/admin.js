@@ -3,8 +3,6 @@ export const Admin = function (args) {
 
   this.getClicker = this.getClickerGetter(this.pixel)
 
-  this.showcase = args.showcase
-
   this.admin = args.admin
 
   // Setup Basic Showcase/Admin Layout
@@ -28,9 +26,7 @@ export const Admin = function (args) {
 
   this.mainAdmin.appendChild(this.sideBarDiv)
 
-  if (this.showcase || this.admin) {
-    this.setupSlides(args.slides)
-  }
+  this.setupSlides(args.slides)
 
   // Setup sidebar content
   this.setupBasicControls(args.hasRandom)

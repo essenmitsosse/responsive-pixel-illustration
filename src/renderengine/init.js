@@ -131,11 +131,10 @@ const createSingleCanvas = (canvasData, div) => {
   return (renderer) => new PixelGraphics(renderer).callback(canvas)
 }
 
-const loadScript = function (callback, currentSlide) {
+const loadScript = (callback, currentSlide) =>
   currentSlide.import().then((imageImport) => {
     callback(imageImport.default)
   })
-}
 
 const getQueryString = () => {
   const list = {}

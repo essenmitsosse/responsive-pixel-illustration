@@ -21,7 +21,7 @@ const doSetDocumentTitle = (imageName, queryString) => {
 }
 
 const getInfo = (options) => {
-  const logs = []
+  const logs = {}
 
   let initString
 

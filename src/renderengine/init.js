@@ -187,7 +187,7 @@ const getCallback =
         // that.createSlider.slider( { niceName: "Height", 	 valueName: "height", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
       }
 
-      imageFunction = new ImageFunction(
+      imageFunction = ImageFunction(
         queryString,
         currentSlide,
         context.createSlider,

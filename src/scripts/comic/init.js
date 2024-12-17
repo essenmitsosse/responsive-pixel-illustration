@@ -4,4 +4,7 @@ for (const key in TableComic.prototype) {
   TableComic.prototype[key].prototype.basic = TableComic.prototype
 }
 
-export default TableComic
+const comic = (init, slide, createSlider) =>
+  new TableComic(init, slide, createSlider)
+
+export default comic

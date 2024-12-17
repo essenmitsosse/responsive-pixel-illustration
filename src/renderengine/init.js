@@ -56,7 +56,7 @@ const getInfo = (options) => {
   }
 
   document.onkeydown = (event) => {
-    if (event.ctrlKey && event.key === 'i') {
+    if (event.ctrlKey && event.key.toLocaleLowerCase() === 'i') {
       event.preventDefault()
 
       swap()
@@ -385,29 +385,29 @@ export class InitPixel {
 
     return (event) => {
       if (event.ctrlKey) {
-        if (event.key === 'r') {
+        if (event.key.toLocaleLowerCase() === 'r') {
           event.preventDefault()
 
           // CTRL + R // new id
           that.getNewId()
-        } else if (event.key === 's') {
+        } else if (event.key.toLocaleLowerCase() === 's') {
           event.preventDefault()
 
           // CTRL + S // toggle scalability
           that.toggleResizability()
-        } else if (event.key === 'f') {
+        } else if (event.key.toLocaleLowerCase() === 'f') {
           event.preventDefault()
           // CTRL + F // make Fullscreen
 
           that.makeFullScreen()
-        } else if (event.key === 'c') {
+        } else if (event.key.toLocaleLowerCase() === 'c') {
           event.preventDefault()
           // CTRL + C // toggle Color sheme
 
           queryString.cs = queryString.cs !== true ? true : undefined
 
           that.refresh()
-        } else if (event.key === 'd') {
+        } else if (event.key.toLocaleLowerCase() === 'd') {
           event.preventDefault()
           // CTRL + D // toggle debugging
 

@@ -128,9 +128,7 @@ const createSingleCanvas = (canvasData, div) => {
 
   div.appendChild(canvas)
 
-  return function (renderer) {
-    return new PixelGraphics(renderer).callback(canvas)
-  }
+  return (renderer) => new PixelGraphics(renderer).callback(canvas)
 }
 
 const loadScript = function (callback, currentSlide) {

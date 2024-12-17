@@ -32,6 +32,10 @@ const getInfo = (options) => {
   let show = options.showInfos
 
   const swap = function () {
+    if (body === null) {
+      return
+    }
+
     if ((show = !show)) {
       body.appendChild(info)
     } else {
@@ -45,7 +49,7 @@ const getInfo = (options) => {
 
   info.setAttribute('id', 'infos')
 
-  if (show) {
+  if (show && body !== null) {
     body.appendChild(info)
   }
 

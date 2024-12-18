@@ -1,4 +1,4 @@
-import List from '@/renderengine/listAdmin'
+import List from '@/renderengine/getListAdmin'
 
 const getClickerGetter = (pixel) => (nr) => () => {
   pixel.changeForceRedraw({ slide: nr })

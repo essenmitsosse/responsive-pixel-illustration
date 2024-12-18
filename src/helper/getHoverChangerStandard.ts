@@ -5,15 +5,15 @@ import setValue from './setValue'
 
 import type { DoHover } from './typeHover'
 import type { SizeHover } from './typeSize'
+import type { DataSlider } from '@/helper/typeSlider'
 
 const getHoverChangerStandard = (): {
   doHover: DoHover
-  push: (args: {
-    map: string
-    max: number
-    min: number
-    variable: { r?: unknown; s: { rele?: unknown } }
-  }) => void
+  push: (
+    args: DataSlider & {
+      variable: { r?: unknown; s: { rele?: unknown } }
+    },
+  ) => void
 
   /**
    * Takes two objects, where the keys of the second object have the names of
@@ -22,7 +22,7 @@ const getHoverChangerStandard = (): {
    */
   pushAutomatic: <T extends string>(
     parent: Record<T, SizeHover<unknown>>,
-    info: Record<T, { map: string; max: number; min: number }>,
+    info: Record<T, DataSlider>,
   ) => void
 } => {
   const listChangerStandard: Array<{
@@ -50,7 +50,7 @@ const getHoverChangerStandard = (): {
     push,
     pushAutomatic: <T extends string>(
       parent: Record<T, SizeHover<unknown>>,
-      info?: Record<T, { map: string; max: number; min: number }>,
+      info?: Record<T, DataSlider>,
     ): void => {
       if (!info) {
         return

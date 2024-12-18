@@ -140,7 +140,7 @@ export class Admin {
         slider.setAttribute('type', 'range')
 
         for (key in args.input) {
-          slider.setAttribute(key, args.input[key])
+          slider.setAttribute(key, `${args.input[key]}`)
         }
 
         if (!args.dontShow) {
@@ -164,7 +164,7 @@ export class Admin {
         input.setAttribute('type', 'number')
 
         for (key in args.input) {
-          input.setAttribute(key, args.input[key])
+          input.setAttribute(key, `${args.input[key]}`)
         }
 
         getBasicWrapper([input], 'slider', args.niceName)
@@ -204,7 +204,7 @@ export class Admin {
         const outputMin = outputMap.min
         const outputFactor = (outputMap.max - outputMin) / diff
         const updateInfoSpan = () => {
-          span.innerHTML = Math.round(value * 10) / 10
+          span.innerHTML = `${Math.round(value * 10) / 10}`
 
           span.setAttribute(
             'style',
@@ -218,8 +218,9 @@ export class Admin {
           // If update is received with a sepcific value (e.g. from server), than just update the visual slider
           if (typeof setValue === 'number') {
             // obj[ valueName ] = setValue;
-            value = slider.value =
-              (setValue - outputMin) / outputFactor + args.input.min
+            value = (setValue - outputMin) / outputFactor + args.input.min
+
+            slider.value = `${value}`
 
             if (single) {
               if (
@@ -267,7 +268,9 @@ export class Admin {
           const obj = {}
 
           if (typeof setValue === 'number') {
-            value = number.value = setValue
+            number.value = `${setValue}`
+
+            value = setValue
           } else if (value !== number.value * 1) {
             value = number.value * 1
 

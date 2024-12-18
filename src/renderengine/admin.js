@@ -52,7 +52,7 @@ Admin.prototype.setupSlides = function (slides) {
 
   let count = 0
 
-  const sideBarContentUl = this.getListAdmin({
+  const sideBarContentUl = getListAdmin({
     id: 'slides',
     container: this.sideBarInnerDiv,
   })
@@ -69,7 +69,7 @@ Admin.prototype.setupSlides = function (slides) {
 }
 
 Admin.prototype.setupSlider = function () {
-  const slidersDiv = this.getListAdmin({
+  const slidersDiv = getListAdmin({
     id: 'sliders',
     container: this.sideBarInnerDiv,
   })
@@ -292,7 +292,7 @@ Admin.prototype.getSliderControlGetter = function () {
 }
 
 Admin.prototype.setupBasicControls = function (hasRandom) {
-  const sideBarContentDiv = this.getListAdmin({
+  const sideBarContentDiv = getListAdmin({
     id: 'mainControls',
     container: this.sideBarInnerDiv,
   })
@@ -340,5 +340,3 @@ Admin.prototype.getButtonCreater = function (div) {
     }
   }
 }
-
-Admin.prototype.getListAdmin = getListAdmin

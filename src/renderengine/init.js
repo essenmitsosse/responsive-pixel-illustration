@@ -324,9 +324,9 @@ export class InitPixel {
     this.changeForceRedraw({ slide: this.queryString.slide })
   }
 
-  getNewId(id) {
+  getNewId() {
     this.changeForceRedraw({
-      id: id || Math.floor(Math.random() * Math.pow(2, 32)),
+      id: Math.floor(Math.random() * Math.pow(2, 32)),
     })
   }
 

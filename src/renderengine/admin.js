@@ -2,6 +2,8 @@ const getClickerGetter = (pixel) => (nr) => () => {
   pixel.changeForceRedraw({ slide: nr })
 }
 
+const getSlideName = (current) => current.niceName || current.name
+
 export const Admin = function (args) {
   this.pixel = args.pixel
 
@@ -55,7 +57,7 @@ Admin.prototype.setupSlides = function (slides) {
 
   while (count < l) {
     sideBarContentUl.addMessage(
-      '<strong>' + this.getSlideName(slides[count]) + '</strong>',
+      '<strong>' + getSlideName(slides[count]) + '</strong>',
       count === currentSlide ? 'current slideLink' : 'slideLink',
       this.getClicker(count),
     )
@@ -335,26 +337,6 @@ Admin.prototype.getButtonCreater = function (div) {
       that.pixel[args.callback](button)
     }
   }
-}
-
-Admin.prototype.getSlideName = function (current) {
-  // var name = current.name,
-  // 	add = [],
-  // 	key;
-
-  // for ( key in current ) {
-  // 	if( current[ key ] === true ) {
-  // 		add.push( key );
-  // 	}
-  // }
-
-  // if( current.a !== undefined || current.b !== undefined ) {
-  // 	add.push( current.a + "/" + current.b );
-  // }
-
-  // return name + ( add.length > 0 ? " (" + add.join( ", " ) + ") " : "" );
-
-  return current.niceName || current.name
 }
 
 Admin.prototype.List = function List(args) {

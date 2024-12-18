@@ -1,3 +1,4 @@
+import { getNumberDefaultToZero } from '@/lib/getNumberDefaultToZero.js'
 import getObjectEntries from '@/lib/getObjectEntries'
 import getObjectFromEntries from '@/lib/getObjectFromEntries'
 import listImage from '@/scripts/listImage'
@@ -6,10 +7,8 @@ import { Admin } from './admin.js'
 // eslint-disable-next-line import/extensions -- this is fine here
 import { PixelGraphics } from './info'
 
+import type { CreateSlider } from '@/helper/typeSlider.js'
 import type { DataImage, ImageFunction } from '@/scripts/listImage'
-
-const getNumberDefaultToZero = (value: unknown): number =>
-  typeof value === 'number' ? value : 0
 
 const doSetDocumentTitle = (
   imageName: string,
@@ -257,16 +256,11 @@ export class InitPixel {
   showcase?: boolean
   slides: typeof listImage
   queryString: Record<string, boolean | number | undefined>
-  parent: unknown
   timerAnimation?: () => void
   sliderObject?: unknown
   sliderValues?: unknown
   defaultValues?: Record<string, boolean | number | undefined>
-  createSlider?: {
-    number: () => void
-    slide: () => void
-    title: () => void
-  }
+  createSlider?: CreateSlider
   renderer?: ReturnType<PixelGraphics['callback']>
   toggleResizabilityButton?: HTMLElement
   constructor(args: { div: HTMLElement; imageName?: string }) {
@@ -287,13 +281,10 @@ export class InitPixel {
     }
 
     const imageName = forceName || currentSlide.name || 'tantalos'
-    const sliders = this.queryString.sliders || currentSlide.sliders
     /** Change for multiple Canvases */
     const canvasDataList = false
     const canvasRenderer = createSingleCanvas(canvasDataList, args.div)
     const [body] = document.getElementsByTagName('body')
-
-    this.parent = this.queryString.admin || this.queryString.parent
 
     if (currentSlide.resizeable) {
       this.queryString.resizeable = true
@@ -301,8 +292,6 @@ export class InitPixel {
 
     new Admin({
       body,
-      admin: this.queryString.admin,
-      sliders,
       slides: listImage,
       pixel: this,
       hasRandom: currentSlide.hasRandom || false,

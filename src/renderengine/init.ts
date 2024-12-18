@@ -1,3 +1,4 @@
+import { getNumberDefaultToZero } from '@/lib/getNumberDefaultToZero.js'
 import getObjectEntries from '@/lib/getObjectEntries'
 import getObjectFromEntries from '@/lib/getObjectFromEntries'
 import listImage from '@/scripts/listImage'
@@ -7,9 +8,6 @@ import { Admin } from './admin.js'
 import { PixelGraphics } from './info'
 
 import type { DataImage, ImageFunction } from '@/scripts/listImage'
-
-const getNumberDefaultToZero = (value: unknown): number =>
-  typeof value === 'number' ? value : 0
 
 const doSetDocumentTitle = (
   imageName: string,

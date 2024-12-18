@@ -303,23 +303,21 @@ export class Admin {
     const createButton = this.getButtonCreater(sideBarContentDiv)
 
     // if( this.showcase ) {
-    // 	createButton( { text: "◀", functionName: "nextSlide", args: false, className: "important slideControl narrow newrow" } );
-    // 	createButton( { text: "▶︎︎", functionName: "nextSlide", args: true, className: "important slideControl narrow" } );
+    // 	createButton( { text: "◀", callbackButton: pixel => pixel.nextSlide(false), className: "important slideControl narrow newrow" } );
+    // 	createButton( { text: "▶︎︎", callbackButton: pixel => pixel.nextSlide(true), className: "important slideControl narrow" } );
     // }
 
     // createButton( {
     // 	text : "",
-    // 	functionName : "toggleResizability",
+    // 	callbackButton: pixel => pixel.toggleResizability(),
     // 	callback : "setupToggleResizabilityLinkButton",
-    // 	args: undefined
     // });
 
     // createButton( { text: "Fullscreen <span class='shortcut'>CTRL+F</span>", functionName: "makeFullScreen", args: undefined } );
     if (hasRandom) {
       createButton({
         text: "Random Image <span class='shortcut'>CTRL+R</span>",
-        functionName: 'getNewId',
-        args: undefined,
+        callbackButton: (pixel) => pixel.getNewId(),
       })
     }
   }
@@ -331,9 +329,10 @@ export class Admin {
       const button = div.addMessage(
         args.text,
         'button' + (args.className ? ' ' + args.className : ''),
-        ((pixel) => () => {
-          pixel[args.functionName](args.args)
-        })(that.pixel),
+        (
+          (pixel) => () =>
+            args.callbackButton(pixel)
+        )(that.pixel),
       )
 
       if (args.callback) {

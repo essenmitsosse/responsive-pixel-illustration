@@ -221,7 +221,7 @@ const getCallback = (args) => (ImageFunction) => {
       args.context.timerAnimation()
     }
   } else {
-    throw args.imageName + ' was loaded but is not a function!'
+    throw `${args.imageName} was loaded but is not a function!`
   }
 }
 

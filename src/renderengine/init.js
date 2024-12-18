@@ -183,11 +183,11 @@ const getCallback = (args) => (ImageFunction) => {
   let renderObject
 
   if (ImageFunction) {
-    if (args.context.createSlider) {
-      // that.createSlider.title( { title: "Image Size" } );
-      // that.createSlider.slider( { niceName: "Width", valueName: "width", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
-      // that.createSlider.slider( { niceName: "Height", 	 valueName: "height", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
-    }
+    // if (args.context.createSlider) {
+    // that.createSlider.title( { title: "Image Size" } );
+    // that.createSlider.slider( { niceName: "Width", valueName: "width", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
+    // that.createSlider.slider( { niceName: "Height", 	 valueName: "height", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
+    // }
 
     imageFunction = ImageFunction(
       args.queryString,

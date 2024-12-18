@@ -236,8 +236,8 @@ export class Admin {
             return
 
             // else update the object
-          } else if (value !== slider.value * 1) {
-            value = slider.value * 1
+          } else if (value !== getNumberDefaultToZero(slider.value)) {
+            value = getNumberDefaultToZero(slider.value)
 
             updateInfoSpan()
 

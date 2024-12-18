@@ -1,7 +1,11 @@
+const getClickerGetter = (pixel) => (nr) => () => {
+  pixel.changeForceRedraw({ slide: nr })
+}
+
 export const Admin = function (args) {
   this.pixel = args.pixel
 
-  this.getClicker = this.getClickerGetter(this.pixel)
+  this.getClicker = getClickerGetter(this.pixel)
 
   this.admin = args.admin
 
@@ -57,16 +61,6 @@ Admin.prototype.setupSlides = function (slides) {
     )
 
     count += 1
-  }
-}
-
-Admin.prototype.getClickerGetter = function (pixel) {
-  return function getClicker(nr) {
-    const p = pixel
-
-    return function () {
-      p.changeForceRedraw({ slide: nr })
-    }
   }
 }
 

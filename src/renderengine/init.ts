@@ -257,7 +257,6 @@ export class InitPixel {
   showcase?: boolean
   slides: typeof listImage
   queryString: Record<string, boolean | number | undefined>
-  parent: unknown
   timerAnimation?: () => void
   sliderObject?: unknown
   sliderValues?: unknown
@@ -292,8 +291,6 @@ export class InitPixel {
     const canvasDataList = false
     const canvasRenderer = createSingleCanvas(canvasDataList, args.div)
     const [body] = document.getElementsByTagName('body')
-
-    this.parent = this.queryString.admin || this.queryString.parent
 
     if (currentSlide.resizeable) {
       this.queryString.resizeable = true

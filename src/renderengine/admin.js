@@ -1,4 +1,4 @@
-import List from '@/renderengine/getListAdmin'
+import getListAdmin from '@/renderengine/getListAdmin'
 
 const getClickerGetter = (pixel) => (nr) => () => {
   pixel.changeForceRedraw({ slide: nr })
@@ -52,7 +52,7 @@ Admin.prototype.setupSlides = function (slides) {
 
   let count = 0
 
-  const sideBarContentUl = new this.List({
+  const sideBarContentUl = this.getListAdmin({
     id: 'slides',
     container: this.sideBarInnerDiv,
   })
@@ -69,7 +69,7 @@ Admin.prototype.setupSlides = function (slides) {
 }
 
 Admin.prototype.setupSlider = function () {
-  const slidersDiv = new this.List({
+  const slidersDiv = this.getListAdmin({
     id: 'sliders',
     container: this.sideBarInnerDiv,
   })
@@ -292,7 +292,7 @@ Admin.prototype.getSliderControlGetter = function () {
 }
 
 Admin.prototype.setupBasicControls = function (hasRandom) {
-  const sideBarContentDiv = new this.List({
+  const sideBarContentDiv = this.getListAdmin({
     id: 'mainControls',
     container: this.sideBarInnerDiv,
   })
@@ -341,4 +341,4 @@ Admin.prototype.getButtonCreater = function (div) {
   }
 }
 
-Admin.prototype.List = List
+Admin.prototype.getListAdmin = getListAdmin

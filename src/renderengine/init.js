@@ -178,51 +178,52 @@ const getQueryString = () => {
 }
 
 /** Create the Callback Function, when the script is loaded */
-const getCallback =
-  (context, rendererInit, queryString, imageName, currentSlide, info) =>
-  (ImageFunction) => {
-    let imageFunction
-    let renderObject
+const getCallback = (args) => (ImageFunction) => {
+  let imageFunction
+  let renderObject
 
-    if (ImageFunction) {
-      if (context.createSlider) {
-        // that.createSlider.title( { title: "Image Size" } );
-        // that.createSlider.slider( { niceName: "Width", valueName: "width", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
-        // that.createSlider.slider( { niceName: "Height", 	 valueName: "height", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
-      }
-
-      imageFunction = ImageFunction(
-        queryString,
-        currentSlide,
-        context.createSlider,
-      )
-
-      renderObject = {
-        showInfos: false,
-        slide: currentSlide,
-        imageFunction,
-        queryString,
-        pixelSize:
-          (getNumberDefaultToZero(queryString.p) || currentSlide.p || 7) * 1 +
-          (getNumberDefaultToZero(queryString.pAdd) ||
-            imageFunction.recommendedPixelSize ||
-            0) *
-            1,
-        sliderObject: context.sliderObject,
-        sliderValues: context.sliderValues,
-        info,
-        init: context,
-      }
-
-      context.renderer = rendererInit(renderObject)
-
-      if (context.timerAnimation) {
-        context.timerAnimation()
-      }
-    } else {
-      throw imageName + ' was loaded but is not a function!'
+  if (ImageFunction) {
+    if (args.context.createSlider) {
+      // that.createSlider.title( { title: "Image Size" } );
+      // that.createSlider.slider( { niceName: "Width", valueName: "width", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
+      // that.createSlider.slider( { niceName: "Height", 	 valueName: "height", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
     }
+
+    imageFunction = ImageFunction(
+      args.queryString,
+      args.currentSlide,
+      args.context.createSlider,
+    )
+
+    renderObject = {
+      showInfos: false,
+      slide: args.currentSlide,
+      imageFunction,
+      queryString: args.queryString,
+      pixelSize:
+        (getNumberDefaultToZero(args.queryString.p) ||
+          args.currentSlide.p ||
+          7) *
+          1 +
+        (getNumberDefaultToZero(args.queryString.pAdd) ||
+          imageFunction.recommendedPixelSize ||
+          0) *
+          1,
+      sliderObject: args.context.sliderObject,
+      sliderValues: args.context.sliderValues,
+      info: args.info,
+      init: args.context,
+    }
+
+    args.context.renderer = args.rendererInit(renderObject)
+
+    if (args.context.timerAnimation) {
+      args.context.timerAnimation()
+    }
+  } else {
+    throw args.imageName + ' was loaded but is not a function!'
   }
+}
 
 export class InitPixel {
   constructor(args) {
@@ -264,14 +265,14 @@ export class InitPixel {
       hasRandom: currentSlide.hasRandom || false,
     })
 
-    const callback = getCallback(
-      this,
-      canvasRenderer,
-      this.queryString,
+    const callback = getCallback({
+      context: this,
+      rendererInit: canvasRenderer,
+      queryString: this.queryString,
       imageName,
       currentSlide,
-      getInfo(this.queryString),
-    )
+      info: getInfo(this.queryString),
+    })
 
     loadScript(callback, currentSlide)
 

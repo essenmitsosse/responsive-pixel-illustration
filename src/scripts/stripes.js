@@ -9,6 +9,7 @@ function stripes(args, init, createSlider) {
 
     return obj
   }
+
   const white = [220, 220, 255]
   const red = [220, 50, 40]
   const count = 5
@@ -18,18 +19,22 @@ function stripes(args, init, createSlider) {
     add: [height, { r: -1, useSize: width }],
     min: { a: 0 },
   })
+
   const widthOvershot = linkListPush({
     add: [width, { r: -1, useSize: height }],
     min: { a: 0 },
   })
+
   const smallerSide = linkListPush({
     add: [width, -count],
     max: [height, -count],
   })
+
   const biggerSide = linkListPush({
     add: [width, -count],
     min: [height, -count],
   })
+
   const singleSY = linkListPush({ r: 1 / count, useSize: smallerSide })
   const stripMinSX = singleSY
   const stripRealRelSX = linkListPush({ r: 1, useSize: biggerSide })
@@ -42,6 +47,7 @@ function stripes(args, init, createSlider) {
     a: 100,
     add: [{ add: [redSXrel, { r: -1, useSize: redSXmin }, -100], min: 0 }],
   })
+
   const redSXa = redSXrel
   const redSXb = linkListPush([redSXabs, redSXminMaxDiff])
   const versions = function () {
@@ -76,6 +82,7 @@ function stripes(args, init, createSlider) {
       // ],
     ]
   }
+
   const sizes = (function (count) {
     let i = 0
 
@@ -89,6 +96,7 @@ function stripes(args, init, createSlider) {
 
     return obj
   })(count)
+
   const getSquares = function () {
     const list = []
 
@@ -113,6 +121,7 @@ function stripes(args, init, createSlider) {
 
     return list
   }
+
   const renderList = [
     {
       sX: {

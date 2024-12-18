@@ -109,12 +109,14 @@ function argos() {
       ],
     }
   }
+
   const fullOar = [
     { color: oar, weight: 1, points: [{ fY: true }, { fX: true }] },
     { color: paddle, s: 2, fY: true, tY: true, tX: true },
     { color: paddle, s: 2, fY: true, tY: true, tX: true, x: -1, y: -1 },
     { color: paddle, s: 2, fY: true, tY: true, tX: true, x: -2, y: -2 },
   ]
+
   const faceSlop = [{ weight: 3, points: [{}, { fX: true, fY: true }] }]
   const eye = [
     {},
@@ -123,6 +125,7 @@ function argos() {
     { fY: true, fX: true },
     { fY: true, x: { r: 0.3 }, y: { r: 0.3 } },
   ]
+
   const cloudShape = [
     {
       points: [
@@ -154,6 +157,7 @@ function argos() {
       },
     },
   ]
+
   const renderList = [
     // { s:10, color:wood, list:[
     // 	{},
@@ -1041,6 +1045,7 @@ function argos() {
       ],
     },
   ]
+
   const variableList = {
     fullRect: { r: 1, max: { r: 1, height: true } },
 

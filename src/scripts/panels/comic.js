@@ -13,12 +13,14 @@ export const Comic = function (init) {
     this.IF() ? 1 : 0,
     this.IF(0.1) ? (this.IF(0.5) ? 2 : 3) : this.IF(0.5) ? 5 : 0,
   ))
+
   const outerBorderColor =
     this.IF(0.9) &&
     borderColor.copy({
       brContrast: this.IF(0.8) ? 5 : 3,
       dontChange: this.IF(0.5),
     })
+
   const bigPanel = panels % 2 !== 0 && (this.IF(0.5) ? 0 : panels - 1)
   const panelsCalc = bigPanel !== false ? panels + 1 : panels
 
@@ -545,6 +547,7 @@ Actor.prototype.draw = function (args, z, size) {
     'closed',
     'wink',
   ]
+
   const eyeBrow = [
     '',
     '',
@@ -556,6 +559,7 @@ Actor.prototype.draw = function (args, z, size) {
     'angry',
     'sad',
   ]
+
   const mouthHeight = [
     '',
     '',
@@ -571,6 +575,7 @@ Actor.prototype.draw = function (args, z, size) {
     'half',
     'full',
   ]
+
   const mouthWid = ['', '', '', 'narrow']
   const mouthForm = ['', '', '', 'sceptical', 'grin', 'D:']
   const teethPos = ['', 'top', 'bottom', 'both', 'full']

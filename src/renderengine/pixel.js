@@ -372,6 +372,7 @@ export const getPixelUnits = function () {
                 return Math.round(this.realPartCalculation())
               }
         }
+
         const getFromOtherSide = function (add) {
           return add
             ? function (size) {
@@ -403,6 +404,7 @@ export const getPixelUnits = function () {
       },
     }
   })()
+
   const Axis = (function () {
     const D = oneD
     const createAxis = function (Size, Pos) {
@@ -436,6 +438,7 @@ export const getPixelUnits = function () {
               : this.getCalcPos.normal
       }
     }
+
     const createPos = function (Pos) {
       return function (args) {
         this.pos = new Pos(args.pos)
@@ -459,6 +462,7 @@ export const getPixelUnits = function () {
               : this.getCalcPos.normal
       }
     }
+
     const Axis = function () {}
     const AxisX = createAxis(D.Width, D.DistanceX)
     const AxisY = createAxis(D.Height, D.DistanceY)
@@ -559,6 +563,7 @@ export const getPixelUnits = function () {
       },
     }
   })()
+
   const twoD = (function () {
     const A = Axis
     const XAxis = A.X
@@ -581,6 +586,7 @@ export const getPixelUnits = function () {
               center: args.centerY || args.center,
             },
       )
+
       const y = new A.PosY(
         rotate
           ? {
@@ -604,6 +610,7 @@ export const getPixelUnits = function () {
         }
       }
     }
+
     const Dimensions = function (args, fromRight, fromBottom, rotate) {
       if (args.sX === undefined) {
         args.sX = args.s

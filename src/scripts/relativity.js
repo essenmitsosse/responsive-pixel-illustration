@@ -42,6 +42,7 @@ function relativity() {
       ],
     },
   ]
+
   const variableList = {
     border: { r: 0.1, height: true },
     imgHeight: {

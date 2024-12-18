@@ -3,8 +3,6 @@ export const Admin = function (args) {
 
   this.getClicker = this.getClickerGetter(this.pixel)
 
-  this.showcase = args.showcase
-
   this.admin = args.admin
 
   // Setup Basic Showcase/Admin Layout
@@ -28,9 +26,7 @@ export const Admin = function (args) {
 
   this.mainAdmin.appendChild(this.sideBarDiv)
 
-  if (this.showcase || this.admin) {
-    this.setupSlides(args.slides)
-  }
+  this.setupSlides(args.slides)
 
   // Setup sidebar content
   this.setupBasicControls(args.hasRandom)
@@ -79,6 +75,7 @@ Admin.prototype.setupSlider = function () {
     id: 'sliders',
     container: this.sideBarInnerDiv,
   })
+
   const slidersDivList = slidersDiv.list
   const sliderObject = {}
   const sliderValues = {}
@@ -117,6 +114,7 @@ Admin.prototype.setupSlider = function () {
 
     slidersDivList.appendChild(wrap)
   }
+
   const activateSliders = function () {
     if (!hasSliders) {
       hasSliders = true
@@ -215,6 +213,7 @@ Admin.prototype.getSliderControlGetter = function () {
           'left: ' + (((value - args.input.min) / diff) * 100 - 10) + '%;',
         )
       }
+
       const update = function (setValue, single) {
         const obj = {}
 
@@ -299,6 +298,7 @@ Admin.prototype.setupBasicControls = function (hasRandom) {
     id: 'mainControls',
     container: this.sideBarInnerDiv,
   })
+
   const createButton = this.getButtonCreater(sideBarContentDiv)
 
   // if( this.showcase || this.admin ) {

@@ -4,7 +4,13 @@ import { InitPixel } from '@/renderengine/init'
 
 inject()
 
+const mainDiv = document.getElementById('main')
+
+if (!mainDiv) {
+  throw new Error('div with `id` `main` has been found')
+}
+
 new InitPixel({
-  div: document.getElementById('main'),
-  // imageName: window.location.hash.substr(1)
+  div: mainDiv,
+  // imageName: window.location.hash.substring(1)
 })

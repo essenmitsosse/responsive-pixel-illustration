@@ -26,6 +26,7 @@ function builder(init, slide, createSlider) {
       'down',
       'verDown',
     ]
+
     const eyeLids = [
       '',
       '',
@@ -43,6 +44,7 @@ function builder(init, slide, createSlider) {
       'closed',
       'wink',
     ]
+
     const eyeBrow = [
       '',
       '',
@@ -54,6 +56,7 @@ function builder(init, slide, createSlider) {
       'angry',
       'sad',
     ]
+
     const mouthHeight = [
       '',
       '',
@@ -69,6 +72,7 @@ function builder(init, slide, createSlider) {
       'half',
       'full',
     ]
+
     const mouthWid = ['', '', '', 'narrow']
     const mouthForm = ['', '', '', 'sceptical', 'grin', 'D:']
     const legPos = [
@@ -86,6 +90,7 @@ function builder(init, slide, createSlider) {
       'legRaise',
       // "kneeBend", "legHigh"
     ]
+
     const teethPos = ['', 'top', 'bottom', 'both', 'full']
 
     return function (args) {
@@ -143,6 +148,7 @@ function builder(init, slide, createSlider) {
       // args.hand = 	{ right : 90,	left : 90 };
     }
   })()
+
   const getPanels = function () {
     let l = init.panelCount || 6
 
@@ -165,6 +171,7 @@ function builder(init, slide, createSlider) {
           next: true,
         }),
       })
+
     const Tree2Family =
       !showPerson &&
       new builder.TreeFamily({
@@ -209,6 +216,7 @@ function builder(init, slide, createSlider) {
 
     return list
   }
+
   const renderList = [
     {
       sX: imgSX,

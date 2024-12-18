@@ -361,6 +361,7 @@ Eye.prototype.draw = function (args) {
     thisEye.lids === 'closed' ||
     thisEye.lids === 'sleepy' ||
     (args.right && thisEye.lids === 'wink')
+
   const eyeHalfClosed = !eyeClosed && thisEye.lids === 'halfClosed'
   const lookUp = thisEye.lookHor === 'up'
   const lookDown = thisEye.lookHor === 'down' || thisEye.lookHor === 'veryDown'
@@ -370,10 +371,13 @@ Eye.prototype.draw = function (args) {
   const lookRight = thisEye.lookVert === 'right'
   const eyeBrowRaised =
     thisEye.brow === 'raised' || (args.right && thisEye.brow === 'sceptical')
+
   const eyeBrowLow =
     thisEye.brow === 'low' || (!args.right && thisEye.brow === 'sceptical')
+
   const eyeBrowSad =
     thisEye.brow === 'sad' || (args.right && thisEye.brow === 'superSceptical')
+
   const eyeBrowAngry =
     eyeBrowSad ||
     thisEye.brow === 'angry' ||
@@ -695,9 +699,11 @@ Mouth.prototype.draw = function (args) {
   const mouthSmile = mouthGrin && !mouthOpen
   const teethFull =
     !mouthSlight && mouthOpen && !mouthNarrow && thisMouth.teeth === 'full'
+
   const teethTop =
     !mouthSlight &&
     ((mouthOpen && thisMouth.teeth === 'top') || thisMouth.teeth === 'both')
+
   const teethBottom =
     !mouthSlight &&
     ((mouthOpen && thisMouth.teeth === 'bottom') || thisMouth.teeth === 'both')

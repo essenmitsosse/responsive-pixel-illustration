@@ -15,6 +15,7 @@ const changeColor = (
 
   map.color[2] = minB * valueNeg + maxB * value
 }
+
 const getHoverChangerColor = (): {
   doHover: DoHover
   push: (args: {

@@ -6,6 +6,7 @@ export const getFace = function () {
     const actor = new that.basic.Actor({
       color: [that.rInt(0, 255), that.rInt(0, 255), that.rInt(0, 255)],
     })
+
     const pupilS = { map: 'c', min: 0.5, max: 0.8 }
     const pupilPosY = { map: 'a', min: 0, max: 1 }
     const openSY = { map: 'd', min: 0, max: 1 }
@@ -184,26 +185,31 @@ export const getStripInfo = function () {
   const basicPanel = new this.basic.Panel({
     background,
   })
+
   const ratio = 1.3
   const furnitureColor = [30, 50, 50]
   const stage = new this.basic.Stage({
     // show: true
   })
+
   const actorBaseColor = [
     this.rInt(0, 255),
     this.rInt(0, 255),
     this.rInt(0, 255),
   ]
+
   const firstBaseColor = [
     this.rInt(0, 255),
     this.rInt(0, 255),
     this.rInt(0, 255),
   ]
+
   const secondBaseColor = [
     this.rInt(0, 255),
     this.rInt(0, 255),
     this.rInt(0, 255),
   ]
+
   const actor1 = new this.basic.Actor({
     color: {
       map: 'actor-color',
@@ -215,6 +221,7 @@ export const getStripInfo = function () {
     secondColor: secondBaseColor,
     main: true,
   })
+
   const actor2 = new this.basic.Actor({
     color: actorBaseColor,
     firstColor: {
@@ -235,16 +242,19 @@ export const getStripInfo = function () {
       },
     },
   })
+
   const table = new this.basic.Table({
     color: furnitureColor,
     sX: 0.6,
     colorDetail: [70, 90, 80],
   })
+
   const chair1 = new this.basic.Chair({ color: furnitureColor })
   const chair2 = new this.basic.Chair({ color: furnitureColor, toLeft: true })
   const glass = new this.basic.Glass({
     color: [this.rInt(0, 255), this.rInt(0, 255), this.rInt(0, 255)],
   })
+
   const emotion1 = new this.basic.Emotion({})
   const emotion2 = new this.basic.Emotion({})
   const noCameraMovement = false
@@ -275,6 +285,7 @@ export const getStripInfo = function () {
       return noCameraMovement ? (zoom.max + zoom.min) / 2 : zoom
     }
   })()
+
   const panY = [
     -0.15,
     //0
@@ -289,6 +300,7 @@ export const getStripInfo = function () {
     { map: 'a', min: 0.1, max: 0.1 },
     // 5
   ]
+
   const panX = [
     //0
     0,
@@ -303,6 +315,7 @@ export const getStripInfo = function () {
     //5
     noCameraMovement ? 0.2 : { map: 'a', min: 0.3, max: 0.25 },
   ]
+
   const actor1PosRel = 0.1
   const actor2PosRel = 0.85
   const chair1basic = {
@@ -311,25 +324,30 @@ export const getStripInfo = function () {
       posX: actor1PosRel,
     },
   }
+
   const chair2basic = {
     pos: {
       obj: stage,
       posX: actor2PosRel,
     },
   }
+
   const actor2standing = {
     obj: stage,
     posX: actor2PosRel,
     posY: 0,
   }
+
   const actor1LeftHandOnLap = {
     pos: { obj: actor1.body.legs, posX: 0.5, posY: 0.8 },
     hand: { angle: 0.5 },
   }
+
   const actor1RightHandOnLap = {
     pos: { obj: actor1.body.legs, posX: 0.8, posY: 1 },
     hand: { angle: -0.5 },
   }
+
   const actor1RightHandOnTable = {
     pos: {
       obj: table,
@@ -338,12 +356,14 @@ export const getStripInfo = function () {
     },
     hand: { angle: 0.5 },
   }
+
   const actor2LeftHandOnTable = {
     pos: { obj: table, posY: 1, posX: 0.5 },
     hand: { angle: -0.5 },
     flip: true,
     z: -100,
   }
+
   const actor2RightHandOnTable = {
     pos: {
       obj: table,
@@ -352,6 +372,7 @@ export const getStripInfo = function () {
     },
     hand: { angle: -0.5 },
   }
+
   const actor1OnTheGround = { obj: table, posX: 0, posY: 1 }
   const actor1Dead = {
     body: {
@@ -392,6 +413,7 @@ export const getStripInfo = function () {
     },
     z: 20000,
   }
+
   const actor2Reacts = {
     pos: {
       obj: stage,
@@ -456,29 +478,35 @@ export const getStripInfo = function () {
       flip: true,
     },
   }
+
   const chair1FallenOver = {
     rotate: -90,
     pos: { obj: stage, posX: -0.3, posY: 0.1 },
   }
+
   const chair2FallenOver = {
     rotate: 90,
     pos: { obj: stage, posX: 1.4, posY: 0.2 },
   }
+
   const glassBasic = {
     z: 11000,
     level: { map: 'a', min: 0.15, max: 0.75 },
     pos: { obj: table, posX: 0.8, posY: 1 },
   }
+
   const glassFallenOver = {
     rotate: 90,
     pos: { obj: table, posX: 0.95, posY: 1 },
     level: 0,
   }
+
   const glassOnGround = {
     pos: { obj: stage, posX: -0.7, posY: 0.1 },
     level: 0,
     rotate: -90,
   }
+
   const panels = [
     {
       // - - - - - - - - - - - -  0

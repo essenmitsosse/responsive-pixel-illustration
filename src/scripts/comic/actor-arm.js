@@ -32,22 +32,26 @@ Arm.prototype.draw = function ArmDraw(args) {
     },
     'actor-features',
   )
+
   const armS = (this.armS = this.pushLinkList({
     r: 0.08,
     useSize: armSY,
     min: 1,
   }))
+
   const upperArmS = this.pushLinkList({ r: 0.1, useSize: armSY, min: 1 })
   const armSHalf = (this.armSHalf = this.pushLinkList({
     r: 0.5,
     useSize: upperArmS,
     a: -1,
   }))
+
   const handS = (this.handS = this.pushLinkList({
     r: 0.1,
     useSize: armSY,
     min: 1,
   }))
+
   const handSY = this.pushLinkList({ r: 0.14, useSize: armSY, min: 1 })
 
   this.right = args.right

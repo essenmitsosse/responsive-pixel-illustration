@@ -397,6 +397,7 @@ Renderer.prototype.getDrawer = function (pixelStarter, renderList) {
     pixelUnit,
     pixelStarter.getRandom,
   )
+
   const canvasTool = new drawingTool.Obj().create({ list: renderList })
 
   return function drawer(countW, countH) {

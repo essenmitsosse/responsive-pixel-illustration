@@ -9,6 +9,7 @@ function letter(args, init, createSlider) {
 
     return obj
   }
+
   const width = linkListPush({ main: true })
   const height = linkListPush({ main: true, height: true })
   const halfHeight = { r: 0.5, useSize: height, a: -1 }
@@ -17,6 +18,7 @@ function letter(args, init, createSlider) {
     add: [{ add: [width], max: height }],
     max: { add: [halfWidth], min: halfHeight },
   })
+
   const letterSquareMax = linkListPush({ r: 1, useSize: square })
   const letterSquare = linkListPush({ r: 1, useSize: letterSquareMax })
   const innerLetterSquare = linkListPush({ add: [letterSquare, -2] })
@@ -24,20 +26,24 @@ function letter(args, init, createSlider) {
     add: [height, { r: -1, useSize: width }],
     min: { a: 0 },
   })
+
   const widthOvershot = linkListPush({
     add: [width, { r: -1, useSize: height }],
     min: { a: 0 },
   })
+
   const letter2PosX = linkListPush({
     r: 1000,
     useSize: widthOvershot,
     max: letterSquareMax,
   })
+
   const letter2PosY = linkListPush({
     r: 1000,
     useSize: heightOvershot,
     max: letterSquareMax,
   })
+
   const serifeSX_ = 0.48
   const stammSX_ = 0.27
   const stammX_ = (serifeSX_ - stammSX_) / 2
@@ -49,11 +55,13 @@ function letter(args, init, createSlider) {
     add: [serifeSX, { r: -2, useSize: stammX }],
     min: 1,
   })
+
   const serifeSY = linkListPush({
     r: serifeSY_,
     useSize: innerLetterSquare,
     min: 1,
   })
+
   const getLetter = function (args) {
     return {
       x: args.x,
@@ -96,6 +104,7 @@ function letter(args, init, createSlider) {
       ],
     }
   }
+
   const renderList = [
     getLetter({
       letter: [

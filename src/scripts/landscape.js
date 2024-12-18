@@ -36,6 +36,7 @@ function landscape() {
       [40, 40, 0],
     ],
   ][colorNr]
+
   const [, c2, c3, c4] = colorScheme
   const renderList = [
     {
@@ -133,6 +134,7 @@ function landscape() {
       ],
     },
   ]
+
   const variableList = {
     width: { r: 1 },
     height: { r: 1, height: true },

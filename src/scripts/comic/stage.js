@@ -30,16 +30,19 @@ Background.prototype.draw = function BackgroundDraw(args) {
     min: 1,
     useSize: args.stageSY,
   })
+
   const borderFinalSY = (this.borderFinalSY = this.pushLinkList({
     r: 1,
     useSize: borderSY,
   }))
+
   const stripeSX = this.pushLinkList({ r: 0.1, useSize: args.stageSX })
   const stripeFinalSX = (this.stripeFinalSX = this.pushLinkList({
     r: 1,
     useSize: stripeSX,
     min: 1,
   }))
+
   const floorY = this.pushLinkList({
     add: [args.panY, { r: 0.2, useSize: args.stageSX }],
   })
@@ -141,6 +144,7 @@ Floor.prototype.draw = function FloorDraw(args) {
       strip: args.sY || { r: 0.22, useSize: args.stageSX },
       mask: true,
     }
+
     const list = [{ sX: 1 }]
 
     return {

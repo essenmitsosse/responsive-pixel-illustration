@@ -319,6 +319,7 @@ Tree.prototype.addBranches = function (hor, parentLeft, count, level) {
       cut: true,
     },
   }
+
   const leaves = [
     // Shadow of Leaves
     {

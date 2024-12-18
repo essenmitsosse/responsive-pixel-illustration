@@ -64,6 +64,7 @@ Arm.prototype.draw = function (args, rightSide, behind) {
   const renderFromRight = args.sideView
     ? rightSide
     : args.right !== args.backView
+
   const tool = rightSide ? this.toolRight : this.toolLeft
   const otherHand = !rightSide ? this.toolRight : this.toolLeft
   const finger = args.finger && args.finger[name]

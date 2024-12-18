@@ -1,4 +1,6 @@
 // @ts-check
+import { describe } from 'node:test'
+
 import { expect, test } from '@playwright/test'
 
 const listScreenshots = [
@@ -69,11 +71,13 @@ const listScreenshots = [
   },
 ]
 
-listScreenshots.forEach(({ niceName, query, index }) => {
-  test(niceName, async ({ page }) => {
-    await page.goto(`/?slide=${index}&${query}`)
+describe('basic screenshots', () => {
+  listScreenshots.forEach(({ niceName, query, index }) => {
+    test(niceName, async ({ page }) => {
+      await page.goto(`/?slide=${index}&${query}`)
 
-    await expect(page).toHaveScreenshot(`${niceName}.png`)
+      await expect(page).toHaveScreenshot(`${niceName}.png`)
+    })
   })
 })
 
@@ -106,6 +110,38 @@ test('interact with sliders', async ({ page }) => {
   await expect(page).toHaveScreenshot('slider-before.png')
 })
 
+test('interact with keyboard', async ({ page }) => {
+  // Start at image 6 with a query for 3 panels
+  await page.goto('/?slide=11&id=343242423&panels=4&p=4')
+
+  // Go to next image
+  await page.keyboard.press('Meta+ArrowRight')
+
+  await page.waitForURL(new RegExp('(.*)slide=12(.*)'))
+
+  // Decrease pixel size
+  await page.keyboard.press('Control+[')
+
+  await page.waitForURL(new RegExp('(.*)p=3(.*)'))
+
+  // Increase panel quantity
+  await page.keyboard.press('Meta+ArrowUp')
+
+  await page.waitForURL(new RegExp('(.*)panels=5(.*)'))
+
+  // Turn on debugging
+  await page.keyboard.press('Control+D')
+
+  await page.waitForURL(new RegExp('(.*)debug=true(.*)'))
+
+  // Check the URL query has the correct values, so we know the update happened
+  await page.waitForURL(
+    new RegExp('(.*)slide=12(.*)panels=5(.*)p=3(.*)debug=true(.*)'),
+  )
+
+  await expect(page).toHaveScreenshot('control-comic-with-keyboard.png')
+})
+
 test('interact with sliders (Graeae)', async ({ page }) => {
   await page.goto('/?slide=0')
 
@@ -115,9 +151,11 @@ test('interact with sliders (Graeae)', async ({ page }) => {
   const sliderOffsetWidth0 = await inputs
     .nth(0)
     .evaluate((el) => el.getBoundingClientRect())
+
   const sliderOffsetWidth1 = await inputs
     .nth(1)
     .evaluate((el) => el.getBoundingClientRect())
+
   const sliderOffsetWidth2 = await inputs
     .nth(2)
     .evaluate((el) => el.getBoundingClientRect())

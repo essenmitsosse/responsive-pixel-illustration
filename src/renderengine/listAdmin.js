@@ -11,10 +11,6 @@ class List {
     this.list.setAttribute('id', args.id)
   }
 
-  init(message) {
-    this.list.innerHTML = message
-  }
-
   addMessage(message, className, clickEvent) {
     const newMessage = document.createElement('li')
 

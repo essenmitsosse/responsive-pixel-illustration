@@ -298,7 +298,6 @@ export class InitPixel {
 
     new Admin({
       body,
-      admin: this.queryString.admin,
       sliders,
       slides: listImage,
       pixel: this,

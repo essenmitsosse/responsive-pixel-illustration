@@ -12,8 +12,6 @@ export class Admin {
 
     this.getClicker = getClickerGetter(this.pixel)
 
-    this.admin = args.admin
-
     // Setup Basic Showcase/Admin Layout
     args.body.setAttribute(
       'class',
@@ -300,7 +298,7 @@ export class Admin {
 
     const createButton = this.getButtonCreater(sideBarContentDiv)
 
-    // if( this.showcase || this.admin ) {
+    // if( this.showcase ) {
     // 	createButton( { text: "◀", functionName: "nextSlide", args: false, className: "important slideControl narrow newrow" } );
     // 	createButton( { text: "▶︎︎", functionName: "nextSlide", args: true, className: "important slideControl narrow" } );
     // }

@@ -281,7 +281,7 @@ export class InitPixel {
     window.onkeydown = this.getShortcuts(this.queryString)
 
     if (currentSlide.timer || this.queryString.timer) {
-      this.timerAnimation = this.getTimerAnimation(currentSlide.timer)
+      this.timerAnimation = this.getTimerAnimation()
     }
   }
 

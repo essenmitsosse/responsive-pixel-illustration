@@ -1,11 +1,9 @@
+import type { CreateSlider } from '@/helper/typeSlider.js'
+
 export type ImageFunction = (
   queryString: Record<string, boolean | number | undefined>,
   currentSlite: DataImage,
-  createSlider?: {
-    number: () => void
-    slider: () => void
-    title: () => void
-  },
+  createSlider?: CreateSlider,
 ) => {
   recommendedPixelSize?: number
   renderList: unknown

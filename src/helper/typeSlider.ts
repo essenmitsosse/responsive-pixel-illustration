@@ -3,3 +3,9 @@ export type DataSlider = {
   max: number
   min: number
 }
+
+export type CreateSlider = {
+  number: () => void
+  slide: () => void
+  title: () => void
+}

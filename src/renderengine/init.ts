@@ -7,6 +7,7 @@ import { Admin } from './admin.js'
 // eslint-disable-next-line import/extensions -- this is fine here
 import { PixelGraphics } from './info'
 
+import type { CreateSlider } from '@/helper/typeSlider.js'
 import type { DataImage, ImageFunction } from '@/scripts/listImage'
 
 const doSetDocumentTitle = (
@@ -259,11 +260,7 @@ export class InitPixel {
   sliderObject?: unknown
   sliderValues?: unknown
   defaultValues?: Record<string, boolean | number | undefined>
-  createSlider?: {
-    number: () => void
-    slider: () => void
-    title: () => void
-  }
+  createSlider?: CreateSlider
   renderer?: ReturnType<PixelGraphics['callback']>
   toggleResizabilityButton?: HTMLElement
   constructor(args: { div: HTMLElement; imageName?: string }) {

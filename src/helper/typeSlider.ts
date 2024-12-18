@@ -4,8 +4,17 @@ export type DataSlider = {
   min: number
 }
 
+export type SliderArgs = {
+  defaultValue: number
+  dontShow?: boolean
+  input: DataSlider
+  niceName: string
+  output?: { max: number; min: number }
+  valueName: string
+}
+
 export type CreateSlider = {
-  number: () => void
-  slide: () => void
-  title: () => void
+  number: (args: SliderArgs) => void
+  slider: (args: SliderArgs) => void
+  title: (args: { title: string }) => void
 }

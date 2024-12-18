@@ -1,14 +1,29 @@
 import { getNumberDefaultToZero } from '@/lib/getNumberDefaultToZero'
 import getListAdmin from '@/renderengine/getListAdmin'
 
-const getClickerGetter = (pixel) => (nr) => () => {
+import type { DataSlider, SliderArgs } from '@/helper/typeSlider'
+import type { InitPixel } from '@/renderengine/init'
+import type { DataImage } from '@/scripts/listImage'
+
+const getClickerGetter = (pixel: InitPixel) => (nr: number) => (): void => {
   pixel.changeForceRedraw({ slide: nr })
 }
 
-const getSlideName = (current) => current.niceName || current.name
+const getSlideName = (current: { name: string; niceName?: string }): string =>
+  current.niceName || current.name
 
 export class Admin {
-  constructor(args) {
+  pixel: InitPixel
+  getClicker: (nr: number) => () => void
+  mainAdmin: HTMLDivElement
+  sideBarDiv: HTMLDivElement
+  sideBarInnerDiv: HTMLDivElement
+  constructor(args: {
+    body: HTMLBodyElement
+    hasRandom: boolean
+    pixel: InitPixel
+    slides: ReadonlyArray<DataImage>
+  }) {
     this.pixel = args.pixel
 
     this.getClicker = getClickerGetter(this.pixel)
@@ -46,7 +61,7 @@ export class Admin {
     this.mainAdmin.setAttribute('id', 'mainAdmin')
   }
 
-  setupSlides(slides) {
+  setupSlides(slides: ReadonlyArray<DataImage>): void {
     const currentSlide = getNumberDefaultToZero(this.pixel.queryString.slide)
     const l = slides.length
 
@@ -68,21 +83,29 @@ export class Admin {
     }
   }
 
-  setupSlider() {
+  setupSlider(): void {
     const slidersDiv = getListAdmin({
       id: 'sliders',
       container: this.sideBarInnerDiv,
     })
 
     const slidersDivList = slidersDiv.list
-    const sliderObject = {}
-    const sliderValues = {}
+    const sliderObject: Record<
+      string,
+      (setValue: number, dontForce: boolean) => void
+    > = {}
+
+    const sliderValues: Record<string, number> = {}
 
     let hasSliders = false
 
     const getSliderControl = this.getSliderControlGetter()
     const [body] = document.getElementsByTagName('body')
-    const getBasicWrapper = (objects, name, labelName) => {
+    const getBasicWrapper = (
+      objects: ReadonlyArray<HTMLElement>,
+      name: string,
+      labelName: string,
+    ): void => {
       const wrap = document.createElement('li')
       const innerWrap = document.createElement('div')
       const l = objects.length
@@ -113,7 +136,7 @@ export class Admin {
       slidersDivList.appendChild(wrap)
     }
 
-    const activateSliders = () => {
+    const activateSliders = (): void => {
       if (!hasSliders) {
         hasSliders = true
 
@@ -126,14 +149,14 @@ export class Admin {
     this.pixel.sliderValues = sliderValues
 
     this.pixel.createSlider = {
-      slider: (args) => {
+      slider: (args): void => {
         const slider = document.createElement('input')
         const span = document.createElement('span')
 
         // dataList = document.createElement( "datalist" ),
         // option1, option2,
         // sliderId = "slider-" + args.valueName,
-        let key
+        let key: keyof DataSlider
 
         activateSliders()
 
@@ -156,10 +179,10 @@ export class Admin {
         sliderValues[args.valueName] = args.defaultValue
       },
 
-      number: (args) => {
+      number: (args): void => {
         const input = document.createElement('input')
 
-        let key
+        let key: keyof DataSlider
 
         input.setAttribute('type', 'number')
 
@@ -174,7 +197,7 @@ export class Admin {
         sliderValues[args.valueName] = args.defaultValue
       },
 
-      title: (args) => {
+      title: (args): void => {
         const title = document.createElement('h2')
         const wrap = document.createElement('li')
 
@@ -189,21 +212,38 @@ export class Admin {
     }
   }
 
-  getSliderControlGetter() {
-    let lastSliderParent
-    let lastValueName
+  getSliderControlGetter(): {
+    number: (
+      number: HTMLInputElement,
+      args: {
+        forceRedraw?: boolean
+        valueName: string
+      },
+    ) => (setValue: number, dontForce: boolean) => void
+    slider: (
+      slider: HTMLInputElement,
+      span: HTMLSpanElement,
+      args: SliderArgs,
+    ) => (setValue: number, dontForce: boolean) => void
+  } {
+    let lastSliderParent: ParentNode | null | undefined
+    let lastValueName: string
 
     const that = this
 
     return {
-      slider: (slider, span, args) => {
-        let value
+      slider: (
+        slider,
+        span,
+        args,
+      ): ((setValue: number, single: boolean) => void) => {
+        let value: number
 
         const diff = args.input.max - args.input.min
         const outputMap = args.output || { min: 0, max: 1 }
         const outputMin = outputMap.min
         const outputFactor = (outputMap.max - outputMin) / diff
-        const updateInfoSpan = () => {
+        const updateInfoSpan = (): void => {
           span.innerHTML = `${Math.round(value * 10) / 10}`
 
           span.setAttribute(
@@ -212,8 +252,11 @@ export class Admin {
           )
         }
 
-        const update = (setValue, single) => {
-          const obj = {}
+        const update = (
+          setValue?: MouseEvent | TouchEvent | number,
+          single?: boolean,
+        ): void => {
+          const obj: Record<string, number> = {}
 
           // If update is received with a sepcific value (e.g. from server), than just update the visual slider
           if (typeof setValue === 'number') {
@@ -232,7 +275,7 @@ export class Admin {
 
               lastValueName = args.valueName
 
-              lastSliderParent = slider.parentNode.parentNode
+              lastSliderParent = slider.parentNode?.parentNode
             }
 
             updateInfoSpan()
@@ -261,11 +304,17 @@ export class Admin {
         return update
       },
 
-      number: (number, args) => {
-        let value
+      number: (
+        number,
+        args,
+      ): ((setValue: number, dontForce: boolean) => void) => {
+        let value: number
 
-        const update = (setValue, dontForce) => {
-          const obj = {}
+        const update = (
+          setValue?: MouseEvent | number,
+          dontForce?: MouseEvent | boolean,
+        ): void => {
+          const obj: Record<string, number> = {}
 
           if (typeof setValue === 'number') {
             number.value = `${setValue}`
@@ -297,7 +346,7 @@ export class Admin {
     }
   }
 
-  setupBasicControls(hasRandom) {
+  setupBasicControls(hasRandom: boolean): void {
     const sideBarContentDiv = getListAdmin({
       id: 'mainControls',
       container: this.sideBarInnerDiv,
@@ -325,10 +374,15 @@ export class Admin {
     }
   }
 
-  getButtonCreater(div) {
+  getButtonCreater(div: ReturnType<typeof getListAdmin>) {
     const that = this
 
-    return (args) => {
+    return (args: {
+      callback?: KeysMatching<InitPixel, (value: HTMLElement) => void>
+      callbackButton: (pixel: InitPixel) => void
+      className?: string
+      text: string
+    }): void => {
       const button = div.addMessage(
         args.text,
         'button' + (args.className ? ' ' + args.className : ''),
@@ -341,3 +395,7 @@ export class Admin {
     }
   }
 }
+
+type KeysMatching<T, V> = {
+  [K in keyof T]-?: T[K] extends V ? K : never
+}[keyof T]

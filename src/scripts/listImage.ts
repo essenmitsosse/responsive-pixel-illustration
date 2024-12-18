@@ -3,7 +3,7 @@ export type ImageFunction = (
   currentSlite: DataImage,
   createSlider?: {
     number: () => void
-    slide: () => void
+    slider: () => void
     title: () => void
   },
 ) => {

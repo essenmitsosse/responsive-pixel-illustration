@@ -261,7 +261,7 @@ export class InitPixel {
   defaultValues?: Record<string, boolean | number | undefined>
   createSlider?: {
     number: () => void
-    slide: () => void
+    slider: () => void
     title: () => void
   }
   renderer?: ReturnType<PixelGraphics['callback']>

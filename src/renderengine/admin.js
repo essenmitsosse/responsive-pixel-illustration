@@ -82,7 +82,7 @@ export class Admin {
 
     const getSliderControl = this.getSliderControlGetter()
     const [body] = document.getElementsByTagName('body')
-    const getBasicWrapper = function (objects, name, labelName) {
+    const getBasicWrapper = (objects, name, labelName) => {
       const wrap = document.createElement('li')
       const innerWrap = document.createElement('div')
       const l = objects.length
@@ -113,7 +113,7 @@ export class Admin {
       slidersDivList.appendChild(wrap)
     }
 
-    const activateSliders = function () {
+    const activateSliders = () => {
       if (!hasSliders) {
         hasSliders = true
 
@@ -126,7 +126,7 @@ export class Admin {
     this.pixel.sliderValues = sliderValues
 
     this.pixel.createSlider = {
-      slider: function createSlider(args) {
+      slider: (args) => {
         const slider = document.createElement('input')
         const span = document.createElement('span')
 
@@ -156,7 +156,7 @@ export class Admin {
         sliderValues[args.valueName] = args.defaultValue
       },
 
-      number: function createButton(args) {
+      number: (args) => {
         const input = document.createElement('input')
 
         let key
@@ -174,7 +174,7 @@ export class Admin {
         sliderValues[args.valueName] = args.defaultValue
       },
 
-      title: function createTitle(args) {
+      title: (args) => {
         const title = document.createElement('h2')
         const wrap = document.createElement('li')
 
@@ -196,14 +196,14 @@ export class Admin {
     const that = this
 
     return {
-      slider: function getSliderControl(slider, span, args) {
+      slider: (slider, span, args) => {
         let value
 
         const diff = args.input.max - args.input.min
         const outputMap = args.output || { min: 0, max: 1 }
         const outputMin = outputMap.min
         const outputFactor = (outputMap.max - outputMin) / diff
-        const updateInfoSpan = function () {
+        const updateInfoSpan = () => {
           span.innerHTML = Math.round(value * 10) / 10
 
           span.setAttribute(
@@ -212,7 +212,7 @@ export class Admin {
           )
         }
 
-        const update = function (setValue, single) {
+        const update = (setValue, single) => {
           const obj = {}
 
           // If update is received with a sepcific value (e.g. from server), than just update the visual slider
@@ -257,10 +257,10 @@ export class Admin {
         return update
       },
 
-      number: function getButtonControl(number, args) {
+      number: (number, args) => {
         let value
 
-        const update = function (setValue, dontForce) {
+        const update = (setValue, dontForce) => {
           const obj = {}
 
           if (typeof setValue === 'number') {
@@ -280,7 +280,7 @@ export class Admin {
 
         number.addEventListener('click', update, false)
 
-        number.addEventListener('keypress', function (event) {
+        number.addEventListener('keypress', (event) => {
           if (event.keyCode === 13) {
             update()
           }
@@ -324,14 +324,12 @@ export class Admin {
   getButtonCreater(div) {
     const that = this
 
-    return function createButton(args) {
+    return (args) => {
       const button = div.addMessage(
         args.text,
         'button' + (args.className ? ' ' + args.className : ''),
-        (function (pixel) {
-          return function () {
-            pixel[args.functionName](args.args)
-          }
+        ((pixel) => () => {
+          pixel[args.functionName](args.args)
         })(that.pixel),
       )
 

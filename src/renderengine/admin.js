@@ -1,3 +1,4 @@
+import { getNumberDefaultToZero } from '@/lib/getNumberDefaultToZero'
 import getListAdmin from '@/renderengine/getListAdmin'
 
 const getClickerGetter = (pixel) => (nr) => () => {
@@ -46,7 +47,7 @@ export class Admin {
   }
 
   setupSlides(slides) {
-    const currentSlide = this.pixel.queryString.slide * 1 || 0
+    const currentSlide = getNumberDefaultToZero(this.pixel.queryString.slide)
     const l = slides.length
 
     let count = 0

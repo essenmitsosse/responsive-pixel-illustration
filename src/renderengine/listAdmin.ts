@@ -1,5 +1,10 @@
 class List {
-  constructor(args) {
+  list: HTMLElement
+  constructor(args: {
+    atBeginning?: boolean
+    container: HTMLElement
+    id: string
+  }) {
     this.list = document.createElement('ul')
 
     if (args.atBeginning) {
@@ -11,7 +16,11 @@ class List {
     this.list.setAttribute('id', args.id)
   }
 
-  addMessage(message, className, clickEvent) {
+  addMessage(
+    message: string,
+    className: string,
+    clickEvent: (event: MouseEvent) => void,
+  ): HTMLLIElement {
     const newMessage = document.createElement('li')
 
     newMessage.innerHTML = message

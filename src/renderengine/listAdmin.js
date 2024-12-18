@@ -1,6 +1,6 @@
 class List {
   constructor(args) {
-    this.list = document.createElement(args.tagName || 'ul')
+    this.list = document.createElement('ul')
 
     if (args.atBeginning) {
       args.container.insertBefore(this.list, args.container.children[0])

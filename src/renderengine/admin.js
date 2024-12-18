@@ -339,40 +339,40 @@ Admin.prototype.getButtonCreater = function (div) {
   }
 }
 
-Admin.prototype.List = function List(args) {
-  this.list = document.createElement(args.tagName || 'ul')
+class List {
+  constructor(args) {
+    this.list = document.createElement(args.tagName || 'ul')
 
-  if (args.atBeginning) {
-    args.container.insertBefore(this.list, args.container.children[0])
-  } else {
-    args.container.appendChild(this.list)
+    if (args.atBeginning) {
+      args.container.insertBefore(this.list, args.container.children[0])
+    } else {
+      args.container.appendChild(this.list)
+    }
+
+    this.list.setAttribute('id', args.id)
   }
 
-  this.list.setAttribute('id', args.id)
-}
-
-Admin.prototype.List.prototype.init = function (message) {
-  this.list.innerHTML = message
-}
-
-Admin.prototype.List.prototype.addMessage = function (
-  message,
-  className,
-  clickEvent,
-) {
-  const newMessage = document.createElement('li')
-
-  newMessage.innerHTML = message
-
-  if (className) {
-    newMessage.setAttribute('class', className)
+  init(message) {
+    this.list.innerHTML = message
   }
 
-  this.list.appendChild(newMessage)
+  addMessage(message, className, clickEvent) {
+    const newMessage = document.createElement('li')
 
-  if (clickEvent) {
-    newMessage.addEventListener('click', clickEvent)
+    newMessage.innerHTML = message
+
+    if (className) {
+      newMessage.setAttribute('class', className)
+    }
+
+    this.list.appendChild(newMessage)
+
+    if (clickEvent) {
+      newMessage.addEventListener('click', clickEvent)
+    }
+
+    return newMessage
   }
-
-  return newMessage
 }
+
+Admin.prototype.List = List

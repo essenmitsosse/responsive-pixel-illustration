@@ -329,10 +329,7 @@ export class Admin {
       const button = div.addMessage(
         args.text,
         'button' + (args.className ? ' ' + args.className : ''),
-        (
-          (pixel) => () =>
-            args.callbackButton(pixel)
-        )(that.pixel),
+        () => args.callbackButton(that.pixel),
       )
 
       if (args.callback) {

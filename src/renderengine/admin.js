@@ -271,8 +271,8 @@ export class Admin {
             number.value = `${setValue}`
 
             value = setValue
-          } else if (value !== number.value * 1) {
-            value = number.value * 1
+          } else if (value !== getNumberDefaultToZero(number.value)) {
+            value = getNumberDefaultToZero(number.value)
 
             obj[args.valueName] = value
 

@@ -284,7 +284,7 @@ export class Admin {
         number.addEventListener('click', update, false)
 
         number.addEventListener('keypress', (event) => {
-          if (event.keyCode === 13) {
+          if (event.key === 'Enter') {
             update()
           }
         })

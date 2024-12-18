@@ -222,7 +222,10 @@ export class Admin {
               (setValue - outputMin) / outputFactor + args.input.min
 
             if (single) {
-              if (lastValueName !== args.valueName && lastSliderParent) {
+              if (
+                lastValueName !== args.valueName &&
+                lastSliderParent instanceof HTMLElement
+              ) {
                 lastSliderParent.setAttribute('style', '')
               }
 

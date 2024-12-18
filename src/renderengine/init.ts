@@ -286,7 +286,6 @@ export class InitPixel {
     }
 
     const imageName = forceName || currentSlide.name || 'tantalos'
-    const sliders = this.queryString.sliders || currentSlide.sliders
     /** Change for multiple Canvases */
     const canvasDataList = false
     const canvasRenderer = createSingleCanvas(canvasDataList, args.div)
@@ -298,7 +297,6 @@ export class InitPixel {
 
     new Admin({
       body,
-      sliders,
       slides: listImage,
       pixel: this,
       hasRandom: currentSlide.hasRandom || false,

@@ -3,7 +3,7 @@ import getObjectEntries from '@/lib/getObjectEntries'
 import getObjectFromEntries from '@/lib/getObjectFromEntries'
 import listImage from '@/scripts/listImage'
 
-import { Admin } from './admin'
+import { Admin } from './Admin'
 // eslint-disable-next-line import/extensions -- this is fine here
 import { PixelGraphics } from './info'
 

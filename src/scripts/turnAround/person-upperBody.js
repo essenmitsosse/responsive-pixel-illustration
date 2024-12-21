@@ -1,4 +1,4 @@
-import { BBObj } from './object.js'
+import { BBObj } from './object'
 
 // CHEST  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 export const Chest = function (args) {

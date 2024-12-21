@@ -1,4 +1,4 @@
-import type { CreateSlider } from '@/helper/typeSlider.js'
+import type { CreateSlider } from '@/helper/typeSlider'
 
 export type ImageFunction = (
   queryString: Record<string, boolean | number | undefined>,
@@ -25,7 +25,7 @@ export type DataImage = {
 
 const listImage: ReadonlyArray<DataImage> = [
   {
-    import: () => import('./graien.js'),
+    import: () => import('./graien'),
     name: 'graien',
     niceName: 'The Three Graeae',
     resizeable: true,
@@ -33,56 +33,56 @@ const listImage: ReadonlyArray<DataImage> = [
     sliders: true,
   },
   {
-    import: () => import('./tantalos.js'),
+    import: () => import('./tantalos'),
     name: 'tantalos',
     niceName: 'Tantalos',
     resizeable: true,
   },
   {
-    import: () => import('./teiresias.js'),
+    import: () => import('./teiresias'),
     name: 'teiresias',
     niceName: 'Teiresias',
     resizeable: true,
   },
   {
-    import: () => import('./brothers.js'),
+    import: () => import('./brothers'),
     name: 'brothers',
     niceName: 'Brothers',
     resizeable: true,
   },
   {
-    import: () => import('./zeus.js'),
+    import: () => import('./zeus'),
     name: 'zeus',
     niceName: 'Zeus',
     resizeable: true,
   },
   {
-    import: () => import('./argos.js'),
+    import: () => import('./argos'),
     name: 'argos',
     niceName: 'The Argos',
     resizeable: true,
   },
   {
-    import: () => import('./sphinx.js'),
+    import: () => import('./sphinx'),
     name: 'sphinx',
     niceName: 'The Sphinx',
     resizeable: true,
   },
   {
-    import: () => import('./letter.js'),
+    import: () => import('./letter'),
     name: 'letter',
     niceName: 'Letter',
     unchangeable: true,
     both: true,
   },
   {
-    import: () => import('./persons-and-trees/init.js'),
+    import: () => import('./persons-and-trees/init'),
     name: 'persons_lessrandom',
     niceName: 'Trees',
     hasRandom: true,
   },
   {
-    import: () => import('./persons-and-trees/init.js'),
+    import: () => import('./persons-and-trees/init'),
     name: 'persons_lessrandom',
     niceName: 'Persons',
     sliders: true,
@@ -90,7 +90,7 @@ const listImage: ReadonlyArray<DataImage> = [
     hasRandom: true,
   },
   {
-    import: () => import('./panels/init-panels.js'),
+    import: () => import('./panels/init-panels'),
     name: 'panels',
     niceName: 'Panels',
     unchangeable: true,
@@ -98,7 +98,7 @@ const listImage: ReadonlyArray<DataImage> = [
     hasRandom: true,
   },
   {
-    import: () => import('./turnAround/init.js'),
+    import: () => import('./turnAround/init'),
     name: 'turnaround',
     niceName: 'Turnaround',
     unchangeable: true,
@@ -106,7 +106,7 @@ const listImage: ReadonlyArray<DataImage> = [
     hasRandom: true,
   },
   {
-    import: () => import('./comic/init.js'),
+    import: () => import('./comic/init'),
     name: 'comic',
     niceName: 'Comic',
     unchangeable: true,
@@ -114,45 +114,45 @@ const listImage: ReadonlyArray<DataImage> = [
     hasRandom: true,
   },
   {
-    import: () => import('./relativity.js'),
+    import: () => import('./relativity'),
     name: 'relativity',
     niceName: 'Relativity',
     resizeable: true,
   },
   {
-    import: () => import('./stripes.js'),
+    import: () => import('./stripes'),
     name: 'stripes',
     niceName: 'Stripe',
     resizeable: true,
   },
   {
-    import: () => import('./landscape.js'),
+    import: () => import('./landscape'),
     name: 'landscape',
     niceName: 'Landscape',
     resizeable: true,
     hasRandom: true,
   },
   {
-    import: () => import('./sparta.js'),
+    import: () => import('./sparta'),
     name: 'sparta',
     niceName: 'Sparta',
     resizeable: true,
   },
   {
-    import: () => import('./trex.js'),
+    import: () => import('./trex'),
     name: 'trex',
     niceName: 'T-Rex',
     resizeable: true,
   },
   {
-    import: () => import('./typo.js'),
+    import: () => import('./typo'),
     name: 'typo',
     niceName: 'Typo',
     resizeable: true,
   },
   {
     name: 'random-distribution',
-    import: () => import('./random-distribution.js'),
+    import: () => import('./random-distribution'),
     niceName: 'Random',
     hasRandom: true,
     resizeable: true,

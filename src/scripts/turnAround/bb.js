@@ -1,10 +1,10 @@
 import { getRandom } from '@/helper/getRandom'
 
-import { BBObj, RotateInfo, Rotater } from './object.js'
-import { Head, HeadBottom, HeadTop, Neck, Nose } from './person-head.js'
-import { LowerBody } from './person-lowerBody.js'
-import { BodyMain, PersonMain } from './person-main.js'
-import { Chest } from './person-upperBody.js'
+import { BBObj, RotateInfo, Rotater } from './object'
+import { Head, HeadBottom, HeadTop, Neck, Nose } from './person-head'
+import { LowerBody } from './person-lowerBody'
+import { BodyMain, PersonMain } from './person-main'
+import { Chest } from './person-upperBody'
 
 export const BB = function (init) {
   const args = {}

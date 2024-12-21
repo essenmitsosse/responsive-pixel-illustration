@@ -1,6 +1,6 @@
 import { sub } from '@/helper/helperDim'
 
-import { Object } from './object.js'
+import { Object } from './object'
 
 // PERSON --------------------------------------------------------------------------------
 export const Person = function (args) {

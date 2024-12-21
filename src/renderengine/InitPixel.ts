@@ -1,13 +1,12 @@
-import { getNumberDefaultToZero } from '@/lib/getNumberDefaultToZero.js'
+import { getNumberDefaultToZero } from '@/lib/getNumberDefaultToZero'
 import getObjectEntries from '@/lib/getObjectEntries'
 import getObjectFromEntries from '@/lib/getObjectFromEntries'
 import listImage from '@/scripts/listImage'
 
 import Admin from './Admin'
-// eslint-disable-next-line import/extensions -- this is fine here
 import { PixelGraphics } from './info'
 
-import type { CreateSlider } from '@/helper/typeSlider.js'
+import type { CreateSlider } from '@/helper/typeSlider'
 import type { DataImage, ImageFunction } from '@/scripts/listImage'
 
 const doSetDocumentTitle = (

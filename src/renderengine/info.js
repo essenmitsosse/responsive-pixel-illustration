@@ -1,6 +1,6 @@
-import { DrawingTools } from './creator.js'
-import { getPixelUnits } from './pixel.js'
-import { Renderer } from './renderer.js'
+import { DrawingTools } from './creator'
+import { getPixelUnits } from './pixel'
+import { Renderer } from './renderer'
 
 const startTime = Date.now()
 

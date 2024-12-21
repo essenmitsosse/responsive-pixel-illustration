@@ -1,6 +1,6 @@
 import { mult, sub } from '@/helper/helperDim'
 
-import { Object } from './object.js'
+import { Object } from './object'
 
 // TREE FAMILY
 export const TreeFamily = function (args) {

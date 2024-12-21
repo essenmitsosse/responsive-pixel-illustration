@@ -1,8 +1,8 @@
 import { getNumberDefaultToZero } from '@/lib/getNumberDefaultToZero'
 import getListAdmin from '@/renderengine/getListAdmin'
 
+import type { InitPixel } from './InitPixel'
 import type { DataSlider, SliderArgs } from '@/helper/typeSlider'
-import type { InitPixel } from '@/renderengine/init'
 import type { DataImage } from '@/scripts/listImage'
 
 const getClickerGetter = (pixel: InitPixel) => (nr: number) => (): void => {

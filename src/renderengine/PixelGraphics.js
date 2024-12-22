@@ -3,6 +3,7 @@ import getInfo from '@/renderengine/getInfo'
 import { DrawingTools } from './creator'
 import { getPixelUnits } from './pixel'
 import { Renderer } from './renderer'
+import { DynamicVariable, Variable } from './Variable'
 
 const startTime = Date.now()
 
@@ -257,56 +258,10 @@ export class PixelGraphics {
       return newVL[name]
     }
 
-    function Variable(args, name) {
-      if (args) {
-        this.name = name
-
-        this.vari = that.pixelUnits.createSize(args)
-
-        this.linkedP = []
-
-        this.l = 0
-      }
-    }
-
-    function DynamicVariable(name) {
-      this.name = name
-
-      this.linkedP = []
-
-      this.l = 0
-    }
-
-    Variable.prototype.set = function () {
-      let { l } = this
-
-      const value = this.vari.getReal()
-
-      while (l--) {
-        this.linkedP[l].abs = value
-      }
-    }
-
-    Variable.prototype.link = function (p) {
-      this.linkedP.push(p)
-
-      this.l += 1
-    }
-
-    DynamicVariable.prototype = new Variable()
-
-    DynamicVariable.prototype.set = function (value) {
-      let { l } = this
-
-      while (l--) {
-        this.linkedP[l].abs = value
-      }
-    }
-
     that.pixelUnits.setList(link, creator, updater)
 
     for (key in vl) {
-      newVL[key] = new Variable(vl[key], key)
+      newVL[key] = new Variable(vl[key], key, that.pixelUnits)
     }
   }
 

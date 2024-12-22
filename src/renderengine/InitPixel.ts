@@ -7,6 +7,7 @@ import Admin from './Admin'
 import getInfo from './getInfo'
 import { PixelGraphics } from './PixelGraphics'
 
+import type { Info } from './getInfo'
 import type { CreateSlider } from '@/helper/typeSlider'
 import type { DataImage, ImageFunction } from '@/scripts/listImage'
 
@@ -124,7 +125,7 @@ const getCallback =
     context: InitPixel
     currentSlide: DataImage
     imageName: string
-    info: unknown
+    info: Info
     queryString: Record<string, boolean | number | undefined>
     rendererInit: (args: unknown) => ReturnType<PixelGraphics['callback']>
   }) =>

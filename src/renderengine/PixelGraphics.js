@@ -27,29 +27,6 @@ const getRedraw = (options, resize) => (args) => {
   resize(args.width, args.height)
 }
 
-const joinObjects = function () {
-  const l = arguments.length
-
-  let count = 0
-
-  const newObj = {}
-
-  let key
-  let currentObj
-
-  while (count < l) {
-    currentObj = arguments[count]
-
-    for (key in currentObj) {
-      newObj[key] = currentObj[key]
-    }
-
-    count += 1
-  }
-
-  return newObj
-}
-
 export const PixelGraphics = function (options) {
   const that = this
   // Initialize PixelUnits with Variables
@@ -73,11 +50,11 @@ export const PixelGraphics = function (options) {
 
     finalRenderer.rescaleWindow()
 
-    redraw(
-      joinObjects(options.sliderValues, options.queryString, {
-        dontHighlight: true,
-      }),
-    )
+    redraw({
+      ...options.sliderValues,
+      ...options.queryString,
+      dontHighlight: true,
+    })
 
     window.onresize = function () {
       finalRenderer.rescaleWindow()

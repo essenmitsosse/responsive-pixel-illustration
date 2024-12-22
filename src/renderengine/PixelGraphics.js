@@ -4,6 +4,29 @@ import { Renderer } from './renderer'
 
 const startTime = Date.now()
 
+const getRedraw = (options, resize) => (args) => {
+  let key
+  let first = !args.dontHighlight
+
+  if (options.sliderObject) {
+    for (key in args) {
+      if (options.sliderObject[key]) {
+        options.sliderObject[key](args[key], first)
+
+        first = false
+      }
+    }
+  }
+
+  options.init.addToQueryString(args, true)
+
+  if (options.imageFunction.listDoHover) {
+    options.imageFunction.listDoHover.forEach((hover) => hover(args))
+  }
+
+  resize(args.width, args.height)
+}
+
 export const PixelGraphics = function (options) {
   const that = this
   // Initialize PixelUnits with Variables
@@ -21,7 +44,7 @@ export const PixelGraphics = function (options) {
     const isParent = options.queryString.parent
     const finalRenderer = new Renderer(canvas, options.info, options, that)
     const resize = that.getResize(options, options.info, finalRenderer.resize)
-    const redraw = that.getRedraw(options, resize, isParent)
+    const redraw = getRedraw(options, resize, isParent)
 
     options.info.logInitTime(Date.now() - startTime)
 
@@ -93,31 +116,6 @@ PixelGraphics.prototype.getResize = function (options, info, render) {
     currentW = w || currentW
 
     currentH = h || currentH
-  }
-}
-
-PixelGraphics.prototype.getRedraw = function redraw(options, resize) {
-  return function redraw(args) {
-    let key
-    let first = !args.dontHighlight
-
-    if (options.sliderObject) {
-      for (key in args) {
-        if (options.sliderObject[key]) {
-          options.sliderObject[key](args[key], first)
-
-          first = false
-        }
-      }
-    }
-
-    options.init.addToQueryString(args, true)
-
-    if (options.imageFunction.listDoHover) {
-      options.imageFunction.listDoHover.forEach((hover) => hover(args))
-    }
-
-    resize(args.width, args.height)
   }
 }
 

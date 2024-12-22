@@ -27,292 +27,289 @@ const getRedraw = (options, resize) => (args) => {
   resize(args.width, args.height)
 }
 
-export const PixelGraphics = function (options) {
-  const that = this
-  // Initialize PixelUnits with Variables
-  const pU = this.getPixelUnits()
+export class PixelGraphics {
+  constructor(options) {
+    const that = this
+    // Initialize PixelUnits with Variables
+    const pU = this.getPixelUnits()
 
-  this.pixelUnits = pU
+    this.pixelUnits = pU
 
-  this.createVariableList(options.imageFunction.variableList || [])
+    this.createVariableList(options.imageFunction.variableList || [])
 
-  if (options.imageFunction.linkList) {
-    this.prepareVariableList(options.imageFunction.linkList)
-  }
+    if (options.imageFunction.linkList) {
+      this.prepareVariableList(options.imageFunction.linkList)
+    }
 
-  this.callback = function (canvas) {
-    const isParent = options.queryString.parent
-    const finalRenderer = new Renderer(canvas, options.info, options, that)
-    const resize = that.getResize(options, options.info, finalRenderer.resize)
-    const redraw = getRedraw(options, resize, isParent)
+    this.callback = function (canvas) {
+      const isParent = options.queryString.parent
+      const finalRenderer = new Renderer(canvas, options.info, options, that)
+      const resize = that.getResize(options, options.info, finalRenderer.resize)
+      const redraw = getRedraw(options, resize, isParent)
 
-    options.info.logInitTime(Date.now() - startTime)
+      options.info.logInitTime(Date.now() - startTime)
 
-    finalRenderer.rescaleWindow()
-
-    redraw({
-      ...options.sliderValues,
-      ...options.queryString,
-      dontHighlight: true,
-    })
-
-    window.onresize = function () {
       finalRenderer.rescaleWindow()
 
-      resize()
-    }
+      redraw({
+        ...options.sliderValues,
+        ...options.queryString,
+        dontHighlight: true,
+      })
 
-    // Make Canvas resizeable by mouse
-    that.initUserInput(options, redraw, canvas, options.slide.unchangeable)
+      window.onresize = function () {
+        finalRenderer.rescaleWindow()
 
-    return {
-      resize,
-      redraw,
-    }
-  }
-}
-
-PixelGraphics.prototype.getResize = function (options, info, render) {
-  const that = this
-
-  let currentW
-  let currentH
-  let needsToResize = false
-  let resizeBlock = false
-
-  const resetResizeBlock = function () {
-    resizeBlock = false
-
-    if (needsToResize) {
-      resize(currentW, currentH)
-    }
-  }
-
-  const resize = function (w, h) {
-    const time = Date.now()
-
-    // Render the actual image. This takes very long!
-    that.canvasSize = render(w || currentW, h || currentH)
-
-    // Log Drawing Time and Full RenderTime
-    if (that.canvasSize) {
-      info.logRenderTime(that.canvasSize[2], Date.now() - time)
-    }
-
-    needsToResize = false
-  }
-
-  return function checkIfResizeShouldBeDone(w, h) {
-    needsToResize = true
-
-    if (!resizeBlock) {
-      resizeBlock = true
-
-      setTimeout(resetResizeBlock, 20)
-
-      resize(w, h)
-    }
-
-    currentW = w || currentW
-
-    currentH = h || currentH
-  }
-}
-
-PixelGraphics.prototype.initUserInput = function (
-  options,
-  redraw,
-  canvas,
-  unchangeable,
-) {
-  const hasSomethingToHover = options.imageFunction.hover
-  const that = this
-
-  const changeImage = function changeImage(event, size) {
-    let x = event.x || event.clientX
-    let y = event.y || event.clientY
-
-    const alt = event.altKey
-
-    x /= that.canvasSize[0]
-
-    y /= that.canvasSize[1]
-
-    redraw(
-      size ? { width: x, height: y } : alt ? { c: x, d: y } : { a: x, b: y },
-    )
-  }
-
-  const mouseMove = function (event, size) {
-    if (
-      options.queryString.resizeable ||
-      (!unchangeable && (size || hasSomethingToHover))
-    ) {
-      changeImage(event, size || options.queryString.resizeable)
-    }
-  }
-
-  const touchMove = function (event) {
-    event.preventDefault()
-
-    mouseMove(event.changedTouches[0], true)
-  }
-
-  canvas.addEventListener('mousemove', mouseMove, false)
-
-  canvas.addEventListener('touchmove', touchMove, false)
-}
-
-PixelGraphics.prototype.prepareVariableList = function (vl) {
-  const that = this
-  const vlLength = vl.length
-
-  const calculate = function (dimensions) {
-    let i = 0
-
-    const vll = vlLength
-
-    let current
-
-    do {
-      current = vl[i]
-
-      if (current.main) {
-        current.calculated = true
-
-        current.real = dimensions[current.height ? 'height' : 'width']
-      } else {
-        current.calculated = current.autoUpdate
+        resize()
       }
-    } while ((i += 1) < vll)
+
+      // Make Canvas resizeable by mouse
+      that.initUserInput(options, redraw, canvas, options.slide.unchangeable)
+
+      return {
+        resize,
+        redraw,
+      }
+    }
   }
 
-  if (vlLength > 0) {
-    // Prepare
-    function doAddVariable(vl, vll) {
+  getResize(options, info, render) {
+    const that = this
+
+    let currentW
+    let currentH
+    let needsToResize = false
+    let resizeBlock = false
+
+    const resetResizeBlock = function () {
+      resizeBlock = false
+
+      if (needsToResize) {
+        resize(currentW, currentH)
+      }
+    }
+
+    const resize = function (w, h) {
+      const time = Date.now()
+
+      // Render the actual image. This takes very long!
+      that.canvasSize = render(w || currentW, h || currentH)
+
+      // Log Drawing Time and Full RenderTime
+      if (that.canvasSize) {
+        info.logRenderTime(that.canvasSize[2], Date.now() - time)
+      }
+
+      needsToResize = false
+    }
+
+    return function checkIfResizeShouldBeDone(w, h) {
+      needsToResize = true
+
+      if (!resizeBlock) {
+        resizeBlock = true
+
+        setTimeout(resetResizeBlock, 20)
+
+        resize(w, h)
+      }
+
+      currentW = w || currentW
+
+      currentH = h || currentH
+    }
+  }
+
+  initUserInput(options, redraw, canvas, unchangeable) {
+    const hasSomethingToHover = options.imageFunction.hover
+    const that = this
+
+    const changeImage = function changeImage(event, size) {
+      let x = event.x || event.clientX
+      let y = event.y || event.clientY
+
+      const alt = event.altKey
+
+      x /= that.canvasSize[0]
+
+      y /= that.canvasSize[1]
+
+      redraw(
+        size ? { width: x, height: y } : alt ? { c: x, d: y } : { a: x, b: y },
+      )
+    }
+
+    const mouseMove = function (event, size) {
+      if (
+        options.queryString.resizeable ||
+        (!unchangeable && (size || hasSomethingToHover))
+      ) {
+        changeImage(event, size || options.queryString.resizeable)
+      }
+    }
+
+    const touchMove = function (event) {
+      event.preventDefault()
+
+      mouseMove(event.changedTouches[0], true)
+    }
+
+    canvas.addEventListener('mousemove', mouseMove, false)
+
+    canvas.addEventListener('touchmove', touchMove, false)
+  }
+
+  prepareVariableList(vl) {
+    const that = this
+    const vlLength = vl.length
+
+    const calculate = function (dimensions) {
       let i = 0
+
+      const vll = vlLength
+
       let current
-
-      const getLinkedVariable = function (args) {
-        return function () {
-          if (!args.calculated) {
-            args.calculated = true
-
-            return (args.real = args.s.getReal())
-          } else {
-            return args.real
-          }
-        }
-      }
 
       do {
         current = vl[i]
 
-        if (!current.s) {
-          if (!current.autoUpdate) {
-            current.autoUpdate = false
+        if (current.main) {
+          current.calculated = true
 
-            current.s = that.pixelUnits.createSize(current)
-          } else {
-            current.calculated = true
-          }
-
-          current.getLinkedVariable = getLinkedVariable(current)
+          current.real = dimensions[current.height ? 'height' : 'width']
+        } else {
+          current.calculated = current.autoUpdate
         }
       } while ((i += 1) < vll)
     }
 
-    doAddVariable(vl, vlLength)
+    if (vlLength > 0) {
+      // Prepare
+      function doAddVariable(vl, vll) {
+        let i = 0
+        let current
 
-    that.pixelUnits.linkList(calculate)
+        const getLinkedVariable = function (args) {
+          return function () {
+            if (!args.calculated) {
+              args.calculated = true
+
+              return (args.real = args.s.getReal())
+            } else {
+              return args.real
+            }
+          }
+        }
+
+        do {
+          current = vl[i]
+
+          if (!current.s) {
+            if (!current.autoUpdate) {
+              current.autoUpdate = false
+
+              current.s = that.pixelUnits.createSize(current)
+            } else {
+              current.calculated = true
+            }
+
+            current.getLinkedVariable = getLinkedVariable(current)
+          }
+        } while ((i += 1) < vll)
+      }
+
+      doAddVariable(vl, vlLength)
+
+      that.pixelUnits.linkList(calculate)
+    }
   }
-}
 
-PixelGraphics.prototype.createVariableList = function (vl) {
-  const that = this
-  const newVL = {}
+  createVariableList(vl) {
+    const that = this
+    const newVL = {}
 
-  let key
-
-  const updater = function () {
     let key
 
-    for (key in vl) {
-      newVL[key].set()
-    }
-  }
+    const updater = function () {
+      let key
 
-  const link = function (name, vari) {
-    if (newVL[name]) {
-      newVL[name].link(vari)
-    } else {
-      newVL[name] = new DynamicVariable(name)
-
-      newVL[name].link(vari)
-    }
-  }
-
-  const creator = function (name) {
-    if (!newVL[name]) {
-      newVL[name] = new DynamicVariable(name)
+      for (key in vl) {
+        newVL[key].set()
+      }
     }
 
-    return newVL[name]
-  }
+    const link = function (name, vari) {
+      if (newVL[name]) {
+        newVL[name].link(vari)
+      } else {
+        newVL[name] = new DynamicVariable(name)
 
-  const Variable = function (args, name) {
-    if (args) {
+        newVL[name].link(vari)
+      }
+    }
+
+    const creator = function (name) {
+      if (!newVL[name]) {
+        newVL[name] = new DynamicVariable(name)
+      }
+
+      return newVL[name]
+    }
+
+    const Variable = function (args, name) {
+      if (args) {
+        this.name = name
+
+        this.vari = that.pixelUnits.createSize(args)
+
+        this.linkedP = []
+
+        this.l = 0
+      }
+    }
+
+    const DynamicVariable = function (name) {
       this.name = name
-
-      this.vari = that.pixelUnits.createSize(args)
 
       this.linkedP = []
 
       this.l = 0
     }
-  }
 
-  const DynamicVariable = function (name) {
-    this.name = name
+    Variable.prototype.set = function () {
+      let { l } = this
 
-    this.linkedP = []
+      const value = this.vari.getReal()
 
-    this.l = 0
-  }
+      while (l--) {
+        this.linkedP[l].abs = value
+      }
+    }
 
-  Variable.prototype.set = function () {
-    let { l } = this
+    Variable.prototype.link = function (p) {
+      this.linkedP.push(p)
 
-    const value = this.vari.getReal()
+      this.l += 1
+    }
 
-    while (l--) {
-      this.linkedP[l].abs = value
+    DynamicVariable.prototype = new Variable()
+
+    DynamicVariable.prototype.set = function (value) {
+      let { l } = this
+
+      while (l--) {
+        this.linkedP[l].abs = value
+      }
+    }
+
+    that.pixelUnits.setList(link, creator, updater)
+
+    for (key in vl) {
+      newVL[key] = new Variable(vl[key], key)
     }
   }
 
-  Variable.prototype.link = function (p) {
-    this.linkedP.push(p)
+  getPixelUnits = getPixelUnits
 
-    this.l += 1
-  }
-
-  DynamicVariable.prototype = new Variable()
-
-  DynamicVariable.prototype.set = function (value) {
-    let { l } = this
-
-    while (l--) {
-      this.linkedP[l].abs = value
-    }
-  }
-
-  that.pixelUnits.setList(link, creator, updater)
-
-  for (key in vl) {
-    newVL[key] = new Variable(vl[key], key)
-  }
+  DrawingTools = DrawingTools
 }
-
-PixelGraphics.prototype.getPixelUnits = getPixelUnits
-
-PixelGraphics.prototype.DrawingTools = DrawingTools

@@ -1,11 +1,14 @@
+import type { getPixelUnits } from './pixel'
+
 class BaseVariable {
-  linkedP = []
+  linkedP: Array<unknown | { abs?: unknown }> = []
   l = 0
-  constructor(name) {
+  name: string
+  constructor(name: string) {
     this.name = name
   }
 
-  link(p) {
+  link(p: unknown): void {
     this.linkedP.push(p)
 
     this.l += 1
@@ -13,7 +16,14 @@ class BaseVariable {
 }
 
 export class Variable extends BaseVariable {
-  constructor(args, name, pixelUnits) {
+  vari?: { getReal: () => unknown }
+  linkedP: Array<{ abs?: unknown }> = []
+
+  constructor(
+    args: unknown,
+    name: string,
+    pixelUnits: ReturnType<typeof getPixelUnits>,
+  ) {
     super(name)
 
     if (args) {
@@ -21,7 +31,7 @@ export class Variable extends BaseVariable {
     }
   }
 
-  set() {
+  set(): void {
     let { l } = this
 
     if (this.vari === undefined) {
@@ -35,7 +45,7 @@ export class Variable extends BaseVariable {
     }
   }
 
-  link(p) {
+  link(p: { abs?: unknown }): void {
     this.linkedP.push(p)
 
     this.l += 1
@@ -43,7 +53,9 @@ export class Variable extends BaseVariable {
 }
 
 export class DynamicVariable extends BaseVariable {
-  set(value) {
+  linkedP: Array<{ abs?: unknown }> = []
+
+  set(value: unknown): void {
     let { l } = this
 
     while (l--) {

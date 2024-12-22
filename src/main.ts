@@ -1,6 +1,6 @@
 import { inject } from '@vercel/analytics'
 
-import { InitPixel } from '@/renderengine/init'
+import { InitPixel } from './renderengine/InitPixel'
 
 inject()
 

@@ -1,4 +1,4 @@
-import { BBObj } from './object.js'
+import { BBObj } from './object'
 
 // HEAD MAIN  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 export const Head = function (args) {

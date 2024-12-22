@@ -1,8 +1,8 @@
 import getHoverChangerStandard from '@/helper/getHoverChangerStandard'
 import { getRandom } from '@/helper/getRandom'
 
-import { Object } from './object.js'
-import { Arm, Shield, ShoulderPad, Sword, Tool } from './person-arm.js'
+import { Object } from './object'
+import { Arm, Shield, ShoulderPad, Sword, Tool } from './person-arm'
 import {
   Beard,
   Eye,
@@ -13,9 +13,9 @@ import {
   Helm,
   Horns,
   Mouth,
-} from './person-head.js'
-import { Belt, Leg, LowerBody, Skirt } from './person-lowerBody.js'
-import { BasicBody, Logo, Person } from './person-main.js'
+} from './person-head'
+import { Belt, Leg, LowerBody, Skirt } from './person-lowerBody'
+import { BasicBody, Logo, Person } from './person-main'
 import {
   Buttons,
   Cape,
@@ -26,8 +26,8 @@ import {
   Stripes,
   Suspenders,
   UpperBody,
-} from './person-upperBody.js'
-import { Forrest, Tree, TreeFamily } from './tree.js'
+} from './person-upperBody'
+import { Forrest, Tree, TreeFamily } from './tree'
 
 export const Builder = function (init) {
   const initID = init.id ? init.id : Math.floor(Math.random() * 4294967296)

@@ -1,4 +1,4 @@
-import { BB } from './bb.js'
+import { BB } from './bb'
 
 function turnAround(init) {
   const bb = new BB(init)

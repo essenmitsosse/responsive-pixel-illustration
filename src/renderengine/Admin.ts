@@ -1,8 +1,8 @@
 import { getNumberDefaultToZero } from '@/lib/getNumberDefaultToZero'
 import getListAdmin from '@/renderengine/getListAdmin'
 
+import type { InitPixel } from './InitPixel'
 import type { DataSlider, SliderArgs } from '@/helper/typeSlider'
-import type { InitPixel } from '@/renderengine/init'
 import type { DataImage } from '@/scripts/listImage'
 
 const getClickerGetter = (pixel: InitPixel) => (nr: number) => (): void => {
@@ -12,7 +12,7 @@ const getClickerGetter = (pixel: InitPixel) => (nr: number) => (): void => {
 const getSlideName = (current: { name: string; niceName?: string }): string =>
   current.niceName || current.name
 
-export class Admin {
+class Admin {
   pixel: InitPixel
   getClicker: (nr: number) => () => void
   mainAdmin: HTMLDivElement
@@ -399,3 +399,5 @@ export class Admin {
 type KeysMatching<T, V> = {
   [K in keyof T]-?: T[K] extends V ? K : never
 }[keyof T]
+
+export default Admin

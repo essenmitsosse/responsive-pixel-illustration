@@ -1,4 +1,4 @@
-import { TableComic } from './main.js'
+import { TableComic } from './main'
 
 for (const key in TableComic.prototype) {
   TableComic.prototype[key].prototype.basic = TableComic.prototype

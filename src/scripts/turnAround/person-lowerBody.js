@@ -1,4 +1,4 @@
-import { BBObj } from './object.js'
+import { BBObj } from './object'
 
 // LOWER BODY  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 export const LowerBody = function (args) {

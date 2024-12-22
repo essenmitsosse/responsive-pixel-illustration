@@ -1,4 +1,4 @@
-import { BBObj } from './object.js'
+import { BBObj } from './object'
 
 // PERSON MAIN  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 export const PersonMain = function (args) {

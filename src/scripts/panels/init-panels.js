@@ -1,4 +1,4 @@
-import { Builder } from './builder.js'
+import { Builder } from './builder'
 
 function builderOld(init) {
   const builder = new Builder(init)

@@ -313,24 +313,6 @@ PixelGraphics.prototype.createVariableList = function (vl) {
   }
 }
 
-PixelGraphics.prototype.globalResizer = (function () {
-  const allCanvases = []
-
-  const resize = function () {
-    let l = allCanvases.length
-
-    while (l--) {
-      allCanvases[l]()
-    }
-  }
-
-  window.onresize = resize
-
-  return function (pixelGraphicResizer) {
-    allCanvases.push(pixelGraphicResizer)
-  }
-})()
-
 PixelGraphics.prototype.getRandom = (function () {
   const m = 2147483647
   const a = 16807

@@ -1,45 +1,49 @@
-export function Variable(args, name, pixelUnits) {
-  if (args) {
+class BaseVariable {
+  linkedP = []
+  l = 0
+  constructor(name) {
     this.name = name
+  }
 
-    this.vari = pixelUnits.createSize(args)
+  link(p) {
+    this.linkedP.push(p)
 
-    this.linkedP = []
-
-    this.l = 0
+    this.l += 1
   }
 }
 
-export function DynamicVariable(name) {
-  this.name = name
+export class Variable extends BaseVariable {
+  constructor(args, name, pixelUnits) {
+    super(name)
 
-  this.linkedP = []
+    if (args) {
+      this.vari = pixelUnits.createSize(args)
+    }
+  }
 
-  this.l = 0
-}
+  set() {
+    let { l } = this
 
-Variable.prototype.set = function () {
-  let { l } = this
+    const value = this.vari.getReal()
 
-  const value = this.vari.getReal()
+    while (l--) {
+      this.linkedP[l].abs = value
+    }
+  }
 
-  while (l--) {
-    this.linkedP[l].abs = value
+  link(p) {
+    this.linkedP.push(p)
+
+    this.l += 1
   }
 }
 
-Variable.prototype.link = function (p) {
-  this.linkedP.push(p)
+export class DynamicVariable extends BaseVariable {
+  set(value) {
+    let { l } = this
 
-  this.l += 1
-}
-
-DynamicVariable.prototype = new Variable()
-
-DynamicVariable.prototype.set = function (value) {
-  let { l } = this
-
-  while (l--) {
-    this.linkedP[l].abs = value
+    while (l--) {
+      this.linkedP[l].abs = value
+    }
   }
 }

@@ -27,6 +27,29 @@ const getRedraw = (options, resize) => (args) => {
   resize(args.width, args.height)
 }
 
+const joinObjects = function () {
+  const l = arguments.length
+
+  let count = 0
+
+  const newObj = {}
+
+  let key
+  let currentObj
+
+  while (count < l) {
+    currentObj = arguments[count]
+
+    for (key in currentObj) {
+      newObj[key] = currentObj[key]
+    }
+
+    count += 1
+  }
+
+  return newObj
+}
+
 export const PixelGraphics = function (options) {
   const that = this
   // Initialize PixelUnits with Variables
@@ -51,7 +74,7 @@ export const PixelGraphics = function (options) {
     finalRenderer.rescaleWindow()
 
     redraw(
-      that.joinObjects(options.sliderValues, options.queryString, {
+      joinObjects(options.sliderValues, options.queryString, {
         dontHighlight: true,
       }),
     )
@@ -311,29 +334,6 @@ PixelGraphics.prototype.createVariableList = function (vl) {
   for (key in vl) {
     newVL[key] = new Variable(vl[key], key)
   }
-}
-
-PixelGraphics.prototype.joinObjects = function () {
-  const l = arguments.length
-
-  let count = 0
-
-  const newObj = {}
-
-  let key
-  let currentObj
-
-  while (count < l) {
-    currentObj = arguments[count]
-
-    for (key in currentObj) {
-      newObj[key] = currentObj[key]
-    }
-
-    count += 1
-  }
-
-  return newObj
 }
 
 PixelGraphics.prototype.getPixelUnits = getPixelUnits

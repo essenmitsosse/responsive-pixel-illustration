@@ -205,9 +205,6 @@ const getCallback =
     rendererInit: (args: unknown) => ReturnType<PixelGraphics['callback']>
   }) =>
   (ImageFunction: ImageFunction): void => {
-    let imageFunction
-    let renderObject
-
     if (ImageFunction) {
       // if (args.context.createSlider) {
       // that.createSlider.title( { title: "Image Size" } );
@@ -215,13 +212,13 @@ const getCallback =
       // that.createSlider.slider( { niceName: "Height", 	 valueName: "height", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
       // }
 
-      imageFunction = ImageFunction(
+      const imageFunction = ImageFunction(
         args.queryString,
         args.currentSlide,
         args.context.createSlider,
       )
 
-      renderObject = {
+      const renderObject = {
         showInfos: false,
         slide: args.currentSlide,
         imageFunction,

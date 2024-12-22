@@ -46,10 +46,9 @@ export class PixelGraphics {
     const info = getInfo(options.queryString)
 
     this.callback = function (canvas) {
-      const isParent = options.queryString.parent
       const finalRenderer = new Renderer(canvas, info, options, that)
       const resize = that.getResize(options, info, finalRenderer.resize)
-      const redraw = getRedraw(options, resize, isParent)
+      const redraw = getRedraw(options, resize)
 
       info.logInitTime(Date.now() - startTime)
 

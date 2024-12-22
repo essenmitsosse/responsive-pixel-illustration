@@ -1,4 +1,4 @@
-export declare module './info' {
+export declare module './PixelGraphics' {
   class PixelGraphics {
     constructor(renderer: unknown)
 

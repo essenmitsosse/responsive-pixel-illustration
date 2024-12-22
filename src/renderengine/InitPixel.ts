@@ -4,7 +4,7 @@ import getObjectFromEntries from '@/lib/getObjectFromEntries'
 import listImage from '@/scripts/listImage'
 
 import Admin from './Admin'
-import { PixelGraphics } from './info'
+import { PixelGraphics } from './PixelGraphics'
 
 import type { CreateSlider } from '@/helper/typeSlider'
 import type { DataImage, ImageFunction } from '@/scripts/listImage'

@@ -1,4 +1,29 @@
-export const DrawingTools = function (pixelUnit, getRandom) {
+const getRandom = (() => {
+  const m = 2147483647
+  const a = 16807
+  const c = 17
+  const z = 3
+
+  let i = 0
+
+  return function (seed) {
+    let thisZ = seed || z
+
+    return {
+      one() {
+        return (thisZ = (a * thisZ + c) % m) / m
+      },
+      count(c) {
+        return Math.floor(((thisZ = (a * thisZ + c) % m) / m) * c)
+      },
+      seed() {
+        return (thisZ = (a * thisZ + c) % m) + (i += 1)
+      },
+    }
+  }
+})()
+
+export const DrawingTools = function (pixelUnit) {
   const that = this
 
   this.seed = (function (getRandom) {

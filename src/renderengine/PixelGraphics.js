@@ -313,31 +313,6 @@ PixelGraphics.prototype.createVariableList = function (vl) {
   }
 }
 
-PixelGraphics.prototype.getRandom = (function () {
-  const m = 2147483647
-  const a = 16807
-  const c = 17
-  const z = 3
-
-  let i = 0
-
-  return function (seed) {
-    let thisZ = seed || z
-
-    return {
-      one() {
-        return (thisZ = (a * thisZ + c) % m) / m
-      },
-      count(c) {
-        return Math.floor(((thisZ = (a * thisZ + c) % m) / m) * c)
-      },
-      seed() {
-        return (thisZ = (a * thisZ + c) % m) + (i += 1)
-      },
-    }
-  }
-})()
-
 PixelGraphics.prototype.joinObjects = function () {
   const l = arguments.length
 

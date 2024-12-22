@@ -24,6 +24,10 @@ export class Variable extends BaseVariable {
   set() {
     let { l } = this
 
+    if (this.vari === undefined) {
+      throw new Error('Unexpected Error: Variable is not defined')
+    }
+
     const value = this.vari.getReal()
 
     while (l--) {

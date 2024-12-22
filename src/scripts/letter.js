@@ -4,6 +4,7 @@ function letter(args, init, createSlider) {
   const hoverChangerStandard = getHoverChangerStandard()
   const backgroundColor = [200, 200, 240]
   const linkList = []
+
   const linkListPush = function (obj) {
     linkList.push(obj)
 
@@ -14,6 +15,7 @@ function letter(args, init, createSlider) {
   const height = linkListPush({ main: true, height: true })
   const halfHeight = { r: 0.5, useSize: height, a: -1 }
   const halfWidth = { r: 0.5, useSize: width, a: -1 }
+
   const square = linkListPush({
     add: [{ add: [width], max: height }],
     max: { add: [halfWidth], min: halfHeight },
@@ -22,6 +24,7 @@ function letter(args, init, createSlider) {
   const letterSquareMax = linkListPush({ r: 1, useSize: square })
   const letterSquare = linkListPush({ r: 1, useSize: letterSquareMax })
   const innerLetterSquare = linkListPush({ add: [letterSquare, -2] })
+
   const heightOvershot = linkListPush({
     add: [height, { r: -1, useSize: width }],
     min: { a: 0 },
@@ -51,6 +54,7 @@ function letter(args, init, createSlider) {
   const barSY_ = 0.06
   const serifeSX = linkListPush({ r: 0.5, useSize: innerLetterSquare, a: -1 })
   const stammX = linkListPush({ r: 0.25, useSize: serifeSX })
+
   const stammSX = linkListPush({
     add: [serifeSX, { r: -2, useSize: stammX }],
     min: 1,

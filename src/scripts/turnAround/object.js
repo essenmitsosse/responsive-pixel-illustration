@@ -155,6 +155,7 @@ BBObj.prototype.moveOut = function (args, rotate) {
   let diff
 
   const add = []
+
   const X = {
     add,
   }

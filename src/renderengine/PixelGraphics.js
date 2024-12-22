@@ -129,6 +129,7 @@ PixelGraphics.prototype.initUserInput = function (
 ) {
   const hasSomethingToHover = options.imageFunction.hover
   const that = this
+
   const changeImage = function changeImage(event, size) {
     let x = event.x || event.clientX
     let y = event.y || event.clientY
@@ -363,6 +364,7 @@ PixelGraphics.prototype.getDebug = function () {
 PixelGraphics.prototype.prepareVariableList = function (vl) {
   const that = this
   const vlLength = vl.length
+
   const calculate = function (dimensions) {
     let i = 0
 
@@ -511,6 +513,7 @@ PixelGraphics.prototype.createVariableList = function (vl) {
 
 PixelGraphics.prototype.globalResizer = (function () {
   const allCanvases = []
+
   const resize = function () {
     let l = allCanvases.length
 

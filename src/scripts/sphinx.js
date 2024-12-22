@@ -7,6 +7,7 @@ function sphinx() {
   const g3 = [170, 170, 170]
   const g4 = [255, 255, 255]
   const backgroundColor = g1
+
   const eye = [
     {
       minX: 3,
@@ -1044,6 +1045,7 @@ function sphinx() {
   ]
 
   const personRatio = 2.3
+
   const variableList = {
     fullRect: { r: 1, max: { r: 1, height: true } },
 

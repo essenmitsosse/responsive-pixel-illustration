@@ -30,6 +30,7 @@ export const getStory = function getStory() {
 
 getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
   const actor0StandUp = 0.1
+
   // emotion0 = actorsList.emotion0.renderObject,
   // emotion1 = actorsList.emotion1.renderObject,
   const actor0sitting = {
@@ -1579,6 +1580,7 @@ export const getColorScheme = function getColorScheme() {
 
 getColorScheme.prototype.getColor = function (args) {
   const shade = args.maxShade ? this.rFl(args.maxShade, 1) : args.shade
+
   const baseColor =
     this.colors[
       typeof args === 'number'

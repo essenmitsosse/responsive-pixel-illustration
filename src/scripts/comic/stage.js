@@ -37,6 +37,7 @@ Background.prototype.draw = function BackgroundDraw(args) {
   }))
 
   const stripeSX = this.pushLinkList({ r: 0.1, useSize: args.stageSX })
+
   const stripeFinalSX = (this.stripeFinalSX = this.pushLinkList({
     r: 1,
     useSize: stripeSX,

@@ -9,11 +9,13 @@ function builder(init, slide, createSlider) {
   const imgSX = builder.pushLinkList([width, { r: -2, useSize: borderS }])
   const imgSY = builder.pushLinkList([height, { r: -2, useSize: borderS }])
   const showPerson = slide.showPerson || init.showPerson
+
   const getPosition = (function () {
     const rFl = builder.basic.R
     const rIf = builder.basic.IF
     const rInt = builder.basic.GR
     const eyeLookVert = ['', '', '', 'left', 'right']
+
     const eyeLookHor = [
       '',
       '',
@@ -75,6 +77,7 @@ function builder(init, slide, createSlider) {
 
     const mouthWid = ['', '', '', 'narrow']
     const mouthForm = ['', '', '', 'sceptical', 'grin', 'D:']
+
     const legPos = [
       '',
       '',
@@ -163,6 +166,7 @@ function builder(init, slide, createSlider) {
     const square = builder.pushLinkList({ add: [sX], max: sY })
     const innerSquare = builder.pushLinkList({ r: 0.7, useSize: square })
     const SingleObject = showPerson ? builder.Person : builder.Tree
+
     const Tree1Family =
       !showPerson &&
       new builder.TreeFamily({

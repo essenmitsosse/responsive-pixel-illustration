@@ -95,6 +95,7 @@ test('interact with sliders', async ({ page }) => {
   await page.waitForURL('/?slide=9&*')
 
   const sliderTrack = page.locator('input[type="range"]').first()
+
   const sliderOffsetWidth = await sliderTrack.evaluate((el) =>
     el.getBoundingClientRect(),
   )
@@ -148,6 +149,7 @@ test('interact with sliders (Graeae)', async ({ page }) => {
   await page.waitForURL('/?slide=0')
 
   const inputs = page.locator('input[type="range"]')
+
   const sliderOffsetWidth0 = await inputs
     .nth(0)
     .evaluate((el) => el.getBoundingClientRect())

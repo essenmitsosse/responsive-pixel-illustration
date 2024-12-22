@@ -4,6 +4,7 @@ export const getSmallerDim = <TA, TUse>(
   x: SizeIn<TA, TUse>,
 ): SizeOut<TA, TUse> => {
   const o: SizeOut<TA, TUse> = { r: x.r }
+
   const max: Max = {
     r: x.r2 || x.r,
     otherDim: true,

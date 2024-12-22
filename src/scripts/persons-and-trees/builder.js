@@ -34,6 +34,7 @@ export const Builder = function (init) {
   const random = getRandom(initID)
   const linkList = []
   const hoverChangerStandard = getHoverChangerStandard()
+
   const pushLinkList = function (obj) {
     linkList.push(obj)
 
@@ -106,10 +107,12 @@ const buildColors = function (info) {
   let i = info.colors
 
   const colors = []
+
   const createColor = function () {
     const r = rInt(0, 200)
     const g = rInt(0, 200)
     const b = rInt(0, 200)
+
     const br = Math.sqrt(
       0.241 * Math.pow(r, 2) + 0.691 * Math.pow(g, 2) + 0.068 * Math.pow(b, 2),
     )

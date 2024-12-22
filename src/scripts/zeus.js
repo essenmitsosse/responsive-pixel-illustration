@@ -16,6 +16,7 @@ function zeus() {
   const fleshShadow = shadow(flesh)
   const hair = zeusShadow
   const cloth = eyes
+
   const arm = [
     { sX: 'arm' },
     { sY: 'arm' },
@@ -107,6 +108,7 @@ function zeus() {
   const beak = [{}, { fX: true, fY: true }, { fY: true }]
   const menLeg = [{}]
   const cowleg = [{}, { sY: { r: 1, otherDim: true }, fY: true, color: hair }]
+
   const beardSide = [
     {
       sY: { r: 0.3 },
@@ -153,6 +155,7 @@ function zeus() {
   ]
 
   const teeth = [{ points: [{}, { fX: true }, { fY: true, x: { r: 0.5 } }] }]
+
   const border = [
     { minY: 3, list: [{ color: backgroundColor, y: 1, sY: 1, mX: 1 }] },
     {
@@ -1179,6 +1182,7 @@ function zeus() {
 
   const imgDims = ['imgSX', 'imgSY']
   const motiveDims = ['motiveSX', 'motiveSY']
+
   const variableList = {
     width: { r: 1 },
     height: { r: 1, height: true },

@@ -46,6 +46,7 @@ export const TableComic = function (init, slide, createSlider) {
   const hoverChangerRelative = getHoverChangerRelative()
   const hoverChangerStandard = getHoverChangerStandard()
   const faceVersion = init.faceVersion || slide.faceVersion
+
   const linkList = [
     (sX = { main: true }),
     (sY = { main: true, height: true }),

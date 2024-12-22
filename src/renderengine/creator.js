@@ -31,6 +31,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     let colorArray
 
     const formSave = {}
+
     const getSet = function (color, zInd, id) {
       return function () {
         return colorArray.getSet(color, zInd, id)
@@ -678,6 +679,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     const width = this.width ? this.width.getReal() : 1
     const height = this.height ? this.height.getReal() : 1
     const sizeRandom = this.sizeRandom ? this.sizeRandom.getReal() + 1 : false
+
     const heightRandom = this.heightRandom
       ? this.heightRandom.getReal() + 1
       : false
@@ -1035,6 +1037,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     }
 
     const lengthChange = this.lengthChange ? this.lengthChange.getReal() : 0
+
     const lengthChangeStep =
       (lengthChange /
         (this.horizontal ? dimensions.height : dimensions.width)) *
@@ -1078,6 +1081,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
 
     const end = this.horizontal ? endY : endX
     const random = this.random ? this.random().one : false
+
     const stripWidthRandom = this.stripWidthRandom
       ? this.stripWidthRandom.getReal() + 1
       : 0
@@ -1093,6 +1097,7 @@ export const DrawingTools = function (pixelUnit, getRandom) {
     let l
 
     const length = this.args.list ? this.args.list.length : 0
+
     const draw = this.getDraw(
       this.args.list
         ? pixelUnit.push

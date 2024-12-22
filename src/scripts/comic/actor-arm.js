@@ -40,6 +40,7 @@ Arm.prototype.draw = function ArmDraw(args) {
   }))
 
   const upperArmS = this.pushLinkList({ r: 0.1, useSize: armSY, min: 1 })
+
   const armSHalf = (this.armSHalf = this.pushLinkList({
     r: 0.5,
     useSize: upperArmS,

@@ -13,6 +13,7 @@ function typo() {
   const roundSerif = true
   const middleStemLength = 0.8
   const serifWidth = 0.6
+
   const getSerif = serif
     ? function (args) {
         args = args || {}

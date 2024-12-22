@@ -363,6 +363,7 @@ export const getPixelUnits = function () {
       set(dimensions) {
         const x = dimensions.posX || 0
         const y = dimensions.posY || 0
+
         const getRealPos = function (add) {
           return add
             ? function () {
@@ -407,6 +408,7 @@ export const getPixelUnits = function () {
 
   const Axis = (function () {
     const D = oneD
+
     const createAxis = function (Size, Pos) {
       return function (args) {
         this.pos = new Pos(args.pos)
@@ -568,9 +570,11 @@ export const getPixelUnits = function () {
     const A = Axis
     const XAxis = A.X
     const YAxis = A.Y
+
     const Position = function (args, reflectX, reflectY, rotate) {
       const fromRight = (args.fX || false) !== reflectX
       const fromBottom = (args.fY || false) !== reflectY
+
       const x = new A.PosX(
         rotate
           ? {

@@ -9,6 +9,7 @@ export const Renderer = function (canvas, info, options, pixelStarter) {
   let h
 
   const drawer = this.getDrawer(pixelStarter, options.imageFunction.renderList)
+
   const renderPixelToImage = this.getRenderPixelToImage(
     options.imageFunction.background,
   )
@@ -23,6 +24,7 @@ export const Renderer = function (canvas, info, options, pixelStarter) {
     resize: function resize(widthFactor, heightFactor) {
       const countW = Math.round(((widthFactor || 1) * w) / pixelSize)
       const countH = Math.round(((heightFactor || 1) * h) / pixelSize)
+
       const image =
         countW && countH && virtaulContext.createImageData(countW, countH)
 
@@ -393,6 +395,7 @@ Renderer.prototype.getDrawer = function (pixelStarter, renderList) {
   // Initialize the drawingTool
   const that = this
   const pixelUnit = pixelStarter.pixelUnits
+
   const drawingTool = new pixelStarter.DrawingTools(
     pixelUnit,
     pixelStarter.getRandom,

@@ -9,6 +9,7 @@ export const Comic = function (init) {
   const list = []
   const args = {}
   const panels = this.IF(0.05) ? 1 : this.GR(3, 6)
+
   const borderColor = (args.borderColor = new this.Color(
     this.IF() ? 1 : 0,
     this.IF(0.1) ? (this.IF(0.5) ? 2 : 3) : this.IF(0.5) ? 5 : 0,
@@ -311,6 +312,7 @@ Panel.prototype.draw = function (args) {
   const closeUp = this.IF(0.1)
   const wideShot = !closeUp && this.IF(0.2)
   const superWideShot = !closeUp && !wideShot && this.IF(0.1)
+
   const actionBackground =
     this.IF(0.01 + (closeUp ? 0.3 : 0) + (wideShot ? 0.05 : 0)) &&
     this.skyColor.copy({ nextColor: true, brSet: this.GR(0, 5) })
@@ -530,6 +532,7 @@ Actor.prototype = new Object()
 Actor.prototype.draw = function (args, z, size) {
   const eyeLookVert = ['', '', '', 'left', 'right']
   const eyeLookHor = ['', '', '', '', '', 'up', 'down', 'up', 'down', 'verDown']
+
   const eyeLids = [
     '',
     '',
@@ -580,6 +583,7 @@ Actor.prototype.draw = function (args, z, size) {
   const mouthForm = ['', '', '', 'sceptical', 'grin', 'D:']
   const teethPos = ['', 'top', 'bottom', 'both', 'full']
   const legPos = ['', '', '', '', '', '', '', '', '', '', '', 'legRaise']
+
   const views = [
     '',
     '',

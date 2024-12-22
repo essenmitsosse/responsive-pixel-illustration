@@ -17,6 +17,7 @@ function randomDistribution(init) {
   const maxG = random.getRandom(minG, 255)
   const minB = random.getRandom(0, 200)
   const maxB = random.getRandom(minB, 255)
+
   const renderList = (function () {
     const count = random.getRandom(5, 20)
     const s_ = 1 / (count - 1)
@@ -26,6 +27,7 @@ function randomDistribution(init) {
     let s
 
     const list = []
+
     const getSquare = function () {
       let innerS
 

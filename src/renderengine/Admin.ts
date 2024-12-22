@@ -90,6 +90,7 @@ class Admin {
     })
 
     const slidersDivList = slidersDiv.list
+
     const sliderObject: Record<
       string,
       (setValue: number, dontForce: boolean) => void
@@ -101,6 +102,7 @@ class Admin {
 
     const getSliderControl = this.getSliderControlGetter()
     const [body] = document.getElementsByTagName('body')
+
     const getBasicWrapper = (
       objects: ReadonlyArray<HTMLElement>,
       name: string,
@@ -243,6 +245,7 @@ class Admin {
         const outputMap = args.output || { min: 0, max: 1 }
         const outputMin = outputMap.min
         const outputFactor = (outputMap.max - outputMin) / diff
+
         const updateInfoSpan = (): void => {
           span.innerHTML = `${Math.round(value * 10) / 10}`
 

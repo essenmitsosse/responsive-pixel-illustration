@@ -341,6 +341,7 @@ Panel.prototype.draw = function (args) {
   let current
 
   const renderList = []
+
   const drawInfo = {
     stageSX: this.stageSX,
     stageSY: this.stageSY,

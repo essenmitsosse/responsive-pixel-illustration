@@ -61,6 +61,7 @@ Arm.prototype = new Object()
 Arm.prototype.draw = function (args, rightSide, behind) {
   const name = rightSide ? 'right' : 'left'
   const nrName = name + args.nr
+
   const renderFromRight = args.sideView
     ? rightSide
     : args.right !== args.backView

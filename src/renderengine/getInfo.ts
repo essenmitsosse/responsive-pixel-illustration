@@ -1,12 +1,12 @@
 import getObjectEntries from '@/lib/getObjectEntries'
 
-export type Info = {
+const getInfo = (options: {
+  showInfos?: boolean
+}): {
   change: (name: string, value: string) => void
   logInitTime: (initTime: number) => void
   logRenderTime: (draw: number, fullDuration: number) => void
-}
-
-const getInfo = (options: { showInfos?: boolean }): Info => {
+} => {
   const logs: Record<string, string> = {}
 
   let initString: string

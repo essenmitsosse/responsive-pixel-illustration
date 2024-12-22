@@ -4,10 +4,8 @@ import getObjectFromEntries from '@/lib/getObjectFromEntries'
 import listImage from '@/scripts/listImage'
 
 import Admin from './Admin'
-import getInfo from './getInfo'
 import { PixelGraphics } from './PixelGraphics'
 
-import type { Info } from './getInfo'
 import type { CreateSlider } from '@/helper/typeSlider'
 import type { DataImage, ImageFunction } from '@/scripts/listImage'
 
@@ -125,7 +123,6 @@ const getCallback =
     context: InitPixel
     currentSlide: DataImage
     imageName: string
-    info: Info
     queryString: Record<string, boolean | number | undefined>
     rendererInit: (args: unknown) => ReturnType<PixelGraphics['callback']>
   }) =>
@@ -159,7 +156,6 @@ const getCallback =
             1,
         sliderObject: args.context.sliderObject,
         sliderValues: args.context.sliderValues,
-        info: args.info,
         init: args.context,
       }
 
@@ -224,7 +220,6 @@ export class InitPixel {
       queryString: this.queryString,
       imageName,
       currentSlide,
-      info: getInfo(this.queryString),
     })
 
     loadScript(callback, currentSlide)

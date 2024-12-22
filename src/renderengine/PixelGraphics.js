@@ -1,3 +1,5 @@
+import getInfo from '@/renderengine/getInfo'
+
 import { DrawingTools } from './creator'
 import { getPixelUnits } from './pixel'
 import { Renderer } from './renderer'
@@ -41,13 +43,15 @@ export class PixelGraphics {
       this.prepareVariableList(options.imageFunction.linkList)
     }
 
+    const info = getInfo(options.queryString)
+
     this.callback = function (canvas) {
       const isParent = options.queryString.parent
-      const finalRenderer = new Renderer(canvas, options.info, options, that)
-      const resize = that.getResize(options, options.info, finalRenderer.resize)
+      const finalRenderer = new Renderer(canvas, info, options, that)
+      const resize = that.getResize(options, info, finalRenderer.resize)
       const redraw = getRedraw(options, resize, isParent)
 
-      options.info.logInitTime(Date.now() - startTime)
+      info.logInitTime(Date.now() - startTime)
 
       finalRenderer.rescaleWindow()
 

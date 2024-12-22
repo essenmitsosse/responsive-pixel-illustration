@@ -60,7 +60,7 @@ export class PixelGraphics {
         dontHighlight: true,
       })
 
-      window.onresize = function () {
+      window.onresize = () => {
         finalRenderer.rescaleWindow()
 
         resize()
@@ -84,7 +84,7 @@ export class PixelGraphics {
     let needsToResize = false
     let resizeBlock = false
 
-    const resetResizeBlock = function () {
+    const resetResizeBlock = () => {
       resizeBlock = false
 
       if (needsToResize) {
@@ -92,7 +92,7 @@ export class PixelGraphics {
       }
     }
 
-    const resize = function (w, h) {
+    const resize = (w, h) => {
       const time = Date.now()
 
       // Render the actual image. This takes very long!
@@ -106,7 +106,7 @@ export class PixelGraphics {
       needsToResize = false
     }
 
-    return function checkIfResizeShouldBeDone(w, h) {
+    return (w, h) => {
       needsToResize = true
 
       if (!resizeBlock) {
@@ -127,7 +127,7 @@ export class PixelGraphics {
     const hasSomethingToHover = options.imageFunction.hover
     const that = this
 
-    const changeImage = function changeImage(event, size) {
+    const changeImage = (event, size) => {
       let x = event.x || event.clientX
       let y = event.y || event.clientY
 
@@ -142,7 +142,7 @@ export class PixelGraphics {
       )
     }
 
-    const mouseMove = function (event, size) {
+    const mouseMove = (event, size) => {
       if (
         options.queryString.resizeable ||
         (!unchangeable && (size || hasSomethingToHover))
@@ -151,7 +151,7 @@ export class PixelGraphics {
       }
     }
 
-    const touchMove = function (event) {
+    const touchMove = (event) => {
       event.preventDefault()
 
       mouseMove(event.changedTouches[0], true)
@@ -166,7 +166,7 @@ export class PixelGraphics {
     const that = this
     const vlLength = vl.length
 
-    const calculate = function (dimensions) {
+    const calculate = (dimensions) => {
       let i = 0
 
       const vll = vlLength
@@ -188,19 +188,17 @@ export class PixelGraphics {
 
     if (vlLength > 0) {
       // Prepare
-      function doAddVariable(vl, vll) {
+      const doAddVariable = (vl, vll) => {
         let i = 0
         let current
 
-        const getLinkedVariable = function (args) {
-          return function () {
-            if (!args.calculated) {
-              args.calculated = true
+        const getLinkedVariable = (args) => () => {
+          if (!args.calculated) {
+            args.calculated = true
 
-              return (args.real = args.s.getReal())
-            } else {
-              return args.real
-            }
+            return (args.real = args.s.getReal())
+          } else {
+            return args.real
           }
         }
 
@@ -233,7 +231,7 @@ export class PixelGraphics {
 
     let key
 
-    const updater = function () {
+    const updater = () => {
       let key
 
       for (key in vl) {
@@ -241,7 +239,7 @@ export class PixelGraphics {
       }
     }
 
-    const link = function (name, vari) {
+    const link = (name, vari) => {
       if (newVL[name]) {
         newVL[name].link(vari)
       } else {
@@ -251,7 +249,7 @@ export class PixelGraphics {
       }
     }
 
-    const creator = function (name) {
+    const creator = (name) => {
       if (!newVL[name]) {
         newVL[name] = new DynamicVariable(name)
       }
@@ -259,7 +257,7 @@ export class PixelGraphics {
       return newVL[name]
     }
 
-    const Variable = function (args, name) {
+    function Variable(args, name) {
       if (args) {
         this.name = name
 
@@ -271,7 +269,7 @@ export class PixelGraphics {
       }
     }
 
-    const DynamicVariable = function (name) {
+    function DynamicVariable(name) {
       this.name = name
 
       this.linkedP = []

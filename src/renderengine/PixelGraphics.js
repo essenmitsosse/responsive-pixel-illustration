@@ -164,13 +164,9 @@ export class PixelGraphics {
 
   prepareVariableList(vl) {
     const that = this
-    const vlLength = vl.length
 
     const calculate = (dimensions) => {
       let i = 0
-
-      const vll = vlLength
-
       let current
 
       do {
@@ -183,10 +179,10 @@ export class PixelGraphics {
         } else {
           current.calculated = current.autoUpdate
         }
-      } while ((i += 1) < vll)
+      } while ((i += 1) < vl.length)
     }
 
-    if (vlLength > 0) {
+    if (vl.length > 0) {
       // Prepare
       const doAddVariable = (vl, vll) => {
         let i = 0
@@ -219,7 +215,7 @@ export class PixelGraphics {
         } while ((i += 1) < vll)
       }
 
-      doAddVariable(vl, vlLength)
+      doAddVariable(vl, vl.length)
 
       that.pixelUnits.linkList(calculate)
     }

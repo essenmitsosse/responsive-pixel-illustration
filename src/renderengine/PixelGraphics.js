@@ -30,6 +30,38 @@ const getRedraw = (options, resize) => (args) => {
   resize(args.width, args.height)
 }
 
+// Prepare
+const doAddVariable = (vl, vll, pixelUnits) => {
+  let i = 0
+  let current
+
+  const getLinkedVariable = (args) => () => {
+    if (!args.calculated) {
+      args.calculated = true
+
+      return (args.real = args.s.getReal())
+    } else {
+      return args.real
+    }
+  }
+
+  do {
+    current = vl[i]
+
+    if (!current.s) {
+      if (!current.autoUpdate) {
+        current.autoUpdate = false
+
+        current.s = pixelUnits.createSize(current)
+      } else {
+        current.calculated = true
+      }
+
+      current.getLinkedVariable = getLinkedVariable(current)
+    }
+  } while ((i += 1) < vll)
+}
+
 export class PixelGraphics {
   constructor(options) {
     const that = this
@@ -186,39 +218,7 @@ export class PixelGraphics {
       } while ((i += 1) < vl.length)
     }
 
-    // Prepare
-    const doAddVariable = (vl, vll) => {
-      let i = 0
-      let current
-
-      const getLinkedVariable = (args) => () => {
-        if (!args.calculated) {
-          args.calculated = true
-
-          return (args.real = args.s.getReal())
-        } else {
-          return args.real
-        }
-      }
-
-      do {
-        current = vl[i]
-
-        if (!current.s) {
-          if (!current.autoUpdate) {
-            current.autoUpdate = false
-
-            current.s = that.pixelUnits.createSize(current)
-          } else {
-            current.calculated = true
-          }
-
-          current.getLinkedVariable = getLinkedVariable(current)
-        }
-      } while ((i += 1) < vll)
-    }
-
-    doAddVariable(vl, vl.length)
+    doAddVariable(vl, vl.length, that.pixelUnits)
 
     that.pixelUnits.linkList(calculate)
   }

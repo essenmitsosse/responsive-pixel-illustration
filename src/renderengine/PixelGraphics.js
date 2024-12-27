@@ -33,13 +33,13 @@ const getRedraw = (options, resize) => (args) => {
 // Prepare
 const doAddVariable = (vl, pixelUnits) => {
   const getLinkedVariable = (args) => () => {
-    if (!args.calculated) {
-      args.calculated = true
-
-      return (args.real = args.s.getReal())
-    } else {
+    if (args.calculated) {
       return args.real
     }
+
+    args.calculated = true
+
+    return (args.real = args.s.getReal())
   }
 
   vl.forEach((current) => {

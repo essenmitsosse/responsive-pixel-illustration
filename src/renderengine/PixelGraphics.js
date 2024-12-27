@@ -32,9 +32,6 @@ const getRedraw = (options, resize) => (args) => {
 
 // Prepare
 const doAddVariable = (vl, pixelUnits) => {
-  let i = 0
-  let current
-
   const getLinkedVariable = (args) => () => {
     if (!args.calculated) {
       args.calculated = true
@@ -45,21 +42,21 @@ const doAddVariable = (vl, pixelUnits) => {
     }
   }
 
-  do {
-    current = vl[i]
-
-    if (!current.s) {
-      if (!current.autoUpdate) {
-        current.autoUpdate = false
-
-        current.s = pixelUnits.createSize(current)
-      } else {
-        current.calculated = true
-      }
-
-      current.getLinkedVariable = getLinkedVariable(current)
+  vl.forEach((current) => {
+    if (current.s) {
+      return
     }
-  } while ((i += 1) < vl.length)
+
+    if (!current.autoUpdate) {
+      current.autoUpdate = false
+
+      current.s = pixelUnits.createSize(current)
+    } else {
+      current.calculated = true
+    }
+
+    current.getLinkedVariable = getLinkedVariable(current)
+  })
 }
 
 export class PixelGraphics {

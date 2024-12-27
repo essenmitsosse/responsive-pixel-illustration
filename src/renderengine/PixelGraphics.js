@@ -31,7 +31,7 @@ const getRedraw = (options, resize) => (args) => {
 }
 
 // Prepare
-const doAddVariable = (vl, vll, pixelUnits) => {
+const doAddVariable = (vl, pixelUnits) => {
   let i = 0
   let current
 
@@ -59,7 +59,7 @@ const doAddVariable = (vl, vll, pixelUnits) => {
 
       current.getLinkedVariable = getLinkedVariable(current)
     }
-  } while ((i += 1) < vll)
+  } while ((i += 1) < vl.length)
 }
 
 export class PixelGraphics {
@@ -218,7 +218,7 @@ export class PixelGraphics {
       } while ((i += 1) < vl.length)
     }
 
-    doAddVariable(vl, vl.length, that.pixelUnits)
+    doAddVariable(vl, that.pixelUnits)
 
     that.pixelUnits.linkList(calculate)
   }

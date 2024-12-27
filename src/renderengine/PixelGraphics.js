@@ -129,14 +129,13 @@ export class PixelGraphics {
     const that = this
 
     const changeImage = (event, size) => {
-      let x = event.x || event.clientX
-      let y = event.y || event.clientY
+      if (that.canvasSize === undefined) {
+        return
+      }
 
-      const alt = event.altKey
-
-      x /= that.canvasSize[0]
-
-      y /= that.canvasSize[1]
+      const x = ('x' in event ? event.x : event.clientX) / that.canvasSize[0]
+      const y = ('y' in event ? event.y : event.clientY) / that.canvasSize[1]
+      const alt = 'altKey' in event ? event.altKey : false
 
       redraw(
         size ? { width: x, height: y } : alt ? { c: x, d: y } : { a: x, b: y },

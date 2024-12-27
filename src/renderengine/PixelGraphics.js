@@ -59,6 +59,23 @@ const doAddVariable = (vl, pixelUnits) => {
   })
 }
 
+const getCalculate = (vl) => (dimensions) => {
+  let i = 0
+  let current
+
+  do {
+    current = vl[i]
+
+    if (current.main) {
+      current.calculated = true
+
+      current.real = dimensions[current.height ? 'height' : 'width']
+    } else {
+      current.calculated = current.autoUpdate
+    }
+  } while ((i += 1) < vl.length)
+}
+
 export class PixelGraphics {
   constructor(options) {
     const that = this
@@ -196,26 +213,9 @@ export class PixelGraphics {
       return
     }
 
-    const calculate = (dimensions) => {
-      let i = 0
-      let current
-
-      do {
-        current = vl[i]
-
-        if (current.main) {
-          current.calculated = true
-
-          current.real = dimensions[current.height ? 'height' : 'width']
-        } else {
-          current.calculated = current.autoUpdate
-        }
-      } while ((i += 1) < vl.length)
-    }
-
     doAddVariable(vl, this.pixelUnits)
 
-    this.pixelUnits.linkList(calculate)
+    this.pixelUnits.linkList(getCalculate(vl))
   }
 
   createVariableList(vl) {

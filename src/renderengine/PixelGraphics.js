@@ -59,13 +59,8 @@ const doAddVariable = (vl, pixelUnits) => {
   })
 }
 
-const getCalculate = (vl) => (dimensions) => {
-  let i = 0
-  let current
-
-  do {
-    current = vl[i]
-
+const getCalculate = (vl) => (dimensions) =>
+  vl.forEach((current) => {
     if (current.main) {
       current.calculated = true
 
@@ -73,8 +68,7 @@ const getCalculate = (vl) => (dimensions) => {
     } else {
       current.calculated = current.autoUpdate
     }
-  } while ((i += 1) < vl.length)
-}
+  })
 
 export class PixelGraphics {
   constructor(options) {

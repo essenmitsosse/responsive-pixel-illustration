@@ -196,8 +196,6 @@ export class PixelGraphics {
       return
     }
 
-    const that = this
-
     const calculate = (dimensions) => {
       let i = 0
       let current
@@ -215,9 +213,9 @@ export class PixelGraphics {
       } while ((i += 1) < vl.length)
     }
 
-    doAddVariable(vl, that.pixelUnits)
+    doAddVariable(vl, this.pixelUnits)
 
-    that.pixelUnits.linkList(calculate)
+    this.pixelUnits.linkList(calculate)
   }
 
   createVariableList(vl) {

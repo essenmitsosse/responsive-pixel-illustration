@@ -39,6 +39,13 @@ const doAddVariable = (vl, pixelUnits) => {
 
     args.calculated = true
 
+    // TODO: Remove this check, that shouldn't be necessary
+    if (args.s === undefined) {
+      throw new Error(
+        "Unexpected error: `s` isn't defined, which should never happen.",
+      )
+    }
+
     return (args.real = args.s.getReal())
   }
 

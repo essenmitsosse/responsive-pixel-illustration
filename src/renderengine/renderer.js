@@ -1,3 +1,5 @@
+import Color from '@/renderengine/Color'
+
 export const Renderer = function (canvas, info, options, pixelStarter) {
   // Render Engine to convert basic image into absolute Pixels
   const context = canvas.getContext('2d')
@@ -82,38 +84,6 @@ export const Renderer = function (canvas, info, options, pixelStarter) {
 
       return [w, h, time]
     },
-  }
-}
-
-function Color() {
-  this.s = []
-}
-
-Color.prototype.draw = function (c, zInd, id) {
-  let i = this.s.length - 1
-
-  const { s } = this
-
-  let oldZInd
-
-  if (i === -1 || (oldZInd = s[i].zInd) < zInd) {
-    s.push({ id, c, zInd })
-  } else {
-    if (oldZInd !== zInd) {
-      do {
-        if (s[i].zInd < zInd) {
-          break
-        }
-      } while (i--)
-
-      s.splice(i + 1, 0, { id, c, zInd })
-    }
-  }
-}
-
-Color.prototype.clear = function (id) {
-  while (this.s.length > 0 && this.s[this.s.length - 1].id === id) {
-    this.s.pop()
   }
 }
 

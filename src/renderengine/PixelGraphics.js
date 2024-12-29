@@ -78,7 +78,7 @@ export class PixelGraphics {
 
     this.pixelUnits = pU
 
-    this.createVariableList(options.imageFunction.variableList || [])
+    this.createVariableList(options.imageFunction.variableList)
 
     if (options.imageFunction.linkList) {
       this.prepareVariableList(options.imageFunction.linkList)
@@ -212,7 +212,7 @@ export class PixelGraphics {
     this.pixelUnits.linkList(getCalculate(vl))
   }
 
-  createVariableList(vl) {
+  createVariableList(vl = {}) {
     const that = this
     const newVL = {}
 

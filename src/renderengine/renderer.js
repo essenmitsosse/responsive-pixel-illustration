@@ -105,7 +105,7 @@ const getPixelArray = (width, height) => {
   return colorArray
 }
 
-Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
+const createPixelArray = (canvasWidth, canvasHeight) => {
   // Create PixelArray
   const pixelArray = getPixelArray(canvasWidth, canvasHeight)
 
@@ -363,13 +363,12 @@ Renderer.prototype.getRenderPixelToImage = function (backgroundColor) {
 
 Renderer.prototype.getDrawer = function (pixelStarter, renderList) {
   // Initialize the drawingTool
-  const that = this
   const pixelUnit = pixelStarter.pixelUnits
   const drawingTool = new pixelStarter.DrawingTools(pixelUnit)
   const canvasTool = new drawingTool.Obj().create({ list: renderList })
 
   return function drawer(countW, countH) {
-    const pixelArray = that.createPixelArray(countW, countH)
+    const pixelArray = createPixelArray(countW, countH)
 
     drawingTool.init(countW, countH, pixelArray)
 

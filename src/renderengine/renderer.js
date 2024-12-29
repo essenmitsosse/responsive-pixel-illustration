@@ -87,7 +87,7 @@ export const Renderer = function (canvas, info, options, pixelStarter) {
   }
 }
 
-Renderer.prototype.getPixelArray = function (width, height) {
+const getPixelArray = (width, height) => {
   let countH
 
   const colorArray = []
@@ -107,7 +107,7 @@ Renderer.prototype.getPixelArray = function (width, height) {
 
 Renderer.prototype.createPixelArray = function (canvasWidth, canvasHeight) {
   // Create PixelArray
-  const pixelArray = this.getPixelArray(canvasWidth, canvasHeight)
+  const pixelArray = getPixelArray(canvasWidth, canvasHeight)
 
   let minX = 0
   let minY = 0

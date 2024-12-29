@@ -1,92 +1,5 @@
 import Color from '@/renderengine/Color'
 
-export const Renderer = function (canvas, info, options, pixelStarter) {
-  // Render Engine to convert basic image into absolute Pixels
-  const context = canvas.getContext('2d')
-  const virtualCanvas = document.createElement('canvas')
-  const virtaulContext = virtualCanvas.getContext('2d')
-  const { pixelSize } = options
-
-  let w
-  let h
-
-  const drawer = this.getDrawer(pixelStarter, options.imageFunction.renderList)
-
-  const renderPixelToImage = this.getRenderPixelToImage(
-    options.imageFunction.background,
-  )
-
-  return {
-    rescaleWindow() {
-      w = canvas.offsetWidth
-
-      h = canvas.offsetHeight
-    },
-
-    resize: function resize(widthFactor, heightFactor) {
-      const countW = Math.round(((widthFactor || 1) * w) / pixelSize)
-      const countH = Math.round(((heightFactor || 1) * h) / pixelSize)
-
-      const image =
-        countW && countH && virtaulContext.createImageData(countW, countH)
-
-      let drawing
-      let time = -1
-
-      if (image && countW > 0 && countH > 0) {
-        // Resize Canvas to new Windows-Size
-        virtualCanvas.width = countW
-
-        virtualCanvas.height = countH
-
-        canvas.width = w
-
-        canvas.height = h
-
-        // Disable Anti-Alaising
-        context.mozImageSmoothingEnabled = false
-
-        context.oImageSmoothingEnabled = false
-
-        context.webkitImageSmoothingEnabled = false
-
-        context.msImageSmoothingEnabled = false
-
-        context.imageSmoothingEnabled = false
-
-        // Render the Image Data to the Pixel Array
-        time = Date.now()
-
-        drawing = drawer(countW, countH).get
-
-        time = Date.now() - time
-
-        // Render the Pixel Array to the Image
-        renderPixelToImage(countW, countH, drawing, image.data)
-
-        // Place Image on the Context
-        virtaulContext.putImageData(image, 0, 0)
-
-        // Draw and upscale Context on Canvas
-        context.drawImage(
-          virtualCanvas,
-          0,
-          0,
-          countW * pixelSize,
-          countH * pixelSize,
-        )
-
-        // // Log some general Infos for debugging
-        // info.change( "Dimensions", w + "px &times; " + h + "px (" + countW + "px &times; " + countH + "px)" );
-        // info.change( "Pixel Count", Math.floor ( ( w * h ) / 1000 ) + "kpx ("+ Math.floor( ( countW * countH ) / 1000 ) + "kpx)" );
-        // info.change( "Pixel-Size", realPixelSize + " px" );
-      }
-
-      return [w, h, time]
-    },
-  }
-}
-
 const getPixelArray = (width, height) => {
   let countH
 
@@ -301,6 +214,110 @@ const createPixelArray = (canvasWidth, canvasHeight) => {
   }
 }
 
+const getDrawer = (pixelStarter, renderList) => {
+  // Initialize the drawingTool
+  const pixelUnit = pixelStarter.pixelUnits
+  const drawingTool = new pixelStarter.DrawingTools(pixelUnit)
+  const canvasTool = new drawingTool.Obj().create({ list: renderList })
+
+  return function drawer(countW, countH) {
+    const pixelArray = createPixelArray(countW, countH)
+
+    drawingTool.init(countW, countH, pixelArray)
+
+    canvasTool.draw()
+
+    return pixelArray
+  }
+}
+
+export const Renderer = function (canvas, info, options, pixelStarter) {
+  // Render Engine to convert basic image into absolute Pixels
+  const context = canvas.getContext('2d')
+  const virtualCanvas = document.createElement('canvas')
+  const virtaulContext = virtualCanvas.getContext('2d')
+  const { pixelSize } = options
+
+  let w
+  let h
+
+  const drawer = getDrawer(pixelStarter, options.imageFunction.renderList)
+
+  const renderPixelToImage = this.getRenderPixelToImage(
+    options.imageFunction.background,
+  )
+
+  return {
+    rescaleWindow() {
+      w = canvas.offsetWidth
+
+      h = canvas.offsetHeight
+    },
+
+    resize: function resize(widthFactor, heightFactor) {
+      const countW = Math.round(((widthFactor || 1) * w) / pixelSize)
+      const countH = Math.round(((heightFactor || 1) * h) / pixelSize)
+
+      const image =
+        countW && countH && virtaulContext.createImageData(countW, countH)
+
+      let drawing
+      let time = -1
+
+      if (image && countW > 0 && countH > 0) {
+        // Resize Canvas to new Windows-Size
+        virtualCanvas.width = countW
+
+        virtualCanvas.height = countH
+
+        canvas.width = w
+
+        canvas.height = h
+
+        // Disable Anti-Alaising
+        context.mozImageSmoothingEnabled = false
+
+        context.oImageSmoothingEnabled = false
+
+        context.webkitImageSmoothingEnabled = false
+
+        context.msImageSmoothingEnabled = false
+
+        context.imageSmoothingEnabled = false
+
+        // Render the Image Data to the Pixel Array
+        time = Date.now()
+
+        drawing = drawer(countW, countH).get
+
+        time = Date.now() - time
+
+        // Render the Pixel Array to the Image
+        renderPixelToImage(countW, countH, drawing, image.data)
+
+        // Place Image on the Context
+        virtaulContext.putImageData(image, 0, 0)
+
+        // Draw and upscale Context on Canvas
+        context.drawImage(
+          virtualCanvas,
+          0,
+          0,
+          countW * pixelSize,
+          countH * pixelSize,
+        )
+
+        // // Log some general Infos for debugging
+        // info.change( "Dimensions", w + "px &times; " + h + "px (" + countW + "px &times; " + countH + "px)" );
+        // info.change( "Pixel Count", Math.floor ( ( w * h ) / 1000 ) + "kpx ("+ Math.floor( ( countW * countH ) / 1000 ) + "kpx)" );
+        // info.change( "Pixel-Size", realPixelSize + " px" );
+      }
+
+      return [w, h, time]
+    },
+  }
+}
+
 Renderer.prototype.getRenderPixelToImage = function (backgroundColor) {
   return function renderPixelToImage(pixelW, pixelH, pixelArray, imageData) {
     let pW = pixelW
@@ -358,22 +375,5 @@ Renderer.prototype.getRenderPixelToImage = function (backgroundColor) {
     }
 
     return imageData
-  }
-}
-
-Renderer.prototype.getDrawer = function (pixelStarter, renderList) {
-  // Initialize the drawingTool
-  const pixelUnit = pixelStarter.pixelUnits
-  const drawingTool = new pixelStarter.DrawingTools(pixelUnit)
-  const canvasTool = new drawingTool.Obj().create({ list: renderList })
-
-  return function drawer(countW, countH) {
-    const pixelArray = createPixelArray(countW, countH)
-
-    drawingTool.init(countW, countH, pixelArray)
-
-    canvasTool.draw()
-
-    return pixelArray
   }
 }

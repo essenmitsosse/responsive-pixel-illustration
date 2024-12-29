@@ -90,14 +90,14 @@ const getHoverChangerStandard = (): {
     },
     doHover: (args: Record<string, number>): void => {
       listChangerStandard.forEach((current) => {
-        if (args[current.map] === undefined) {
+        const value = args[current.map]
+
+        // TODO: Shouldn't need to check for `number`
+        if (value === undefined || typeof value !== 'number') {
           return
         }
 
-        setValue(
-          current.variable,
-          current.min + current.change * args[current.map],
-        )
+        setValue(current.variable, current.min + current.change * value)
       })
     },
   }

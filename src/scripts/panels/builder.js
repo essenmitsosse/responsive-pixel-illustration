@@ -95,10 +95,12 @@ const buildColors = function (info) {
   let i = info.colors
 
   const colors = []
+
   const createColor = function () {
     const r = that.R(0, 200)
     const g = that.R(0, 200)
     const b = that.R(0, 200)
+
     const br = Math.sqrt(
       0.241 * Math.pow(r, 2) + 0.691 * Math.pow(g, 2) + 0.068 * Math.pow(b, 2),
     )

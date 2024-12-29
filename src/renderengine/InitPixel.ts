@@ -4,8 +4,9 @@ import getObjectFromEntries from '@/lib/getObjectFromEntries'
 import listImage from '@/scripts/listImage'
 
 import Admin from './Admin'
-import { PixelGraphics } from './info'
+import { PixelGraphics } from './PixelGraphics'
 
+import type { RenderObject } from './PixelGraphics'
 import type { CreateSlider } from '@/helper/typeSlider'
 import type { DataImage, ImageFunction } from '@/scripts/listImage'
 
@@ -27,83 +28,6 @@ const doSetDocumentTitle = (
 
   // Display the imageName as the title
   document.title = name
-}
-
-const getInfo = (options: {
-  showInfos?: boolean
-}): {
-  change: (name: string, value: string) => void
-  logInitTime: (initTime: number) => void
-  logRenderTime: (draw: number, fullDuration: number) => void
-} => {
-  const logs: Record<string, string> = {}
-
-  let initString: string
-
-  const d = document
-  const body = d.getElementById('sliders')
-  const info = d.createElement('div')
-
-  let show = options.showInfos
-
-  const swap = (): void => {
-    if (body === null) {
-      return
-    }
-
-    if ((show = !show)) {
-      body.appendChild(info)
-    } else {
-      body.removeChild(info)
-    }
-  }
-
-  const change = (name: string, value: string): void => {
-    logs[name] = value
-  }
-
-  info.setAttribute('id', 'infos')
-
-  if (show && body !== null) {
-    body.appendChild(info)
-  }
-
-  document.onkeydown = (event: KeyboardEvent): void => {
-    if (event.ctrlKey && event.key.toLocaleLowerCase() === 'i') {
-      event.preventDefault()
-
-      swap()
-    }
-  }
-
-  return {
-    change,
-    logInitTime: (initTime): void => {
-      initString = `<span class='init' style='width:${initTime * 5}px;'>${initTime}ms<br>Init</span>`
-    },
-    logRenderTime: (draw, fullDuration): void => {
-      const render = fullDuration - draw
-      const string = []
-
-      if (show) {
-        change('Duration', fullDuration + 'ms')
-
-        change('fps', Math.floor(1000 / fullDuration) + 'fps')
-
-        change('Average-Time', 'false')
-
-        getObjectEntries(logs).forEach(([key, value]) => {
-          string.push(`<p><strong>${key}:</strong> ${value}</p>`)
-        })
-
-        string.push(
-          `<p>${initString}<span class='drawing' style='width:${draw * 5}px;'>${draw}ms<br>Drawing</span><span style='width:${render * 5}px;'>${render}ms<br>Render</span></p>`,
-        )
-
-        info.innerHTML = string.join('')
-      }
-    },
-  }
 }
 
 // // If there is a List of Canvases, cycle through the list
@@ -145,7 +69,7 @@ const createSingleCanvas = (
 
   div.appendChild(canvas)
 
-  return (renderer: unknown): ReturnType<PixelGraphics['callback']> =>
+  return (renderer: RenderObject): ReturnType<PixelGraphics['callback']> =>
     new PixelGraphics(renderer).callback(canvas)
 }
 
@@ -200,14 +124,12 @@ const getCallback =
     context: InitPixel
     currentSlide: DataImage
     imageName: string
-    info: unknown
     queryString: Record<string, boolean | number | undefined>
-    rendererInit: (args: unknown) => ReturnType<PixelGraphics['callback']>
+    rendererInit: (
+      renderObject: RenderObject,
+    ) => ReturnType<PixelGraphics['callback']>
   }) =>
   (ImageFunction: ImageFunction): void => {
-    let imageFunction
-    let renderObject
-
     if (ImageFunction) {
       // if (args.context.createSlider) {
       // that.createSlider.title( { title: "Image Size" } );
@@ -215,13 +137,13 @@ const getCallback =
       // that.createSlider.slider( { niceName: "Height", 	 valueName: "height", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
       // }
 
-      imageFunction = ImageFunction(
+      const imageFunction = ImageFunction(
         args.queryString,
         args.currentSlide,
         args.context.createSlider,
       )
 
-      renderObject = {
+      const renderObject: RenderObject = {
         showInfos: false,
         slide: args.currentSlide,
         imageFunction,
@@ -237,7 +159,6 @@ const getCallback =
             1,
         sliderObject: args.context.sliderObject,
         sliderValues: args.context.sliderValues,
-        info: args.info,
         init: args.context,
       }
 
@@ -256,8 +177,11 @@ export class InitPixel {
   slides: typeof listImage
   queryString: Record<string, boolean | number | undefined>
   timerAnimation?: () => void
-  sliderObject?: unknown
-  sliderValues?: unknown
+  sliderObject?: Record<
+    string,
+    (value: boolean | number | undefined, first?: boolean) => void
+  >
+  sliderValues?: Record<string, number>
   defaultValues?: Record<string, boolean | number | undefined>
   createSlider?: CreateSlider
   renderer?: ReturnType<PixelGraphics['callback']>
@@ -302,7 +226,6 @@ export class InitPixel {
       queryString: this.queryString,
       imageName,
       currentSlide,
-      info: getInfo(this.queryString),
     })
 
     loadScript(callback, currentSlide)
@@ -595,7 +518,7 @@ export class InitPixel {
     )
 
     const getFrame = (): void => {
-      const renderObject: Record<string, unknown> = {}
+      const renderObject: Record<string, boolean | number | undefined> = {}
 
       getObjectEntries(animations).forEach(([key, value]) => {
         const current = { ...value }

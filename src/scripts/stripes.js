@@ -4,6 +4,7 @@ function stripes(args, init, createSlider) {
   const hoverChangerStandard = getHoverChangerStandard()
   const backgroundColor = [100, 100, 120]
   const linkList = []
+
   const linkListPush = function (obj) {
     linkList.push(obj)
 
@@ -15,6 +16,7 @@ function stripes(args, init, createSlider) {
   const count = 5
   const width = linkListPush({ main: true })
   const height = linkListPush({ main: true, height: true })
+
   const heightOvershot = linkListPush({
     add: [height, { r: -1, useSize: width }],
     min: { a: 0 },
@@ -43,6 +45,7 @@ function stripes(args, init, createSlider) {
   const redSXrel = linkListPush({ r: redSX_, useSize: stripRealSX })
   const redSXabs = linkListPush({ r: redSX_, useSize: stripMinSX })
   const redSXmin = redSXabs
+
   const redSXminMaxDiff = linkListPush({
     a: 100,
     add: [{ add: [redSXrel, { r: -1, useSize: redSXmin }, -100], min: 0 }],
@@ -50,6 +53,7 @@ function stripes(args, init, createSlider) {
 
   const redSXa = redSXrel
   const redSXb = linkListPush([redSXabs, redSXminMaxDiff])
+
   const versions = function () {
     return [
       [

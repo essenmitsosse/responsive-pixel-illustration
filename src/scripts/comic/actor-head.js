@@ -82,6 +82,7 @@ Head.prototype.getBetterPosY = function (rel) {
 
 Head.prototype.draw = function (args) {
   const side = (args.info.body && args.info.body.side) || args.info.side || 0
+
   const sX = (this.sX = this.getSizeSwitch(
     { r: this.baseSX_, useSize: args.sX || args.stageSX },
     { r: this.relSX_ },
@@ -91,6 +92,7 @@ Head.prototype.draw = function (args) {
   ))
 
   const sY = (this.sY = args.sY || args.stageSY)
+
   const eyeAreaSX = this.getSizeSwitch(
     { r: this.eyeAreaBaseSX_, useSize: sX },
     { r: this.eyeAreaRelSX_ },
@@ -106,6 +108,7 @@ Head.prototype.draw = function (args) {
   )
 
   const eyeRestSX = this.pushLinkList([sX, { r: -1, useSize: eyeAreaSX }])
+
   const mouthAreaSX = this.getSizeSwitch(
     { r: this.mouthAreaBaseSX_, useSize: sX },
     { r: this.mouthAreaRelSX_ },
@@ -263,6 +266,7 @@ export const Eyes = function (args) {
 
 Eyes.prototype.draw = function (args) {
   const maxEyesSX = this.pushLinkList([args.sX, -1])
+
   const maxEyesCombinedSX = this.getSizeSwitch(
     { r: this.eyeBaseSX_, useSize: maxEyesSX },
     { r: this.eyeSXRel_ },
@@ -381,6 +385,7 @@ Eye.prototype.draw = function EyeDraw(args) {
   }))
 
   const eyeLidsFullSY = this.pushLinkList([sY, { r: -1, useSize: openSY }])
+
   /*0_1 */
   const eyeLidTopSY = (this.eyeLidTopSY = this.pushLinkList({
     r: 0.55,
@@ -610,6 +615,7 @@ export const Mouth = function Mouth(args) {
 
 Mouth.prototype.draw = function MouthDraw(args) {
   const cutOff = (this.cutOff = this.pushLinkList({ r: 1, useSize: args.sX }))
+
   /*0_1 */
   const sX = (this.sX = this.pushLinkList({
     r: 1,
@@ -642,6 +648,7 @@ Mouth.prototype.draw = function MouthDraw(args) {
   const restSX = this.pushLinkList([args.headSX, { r: -1, useSize: finalSX }])
   const halfRestSX = this.pushLinkList({ r: 0.5, useSize: restSX })
   const restSY = this.pushLinkList([args.sY, { r: -1, useSize: sY }, -1])
+
   const sideRestSX = (this.sideRestSX = this.pushLinkList({
     r: 0,
     useSize: halfRestSX,
@@ -655,6 +662,7 @@ Mouth.prototype.draw = function MouthDraw(args) {
 
   /*0_1 */
   const y = (this.y = this.pushLinkList({ r: 0.3, useSize: restSY }))
+
   const curveSX = (this.curveSX = this.pushLinkList({
     r: 0.3,
     useSize: finalSX,
@@ -666,6 +674,7 @@ Mouth.prototype.draw = function MouthDraw(args) {
   }))
 
   const outerLeftSX = this.pushLinkList({ add: [curveSX, curveSideSX] })
+
   const outerRightSX = this.pushLinkList({
     add: [curveSX, { r: -1, useSize: curveSideSX }],
   })
@@ -684,6 +693,7 @@ Mouth.prototype.draw = function MouthDraw(args) {
   const curveBottomSY = this.pushLinkList({ add: [curveSY], min: 0 })
   const curveMax = this.pushLinkList([sY, -1])
   const teethTopMax = this.pushLinkList({ r: 0.55, useSize: sY })
+
   const teethBottomMax = this.pushLinkList([
     sY,
     { r: -1, useSize: teethTopMax },

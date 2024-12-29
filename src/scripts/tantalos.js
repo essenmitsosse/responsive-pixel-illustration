@@ -21,6 +21,7 @@ function tantalos() {
   const shortsWater = [60, 68, 77]
   // Variables
   const linkList = []
+
   const linkListPush = function (obj) {
     linkList.push(obj)
 
@@ -33,17 +34,20 @@ function tantalos() {
   const borderSX = linkListPush({ r: 0.05, useSize: fullRect })
   const borderDetail = linkListPush({ r: 0.08, useSize: fullRect })
   const borderBottomDetail = linkListPush({ r: 0.06, useSize: fullRect })
+
   const borderBottomMargin = linkListPush([
     { r: 0.5 },
     { r: -0.5, useSize: borderDetail },
   ])
 
   const frameDetailSize = linkListPush({ add: [borderSX, -2], min: 1 })
+
   const motiveSX = linkListPush({
     add: [sXMain, { r: -2, useSize: borderSX }],
   })
 
   const motiveSY = linkListPush([sYMain, { r: -2, useSize: borderSX }])
+
   const motiveSqu = linkListPush(
     getSmallerDim({ r: 1, useSize: [motiveSX, motiveSY] }),
   )
@@ -100,6 +104,7 @@ function tantalos() {
   const armRel = 0.2
   const torsoRel = 0.25
   const upperArmRel = handRel * 0.4
+
   const getBodyPartSize = function (rel, height, min) {
     return linkListPush({
       r: rel,
@@ -116,6 +121,7 @@ function tantalos() {
   const torsoSY = getBodyPartSize(torsoRel, true)
   const bodyWithoutLegsX = linkListPush([handSX_, armSX, torsoSX])
   const bodyWithoutLegsY = linkListPush([handSY_, armSY, torsoSY])
+
   const lowerBodySX = linkListPush({
     add: [movementSX, { r: -1, useSize: bodyWithoutLegsX }],
   })
@@ -130,6 +136,7 @@ function tantalos() {
   const hipY = linkListPush({ add: [shoulderY, torsoSY] })
   // Hand
   const handRatio = 0.5
+
   const handSX = linkListPush({
     add: [handSX_],
     min: { r: handRatio, useSize: handSY_ },
@@ -159,6 +166,7 @@ function tantalos() {
   // armEllbowX = linkListPush( { add: [ armEllbowX_, { r: armBent, useSize: armEllbowY_ } ] } ),
   // armEllbowY = linkListPush( { add: [ armEllbowY_, { r: -armBent * 1.2, useSize: armEllbowX_ } ] } ),
   const foreArmS = linkListPush({ r: 0.008, useSize: movementL, min: 1 })
+
   const upperArmS = linkListPush({
     r: 1,
     useSize: foreArmS,
@@ -166,6 +174,7 @@ function tantalos() {
   })
 
   const arm2Y = linkListPush([shoulderY, upperArmS])
+
   const arm2SYMax1 = linkListPush({
     add: [armL, { r: 0.2, useSize: movementSY }],
   })
@@ -176,6 +185,7 @@ function tantalos() {
 
   const arm2SY = linkListPush({ add: [arm2SYMax1], max: arm2SYMax2 })
   const arm2SX = linkListPush({ r: 0.2, useSize: arm2SYMax1 })
+
   const ellbowS = linkListPush({
     r: 1.5,
     useSize: upperArmS,
@@ -189,6 +199,7 @@ function tantalos() {
   // Shoulder
   const shoulderSXRel = 0.1
   const shoulderSYRel = shoulderSXRel * 0.5
+
   const shoulderSX = linkListPush({
     r: shoulderSXRel,
     useSize: movementL,
@@ -205,6 +216,7 @@ function tantalos() {
   const hipSXRel = 0.08
   const hipSX = linkListPush({ r: hipSXRel, useSize: movementL, min: 1 })
   const hipX = linkListPush({ add: [hipX_, { r: -1, useSize: hipSX }] })
+
   const torsoL = linkListPush({
     getLength: [
       linkListPush({ add: [{ r: -1, useSize: shoulderX, hipX }] }),
@@ -214,6 +226,7 @@ function tantalos() {
 
   // Hip
   const hipSYRel = shoulderSXRel * 0.4
+
   const hipSY = linkListPush({
     r: hipSYRel,
     useSize: movementL,
@@ -234,6 +247,7 @@ function tantalos() {
 
   const upperLeg = linkListPush({ r: 0.5, useSize: legL })
   const legSX = hipSX
+
   const legSY = linkListPush([
     movementSY,
     { r: -1, useSize: hipY },
@@ -244,6 +258,7 @@ function tantalos() {
   const legY = linkListPush([hipY, hipSY])
   // legFrontX = linkListPush( { r: -0.2, useSize: legSY } ),
   const legUpper1L = legSY
+
   const legLower1L = linkListPush({
     add: [legL, { r: -1, useSize: legSY }],
     min: { a: 0 },
@@ -273,6 +288,7 @@ function tantalos() {
   const headSXRel = headSYRel * 0.6
   const headSX = linkListPush({ r: headSXRel, useSize: torsoL })
   const headSY = linkListPush({ r: headSYRel, useSize: torsoL })
+
   const headX = linkListPush({
     add: [shoulderX, { r: 0.02, useSize: overshotSY }],
   })
@@ -295,6 +311,7 @@ function tantalos() {
   const eyeY = linkListPush({ r: 0.3, useSize: headSY })
   const eyeSX = linkListPush({ r: 0.5, a: -1 })
   const mouthSX = linkListPush({ r: 0.7, useSize: headSX })
+
   const mouthSY = linkListPush({
     r: 0.5,
     useSize: linkListPush([
@@ -306,6 +323,7 @@ function tantalos() {
   })
 
   const mouthX = linkListPush({ a: 0 })
+
   const mouthY = linkListPush({
     r: 0.3,
     useSize: linkListPush([
@@ -322,6 +340,7 @@ function tantalos() {
   const fruitRatio = 1.8
   const fruitSYrel = fruitSXrel * fruitRatio
   const fruitSYBigRel = fruitSXBigRel * fruitRatio
+
   const fruitSX = linkListPush({
     r: fruitSXrel,
     min: 2,
@@ -378,6 +397,7 @@ function tantalos() {
   const islandSX = linkListPush([movementSX, { r: -0.1, useSize: overshotSX }])
   const islandSY = linkListPush([shadowSY, { r: 1, useSize: groundThickness }])
   const islandX = linkListPush([centerX, { r: -1, useSize: movementSX }])
+
   const islandY = linkListPush([
     centerY,
     movementSY,
@@ -392,6 +412,7 @@ function tantalos() {
   const trunkSizeBack = 0.015
   const trunkRatio = 0.5
   const trunkHor = linkListPush({ r: trunkSize, useSize: sXMain, a: 1 })
+
   const trunkVert = linkListPush({
     r: trunkSize * trunkRatio,
     useSize: sXMain,

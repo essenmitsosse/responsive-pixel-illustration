@@ -27,6 +27,7 @@ function brothers() {
   const pBackground = pBasic
   const borderDetail = shadow(zCloth)
   const backgroundColor = darkenColor(borderDetail)
+
   const flashForm = [
     {
       points: [
@@ -44,6 +45,7 @@ function brothers() {
   const beard = function (hair, center) {
     const beardSideHeight = { r: 0.6, a: -1 }
     const beardSideWidth = center ? 0.4 : 0.2
+
     const beardInner = [
       {
         stripes: {
@@ -249,6 +251,7 @@ function brothers() {
   const getOthers = function (posei, skin, hair, cloth, background) {
     const clothShadow = !posei ? cloth : shadow(cloth)
     const skinShadow = shadow(skin)
+
     const clothDetail = [
       {
         weight: 1,
@@ -717,6 +720,7 @@ function brothers() {
   ]
 
   const areaStrip = { strip: 'strip', gap: 1, horizontal: true }
+
   const areaPiece = function (who) {
     const hades = who === 'hades'
 
@@ -1356,6 +1360,7 @@ function brothers() {
   ]
 
   const headRatio = 1.33
+
   const variableList = {
     fullRect: { r: 1, max: { r: 1, height: true } },
 

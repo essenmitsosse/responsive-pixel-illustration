@@ -2,6 +2,7 @@
 export const getFace = function () {
   const backgroundColor = [0, 0, 0]
   const that = this
+
   const getPanel = function () {
     const actor = new that.basic.Actor({
       color: [that.rInt(0, 255), that.rInt(0, 255), that.rInt(0, 255)],
@@ -82,6 +83,7 @@ export const getStrip = function getStrip() {
   let currentPanel
 
   const finalPanels = []
+
   const combiner = this.getCombiner(
     finalPanels,
     stripInfo.defaultPanels,
@@ -182,12 +184,14 @@ export const getCombiner = function (finals, defaults, inventory) {
 
 export const getStripInfo = function () {
   const background = new this.basic.Background({})
+
   const basicPanel = new this.basic.Panel({
     background,
   })
 
   const ratio = 1.3
   const furnitureColor = [30, 50, 50]
+
   const stage = new this.basic.Stage({
     // show: true
   })
@@ -251,6 +255,7 @@ export const getStripInfo = function () {
 
   const chair1 = new this.basic.Chair({ color: furnitureColor })
   const chair2 = new this.basic.Chair({ color: furnitureColor, toLeft: true })
+
   const glass = new this.basic.Glass({
     color: [this.rInt(0, 255), this.rInt(0, 255), this.rInt(0, 255)],
   })
@@ -258,6 +263,7 @@ export const getStripInfo = function () {
   const emotion1 = new this.basic.Emotion({})
   const emotion2 = new this.basic.Emotion({})
   const noCameraMovement = false
+
   const getZoom = (function () {
     let min = 1
     let max = min
@@ -318,6 +324,7 @@ export const getStripInfo = function () {
 
   const actor1PosRel = 0.1
   const actor2PosRel = 0.85
+
   const chair1basic = {
     pos: {
       obj: stage,
@@ -374,6 +381,7 @@ export const getStripInfo = function () {
   }
 
   const actor1OnTheGround = { obj: table, posX: 0, posY: 1 }
+
   const actor1Dead = {
     body: {
       side: { map: 'b', min: 0.2, max: 1 },

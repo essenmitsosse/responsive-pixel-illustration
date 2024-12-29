@@ -10,6 +10,7 @@ function landscape() {
   const mountains = getRandomInt(2)
   const clouds = getRandomInt(2)
   const tree = getRandomInt(2)
+
   const colorScheme = [
     [
       [255, 255, 255],
@@ -38,6 +39,7 @@ function landscape() {
   ][colorNr]
 
   const [, c2, c3, c4] = colorScheme
+
   const renderList = [
     {
       m: 'borderS',

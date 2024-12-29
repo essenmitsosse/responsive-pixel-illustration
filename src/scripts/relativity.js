@@ -4,6 +4,7 @@ function relativity() {
   const c3 = [0, 0, 255]
   const c4 = [0, 255, 255]
   const backgroundColor = [50, 50, 50]
+
   const renderList = [
     {
       m: 'border',

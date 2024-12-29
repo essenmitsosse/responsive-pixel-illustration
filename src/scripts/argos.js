@@ -25,6 +25,7 @@ function argos() {
   const foam = [245, 249, 255]
   const backgroundColor = [165, 239, 255]
   const cloud = [198, 245, 255]
+
   const mast = function (center, fromRight) {
     return {
       sX: 'mastSX',
@@ -118,6 +119,7 @@ function argos() {
   ]
 
   const faceSlop = [{ weight: 3, points: [{}, { fX: true, fY: true }] }]
+
   const eye = [
     {},
     { x: { r: 0.5 } },

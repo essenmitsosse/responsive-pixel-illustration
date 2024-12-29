@@ -1,24 +1,19 @@
 export type SizeHover<T> = { r?: T; s: { rele?: T } }
 
-export type SizeIn<TA, TUse> = {
-  a: TA
-  getBiggerDim: unknown
-  r: number
-  r2: number
-  useSize: ReadonlyArray<TUse>
+export type InputDynamicVariableBase = {
+  a?: number | string
+  add?: ReadonlyArray<InputDynamicVariable>
+  getBiggerDim?: boolean
+  max?: InputDynamicVariable
+  min?: InputDynamicVariable
+  otherDim?: boolean
+  r?: number
+  r2?: number
+  useSize?: string
 }
 
-export type SizeOut<TA, TUse> = {
-  a?: TA
-  max?: Max
-  min?: Max
-  r: number
-  useSize?: TUse
-}
-
-export type Max = {
-  a?: unknown
-  otherDim: boolean
-  r: number
-  useSize?: unknown
-}
+export type InputDynamicVariable =
+  | InputDynamicVariableBase
+  | ReadonlyArray<InputDynamicVariable>
+  | number
+  | string

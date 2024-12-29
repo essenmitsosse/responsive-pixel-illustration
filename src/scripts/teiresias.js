@@ -25,6 +25,7 @@ function teiresias() {
   const snake2Detail = shadow(snake2)
   const snakeTongue = [150, 85, 94]
   const snakeEyes = backgroundColor
+
   const getFrame = [
     {},
     {
@@ -202,6 +203,7 @@ function teiresias() {
 
   const torsoMargin = 0.4
   const torsoTop = 0.35
+
   const renderList = [
     // IMAGE
     {
@@ -1288,6 +1290,7 @@ function teiresias() {
 
   const imgDims = ['imgWidth', 'imgheight']
   const motiveDims = ['motiveWidth', 'motiveheight']
+
   const variableList = {
     fullRect: { r: 1, max: { r: 1, height: true } },
     borderWidth: { r: 0.06, a: 1, useSize: 'fullRect', min: 1 },

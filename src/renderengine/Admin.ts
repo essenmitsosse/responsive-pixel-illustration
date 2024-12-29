@@ -90,9 +90,10 @@ class Admin {
     })
 
     const slidersDivList = slidersDiv.list
+
     const sliderObject: Record<
       string,
-      (setValue: number, dontForce: boolean) => void
+      (setValue: boolean | number | undefined, dontForce?: boolean) => void
     > = {}
 
     const sliderValues: Record<string, number> = {}
@@ -101,6 +102,7 @@ class Admin {
 
     const getSliderControl = this.getSliderControlGetter()
     const [body] = document.getElementsByTagName('body')
+
     const getBasicWrapper = (
       objects: ReadonlyArray<HTMLElement>,
       name: string,
@@ -219,12 +221,12 @@ class Admin {
         forceRedraw?: boolean
         valueName: string
       },
-    ) => (setValue: number, dontForce: boolean) => void
+    ) => (setValue: boolean | number | undefined, dontForce?: boolean) => void
     slider: (
       slider: HTMLInputElement,
       span: HTMLSpanElement,
       args: SliderArgs,
-    ) => (setValue: number, dontForce: boolean) => void
+    ) => (setValue: boolean | number | undefined, dontForce?: boolean) => void
   } {
     let lastSliderParent: ParentNode | null | undefined
     let lastValueName: string
@@ -236,13 +238,17 @@ class Admin {
         slider,
         span,
         args,
-      ): ((setValue: number, single: boolean) => void) => {
+      ): ((
+        setValue: boolean | number | undefined,
+        single?: boolean,
+      ) => void) => {
         let value: number
 
         const diff = args.input.max - args.input.min
         const outputMap = args.output || { min: 0, max: 1 }
         const outputMin = outputMap.min
         const outputFactor = (outputMap.max - outputMin) / diff
+
         const updateInfoSpan = (): void => {
           span.innerHTML = `${Math.round(value * 10) / 10}`
 
@@ -253,7 +259,7 @@ class Admin {
         }
 
         const update = (
-          setValue?: MouseEvent | TouchEvent | number,
+          setValue?: MouseEvent | TouchEvent | boolean | number,
           single?: boolean,
         ): void => {
           const obj: Record<string, number> = {}
@@ -307,11 +313,14 @@ class Admin {
       number: (
         number,
         args,
-      ): ((setValue: number, dontForce: boolean) => void) => {
+      ): ((
+        setValue: boolean | number | undefined,
+        dontForce?: boolean,
+      ) => void) => {
         let value: number
 
         const update = (
-          setValue?: MouseEvent | number,
+          setValue?: MouseEvent | boolean | number,
           dontForce?: MouseEvent | boolean,
         ): void => {
           const obj: Record<string, number> = {}

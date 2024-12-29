@@ -10,6 +10,7 @@ function sparta() {
   const skin = [227, 200, 190]
   const skinDetail = detail(skin)
   const skinShadow = shadow(skin)
+
   const leftHalf = [
     {
       sY: { r: 1, add: [sub('headHeight'), sub('legs'), -1] },

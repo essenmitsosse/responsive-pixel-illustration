@@ -1,1 +1,3 @@
-export type DoHover = (args: Record<string, number>) => void
+export type DoHover = (
+  args: Record<string, boolean | number | undefined>,
+) => void

@@ -37,11 +37,14 @@ const getHoverChangerColor = (): {
 
     doHover: (args: Record<string, number>): void => {
       listColorStandard.forEach((current) => {
-        if (args[current.map] === undefined) {
+        const value = args[current.map]
+
+        // TODO: Remove unnecessary number check
+        if (value === undefined || typeof value !== 'number') {
           return
         }
 
-        changeColor(args[current.map], current)
+        changeColor(value, current)
       })
     },
   }

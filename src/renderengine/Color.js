@@ -1,32 +1,34 @@
-function Color() {
-  this.s = []
-}
+class Color {
+  constructor() {
+    this.s = []
+  }
 
-Color.prototype.draw = function (c, zInd, id) {
-  let i = this.s.length - 1
+  draw(c, zInd, id) {
+    let i = this.s.length - 1
 
-  const { s } = this
+    const { s } = this
 
-  let oldZInd
+    let oldZInd
 
-  if (i === -1 || (oldZInd = s[i].zInd) < zInd) {
-    s.push({ id, c, zInd })
-  } else {
-    if (oldZInd !== zInd) {
-      do {
-        if (s[i].zInd < zInd) {
-          break
-        }
-      } while (i--)
+    if (i === -1 || (oldZInd = s[i].zInd) < zInd) {
+      s.push({ id, c, zInd })
+    } else {
+      if (oldZInd !== zInd) {
+        do {
+          if (s[i].zInd < zInd) {
+            break
+          }
+        } while (i--)
 
-      s.splice(i + 1, 0, { id, c, zInd })
+        s.splice(i + 1, 0, { id, c, zInd })
+      }
     }
   }
-}
 
-Color.prototype.clear = function (id) {
-  while (this.s.length > 0 && this.s[this.s.length - 1].id === id) {
-    this.s.pop()
+  clear(id) {
+    while (this.s.length > 0 && this.s[this.s.length - 1].id === id) {
+      this.s.pop()
+    }
   }
 }
 

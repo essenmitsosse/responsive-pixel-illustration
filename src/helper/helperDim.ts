@@ -22,7 +22,7 @@ export const getSmallerDim = <TA, TUse>(
     max.useSize = x.useSize[1] || x.useSize[0]
   }
 
-  if (x.r >= 0 && !x.getBiggerDim) {
+  if (x.r !== undefined && x.r >= 0 && !x.getBiggerDim) {
     o.max = max
   } else {
     o.min = max

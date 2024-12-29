@@ -1,11 +1,11 @@
-import type { Max, SizeIn, SizeOut } from './typeSize'
+import type { InputDynamicVariableBase } from '@/helper/typeSize'
 
-export const getSmallerDim = <TA, TUse>(
-  x: SizeIn<TA, TUse>,
-): SizeOut<TA, TUse> => {
-  const o: SizeOut<TA, TUse> = { r: x.r }
+export const getSmallerDim = (
+  x: InputDynamicVariableBase,
+): InputDynamicVariableBase => {
+  const o: InputDynamicVariableBase = { r: x.r }
 
-  const max: Max = {
+  const max: InputDynamicVariableBase = {
     r: x.r2 || x.r,
     otherDim: true,
   }
@@ -31,9 +31,9 @@ export const getSmallerDim = <TA, TUse>(
   return o
 }
 
-export const getBiggerDim = <TA, TUse>(
-  x: SizeIn<TA, TUse>,
-): SizeOut<TA, TUse> => {
+export const getBiggerDim = (
+  x: InputDynamicVariableBase,
+): InputDynamicVariableBase => {
   x.getBiggerDim = true
 
   return getSmallerDim(x)

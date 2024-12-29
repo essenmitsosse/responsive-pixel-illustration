@@ -1,13 +1,36 @@
+import type { DoHover } from '@/helper/typeHover'
+import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { CreateSlider } from '@/helper/typeSlider'
+
+export type Link = {
+  autoUpdate?: boolean
+  calculated?: boolean
+  getLinkedVariable?: () => void
+  height?: boolean
+  main?: boolean
+  r?: number
+  real?: number
+  s?: { getReal: () => number }
+}
+
+export type LinkList = ReadonlyArray<Link>
+
+export type RecordVariable = Record<string, InputDynamicVariable>
+
+export type ImageContent = {
+  hover?: boolean
+  linkList?: LinkList
+  listDoHover?: ReadonlyArray<DoHover>
+  recommendedPixelSize?: number
+  renderList: unknown
+  variableList?: RecordVariable
+}
 
 export type ImageFunction = (
   queryString: Record<string, boolean | number | undefined>,
   currentSlite: DataImage,
   createSlider?: CreateSlider,
-) => {
-  recommendedPixelSize?: number
-  renderList: unknown
-}
+) => ImageContent
 
 export type DataImage = {
   both?: true

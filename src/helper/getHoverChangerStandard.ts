@@ -88,7 +88,7 @@ const getHoverChangerStandard = (): {
         }
       })
     },
-    doHover: (args: Record<string, number>): void => {
+    doHover: (args): void => {
       listChangerStandard.forEach((current) => {
         const value = args[current.map]
 

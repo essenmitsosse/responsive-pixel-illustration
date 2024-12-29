@@ -1,6 +1,6 @@
 import getObjectEntries from '@/lib/getObjectEntries'
 
-type Info = {
+export type Info = {
   change: (name: string, value: string) => void
   logInitTime: (initTime: number) => void
   logRenderTime: (draw: number, fullDuration: number) => void

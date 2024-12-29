@@ -1,4 +1,5 @@
 import type { getPixelUnits } from './pixel'
+import type { InputDynamicVariable } from '@/helper/typeSize'
 
 class BaseVariable {
   linkedP: Array<unknown | { abs?: unknown }> = []
@@ -16,8 +17,8 @@ class BaseVariable {
 }
 
 export class Variable extends BaseVariable {
-  vari?: { getReal: () => unknown }
-  linkedP: Array<{ abs?: unknown }> = []
+  vari?: { getReal: () => number }
+  linkedP: Array<InputDynamicVariable & { abs?: number }> = []
 
   constructor(
     args: unknown,
@@ -45,7 +46,7 @@ export class Variable extends BaseVariable {
     }
   }
 
-  link(p: { abs?: unknown }): void {
+  link(p: InputDynamicVariable): void {
     this.linkedP.push(p)
 
     this.l += 1
@@ -55,7 +56,7 @@ export class Variable extends BaseVariable {
 export class DynamicVariable extends BaseVariable {
   linkedP: Array<{ abs?: unknown }> = []
 
-  set(value: unknown): void {
+  set(value?: unknown): void {
     let { l } = this
 
     while (l--) {

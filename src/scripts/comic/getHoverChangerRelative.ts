@@ -5,23 +5,15 @@ import type { SizeHover } from '@/helper/typeSize'
 
 const getHoverChangerRelative = (): {
   doHover: DoHover
-  push: (
-    size: SizeHover<unknown>,
-    value: (args: Record<string, number>) => number,
-  ) => void
+  push: (size: SizeHover<unknown>, value: DoHover) => void
 } => {
-  const listChangerRelative: Array<
-    [SizeHover<unknown>, (args: Record<string, number>) => number]
-  > = []
+  const listChangerRelative: Array<[SizeHover<unknown>, DoHover]> = []
 
   return {
-    push(
-      size: SizeHover<unknown>,
-      value: (args: Record<string, number>) => number,
-    ): void {
+    push(size: SizeHover<unknown>, value: DoHover): void {
       listChangerRelative.push([size, value])
     },
-    doHover: (args: Record<string, number>): void => {
+    doHover: (args): void => {
       listChangerRelative.forEach((current) => {
         const currentValue = current[1](args)
 

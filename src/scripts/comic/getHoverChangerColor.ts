@@ -35,7 +35,7 @@ const getHoverChangerColor = (): {
   return {
     push: listColorStandard.push.bind(listColorStandard),
 
-    doHover: (args: Record<string, number>): void => {
+    doHover: (args): void => {
       listColorStandard.forEach((current) => {
         const value = args[current.map]
 

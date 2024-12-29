@@ -2,13 +2,13 @@ import type { DoHover } from '@/helper/typeHover'
 
 const getHoverChangerCustom = (): {
   doHover: DoHover
-  push: (value: (args: Record<string, number>) => void) => void
+  push: (value: DoHover) => void
 } => {
-  const listChangerCustom: Array<(args: Record<string, number>) => void> = []
+  const listChangerCustom: Array<DoHover> = []
 
   return {
     push: listChangerCustom.push.bind(listChangerCustom),
-    doHover: (args: Record<string, number>): void =>
+    doHover: (args): void =>
       listChangerCustom.forEach((change) => change(args)),
   }
 }

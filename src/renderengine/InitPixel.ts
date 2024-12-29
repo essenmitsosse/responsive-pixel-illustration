@@ -6,6 +6,7 @@ import listImage from '@/scripts/listImage'
 import Admin from './Admin'
 import { PixelGraphics } from './PixelGraphics'
 
+import type { RenderObject } from './PixelGraphics'
 import type { CreateSlider } from '@/helper/typeSlider'
 import type { DataImage, ImageFunction } from '@/scripts/listImage'
 
@@ -68,7 +69,7 @@ const createSingleCanvas = (
 
   div.appendChild(canvas)
 
-  return (renderer: unknown): ReturnType<PixelGraphics['callback']> =>
+  return (renderer: RenderObject): ReturnType<PixelGraphics['callback']> =>
     new PixelGraphics(renderer).callback(canvas)
 }
 
@@ -124,7 +125,9 @@ const getCallback =
     currentSlide: DataImage
     imageName: string
     queryString: Record<string, boolean | number | undefined>
-    rendererInit: (args: unknown) => ReturnType<PixelGraphics['callback']>
+    rendererInit: (
+      renderObject: RenderObject,
+    ) => ReturnType<PixelGraphics['callback']>
   }) =>
   (ImageFunction: ImageFunction): void => {
     if (ImageFunction) {
@@ -140,7 +143,7 @@ const getCallback =
         args.context.createSlider,
       )
 
-      const renderObject = {
+      const renderObject: RenderObject = {
         showInfos: false,
         slide: args.currentSlide,
         imageFunction,
@@ -174,8 +177,11 @@ export class InitPixel {
   slides: typeof listImage
   queryString: Record<string, boolean | number | undefined>
   timerAnimation?: () => void
-  sliderObject?: unknown
-  sliderValues?: unknown
+  sliderObject?: Record<
+    string,
+    (value: boolean | number | undefined, first?: boolean) => void
+  >
+  sliderValues?: Record<string, number>
   defaultValues?: Record<string, boolean | number | undefined>
   createSlider?: CreateSlider
   renderer?: ReturnType<PixelGraphics['callback']>
@@ -512,7 +518,7 @@ export class InitPixel {
     )
 
     const getFrame = (): void => {
-      const renderObject: Record<string, unknown> = {}
+      const renderObject: Record<string, boolean | number | undefined> = {}
 
       getObjectEntries(animations).forEach(([key, value]) => {
         const current = { ...value }

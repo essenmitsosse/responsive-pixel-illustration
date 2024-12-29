@@ -1,45 +1,83 @@
-import getInfo from '@/renderengine/getInfo'
-
 import { DrawingTools } from './creator'
+import getInfo from './getInfo'
 import { getPixelUnits } from './pixel'
 import { Renderer } from './renderer'
 import { DynamicVariable, Variable } from './Variable'
 
+import type { Info } from './getInfo'
+import type { InitPixel } from './InitPixel'
+import type { InputDynamicVariableBase } from '@/helper/typeSize'
+import type {
+  DataImage,
+  ImageContent,
+  Link,
+  LinkList,
+  RecordVariable,
+} from '@/scripts/listImage'
+
 const startTime = Date.now()
 
-const getRedraw = (options, resize) => (args) => {
-  let key
-  let first = !args.dontHighlight
-
-  if (options.sliderObject) {
-    for (key in args) {
-      if (options.sliderObject[key]) {
-        options.sliderObject[key](args[key], first)
-
-        first = false
-      }
-    }
-  }
-
-  options.init.addToQueryString(args, true)
-
-  if (options.imageFunction.listDoHover) {
-    options.imageFunction.listDoHover.forEach((hover) => hover(args))
-  }
-
-  resize(args.width, args.height)
+export type RenderObject = {
+  imageFunction: ImageContent
+  init: InitPixel
+  pixelSize: number
+  queryString: Record<string, boolean | number | undefined>
+  showInfos: boolean
+  slide: DataImage
+  sliderObject?: Record<
+    string,
+    (value: boolean | number | undefined, first?: boolean) => void
+  >
+  sliderValues?: Record<string, number>
 }
 
+type Redraw = (args: {
+  [key: string]: boolean | number | undefined
+  dontHighlight?: boolean
+  height?: number
+  width?: number
+}) => void
+
+type Resize = (height?: number, width?: number) => void
+
+const getRedraw =
+  (options: RenderObject, resize: (w?: number, h?: number) => void): Redraw =>
+  (args) => {
+    let key
+    let first = !args.dontHighlight
+
+    if (options.sliderObject) {
+      for (key in args) {
+        if (options.sliderObject[key]) {
+          options.sliderObject[key](args[key], first)
+
+          first = false
+        }
+      }
+    }
+
+    options.init.addToQueryString(args, true)
+
+    if (options.imageFunction.listDoHover) {
+      options.imageFunction.listDoHover.forEach((hover) => hover(args))
+    }
+
+    resize(args.width, args.height)
+  }
+
 // Prepare
-const doAddVariable = (vl, pixelUnits) => {
-  const getLinkedVariable = (args) => () => {
+const doAddVariable = (
+  vl: LinkList,
+  pixelUnits: ReturnType<typeof getPixelUnits>,
+): void => {
+  const getLinkedVariable = (args: Link) => (): number | undefined => {
     if (args.calculated) {
       return args.real
     }
 
     args.calculated = true
 
-    // TODO: Remove this check, that shouldn't be necessary
+    // TODO: Remove this check
     if (args.s === undefined) {
       throw new Error(
         "Unexpected error: `s` isn't defined, which should never happen.",
@@ -66,19 +104,27 @@ const doAddVariable = (vl, pixelUnits) => {
   })
 }
 
-const getCalculate = (vl) => (dimensions) =>
-  vl.forEach((current) => {
-    if (current.main) {
-      current.calculated = true
+const getCalculate =
+  (vl: LinkList) =>
+  (dimensions: { height: number; width: number }): void =>
+    vl.forEach((current) => {
+      if (current.main) {
+        current.calculated = true
 
-      current.real = dimensions[current.height ? 'height' : 'width']
-    } else {
-      current.calculated = current.autoUpdate
-    }
-  })
+        current.real = dimensions[current.height ? 'height' : 'width']
+      } else {
+        current.calculated = current.autoUpdate
+      }
+    })
 
 export class PixelGraphics {
-  constructor(options) {
+  callback: (canvas: HTMLCanvasElement) => {
+    redraw: Redraw
+    resize: Resize
+  }
+  pixelUnits: ReturnType<typeof getPixelUnits>
+  canvasSize?: [number, number, number]
+  constructor(options: RenderObject) {
     const that = this
     // Initialize PixelUnits with Variables
     const pU = this.getPixelUnits()
@@ -93,7 +139,12 @@ export class PixelGraphics {
 
     const info = getInfo(options.queryString)
 
-    this.callback = function (canvas) {
+    this.callback = (
+      canvas,
+    ): {
+      redraw: Redraw
+      resize: Resize
+    } => {
       const finalRenderer = new Renderer(canvas, info, options, that)
       const resize = that.getResize(info, finalRenderer.resize)
       const redraw = getRedraw(options, resize)
@@ -108,7 +159,7 @@ export class PixelGraphics {
         dontHighlight: true,
       })
 
-      window.onresize = () => {
+      window.onresize = (): void => {
         finalRenderer.rescaleWindow()
 
         resize()
@@ -124,15 +175,18 @@ export class PixelGraphics {
     }
   }
 
-  getResize(info, render) {
+  getResize(
+    info: Info,
+    render: (width: number, height: number) => [number, number, number],
+  ): Resize {
     const that = this
 
-    let currentW
-    let currentH
+    let currentW: number
+    let currentH: number
     let needsToResize = false
     let resizeBlock = false
 
-    const resetResizeBlock = () => {
+    const resetResizeBlock = (): void => {
       resizeBlock = false
 
       if (needsToResize) {
@@ -140,7 +194,7 @@ export class PixelGraphics {
       }
     }
 
-    const resize = (w, h) => {
+    const resize: Resize = (w, h) => {
       const time = Date.now()
 
       // Render the actual image. This takes very long!
@@ -171,11 +225,19 @@ export class PixelGraphics {
     }
   }
 
-  initUserInput(options, redraw, canvas, unchangeable) {
+  initUserInput(
+    options: RenderObject,
+    redraw: Redraw,
+    canvas: HTMLCanvasElement,
+    unchangeable?: boolean,
+  ): void {
     const hasSomethingToHover = options.imageFunction.hover
     const that = this
 
-    const changeImage = (event, size) => {
+    const changeImage = (
+      event: MouseEvent | Touch,
+      size?: boolean | number,
+    ): void => {
       if (that.canvasSize === undefined) {
         return
       }
@@ -189,7 +251,7 @@ export class PixelGraphics {
       )
     }
 
-    const mouseMove = (event, size) => {
+    const mouseMove = (event: MouseEvent | Touch, size?: boolean): void => {
       if (
         options.queryString.resizeable ||
         (!unchangeable && (size || hasSomethingToHover))
@@ -198,7 +260,7 @@ export class PixelGraphics {
       }
     }
 
-    const touchMove = (event) => {
+    const touchMove = (event: TouchEvent): void => {
       event.preventDefault()
 
       mouseMove(event.changedTouches[0], true)
@@ -209,7 +271,7 @@ export class PixelGraphics {
     canvas.addEventListener('touchmove', touchMove, false)
   }
 
-  prepareVariableList(vl) {
+  prepareVariableList(vl: LinkList): void {
     if (vl.length === 0) {
       return
     }
@@ -219,13 +281,13 @@ export class PixelGraphics {
     this.pixelUnits.linkList(getCalculate(vl))
   }
 
-  createVariableList(vl = {}) {
+  createVariableList(vl: RecordVariable = {}): void {
     const that = this
-    const newVL = {}
+    const newVL: Record<string, DynamicVariable | Variable> = {}
 
     let key
 
-    const updater = () => {
+    const updater = (): void => {
       let key
 
       for (key in vl) {
@@ -233,7 +295,7 @@ export class PixelGraphics {
       }
     }
 
-    const link = (name, vari) => {
+    const link = (name: string, vari: InputDynamicVariableBase): void => {
       if (newVL[name]) {
         newVL[name].link(vari)
       } else {
@@ -243,7 +305,7 @@ export class PixelGraphics {
       }
     }
 
-    const creator = (name) => {
+    const creator = (name: string): DynamicVariable => {
       if (!newVL[name]) {
         newVL[name] = new DynamicVariable(name)
       }

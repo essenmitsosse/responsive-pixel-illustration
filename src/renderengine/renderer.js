@@ -85,11 +85,11 @@ export const Renderer = function (canvas, info, options, pixelStarter) {
   }
 }
 
-Renderer.prototype.Color = function () {
+function Color() {
   this.s = []
 }
 
-Renderer.prototype.Color.prototype.draw = function (c, zInd, id) {
+Color.prototype.draw = function (c, zInd, id) {
   let i = this.s.length - 1
 
   const { s } = this
@@ -111,7 +111,7 @@ Renderer.prototype.Color.prototype.draw = function (c, zInd, id) {
   }
 }
 
-Renderer.prototype.Color.prototype.clear = function (id) {
+Color.prototype.clear = function (id) {
   while (this.s.length > 0 && this.s[this.s.length - 1].id === id) {
     this.s.pop()
   }
@@ -128,7 +128,7 @@ Renderer.prototype.getPixelArray = function (width, height) {
     colorArray[width] = []
 
     while (countH--) {
-      colorArray[width][countH] = new this.Color()
+      colorArray[width][countH] = new Color()
     }
   }
 

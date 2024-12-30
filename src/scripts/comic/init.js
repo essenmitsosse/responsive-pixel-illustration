@@ -9,6 +9,7 @@ const comic = (init, slide, createSlider) => {
 
   return {
     ...tableComic,
+    background: tableComic.background,
     recommendedPixelSize: tableComic.recommendedPixelSize,
     renderList: tableComic.renderList,
   }

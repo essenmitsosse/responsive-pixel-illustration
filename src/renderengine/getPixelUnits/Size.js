@@ -13,12 +13,13 @@ function getRealDistanceBasic() {
 }
 
 const getGetLengthCalculation = (x, y, state) => {
-  x = new Width(x, state)
-
-  y = new Width(y, state)
+  const sizeX = new Width(x, state)
+  const sizeY = new Width(y, state)
 
   return () =>
-    Math.round(Math.sqrt(Math.pow(x.getReal(), 2) + Math.pow(y.getReal(), 2)))
+    Math.round(
+      Math.sqrt(Math.pow(sizeX.getReal(), 2) + Math.pow(sizeY.getReal(), 2)),
+    )
 }
 
 class Dimension {

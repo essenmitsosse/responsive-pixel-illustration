@@ -44,7 +44,7 @@ const getPixelUnits = () => {
   }
 
   class Dimension {
-    prepare(args) {
+    prepare(args, axis) {
       const objType = typeof args
 
       if (Array.isArray(args)) {
@@ -80,7 +80,7 @@ const getPixelUnits = () => {
             // errorAdd( "useSize must be a String" )
           }
         } else {
-          this.dim = !args.height && (args.otherDim ? !this.axis : this.axis)
+          this.dim = !args.height && (args.otherDim ? !axis : axis)
         }
 
         // Get gefaults and try to do quick version
@@ -123,11 +123,11 @@ const getPixelUnits = () => {
 
         this.realPartCalculation = this.getRealDistance
       } else if (this.getDefaults()) {
-        this.dim = this.axis
+        this.dim = axis
 
         this.realPartCalculation = this.getQuick
       } else {
-        this.dim = this.axis
+        this.dim = axis
       }
     }
 
@@ -303,30 +303,24 @@ const getPixelUnits = () => {
     constructor(args) {
       super()
 
-      this.prepare(args)
+      this.prepare(args, true)
     }
-
-    axis = true
   }
 
   class Height extends Dimension {
     constructor(args) {
       super()
 
-      this.prepare(args)
+      this.prepare(args, false)
     }
-
-    axis = false
   }
 
   class DistanceX extends Distance {
     constructor(args) {
       super()
 
-      this.prepare(args)
+      this.prepare(args, true)
     }
-
-    axis = true
 
     getReal() {
       return Math.round(this.realPartCalculation() + state.addX)
@@ -345,7 +339,7 @@ const getPixelUnits = () => {
     constructor(args) {
       super()
 
-      this.prepare(args)
+      this.prepare(args, false)
     }
 
     getReal() {

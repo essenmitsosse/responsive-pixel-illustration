@@ -47,16 +47,16 @@ const getPixelUnits = () => {
     prepare(args) {
       const objType = typeof args
 
-      if (objType === 'object') {
+      if (Array.isArray(args)) {
+        // is Array
+
+        this.createAdder(args, true)
+
+        return
+      } else if (objType === 'object') {
         // is Object
 
-        if (args.constructor === Array) {
-          // is Array
-
-          this.createAdder(args, true)
-
-          return
-        } else if (args.getLinkedVariable) {
+        if (args.getLinkedVariable) {
           // Linked to Variable ( new style )
           this.realPartCalculation = args.getLinkedVariable
 

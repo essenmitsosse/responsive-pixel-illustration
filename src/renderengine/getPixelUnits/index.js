@@ -542,7 +542,7 @@ const getPixelUnits = () => {
     }
   })()
 
-  const twoD = (function () {
+  const twoD = (() => {
     const Position = function (args, reflectX, reflectY, rotate) {
       const fromRight = (args.fX || false) !== reflectX
       const fromBottom = (args.fY || false) !== reflectY

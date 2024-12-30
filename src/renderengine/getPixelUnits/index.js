@@ -1,4 +1,4 @@
-const getPixelUnits = function () {
+const getPixelUnits = () => {
   const old = []
 
   let variableListLink

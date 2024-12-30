@@ -115,40 +115,32 @@ const getPixelUnits = () => {
         if (args.odd || args.even) {
           this.realPartCalculation = this.odd(args.odd || false)
         }
-      } else {
-        // Short Hand Variables
-
-        if (objType === 'number') {
-          if (this.dimension) {
-            // No calculation, just return Number
-            this.simplify(args)
-
-            return
-          } else {
-            this.abs = args
-
-            this.rele = 0
-          }
-        } else if (objType === 'string') {
-          // Linked to Variable ( old style )
-          state.variableListLink(args, this)
-
-          this.rele = 0
-
-          this.realPartCalculation = this.getRealDistance
+      } else if (objType === 'number') {
+        if (this.dimension) {
+          // No calculation, just return Number
+          this.simplify(args)
 
           return
         } else {
-          this.dim = this.axis
+          this.abs = args
 
-          if (this.getDefaults()) {
-            this.realPartCalculation = this.getQuick
-
-            return
-          }
+          this.rele = 0
         }
 
         this.realPartCalculation = this.getRealDistance
+      } else if (objType === 'string') {
+        // Linked to Variable ( old style )
+        state.variableListLink(args, this)
+
+        this.rele = 0
+
+        this.realPartCalculation = this.getRealDistance
+      } else if (this.getDefaults()) {
+        this.dim = this.axis
+
+        this.realPartCalculation = this.getQuick
+      } else {
+        this.dim = this.axis
       }
     }
 

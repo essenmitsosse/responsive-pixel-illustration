@@ -476,7 +476,6 @@ const getPixelUnits = () => {
 
   const AxisX = createAxis(Width, DistanceX)
   const AxisY = createAxis(Height, DistanceY)
-  const Pos = function () {}
   const PosX = createPos(DistanceX)
   const PosY = createPos(DistanceY)
 
@@ -484,32 +483,32 @@ const getPixelUnits = () => {
 
   AxisY.prototype = new Axis()
 
-  Pos.prototype = new Axis()
+  class Pos extends Axis {
+    calc() {
+      return this.calcPos()
+    }
 
-  Pos.prototype.calc = function () {
-    return this.calcPos()
-  }
+    getCalcPos = {
+      normal() {
+        return this.pos.getReal()
+      },
+      toOther() {
+        return this.pos.getReal() - 1
+      },
+      center() {
+        return this.pos.getReal() + Math.floor(this.dim / 2)
+      },
 
-  Pos.prototype.getCalcPos = {
-    normal() {
-      return this.pos.getReal()
-    },
-    toOther() {
-      return this.pos.getReal() - 1
-    },
-    center() {
-      return this.pos.getReal() + Math.floor(this.dim / 2)
-    },
-
-    fromOther() {
-      return this.pos.fromOtherSide(1)
-    },
-    fromOtherToOther() {
-      return this.pos.fromOtherSide(0)
-    },
-    fromOtherCenter() {
-      return this.pos.fromOtherSide(1) - Math.floor(this.dim / 2)
-    },
+      fromOther() {
+        return this.pos.fromOtherSide(1)
+      },
+      fromOtherToOther() {
+        return this.pos.fromOtherSide(0)
+      },
+      fromOtherCenter() {
+        return this.pos.fromOtherSide(1) - Math.floor(this.dim / 2)
+      },
+    }
   }
 
   PosX.prototype = new Pos()

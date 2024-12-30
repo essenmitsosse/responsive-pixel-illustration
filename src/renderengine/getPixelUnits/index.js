@@ -44,6 +44,13 @@ const getPixelUnits = () => {
   }
 
   class Dimension {
+    /**
+     * This can't be the `constructor`, because it relies on properties of the
+     * final object and in case of sub classed instances (which is basically all
+     * the instance that are going to be used) this wouldn't be set during the
+     * `constructor` call, so after `super` has been called we need to
+     * explicitly call `prepare`.
+     */
     prepare(args, axis) {
       const objType = typeof args
 

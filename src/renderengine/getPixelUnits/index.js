@@ -318,12 +318,24 @@ const getPixelUnits = () => {
     dimension = false
   }
 
-  function Width(args) {
-    this.prepare(args)
+  class Width extends Dimension {
+    constructor(args) {
+      super(args)
+
+      this.prepare(args)
+    }
+
+    axis = true
   }
 
-  function Height(args) {
-    this.prepare(args)
+  class Height extends Dimension {
+    constructor(args) {
+      super(args)
+
+      this.prepare(args)
+    }
+
+    axis = false
   }
 
   function DistanceX(args) {
@@ -333,14 +345,6 @@ const getPixelUnits = () => {
   function DistanceY(args) {
     this.prepare(args)
   }
-
-  Width.prototype = new Dimension()
-
-  Height.prototype = new Dimension()
-
-  Width.prototype.axis = true
-
-  Height.prototype.axis = false
 
   DistanceX.prototype = new Distance()
 

@@ -36,6 +36,15 @@ const getPixelUnits = () => {
     this.prepare(args)
   }
 
+  const getGetLengthCalculation = (x, y) => {
+    x = new Width(x)
+
+    y = new Width(y)
+
+    return () =>
+      Math.round(Math.sqrt(Math.pow(x.getReal(), 2) + Math.pow(y.getReal(), 2)))
+  }
+
   // DIMENSIONS --- Width & Height
 
   Dimension.prototype.prepare = function (args) {
@@ -56,7 +65,7 @@ const getPixelUnits = () => {
 
         return
       } else if (args.getLength) {
-        this.realPartCalculation = this.getGetLengthCalculation(
+        this.realPartCalculation = getGetLengthCalculation(
           args.getLength[0],
           args.getLength[1],
         )
@@ -202,15 +211,6 @@ const getPixelUnits = () => {
     this[onlyAdd ? 'realPartCalculation' : 'getRealDistance'] = onlyAdd
       ? this.getRealDistanceWithCalcOnlyAdding
       : this.getRealDistanceWithCalc
-  }
-
-  Dimension.prototype.getGetLengthCalculation = (x, y) => {
-    x = new Width(x)
-
-    y = new Width(y)
-
-    return () =>
-      Math.round(Math.sqrt(Math.pow(x.getReal(), 2) + Math.pow(y.getReal(), 2)))
   }
 
   Dimension.prototype.getReal = function () {

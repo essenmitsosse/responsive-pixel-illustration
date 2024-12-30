@@ -309,9 +309,7 @@ const getPixelUnits = () => {
     Dimension.prototype.dimension = true
 
     Dimension.prototype.simplify = function (abs) {
-      this.getReal = function () {
-        return abs
-      }
+      this.getReal = () => abs
     }
 
     Width.prototype = new Dimension()

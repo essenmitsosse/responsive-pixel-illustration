@@ -336,7 +336,7 @@ export const DrawingTools = function (pixelUnit) {
     rotate,
   ) {
     return {
-      getRealPosition: new pixelUnit.Position(args, reflectX, reflectY, rotate),
+      getRealPosition: pixelUnit.Position(args, reflectX, reflectY, rotate),
     }
   }
 
@@ -397,7 +397,7 @@ export const DrawingTools = function (pixelUnit) {
 
     while (l--) {
       newPoints.push(
-        new pixelUnit.Position(args.points[l], reflectX, reflectY, rotate),
+        pixelUnit.Position(args.points[l], reflectX, reflectY, rotate),
       )
     }
 

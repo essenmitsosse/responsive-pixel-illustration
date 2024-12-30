@@ -342,9 +342,7 @@ const getPixelUnits = function () {
       }
     }
 
-    Distance.prototype.getQuick = function () {
-      return 0
-    }
+    Distance.prototype.getQuick = () => 0
 
     Distance.prototype.dimension = false
 

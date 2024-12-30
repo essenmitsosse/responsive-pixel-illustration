@@ -28,7 +28,7 @@ const createPixelArray = (canvasWidth, canvasHeight) => {
   let maxY = canvasHeight
 
   return {
-    setMask(dimensions, push) {
+    setMask: (dimensions, push) => {
       const old = {
         posX: minX,
         width: maxX - minX,
@@ -79,27 +79,23 @@ const createPixelArray = (canvasWidth, canvasHeight) => {
       return old
     },
 
-    getSet(color, zInd, id) {
-      return function (x, y) {
-        if (x >= minX && x < maxX && y >= minY && y < maxY) {
-          pixelArray[x][y].draw(color, zInd, id)
-        }
+    getSet: (color, zInd, id) => (x, y) => {
+      if (x >= minX && x < maxX && y >= minY && y < maxY) {
+        pixelArray[x][y].draw(color, zInd, id)
       }
     },
 
-    getClear(id) {
-      return function (x, y) {
-        if (x >= minX && x < maxX && y >= minY && y < maxY) {
-          pixelArray[x][y].clear(id)
-        }
+    getClear: (id) => (x, y) => {
+      if (x >= minX && x < maxX && y >= minY && y < maxY) {
+        pixelArray[x][y].clear(id)
       }
     },
 
-    getSetForRect(color, zInd, id) {
+    getSetForRect: (color, zInd, id) => {
       // Set Color for Rectangle for better Performance
       const pA = pixelArray
 
-      return function (args) {
+      return (args) => {
         const endX = args.width + args.posX
         const endY = args.height + args.posY
 
@@ -124,10 +120,10 @@ const createPixelArray = (canvasWidth, canvasHeight) => {
       }
     },
 
-    getClearForRect(id) {
+    getClearForRect: (id) => {
       const pA = pixelArray
 
-      return function (args) {
+      return (args) => {
         const endX = args.width + args.posX
         const endY = args.height + args.posY
 
@@ -152,58 +148,54 @@ const createPixelArray = (canvasWidth, canvasHeight) => {
       }
     },
 
-    getSaveForRect(save, mask) {
-      return function (args) {
-        const endX = args.width + args.posX
-        const endY = args.height + args.posY
+    getSaveForRect: (save, mask) => (args) => {
+      const endX = args.width + args.posX
+      const endY = args.height + args.posY
 
-        let sizeX = endX > canvasWidth ? canvasWidth : endX
-        let sizeY
+      let sizeX = endX > canvasWidth ? canvasWidth : endX
+      let sizeY
 
-        const initSizeY = endY > canvasHeight ? canvasHeight : endY
-        const startX = args.posX < 0 ? 0 : args.posX
-        const startY = args.posY < 0 ? 0 : args.posY
-        const s = save
+      const initSizeY = endY > canvasHeight ? canvasHeight : endY
+      const startX = args.posX < 0 ? 0 : args.posX
+      const startY = args.posY < 0 ? 0 : args.posY
+      const s = save
 
-        let col
+      let col
 
-        while ((sizeX -= 1) >= startX) {
-          sizeY = initSizeY
+      while ((sizeX -= 1) >= startX) {
+        sizeY = initSizeY
 
-          col = mask[sizeX] || (mask[sizeX] = [])
+        col = mask[sizeX] || (mask[sizeX] = [])
 
-          while ((sizeY -= 1) >= startY) {
-            s.push([sizeX, sizeY])
+        while ((sizeY -= 1) >= startY) {
+          s.push([sizeX, sizeY])
 
-            col[sizeY] = true
-          }
+          col[sizeY] = true
         }
       }
     },
 
     /** Return prepared Color-Array, with default Color; */
-    getClearSaveForRect(save, mask) {
-      return function (args) {
-        const endX = args.width + args.posX
-        const endY = args.height + args.posY
+    getClearSaveForRect: (save, mask) => (args) => {
+      const endX = args.width + args.posX
+      const endY = args.height + args.posY
 
-        let sizeX = endX > canvasWidth ? canvasWidth : endX
-        let sizeY
+      let sizeX = endX > canvasWidth ? canvasWidth : endX
+      let sizeY
 
-        const initSizeY = endY > canvasHeight ? canvasHeight : endY
-        const startX = args.posX < 0 ? 0 : args.posX
-        const startY = args.posY < 0 ? 0 : args.posY
+      const initSizeY = endY > canvasHeight ? canvasHeight : endY
+      const startX = args.posX < 0 ? 0 : args.posX
+      const startY = args.posY < 0 ? 0 : args.posY
 
-        let col
+      let col
 
-        while ((sizeX -= 1) >= startX) {
-          sizeY = initSizeY
+      while ((sizeX -= 1) >= startX) {
+        sizeY = initSizeY
 
-          if ((col = mask[sizeX])) {
-            while ((sizeY -= 1) >= startY) {
-              if (col[sizeY]) {
-                col[sizeY] = false
-              }
+        if ((col = mask[sizeX])) {
+          while ((sizeY -= 1) >= startY) {
+            if (col[sizeY]) {
+              col[sizeY] = false
             }
           }
         }
@@ -220,7 +212,7 @@ const getDrawer = (pixelStarter, renderList) => {
   const drawingTool = new pixelStarter.DrawingTools(pixelUnit)
   const canvasTool = new drawingTool.Obj().create({ list: renderList })
 
-  return function drawer(countW, countH) {
+  return (countW, countH) => {
     const pixelArray = createPixelArray(countW, countH)
 
     drawingTool.init(countW, countH, pixelArray)
@@ -306,13 +298,13 @@ const getRenderer = (canvas, options, pixelStarter) => {
   )
 
   return {
-    rescaleWindow() {
+    rescaleWindow: () => {
       w = canvas.offsetWidth
 
       h = canvas.offsetHeight
     },
 
-    resize: function resize(widthFactor, heightFactor) {
+    resize: (widthFactor, heightFactor) => {
       const countW = Math.round(((widthFactor || 1) * w) / options.pixelSize)
       const countH = Math.round(((heightFactor || 1) * h) / options.pixelSize)
 

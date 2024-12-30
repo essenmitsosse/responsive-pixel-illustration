@@ -370,168 +370,160 @@ const getPixelUnits = () => {
     Dimension.prototype.height = dimensions.height
   }
 
-  const Axis = (() => {
-    const createAxis = (Size, Pos) =>
-      function (args) {
-        this.pos = new Pos(args.pos)
+  const createAxis = (Size, Pos) =>
+    function (args) {
+      this.pos = new Pos(args.pos)
 
-        this.size = new Size(args.size)
+      this.size = new Size(args.size)
 
-        this.margin = args.margin ? new Size(args.margin) : false
+      this.margin = args.margin ? new Size(args.margin) : false
 
-        this.toOtherSide = args.toOtherSide
+      this.toOtherSide = args.toOtherSide
 
-        this.fromOtherSide = args.fromOtherSide
+      this.fromOtherSide = args.fromOtherSide
 
-        this.center = args.center
+      this.center = args.center
 
-        if (args.min) {
-          this.min = new Size(args.min)
-        }
-
-        this.calcPos = this.center
-          ? this.fromOtherSide
-            ? this.getCalcPos.fromOtherCenter
-            : this.getCalcPos.center
-          : this.toOtherSide
-            ? this.fromOtherSide
-              ? this.getCalcPos.fromOtherToOther
-              : this.getCalcPos.toOther
-            : this.fromOtherSide
-              ? this.getCalcPos.fromOther
-              : this.getCalcPos.normal
+      if (args.min) {
+        this.min = new Size(args.min)
       }
 
-    const createPos = (Pos) =>
-      function (args) {
-        this.pos = new Pos(args.pos)
-
-        this.toOtherSide = args.toOtherSide
-
-        this.fromOtherSide = args.fromOtherSide
-
-        this.center = args.center
-
-        this.calcPos = this.center
+      this.calcPos = this.center
+        ? this.fromOtherSide
+          ? this.getCalcPos.fromOtherCenter
+          : this.getCalcPos.center
+        : this.toOtherSide
           ? this.fromOtherSide
-            ? this.getCalcPos.fromOtherCenter
-            : this.getCalcPos.center
-          : this.toOtherSide
-            ? this.fromOtherSide
-              ? this.getCalcPos.fromOtherToOther
-              : this.getCalcPos.toOther
-            : this.fromOtherSide
-              ? this.getCalcPos.fromOther
-              : this.getCalcPos.normal
-      }
-
-    const Axis = function () {}
-    const AxisX = createAxis(Width, DistanceX)
-    const AxisY = createAxis(Height, DistanceY)
-    const Pos = function () {}
-    const PosX = createPos(DistanceX)
-    const PosY = createPos(DistanceY)
-
-    Axis.prototype = {
-      get getSize() {
-        return this.realSize
-      },
-      get getPos() {
-        return this.realPos
-      },
-      get getEnd() {
-        return this.realPos + this.realSize
-      },
+            ? this.getCalcPos.fromOtherToOther
+            : this.getCalcPos.toOther
+          : this.fromOtherSide
+            ? this.getCalcPos.fromOther
+            : this.getCalcPos.normal
     }
 
-    Axis.prototype.calc = function () {
-      this.realSize =
-        this.size.getReal() -
-        (this.realMargin = this.margin ? this.margin.getReal() : 0) * 2
+  const createPos = (Pos) =>
+    function (args) {
+      this.pos = new Pos(args.pos)
 
-      this.realPos = this.calcPos()
+      this.toOtherSide = args.toOtherSide
+
+      this.fromOtherSide = args.fromOtherSide
+
+      this.center = args.center
+
+      this.calcPos = this.center
+        ? this.fromOtherSide
+          ? this.getCalcPos.fromOtherCenter
+          : this.getCalcPos.center
+        : this.toOtherSide
+          ? this.fromOtherSide
+            ? this.getCalcPos.fromOtherToOther
+            : this.getCalcPos.toOther
+          : this.fromOtherSide
+            ? this.getCalcPos.fromOther
+            : this.getCalcPos.normal
     }
 
-    Axis.prototype.getCalcPos = {
-      normal() {
-        return this.pos.getReal() + this.realMargin
-      },
-      toOther() {
-        return this.pos.getReal() + this.realMargin - this.realSize
-      },
-      center() {
-        return this.pos.getReal() + Math.floor((this.dim - this.realSize) / 2)
-      },
+  const Axis = function () {}
+  const AxisX = createAxis(Width, DistanceX)
+  const AxisY = createAxis(Height, DistanceY)
+  const Pos = function () {}
+  const PosX = createPos(DistanceX)
+  const PosY = createPos(DistanceY)
 
-      fromOther() {
-        return this.pos.fromOtherSide(this.realSize) - this.realMargin
-      },
-      fromOtherToOther() {
-        return this.pos.fromOtherSide(0) + this.realMargin
-      },
-      fromOtherCenter() {
-        return (
-          this.pos.fromOtherSide(this.realSize) -
-          Math.floor((this.dim - this.realSize) / 2)
-        )
-      },
-    }
+  Axis.prototype = {
+    get getSize() {
+      return this.realSize
+    },
+    get getPos() {
+      return this.realPos
+    },
+    get getEnd() {
+      return this.realPos + this.realSize
+    },
+  }
 
-    AxisX.prototype = new Axis()
+  Axis.prototype.calc = function () {
+    this.realSize =
+      this.size.getReal() -
+      (this.realMargin = this.margin ? this.margin.getReal() : 0) * 2
 
-    AxisY.prototype = new Axis()
+    this.realPos = this.calcPos()
+  }
 
-    Pos.prototype = new Axis()
+  Axis.prototype.getCalcPos = {
+    normal() {
+      return this.pos.getReal() + this.realMargin
+    },
+    toOther() {
+      return this.pos.getReal() + this.realMargin - this.realSize
+    },
+    center() {
+      return this.pos.getReal() + Math.floor((this.dim - this.realSize) / 2)
+    },
 
-    Pos.prototype.calc = function () {
-      return this.calcPos()
-    }
+    fromOther() {
+      return this.pos.fromOtherSide(this.realSize) - this.realMargin
+    },
+    fromOtherToOther() {
+      return this.pos.fromOtherSide(0) + this.realMargin
+    },
+    fromOtherCenter() {
+      return (
+        this.pos.fromOtherSide(this.realSize) -
+        Math.floor((this.dim - this.realSize) / 2)
+      )
+    },
+  }
 
-    Pos.prototype.getCalcPos = {
-      normal() {
-        return this.pos.getReal()
-      },
-      toOther() {
-        return this.pos.getReal() - 1
-      },
-      center() {
-        return this.pos.getReal() + Math.floor(this.dim / 2)
-      },
+  AxisX.prototype = new Axis()
 
-      fromOther() {
-        return this.pos.fromOtherSide(1)
-      },
-      fromOtherToOther() {
-        return this.pos.fromOtherSide(0)
-      },
-      fromOtherCenter() {
-        return this.pos.fromOtherSide(1) - Math.floor(this.dim / 2)
-      },
-    }
+  AxisY.prototype = new Axis()
 
-    PosX.prototype = new Pos()
+  Pos.prototype = new Axis()
 
-    PosY.prototype = new Pos()
+  Pos.prototype.calc = function () {
+    return this.calcPos()
+  }
 
-    return {
-      X: AxisX,
-      Y: AxisY,
-      PosX,
-      PosY,
-      set(dimensions) {
-        AxisX.prototype.dim = PosX.prototype.dim = dimensions.width
+  Pos.prototype.getCalcPos = {
+    normal() {
+      return this.pos.getReal()
+    },
+    toOther() {
+      return this.pos.getReal() - 1
+    },
+    center() {
+      return this.pos.getReal() + Math.floor(this.dim / 2)
+    },
 
-        AxisY.prototype.dim = PosY.prototype.dim = dimensions.height
-      },
-    }
-  })()
+    fromOther() {
+      return this.pos.fromOtherSide(1)
+    },
+    fromOtherToOther() {
+      return this.pos.fromOtherSide(0)
+    },
+    fromOtherCenter() {
+      return this.pos.fromOtherSide(1) - Math.floor(this.dim / 2)
+    },
+  }
+
+  PosX.prototype = new Pos()
+
+  PosY.prototype = new Pos()
+
+  const setAxis = (dimensions) => {
+    AxisX.prototype.dim = PosX.prototype.dim = dimensions.width
+
+    AxisY.prototype.dim = PosY.prototype.dim = dimensions.height
+  }
 
   const twoD = (() => {
     const Position = function (args, reflectX, reflectY, rotate) {
       const fromRight = (args.fX || false) !== reflectX
       const fromBottom = (args.fY || false) !== reflectY
 
-      const x = new Axis.PosX(
+      const x = new PosX(
         rotate
           ? {
               pos: args.y,
@@ -547,7 +539,7 @@ const getPixelUnits = () => {
             },
       )
 
-      const y = new Axis.PosY(
+      const y = new PosY(
         rotate
           ? {
               pos: args.x,
@@ -578,7 +570,7 @@ const getPixelUnits = () => {
         args.sY = args.s
       }
 
-      this.x = new Axis.X(
+      this.x = new AxisX(
         rotate
           ? {
               size: args.sY,
@@ -600,7 +592,7 @@ const getPixelUnits = () => {
             },
       )
 
-      this.y = new Axis.Y(
+      this.y = new AxisY(
         rotate
           ? {
               size: args.sX,
@@ -686,7 +678,7 @@ const getPixelUnits = () => {
     init: (dimensions) => {
       oneDSet(dimensions)
 
-      Axis.set(dimensions)
+      setAxis(dimensions)
 
       if (calculateList) {
         calculateList(dimensions)
@@ -702,7 +694,7 @@ const getPixelUnits = () => {
       if (o) {
         oneDSet(o)
 
-        Axis.set(o)
+        setAxis(o)
 
         old.pop()
       }
@@ -710,7 +702,7 @@ const getPixelUnits = () => {
     push: (dimensions) => {
       oneDSet(dimensions)
 
-      Axis.set(dimensions)
+      setAxis(dimensions)
 
       old.push(dimensions)
     },

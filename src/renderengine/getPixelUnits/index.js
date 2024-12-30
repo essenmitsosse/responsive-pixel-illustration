@@ -219,11 +219,9 @@ const getPixelUnits = () => {
       }
     }
 
-    Dimension.prototype.getReal = (function () {
-      return function () {
-        return Math.round(this.realPartCalculation())
-      }
-    })()
+    Dimension.prototype.getReal = function () {
+      return Math.round(this.realPartCalculation())
+    }
 
     Dimension.prototype.getRealUnrounded = function () {
       return this.realPartCalculation()

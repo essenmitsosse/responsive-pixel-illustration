@@ -145,7 +145,7 @@ export class PixelGraphics {
       redraw: Redraw
       resize: Resize
     } => {
-      const finalRenderer = getRenderer(canvas, info, options, that)
+      const finalRenderer = getRenderer(canvas, options, that)
       const resize = that.getResize(info, finalRenderer.resize)
       const redraw = getRedraw(options, resize)
 

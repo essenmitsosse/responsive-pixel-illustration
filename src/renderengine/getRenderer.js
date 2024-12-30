@@ -290,7 +290,7 @@ const getRenderPixelToImage =
     return imageData
   }
 
-const getRenderer = (canvas, info, options, pixelStarter) => {
+const getRenderer = (canvas, options, pixelStarter) => {
   // Render Engine to convert basic image into absolute Pixels
   const context = canvas.getContext('2d')
   const virtualCanvas = document.createElement('canvas')

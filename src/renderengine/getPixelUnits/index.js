@@ -58,10 +58,18 @@ const getPixelUnits = () => {
         // is Array
 
         this.createAdder(args, true)
-      } else if (objType === 'object' && args.getLinkedVariable) {
+      } else if (
+        objType === 'object' &&
+        'getLinkedVariable' in args &&
+        args.getLinkedVariable
+      ) {
         // Linked to Variable ( new style )
         this.realPartCalculation = args.getLinkedVariable
-      } else if (objType === 'object' && args.getLength) {
+      } else if (
+        objType === 'object' &&
+        'getLength' in args &&
+        args.getLength
+      ) {
         this.realPartCalculation = getGetLengthCalculation(
           args.getLength[0],
           args.getLength[1],
@@ -70,15 +78,15 @@ const getPixelUnits = () => {
         // is Object
         this.debug = args.debug
 
-        if (typeof args.a === 'string') {
+        if ('a' in args && typeof args.a === 'string') {
           state.variableListLink(args.a, this)
         }
 
-        if (args.add) {
+        if ('add' in args && args.add) {
           this.createAdder(args.add)
         }
 
-        if (args.useSize) {
+        if ('useSize' in args && args.useSize) {
           if (typeof args.useSize === 'string') {
             state.variableListLink(args.useSize, (this.useVari = {}))
           } else if (args.useSize.getLinkedVariable) {
@@ -91,7 +99,11 @@ const getPixelUnits = () => {
         }
 
         // Get gefaults and try to do quick version
-        if (this.getDefaults(args.r, args.a) && !args.useSize && !args.add) {
+        if (
+          this.getDefaults(args.r, args.a) &&
+          !('useSize' in args && args.useSize) &&
+          !('add' in args && args.add)
+        ) {
           this.realPartCalculation = this.getQuick
         } else {
           this.realPartCalculation =
@@ -104,13 +116,13 @@ const getPixelUnits = () => {
               : this.getRealDistance
         }
 
-        if (args.save) {
+        if ('save' in args && args.save) {
           this.realPartCalculation = this.saveDistance(
             state.variableListCreate(args.save),
           )
         }
 
-        if (args.odd || args.even) {
+        if (('odd' in args && args.odd) || ('even' in args && args.even)) {
           this.realPartCalculation = this.odd(args.odd || false)
         }
       } else if (objType === 'number' && this.dimension) {

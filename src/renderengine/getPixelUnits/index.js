@@ -386,7 +386,7 @@ const getPixelUnits = () => {
     }
   })()
 
-  const Axis = (function () {
+  const Axis = (() => {
     const createAxis = function (Size, Pos) {
       return function (args) {
         this.pos = new Pos(args.pos)

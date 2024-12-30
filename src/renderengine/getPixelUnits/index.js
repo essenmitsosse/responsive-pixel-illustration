@@ -207,7 +207,7 @@ const getPixelUnits = () => {
         : this.getRealDistanceWithCalc
     }
 
-    Dimension.prototype.getGetLengthCalculation = function (x, y) {
+    Dimension.prototype.getGetLengthCalculation = (x, y) => {
       x = new Width(x)
 
       y = new Width(y)

@@ -298,7 +298,25 @@ const getPixelUnits = () => {
     }
   }
 
-  function Distance() {}
+  class Distance extends Dimension {
+    getDefaults(r, a) {
+      if (r === undefined && a === undefined) {
+        this.rele = 0
+
+        this.abs = 0
+
+        return true
+      } else {
+        this.rele = r || 0
+
+        this.abs = a || 0
+      }
+    }
+
+    getQuick = () => 0
+
+    dimension = false
+  }
 
   function Width(args) {
     this.prepare(args)
@@ -323,27 +341,6 @@ const getPixelUnits = () => {
   Width.prototype.axis = true
 
   Height.prototype.axis = false
-
-  // DISTANCES --- PosX & PosY
-  Distance.prototype = new Dimension()
-
-  Distance.prototype.getDefaults = function (r, a) {
-    if (r === undefined && a === undefined) {
-      this.rele = 0
-
-      this.abs = 0
-
-      return true
-    } else {
-      this.rele = r || 0
-
-      this.abs = a || 0
-    }
-  }
-
-  Distance.prototype.getQuick = () => 0
-
-  Distance.prototype.dimension = false
 
   DistanceX.prototype = new Distance()
 

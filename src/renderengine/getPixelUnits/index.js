@@ -689,17 +689,17 @@ const getPixelUnits = () => {
     createSize: oneD.createSize,
     Width: oneD.Width,
     Height: oneD.Height,
-    setList(listLink, listCreate, updater) {
+    setList: (listLink, listCreate, updater) => {
       variableListLink = listLink
 
       variableListCreate = listCreate
 
       updateList = updater
     },
-    linkList(calc) {
+    linkList: (calc) => {
       calculateList = calc
     },
-    init(dimensions) {
+    init: (dimensions) => {
       oneD.set(dimensions)
 
       Axis.set(dimensions)
@@ -712,7 +712,7 @@ const getPixelUnits = () => {
         updateList()
       }
     },
-    pop() {
+    pop: () => {
       const o = old[old.length - 2]
 
       if (o) {
@@ -723,7 +723,7 @@ const getPixelUnits = () => {
         old.pop()
       }
     },
-    push(dimensions) {
+    push: (dimensions) => {
       oneD.set(dimensions)
 
       Axis.set(dimensions)

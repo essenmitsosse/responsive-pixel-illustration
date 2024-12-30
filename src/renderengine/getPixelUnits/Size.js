@@ -1,4 +1,11 @@
 function getRealDistanceBasic() {
+  if (
+    this.state.dimensionWidth === null ||
+    this.state.dimensionHeight === null
+  ) {
+    throw new Error('Unexpected error: State has not been initialized')
+  }
+
   return (
     this.rele *
       (this.useVari

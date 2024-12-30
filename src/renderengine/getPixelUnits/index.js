@@ -418,8 +418,8 @@ const getPixelUnits = () => {
               : this.getCalcPos.normal
       }
 
-    const createPos = function (Pos) {
-      return function (args) {
+    const createPos = (Pos) =>
+      function (args) {
         this.pos = new Pos(args.pos)
 
         this.toOtherSide = args.toOtherSide
@@ -440,7 +440,6 @@ const getPixelUnits = () => {
               ? this.getCalcPos.fromOther
               : this.getCalcPos.normal
       }
-    }
 
     const Axis = function () {}
     const AxisX = createAxis(oneD.Width, oneD.DistanceX)

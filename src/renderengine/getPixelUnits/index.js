@@ -364,21 +364,19 @@ const getPixelUnits = function () {
         const x = dimensions.posX || 0
         const y = dimensions.posY || 0
 
-        const getRealPos = function (add) {
-          return function () {
+        const getRealPos = (add) =>
+          function () {
             return Math.round(this.realPartCalculation() + add)
           }
-        }
 
-        const getFromOtherSide = function (add) {
-          return function (size) {
+        const getFromOtherSide = (add) =>
+          function (size) {
             return (
               (this.axis ? dimensions.width : dimensions.height) +
               add -
               Math.round(this.realPartCalculation() + size)
             )
           }
-        }
 
         DistanceX.prototype.getReal = getRealPos(x)
 

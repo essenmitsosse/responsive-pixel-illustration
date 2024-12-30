@@ -295,7 +295,6 @@ const getRenderer = (canvas, options, pixelStarter) => {
   const context = canvas.getContext('2d')
   const virtualCanvas = document.createElement('canvas')
   const virtaulContext = virtualCanvas.getContext('2d')
-  const { pixelSize } = options
 
   let w
   let h
@@ -314,8 +313,8 @@ const getRenderer = (canvas, options, pixelStarter) => {
     },
 
     resize: function resize(widthFactor, heightFactor) {
-      const countW = Math.round(((widthFactor || 1) * w) / pixelSize)
-      const countH = Math.round(((heightFactor || 1) * h) / pixelSize)
+      const countW = Math.round(((widthFactor || 1) * w) / options.pixelSize)
+      const countH = Math.round(((heightFactor || 1) * h) / options.pixelSize)
 
       const image =
         countW && countH && virtaulContext.createImageData(countW, countH)
@@ -362,8 +361,8 @@ const getRenderer = (canvas, options, pixelStarter) => {
           virtualCanvas,
           0,
           0,
-          countW * pixelSize,
-          countH * pixelSize,
+          countW * options.pixelSize,
+          countH * options.pixelSize,
         )
 
         // // Log some general Infos for debugging

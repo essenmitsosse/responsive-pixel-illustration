@@ -42,6 +42,13 @@ class Dimension {
    * call `prepare`.
    */
   prepare(args, axis) {
+    if (
+      this.state.variableListLink === null ||
+      this.state.variableListCreate === null
+    ) {
+      throw new Error('Unexpected error: State has not been initialized')
+    }
+
     if (Array.isArray(args)) {
       // is Array
       this.createAdder(args, true)

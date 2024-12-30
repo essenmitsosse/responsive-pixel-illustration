@@ -1,7 +1,7 @@
 import { DrawingTools } from './creator'
 import getInfo from './getInfo'
+import getRenderer from './getRenderer'
 import { getPixelUnits } from './pixel'
-import { Renderer } from './renderer'
 import { DynamicVariable, Variable } from './Variable'
 
 import type { Info } from './getInfo'
@@ -145,7 +145,7 @@ export class PixelGraphics {
       redraw: Redraw
       resize: Resize
     } => {
-      const finalRenderer = new Renderer(canvas, info, options, that)
+      const finalRenderer = getRenderer(canvas, options, that)
       const resize = that.getResize(info, finalRenderer.resize)
       const redraw = getRedraw(options, resize)
 

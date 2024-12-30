@@ -387,8 +387,8 @@ const getPixelUnits = () => {
   })()
 
   const Axis = (() => {
-    const createAxis = function (Size, Pos) {
-      return function (args) {
+    const createAxis = (Size, Pos) =>
+      function (args) {
         this.pos = new Pos(args.pos)
 
         this.size = new Size(args.size)
@@ -417,7 +417,6 @@ const getPixelUnits = () => {
               ? this.getCalcPos.fromOther
               : this.getCalcPos.normal
       }
-    }
 
     const createPos = function (Pos) {
       return function (args) {

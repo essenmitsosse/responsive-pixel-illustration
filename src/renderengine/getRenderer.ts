@@ -1,9 +1,14 @@
 import Color from '@/renderengine/Color'
 
-const getPixelArray = (width, height) => {
+import type { PixelGraphics, RenderObject } from './PixelGraphics'
+import type { ColorRgb } from '@/helper/typeColor'
+
+type ColorArray = Array<Array<Color>>
+
+const getPixelArray = (width: number, height: number): ColorArray => {
   let countH
 
-  const colorArray = []
+  const colorArray: ColorArray = []
 
   while (width--) {
     countH = height
@@ -18,7 +23,37 @@ const getPixelArray = (width, height) => {
   return colorArray
 }
 
-const createPixelArray = (canvasWidth, canvasHeight) => {
+type Location = { height: number; posX: number; posY: number; width: number }
+
+export type PixelArray = {
+  get: ColorArray
+  getClear: (id: string) => (x: number, y: number) => void
+  getClearForRect: (id: string) => (args: Location) => void
+  getClearSaveForRect: (
+    save: Array<[number, number]>,
+    mask: Array<Array<boolean>>,
+  ) => (args: Location) => void
+  getSaveForRect: (
+    save: Array<[number, number]>,
+    mask: Array<Array<boolean>>,
+  ) => (args: Location) => void
+  getSet: (
+    color: ColorRgb,
+    zInd: number,
+    id: string,
+  ) => (x: number, y: number) => void
+  getSetForRect: (
+    color: ColorRgb,
+    zInd: number,
+    id: string,
+  ) => (args: Location) => void
+  setMask: (dimensions: Location, push?: boolean) => Location
+}
+
+const createPixelArray = (
+  canvasWidth: number,
+  canvasHeight: number,
+): PixelArray => {
   // Create PixelArray
   const pixelArray = getPixelArray(canvasWidth, canvasHeight)
 
@@ -28,7 +63,7 @@ const createPixelArray = (canvasWidth, canvasHeight) => {
   let maxY = canvasHeight
 
   return {
-    setMask: (dimensions, push) => {
+    setMask: (dimensions, push): Location => {
       const old = {
         posX: minX,
         width: maxX - minX,
@@ -160,7 +195,7 @@ const createPixelArray = (canvasWidth, canvasHeight) => {
       const startY = args.posY < 0 ? 0 : args.posY
       const s = save
 
-      let col
+      let col: Array<boolean>
 
       while ((sizeX -= 1) >= startX) {
         sizeY = initSizeY
@@ -176,7 +211,7 @@ const createPixelArray = (canvasWidth, canvasHeight) => {
     },
 
     /** Return prepared Color-Array, with default Color; */
-    getClearSaveForRect: (save, mask) => (args) => {
+    getClearSaveForRect: (_, mask) => (args) => {
       const endX = args.width + args.posX
       const endY = args.height + args.posY
 
@@ -206,13 +241,13 @@ const createPixelArray = (canvasWidth, canvasHeight) => {
   }
 }
 
-const getDrawer = (pixelStarter, renderList) => {
+const getDrawer = (pixelStarter: PixelGraphics, renderList: unknown) => {
   // Initialize the drawingTool
   const pixelUnit = pixelStarter.pixelUnits
   const drawingTool = new pixelStarter.DrawingTools(pixelUnit)
   const canvasTool = new drawingTool.Obj().create({ list: renderList })
 
-  return (countW, countH) => {
+  return (countW: number, countH: number): PixelArray => {
     const pixelArray = createPixelArray(countW, countH)
 
     drawingTool.init(countW, countH, pixelArray)
@@ -224,7 +259,13 @@ const getDrawer = (pixelStarter, renderList) => {
 }
 
 const getRenderPixelToImage =
-  (backgroundColor) => (pixelW, pixelH, pixelArray, imageData) => {
+  (backgroundColor: ColorRgb) =>
+  (
+    pixelW: number,
+    pixelH: number,
+    pixelArray: ColorArray,
+    imageData: Uint8ClampedArray<ArrayBufferLike>,
+  ): Uint8ClampedArray<ArrayBufferLike> => {
     let pW = pixelW
     let w4 = pW * 4
 
@@ -282,7 +323,14 @@ const getRenderPixelToImage =
     return imageData
   }
 
-const getRenderer = (canvas, options, pixelStarter) => {
+const getRenderer = (
+  canvas: HTMLCanvasElement,
+  options: RenderObject,
+  pixelStarter: PixelGraphics,
+): {
+  rescaleWindow: () => void
+  resize: (width: number, height: number) => [number, number, number]
+} => {
   // Render Engine to convert basic image into absolute Pixels
   const context = canvas.getContext('2d')
 
@@ -297,23 +345,24 @@ const getRenderer = (canvas, options, pixelStarter) => {
     throw new Error('Canvas context is null')
   }
 
-  let w
-  let h
+  let w: number
+  let h: number
 
   const drawer = getDrawer(pixelStarter, options.imageFunction.renderList)
 
   const renderPixelToImage = getRenderPixelToImage(
-    options.imageFunction.background,
+    // TODO: Remove casting here
+    options.imageFunction.background as ColorRgb,
   )
 
   return {
-    rescaleWindow: () => {
+    rescaleWindow: (): void => {
       w = canvas.offsetWidth
 
       h = canvas.offsetHeight
     },
 
-    resize: (widthFactor, heightFactor) => {
+    resize: (widthFactor, heightFactor): [number, number, number] => {
       const countW = Math.round(((widthFactor || 1) * w) / options.pixelSize)
       const countH = Math.round(((heightFactor || 1) * h) / options.pixelSize)
 

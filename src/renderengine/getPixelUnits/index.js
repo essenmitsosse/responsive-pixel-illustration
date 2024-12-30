@@ -360,7 +360,7 @@ const getPixelUnits = function () {
       Height,
       DistanceX,
       DistanceY,
-      set(dimensions) {
+      set: (dimensions) => {
         const x = dimensions.posX || 0
         const y = dimensions.posY || 0
 

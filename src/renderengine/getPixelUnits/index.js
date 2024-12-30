@@ -340,42 +340,46 @@ const getPixelUnits = () => {
     axis = false
   }
 
-  function DistanceX(args) {
-    this.prepare(args)
+  class DistanceX extends Distance {
+    constructor(args) {
+      super(args)
+
+      this.prepare(args)
+    }
+
+    axis = true
+
+    getReal() {
+      return Math.round(this.realPartCalculation() + state.addX)
+    }
+
+    fromOtherSide(size) {
+      return (
+        state.dimensionWidth +
+        state.addX -
+        Math.round(this.realPartCalculation() + size)
+      )
+    }
   }
 
-  function DistanceY(args) {
-    this.prepare(args)
-  }
+  class DistanceY extends Distance {
+    constructor(args) {
+      super(args)
 
-  DistanceX.prototype = new Distance()
+      this.prepare(args)
+    }
 
-  DistanceY.prototype = new Distance()
+    getReal() {
+      return Math.round(this.realPartCalculation() + state.addY)
+    }
 
-  DistanceX.prototype.axis = true
-
-  DistanceX.prototype.getReal = function () {
-    return Math.round(this.realPartCalculation() + state.addX)
-  }
-
-  DistanceX.prototype.fromOtherSide = function (size) {
-    return (
-      state.dimensionWidth +
-      state.addX -
-      Math.round(this.realPartCalculation() + size)
-    )
-  }
-
-  DistanceY.prototype.getReal = function () {
-    return Math.round(this.realPartCalculation() + state.addY)
-  }
-
-  DistanceY.prototype.fromOtherSide = function (size) {
-    return (
-      state.dimensionHeight +
-      state.addY -
-      Math.round(this.realPartCalculation() + size)
-    )
+    fromOtherSide(size) {
+      return (
+        state.dimensionHeight +
+        state.addY -
+        Math.round(this.realPartCalculation() + size)
+      )
+    }
   }
 
   const oneDSet = (dimensions) => {

@@ -265,7 +265,7 @@ const getPixelUnits = () => {
       return add
     }
 
-    Dimension.prototype.getRealDistanceWithMaxMin = function (max, min, Dim) {
+    Dimension.prototype.getRealDistanceWithMaxMin = (max, min, Dim) => {
       max = max && new Dim(max)
 
       min = min && new Dim(min)

@@ -301,7 +301,7 @@ const getPixelUnits = () => {
 
   class Width extends Dimension {
     constructor(args) {
-      super(args)
+      super()
 
       this.prepare(args)
     }
@@ -311,7 +311,7 @@ const getPixelUnits = () => {
 
   class Height extends Dimension {
     constructor(args) {
-      super(args)
+      super()
 
       this.prepare(args)
     }
@@ -321,7 +321,7 @@ const getPixelUnits = () => {
 
   class DistanceX extends Distance {
     constructor(args) {
-      super(args)
+      super()
 
       this.prepare(args)
     }
@@ -343,7 +343,7 @@ const getPixelUnits = () => {
 
   class DistanceY extends Distance {
     constructor(args) {
-      super(args)
+      super()
 
       this.prepare(args)
     }

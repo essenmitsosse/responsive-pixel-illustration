@@ -285,6 +285,11 @@ const getRenderPixelToImage =
 const getRenderer = (canvas, options, pixelStarter) => {
   // Render Engine to convert basic image into absolute Pixels
   const context = canvas.getContext('2d')
+
+  if (context === null) {
+    throw new Error('Canvas context is null')
+  }
+
   const virtualCanvas = document.createElement('canvas')
   const virtaulContext = virtualCanvas.getContext('2d')
 

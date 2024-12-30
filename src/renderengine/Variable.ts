@@ -21,7 +21,7 @@ export class Variable extends BaseVariable {
   linkedP: Array<InputDynamicVariable & { abs?: number }> = []
 
   constructor(
-    args: unknown,
+    args: InputDynamicVariable,
     name: string,
     pixelUnits: ReturnType<typeof getPixelUnits>,
   ) {

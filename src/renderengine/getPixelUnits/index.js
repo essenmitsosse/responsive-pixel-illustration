@@ -407,8 +407,6 @@ const getPixelUnits = function () {
   })()
 
   const Axis = (function () {
-    const D = oneD
-
     const createAxis = function (Size, Pos) {
       return function (args) {
         this.pos = new Pos(args.pos)
@@ -466,11 +464,11 @@ const getPixelUnits = function () {
     }
 
     const Axis = function () {}
-    const AxisX = createAxis(D.Width, D.DistanceX)
-    const AxisY = createAxis(D.Height, D.DistanceY)
+    const AxisX = createAxis(oneD.Width, oneD.DistanceX)
+    const AxisY = createAxis(oneD.Height, oneD.DistanceY)
     const Pos = function () {}
-    const PosX = createPos(D.DistanceX)
-    const PosY = createPos(D.DistanceY)
+    const PosX = createPos(oneD.DistanceX)
+    const PosY = createPos(oneD.DistanceY)
 
     Axis.prototype = {
       get getSize() {
@@ -567,15 +565,11 @@ const getPixelUnits = function () {
   })()
 
   const twoD = (function () {
-    const A = Axis
-    const XAxis = A.X
-    const YAxis = A.Y
-
     const Position = function (args, reflectX, reflectY, rotate) {
       const fromRight = (args.fX || false) !== reflectX
       const fromBottom = (args.fY || false) !== reflectY
 
-      const x = new A.PosX(
+      const x = new Axis.PosX(
         rotate
           ? {
               pos: args.y,
@@ -591,7 +585,7 @@ const getPixelUnits = function () {
             },
       )
 
-      const y = new A.PosY(
+      const y = new Axis.PosY(
         rotate
           ? {
               pos: args.x,
@@ -624,7 +618,7 @@ const getPixelUnits = function () {
         args.sY = args.s
       }
 
-      this.x = new XAxis(
+      this.x = new Axis.X(
         rotate
           ? {
               size: args.sY,
@@ -646,7 +640,7 @@ const getPixelUnits = function () {
             },
       )
 
-      this.y = new YAxis(
+      this.y = new Axis.Y(
         rotate
           ? {
               size: args.sX,

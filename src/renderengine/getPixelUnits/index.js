@@ -216,11 +216,11 @@ const getPixelUnits = () => {
         : this.getRealDistanceWithCalc
     }
 
-    getReal = function () {
+    getReal() {
       return Math.round(this.realPartCalculation())
     }
 
-    getRealUnrounded = function () {
+    getRealUnrounded() {
       return this.realPartCalculation()
     }
 
@@ -239,7 +239,7 @@ const getPixelUnits = () => {
       return this.getRealDistanceBasic() + add
     }
 
-    getRealDistanceWithCalcOnlyAdding = function () {
+    getRealDistanceWithCalcOnlyAdding() {
       let add = 0
       let l = this.adder.length
 

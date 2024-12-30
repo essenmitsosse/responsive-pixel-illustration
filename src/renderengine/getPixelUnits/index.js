@@ -429,57 +429,56 @@ const getPixelUnits = () => {
             : this.getCalcPos.normal
     }
 
-  const Axis = function () {}
+  class Axis {
+    get getSize() {
+      return this.realSize
+    }
+    get getPos() {
+      return this.realPos
+    }
+    get getEnd() {
+      return this.realPos + this.realSize
+    }
+
+    calc() {
+      this.realSize =
+        this.size.getReal() -
+        (this.realMargin = this.margin ? this.margin.getReal() : 0) * 2
+
+      this.realPos = this.calcPos()
+    }
+
+    getCalcPos = {
+      normal() {
+        return this.pos.getReal() + this.realMargin
+      },
+      toOther() {
+        return this.pos.getReal() + this.realMargin - this.realSize
+      },
+      center() {
+        return this.pos.getReal() + Math.floor((this.dim - this.realSize) / 2)
+      },
+
+      fromOther() {
+        return this.pos.fromOtherSide(this.realSize) - this.realMargin
+      },
+      fromOtherToOther() {
+        return this.pos.fromOtherSide(0) + this.realMargin
+      },
+      fromOtherCenter() {
+        return (
+          this.pos.fromOtherSide(this.realSize) -
+          Math.floor((this.dim - this.realSize) / 2)
+        )
+      },
+    }
+  }
+
   const AxisX = createAxis(Width, DistanceX)
   const AxisY = createAxis(Height, DistanceY)
   const Pos = function () {}
   const PosX = createPos(DistanceX)
   const PosY = createPos(DistanceY)
-
-  Axis.prototype = {
-    get getSize() {
-      return this.realSize
-    },
-    get getPos() {
-      return this.realPos
-    },
-    get getEnd() {
-      return this.realPos + this.realSize
-    },
-  }
-
-  Axis.prototype.calc = function () {
-    this.realSize =
-      this.size.getReal() -
-      (this.realMargin = this.margin ? this.margin.getReal() : 0) * 2
-
-    this.realPos = this.calcPos()
-  }
-
-  Axis.prototype.getCalcPos = {
-    normal() {
-      return this.pos.getReal() + this.realMargin
-    },
-    toOther() {
-      return this.pos.getReal() + this.realMargin - this.realSize
-    },
-    center() {
-      return this.pos.getReal() + Math.floor((this.dim - this.realSize) / 2)
-    },
-
-    fromOther() {
-      return this.pos.fromOtherSide(this.realSize) - this.realMargin
-    },
-    fromOtherToOther() {
-      return this.pos.fromOtherSide(0) + this.realMargin
-    },
-    fromOtherCenter() {
-      return (
-        this.pos.fromOtherSide(this.realSize) -
-        Math.floor((this.dim - this.realSize) / 2)
-      )
-    },
-  }
 
   AxisX.prototype = new Axis()
 

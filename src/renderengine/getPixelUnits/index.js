@@ -365,30 +365,19 @@ const getPixelUnits = function () {
         const y = dimensions.posY || 0
 
         const getRealPos = function (add) {
-          return add
-            ? function () {
-                return Math.round(this.realPartCalculation() + add)
-              }
-            : function () {
-                return Math.round(this.realPartCalculation())
-              }
+          return function () {
+            return Math.round(this.realPartCalculation() + add)
+          }
         }
 
         const getFromOtherSide = function (add) {
-          return add
-            ? function (size) {
-                return (
-                  (this.axis ? dimensions.width : dimensions.height) +
-                  add -
-                  Math.round(this.realPartCalculation() + size)
-                )
-              }
-            : function (size) {
-                return (
-                  (this.axis ? dimensions.width : dimensions.height) -
-                  Math.round(this.realPartCalculation() + size)
-                )
-              }
+          return function (size) {
+            return (
+              (this.axis ? dimensions.width : dimensions.height) +
+              add -
+              Math.round(this.realPartCalculation() + size)
+            )
+          }
         }
 
         DistanceX.prototype.getReal = getRealPos(x)

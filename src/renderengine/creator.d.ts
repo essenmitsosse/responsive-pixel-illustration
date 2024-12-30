@@ -1,5 +1,5 @@
+import type getPixelUnits from './getPixelUnits'
 import type { PixelArray } from './getRenderer'
-import type { getPixelUnits } from './pixel'
 
 export declare module './creator' {
   class DrawingTools {

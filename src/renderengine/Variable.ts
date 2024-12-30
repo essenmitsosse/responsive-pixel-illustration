@@ -1,4 +1,4 @@
-import type { getPixelUnits } from './pixel'
+import type getPixelUnits from './getPixelUnits'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 
 class BaseVariable {

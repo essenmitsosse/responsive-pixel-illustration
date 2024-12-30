@@ -1,7 +1,7 @@
 import { DrawingTools } from './creator'
 import getInfo from './getInfo'
+import getPixelUnits from './getPixelUnits'
 import getRenderer from './getRenderer'
-import { getPixelUnits } from './pixel'
 import { DynamicVariable, Variable } from './Variable'
 
 import type { Info } from './getInfo'

@@ -1,8 +1,8 @@
 import type { InputDynamicVariableBase } from '@/helper/typeSize'
 import type { DynamicVariable } from '@/renderengine/Variable'
 
-export declare module './pixel' {
-  declare const getPixelUnits: () => {
+export declare module './getPixelUnits' {
+  const getPixelUnits: () => {
     Dimensions: unknown
     Height: unknown
     Position: unknown
@@ -18,4 +18,6 @@ export declare module './pixel' {
       updater: () => void,
     ) => void
   }
+
+  export default getPixelUnits
 }

@@ -1,4 +1,4 @@
-export const getPixelUnits = function () {
+const getPixelUnits = function () {
   const old = []
 
   let variableListLink
@@ -762,3 +762,5 @@ export const getPixelUnits = function () {
     },
   }
 }
+
+export default getPixelUnits

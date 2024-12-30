@@ -291,7 +291,11 @@ const getRenderer = (canvas, options, pixelStarter) => {
   }
 
   const virtualCanvas = document.createElement('canvas')
-  const virtaulContext = virtualCanvas.getContext('2d')
+  const virtualContext = virtualCanvas.getContext('2d')
+
+  if (virtualContext === null) {
+    throw new Error('Canvas context is null')
+  }
 
   let w
   let h
@@ -314,7 +318,7 @@ const getRenderer = (canvas, options, pixelStarter) => {
       const countH = Math.round(((heightFactor || 1) * h) / options.pixelSize)
 
       const image =
-        countW && countH && virtaulContext.createImageData(countW, countH)
+        countW && countH && virtualContext.createImageData(countW, countH)
 
       let drawing
       let time = -1
@@ -351,7 +355,7 @@ const getRenderer = (canvas, options, pixelStarter) => {
         renderPixelToImage(countW, countH, drawing, image.data)
 
         // Place Image on the Context
-        virtaulContext.putImageData(image, 0, 0)
+        virtualContext.putImageData(image, 0, 0)
 
         // Draw and upscale Context on Canvas
         context.drawImage(

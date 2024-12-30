@@ -334,14 +334,6 @@ const getRenderer = (canvas, options, pixelStarter) => {
         canvas.height = h
 
         // Disable Anti-Alaising
-        context.mozImageSmoothingEnabled = false
-
-        context.oImageSmoothingEnabled = false
-
-        context.webkitImageSmoothingEnabled = false
-
-        context.msImageSmoothingEnabled = false
-
         context.imageSmoothingEnabled = false
 
         // Render the Image Data to the Pixel Array

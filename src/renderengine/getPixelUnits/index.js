@@ -51,25 +51,16 @@ const getPixelUnits = () => {
         // is Array
 
         this.createAdder(args, true)
-
-        return
+      } else if (objType === 'object' && args.getLinkedVariable) {
+        // Linked to Variable ( new style )
+        this.realPartCalculation = args.getLinkedVariable
+      } else if (objType === 'object' && args.getLength) {
+        this.realPartCalculation = getGetLengthCalculation(
+          args.getLength[0],
+          args.getLength[1],
+        )
       } else if (objType === 'object') {
         // is Object
-
-        if (args.getLinkedVariable) {
-          // Linked to Variable ( new style )
-          this.realPartCalculation = args.getLinkedVariable
-
-          return
-        } else if (args.getLength) {
-          this.realPartCalculation = getGetLengthCalculation(
-            args.getLength[0],
-            args.getLength[1],
-          )
-
-          return
-        }
-
         this.debug = args.debug
 
         if (typeof args.a === 'string') {
@@ -115,17 +106,13 @@ const getPixelUnits = () => {
         if (args.odd || args.even) {
           this.realPartCalculation = this.odd(args.odd || false)
         }
+      } else if (objType === 'number' && this.dimension) {
+        // No calculation, just return Number
+        this.simplify(args)
       } else if (objType === 'number') {
-        if (this.dimension) {
-          // No calculation, just return Number
-          this.simplify(args)
+        this.abs = args
 
-          return
-        } else {
-          this.abs = args
-
-          this.rele = 0
-        }
+        this.rele = 0
 
         this.realPartCalculation = this.getRealDistance
       } else if (objType === 'string') {

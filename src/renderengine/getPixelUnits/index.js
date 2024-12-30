@@ -579,12 +579,10 @@ const getPixelUnits = () => {
             },
       )
 
-      return function () {
-        return {
-          x: x.calc(),
-          y: y.calc(),
-        }
-      }
+      return () => ({
+        x: x.calc(),
+        y: y.calc(),
+      })
     }
 
     const Dimensions = function (args, fromRight, fromBottom, rotate) {

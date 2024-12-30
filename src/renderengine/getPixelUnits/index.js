@@ -1,10 +1,12 @@
 const getPixelUnits = () => {
   const old = []
 
-  let variableListLink
-  let variableListCreate
-  let updateList
-  let calculateList
+  const state = {
+    variableListLink: null,
+    variableListCreate: null,
+    updateList: null,
+    calculateList: null,
+  }
 
   const createSize = function (args) {
     return args === undefined
@@ -65,7 +67,7 @@ const getPixelUnits = () => {
       this.debug = args.debug
 
       if (typeof args.a === 'string') {
-        variableListLink(args.a, this)
+        state.variableListLink(args.a, this)
       }
 
       if (args.add) {
@@ -74,7 +76,7 @@ const getPixelUnits = () => {
 
       if (args.useSize) {
         if (typeof args.useSize === 'string') {
-          variableListLink(args.useSize, (this.useVari = {}))
+          state.variableListLink(args.useSize, (this.useVari = {}))
         } else if (args.useSize.getLinkedVariable) {
           this.useSize = args.useSize.getLinkedVariable
         } else {
@@ -100,7 +102,7 @@ const getPixelUnits = () => {
 
       if (args.save) {
         this.realPartCalculation = this.saveDistance(
-          variableListCreate(args.save),
+          state.variableListCreate(args.save),
         )
       }
 
@@ -123,7 +125,7 @@ const getPixelUnits = () => {
         }
       } else if (objType === 'string') {
         // Linked to Variable ( old style )
-        variableListLink(args, this)
+        state.variableListLink(args, this)
 
         this.rele = 0
 
@@ -659,26 +661,26 @@ const getPixelUnits = () => {
     Width,
     Height,
     setList: (listLink, listCreate, updater) => {
-      variableListLink = listLink
+      state.variableListLink = listLink
 
-      variableListCreate = listCreate
+      state.variableListCreate = listCreate
 
-      updateList = updater
+      state.updateList = updater
     },
     linkList: (calc) => {
-      calculateList = calc
+      state.calculateList = calc
     },
     init: (dimensions) => {
       oneDSet(dimensions)
 
       setAxis(dimensions)
 
-      if (calculateList) {
-        calculateList(dimensions)
+      if (state.calculateList) {
+        state.calculateList(dimensions)
       }
 
-      if (updateList) {
-        updateList()
+      if (state.updateList) {
+        state.updateList()
       }
     },
     pop: () => {

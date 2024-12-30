@@ -375,8 +375,31 @@ const getPixelUnits = () => {
     state.dimensionHeight = dimensions.height
   }
 
-  const createAxis = (Size, Pos) =>
+  const createPos = (Pos) =>
     function (args) {
+      this.pos = new Pos(args.pos)
+
+      this.toOtherSide = args.toOtherSide
+
+      this.fromOtherSide = args.fromOtherSide
+
+      this.center = args.center
+
+      this.calcPos = this.center
+        ? this.fromOtherSide
+          ? this.getCalcPos.fromOtherCenter
+          : this.getCalcPos.center
+        : this.toOtherSide
+          ? this.fromOtherSide
+            ? this.getCalcPos.fromOtherToOther
+            : this.getCalcPos.toOther
+          : this.fromOtherSide
+            ? this.getCalcPos.fromOther
+            : this.getCalcPos.normal
+    }
+
+  class Axis {
+    prepare(Size, Pos, args) {
       this.pos = new Pos(args.pos)
 
       this.size = new Size(args.size)
@@ -405,31 +428,6 @@ const getPixelUnits = () => {
             ? this.getCalcPos.fromOther
             : this.getCalcPos.normal
     }
-
-  const createPos = (Pos) =>
-    function (args) {
-      this.pos = new Pos(args.pos)
-
-      this.toOtherSide = args.toOtherSide
-
-      this.fromOtherSide = args.fromOtherSide
-
-      this.center = args.center
-
-      this.calcPos = this.center
-        ? this.fromOtherSide
-          ? this.getCalcPos.fromOtherCenter
-          : this.getCalcPos.center
-        : this.toOtherSide
-          ? this.fromOtherSide
-            ? this.getCalcPos.fromOtherToOther
-            : this.getCalcPos.toOther
-          : this.fromOtherSide
-            ? this.getCalcPos.fromOther
-            : this.getCalcPos.normal
-    }
-
-  class Axis {
     get getSize() {
       return this.realSize
     }
@@ -474,14 +472,23 @@ const getPixelUnits = () => {
     }
   }
 
-  const AxisX = createAxis(Width, DistanceX)
-  const AxisY = createAxis(Height, DistanceY)
+  class AxisX extends Axis {
+    constructor(args) {
+      super()
+
+      this.prepare(Width, DistanceX, args)
+    }
+  }
+  class AxisY extends Axis {
+    constructor(args) {
+      super()
+
+      this.prepare(Height, DistanceY, args)
+    }
+  }
+
   const PosX = createPos(DistanceX)
   const PosY = createPos(DistanceY)
-
-  AxisX.prototype = new Axis()
-
-  AxisY.prototype = new Axis()
 
   class Pos extends Axis {
     calc() {

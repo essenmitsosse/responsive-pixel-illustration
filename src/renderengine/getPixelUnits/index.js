@@ -6,7 +6,7 @@ const getPixelUnits = function () {
   let updateList
   let calculateList
 
-  const oneD = (function () {
+  const oneD = (() => {
     const createSize = function (args) {
       return args === undefined
         ? 0

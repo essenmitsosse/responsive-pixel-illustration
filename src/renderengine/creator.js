@@ -688,15 +688,15 @@ export const DrawingTools = function (pixelUnit) {
     this.mask = args.mask
 
     if (height && height.random) {
-      this.heightRandom = new pixelUnit.createSize(height.random)
+      this.heightRandom = pixelUnit.createSize(height.random)
     }
 
     if (width && width.random) {
-      this.widthRandom = new pixelUnit.createSize(width.random)
+      this.widthRandom = pixelUnit.createSize(width.random)
     }
 
     if (args.size && args.size.random) {
-      this.sizeRandom = new pixelUnit.createSize(args.size.random)
+      this.sizeRandom = pixelUnit.createSize(args.size.random)
     }
   }
 
@@ -950,15 +950,13 @@ export const DrawingTools = function (pixelUnit) {
     this.gapWidth = new Dimension(args.stripes.gap || { a: 0 })
 
     if (args.stripes.strip && args.stripes.strip.random) {
-      this.stripWidthRandom = new pixelUnit.createSize(
-        args.stripes.strip.random,
-      )
+      this.stripWidthRandom = pixelUnit.createSize(args.stripes.strip.random)
 
       random = true
     }
 
     if (args.stripes.gap && args.stripes.gap.random) {
-      this.gapWidthRandom = new pixelUnit.createSize(args.stripes.gap.random)
+      this.gapWidthRandom = pixelUnit.createSize(args.stripes.gap.random)
 
       random = true
     }
@@ -968,7 +966,7 @@ export const DrawingTools = function (pixelUnit) {
         args.stripes.random.height = !horizontal
       }
 
-      this.lengthRandom = new pixelUnit.createSize(args.stripes.random)
+      this.lengthRandom = pixelUnit.createSize(args.stripes.random)
 
       random = true
     }
@@ -978,7 +976,7 @@ export const DrawingTools = function (pixelUnit) {
         args.stripes.change.height = !horizontal
       }
 
-      this.lengthChange = new pixelUnit.createSize(args.stripes.change)
+      this.lengthChange = pixelUnit.createSize(args.stripes.change)
 
       random = true
     }

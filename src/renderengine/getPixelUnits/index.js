@@ -375,29 +375,6 @@ const getPixelUnits = () => {
     state.dimensionHeight = dimensions.height
   }
 
-  const createPos = (Pos) =>
-    function (args) {
-      this.pos = new Pos(args.pos)
-
-      this.toOtherSide = args.toOtherSide
-
-      this.fromOtherSide = args.fromOtherSide
-
-      this.center = args.center
-
-      this.calcPos = this.center
-        ? this.fromOtherSide
-          ? this.getCalcPos.fromOtherCenter
-          : this.getCalcPos.center
-        : this.toOtherSide
-          ? this.fromOtherSide
-            ? this.getCalcPos.fromOtherToOther
-            : this.getCalcPos.toOther
-          : this.fromOtherSide
-            ? this.getCalcPos.fromOther
-            : this.getCalcPos.normal
-    }
-
   class Axis {
     prepare(Size, Pos, args) {
       this.pos = new Pos(args.pos)
@@ -487,10 +464,29 @@ const getPixelUnits = () => {
     }
   }
 
-  const PosX = createPos(DistanceX)
-  const PosY = createPos(DistanceY)
-
   class Pos extends Axis {
+    prepare(Distance, args) {
+      this.pos = new Distance(args.pos)
+
+      this.toOtherSide = args.toOtherSide
+
+      this.fromOtherSide = args.fromOtherSide
+
+      this.center = args.center
+
+      this.calcPos = this.center
+        ? this.fromOtherSide
+          ? this.getCalcPos.fromOtherCenter
+          : this.getCalcPos.center
+        : this.toOtherSide
+          ? this.fromOtherSide
+            ? this.getCalcPos.fromOtherToOther
+            : this.getCalcPos.toOther
+          : this.fromOtherSide
+            ? this.getCalcPos.fromOther
+            : this.getCalcPos.normal
+    }
+
     calc() {
       return this.calcPos()
     }
@@ -518,9 +514,20 @@ const getPixelUnits = () => {
     }
   }
 
-  PosX.prototype = new Pos()
+  class PosX extends Pos {
+    constructor(args) {
+      super()
 
-  PosY.prototype = new Pos()
+      this.prepare(DistanceX, args)
+    }
+  }
+  class PosY extends Pos {
+    constructor(args) {
+      super()
+
+      this.prepare(DistanceY, args)
+    }
+  }
 
   const setAxis = (dimensions) => {
     AxisX.prototype.dim = PosX.prototype.dim = dimensions.width

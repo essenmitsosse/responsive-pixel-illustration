@@ -212,11 +212,10 @@ const getPixelUnits = () => {
 
       y = new Width(y)
 
-      return function () {
-        return Math.round(
+      return () =>
+        Math.round(
           Math.sqrt(Math.pow(x.getReal(), 2) + Math.pow(y.getReal(), 2)),
         )
-      }
     }
 
     Dimension.prototype.getReal = function () {

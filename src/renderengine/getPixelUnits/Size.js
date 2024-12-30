@@ -35,25 +35,27 @@ class Dimension {
    * call `prepare`.
    */
   prepare(args, axis) {
-    const objType = typeof args
-
     if (Array.isArray(args)) {
       // is Array
       this.createAdder(args, true)
     } else if (
-      objType === 'object' &&
+      typeof args === 'object' &&
       'getLinkedVariable' in args &&
       args.getLinkedVariable
     ) {
       // Linked to Variable ( new style )
       this.realPartCalculation = args.getLinkedVariable
-    } else if (objType === 'object' && 'getLength' in args && args.getLength) {
+    } else if (
+      typeof args === 'object' &&
+      'getLength' in args &&
+      args.getLength
+    ) {
       this.realPartCalculation = getGetLengthCalculation(
         args.getLength[0],
         args.getLength[1],
         this.state,
       )
-    } else if (objType === 'object') {
+    } else if (typeof args === 'object') {
       // is Object
       this.debug = args.debug
 
@@ -106,16 +108,16 @@ class Dimension {
       if (('odd' in args && args.odd) || ('even' in args && args.even)) {
         this.realPartCalculation = this.odd(args.odd || false)
       }
-    } else if (objType === 'number' && this.dimension) {
+    } else if (typeof args === 'number' && this.dimension) {
       // No calculation, just return Number
       this.simplify(args)
-    } else if (objType === 'number') {
+    } else if (typeof args === 'number') {
       this.abs = args
 
       this.rele = 0
 
       this.realPartCalculation = this.getRealDistance
-    } else if (objType === 'string') {
+    } else if (typeof args === 'string') {
       // Linked to Variable ( old style )
       this.state.variableListLink(args, this)
 

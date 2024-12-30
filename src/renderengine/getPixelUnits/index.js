@@ -8,6 +8,8 @@ const getPixelUnits = () => {
     calculateList: null,
     dimensionWidth: null,
     dimensionHeight: null,
+    addX: null,
+    addY: null,
   }
 
   const createSize = function (args) {
@@ -352,31 +354,37 @@ const getPixelUnits = () => {
 
   DistanceX.prototype.axis = true
 
+  DistanceX.prototype.getReal = function () {
+    return Math.round(this.realPartCalculation() + state.addX)
+  }
+
+  DistanceX.prototype.fromOtherSide = function (size) {
+    return (
+      state.dimensionWidth +
+      state.addX -
+      Math.round(this.realPartCalculation() + size)
+    )
+  }
+
+  DistanceY.prototype.getReal = function () {
+    return Math.round(this.realPartCalculation() + state.addY)
+  }
+
+  DistanceY.prototype.fromOtherSide = function (size) {
+    return (
+      state.dimensionHeight +
+      state.addY -
+      Math.round(this.realPartCalculation() + size)
+    )
+  }
+
   const oneDSet = (dimensions) => {
     const x = dimensions.posX || 0
     const y = dimensions.posY || 0
 
-    const getRealPos = (add) =>
-      function () {
-        return Math.round(this.realPartCalculation() + add)
-      }
+    state.addX = x
 
-    const getFromOtherSide = (add) =>
-      function (size) {
-        return (
-          (this.axis ? dimensions.width : dimensions.height) +
-          add -
-          Math.round(this.realPartCalculation() + size)
-        )
-      }
-
-    DistanceX.prototype.getReal = getRealPos(x)
-
-    DistanceY.prototype.getReal = getRealPos(y)
-
-    DistanceX.prototype.fromOtherSide = getFromOtherSide(x)
-
-    DistanceY.prototype.fromOtherSide = getFromOtherSide(y)
+    state.addY = y
 
     state.dimensionWidth = dimensions.width
 

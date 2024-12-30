@@ -6,385 +6,369 @@ const getPixelUnits = () => {
   let updateList
   let calculateList
 
-  const oneD = (() => {
-    const createSize = function (args) {
-      return args === undefined
-        ? 0
-        : args.height
-          ? new Height(args)
-          : new Width(args)
-    }
+  const createSize = function (args) {
+    return args === undefined
+      ? 0
+      : args.height
+        ? new Height(args)
+        : new Width(args)
+  }
 
-    function Dimension() {}
+  function Dimension() {}
 
-    function Distance() {}
+  function Distance() {}
 
-    function Width(args) {
-      this.prepare(args)
-    }
+  function Width(args) {
+    this.prepare(args)
+  }
 
-    function Height(args) {
-      this.prepare(args)
-    }
+  function Height(args) {
+    this.prepare(args)
+  }
 
-    function DistanceX(args) {
-      this.prepare(args)
-    }
+  function DistanceX(args) {
+    this.prepare(args)
+  }
 
-    function DistanceY(args) {
-      this.prepare(args)
-    }
+  function DistanceY(args) {
+    this.prepare(args)
+  }
 
-    // DIMENSIONS --- Width & Height
+  // DIMENSIONS --- Width & Height
 
-    Dimension.prototype.prepare = function (args) {
-      const objType = typeof args
+  Dimension.prototype.prepare = function (args) {
+    const objType = typeof args
 
-      if (objType === 'object') {
-        // is Object
+    if (objType === 'object') {
+      // is Object
 
-        if (args.constructor === Array) {
-          // is Array
+      if (args.constructor === Array) {
+        // is Array
 
-          this.createAdder(args, true)
+        this.createAdder(args, true)
 
-          return
-        } else if (args.getLinkedVariable) {
-          // Linked to Variable ( new style )
-          this.realPartCalculation = args.getLinkedVariable
+        return
+      } else if (args.getLinkedVariable) {
+        // Linked to Variable ( new style )
+        this.realPartCalculation = args.getLinkedVariable
 
-          return
-        } else if (args.getLength) {
-          this.realPartCalculation = this.getGetLengthCalculation(
-            args.getLength[0],
-            args.getLength[1],
-          )
+        return
+      } else if (args.getLength) {
+        this.realPartCalculation = this.getGetLengthCalculation(
+          args.getLength[0],
+          args.getLength[1],
+        )
 
-          return
-        }
+        return
+      }
 
-        this.debug = args.debug
+      this.debug = args.debug
 
-        if (typeof args.a === 'string') {
-          variableListLink(args.a, this)
-        }
+      if (typeof args.a === 'string') {
+        variableListLink(args.a, this)
+      }
 
-        if (args.add) {
-          this.createAdder(args.add)
-        }
+      if (args.add) {
+        this.createAdder(args.add)
+      }
 
-        if (args.useSize) {
-          if (typeof args.useSize === 'string') {
-            variableListLink(args.useSize, (this.useVari = {}))
-          } else if (args.useSize.getLinkedVariable) {
-            this.useSize = args.useSize.getLinkedVariable
-          } else {
-            // errorAdd( "useSize must be a String" )
-          }
+      if (args.useSize) {
+        if (typeof args.useSize === 'string') {
+          variableListLink(args.useSize, (this.useVari = {}))
+        } else if (args.useSize.getLinkedVariable) {
+          this.useSize = args.useSize.getLinkedVariable
         } else {
-          this.dim = !args.height && (args.otherDim ? !this.axis : this.axis)
-        }
-
-        // Get gefaults and try to do quick version
-        if (this.getDefaults(args.r, args.a) && !args.useSize && !args.add) {
-          this.realPartCalculation = this.getQuick
-        } else {
-          this.realPartCalculation =
-            args.min || args.max
-              ? this.getRealDistanceWithMaxMin(
-                  args.max,
-                  args.min,
-                  this.dim ? Width : Height,
-                )
-              : this.getRealDistance
-        }
-
-        if (args.save) {
-          this.realPartCalculation = this.saveDistance(
-            variableListCreate(args.save),
-          )
-        }
-
-        if (args.odd || args.even) {
-          this.realPartCalculation = this.odd(args.odd || false)
+          // errorAdd( "useSize must be a String" )
         }
       } else {
-        // Short Hand Variables
+        this.dim = !args.height && (args.otherDim ? !this.axis : this.axis)
+      }
 
-        if (objType === 'number') {
-          if (this.dimension) {
-            // No calculation, just return Number
-            this.simplify(args)
+      // Get gefaults and try to do quick version
+      if (this.getDefaults(args.r, args.a) && !args.useSize && !args.add) {
+        this.realPartCalculation = this.getQuick
+      } else {
+        this.realPartCalculation =
+          args.min || args.max
+            ? this.getRealDistanceWithMaxMin(
+                args.max,
+                args.min,
+                this.dim ? Width : Height,
+              )
+            : this.getRealDistance
+      }
 
-            return
-          } else {
-            this.abs = args
+      if (args.save) {
+        this.realPartCalculation = this.saveDistance(
+          variableListCreate(args.save),
+        )
+      }
 
-            this.rele = 0
-          }
-        } else if (objType === 'string') {
-          // Linked to Variable ( old style )
-          variableListLink(args, this)
+      if (args.odd || args.even) {
+        this.realPartCalculation = this.odd(args.odd || false)
+      }
+    } else {
+      // Short Hand Variables
+
+      if (objType === 'number') {
+        if (this.dimension) {
+          // No calculation, just return Number
+          this.simplify(args)
+
+          return
+        } else {
+          this.abs = args
 
           this.rele = 0
-
-          this.realPartCalculation = this.getRealDistance
-
-          return
-        } else {
-          this.dim = this.axis
-
-          if (this.getDefaults()) {
-            this.realPartCalculation = this.getQuick
-
-            return
-          }
         }
+      } else if (objType === 'string') {
+        // Linked to Variable ( old style )
+        variableListLink(args, this)
+
+        this.rele = 0
 
         this.realPartCalculation = this.getRealDistance
-      }
-    }
 
-    Dimension.prototype.saveDistance = function (saver) {
-      this.getRealForSave = this.realPartCalculation
-
-      return function () {
-        const real = this.getRealForSave()
-
-        saver.set(real)
-
-        return real
-      }
-    }
-
-    Dimension.prototype.odd = function (odd) {
-      this.getRealForOdd = this.realPartCalculation
-
-      return function () {
-        const real = Math.round(this.getRealForOdd())
-
-        return real === 0
-          ? 0
-          : (!(real % 2) === false) === odd
-            ? real
-            : real + 1
-      }
-    }
-
-    Dimension.prototype.getDefaults = function (r, a) {
-      if (r === undefined && a === undefined && this.adder === undefined) {
-        this.rele = 1
-
-        this.abs = 0
-
-        return true
+        return
       } else {
-        this.rele = r || 0
+        this.dim = this.axis
 
-        this.abs = a || 0
-      }
-    }
+        if (this.getDefaults()) {
+          this.realPartCalculation = this.getQuick
 
-    Dimension.prototype.getQuick = function () {
-      return (
-        this.rele *
-        (this.useSize ? this.useSize() : this.dim ? this.width : this.height)
-      )
-    }
-
-    Dimension.prototype.createAdder = function (add, onlyAdd) {
-      let l = add.length
-
-      const adder = (this.adder = [])
-      const Size = this.dim ? Height : Width
-
-      while (l--) {
-        adder.push(new Size(add[l]))
+          return
+        }
       }
 
-      this[onlyAdd ? 'realPartCalculation' : 'getRealDistance'] = onlyAdd
-        ? this.getRealDistanceWithCalcOnlyAdding
-        : this.getRealDistanceWithCalc
+      this.realPartCalculation = this.getRealDistance
+    }
+  }
+
+  Dimension.prototype.saveDistance = function (saver) {
+    this.getRealForSave = this.realPartCalculation
+
+    return function () {
+      const real = this.getRealForSave()
+
+      saver.set(real)
+
+      return real
+    }
+  }
+
+  Dimension.prototype.odd = function (odd) {
+    this.getRealForOdd = this.realPartCalculation
+
+    return function () {
+      const real = Math.round(this.getRealForOdd())
+
+      return real === 0 ? 0 : (!(real % 2) === false) === odd ? real : real + 1
+    }
+  }
+
+  Dimension.prototype.getDefaults = function (r, a) {
+    if (r === undefined && a === undefined && this.adder === undefined) {
+      this.rele = 1
+
+      this.abs = 0
+
+      return true
+    } else {
+      this.rele = r || 0
+
+      this.abs = a || 0
+    }
+  }
+
+  Dimension.prototype.getQuick = function () {
+    return (
+      this.rele *
+      (this.useSize ? this.useSize() : this.dim ? this.width : this.height)
+    )
+  }
+
+  Dimension.prototype.createAdder = function (add, onlyAdd) {
+    let l = add.length
+
+    const adder = (this.adder = [])
+    const Size = this.dim ? Height : Width
+
+    while (l--) {
+      adder.push(new Size(add[l]))
     }
 
-    Dimension.prototype.getGetLengthCalculation = (x, y) => {
-      x = new Width(x)
+    this[onlyAdd ? 'realPartCalculation' : 'getRealDistance'] = onlyAdd
+      ? this.getRealDistanceWithCalcOnlyAdding
+      : this.getRealDistanceWithCalc
+  }
 
-      y = new Width(y)
+  Dimension.prototype.getGetLengthCalculation = (x, y) => {
+    x = new Width(x)
 
-      return () =>
-        Math.round(
-          Math.sqrt(Math.pow(x.getReal(), 2) + Math.pow(y.getReal(), 2)),
-        )
+    y = new Width(y)
+
+    return () =>
+      Math.round(Math.sqrt(Math.pow(x.getReal(), 2) + Math.pow(y.getReal(), 2)))
+  }
+
+  Dimension.prototype.getReal = function () {
+    return Math.round(this.realPartCalculation())
+  }
+
+  Dimension.prototype.getRealUnrounded = function () {
+    return this.realPartCalculation()
+  }
+
+  Dimension.prototype.getRealDistanceBasic = function () {
+    return (
+      this.rele *
+        (this.useVari
+          ? this.useVari.abs
+          : this.useSize
+            ? this.useSize()
+            : this.dim
+              ? this.width
+              : this.height) +
+      this.abs
+    )
+  }
+
+  Dimension.prototype.getRealDistance = Dimension.prototype.getRealDistanceBasic
+
+  Dimension.prototype.getRealDistanceWithCalc = function () {
+    let add = 0
+    let l = this.adder.length
+
+    while (l--) {
+      add += this.adder[l].getReal()
     }
 
-    Dimension.prototype.getReal = function () {
-      return Math.round(this.realPartCalculation())
+    return this.getRealDistanceBasic() + add
+  }
+
+  Dimension.prototype.getRealDistanceWithCalcOnlyAdding = function () {
+    let add = 0
+    let l = this.adder.length
+
+    while (l--) {
+      add += this.adder[l].getReal()
     }
 
-    Dimension.prototype.getRealUnrounded = function () {
-      return this.realPartCalculation()
-    }
+    return add
+  }
 
-    Dimension.prototype.getRealDistanceBasic = function () {
-      return (
-        this.rele *
-          (this.useVari
-            ? this.useVari.abs
-            : this.useSize
-              ? this.useSize()
-              : this.dim
-                ? this.width
-                : this.height) +
-        this.abs
-      )
-    }
+  Dimension.prototype.getRealDistanceWithMaxMin = (max, min, Dim) => {
+    max = max && new Dim(max)
 
-    Dimension.prototype.getRealDistance =
-      Dimension.prototype.getRealDistanceBasic
+    min = min && new Dim(min)
 
-    Dimension.prototype.getRealDistanceWithCalc = function () {
-      let add = 0
-      let l = this.adder.length
+    return max && min
+      ? function () {
+          let a
 
-      while (l--) {
-        add += this.adder[l].getReal()
-      }
+          const realMin = typeof min === 'number' ? min : min.getReal()
+          const realMax = typeof max === 'number' ? max : max.getReal()
 
-      return this.getRealDistanceBasic() + add
-    }
-
-    Dimension.prototype.getRealDistanceWithCalcOnlyAdding = function () {
-      let add = 0
-      let l = this.adder.length
-
-      while (l--) {
-        add += this.adder[l].getReal()
-      }
-
-      return add
-    }
-
-    Dimension.prototype.getRealDistanceWithMaxMin = (max, min, Dim) => {
-      max = max && new Dim(max)
-
-      min = min && new Dim(min)
-
-      return max && min
+          return (a = this.getRealDistance()) > realMax
+            ? realMax < realMin
+              ? realMin
+              : realMax
+            : a < realMin
+              ? realMin
+              : a
+        }
+      : max
         ? function () {
             let a
 
-            const realMin = typeof min === 'number' ? min : min.getReal()
             const realMax = typeof max === 'number' ? max : max.getReal()
 
-            return (a = this.getRealDistance()) > realMax
-              ? realMax < realMin
-                ? realMin
-                : realMax
-              : a < realMin
-                ? realMin
-                : a
+            return (a = this.getRealDistance()) > realMax ? realMax : a
           }
-        : max
-          ? function () {
-              let a
+        : function () {
+            let a
 
-              const realMax = typeof max === 'number' ? max : max.getReal()
+            const realMin = typeof min === 'number' ? min : min.getReal()
 
-              return (a = this.getRealDistance()) > realMax ? realMax : a
-            }
-          : function () {
-              let a
+            return (a = this.getRealDistance()) < realMin ? realMin : a
+          }
+  }
 
-              const realMin = typeof min === 'number' ? min : min.getReal()
+  Dimension.prototype.getDim = function () {
+    return this.dim ? this.width : this.height
+  }
 
-              return (a = this.getRealDistance()) < realMin ? realMin : a
-            }
+  Dimension.prototype.dimension = true
+
+  Dimension.prototype.simplify = function (abs) {
+    this.getReal = () => abs
+  }
+
+  Width.prototype = new Dimension()
+
+  Height.prototype = new Dimension()
+
+  Width.prototype.axis = true
+
+  Height.prototype.axis = false
+
+  // DISTANCES --- PosX & PosY
+  Distance.prototype = new Dimension()
+
+  Distance.prototype.getDefaults = function (r, a) {
+    if (r === undefined && a === undefined) {
+      this.rele = 0
+
+      this.abs = 0
+
+      return true
+    } else {
+      this.rele = r || 0
+
+      this.abs = a || 0
     }
+  }
 
-    Dimension.prototype.getDim = function () {
-      return this.dim ? this.width : this.height
-    }
+  Distance.prototype.getQuick = () => 0
 
-    Dimension.prototype.dimension = true
+  Distance.prototype.dimension = false
 
-    Dimension.prototype.simplify = function (abs) {
-      this.getReal = () => abs
-    }
+  DistanceX.prototype = new Distance()
 
-    Width.prototype = new Dimension()
+  DistanceY.prototype = new Distance()
 
-    Height.prototype = new Dimension()
+  DistanceX.prototype.axis = true
 
-    Width.prototype.axis = true
+  const oneDSet = (dimensions) => {
+    const x = dimensions.posX || 0
+    const y = dimensions.posY || 0
 
-    Height.prototype.axis = false
-
-    // DISTANCES --- PosX & PosY
-    Distance.prototype = new Dimension()
-
-    Distance.prototype.getDefaults = function (r, a) {
-      if (r === undefined && a === undefined) {
-        this.rele = 0
-
-        this.abs = 0
-
-        return true
-      } else {
-        this.rele = r || 0
-
-        this.abs = a || 0
+    const getRealPos = (add) =>
+      function () {
+        return Math.round(this.realPartCalculation() + add)
       }
-    }
 
-    Distance.prototype.getQuick = () => 0
+    const getFromOtherSide = (add) =>
+      function (size) {
+        return (
+          (this.axis ? dimensions.width : dimensions.height) +
+          add -
+          Math.round(this.realPartCalculation() + size)
+        )
+      }
 
-    Distance.prototype.dimension = false
+    DistanceX.prototype.getReal = getRealPos(x)
 
-    DistanceX.prototype = new Distance()
+    DistanceY.prototype.getReal = getRealPos(y)
 
-    DistanceY.prototype = new Distance()
+    DistanceX.prototype.fromOtherSide = getFromOtherSide(x)
 
-    DistanceX.prototype.axis = true
+    DistanceY.prototype.fromOtherSide = getFromOtherSide(y)
 
-    return {
-      createSize,
-      Width,
-      Height,
-      DistanceX,
-      DistanceY,
-      set: (dimensions) => {
-        const x = dimensions.posX || 0
-        const y = dimensions.posY || 0
+    Dimension.prototype.width = dimensions.width
 
-        const getRealPos = (add) =>
-          function () {
-            return Math.round(this.realPartCalculation() + add)
-          }
-
-        const getFromOtherSide = (add) =>
-          function (size) {
-            return (
-              (this.axis ? dimensions.width : dimensions.height) +
-              add -
-              Math.round(this.realPartCalculation() + size)
-            )
-          }
-
-        DistanceX.prototype.getReal = getRealPos(x)
-
-        DistanceY.prototype.getReal = getRealPos(y)
-
-        DistanceX.prototype.fromOtherSide = getFromOtherSide(x)
-
-        DistanceY.prototype.fromOtherSide = getFromOtherSide(y)
-
-        Dimension.prototype.width = dimensions.width
-
-        Dimension.prototype.height = dimensions.height
-      },
-    }
-  })()
+    Dimension.prototype.height = dimensions.height
+  }
 
   const Axis = (() => {
     const createAxis = (Size, Pos) =>
@@ -442,11 +426,11 @@ const getPixelUnits = () => {
       }
 
     const Axis = function () {}
-    const AxisX = createAxis(oneD.Width, oneD.DistanceX)
-    const AxisY = createAxis(oneD.Height, oneD.DistanceY)
+    const AxisX = createAxis(Width, DistanceX)
+    const AxisY = createAxis(Height, DistanceY)
     const Pos = function () {}
-    const PosX = createPos(oneD.DistanceX)
-    const PosY = createPos(oneD.DistanceY)
+    const PosX = createPos(DistanceX)
+    const PosY = createPos(DistanceY)
 
     Axis.prototype = {
       get getSize() {
@@ -686,9 +670,9 @@ const getPixelUnits = () => {
   return {
     Position: twoD.Position,
     Dimensions: twoD.Dimensions,
-    createSize: oneD.createSize,
-    Width: oneD.Width,
-    Height: oneD.Height,
+    createSize,
+    Width,
+    Height,
     setList: (listLink, listCreate, updater) => {
       variableListLink = listLink
 
@@ -700,7 +684,7 @@ const getPixelUnits = () => {
       calculateList = calc
     },
     init: (dimensions) => {
-      oneD.set(dimensions)
+      oneDSet(dimensions)
 
       Axis.set(dimensions)
 
@@ -716,7 +700,7 @@ const getPixelUnits = () => {
       const o = old[old.length - 2]
 
       if (o) {
-        oneD.set(o)
+        oneDSet(o)
 
         Axis.set(o)
 
@@ -724,7 +708,7 @@ const getPixelUnits = () => {
       }
     },
     push: (dimensions) => {
-      oneD.set(dimensions)
+      oneDSet(dimensions)
 
       Axis.set(dimensions)
 

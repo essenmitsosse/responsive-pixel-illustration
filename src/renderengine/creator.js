@@ -297,10 +297,10 @@ export const DrawingTools = function (pixelUnit) {
     }
   })()
 
-  this.Primitive.prototype.prepareSizeAndPos = (function (Dimensions) {
+  this.Primitive.prototype.prepareSizeAndPos = (function (getDimensions) {
     // Prepare Size and Position Data for Basic Objects
     return function (args, reflectX, reflectY, rotate) {
-      this.dimensions = new Dimensions(
+      this.dimensions = getDimensions(
         args,
         (this.fromRight = rotate
           ? (args.fY || false) === reflectY
@@ -311,7 +311,7 @@ export const DrawingTools = function (pixelUnit) {
         rotate,
       )
     }
-  })(pixelUnit.Dimensions)
+  })(pixelUnit.getDimensions)
 
   // ------------------ PointBased ------------------
   this.PointBased.prototype = new this.Primitive()
@@ -651,9 +651,9 @@ export const DrawingTools = function (pixelUnit) {
       const width = (rotate ? args.sY : args.sX) || args.s
       const height = (rotate ? args.sX : args.sY) || args.s
 
-      this.width = width ? new pixelUnit.Width(width) : false
+      this.width = width ? pixelUnit.getWidth(width) : false
 
-      this.height = height ? new pixelUnit.Width(height) : false
+      this.height = height ? pixelUnit.getWidth(height) : false
     }
   })(pixelUnit)
 
@@ -941,13 +941,13 @@ export const DrawingTools = function (pixelUnit) {
       (this.rotate ? !args.stripes.horizontal : args.stripes.horizontal) ||
       false)
 
-    const Dimension = horizontal ? pixelUnit.Height : pixelUnit.Width
+    const getDimension = horizontal ? pixelUnit.getHeight : pixelUnit.getWidth
 
     /** Width of a single Line */
-    this.stripWidth = new Dimension(args.stripes.strip || { a: 1 })
+    this.stripWidth = getDimension(args.stripes.strip || { a: 1 })
 
     /** Width of a single Line */
-    this.gapWidth = new Dimension(args.stripes.gap || { a: 0 })
+    this.gapWidth = getDimension(args.stripes.gap || { a: 0 })
 
     if (args.stripes.strip && args.stripes.strip.random) {
       this.stripWidthRandom = pixelUnit.createSize(args.stripes.strip.random)
@@ -1263,11 +1263,11 @@ export const DrawingTools = function (pixelUnit) {
         : 1
 
       if (args.gutterX) {
-        this.gutterSX = new pX.Width(args.gutterX)
+        this.gutterSX = pX.getWidth(args.gutterX)
       }
 
       if (args.gutterY) {
-        this.gutterSY = new pX.Width(args.gutterY)
+        this.gutterSY = pX.getWidth(args.gutterY)
       }
     }
   })(pixelUnit)

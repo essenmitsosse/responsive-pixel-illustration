@@ -16,8 +16,8 @@ const getPixelUnits = () => {
     return args === undefined
       ? 0
       : args.height
-        ? new Height(args)
-        : new Width(args)
+        ? new Height(args, state)
+        : new Width(args, state)
   }
 
   function getRealDistanceBasic() {
@@ -28,22 +28,26 @@ const getPixelUnits = () => {
           : this.useSize
             ? this.useSize()
             : this.dim
-              ? state.dimensionWidth
-              : state.dimensionHeight) +
+              ? this.state.dimensionWidth
+              : this.state.dimensionHeight) +
       this.abs
     )
   }
 
   const getGetLengthCalculation = (x, y) => {
-    x = new Width(x)
+    x = new Width(x, state)
 
-    y = new Width(y)
+    y = new Width(y, state)
 
     return () =>
       Math.round(Math.sqrt(Math.pow(x.getReal(), 2) + Math.pow(y.getReal(), 2)))
   }
 
   class Dimension {
+    state
+    constructor(state) {
+      this.state = state
+    }
     /**
      * This can't be the `constructor`, because it relies on properties of the
      * final object and in case of sub classed instances (which is basically all
@@ -79,7 +83,7 @@ const getPixelUnits = () => {
         this.debug = args.debug
 
         if ('a' in args && typeof args.a === 'string') {
-          state.variableListLink(args.a, this)
+          this.state.variableListLink(args.a, this)
         }
 
         if ('add' in args && args.add) {
@@ -88,7 +92,7 @@ const getPixelUnits = () => {
 
         if ('useSize' in args && args.useSize) {
           if (typeof args.useSize === 'string') {
-            state.variableListLink(args.useSize, (this.useVari = {}))
+            this.state.variableListLink(args.useSize, (this.useVari = {}))
           } else if (args.useSize.getLinkedVariable) {
             this.useSize = args.useSize.getLinkedVariable
           } else {
@@ -118,7 +122,7 @@ const getPixelUnits = () => {
 
         if ('save' in args && args.save) {
           this.realPartCalculation = this.saveDistance(
-            state.variableListCreate(args.save),
+            this.state.variableListCreate(args.save),
           )
         }
 
@@ -136,7 +140,7 @@ const getPixelUnits = () => {
         this.realPartCalculation = this.getRealDistance
       } else if (objType === 'string') {
         // Linked to Variable ( old style )
-        state.variableListLink(args, this)
+        this.state.variableListLink(args, this)
 
         this.rele = 0
 
@@ -196,8 +200,8 @@ const getPixelUnits = () => {
         (this.useSize
           ? this.useSize()
           : this.dim
-            ? state.dimensionWidth
-            : state.dimensionHeight)
+            ? this.state.dimensionWidth
+            : this.state.dimensionHeight)
       )
     }
 
@@ -208,7 +212,7 @@ const getPixelUnits = () => {
       const Size = this.dim ? Height : Width
 
       while (l--) {
-        adder.push(new Size(add[l]))
+        adder.push(new Size(add[l], this.state))
       }
 
       this[onlyAdd ? 'realPartCalculation' : 'getRealDistance'] = onlyAdd
@@ -250,10 +254,10 @@ const getPixelUnits = () => {
       return add
     }
 
-    getRealDistanceWithMaxMin = (max, min, Dim) => {
-      max = max && new Dim(max)
+    getRealDistanceWithMaxMin(max, min, Dim) {
+      max = max && new Dim(max, this.state)
 
-      min = min && new Dim(min)
+      min = min && new Dim(min, this.state)
 
       return max && min
         ? function () {
@@ -288,7 +292,7 @@ const getPixelUnits = () => {
     }
 
     getDim() {
-      return this.dim ? state.dimensionWidth : state.dimensionHeight
+      return this.dim ? this.state.dimensionWidth : this.state.dimensionHeight
     }
 
     dimension = true
@@ -319,56 +323,56 @@ const getPixelUnits = () => {
   }
 
   class Width extends Dimension {
-    constructor(args) {
-      super()
+    constructor(args, state) {
+      super(state)
 
       this.prepare(args, true)
     }
   }
 
   class Height extends Dimension {
-    constructor(args) {
-      super()
+    constructor(args, state) {
+      super(state)
 
       this.prepare(args, false)
     }
   }
 
   class DistanceX extends Distance {
-    constructor(args) {
-      super()
+    constructor(args, state) {
+      super(state)
 
       this.prepare(args, true)
     }
 
     getReal() {
-      return Math.round(this.realPartCalculation() + state.addX)
+      return Math.round(this.realPartCalculation() + this.state.addX)
     }
 
     fromOtherSide(size) {
       return (
-        state.dimensionWidth +
-        state.addX -
+        this.state.dimensionWidth +
+        this.state.addX -
         Math.round(this.realPartCalculation() + size)
       )
     }
   }
 
   class DistanceY extends Distance {
-    constructor(args) {
-      super()
+    constructor(args, state) {
+      super(state)
 
       this.prepare(args, false)
     }
 
     getReal() {
-      return Math.round(this.realPartCalculation() + state.addY)
+      return Math.round(this.realPartCalculation() + this.state.addY)
     }
 
     fromOtherSide(size) {
       return (
-        state.dimensionHeight +
-        state.addY -
+        this.state.dimensionHeight +
+        this.state.addY -
         Math.round(this.realPartCalculation() + size)
       )
     }
@@ -388,12 +392,16 @@ const getPixelUnits = () => {
   }
 
   class Axis {
+    state
+    constructor(state) {
+      this.state = state
+    }
     prepare(Size, Pos, args) {
-      this.pos = new Pos(args.pos)
+      this.pos = new Pos(args.pos, this.state)
 
-      this.size = new Size(args.size)
+      this.size = new Size(args.size, this.state)
 
-      this.margin = args.margin ? new Size(args.margin) : false
+      this.margin = args.margin ? new Size(args.margin, this.state) : false
 
       this.toOtherSide = args.toOtherSide
 
@@ -402,7 +410,7 @@ const getPixelUnits = () => {
       this.center = args.center
 
       if (args.min) {
-        this.min = new Size(args.min)
+        this.min = new Size(args.min, this.state)
       }
 
       this.calcPos = this.center
@@ -462,15 +470,15 @@ const getPixelUnits = () => {
   }
 
   class AxisX extends Axis {
-    constructor(args) {
-      super()
+    constructor(args, state) {
+      super(state)
 
       this.prepare(Width, DistanceX, args)
     }
   }
   class AxisY extends Axis {
-    constructor(args) {
-      super()
+    constructor(args, state) {
+      super(state)
 
       this.prepare(Height, DistanceY, args)
     }
@@ -478,7 +486,7 @@ const getPixelUnits = () => {
 
   class Pos extends Axis {
     prepare(Distance, args) {
-      this.pos = new Distance(args.pos)
+      this.pos = new Distance(args.pos, this.state)
 
       this.toOtherSide = args.toOtherSide
 
@@ -527,15 +535,15 @@ const getPixelUnits = () => {
   }
 
   class PosX extends Pos {
-    constructor(args) {
-      super()
+    constructor(args, state) {
+      super(state)
 
       this.prepare(DistanceX, args)
     }
   }
   class PosY extends Pos {
-    constructor(args) {
-      super()
+    constructor(args, state) {
+      super(state)
 
       this.prepare(DistanceY, args)
     }
@@ -565,6 +573,7 @@ const getPixelUnits = () => {
             toOtherSide: args.toLeft,
             center: args.centerY || args.center,
           },
+      state,
     )
 
     const y = new PosY(
@@ -581,6 +590,7 @@ const getPixelUnits = () => {
             toOtherSide: args.toTop,
             center: args.centerY || args.center,
           },
+      state,
     )
 
     return () => ({
@@ -590,7 +600,7 @@ const getPixelUnits = () => {
   }
 
   class Dimensions {
-    constructor(args, fromRight, fromBottom, rotate) {
+    constructor(args, fromRight, fromBottom, rotate, state) {
       if (args.sX === undefined) {
         args.sX = args.s
       }
@@ -619,6 +629,7 @@ const getPixelUnits = () => {
               min: args.minX,
               center: args.cX || args.c,
             },
+        state,
       )
 
       this.y = new AxisY(
@@ -641,6 +652,7 @@ const getPixelUnits = () => {
               min: args.minY,
               center: args.cY || args.c,
             },
+        state,
       )
     }
 
@@ -683,10 +695,11 @@ const getPixelUnits = () => {
 
   return {
     Position,
-    Dimensions,
+    getDimensions: (args, fromRight, fromBottom, rotate) =>
+      new Dimensions(args, fromRight, fromBottom, rotate, state),
     createSize,
-    Width,
-    Height,
+    getWidth: (args) => new Width(args, state),
+    getHeight: (args) => new Height(args, state),
     setList: (listLink, listCreate, updater) => {
       state.variableListLink = listLink
 

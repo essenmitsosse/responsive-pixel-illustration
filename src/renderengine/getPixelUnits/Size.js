@@ -417,6 +417,10 @@ export class DistanceX extends Distance {
       throw new Error('Unexpected error: realPartCalculation is undefined')
     }
 
+    if (this.state.dimensionWidth === null || this.state.addX === null) {
+      throw new Error('Unexpected error: State has not been initialized')
+    }
+
     return (
       this.state.dimensionWidth +
       this.state.addX -

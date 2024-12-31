@@ -192,6 +192,17 @@ class Dimension {
   }
 
   getQuick() {
+    if (
+      this.state.dimensionHeight === null ||
+      this.state.dimensionWidth === null
+    ) {
+      throw new Error('Unexpected error: State has not been initialized')
+    }
+
+    if (this.rele === undefined) {
+      throw new Error('Unexpected error: rele is undefined')
+    }
+
     return (
       this.rele *
       (this.useSize

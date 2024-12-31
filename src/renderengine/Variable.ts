@@ -1,8 +1,9 @@
 import type getPixelUnits from './getPixelUnits'
 import type { InputDynamicVariable } from '@/helper/typeSize'
+import type { Height, Width } from '@/renderengine/getPixelUnits/Size'
 
 class BaseVariable {
-  linkedP: Array<unknown | { abs?: unknown }> = []
+  linkedP: Array<{ abs?: unknown }> = []
   l = 0
   name: string
   constructor(name: string) {
@@ -17,7 +18,7 @@ class BaseVariable {
 }
 
 export class Variable extends BaseVariable {
-  vari?: { getReal: () => number }
+  vari?: Height | Width
   linkedP: Array<InputDynamicVariable & { abs?: number | string }> = []
 
   constructor(

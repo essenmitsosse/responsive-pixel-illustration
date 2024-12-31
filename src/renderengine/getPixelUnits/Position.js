@@ -78,19 +78,27 @@ class Axis {
   }
 }
 
-export class AxisX extends Axis {
+class AxisX extends Axis {
   constructor(args, state) {
     super(state)
 
     this.prepare(Width, DistanceX, args)
   }
+
+  get dim() {
+    return this.state.dimensionWidth
+  }
 }
 
-export class AxisY extends Axis {
+class AxisY extends Axis {
   constructor(args, state) {
     super(state)
 
     this.prepare(Height, DistanceY, args)
+  }
+
+  get dim() {
+    return this.state.dimensionHeight
   }
 }
 class Pos extends Axis {
@@ -149,6 +157,10 @@ export class PosX extends Pos {
 
     this.prepare(DistanceX, args)
   }
+
+  get dim() {
+    return this.state.dimensionWidth
+  }
 }
 
 export class PosY extends Pos {
@@ -156,6 +168,10 @@ export class PosY extends Pos {
     super(state)
 
     this.prepare(DistanceY, args)
+  }
+
+  get dim() {
+    return this.state.dimensionHeight
   }
 }
 

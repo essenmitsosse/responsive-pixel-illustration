@@ -1,4 +1,4 @@
-import { AxisX, AxisY, Dimensions, PosX, PosY } from './Position'
+import { Dimensions, PosX, PosY } from './Position'
 import { Height, Width } from './Size'
 
 const getPixelUnits = () => {
@@ -34,12 +34,6 @@ const getPixelUnits = () => {
     state.dimensionWidth = dimensions.width
 
     state.dimensionHeight = dimensions.height
-  }
-
-  const setAxis = (dimensions) => {
-    AxisX.prototype.dim = PosX.prototype.dim = dimensions.width
-
-    AxisY.prototype.dim = PosY.prototype.dim = dimensions.height
   }
 
   const Position = (args, reflectX, reflectY, rotate) => {
@@ -106,8 +100,6 @@ const getPixelUnits = () => {
     init: (dimensions) => {
       oneDSet(dimensions)
 
-      setAxis(dimensions)
-
       if (state.calculateList) {
         state.calculateList(dimensions)
       }
@@ -122,15 +114,11 @@ const getPixelUnits = () => {
       if (o) {
         oneDSet(o)
 
-        setAxis(o)
-
         old.pop()
       }
     },
     push: (dimensions) => {
       oneDSet(dimensions)
-
-      setAxis(dimensions)
 
       old.push(dimensions)
     },

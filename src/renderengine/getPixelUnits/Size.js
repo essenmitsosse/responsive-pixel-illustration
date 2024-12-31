@@ -151,6 +151,10 @@ class Dimension {
     this.getRealForSave = this.realPartCalculation
 
     return function () {
+      if (this.getRealForSave === undefined) {
+        throw new Error('Unexpected error: getRealForSave is undefined')
+      }
+
       const real = this.getRealForSave()
 
       saver.set(real)

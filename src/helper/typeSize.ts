@@ -4,6 +4,9 @@ export type InputDynamicVariableBase = {
   a?: number | string
   add?: ReadonlyArray<InputDynamicVariable>
   getBiggerDim?: boolean
+  getLength?: [number, number]
+  getLinkedVariable?: () => number
+  height?: boolean
   max?: InputDynamicVariable
   min?: InputDynamicVariable
   otherDim?: boolean

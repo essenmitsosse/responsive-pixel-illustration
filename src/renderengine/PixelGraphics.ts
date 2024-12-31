@@ -69,8 +69,8 @@ const doAddVariable = (
   vl: LinkList,
   pixelUnits: ReturnType<typeof getPixelUnits>,
 ): void => {
-  const getLinkedVariable = (args: Link) => (): number | undefined => {
-    if (args.calculated) {
+  const getLinkedVariable = (args: Link) => (): number => {
+    if (args.calculated && typeof args.real === 'number') {
       return args.real
     }
 

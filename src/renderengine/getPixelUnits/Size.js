@@ -311,38 +311,44 @@ class Dimension {
     const dimMax = max && new Dim(max, this.state)
     const dimMin = min && new Dim(min, this.state)
 
-    return dimMax && dimMin
-      ? function () {
-          let a
+    if (dimMax && dimMin) {
+      return function () {
+        let a
 
-          const realMin = typeof dimMin === 'number' ? dimMin : dimMin.getReal()
-          const realMax = typeof dimMax === 'number' ? dimMax : dimMax.getReal()
+        const realMin = typeof dimMin === 'number' ? dimMin : dimMin.getReal()
+        const realMax = typeof dimMax === 'number' ? dimMax : dimMax.getReal()
 
-          return (a = this.getRealDistance()) > realMax
-            ? realMax < realMin
-              ? realMin
-              : realMax
-            : a < realMin
-              ? realMin
-              : a
-        }
-      : dimMax
-        ? function () {
-            let a
+        return (a = this.getRealDistance()) > realMax
+          ? realMax < realMin
+            ? realMin
+            : realMax
+          : a < realMin
+            ? realMin
+            : a
+      }
+    }
 
-            const realMax =
-              typeof dimMax === 'number' ? dimMax : dimMax.getReal()
+    if (dimMax) {
+      return function () {
+        let a
 
-            return (a = this.getRealDistance()) > realMax ? realMax : a
-          }
-        : function () {
-            let a
+        const realMax = typeof dimMax === 'number' ? dimMax : dimMax.getReal()
 
-            const realMin =
-              typeof dimMin === 'number' ? dimMin : dimMin.getReal()
+        return (a = this.getRealDistance()) > realMax ? realMax : a
+      }
+    }
 
-            return (a = this.getRealDistance()) < realMin ? realMin : a
-          }
+    if (dimMin) {
+      return function () {
+        let a
+
+        const realMin = typeof dimMin === 'number' ? dimMin : dimMin.getReal()
+
+        return (a = this.getRealDistance()) < realMin ? realMin : a
+      }
+    }
+
+    throw new Error('Unexpected error: max and min are both undefined')
   }
 
   getDim() {

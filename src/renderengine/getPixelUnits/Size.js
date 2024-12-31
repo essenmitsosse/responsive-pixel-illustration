@@ -230,6 +230,10 @@ class Dimension {
   }
 
   getReal() {
+    if (this.realPartCalculation === undefined) {
+      throw new Error('Unexpected error: realPartCalculation is undefined')
+    }
+
     return Math.round(this.realPartCalculation())
   }
 

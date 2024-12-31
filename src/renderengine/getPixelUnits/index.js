@@ -42,7 +42,7 @@ const getPixelUnits = () => {
     AxisY.prototype.dim = PosY.prototype.dim = dimensions.height
   }
 
-  const Position = function (args, reflectX, reflectY, rotate) {
+  const Position = (args, reflectX, reflectY, rotate) => {
     const fromRight = (args.fX || false) !== reflectX
     const fromBottom = (args.fY || false) !== reflectY
 

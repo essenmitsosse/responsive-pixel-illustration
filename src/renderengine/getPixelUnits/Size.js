@@ -6,10 +6,38 @@ function getRealDistanceBasic() {
     throw new Error('Unexpected error: State has not been initialized')
   }
 
+  if (this.abs === undefined) {
+    throw new Error('Unexpected error: abs is undefined')
+  }
+
+  if (typeof this.abs === 'string') {
+    throw new Error(
+      "Unexpected error: abs is a string, which shouldn't happen in this path",
+    )
+  }
+
+  if (this.rele === undefined) {
+    throw new Error('Unexpected error: rele is undefined')
+  }
+
+  /**
+   * TODO: Fix this hacky way to differentiate the two cases:
+   *
+   * - `useVari` is `undefined` (which is fine and is expressed by `abs` being
+   *   `null`)
+   * - `useVari` is defined, but `abs` is undefined (which should never happen and
+   *   will throw)
+   */
+  const abs = this.useVari ? this.useVari.abs : null
+
+  if (abs === undefined) {
+    throw new Error('Unexpected error: useVari.abs is undefined')
+  }
+
   return (
     this.rele *
-      (this.useVari
-        ? this.useVari.abs
+      (abs !== null
+        ? abs
         : this.useSize
           ? this.useSize()
           : this.dim

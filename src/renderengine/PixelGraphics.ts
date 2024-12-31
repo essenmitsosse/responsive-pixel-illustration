@@ -294,7 +294,7 @@ export class PixelGraphics {
       }
     }
 
-    const link = (name: string, vari: { abs?: number }): void => {
+    const link = (name: string, vari: { abs?: number | string }): void => {
       if (newVL[name]) {
         newVL[name].link(vari)
       } else {

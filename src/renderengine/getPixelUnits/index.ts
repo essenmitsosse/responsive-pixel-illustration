@@ -63,7 +63,7 @@ const getPixelUnits = (): {
   pop: () => void
   push: (dimensions: DataDimensionContext) => void
   setList: (
-    listLink: (name: string, vari: { abs?: number }) => void,
+    listLink: (name: string, vari: { abs?: number | string }) => void,
     listCreate: (name: string) => DynamicVariable,
     updater: () => void,
   ) => void
@@ -171,7 +171,7 @@ const getPixelUnits = (): {
     getWidth: (args): Width => new Width(args, state),
     getHeight: (args): Height => new Height(args, state),
     setList: (
-      listLink: (name: string, vari: { abs?: number }) => void,
+      listLink: (name: string, vari: { abs?: number | string }) => void,
       listCreate: (name: string) => DynamicVariable,
       updater: () => void,
     ): void => {

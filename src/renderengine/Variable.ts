@@ -9,7 +9,7 @@ class BaseVariable {
     this.name = name
   }
 
-  link(p: unknown): void {
+  link(p: { abs?: number | string }): void {
     this.linkedP.push(p)
 
     this.l += 1
@@ -18,7 +18,7 @@ class BaseVariable {
 
 export class Variable extends BaseVariable {
   vari?: { getReal: () => number }
-  linkedP: Array<InputDynamicVariable & { abs?: number }> = []
+  linkedP: Array<InputDynamicVariable & { abs?: number | string }> = []
 
   constructor(
     args: InputDynamicVariable,
@@ -46,7 +46,7 @@ export class Variable extends BaseVariable {
     }
   }
 
-  link(p: { abs?: number }): void {
+  link(p: { abs?: number | string }): void {
     this.linkedP.push(p)
 
     this.l += 1

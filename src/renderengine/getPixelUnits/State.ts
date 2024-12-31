@@ -10,5 +10,7 @@ export type State = {
   dimensionWidth: number | null
   updateList: (() => void) | null
   variableListCreate: ((name: string) => DynamicVariable) | null
-  variableListLink: ((name: string, vari: { abs?: number }) => void) | null
+  variableListLink:
+    | ((name: string, vari: { abs?: number | string }) => void)
+    | null
 }

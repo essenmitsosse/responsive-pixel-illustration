@@ -238,6 +238,10 @@ class Dimension {
   }
 
   getRealUnrounded() {
+    if (this.realPartCalculation === undefined) {
+      throw new Error('Unexpected error: realPartCalculation is undefined')
+    }
+
     return this.realPartCalculation()
   }
 

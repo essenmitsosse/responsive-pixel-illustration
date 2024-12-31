@@ -120,7 +120,7 @@ class Dimension {
       }
 
       if (('odd' in args && args.odd) || ('even' in args && args.even)) {
-        this.realPartCalculation = this.odd(args.odd || false)
+        this.realPartCalculation = this.odd('odd' in args && args.odd)
       }
     } else if (typeof args === 'number' && this.dimension) {
       // No calculation, just return Number

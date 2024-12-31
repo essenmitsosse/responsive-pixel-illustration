@@ -308,16 +308,15 @@ class Dimension {
   }
 
   getRealDistanceWithMaxMin(max, min, Dim) {
-    max = max && new Dim(max, this.state)
+    const dimMax = max && new Dim(max, this.state)
+    const dimMin = min && new Dim(min, this.state)
 
-    min = min && new Dim(min, this.state)
-
-    return max && min
+    return dimMax && dimMin
       ? function () {
           let a
 
-          const realMin = typeof min === 'number' ? min : min.getReal()
-          const realMax = typeof max === 'number' ? max : max.getReal()
+          const realMin = typeof dimMin === 'number' ? dimMin : dimMin.getReal()
+          const realMax = typeof dimMax === 'number' ? dimMax : dimMax.getReal()
 
           return (a = this.getRealDistance()) > realMax
             ? realMax < realMin
@@ -327,18 +326,20 @@ class Dimension {
               ? realMin
               : a
         }
-      : max
+      : dimMax
         ? function () {
             let a
 
-            const realMax = typeof max === 'number' ? max : max.getReal()
+            const realMax =
+              typeof dimMax === 'number' ? dimMax : dimMax.getReal()
 
             return (a = this.getRealDistance()) > realMax ? realMax : a
           }
         : function () {
             let a
 
-            const realMin = typeof min === 'number' ? min : min.getReal()
+            const realMin =
+              typeof dimMin === 'number' ? dimMin : dimMin.getReal()
 
             return (a = this.getRealDistance()) < realMin ? realMin : a
           }

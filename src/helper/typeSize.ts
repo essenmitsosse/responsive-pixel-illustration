@@ -9,7 +9,7 @@ export type InputDynamicVariableBase = {
   otherDim?: boolean
   r?: number
   r2?: number
-  useSize?: string
+  useSize?: InputDynamicVariableBase | string
 }
 
 export type InputDynamicVariable =

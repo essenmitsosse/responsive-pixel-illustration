@@ -16,11 +16,11 @@ const getPixelUnits = () => {
   }
 
   const createSize = function (args) {
-    return args === undefined
-      ? 0
-      : args.height
-        ? new Height(args, state)
-        : new Width(args, state)
+    if (args === undefined) {
+      throw new Error('Unexpected Error: args is not defined')
+    }
+
+    return args.height ? new Height(args, state) : new Width(args, state)
   }
 
   const oneDSet = (dimensions) => {

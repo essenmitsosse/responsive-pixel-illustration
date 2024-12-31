@@ -441,6 +441,10 @@ export class DistanceY extends Distance {
       throw new Error('Unexpected error: realPartCalculation is undefined')
     }
 
+    if (this.state.addY === null) {
+      throw new Error('Unexpected error: State has not been initialized')
+    }
+
     return Math.round(this.realPartCalculation() + this.state.addY)
   }
 

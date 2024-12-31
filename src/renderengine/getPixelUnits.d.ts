@@ -1,7 +1,4 @@
-import type {
-  InputDynamicVariable,
-  InputDynamicVariableBase,
-} from '@/helper/typeSize'
+import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { DynamicVariable } from '@/renderengine/Variable'
 
 export declare module './getPixelUnits' {
@@ -16,7 +13,7 @@ export declare module './getPixelUnits' {
     pop: () => void
     push: (dimensions) => void
     setList: (
-      listLink: (name: string, vari: InputDynamicVariableBase) => void,
+      listLink: (name: string, vari: { abs?: number }) => void,
       listCreate: (name: string) => DynamicVariable,
       updater: () => void,
     ) => void

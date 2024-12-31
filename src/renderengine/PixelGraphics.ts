@@ -6,7 +6,6 @@ import { DynamicVariable, Variable } from './Variable'
 
 import type { Info } from './getInfo'
 import type { InitPixel } from './InitPixel'
-import type { InputDynamicVariableBase } from '@/helper/typeSize'
 import type {
   DataImage,
   ImageContent,
@@ -295,7 +294,7 @@ export class PixelGraphics {
       }
     }
 
-    const link = (name: string, vari: InputDynamicVariableBase): void => {
+    const link = (name: string, vari: { abs?: number }): void => {
       if (newVL[name]) {
         newVL[name].link(vari)
       } else {

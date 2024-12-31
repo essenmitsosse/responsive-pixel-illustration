@@ -46,7 +46,7 @@ export class Variable extends BaseVariable {
     }
   }
 
-  link(p: InputDynamicVariable): void {
+  link(p: { abs?: number }): void {
     this.linkedP.push(p)
 
     this.l += 1

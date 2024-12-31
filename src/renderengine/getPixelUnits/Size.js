@@ -250,6 +250,10 @@ class Dimension {
   getRealDistance = getRealDistanceBasic
 
   getRealDistanceWithCalc() {
+    if (this.adder === undefined) {
+      throw new Error('Unexpected error: adder is undefined')
+    }
+
     let add = 0
     let l = this.adder.length
 

@@ -216,11 +216,12 @@ class Dimension {
   createAdder(add, onlyAdd) {
     let l = add.length
 
-    const adder = (this.adder = [])
+    this.adder = []
+
     const Size = this.dim ? Height : Width
 
     while (l--) {
-      adder.push(new Size(add[l], this.state))
+      this.adder.push(new Size(add[l], this.state))
     }
 
     this[onlyAdd ? 'realPartCalculation' : 'getRealDistance'] = onlyAdd

@@ -413,6 +413,10 @@ export class DistanceX extends Distance {
   }
 
   fromOtherSide(size) {
+    if (this.realPartCalculation === undefined) {
+      throw new Error('Unexpected error: realPartCalculation is undefined')
+    }
+
     return (
       this.state.dimensionWidth +
       this.state.addX -

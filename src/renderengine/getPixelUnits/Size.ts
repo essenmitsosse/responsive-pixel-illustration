@@ -1,4 +1,15 @@
-function getRealDistanceBasic() {
+import type { InputDynamicVariable } from '@/helper/typeSize'
+import type { State } from '@/renderengine/getPixelUnits/State'
+import type { DynamicVariable } from '@/renderengine/Variable'
+
+function getRealDistanceBasic(this: {
+  abs?: number | string
+  dim?: boolean
+  rele?: number
+  state: State
+  useSize?: () => number
+  useVari?: { abs?: number }
+}): number {
   if (
     this.state.dimensionWidth === null ||
     this.state.dimensionHeight === null
@@ -47,19 +58,29 @@ function getRealDistanceBasic() {
   )
 }
 
-const getGetLengthCalculation = (x, y, state) => {
+const getGetLengthCalculation = (x: number, y: number, state: State) => {
   const sizeX = new Width(x, state)
   const sizeY = new Width(y, state)
 
-  return () =>
+  return (): number =>
     Math.round(
       Math.sqrt(Math.pow(sizeX.getReal(), 2) + Math.pow(sizeY.getReal(), 2)),
     )
 }
 
-class Dimension {
-  state
-  constructor(state) {
+export class Dimension {
+  abs?: number | string
+  useVari?: { abs?: number }
+  dim?: boolean
+  state: State
+  realPartCalculation?: () => number
+  debug?: unknown
+  adder?: Array<Height | Width>
+  useSize?: () => number
+  rele?: number
+  getRealForSave?: () => number
+  getRealForOdd?: () => number
+  constructor(state: State) {
     this.state = state
   }
   /**
@@ -69,7 +90,7 @@ class Dimension {
    * `constructor` call, so after `super` has been called we need to explicitly
    * call `prepare`.
    */
-  prepare(args, axis) {
+  prepare(args: InputDynamicVariable, axis: boolean): void {
     if (
       this.state.variableListLink === null ||
       this.state.variableListCreate === null
@@ -99,7 +120,7 @@ class Dimension {
       )
     } else if (typeof args === 'object') {
       // is Object
-      this.debug = args.debug
+      this.debug = 'debug' in args ? args.debug : undefined
 
       if ('a' in args && typeof args.a === 'string') {
         this.state.variableListLink(args.a, this)
@@ -112,7 +133,10 @@ class Dimension {
       if ('useSize' in args && args.useSize) {
         if (typeof args.useSize === 'string') {
           this.state.variableListLink(args.useSize, (this.useVari = {}))
-        } else if (args.useSize.getLinkedVariable) {
+        } else if (
+          'getLinkedVariable' in args.useSize &&
+          args.useSize.getLinkedVariable
+        ) {
           this.useSize = args.useSize.getLinkedVariable
         } else {
           // errorAdd( "useSize must be a String" )
@@ -175,10 +199,10 @@ class Dimension {
     }
   }
 
-  saveDistance(saver) {
+  saveDistance(saver: DynamicVariable) {
     this.getRealForSave = this.realPartCalculation
 
-    return function () {
+    return function (this: Dimension): number {
       if (this.getRealForSave === undefined) {
         throw new Error('Unexpected error: getRealForSave is undefined')
       }
@@ -191,10 +215,10 @@ class Dimension {
     }
   }
 
-  odd(odd) {
+  odd(odd?: boolean) {
     this.getRealForOdd = this.realPartCalculation
 
-    return function () {
+    return function (this: Dimension): number {
       if (this.getRealForOdd === undefined) {
         throw new Error('Unexpected error: getRealForOdd is undefined')
       }
@@ -205,7 +229,7 @@ class Dimension {
     }
   }
 
-  getDefaults(r, a) {
+  getDefaults(r?: number, a?: number | string): boolean {
     if (r === undefined && a === undefined && this.adder === undefined) {
       this.rele = 1
 
@@ -217,9 +241,11 @@ class Dimension {
 
       this.abs = a || 0
     }
+
+    return false
   }
 
-  getQuick() {
+  getQuick(): number {
     if (
       this.state.dimensionHeight === null ||
       this.state.dimensionWidth === null
@@ -241,7 +267,10 @@ class Dimension {
     )
   }
 
-  createAdder(add, onlyAdd) {
+  createAdder(
+    add: ReadonlyArray<InputDynamicVariable>,
+    onlyAdd?: boolean,
+  ): void {
     let l = add.length
 
     this.adder = []
@@ -257,7 +286,7 @@ class Dimension {
       : this.getRealDistanceWithCalc
   }
 
-  getReal() {
+  getReal(): number {
     if (this.realPartCalculation === undefined) {
       throw new Error('Unexpected error: realPartCalculation is undefined')
     }
@@ -265,7 +294,7 @@ class Dimension {
     return Math.round(this.realPartCalculation())
   }
 
-  getRealUnrounded() {
+  getRealUnrounded(): number {
     if (this.realPartCalculation === undefined) {
       throw new Error('Unexpected error: realPartCalculation is undefined')
     }
@@ -277,7 +306,7 @@ class Dimension {
 
   getRealDistance = getRealDistanceBasic
 
-  getRealDistanceWithCalc() {
+  getRealDistanceWithCalc(): number {
     if (this.adder === undefined) {
       throw new Error('Unexpected error: adder is undefined')
     }
@@ -292,7 +321,7 @@ class Dimension {
     return this.getRealDistanceBasic() + add
   }
 
-  getRealDistanceWithCalcOnlyAdding() {
+  getRealDistanceWithCalcOnlyAdding(): number {
     if (this.adder === undefined) {
       throw new Error('Unexpected error: adder is undefined')
     }
@@ -307,12 +336,16 @@ class Dimension {
     return add
   }
 
-  getRealDistanceWithMaxMin(max, min, Dim) {
+  getRealDistanceWithMaxMin(
+    max: InputDynamicVariable | undefined,
+    min: InputDynamicVariable | undefined,
+    Dim: { new (args: InputDynamicVariable, state: State): Height | Width },
+  ): () => number {
     const dimMax = max && new Dim(max, this.state)
     const dimMin = min && new Dim(min, this.state)
 
     if (dimMax && dimMin) {
-      return function () {
+      return function (this: Dimension): number {
         let a
 
         const realMin = typeof dimMin === 'number' ? dimMin : dimMin.getReal()
@@ -329,7 +362,7 @@ class Dimension {
     }
 
     if (dimMax) {
-      return function () {
+      return function (this: Dimension): number {
         let a
 
         const realMax = typeof dimMax === 'number' ? dimMax : dimMax.getReal()
@@ -339,7 +372,7 @@ class Dimension {
     }
 
     if (dimMin) {
-      return function () {
+      return function (this: Dimension): number {
         let a
 
         const realMin = typeof dimMin === 'number' ? dimMin : dimMin.getReal()
@@ -351,18 +384,18 @@ class Dimension {
     throw new Error('Unexpected error: max and min are both undefined')
   }
 
-  getDim() {
+  getDim(): number | null {
     return this.dim ? this.state.dimensionWidth : this.state.dimensionHeight
   }
 
   dimension = true
 
-  simplify(abs) {
-    this.getReal = () => abs
+  simplify(abs: number): void {
+    this.getReal = (): number => abs
   }
 }
 class Distance extends Dimension {
-  getDefaults(r, a) {
+  getDefaults(r?: number, a?: number | string): boolean {
     if (r === undefined && a === undefined) {
       this.rele = 0
 
@@ -374,15 +407,17 @@ class Distance extends Dimension {
 
       this.abs = a || 0
     }
+
+    return false
   }
 
-  getQuick = () => 0
+  getQuick = (): 0 => 0
 
   dimension = false
 }
 
 export class Width extends Dimension {
-  constructor(args, state) {
+  constructor(args: InputDynamicVariable, state: State) {
     super(state)
 
     this.prepare(args, true)
@@ -390,7 +425,7 @@ export class Width extends Dimension {
 }
 
 export class Height extends Dimension {
-  constructor(args, state) {
+  constructor(args: InputDynamicVariable, state: State) {
     super(state)
 
     this.prepare(args, false)
@@ -398,13 +433,13 @@ export class Height extends Dimension {
 }
 
 export class DistanceX extends Distance {
-  constructor(args, state) {
+  constructor(args: InputDynamicVariable, state: State) {
     super(state)
 
     this.prepare(args, true)
   }
 
-  getReal() {
+  getReal(): number {
     if (this.realPartCalculation === undefined) {
       throw new Error('Unexpected error: realPartCalculation is undefined')
     }
@@ -416,7 +451,7 @@ export class DistanceX extends Distance {
     return Math.round(this.realPartCalculation() + this.state.addX)
   }
 
-  fromOtherSide(size) {
+  fromOtherSide(size: number): number {
     if (this.realPartCalculation === undefined) {
       throw new Error('Unexpected error: realPartCalculation is undefined')
     }
@@ -434,13 +469,13 @@ export class DistanceX extends Distance {
 }
 
 export class DistanceY extends Distance {
-  constructor(args, state) {
+  constructor(args: InputDynamicVariable, state: State) {
     super(state)
 
     this.prepare(args, false)
   }
 
-  getReal() {
+  getReal(): number {
     if (this.realPartCalculation === undefined) {
       throw new Error('Unexpected error: realPartCalculation is undefined')
     }
@@ -452,7 +487,7 @@ export class DistanceY extends Distance {
     return Math.round(this.realPartCalculation() + this.state.addY)
   }
 
-  fromOtherSide(size) {
+  fromOtherSide(size: number): number {
     if (this.realPartCalculation === undefined) {
       throw new Error('Unexpected error: realPartCalculation is undefined')
     }

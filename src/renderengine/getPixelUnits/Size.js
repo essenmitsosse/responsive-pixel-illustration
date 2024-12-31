@@ -97,7 +97,7 @@ class Dimension {
 
       // Get gefaults and try to do quick version
       if (
-        this.getDefaults(args.r, args.a) &&
+        this.getDefaults(args.r, 'a' in args ? args.a : undefined) &&
         !('useSize' in args && args.useSize) &&
         !('add' in args && args.add)
       ) {

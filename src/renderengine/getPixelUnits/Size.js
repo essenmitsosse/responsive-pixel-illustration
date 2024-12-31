@@ -167,6 +167,10 @@ class Dimension {
     this.getRealForOdd = this.realPartCalculation
 
     return function () {
+      if (this.getRealForOdd === undefined) {
+        throw new Error('Unexpected error: getRealForOdd is undefined')
+      }
+
       const real = Math.round(this.getRealForOdd())
 
       return real === 0 ? 0 : (!(real % 2) === false) === odd ? real : real + 1

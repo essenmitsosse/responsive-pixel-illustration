@@ -1,6 +1,6 @@
 export type SizeHover<T> = { r?: T; s: { rele?: T } }
 
-export type InputDynamicVariableBase = {
+type InputDynamicVariableBase = {
   a?: number | string
   add?: ReadonlyArray<InputDynamicVariable>
   getBiggerDim?: boolean

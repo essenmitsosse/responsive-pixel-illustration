@@ -1,15 +1,16 @@
-import type { getPixelUnits } from './pixel'
+import type getPixelUnits from './getPixelUnits'
 import type { InputDynamicVariable } from '@/helper/typeSize'
+import type { Height, Width } from '@/renderengine/getPixelUnits/Size'
 
 class BaseVariable {
-  linkedP: Array<unknown | { abs?: unknown }> = []
+  linkedP: Array<{ abs?: unknown }> = []
   l = 0
   name: string
   constructor(name: string) {
     this.name = name
   }
 
-  link(p: unknown): void {
+  link(p: { abs?: number | string }): void {
     this.linkedP.push(p)
 
     this.l += 1
@@ -17,11 +18,11 @@ class BaseVariable {
 }
 
 export class Variable extends BaseVariable {
-  vari?: { getReal: () => number }
-  linkedP: Array<InputDynamicVariable & { abs?: number }> = []
+  vari?: Height | Width
+  linkedP: Array<InputDynamicVariable & { abs?: number | string }> = []
 
   constructor(
-    args: unknown,
+    args: InputDynamicVariable,
     name: string,
     pixelUnits: ReturnType<typeof getPixelUnits>,
   ) {
@@ -46,7 +47,7 @@ export class Variable extends BaseVariable {
     }
   }
 
-  link(p: InputDynamicVariable): void {
+  link(p: { abs?: number | string }): void {
     this.linkedP.push(p)
 
     this.l += 1

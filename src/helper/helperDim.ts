@@ -1,11 +1,28 @@
-import type { InputDynamicVariableBase } from '@/helper/typeSize'
+type MinMax = {
+  a?: number
+  otherDim: boolean
+  r: number
+  useSize?: string
+}
 
-export const getSmallerDim = (
-  x: InputDynamicVariableBase,
-): InputDynamicVariableBase => {
-  const o: InputDynamicVariableBase = { r: x.r }
+type Dim = {
+  a?: number
+  max?: MinMax
+  min?: MinMax
+  r: number
+  useSize?: string
+}
 
-  const max: InputDynamicVariableBase = {
+export const getSmallerDim = (x: {
+  a?: number
+  getBiggerDim?: boolean
+  r: number
+  r2?: number
+  useSize?: [string, string]
+}): Dim => {
+  const o: Dim = { r: x.r }
+
+  const max: MinMax = {
     r: x.r2 || x.r,
     otherDim: true,
   }
@@ -31,13 +48,10 @@ export const getSmallerDim = (
   return o
 }
 
-export const getBiggerDim = (
-  x: InputDynamicVariableBase,
-): InputDynamicVariableBase => {
-  x.getBiggerDim = true
-
-  return getSmallerDim(x)
-}
+export const getBiggerDim = (x: {
+  r: number
+  useSize?: [string, string]
+}): Dim => getSmallerDim({ ...x, getBiggerDim: true })
 
 export const mult = <TR, TUse, TA>(
   r: TR,

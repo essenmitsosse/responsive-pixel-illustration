@@ -1,12 +1,11 @@
 import { DrawingTools } from './creator'
 import getInfo from './getInfo'
+import getPixelUnits from './getPixelUnits'
 import getRenderer from './getRenderer'
-import { getPixelUnits } from './pixel'
 import { DynamicVariable, Variable } from './Variable'
 
 import type { Info } from './getInfo'
 import type { InitPixel } from './InitPixel'
-import type { InputDynamicVariableBase } from '@/helper/typeSize'
 import type {
   DataImage,
   ImageContent,
@@ -70,8 +69,8 @@ const doAddVariable = (
   vl: LinkList,
   pixelUnits: ReturnType<typeof getPixelUnits>,
 ): void => {
-  const getLinkedVariable = (args: Link) => (): number | undefined => {
-    if (args.calculated) {
+  const getLinkedVariable = (args: Link) => (): number => {
+    if (args.calculated && typeof args.real === 'number') {
       return args.real
     }
 
@@ -295,7 +294,7 @@ export class PixelGraphics {
       }
     }
 
-    const link = (name: string, vari: InputDynamicVariableBase): void => {
+    const link = (name: string, vari: { abs?: number | string }): void => {
       if (newVL[name]) {
         newVL[name].link(vari)
       } else {

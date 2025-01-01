@@ -47,8 +47,6 @@ export const Builder = function (init) {
 
   this.R = random.getRandomFloat
 
-  this.init = init
-
   this.colorInfo = {
     colors: 3,
     steps: 6,
@@ -73,8 +71,6 @@ export const Builder = function (init) {
   this.Object.prototype.colorGen = this.colorGen
 
   this.Object.prototype.Color = this.Color
-
-  this.Object.prototype.init = this.init
 
   this.Object.prototype.basic = this
 

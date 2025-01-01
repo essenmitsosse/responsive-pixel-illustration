@@ -5,7 +5,7 @@ import type { CreateSlider } from '@/helper/typeSlider'
 export type Link = {
   autoUpdate?: boolean
   calculated?: boolean
-  getLinkedVariable?: () => void
+  getLinkedVariable?: () => number
   height?: boolean
   main?: boolean
   r?: number

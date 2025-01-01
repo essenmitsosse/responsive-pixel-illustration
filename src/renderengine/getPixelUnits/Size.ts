@@ -195,7 +195,7 @@ export class Dimension {
 
       this.realPartCalculation = this.getQuick
     } else {
-      this.dim = axis
+      throw new Error("Unexpected error: Couldn't determine the type of args")
     }
   }
 

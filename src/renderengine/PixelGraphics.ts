@@ -127,8 +127,13 @@ export class PixelGraphics {
 
     this.createVariableList(options.imageFunction.variableList)
 
-    if (options.imageFunction.linkList) {
-      this.prepareVariableList(options.imageFunction.linkList)
+    if (
+      options.imageFunction.linkList &&
+      options.imageFunction.linkList.length > 0
+    ) {
+      doAddVariable(options.imageFunction.linkList, this.pixelUnits)
+
+      this.pixelUnits.linkList(getCalculate(options.imageFunction.linkList))
     }
 
     const info = getInfo(options.queryString)
@@ -261,16 +266,6 @@ export class PixelGraphics {
     canvas.addEventListener('mousemove', mouseMove, false)
 
     canvas.addEventListener('touchmove', touchMove, false)
-  }
-
-  prepareVariableList(vl: LinkList): void {
-    if (vl.length === 0) {
-      return
-    }
-
-    doAddVariable(vl, this.pixelUnits)
-
-    this.pixelUnits.linkList(getCalculate(vl))
   }
 
   createVariableList(vl: RecordVariable = {}): void {

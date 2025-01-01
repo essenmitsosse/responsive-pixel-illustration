@@ -256,10 +256,10 @@ export class Dimensions {
     return this.y.realPos
   }
   get endX() {
-    return this.x.realPos + this.x.realSize
+    return this.x.getEnd
   }
   get endY() {
-    return this.y.realPos + this.y.realSize
+    return this.y.getEnd
   }
 
   calc() {

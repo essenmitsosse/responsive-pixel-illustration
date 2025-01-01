@@ -1,4 +1,3 @@
-import { DrawingTools } from './creator'
 import getInfo from './getInfo'
 import getPixelUnits from './getPixelUnits'
 import getRenderer from './getRenderer'
@@ -314,6 +313,4 @@ export class PixelGraphics {
       newVL[key] = new Variable(vl[key], key, that.pixelUnits)
     }
   }
-
-  DrawingTools = DrawingTools
 }

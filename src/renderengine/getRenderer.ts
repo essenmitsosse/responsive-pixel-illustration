@@ -1,4 +1,5 @@
 import Color from '@/renderengine/Color'
+import { DrawingTools } from '@/renderengine/creator'
 
 import type { PixelGraphics, RenderObject } from './PixelGraphics'
 import type { ColorRgb } from '@/helper/typeColor'
@@ -244,7 +245,7 @@ const createPixelArray = (
 const getDrawer = (pixelStarter: PixelGraphics, renderList: unknown) => {
   // Initialize the drawingTool
   const pixelUnit = pixelStarter.pixelUnits
-  const drawingTool = new pixelStarter.DrawingTools(pixelUnit)
+  const drawingTool = new DrawingTools(pixelUnit)
   const canvasTool = new drawingTool.Obj().create({ list: renderList })
 
   return (countW: number, countH: number): PixelArray => {

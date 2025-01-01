@@ -1,11 +1,9 @@
 import { DistanceX, DistanceY, Height, Width } from './Size'
 
 class Axis {
-  state
-  constructor(state) {
+  constructor(Size, Pos, args, state) {
     this.state = state
-  }
-  prepare(Size, Pos, args) {
+
     this.pos = new Pos(args.pos, this.state)
 
     this.size = new Size(args.size, this.state)
@@ -80,9 +78,7 @@ class Axis {
 
 class AxisX extends Axis {
   constructor(args, state) {
-    super(state)
-
-    this.prepare(Width, DistanceX, args)
+    super(Width, DistanceX, args, state)
   }
 
   get dim() {
@@ -92,9 +88,7 @@ class AxisX extends Axis {
 
 class AxisY extends Axis {
   constructor(args, state) {
-    super(state)
-
-    this.prepare(Height, DistanceY, args)
+    super(Height, DistanceY, args, state)
   }
 
   get dim() {
@@ -102,7 +96,9 @@ class AxisY extends Axis {
   }
 }
 class Pos extends Axis {
-  prepare(Distance, args) {
+  constructor(Size, Distance, args, state) {
+    super(Size, Distance, args, state)
+
     this.pos = new Distance(args.pos, this.state)
 
     this.toOtherSide = args.toOtherSide
@@ -153,9 +149,7 @@ class Pos extends Axis {
 
 export class PosX extends Pos {
   constructor(args, state) {
-    super(state)
-
-    this.prepare(DistanceX, args)
+    super(Width, DistanceX, args, state)
   }
 
   get dim() {
@@ -165,9 +159,7 @@ export class PosX extends Pos {
 
 export class PosY extends Pos {
   constructor(args, state) {
-    super(state)
-
-    this.prepare(DistanceY, args)
+    super(Height, DistanceY, args, state)
   }
 
   get dim() {

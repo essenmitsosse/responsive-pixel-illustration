@@ -70,7 +70,7 @@ const createSingleCanvas = (
   div.appendChild(canvas)
 
   return (renderer: RenderObject): ReturnType<PixelGraphics['callback']> =>
-    new PixelGraphics(renderer).callback(canvas)
+    new PixelGraphics(renderer, canvas).callback()
 }
 
 const loadScript = (

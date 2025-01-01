@@ -1,4 +1,3 @@
-import { DrawingTools } from './creator'
 import getInfo from './getInfo'
 import getPixelUnits from './getPixelUnits'
 import getRenderer from './getRenderer'
@@ -117,30 +116,29 @@ const getCalculate =
     })
 
 export class PixelGraphics {
-  callback: (canvas: HTMLCanvasElement) => {
+  callback: () => {
     redraw: Redraw
     resize: Resize
   }
-  pixelUnits: ReturnType<typeof getPixelUnits>
+  pixelUnits: ReturnType<typeof getPixelUnits> = getPixelUnits()
   canvasSize?: [number, number, number]
-  constructor(options: RenderObject) {
+  constructor(options: RenderObject, canvas: HTMLCanvasElement) {
     const that = this
-    // Initialize PixelUnits with Variables
-    const pU = this.getPixelUnits()
-
-    this.pixelUnits = pU
 
     this.createVariableList(options.imageFunction.variableList)
 
-    if (options.imageFunction.linkList) {
-      this.prepareVariableList(options.imageFunction.linkList)
+    if (
+      options.imageFunction.linkList &&
+      options.imageFunction.linkList.length > 0
+    ) {
+      doAddVariable(options.imageFunction.linkList, this.pixelUnits)
+
+      this.pixelUnits.linkList(getCalculate(options.imageFunction.linkList))
     }
 
     const info = getInfo(options.queryString)
 
-    this.callback = (
-      canvas,
-    ): {
+    this.callback = (): {
       redraw: Redraw
       resize: Resize
     } => {
@@ -270,16 +268,6 @@ export class PixelGraphics {
     canvas.addEventListener('touchmove', touchMove, false)
   }
 
-  prepareVariableList(vl: LinkList): void {
-    if (vl.length === 0) {
-      return
-    }
-
-    doAddVariable(vl, this.pixelUnits)
-
-    this.pixelUnits.linkList(getCalculate(vl))
-  }
-
   createVariableList(vl: RecordVariable = {}): void {
     const that = this
     const newVL: Record<string, DynamicVariable | Variable> = {}
@@ -318,8 +306,4 @@ export class PixelGraphics {
       newVL[key] = new Variable(vl[key], key, that.pixelUnits)
     }
   }
-
-  getPixelUnits = getPixelUnits
-
-  DrawingTools = DrawingTools
 }

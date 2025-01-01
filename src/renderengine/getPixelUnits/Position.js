@@ -292,16 +292,16 @@ export class Dimensions {
   }
 
   get width() {
-    return this.x.realSize
+    return this.x.getSize
   }
   get height() {
-    return this.y.realSize
+    return this.y.getSize
   }
   get posX() {
-    return this.x.realPos
+    return this.x.getPos
   }
   get posY() {
-    return this.y.realPos
+    return this.y.getPos
   }
   get endX() {
     return this.x.getEnd

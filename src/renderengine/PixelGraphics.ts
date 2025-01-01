@@ -121,14 +121,10 @@ export class PixelGraphics {
     redraw: Redraw
     resize: Resize
   }
-  pixelUnits: ReturnType<typeof getPixelUnits>
+  pixelUnits: ReturnType<typeof getPixelUnits> = getPixelUnits()
   canvasSize?: [number, number, number]
   constructor(options: RenderObject) {
     const that = this
-    // Initialize PixelUnits with Variables
-    const pU = this.getPixelUnits()
-
-    this.pixelUnits = pU
 
     this.createVariableList(options.imageFunction.variableList)
 
@@ -318,8 +314,6 @@ export class PixelGraphics {
       newVL[key] = new Variable(vl[key], key, that.pixelUnits)
     }
   }
-
-  getPixelUnits = getPixelUnits
 
   DrawingTools = DrawingTools
 }

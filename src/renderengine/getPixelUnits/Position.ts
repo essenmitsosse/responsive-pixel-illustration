@@ -1,7 +1,42 @@
 import { DistanceX, DistanceY, Height, Width } from './Size'
 
+import type { Dimension } from './Size'
+import type { InputDynamicVariable } from '@/helper/typeSize'
+import type { State } from '@/renderengine/getPixelUnits/State'
+
+type ArgsAxis = {
+  center: boolean
+  fromOtherSide: boolean
+  margin?: InputDynamicVariable
+  min?: InputDynamicVariable
+  pos: InputDynamicVariable
+  size?: InputDynamicVariable
+  toOtherSide: boolean
+}
+
 class Axis {
-  constructor(Size, Pos, args, state) {
+  state: State
+  pos: DistanceX | DistanceY
+  size: Height | Width
+  realSize?: number
+  realPos?: number
+  realMargin?: number
+  toOtherSide: boolean
+  fromOtherSide: boolean
+  center: boolean
+  margin: Dimension | false
+  min?: Dimension | false
+  calcPos: () => number
+  constructor(
+    Size: {
+      new (args: InputDynamicVariable | undefined, state: State): Height | Width
+    },
+    Pos: {
+      new (args: InputDynamicVariable, state: State): DistanceX | DistanceY
+    },
+    args: ArgsAxis,
+    state: State,
+  ) {
     this.state = state
 
     this.pos = new Pos(args.pos, this.state)
@@ -32,24 +67,24 @@ class Axis {
           ? this.getCalcPos.fromOther
           : this.getCalcPos.normal
   }
-  get dim() {
+  get dim(): number | null {
     return null
   }
-  get getSize() {
+  get getSize(): number {
     if (this.realSize === undefined) {
       throw new Error('Unexpected error: realSize is not defined')
     }
 
     return this.realSize
   }
-  get getPos() {
+  get getPos(): number {
     if (this.realPos === undefined) {
       throw new Error('Unexpected error: realPos is not defined')
     }
 
     return this.realPos
   }
-  get getEnd() {
+  get getEnd(): number {
     if (this.realSize === undefined) {
       throw new Error('Unexpected error: realSize is not defined')
     }
@@ -61,7 +96,7 @@ class Axis {
     return this.realPos + this.realSize
   }
 
-  calc() {
+  calc(): void {
     this.realSize =
       this.size.getReal() -
       (this.realMargin = this.margin ? this.margin.getReal() : 0) * 2
@@ -70,14 +105,14 @@ class Axis {
   }
 
   getCalcPos = {
-    normal() {
+    normal(this: Axis): number {
       if (this.realMargin === undefined) {
         throw new Error('Unexpected error: realMargin is not defined')
       }
 
       return this.pos.getReal() + this.realMargin
     },
-    toOther() {
+    toOther(this: Axis): number {
       if (this.realMargin === undefined) {
         throw new Error('Unexpected error: realMargin is not defined')
       }
@@ -88,7 +123,7 @@ class Axis {
 
       return this.pos.getReal() + this.realMargin - this.realSize
     },
-    center() {
+    center(this: Axis): number {
       if (this.dim === null) {
         throw new Error('Unexpected error: dim is not set')
       }
@@ -100,7 +135,7 @@ class Axis {
       return this.pos.getReal() + Math.floor((this.dim - this.realSize) / 2)
     },
 
-    fromOther() {
+    fromOther(this: Axis): number {
       if (this.realMargin === undefined) {
         throw new Error('Unexpected error: realMargin is not defined')
       }
@@ -111,14 +146,14 @@ class Axis {
 
       return this.pos.fromOtherSide(this.realSize) - this.realMargin
     },
-    fromOtherToOther() {
+    fromOtherToOther(this: Axis): number {
       if (this.realMargin === undefined) {
         throw new Error('Unexpected error: realMargin is not defined')
       }
 
       return this.pos.fromOtherSide(0) + this.realMargin
     },
-    fromOtherCenter() {
+    fromOtherCenter(this: Axis): number {
       if (this.dim === null) {
         throw new Error('Unexpected error: dim is not set')
       }
@@ -135,27 +170,36 @@ class Axis {
   }
 }
 
-class AxisX extends Axis {
-  constructor(args, state) {
+export class AxisX extends Axis {
+  constructor(args: ArgsAxis, state: State) {
     super(Width, DistanceX, args, state)
   }
 
-  get dim() {
+  get dim(): number | null {
     return this.state.dimensionWidth
   }
 }
 
-class AxisY extends Axis {
-  constructor(args, state) {
+export class AxisY extends Axis {
+  constructor(args: ArgsAxis, state: State) {
     super(Height, DistanceY, args, state)
   }
 
-  get dim() {
+  get dim(): number | null {
     return this.state.dimensionHeight
   }
 }
 class Pos extends Axis {
-  constructor(Size, Distance, args, state) {
+  constructor(
+    Size: {
+      new (args: InputDynamicVariable | undefined, state: State): Height | Width
+    },
+    Distance: {
+      new (args: InputDynamicVariable, state: State): DistanceX | DistanceY
+    },
+    args: ArgsAxis,
+    state: State,
+  ) {
     super(Size, Distance, args, state)
 
     this.pos = new Distance(args.pos, this.state)
@@ -179,18 +223,18 @@ class Pos extends Axis {
           : this.getCalcPos.normal
   }
 
-  calc() {
+  calc(): number {
     return this.calcPos()
   }
 
   getCalcPos = {
-    normal() {
+    normal(this: Axis): number {
       return this.pos.getReal()
     },
-    toOther() {
+    toOther(this: Axis): number {
       return this.pos.getReal() - 1
     },
-    center() {
+    center(this: Axis): number {
       if (this.dim === null) {
         throw new Error('Unexpected error: dim is not set')
       }
@@ -198,13 +242,13 @@ class Pos extends Axis {
       return this.pos.getReal() + Math.floor(this.dim / 2)
     },
 
-    fromOther() {
+    fromOther(this: Axis): number {
       return this.pos.fromOtherSide(1)
     },
-    fromOtherToOther() {
+    fromOtherToOther(this: Axis): number {
       return this.pos.fromOtherSide(0)
     },
-    fromOtherCenter() {
+    fromOtherCenter(this: Axis): number {
       if (this.dim === null) {
         throw new Error('Unexpected error: dim is not set')
       }
@@ -215,27 +259,51 @@ class Pos extends Axis {
 }
 
 export class PosX extends Pos {
-  constructor(args, state) {
+  constructor(args: ArgsAxis, state: State) {
     super(Width, DistanceX, args, state)
   }
 
-  get dim() {
+  get dim(): number | null {
     return this.state.dimensionWidth
   }
 }
 
 export class PosY extends Pos {
-  constructor(args, state) {
+  constructor(args: ArgsAxis, state: State) {
     super(Height, DistanceY, args, state)
   }
 
-  get dim() {
+  get dim(): number | null {
     return this.state.dimensionHeight
   }
 }
 
 export class Dimensions {
-  constructor(args, fromRight, fromBottom, rotate, state) {
+  x: AxisX
+  y: AxisY
+  constructor(
+    args: {
+      c: boolean
+      cX?: boolean
+      cY?: boolean
+      m: number
+      mX?: number
+      mY?: number
+      minX?: number
+      minY?: number
+      s: number
+      sX?: number
+      sY?: number
+      tX: boolean
+      tY: boolean
+      x: number
+      y: number
+    },
+    fromRight: boolean,
+    fromBottom: boolean,
+    rotate: boolean,
+    state: State,
+  ) {
     if (args.sX === undefined) {
       args.sX = args.s
     }
@@ -291,26 +359,26 @@ export class Dimensions {
     )
   }
 
-  get width() {
+  get width(): number {
     return this.x.getSize
   }
-  get height() {
+  get height(): number {
     return this.y.getSize
   }
-  get posX() {
+  get posX(): number {
     return this.x.getPos
   }
-  get posY() {
+  get posY(): number {
     return this.y.getPos
   }
-  get endX() {
+  get endX(): number {
     return this.x.getEnd
   }
-  get endY() {
+  get endY(): number {
     return this.y.getEnd
   }
 
-  calc() {
+  calc(): Dimensions {
     this.x.calc()
 
     this.y.calc()
@@ -318,7 +386,7 @@ export class Dimensions {
     return this
   }
 
-  checkMin() {
+  checkMin(): boolean {
     if (this.x.realSize === undefined) {
       throw new Error('Unexpected error: realSize on x is not defined')
     }

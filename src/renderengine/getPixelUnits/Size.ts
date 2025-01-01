@@ -90,7 +90,7 @@ export class Dimension {
    * `constructor` call, so after `super` has been called we need to explicitly
    * call `prepare`.
    */
-  prepare(args: InputDynamicVariable, axis: boolean): void {
+  prepare(args: InputDynamicVariable | undefined, axis: boolean): void {
     if (
       this.state.variableListLink === null ||
       this.state.variableListCreate === null
@@ -394,6 +394,7 @@ export class Dimension {
     this.getReal = (): number => abs
   }
 }
+
 class Distance extends Dimension {
   getDefaults(r?: number, a?: number | string): boolean {
     if (r === undefined && a === undefined) {
@@ -417,7 +418,7 @@ class Distance extends Dimension {
 }
 
 export class Width extends Dimension {
-  constructor(args: InputDynamicVariable, state: State) {
+  constructor(args: InputDynamicVariable | undefined, state: State) {
     super(state)
 
     this.prepare(args, true)
@@ -425,7 +426,7 @@ export class Width extends Dimension {
 }
 
 export class Height extends Dimension {
-  constructor(args: InputDynamicVariable, state: State) {
+  constructor(args: InputDynamicVariable | undefined, state: State) {
     super(state)
 
     this.prepare(args, false)

@@ -329,9 +329,13 @@ export class Dimensions {
 
     return (
       this.x.realSize < 1 ||
-      (this.x.min && this.x.realSize < this.x.min.getReal()) ||
+      (this.x.min !== undefined &&
+        this.x.min !== false &&
+        this.x.realSize < this.x.min.getReal()) ||
       this.y.realSize < 1 ||
-      (this.y.min && this.y.realSize < this.y.min.getReal())
+      (this.y.min !== undefined &&
+        this.y.min !== false &&
+        this.y.realSize < this.y.min.getReal())
     )
   }
 }

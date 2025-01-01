@@ -32,6 +32,9 @@ class Axis {
           ? this.getCalcPos.fromOther
           : this.getCalcPos.normal
   }
+  get dim() {
+    return null
+  }
   get getSize() {
     return this.realSize
   }
@@ -58,6 +61,10 @@ class Axis {
       return this.pos.getReal() + this.realMargin - this.realSize
     },
     center() {
+      if (this.dim === null) {
+        throw new Error('Unexpected error: dim is not set')
+      }
+
       return this.pos.getReal() + Math.floor((this.dim - this.realSize) / 2)
     },
 
@@ -68,6 +75,10 @@ class Axis {
       return this.pos.fromOtherSide(0) + this.realMargin
     },
     fromOtherCenter() {
+      if (this.dim === null) {
+        throw new Error('Unexpected error: dim is not set')
+      }
+
       return (
         this.pos.fromOtherSide(this.realSize) -
         Math.floor((this.dim - this.realSize) / 2)
@@ -132,6 +143,10 @@ class Pos extends Axis {
       return this.pos.getReal() - 1
     },
     center() {
+      if (this.dim === null) {
+        throw new Error('Unexpected error: dim is not set')
+      }
+
       return this.pos.getReal() + Math.floor(this.dim / 2)
     },
 
@@ -142,6 +157,10 @@ class Pos extends Axis {
       return this.pos.fromOtherSide(0)
     },
     fromOtherCenter() {
+      if (this.dim === null) {
+        throw new Error('Unexpected error: dim is not set')
+      }
+
       return this.pos.fromOtherSide(1) - Math.floor(this.dim / 2)
     },
   }

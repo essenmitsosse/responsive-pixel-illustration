@@ -2001,8 +2001,8 @@ export const DrawingTools = function (pixelUnit) {
       height,
     })
 
-    that.pixelSetter.setArray(pixelArray)
+    this.pixelSetter.setArray(pixelArray)
 
-    that.seed.reset()
+    this.seed.reset()
   }
 }

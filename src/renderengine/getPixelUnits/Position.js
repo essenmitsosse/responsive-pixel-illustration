@@ -36,12 +36,28 @@ class Axis {
     return null
   }
   get getSize() {
+    if (this.realSize === undefined) {
+      throw new Error('Unexpected error: realSize is not defined')
+    }
+
     return this.realSize
   }
   get getPos() {
+    if (this.realPos === undefined) {
+      throw new Error('Unexpected error: realPos is not defined')
+    }
+
     return this.realPos
   }
   get getEnd() {
+    if (this.realSize === undefined) {
+      throw new Error('Unexpected error: realSize is not defined')
+    }
+
+    if (this.realPos === undefined) {
+      throw new Error('Unexpected error: realPos is not defined')
+    }
+
     return this.realPos + this.realSize
   }
 
@@ -55,9 +71,21 @@ class Axis {
 
   getCalcPos = {
     normal() {
+      if (this.realMargin === undefined) {
+        throw new Error('Unexpected error: realMargin is not defined')
+      }
+
       return this.pos.getReal() + this.realMargin
     },
     toOther() {
+      if (this.realMargin === undefined) {
+        throw new Error('Unexpected error: realMargin is not defined')
+      }
+
+      if (this.realSize === undefined) {
+        throw new Error('Unexpected error: realSize is not defined')
+      }
+
       return this.pos.getReal() + this.realMargin - this.realSize
     },
     center() {
@@ -65,18 +93,38 @@ class Axis {
         throw new Error('Unexpected error: dim is not set')
       }
 
+      if (this.realSize === undefined) {
+        throw new Error('Unexpected error: realSize is not defined')
+      }
+
       return this.pos.getReal() + Math.floor((this.dim - this.realSize) / 2)
     },
 
     fromOther() {
+      if (this.realMargin === undefined) {
+        throw new Error('Unexpected error: realMargin is not defined')
+      }
+
+      if (this.realSize === undefined) {
+        throw new Error('Unexpected error: realSize is not defined')
+      }
+
       return this.pos.fromOtherSide(this.realSize) - this.realMargin
     },
     fromOtherToOther() {
+      if (this.realMargin === undefined) {
+        throw new Error('Unexpected error: realMargin is not defined')
+      }
+
       return this.pos.fromOtherSide(0) + this.realMargin
     },
     fromOtherCenter() {
       if (this.dim === null) {
         throw new Error('Unexpected error: dim is not set')
+      }
+
+      if (this.realSize === undefined) {
+        throw new Error('Unexpected error: realSize is not defined')
       }
 
       return (
@@ -271,6 +319,14 @@ export class Dimensions {
   }
 
   checkMin() {
+    if (this.x.realSize === undefined) {
+      throw new Error('Unexpected error: realSize on x is not defined')
+    }
+
+    if (this.y.realSize === undefined) {
+      throw new Error('Unexpected error: realSize on yC is not defined')
+    }
+
     return (
       this.x.realSize < 1 ||
       (this.x.min && this.x.realSize < this.x.min.getReal()) ||

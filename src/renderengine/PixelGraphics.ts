@@ -116,13 +116,13 @@ const getCalculate =
     })
 
 export class PixelGraphics {
-  callback: (canvas: HTMLCanvasElement) => {
+  callback: () => {
     redraw: Redraw
     resize: Resize
   }
   pixelUnits: ReturnType<typeof getPixelUnits> = getPixelUnits()
   canvasSize?: [number, number, number]
-  constructor(options: RenderObject) {
+  constructor(options: RenderObject, canvas: HTMLCanvasElement) {
     const that = this
 
     this.createVariableList(options.imageFunction.variableList)
@@ -133,9 +133,7 @@ export class PixelGraphics {
 
     const info = getInfo(options.queryString)
 
-    this.callback = (
-      canvas,
-    ): {
+    this.callback = (): {
       redraw: Redraw
       resize: Resize
     } => {

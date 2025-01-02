@@ -1,8 +1,6 @@
 import Obj from './Obj'
 
 class Panels extends Obj {
-  getName = 'Panels'
-
   init(args) {
     let l = args.panels.length
 

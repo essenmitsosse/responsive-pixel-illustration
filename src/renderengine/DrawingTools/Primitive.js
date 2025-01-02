@@ -3,8 +3,6 @@ class Primitive {
     this.state = state
   }
 
-  getName = 'Primitive'
-
   create(args, inherit) {
     inherit = inherit || {}
 

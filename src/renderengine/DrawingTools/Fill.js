@@ -1,8 +1,6 @@
 import Primitive from './Primitive'
 
 class Fill extends Primitive {
-  getName = 'Fill'
-
   init(args) {
     this.use = args.use
   }

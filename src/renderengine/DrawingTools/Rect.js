@@ -1,8 +1,6 @@
 import Primitive from './Primitive'
 
 class Rect extends Primitive {
-  getName = 'Rectangle'
-
   isRect = true
 
   draw() {

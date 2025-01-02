@@ -2,8 +2,6 @@ import Line from './Line'
 import Obj from './Obj'
 
 class Arm extends Obj {
-  getName = 'Arm'
-
   init(args) {
     let hand
 

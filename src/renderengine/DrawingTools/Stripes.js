@@ -1,8 +1,6 @@
 import Obj from './Obj'
 
 class Stripes extends Obj {
-  getName = 'Stripes'
-
   isRect = true
 
   isStripe = true

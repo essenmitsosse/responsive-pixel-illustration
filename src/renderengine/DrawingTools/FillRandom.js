@@ -1,8 +1,6 @@
 import Fill from './Fill'
 
 class FillRandom extends Fill {
-  getName = 'Random Fill'
-
   init(args) {
     const width = this.rotate ? args.sY : args.sX
     const height = this.rotate ? args.sX : args.sY

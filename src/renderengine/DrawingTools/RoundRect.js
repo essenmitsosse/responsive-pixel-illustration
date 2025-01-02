@@ -1,8 +1,6 @@
 import Obj from './Obj'
 
 class RoundRect extends Obj {
-  getName = 'Rounded Rectangle'
-
   list = [
     // { mY:1 },
     // { mX:1, height: {a:1} },

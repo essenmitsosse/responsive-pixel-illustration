@@ -63,8 +63,6 @@ const getDrawLine = function (set) {
 }
 
 class Line extends Primitive {
-  getName = 'Line'
-
   init(args) {
     if (args.closed) {
       this.args.closed = true

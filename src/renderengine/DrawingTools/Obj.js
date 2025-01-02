@@ -49,7 +49,6 @@ class Obj extends Primitive {
 
     this.drawingTools = drawingTools
   }
-  getName = 'Object'
 
   init() {
     const list = this.args.list || this.list

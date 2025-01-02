@@ -112,8 +112,6 @@ const sortFunction = function (a, b) {
 }
 
 class Polygon extends Line {
-  getName = 'Polygon'
-
   draw() {
     // Draw all Lines
     const edgeList = []

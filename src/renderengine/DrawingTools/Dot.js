@@ -1,8 +1,6 @@
 import Primitive from './Primitive'
 
 class Dot extends Primitive {
-  getName = 'Dot'
-
   draw() {
     const pos = this.args.getRealPosition()
 

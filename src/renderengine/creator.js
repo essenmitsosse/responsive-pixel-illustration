@@ -456,7 +456,21 @@ export const DrawingTools = function (pixelUnit) {
     }
   }
 
-  function Dot() {}
+  class Dot extends Primitive {
+    getName = 'Dot'
+
+    draw() {
+      const pos = this.args.getRealPosition()
+
+      this.getColorArray()(pos.x, pos.y)
+    }
+
+    prepareSizeAndPos(args, reflectX, reflectY, rotate) {
+      return {
+        getRealPosition: pixelUnit.Position(args, reflectX, reflectY, rotate),
+      }
+    }
+  }
 
   function Line() {}
 
@@ -494,28 +508,6 @@ export const DrawingTools = function (pixelUnit) {
     Grid,
     Panels,
     Arm,
-  }
-
-  // ------------------ Dot ------------------
-  Dot.prototype = new Primitive()
-
-  Dot.prototype.getName = 'Dot'
-
-  Dot.prototype.draw = function () {
-    const pos = this.args.getRealPosition()
-
-    this.getColorArray()(pos.x, pos.y)
-  }
-
-  Dot.prototype.prepareSizeAndPos = function (
-    args,
-    reflectX,
-    reflectY,
-    rotate,
-  ) {
-    return {
-      getRealPosition: pixelUnit.Position(args, reflectX, reflectY, rotate),
-    }
   }
 
   // ------------------ Line ------------------

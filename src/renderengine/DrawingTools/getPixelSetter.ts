@@ -27,25 +27,39 @@ const getPixelSetter = (): {
   > = {}
 
   const getSet =
-    (color: ColorRgb, zInd: number, id?: string) =>
-    (): ReturnType<PixelArray['getSet']> =>
+    (
+      color: ColorRgb,
+      zInd: number,
+      id?: string,
+    ): (() => (x: number, y: number) => void) =>
+    () =>
       colorArray.getSet(color, zInd, id)
 
-  const getClear = (id?: string) => (): ReturnType<PixelArray['getClear']> =>
-    colorArray.getClear(id)
+  const getClear =
+    (id?: string): (() => (x: number, y: number) => void) =>
+    () =>
+      colorArray.getClear(id)
 
   const getSetForRect =
-    (color: ColorRgb, zInd: number, id?: string) =>
-    (): ReturnType<PixelArray['getSetForRect']> =>
+    (
+      color: ColorRgb,
+      zInd: number,
+      id?: string,
+    ): (() => (args: Location) => void) =>
+    () =>
       colorArray.getSetForRect(color, zInd, id)
 
   const getClearForRect =
-    (id?: string) => (): ReturnType<PixelArray['getClearForRect']> =>
+    (id?: string): (() => (args: Location) => void) =>
+    () =>
       colorArray.getClearForRect(id)
 
   const getSave =
-    <TIsRect extends boolean>(name: string, isRect?: TIsRect) =>
-    (): ((args: Location) => void) | ((x: number, y: number) => void) => {
+    <TIsRect extends boolean>(
+      name: string,
+      isRect?: TIsRect,
+    ): (() => ((args: Location) => void) | ((x: number, y: number) => void)) =>
+    () => {
       const thisSave = formSave[name]
         ? formSave[name]
         : (formSave[name] = { save: [], mask: [] })
@@ -64,7 +78,8 @@ const getPixelSetter = (): {
     }
 
   const getClearSave =
-    (name: string, isRect?: boolean) => (): ((args: Location) => void) => {
+    (name: string, isRect?: boolean): (() => (args: Location) => void) =>
+    () => {
       const thisSave = formSave[name]
 
       let save: Array<[number, number]> | undefined
@@ -109,8 +124,10 @@ const getPixelSetter = (): {
       isRect,
       save,
     ):
-      | (() => (() => void) | ((args: Location) => void) | void)
-      | (() => ((args: Location) => void) | ((x: number, y: number) => void))
+      | (() =>
+          | (() => void)
+          | ((args: Location) => void)
+          | ((x: number, y: number) => void))
       | undefined =>
       clear
         ? isRect

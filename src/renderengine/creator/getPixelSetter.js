@@ -2,76 +2,52 @@ const getPixelSetter = () => {
   let colorArray
 
   const formSave = {}
+  const getSet = (color, zInd, id) => () => colorArray.getSet(color, zInd, id)
+  const getClear = (id) => () => colorArray.getClear(id)
 
-  const getSet = function (color, zInd, id) {
-    return function () {
-      return colorArray.getSet(color, zInd, id)
-    }
-  }
+  const getSetForRect = (color, zInd, id) => () =>
+    colorArray.getSetForRect(color, zInd, id)
 
-  const getClear = function (id) {
-    return function () {
-      return colorArray.getClear(id)
-    }
-  }
+  const getClearForRect = (id) => () => colorArray.getClearForRect(id)
 
-  const getSetForRect = function (color, zInd, id) {
-    return function () {
-      return colorArray.getSetForRect(color, zInd, id)
-    }
-  }
+  const getSave = (name, isRect) => () => {
+    const thisSave = formSave[name] ? formSave[name] : (formSave[name] = {})
+    const save = thisSave.save ? thisSave.save : (thisSave.save = [])
+    const mask = thisSave.mask ? thisSave.mask : (thisSave.mask = [])
 
-  const getClearForRect = function (id) {
-    return function () {
-      return colorArray.getClearForRect(id)
-    }
-  }
+    return isRect
+      ? colorArray.getSaveForRect(save, mask)
+      : (x, y) => {
+          save.push([x, y])
 
-  const getSave = function (name, isRect) {
-    return function () {
-      const thisSave = formSave[name] ? formSave[name] : (formSave[name] = {})
-      const save = thisSave.save ? thisSave.save : (thisSave.save = [])
-      const mask = thisSave.mask ? thisSave.mask : (thisSave.mask = [])
-
-      return isRect
-        ? colorArray.getSaveForRect(save, mask)
-        : function (x, y) {
-            save.push([x, y])
-
-            if (!mask[x]) {
-              mask[x] = []
-            }
-
-            mask[x][y] = true
+          if (!mask[x]) {
+            mask[x] = []
           }
+
+          mask[x][y] = true
+        }
+  }
+
+  const getClearSave = (name, isRect) => () => {
+    const thisSave = formSave[name]
+
+    let save
+    let mask
+
+    if (thisSave) {
+      save = thisSave.save
+
+      mask = thisSave.mask
+
+      return isRect ? colorArray.getClearSaveForRect(save, mask) : () => {}
     }
   }
 
-  const getClearSave = function (name, isRect) {
-    return function () {
-      const thisSave = formSave[name]
-
-      let save
-      let mask
-
-      if (thisSave) {
-        save = thisSave.save
-
-        mask = thisSave.mask
-
-        return isRect
-          ? colorArray.getClearSaveForRect(save, mask)
-          : function () {}
-      }
-    }
-  }
-
-  const getColorMask = function (dimensions, push) {
-    return colorArray.setMask(dimensions, push)
-  }
+  const getColorMask = (dimensions, push) =>
+    colorArray.setMask(dimensions, push)
 
   return {
-    setArray(newArray) {
+    setArray: (newArray) => {
       const forms = formSave
 
       let key
@@ -83,8 +59,8 @@ const getPixelSetter = () => {
       colorArray = newArray
     },
 
-    setColorArray(color, clear, zInd, id, isRect, save) {
-      return clear
+    setColorArray: (color, clear, zInd, id, isRect, save) =>
+      clear
         ? isRect
           ? save
             ? getClearSave(save, isRect)
@@ -98,18 +74,13 @@ const getPixelSetter = () => {
             : getSet(color, zInd, id)
           : save
             ? getSave(save, isRect)
-            : undefined
-    },
+            : undefined,
 
     setColorMask: getColorMask,
 
-    getSave(name) {
-      return formSave[name] ? formSave[name].save : false
-    },
+    getSave: (name) => (formSave[name] ? formSave[name].save : false),
 
-    getMask(name) {
-      return formSave[name] ? formSave[name].mask : false
-    },
+    getMask: (name) => (formSave[name] ? formSave[name].mask : false),
   }
 }
 

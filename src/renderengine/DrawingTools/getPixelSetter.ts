@@ -64,8 +64,7 @@ const getPixelSetter = (): {
     }
 
   const getClearSave =
-    (name: string, isRect?: boolean) =>
-    (): (() => void) | ((args: Location) => void) | void => {
+    (name: string, isRect?: boolean) => (): ((args: Location) => void) => {
       const thisSave = formSave[name]
 
       let save: Array<[number, number]> | undefined
@@ -80,6 +79,8 @@ const getPixelSetter = (): {
           ? colorArray.getClearSaveForRect(save, mask)
           : (): void => {}
       }
+
+      return (): void => {}
     }
 
   const getColorMask = (dimensions: Location, push?: boolean): Location =>

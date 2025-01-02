@@ -3,6 +3,19 @@ class Primitive {
     this.state = state
   }
 
+  /**
+   * TODO: Havent these methods present, but not implemented is a valid way to
+   * handle optionality, but results in a useless function call. In TypeScript
+   * classes there is not really good way to handle optional methods though,
+   * because declaring them as an `undefined` property doesn't work, because
+   * they won't get overwrittten.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- this should already declare the expected type, even if it is not implemented
+  init(_args) {}
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- this should already declare the expected type, even if it is not implemented
+  detailInit(_args, _inherit) {}
+
   create(args, inherit) {
     inherit = inherit || {}
 
@@ -85,13 +98,9 @@ class Primitive {
 
     this.args = newArgs
 
-    if (this.init) {
-      this.init(args)
-    }
+    this.init(args)
 
-    if (this.detailInit) {
-      this.detailInit(args, inherit)
-    }
+    this.detailInit(args, inherit)
 
     return this
   }

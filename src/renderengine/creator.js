@@ -527,30 +527,28 @@ export const DrawingTools = function (pixelUnit) {
     }
 
     getLineSetter(weight) {
-      return weight
-        ? (function () {
-            const w = pixelUnit.createSize(weight)
+      const w = weight ? pixelUnit.createSize(weight) : null
 
-            return function () {
-              const thisW = w.getReal()
-              const first = -Math.round(thisW / 2)
-              const second = Math.round(thisW + first)
-              const set = this.getColorArray()
+      return w
+        ? function () {
+            const thisW = w.getReal()
+            const first = -Math.round(thisW / 2)
+            const second = Math.round(thisW + first)
+            const set = this.getColorArray()
 
-              return function (x, y) {
-                let i = first
-                let j
+            return function (x, y) {
+              let i = first
+              let j
 
-                while ((i += 1) <= second) {
-                  j = first
+              while ((i += 1) <= second) {
+                j = first
 
-                  while ((j += 1) <= second) {
-                    set(x + i, y + j)
-                  }
+                while ((j += 1) <= second) {
+                  set(x + i, y + j)
                 }
               }
             }
-          })()
+          }
         : this.getColorArray
     }
 

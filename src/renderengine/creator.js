@@ -756,9 +756,106 @@ export const DrawingTools = function (pixelUnit) {
     }
   }
 
-  function Stripes() {}
+  class Obj extends Primitive {
+    getName = 'Object'
 
-  function Obj() {}
+    init = (function (drawingTools) {
+      // Initing a new Object, converting its List into real Objects.
+      const convertList = function (list, inherit) {
+        // Loops through the List of an Object
+        const l = list ? list.length : 0
+
+        let i = 0
+
+        const newList = []
+
+        let newTool
+
+        do {
+          newTool = list[i]
+
+          if (newTool) {
+            newList.push(
+              new drawingTools[
+                newTool.name ||
+                  (newTool.stripes
+                    ? 'Stripes'
+                    : newTool.list
+                      ? 'Obj'
+                      : newTool.points
+                        ? newTool.weight
+                          ? 'Line'
+                          : 'Polygon'
+                        : newTool.use
+                          ? newTool.chance
+                            ? 'FillRandom'
+                            : 'Fill'
+                          : newTool.panels
+                            ? 'Panels'
+                            : newTool.targetX
+                              ? 'Arm'
+                              : 'Rect')
+              ]().create(newTool, inherit),
+            )
+          }
+        } while ((i += 1) < l)
+
+        return newList
+      }
+
+      return function () {
+        const list = this.args.list || this.list
+
+        if (this.args.list || this.list) {
+          this.args.list = convertList(list, {
+            // Things to inherit to Children
+            color: this.args.color,
+            clear: this.args.clear,
+            reflectX: this.args.reflectX,
+            reflectY: this.args.reflectY,
+            zInd: this.args.zInd,
+            id: this.args.id,
+            save: this.args.save,
+            rotate: this.args.rotate,
+          })
+        }
+      }
+    })(drawingTools)
+    // ------ End Object Init
+
+    draw = (function (pixelUnit) {
+      // Draws Object, consisting of other Objects and Primitives.
+      return function () {
+        let l = this.args.list.length
+
+        const dimensions = this.dimensions.calc()
+
+        let oldMask
+
+        if (dimensions.checkMin()) {
+          return
+        }
+
+        if (this.args.mask) {
+          oldMask = this.args.mask(dimensions, true)
+        }
+
+        pixelUnit.push(dimensions)
+
+        while (l--) {
+          this.args.list[l].draw()
+        }
+
+        if (this.args.mask) {
+          this.args.mask(oldMask, false)
+        }
+
+        pixelUnit.pop()
+      }
+    })(pixelUnit)
+  }
+
+  function Stripes() {}
 
   function RoundRect() {}
 
@@ -783,107 +880,6 @@ export const DrawingTools = function (pixelUnit) {
     Panels,
     Arm,
   }
-
-  // ------------------ OBJECTS ------------------
-  // Objects consist of other Objects or Primitives
-  Obj.prototype = new Primitive()
-
-  Obj.prototype.getName = 'Object'
-
-  Obj.prototype.init = (function (drawingTools) {
-    // Initing a new Object, converting its List into real Objects.
-    const convertList = function (list, inherit) {
-      // Loops through the List of an Object
-      const l = list ? list.length : 0
-
-      let i = 0
-
-      const newList = []
-
-      let newTool
-
-      do {
-        newTool = list[i]
-
-        if (newTool) {
-          newList.push(
-            new drawingTools[
-              newTool.name ||
-                (newTool.stripes
-                  ? 'Stripes'
-                  : newTool.list
-                    ? 'Obj'
-                    : newTool.points
-                      ? newTool.weight
-                        ? 'Line'
-                        : 'Polygon'
-                      : newTool.use
-                        ? newTool.chance
-                          ? 'FillRandom'
-                          : 'Fill'
-                        : newTool.panels
-                          ? 'Panels'
-                          : newTool.targetX
-                            ? 'Arm'
-                            : 'Rect')
-            ]().create(newTool, inherit),
-          )
-        }
-      } while ((i += 1) < l)
-
-      return newList
-    }
-
-    return function () {
-      const list = this.args.list || this.list
-
-      if (this.args.list || this.list) {
-        this.args.list = convertList(list, {
-          // Things to inherit to Children
-          color: this.args.color,
-          clear: this.args.clear,
-          reflectX: this.args.reflectX,
-          reflectY: this.args.reflectY,
-          zInd: this.args.zInd,
-          id: this.args.id,
-          save: this.args.save,
-          rotate: this.args.rotate,
-        })
-      }
-    }
-  })(drawingTools)
-  // ------ End Object Init
-
-  Obj.prototype.draw = (function (pixelUnit) {
-    // Draws Object, consisting of other Objects and Primitives.
-    return function () {
-      let l = this.args.list.length
-
-      const dimensions = this.dimensions.calc()
-
-      let oldMask
-
-      if (dimensions.checkMin()) {
-        return
-      }
-
-      if (this.args.mask) {
-        oldMask = this.args.mask(dimensions, true)
-      }
-
-      pixelUnit.push(dimensions)
-
-      while (l--) {
-        this.args.list[l].draw()
-      }
-
-      if (this.args.mask) {
-        this.args.mask(oldMask, false)
-      }
-
-      pixelUnit.pop()
-    }
-  })(pixelUnit)
 
   // ------------------ Stripes ------------------
   Stripes.prototype = new Obj()

@@ -1,7 +1,6 @@
-import getSeedHandler from '@/renderengine/creator/getSeedHandler'
-
 import createPixelArray from './createPixelArray'
 import getPixelSetter from './getPixelSetter'
+import getSeedHandler from './getSeedHandler'
 
 const getDrawLine = function (set) {
   return function (p0, p1) {

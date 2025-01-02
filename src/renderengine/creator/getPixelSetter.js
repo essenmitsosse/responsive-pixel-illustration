@@ -51,7 +51,7 @@ const getPixelSetter = () => {
       let key
 
       for (key in formSave) {
-        formSave[key] = []
+        formSave[key] = {}
       }
 
       colorArray = newArray

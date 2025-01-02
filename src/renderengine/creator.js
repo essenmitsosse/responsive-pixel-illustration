@@ -1156,54 +1156,52 @@ export const DrawingTools = function (pixelUnit) {
   class Panels extends Obj {
     getName = 'Panels'
 
-    init = (function (pX) {
-      return function (args) {
-        let l = args.panels.length
+    init(args) {
+      let l = args.panels.length
 
-        const inherit = {}
-        const newPanels = (this.args.list = [])
+      const inherit = {}
+      const newPanels = (this.args.list = [])
 
-        let current
+      let current
 
-        while (l--) {
-          current = args.panels[l]
+      while (l--) {
+        current = args.panels[l]
 
-          if (current.sX) {
-            current.sX.autoUpdate = true
-          } else {
-            current.sX = {}
-          }
-
-          if (current.sY) {
-            current.sY.autoUpdate = true
-          } else {
-            current.sY = {}
-          }
-
-          newPanels.push({
-            drawer: new Obj().create({ list: current.list }, inherit),
-            sX: current.sX,
-            sY: current.sY,
-          })
+        if (current.sX) {
+          current.sX.autoUpdate = true
+        } else {
+          current.sX = {}
         }
 
-        this.fluctuation = args.fluctuation || 0
-
-        this.imgRatio = args.imgRatio
-          ? typeof args.imgRatio === 'object'
-            ? args.imgRatio
-            : { ratio: args.imgRatio }
-          : 1
-
-        if (args.gutterX) {
-          this.gutterSX = pX.getWidth(args.gutterX)
+        if (current.sY) {
+          current.sY.autoUpdate = true
+        } else {
+          current.sY = {}
         }
 
-        if (args.gutterY) {
-          this.gutterSY = pX.getWidth(args.gutterY)
-        }
+        newPanels.push({
+          drawer: new Obj().create({ list: current.list }, inherit),
+          sX: current.sX,
+          sY: current.sY,
+        })
       }
-    })(pixelUnit)
+
+      this.fluctuation = args.fluctuation || 0
+
+      this.imgRatio = args.imgRatio
+        ? typeof args.imgRatio === 'object'
+          ? args.imgRatio
+          : { ratio: args.imgRatio }
+        : 1
+
+      if (args.gutterX) {
+        this.gutterSX = pixelUnit.getWidth(args.gutterX)
+      }
+
+      if (args.gutterY) {
+        this.gutterSY = pixelUnit.getWidth(args.gutterY)
+      }
+    }
 
     draw = (function () {
       // Draws Object, consisting of other Objects and Primitives.

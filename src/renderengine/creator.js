@@ -1142,7 +1142,16 @@ export const DrawingTools = function (pixelUnit) {
     ]
   }
 
-  function Grid() {}
+  class Grid extends Obj {
+    getName = 'Grid'
+
+    list = [
+      {
+        stripes: { gap: 1 },
+        list: [{ stripes: { gap: 1, horizontal: true } }],
+      },
+    ]
+  }
 
   function Panels() {}
 
@@ -1163,19 +1172,6 @@ export const DrawingTools = function (pixelUnit) {
     Panels,
     Arm,
   }
-
-  // ------------------ Grid ------------------
-  Grid.prototype = new Obj()
-
-  Grid.prototype.getName = 'Grid'
-
-  Grid.prototype.list = [
-    {
-      stripes: { gap: 1 },
-      list: [{ stripes: { gap: 1, horizontal: true } }],
-    },
-  ]
-  // ----- End Grid
 
   // ------------------ Panels ------------------
   Panels.prototype = new Obj()

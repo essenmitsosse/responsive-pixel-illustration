@@ -1511,194 +1511,192 @@ export const DrawingTools = function (pixelUnit) {
   class Arm extends Obj {
     getName = 'Arm'
 
-    init = (function (pX) {
-      return function (args) {
-        let hand
+    init(args) {
+      let hand
 
-        this.targetX = args.targetX
+      this.targetX = args.targetX
 
-        this.targetY = args.targetY
+      this.targetY = args.targetY
 
-        this.endX = args.endX
+      this.endX = args.endX
 
-        this.endY = args.endY
+      this.endY = args.endY
 
-        this.jointX = args.jointX
+      this.jointX = args.jointX
 
-        this.jointY = args.jointY
+      this.jointY = args.jointY
 
-        this.length = args.length
+      this.length = args.length
 
-        this.flip = args.flip
+      this.flip = args.flip
 
-        this.maxStraight = args.maxStraight || 1
+      this.maxStraight = args.maxStraight || 1
 
-        this.ratio = args.ratio || 0.5
+      this.ratio = args.ratio || 0.5
 
-        this.ellbow = args.ellbow
+      this.ellbow = args.ellbow
 
-        this.endX.autoUpdate = true
+      this.endX.autoUpdate = true
 
-        this.endY.autoUpdate = true
+      this.endY.autoUpdate = true
 
-        this.jointX.autoUpdate = true
+      this.jointX.autoUpdate = true
 
-        this.jointY.autoUpdate = true
+      this.jointY.autoUpdate = true
 
-        // Upper Arm
-        this.upperArm = new Line().create({
-          weight: args.upperArmWeight || args.weight,
-          color: args.upperArmColor || args.color,
+      // Upper Arm
+      this.upperArm = new Line().create({
+        weight: args.upperArmWeight || args.weight,
+        color: args.upperArmColor || args.color,
+        points: [{}, { x: this.jointX, y: this.jointY }],
+        z: this.args.zInd,
+      })
+
+      if (args.upperArmLightColor) {
+        this.upperArmInner = new Line().create({
+          weight: [args.upperArmWeight || args.weight, -2],
+          color: args.upperArmLightColor,
           points: [{}, { x: this.jointX, y: this.jointY }],
           z: this.args.zInd,
         })
+      }
 
-        if (args.upperArmLightColor) {
-          this.upperArmInner = new Line().create({
-            weight: [args.upperArmWeight || args.weight, -2],
-            color: args.upperArmLightColor,
-            points: [{}, { x: this.jointX, y: this.jointY }],
-            z: this.args.zInd,
-          })
-        }
+      // Lower Arm
+      this.lowerArm = new Line().create({
+        weight: args.lowerArmWeight || args.weight,
+        color: args.lowerArmColor || args.color,
+        points: [
+          { x: this.jointX, y: this.jointY },
+          { x: this.endX, y: this.endY },
+        ],
+        z: this.args.zInd,
+      })
 
-        // Lower Arm
-        this.lowerArm = new Line().create({
-          weight: args.lowerArmWeight || args.weight,
-          color: args.lowerArmColor || args.color,
+      if (args.lowerArmLightColor) {
+        this.lowerArmInner = new Line().create({
+          weight: [args.lowerArmWeight || args.weight, -2],
+          color: args.lowerArmLightColor,
           points: [
             { x: this.jointX, y: this.jointY },
             { x: this.endX, y: this.endY },
           ],
           z: this.args.zInd,
         })
+      }
 
-        if (args.lowerArmLightColor) {
-          this.lowerArmInner = new Line().create({
-            weight: [args.lowerArmWeight || args.weight, -2],
-            color: args.lowerArmLightColor,
-            points: [
-              { x: this.jointX, y: this.jointY },
-              { x: this.endX, y: this.endY },
-            ],
-            z: this.args.zInd,
-          })
-        }
+      if (args.debug) {
+        this.showDebug = true
+        // this.debug = new drawingTool.Rect().create({
+        // 	x: this.targetX,
+        // 	y: this.targetY,
+        // 	s:1,
+        // 	color: [255,0,0],
+        // 	z: Infinity
+        // });
 
-        if (args.debug) {
-          this.showDebug = true
-          // this.debug = new drawingTool.Rect().create({
-          // 	x: this.targetX,
-          // 	y: this.targetY,
-          // 	s:1,
-          // 	color: [255,0,0],
+        this.debugLowerArm = new Line().create({
+          weight: 1,
+          color: [80, 0, 0],
+          points: [
+            { x: this.endX, y: this.endY },
+            { x: this.jointX, y: this.jointY },
+          ],
+          z: Infinity,
+        })
+
+        this.debugUpperArm = new Line().create({
+          weight: 1,
+          color: [125, 0, 0],
+          points: [{ x: this.jointX, y: this.jointY }, {}],
+          z: Infinity,
+        })
+
+        this.debugArmTarget = new Line().create({
+          weight: 1,
+          color: [0, 255, 255],
+          points: [
+            { x: this.endX, y: this.endY },
+            { x: this.targetX, y: this.targetY },
+          ],
+          z: Infinity,
+        })
+
+        // this.debugEllbow = new drawingTool.Dot().create({
+        // 	color:[0,150,0],
+        // 	x: this.jointX,
+        // 	y: this.jointY,
+        // 	z: Infinity
+        // });
+
+        // this.debugEnd = new drawingTool.Dot().create({
+        // 	color:[0,255,0],
+        // 	x: this.endX,
+        // 	y: this.endY,
+        // 	z: Infinity
+        // });
+      }
+
+      if ((hand = args.hand)) {
+        this.handLength = new pixelUnit.createSize(
+          args.hand.length || {
+            r: 0.1,
+            useSize: this.length,
+            min: 1,
+          },
+        )
+
+        this.handEndX = hand.endX
+
+        this.handEndY = hand.endY
+
+        this.handTargetX = hand.targetX
+
+        this.handTargetY = hand.targetY
+
+        this.handRelativeToArm = hand.toArm || this.ellbow
+
+        this.handRelativeToDirection = hand.toDir
+
+        this.hand = new Line().create({
+          weight: hand.width || args.lowerArmWeight || args.weight,
+          color: hand.color || args.lowerArmColor || args.color,
+          points: [
+            { x: this.endX, y: this.endY },
+            { x: this.handEndX, y: this.handEndY },
+          ],
+          z: this.args.zInd,
+        })
+
+        if (this.showDebug) {
+          // this.debugHandEnd = new drawingTool.Dot().create({
+          // 	color:[0,0,255],
+          // 	x: this.handEndX,
+          // 	y: this.handEndY,
           // 	z: Infinity
           // });
 
-          this.debugLowerArm = new Line().create({
-            weight: 1,
-            color: [80, 0, 0],
-            points: [
-              { x: this.endX, y: this.endY },
-              { x: this.jointX, y: this.jointY },
-            ],
-            z: Infinity,
-          })
-
-          this.debugUpperArm = new Line().create({
-            weight: 1,
-            color: [125, 0, 0],
-            points: [{ x: this.jointX, y: this.jointY }, {}],
-            z: Infinity,
-          })
-
-          this.debugArmTarget = new Line().create({
-            weight: 1,
-            color: [0, 255, 255],
-            points: [
-              { x: this.endX, y: this.endY },
-              { x: this.targetX, y: this.targetY },
-            ],
-            z: Infinity,
-          })
-
-          // this.debugEllbow = new drawingTool.Dot().create({
-          // 	color:[0,150,0],
-          // 	x: this.jointX,
-          // 	y: this.jointY,
-          // 	z: Infinity
-          // });
-
-          // this.debugEnd = new drawingTool.Dot().create({
+          // this.debugHandTarget = new drawingTool.Dot().create({
           // 	color:[0,255,0],
-          // 	x: this.endX,
-          // 	y: this.endY,
+          // 	x: [ this.handTargetX, this.endX ],
+          // 	y: [ this.handTargetY, this.endY ],
           // 	z: Infinity
           // });
-        }
 
-        if ((hand = args.hand)) {
-          this.handLength = new pX.createSize(
-            args.hand.length || {
-              r: 0.1,
-              useSize: this.length,
-              min: 1,
-            },
-          )
-
-          this.handEndX = hand.endX
-
-          this.handEndY = hand.endY
-
-          this.handTargetX = hand.targetX
-
-          this.handTargetY = hand.targetY
-
-          this.handRelativeToArm = hand.toArm || this.ellbow
-
-          this.handRelativeToDirection = hand.toDir
-
-          this.hand = new Line().create({
-            weight: hand.width || args.lowerArmWeight || args.weight,
-            color: hand.color || args.lowerArmColor || args.color,
+          this.debugHandTarget = new Line().create({
+            weight: 1,
+            color: [255, 255, 0],
             points: [
-              { x: this.endX, y: this.endY },
               { x: this.handEndX, y: this.handEndY },
+              {
+                x: [this.handTargetX, this.endX],
+                y: [this.handTargetY, this.endY],
+              },
             ],
-            z: this.args.zInd,
+            z: Infinity,
           })
-
-          if (this.showDebug) {
-            // this.debugHandEnd = new drawingTool.Dot().create({
-            // 	color:[0,0,255],
-            // 	x: this.handEndX,
-            // 	y: this.handEndY,
-            // 	z: Infinity
-            // });
-
-            // this.debugHandTarget = new drawingTool.Dot().create({
-            // 	color:[0,255,0],
-            // 	x: [ this.handTargetX, this.endX ],
-            // 	y: [ this.handTargetY, this.endY ],
-            // 	z: Infinity
-            // });
-
-            this.debugHandTarget = new Line().create({
-              weight: 1,
-              color: [255, 255, 0],
-              points: [
-                { x: this.handEndX, y: this.handEndY },
-                {
-                  x: [this.handTargetX, this.endX],
-                  y: [this.handTargetY, this.endY],
-                },
-              ],
-              z: Infinity,
-            })
-          }
         }
       }
-    })(pixelUnit)
+    }
 
     draw() {
       const dimensions = this.dimensions.calc()

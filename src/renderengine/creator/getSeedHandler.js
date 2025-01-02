@@ -6,7 +6,7 @@ const getRandom = (() => {
 
   let i = 0
 
-  return function (seed) {
+  return (seed) => {
     let thisZ = seed || z
 
     return {
@@ -42,9 +42,7 @@ const getSeedHandler = () => {
       const seed = j || getSeed()
       const nr = (count += 1)
 
-      return function () {
-        return getRandom(seed + i[nr]++ || 0)
-      }
+      return () => getRandom(seed + i[nr]++ || 0)
     },
   }
 }

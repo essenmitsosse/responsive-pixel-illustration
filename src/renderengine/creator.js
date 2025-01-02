@@ -345,8 +345,6 @@ export const DrawingTools = function (pixelUnit) {
 
   function Primitive() {}
 
-  function PointBased() {}
-
   function Dot() {}
 
   function Line() {}
@@ -373,7 +371,6 @@ export const DrawingTools = function (pixelUnit) {
 
   const drawingTools = {
     Primitive,
-    PointBased,
     Dot,
     Line,
     Polygon,
@@ -505,13 +502,8 @@ export const DrawingTools = function (pixelUnit) {
     )
   }
 
-  // ------------------ PointBased ------------------
-  PointBased.prototype = new Primitive()
-
-  PointBased.prototype.getName = 'PointBased'
-
   // ------------------ Dot ------------------
-  Dot.prototype = new PointBased()
+  Dot.prototype = new Primitive()
 
   Dot.prototype.getName = 'Dot'
 
@@ -533,7 +525,7 @@ export const DrawingTools = function (pixelUnit) {
   }
 
   // ------------------ Line ------------------
-  Line.prototype = new PointBased()
+  Line.prototype = new Primitive()
 
   Line.prototype.getName = 'Line'
 

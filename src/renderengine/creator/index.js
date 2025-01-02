@@ -4,6 +4,7 @@ import Fill from './Fill'
 import FillRandom from './FillRandom'
 import getPixelSetter from './getPixelSetter'
 import getSeedHandler from './getSeedHandler'
+import Grid from './Grid'
 import Line from './Line'
 import Obj from './Obj'
 import Polygon from './Polygon'
@@ -11,17 +12,6 @@ import Primitive from './Primitive'
 import Rect from './Rect'
 import RoundRect from './RoundRect'
 import Stripes from './Stripes'
-
-class Grid extends Obj {
-  getName = 'Grid'
-
-  list = [
-    {
-      stripes: { gap: 1 },
-      list: [{ stripes: { gap: 1, horizontal: true } }],
-    },
-  ]
-}
 
 class Panels extends Obj {
   getName = 'Panels'

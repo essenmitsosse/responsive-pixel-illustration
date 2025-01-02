@@ -24,9 +24,7 @@ const getRandom = (() => {
 })()
 
 export const DrawingTools = function (pixelUnit) {
-  const that = this
-
-  this.seed = (function (getRandom) {
+  const seed = (function (getRandom) {
     const getSeed = getRandom().seed
 
     let count = 0
@@ -52,7 +50,7 @@ export const DrawingTools = function (pixelUnit) {
     }
   })(getRandom)
 
-  this.pixelSetter = (function () {
+  const pixelSetter = (function () {
     let colorArray
 
     const formSave = {}
@@ -167,40 +165,58 @@ export const DrawingTools = function (pixelUnit) {
     }
   })()
 
-  this.Primitive = function Primitive() {}
+  function Primitive() {}
 
-  this.PointBased = function PointBased() {}
+  function PointBased() {}
 
-  this.Dot = function Dot() {}
+  function Dot() {}
 
-  this.Line = function Line() {}
+  function Line() {}
 
-  this.Polygon = function Polygon() {}
+  function Polygon() {}
 
-  this.Fill = function Fill() {}
+  function Fill() {}
 
-  this.FillRandom = function FillRandom() {}
+  function FillRandom() {}
 
-  this.ShapeBased = function ShapeBased() {}
+  function ShapeBased() {}
 
-  this.Rect = function Rect() {}
+  function Rect() {}
 
-  this.Stripes = function Stripes() {}
+  function Stripes() {}
 
-  this.Obj = function Obj() {}
+  function Obj() {}
 
-  this.RoundRect = function RoundRect() {}
+  function RoundRect() {}
 
-  this.Grid = function Grid() {}
+  function Grid() {}
 
-  this.Panels = function Panels() {}
+  function Panels() {}
 
-  this.Arm = function Arm() {}
+  function Arm() {}
+
+  const drawingTools = {
+    Primitive,
+    PointBased,
+    Dot,
+    Line,
+    Polygon,
+    Fill,
+    FillRandom,
+    ShapeBased,
+    Rect,
+    Stripes,
+    Obj,
+    RoundRect,
+    Grid,
+    Panels,
+    Arm,
+  }
 
   // ------------------ PRIMITIVES ------------------
-  this.Primitive.prototype.getName = 'Primitive'
+  Primitive.prototype.getName = 'Primitive'
 
-  this.Primitive.prototype.create = (function () {
+  Primitive.prototype.create = (function () {
     return function (args, inherit) {
       inherit = inherit || {}
 
@@ -265,7 +281,7 @@ export const DrawingTools = function (pixelUnit) {
       }
 
       if (args.mask) {
-        newArgs.mask = that.pixelSetter.setColorMask
+        newArgs.mask = pixelSetter.setColorMask
       }
 
       newArgs.zInd = (inherit.zInd || 0) + (args.z || 0)
@@ -273,7 +289,7 @@ export const DrawingTools = function (pixelUnit) {
       if (args.list) {
         newArgs.list = args.list
       } else {
-        this.getColorArray = that.pixelSetter.setColorArray(
+        this.getColorArray = pixelSetter.setColorArray(
           newArgs.color,
           newArgs.clear,
           newArgs.zInd,
@@ -297,7 +313,7 @@ export const DrawingTools = function (pixelUnit) {
     }
   })()
 
-  this.Primitive.prototype.prepareSizeAndPos = (function (getDimensions) {
+  Primitive.prototype.prepareSizeAndPos = (function (getDimensions) {
     // Prepare Size and Position Data for Basic Objects
     return function (args, reflectX, reflectY, rotate) {
       this.dimensions = getDimensions(
@@ -314,22 +330,22 @@ export const DrawingTools = function (pixelUnit) {
   })(pixelUnit.getDimensions)
 
   // ------------------ PointBased ------------------
-  this.PointBased.prototype = new this.Primitive()
+  PointBased.prototype = new Primitive()
 
-  this.PointBased.prototype.getName = 'PointBased'
+  PointBased.prototype.getName = 'PointBased'
 
   // ------------------ Dot ------------------
-  this.Dot.prototype = new this.PointBased()
+  Dot.prototype = new PointBased()
 
-  this.Dot.prototype.getName = 'Dot'
+  Dot.prototype.getName = 'Dot'
 
-  this.Dot.prototype.draw = function () {
+  Dot.prototype.draw = function () {
     const pos = this.args.getRealPosition()
 
     this.getColorArray()(pos.x, pos.y)
   }
 
-  this.Dot.prototype.prepareSizeAndPos = function (
+  Dot.prototype.prepareSizeAndPos = function (
     args,
     reflectX,
     reflectY,
@@ -341,11 +357,11 @@ export const DrawingTools = function (pixelUnit) {
   }
 
   // ------------------ Line ------------------
-  this.Line.prototype = new this.PointBased()
+  Line.prototype = new PointBased()
 
-  this.Line.prototype.getName = 'Line'
+  Line.prototype.getName = 'Line'
 
-  this.Line.prototype.init = function (args) {
+  Line.prototype.init = function (args) {
     if (args.closed) {
       this.args.closed = true
     }
@@ -353,7 +369,7 @@ export const DrawingTools = function (pixelUnit) {
     this.lineSetter = this.getLineSetter(args.weight)
   }
 
-  this.Line.prototype.getLineSetter = function (weight) {
+  Line.prototype.getLineSetter = function (weight) {
     return weight
       ? (function () {
           const w = pixelUnit.createSize(weight)
@@ -381,7 +397,7 @@ export const DrawingTools = function (pixelUnit) {
       : this.getColorArray
   }
 
-  this.Line.prototype.prepareSizeAndPos = function (
+  Line.prototype.prepareSizeAndPos = function (
     args,
     reflectX,
     reflectY,
@@ -407,7 +423,7 @@ export const DrawingTools = function (pixelUnit) {
     }
   }
 
-  this.Line.prototype.draw = (function () {
+  Line.prototype.draw = (function () {
     const getDrawLine = function (set) {
       return function (p0, p1) {
         // Draw a single Lines
@@ -491,11 +507,11 @@ export const DrawingTools = function (pixelUnit) {
   })()
 
   // ------------------ Polygon ------------------
-  this.Polygon.prototype = new this.Line()
+  Polygon.prototype = new Line()
 
-  this.Polygon.prototype.getName = 'Polygon'
+  Polygon.prototype.getName = 'Polygon'
 
-  this.Polygon.prototype.draw = (function () {
+  Polygon.prototype.draw = (function () {
     const getLineEdgeGetter = function (edgeList) {
       let i = -1
 
@@ -637,15 +653,15 @@ export const DrawingTools = function (pixelUnit) {
   // ----- End Polygon
 
   // ------------------ Fill ------------------
-  this.Fill.prototype = new this.Primitive()
+  Fill.prototype = new Primitive()
 
-  this.Fill.prototype.getName = 'Fill'
+  Fill.prototype.getName = 'Fill'
 
-  this.Fill.prototype.init = function (args) {
+  Fill.prototype.init = function (args) {
     this.use = args.use
   }
 
-  this.Fill.prototype.prepareSizeAndPos = (function (pixelUnit) {
+  Fill.prototype.prepareSizeAndPos = (function (pixelUnit) {
     // Prepare Size and Position Data for Basic Objects
     return function (args, reflectX, reflectY, rotate) {
       const width = (rotate ? args.sY : args.sX) || args.s
@@ -657,9 +673,9 @@ export const DrawingTools = function (pixelUnit) {
     }
   })(pixelUnit)
 
-  this.Fill.prototype.draw = function () {
+  Fill.prototype.draw = function () {
     const color = this.getColorArray()
-    const array = that.pixelSetter.getSave(this.use)
+    const array = pixelSetter.getSave(this.use)
 
     let l = array ? array.length - 1 : -1
     let current
@@ -671,11 +687,11 @@ export const DrawingTools = function (pixelUnit) {
   // ----- End Fill
 
   // ------------------ FillRandom ------------------
-  this.FillRandom.prototype = new this.Fill()
+  FillRandom.prototype = new Fill()
 
-  this.FillRandom.prototype.getName = 'Random Fill'
+  FillRandom.prototype.getName = 'Random Fill'
 
-  this.FillRandom.prototype.init = function (args) {
+  FillRandom.prototype.init = function (args) {
     const width = this.rotate ? args.sY : args.sX
     const height = this.rotate ? args.sX : args.sY
 
@@ -683,7 +699,7 @@ export const DrawingTools = function (pixelUnit) {
 
     this.chance = args.chance || 0.5
 
-    this.random = that.seed.get(args.seed)
+    this.random = seed.get(args.seed)
 
     this.mask = args.mask
 
@@ -700,7 +716,7 @@ export const DrawingTools = function (pixelUnit) {
     }
   }
 
-  this.FillRandom.prototype.draw = function () {
+  FillRandom.prototype.draw = function () {
     const width = this.width ? this.width.getReal() : 1
     const height = this.height ? this.height.getReal() : 1
     const sizeRandom = this.sizeRandom ? this.sizeRandom.getReal() + 1 : false
@@ -714,7 +730,7 @@ export const DrawingTools = function (pixelUnit) {
       : false
 
     const color = this.getColorArray()
-    const array = that.pixelSetter.getSave(this.use)
+    const array = pixelSetter.getSave(this.use)
     const l = array ? array.length : 0
 
     let count = Math.floor(
@@ -724,7 +740,7 @@ export const DrawingTools = function (pixelUnit) {
             (height + (heightRandom || sizeRandom || 0) / 2))),
     )
 
-    const mask = this.mask ? that.pixelSetter.getMask(this.use) : false
+    const mask = this.mask ? pixelSetter.getMask(this.use) : false
     const dontCheck = !mask
     const random = this.random().one
 
@@ -794,18 +810,18 @@ export const DrawingTools = function (pixelUnit) {
   // ----- End FillRandom
 
   // ------------------ ShapeBased ------------------
-  this.ShapeBased.prototype = new this.Primitive()
+  ShapeBased.prototype = new Primitive()
 
-  this.ShapeBased.prototype.getName = 'ShapeBased'
+  ShapeBased.prototype.getName = 'ShapeBased'
 
   // ------------------ Rectangle ------------------
-  this.Rect.prototype = new this.ShapeBased()
+  Rect.prototype = new ShapeBased()
 
-  this.Rect.prototype.getName = 'Rectangle'
+  Rect.prototype.getName = 'Rectangle'
 
-  this.Rect.prototype.isRect = true
+  Rect.prototype.isRect = true
 
-  this.Rect.prototype.draw = function () {
+  Rect.prototype.draw = function () {
     const dimensions = this.dimensions.calc()
 
     if (dimensions.checkMin()) {
@@ -825,11 +841,11 @@ export const DrawingTools = function (pixelUnit) {
 
   // ------------------ OBJECTS ------------------
   // Objects consist of other Objects or Primitives
-  this.Obj.prototype = new this.ShapeBased()
+  Obj.prototype = new ShapeBased()
 
-  this.Obj.prototype.getName = 'Object'
+  Obj.prototype.getName = 'Object'
 
-  this.Obj.prototype.init = (function (drawingTool) {
+  Obj.prototype.init = (function (drawingTools) {
     // Initing a new Object, converting its List into real Objects.
     const convertList = function (list, inherit) {
       // Loops through the List of an Object
@@ -846,7 +862,7 @@ export const DrawingTools = function (pixelUnit) {
 
         if (newTool) {
           newList.push(
-            new drawingTool[
+            new drawingTools[
               newTool.name ||
                 (newTool.stripes
                   ? 'Stripes'
@@ -890,10 +906,10 @@ export const DrawingTools = function (pixelUnit) {
         })
       }
     }
-  })(that)
+  })(drawingTools)
   // ------ End Object Init
 
-  this.Obj.prototype.draw = (function (pixelUnit) {
+  Obj.prototype.draw = (function (pixelUnit) {
     // Draws Object, consisting of other Objects and Primitives.
     return function () {
       let l = this.args.list.length
@@ -925,15 +941,15 @@ export const DrawingTools = function (pixelUnit) {
   })(pixelUnit)
 
   // ------------------ Stripes ------------------
-  this.Stripes.prototype = new this.Obj()
+  Stripes.prototype = new Obj()
 
-  this.Stripes.prototype.getName = 'Stripes'
+  Stripes.prototype.getName = 'Stripes'
 
-  this.Stripes.prototype.isRect = true
+  Stripes.prototype.isRect = true
 
-  this.Stripes.prototype.isStripe = true
+  Stripes.prototype.isStripe = true
 
-  this.Stripes.prototype.detailInit = function (args) {
+  Stripes.prototype.detailInit = function (args) {
     let random
 
     /** Width of a single Line */
@@ -982,7 +998,7 @@ export const DrawingTools = function (pixelUnit) {
     }
 
     if (random) {
-      this.random = that.seed.get(args.stripes.seed)
+      this.random = seed.get(args.stripes.seed)
     }
 
     this.cut = args.stripes.cut
@@ -998,7 +1014,7 @@ export const DrawingTools = function (pixelUnit) {
     this.getDraw = horizontal ? this.drawers.horizontal : this.drawers.normal
   }
 
-  this.Stripes.prototype.drawers = {
+  Stripes.prototype.drawers = {
     normal(drawer, fromOtherSide, stripWidth, endX, startY, endY, overflow) {
       return function (startX, currentHeightChange, randomWidth) {
         const end = startX + stripWidth + randomWidth
@@ -1035,7 +1051,7 @@ export const DrawingTools = function (pixelUnit) {
     },
   }
 
-  this.Stripes.prototype.draw = function () {
+  Stripes.prototype.draw = function () {
     const dimensions = this.dimensions.calc()
 
     if (dimensions.checkMin()) {
@@ -1173,11 +1189,11 @@ export const DrawingTools = function (pixelUnit) {
   // ----- End Stripes
 
   // ------------------ Round Rectangle ------------------
-  this.RoundRect.prototype = new this.Obj()
+  RoundRect.prototype = new Obj()
 
-  this.RoundRect.prototype.getName = 'Rounded Rectangle'
+  RoundRect.prototype.getName = 'Rounded Rectangle'
 
-  this.RoundRect.prototype.list = [
+  RoundRect.prototype.list = [
     // { mY:1 },
     // { mX:1, height: {a:1} },
     // { mX:1, height: {a:1}, fromBottom:true },
@@ -1206,11 +1222,11 @@ export const DrawingTools = function (pixelUnit) {
   // ----- End Rounded Rectangle
 
   // ------------------ Grid ------------------
-  this.Grid.prototype = new this.Obj()
+  Grid.prototype = new Obj()
 
-  this.Grid.prototype.getName = 'Grid'
+  Grid.prototype.getName = 'Grid'
 
-  this.Grid.prototype.list = [
+  Grid.prototype.list = [
     {
       stripes: { gap: 1 },
       list: [{ stripes: { gap: 1, horizontal: true } }],
@@ -1219,11 +1235,11 @@ export const DrawingTools = function (pixelUnit) {
   // ----- End Grid
 
   // ------------------ Panels ------------------
-  this.Panels.prototype = new this.Obj()
+  Panels.prototype = new Obj()
 
-  this.Panels.prototype.getName = 'Panels'
+  Panels.prototype.getName = 'Panels'
 
-  this.Panels.prototype.init = (function (pX) {
+  Panels.prototype.init = (function (pX) {
     return function (args) {
       let l = args.panels.length
 
@@ -1248,7 +1264,7 @@ export const DrawingTools = function (pixelUnit) {
         }
 
         newPanels.push({
-          drawer: new that.Obj().create({ list: current.list }, inherit),
+          drawer: new Obj().create({ list: current.list }, inherit),
           sX: current.sX,
           sY: current.sY,
         })
@@ -1272,7 +1288,7 @@ export const DrawingTools = function (pixelUnit) {
     }
   })(pixelUnit)
 
-  this.Panels.prototype.draw = (function () {
+  Panels.prototype.draw = (function () {
     // Draws Object, consisting of other Objects and Primitives.
     return function () {
       let countX
@@ -1305,7 +1321,7 @@ export const DrawingTools = function (pixelUnit) {
     }
   })(pixelUnit)
 
-  this.Panels.prototype.findBestRows = function (list) {
+  Panels.prototype.findBestRows = function (list) {
     let y = 0
     let x
 
@@ -1365,7 +1381,7 @@ export const DrawingTools = function (pixelUnit) {
     this.singleSY = last.singleSY <= 1 ? 1 : last.singleSY
   }
 
-  this.Panels.prototype.sortRows = function (list) {
+  Panels.prototype.sortRows = function (list) {
     const panels = []
 
     let i
@@ -1470,7 +1486,7 @@ export const DrawingTools = function (pixelUnit) {
     return panels
   }
 
-  this.Panels.prototype.calcPanelsSizes = function (panels) {
+  Panels.prototype.calcPanelsSizes = function (panels) {
     let c = 0
 
     const l = panels.length
@@ -1547,7 +1563,7 @@ export const DrawingTools = function (pixelUnit) {
     } while ((c += 1) < l)
   }
 
-  this.Panels.prototype.drawPanels = function (panels, mask) {
+  Panels.prototype.drawPanels = function (panels, mask) {
     let currentPanel
     let currentDim
     let oldMask
@@ -1579,11 +1595,11 @@ export const DrawingTools = function (pixelUnit) {
   // ----- End Panels
 
   // ------------------ Arm ------------------
-  this.Arm.prototype = new this.Obj()
+  Arm.prototype = new Obj()
 
-  this.Arm.prototype.getName = 'Arm'
+  Arm.prototype.getName = 'Arm'
 
-  this.Arm.prototype.init = (function (pX) {
+  Arm.prototype.init = (function (pX) {
     return function (args) {
       let hand
 
@@ -1618,7 +1634,7 @@ export const DrawingTools = function (pixelUnit) {
       this.jointY.autoUpdate = true
 
       // Upper Arm
-      this.upperArm = new that.Line().create({
+      this.upperArm = new Line().create({
         weight: args.upperArmWeight || args.weight,
         color: args.upperArmColor || args.color,
         points: [{}, { x: this.jointX, y: this.jointY }],
@@ -1626,7 +1642,7 @@ export const DrawingTools = function (pixelUnit) {
       })
 
       if (args.upperArmLightColor) {
-        this.upperArmInner = new that.Line().create({
+        this.upperArmInner = new Line().create({
           weight: [args.upperArmWeight || args.weight, -2],
           color: args.upperArmLightColor,
           points: [{}, { x: this.jointX, y: this.jointY }],
@@ -1635,7 +1651,7 @@ export const DrawingTools = function (pixelUnit) {
       }
 
       // Lower Arm
-      this.lowerArm = new that.Line().create({
+      this.lowerArm = new Line().create({
         weight: args.lowerArmWeight || args.weight,
         color: args.lowerArmColor || args.color,
         points: [
@@ -1646,7 +1662,7 @@ export const DrawingTools = function (pixelUnit) {
       })
 
       if (args.lowerArmLightColor) {
-        this.lowerArmInner = new that.Line().create({
+        this.lowerArmInner = new Line().create({
           weight: [args.lowerArmWeight || args.weight, -2],
           color: args.lowerArmLightColor,
           points: [
@@ -1667,7 +1683,7 @@ export const DrawingTools = function (pixelUnit) {
         // 	z: Infinity
         // });
 
-        this.debugLowerArm = new that.Line().create({
+        this.debugLowerArm = new Line().create({
           weight: 1,
           color: [80, 0, 0],
           points: [
@@ -1677,14 +1693,14 @@ export const DrawingTools = function (pixelUnit) {
           z: Infinity,
         })
 
-        this.debugUpperArm = new that.Line().create({
+        this.debugUpperArm = new Line().create({
           weight: 1,
           color: [125, 0, 0],
           points: [{ x: this.jointX, y: this.jointY }, {}],
           z: Infinity,
         })
 
-        this.debugArmTarget = new that.Line().create({
+        this.debugArmTarget = new Line().create({
           weight: 1,
           color: [0, 255, 255],
           points: [
@@ -1730,7 +1746,7 @@ export const DrawingTools = function (pixelUnit) {
 
         this.handRelativeToDirection = hand.toDir
 
-        this.hand = new that.Line().create({
+        this.hand = new Line().create({
           weight: hand.width || args.lowerArmWeight || args.weight,
           color: hand.color || args.lowerArmColor || args.color,
           points: [
@@ -1755,7 +1771,7 @@ export const DrawingTools = function (pixelUnit) {
           // 	z: Infinity
           // });
 
-          this.debugHandTarget = new that.Line().create({
+          this.debugHandTarget = new Line().create({
             weight: 1,
             color: [255, 255, 0],
             points: [
@@ -1772,7 +1788,7 @@ export const DrawingTools = function (pixelUnit) {
     }
   })(pixelUnit)
 
-  this.Arm.prototype.draw = function () {
+  Arm.prototype.draw = function () {
     const dimensions = this.dimensions.calc()
 
     this.fullLength = this.length.s.getReal()
@@ -1845,7 +1861,7 @@ export const DrawingTools = function (pixelUnit) {
     pixelUnit.pop()
   }
 
-  this.Arm.prototype.calculateFromEllbow = function () {
+  Arm.prototype.calculateFromEllbow = function () {
     const jointY = this.targetY.s.getReal()
 
     if (this.upperArmLength >= Math.abs(jointY)) {
@@ -1885,7 +1901,7 @@ export const DrawingTools = function (pixelUnit) {
     this.straightAngle = 0.5
   }
 
-  this.Arm.prototype.calculateFromHand = function () {
+  Arm.prototype.calculateFromHand = function () {
     let x = this.targetX.s.getReal()
     let y = this.targetY.s.getReal()
     let fullDistance = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))
@@ -1963,7 +1979,7 @@ export const DrawingTools = function (pixelUnit) {
     this.x = x
   }
 
-  this.Arm.prototype.drawHand = function () {
+  Arm.prototype.drawHand = function () {
     const endX = this.endX.real
     const endY = this.endY.real
     const targetX = this.handTargetX.s.getReal()
@@ -1995,14 +2011,16 @@ export const DrawingTools = function (pixelUnit) {
   }
   // ----- End Arm
 
-  this.init = function (width, height, pixelArray) {
+  const init = function (width, height, pixelArray) {
     pixelUnit.init({
       width,
       height,
     })
 
-    this.pixelSetter.setArray(pixelArray)
+    pixelSetter.setArray(pixelArray)
 
-    this.seed.reset()
+    seed.reset()
   }
+
+  return { init, Obj }
 }

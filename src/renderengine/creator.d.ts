@@ -2,11 +2,7 @@ import type getPixelUnits from './getPixelUnits'
 import type { PixelArray } from './getRenderer'
 
 export declare module './creator' {
-  class DrawingTools {
-    constructor(pixelUnit: ReturnType<typeof getPixelUnits>)
-
-    init(countW: number, countH: number, pixelArray: PixelArray): void
-
+  export const DrawingTools: (pixelUnit: ReturnType<typeof getPixelUnits>) => {
     Obj: {
       new (): {
         create(args: { list: unknown }): {
@@ -14,5 +10,7 @@ export declare module './creator' {
         }
       }
     }
+
+    init: (countW: number, countH: number, pixelArray: PixelArray) => void
   }
 }

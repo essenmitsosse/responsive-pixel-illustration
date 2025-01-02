@@ -472,7 +472,85 @@ export const DrawingTools = function (pixelUnit) {
     }
   }
 
-  function Line() {}
+  class Line extends Primitive {
+    getName = 'Line'
+
+    init(args) {
+      if (args.closed) {
+        this.args.closed = true
+      }
+
+      this.lineSetter = this.getLineSetter(args.weight)
+    }
+
+    getLineSetter(weight) {
+      return weight
+        ? (function () {
+            const w = pixelUnit.createSize(weight)
+
+            return function () {
+              const thisW = w.getReal()
+              const first = -Math.round(thisW / 2)
+              const second = Math.round(thisW + first)
+              const set = this.getColorArray()
+
+              return function (x, y) {
+                let i = first
+                let j
+
+                while ((i += 1) <= second) {
+                  j = first
+
+                  while ((j += 1) <= second) {
+                    set(x + i, y + j)
+                  }
+                }
+              }
+            }
+          })()
+        : this.getColorArray
+    }
+
+    prepareSizeAndPos(args, reflectX, reflectY, rotate) {
+      const newPoints = []
+
+      let l = args.points.length
+
+      reflectX = (args.rX || false) !== reflectX
+
+      reflectY = (args.rY || false) !== reflectY
+
+      while (l--) {
+        newPoints.push(
+          pixelUnit.Position(args.points[l], reflectX, reflectY, rotate),
+        )
+      }
+
+      return {
+        points: newPoints,
+        LineCount: newPoints.length - 1,
+      }
+    }
+
+    draw() {
+      // Draw all Lines
+      const p = this.args.points
+
+      let l = this.args.LineCount
+      let nextPoint = p[l]()
+
+      const firstPoint = this.args.closed ? nextPoint : false
+      const drawLine = getDrawLine(this.lineSetter())
+
+      while (l--) {
+        nextPoint = drawLine(nextPoint, p[l]())
+      }
+
+      if (firstPoint) {
+        drawLine(nextPoint, firstPoint)
+      }
+    }
+  }
 
   function Polygon() {}
 
@@ -508,92 +586,6 @@ export const DrawingTools = function (pixelUnit) {
     Grid,
     Panels,
     Arm,
-  }
-
-  // ------------------ Line ------------------
-  Line.prototype = new Primitive()
-
-  Line.prototype.getName = 'Line'
-
-  Line.prototype.init = function (args) {
-    if (args.closed) {
-      this.args.closed = true
-    }
-
-    this.lineSetter = this.getLineSetter(args.weight)
-  }
-
-  Line.prototype.getLineSetter = function (weight) {
-    return weight
-      ? (function () {
-          const w = pixelUnit.createSize(weight)
-
-          return function () {
-            const thisW = w.getReal()
-            const first = -Math.round(thisW / 2)
-            const second = Math.round(thisW + first)
-            const set = this.getColorArray()
-
-            return function (x, y) {
-              let i = first
-              let j
-
-              while ((i += 1) <= second) {
-                j = first
-
-                while ((j += 1) <= second) {
-                  set(x + i, y + j)
-                }
-              }
-            }
-          }
-        })()
-      : this.getColorArray
-  }
-
-  Line.prototype.prepareSizeAndPos = function (
-    args,
-    reflectX,
-    reflectY,
-    rotate,
-  ) {
-    const newPoints = []
-
-    let l = args.points.length
-
-    reflectX = (args.rX || false) !== reflectX
-
-    reflectY = (args.rY || false) !== reflectY
-
-    while (l--) {
-      newPoints.push(
-        pixelUnit.Position(args.points[l], reflectX, reflectY, rotate),
-      )
-    }
-
-    return {
-      points: newPoints,
-      LineCount: newPoints.length - 1,
-    }
-  }
-
-  Line.prototype.draw = function () {
-    // Draw all Lines
-    const p = this.args.points
-
-    let l = this.args.LineCount
-    let nextPoint = p[l]()
-
-    const firstPoint = this.args.closed ? nextPoint : false
-    const drawLine = getDrawLine(this.lineSetter())
-
-    while (l--) {
-      nextPoint = drawLine(nextPoint, p[l]())
-    }
-
-    if (firstPoint) {
-      drawLine(nextPoint, firstPoint)
-    }
   }
 
   // ------------------ Polygon ------------------

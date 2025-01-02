@@ -357,8 +357,6 @@ export const DrawingTools = function (pixelUnit) {
 
   function FillRandom() {}
 
-  function ShapeBased() {}
-
   function Rect() {}
 
   function Stripes() {}
@@ -381,7 +379,6 @@ export const DrawingTools = function (pixelUnit) {
     Polygon,
     Fill,
     FillRandom,
-    ShapeBased,
     Rect,
     Stripes,
     Obj,
@@ -811,13 +808,8 @@ export const DrawingTools = function (pixelUnit) {
   }
   // ----- End FillRandom
 
-  // ------------------ ShapeBased ------------------
-  ShapeBased.prototype = new Primitive()
-
-  ShapeBased.prototype.getName = 'ShapeBased'
-
   // ------------------ Rectangle ------------------
-  Rect.prototype = new ShapeBased()
+  Rect.prototype = new Primitive()
 
   Rect.prototype.getName = 'Rectangle'
 
@@ -843,7 +835,7 @@ export const DrawingTools = function (pixelUnit) {
 
   // ------------------ OBJECTS ------------------
   // Objects consist of other Objects or Primitives
-  Obj.prototype = new ShapeBased()
+  Obj.prototype = new Primitive()
 
   Obj.prototype.getName = 'Object'
 

@@ -31,8 +31,8 @@ export type Location = {
 
 export type PixelArray = {
   get: ColorArray
-  getClear: (id: string) => (x: number, y: number) => void
-  getClearForRect: (id: string) => (args: Location) => void
+  getClear: (id?: string) => (x: number, y: number) => void
+  getClearForRect: (id?: string) => (args: Location) => void
   getClearSaveForRect: (
     save: Array<[number, number]>,
     mask: Array<Array<boolean>>,
@@ -44,12 +44,12 @@ export type PixelArray = {
   getSet: (
     color: ColorRgb,
     zInd: number,
-    id: string,
+    id?: string,
   ) => (x: number, y: number) => void
   getSetForRect: (
     color: ColorRgb,
     zInd: number,
-    id: string,
+    id?: string,
   ) => (args: Location) => void
   setMask: (dimensions: Location, push?: boolean) => Location
 }

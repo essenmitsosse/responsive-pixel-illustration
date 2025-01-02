@@ -1,5 +1,36 @@
+import type { Location } from './createPixelArray'
+import type { State } from './State'
+import type { ColorRgb } from '@/helper/typeColor'
+import type getPixelUnits from '@/renderengine/getPixelUnits'
+import type { Dimensions } from '@/renderengine/getPixelUnits/Position'
+
+type Inherit = {
+  clear?: boolean
+  color?: ColorRgb
+  id?: string
+  reflectX?: boolean
+  reflectY?: boolean
+  rotate?: number
+  save?: string
+  zInd?: number
+}
+
+type Args = Inherit & {
+  getRealPosition?: () => { x: number; y: number }
+  list?: Array<unknown>
+}
+
 class Primitive {
-  constructor(state) {
+  state: State
+  dimensions?: Dimensions
+  fromRight?: boolean
+  fromBottom?: boolean
+  rotate?: boolean
+  isRect?: boolean
+  getColorArray?: unknown
+  args?: Args
+
+  constructor(state: State) {
     this.state = state
   }
 
@@ -11,17 +42,33 @@ class Primitive {
    * they won't get overwrittten.
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- this should already declare the expected type, even if it is not implemented
-  init(_args) {}
+  init(_args: Args): void {}
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- this should already declare the expected type, even if it is not implemented
-  detailInit(_args, _inherit) {}
+  detailInit(_args: Args, _inherit: Inherit): void {}
 
-  create(args, inherit) {
+  create(
+    args: Parameters<ReturnType<typeof getPixelUnits>['getDimensions']>[0] & {
+      clear?: boolean
+      color?: ColorRgb
+      fX?: boolean
+      fY?: boolean
+      id?: string
+      list?: Array<unknown>
+      mask?: unknown
+      rX?: unknown
+      rY?: unknown
+      rotate?: number
+      save?: string
+      z?: number
+    },
+    inherit: Inherit,
+  ): this {
     inherit = inherit || {}
 
-    let reflectX = inherit.reflectX || false
-    let reflectY = inherit.reflectY || false
-    let rotate = inherit.rotate || 0
+    let reflectX: boolean = inherit.reflectX || false
+    let reflectY: boolean = inherit.reflectY || false
+    let rotate: number = inherit.rotate || 0
 
     if (rotate >= 360) {
       rotate -= 360
@@ -49,7 +96,9 @@ class Primitive {
       reflectY = !reflectY
     }
 
-    const newArgs =
+    const newArgs: Args & {
+      mask?: (dimensions: Location, push?: boolean) => Location
+    } =
       this.prepareSizeAndPos(
         args,
         reflectX,
@@ -98,15 +147,29 @@ class Primitive {
 
     this.args = newArgs
 
-    this.init(args)
+    if (this.init) {
+      this.init(args)
+    }
 
-    this.detailInit(args, inherit)
+    if (this.detailInit) {
+      this.detailInit(args, inherit)
+    }
 
     return this
   }
 
   // Prepare Size and Position Data for Basic Objects
-  prepareSizeAndPos(args, reflectX, reflectY, rotate) {
+  prepareSizeAndPos(
+    args: Parameters<ReturnType<typeof getPixelUnits>['getDimensions']>[0] & {
+      fX?: boolean
+      fY?: boolean
+    },
+    reflectX: boolean,
+    reflectY: boolean,
+    rotate: boolean,
+  ): {
+    getRealPosition: () => { x: number; y: number }
+  } | void {
     this.dimensions = this.state.pixelUnit.getDimensions(
       args,
       (this.fromRight = rotate

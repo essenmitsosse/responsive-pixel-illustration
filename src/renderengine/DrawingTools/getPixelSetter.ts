@@ -6,12 +6,12 @@ const getPixelSetter = (): {
   getSave: (name: string) => Array<[number, number]> | false
   setArray: (newArray: PixelArray) => void
   setColorArray: (
-    color: ColorRgb,
-    clear: boolean,
+    color: ColorRgb | undefined,
+    clear: boolean | undefined,
     zInd: number,
-    id: string,
-    isRect: boolean,
-    save: string,
+    id: string | undefined,
+    isRect: boolean | undefined,
+    save: string | undefined,
   ) =>
     | (() => void)
     | ((args: Location) => void)
@@ -27,24 +27,24 @@ const getPixelSetter = (): {
   > = {}
 
   const getSet =
-    (color: ColorRgb, zInd: number, id: string) =>
+    (color: ColorRgb, zInd: number, id?: string) =>
     (): ReturnType<PixelArray['getSet']> =>
       colorArray.getSet(color, zInd, id)
 
-  const getClear = (id: string) => (): ReturnType<PixelArray['getClear']> =>
+  const getClear = (id?: string) => (): ReturnType<PixelArray['getClear']> =>
     colorArray.getClear(id)
 
   const getSetForRect =
-    (color: ColorRgb, zInd: number, id: string) =>
+    (color: ColorRgb, zInd: number, id?: string) =>
     (): ReturnType<PixelArray['getSetForRect']> =>
       colorArray.getSetForRect(color, zInd, id)
 
   const getClearForRect =
-    (id: string) => (): ReturnType<PixelArray['getClearForRect']> =>
+    (id?: string) => (): ReturnType<PixelArray['getClearForRect']> =>
       colorArray.getClearForRect(id)
 
   const getSave =
-    <TIsRect extends boolean>(name: string, isRect: TIsRect) =>
+    <TIsRect extends boolean>(name: string, isRect?: TIsRect) =>
     (): ((args: Location) => void) | ((x: number, y: number) => void) => {
       const thisSave = formSave[name]
         ? formSave[name]
@@ -64,7 +64,7 @@ const getPixelSetter = (): {
     }
 
   const getClearSave =
-    (name: string, isRect: boolean) =>
+    (name: string, isRect?: boolean) =>
     (): (() => void) | ((args: Location) => void) | void => {
       const thisSave = formSave[name]
 

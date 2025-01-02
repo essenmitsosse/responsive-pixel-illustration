@@ -340,7 +340,7 @@ const sortFunction = function (a, b) {
 }
 
 // Initing a new Object, converting its List into real Objects.
-const convertList = function (list, inherit, drawingTools) {
+const convertList = function (list, inherit, drawingTools, state) {
   // Loops through the List of an Object
   const l = list ? list.length : 0
 
@@ -374,7 +374,7 @@ const convertList = function (list, inherit, drawingTools) {
                       : newTool.targetX
                         ? 'Arm'
                         : 'Rect')
-        ]().create(newTool, inherit),
+        ](state).create(newTool, inherit),
       )
     }
   } while ((i += 1) < l)
@@ -386,7 +386,17 @@ export const DrawingTools = function (pixelUnit) {
   const seed = getSeedHandler()
   const pixelSetter = getPixelSetter()
 
+  const state = {
+    pixelUnit,
+    seed,
+    pixelSetter,
+  }
+
   class Primitive {
+    constructor(state) {
+      this.state = state
+    }
+
     getName = 'Primitive'
 
     create(args, inherit) {
@@ -453,7 +463,7 @@ export const DrawingTools = function (pixelUnit) {
       }
 
       if (args.mask) {
-        newArgs.mask = pixelSetter.setColorMask
+        newArgs.mask = this.state.pixelSetter.setColorMask
       }
 
       newArgs.zInd = (inherit.zInd || 0) + (args.z || 0)
@@ -461,7 +471,7 @@ export const DrawingTools = function (pixelUnit) {
       if (args.list) {
         newArgs.list = args.list
       } else {
-        this.getColorArray = pixelSetter.setColorArray(
+        this.getColorArray = this.state.pixelSetter.setColorArray(
           newArgs.color,
           newArgs.clear,
           newArgs.zInd,
@@ -486,7 +496,7 @@ export const DrawingTools = function (pixelUnit) {
 
     // Prepare Size and Position Data for Basic Objects
     prepareSizeAndPos(args, reflectX, reflectY, rotate) {
-      this.dimensions = pixelUnit.getDimensions(
+      this.dimensions = this.state.pixelUnit.getDimensions(
         args,
         (this.fromRight = rotate
           ? (args.fY || false) === reflectY
@@ -510,7 +520,12 @@ export const DrawingTools = function (pixelUnit) {
 
     prepareSizeAndPos(args, reflectX, reflectY, rotate) {
       return {
-        getRealPosition: pixelUnit.Position(args, reflectX, reflectY, rotate),
+        getRealPosition: this.state.pixelUnit.Position(
+          args,
+          reflectX,
+          reflectY,
+          rotate,
+        ),
       }
     }
   }
@@ -527,7 +542,7 @@ export const DrawingTools = function (pixelUnit) {
     }
 
     getLineSetter(weight) {
-      const w = weight ? pixelUnit.createSize(weight) : null
+      const w = weight ? this.state.pixelUnit.createSize(weight) : null
 
       return w
         ? function () {
@@ -563,7 +578,12 @@ export const DrawingTools = function (pixelUnit) {
 
       while (l--) {
         newPoints.push(
-          pixelUnit.Position(args.points[l], reflectX, reflectY, rotate),
+          this.state.pixelUnit.Position(
+            args.points[l],
+            reflectX,
+            reflectY,
+            rotate,
+          ),
         )
       }
 
@@ -636,14 +656,14 @@ export const DrawingTools = function (pixelUnit) {
       const width = (rotate ? args.sY : args.sX) || args.s
       const height = (rotate ? args.sX : args.sY) || args.s
 
-      this.width = width ? pixelUnit.getWidth(width) : false
+      this.width = width ? this.state.pixelUnit.getWidth(width) : false
 
-      this.height = height ? pixelUnit.getWidth(height) : false
+      this.height = height ? this.state.pixelUnit.getWidth(height) : false
     }
 
     draw() {
       const color = this.getColorArray()
-      const array = pixelSetter.getSave(this.use)
+      const array = this.state.pixelSetter.getSave(this.use)
 
       let l = array ? array.length - 1 : -1
       let current
@@ -665,20 +685,20 @@ export const DrawingTools = function (pixelUnit) {
 
       this.chance = args.chance || 0.5
 
-      this.random = seed.get(args.seed)
+      this.random = this.state.seed.get(args.seed)
 
       this.mask = args.mask
 
       if (height && height.random) {
-        this.heightRandom = pixelUnit.createSize(height.random)
+        this.heightRandom = this.state.pixelUnit.createSize(height.random)
       }
 
       if (width && width.random) {
-        this.widthRandom = pixelUnit.createSize(width.random)
+        this.widthRandom = this.state.pixelUnit.createSize(width.random)
       }
 
       if (args.size && args.size.random) {
-        this.sizeRandom = pixelUnit.createSize(args.size.random)
+        this.sizeRandom = this.state.pixelUnit.createSize(args.size.random)
       }
     }
 
@@ -696,7 +716,7 @@ export const DrawingTools = function (pixelUnit) {
         : false
 
       const color = this.getColorArray()
-      const array = pixelSetter.getSave(this.use)
+      const array = this.state.pixelSetter.getSave(this.use)
       const l = array ? array.length : 0
 
       let count = Math.floor(
@@ -706,7 +726,7 @@ export const DrawingTools = function (pixelUnit) {
               (height + (heightRandom || sizeRandom || 0) / 2))),
       )
 
-      const mask = this.mask ? pixelSetter.getMask(this.use) : false
+      const mask = this.mask ? this.state.pixelSetter.getMask(this.use) : false
       const dontCheck = !mask
       const random = this.random().one
 
@@ -818,6 +838,7 @@ export const DrawingTools = function (pixelUnit) {
             rotate: this.args.rotate,
           },
           drawingTools,
+          this.state,
         )
       }
     }
@@ -839,7 +860,7 @@ export const DrawingTools = function (pixelUnit) {
         oldMask = this.args.mask(dimensions, true)
       }
 
-      pixelUnit.push(dimensions)
+      this.state.pixelUnit.push(dimensions)
 
       while (l--) {
         this.args.list[l].draw()
@@ -849,7 +870,7 @@ export const DrawingTools = function (pixelUnit) {
         this.args.mask(oldMask, false)
       }
 
-      pixelUnit.pop()
+      this.state.pixelUnit.pop()
     }
   }
 
@@ -868,7 +889,9 @@ export const DrawingTools = function (pixelUnit) {
         (this.rotate ? !args.stripes.horizontal : args.stripes.horizontal) ||
         false)
 
-      const getDimension = horizontal ? pixelUnit.getHeight : pixelUnit.getWidth
+      const getDimension = horizontal
+        ? this.state.pixelUnit.getHeight
+        : this.state.pixelUnit.getWidth
 
       /** Width of a single Line */
       this.stripWidth = getDimension(args.stripes.strip || { a: 1 })
@@ -877,13 +900,17 @@ export const DrawingTools = function (pixelUnit) {
       this.gapWidth = getDimension(args.stripes.gap || { a: 0 })
 
       if (args.stripes.strip && args.stripes.strip.random) {
-        this.stripWidthRandom = pixelUnit.createSize(args.stripes.strip.random)
+        this.stripWidthRandom = this.state.pixelUnit.createSize(
+          args.stripes.strip.random,
+        )
 
         random = true
       }
 
       if (args.stripes.gap && args.stripes.gap.random) {
-        this.gapWidthRandom = pixelUnit.createSize(args.stripes.gap.random)
+        this.gapWidthRandom = this.state.pixelUnit.createSize(
+          args.stripes.gap.random,
+        )
 
         random = true
       }
@@ -893,7 +920,7 @@ export const DrawingTools = function (pixelUnit) {
           args.stripes.random.height = !horizontal
         }
 
-        this.lengthRandom = pixelUnit.createSize(args.stripes.random)
+        this.lengthRandom = this.state.pixelUnit.createSize(args.stripes.random)
 
         random = true
       }
@@ -903,13 +930,13 @@ export const DrawingTools = function (pixelUnit) {
           args.stripes.change.height = !horizontal
         }
 
-        this.lengthChange = pixelUnit.createSize(args.stripes.change)
+        this.lengthChange = this.state.pixelUnit.createSize(args.stripes.change)
 
         random = true
       }
 
       if (random) {
-        this.random = seed.get(args.stripes.seed)
+        this.random = this.state.seed.get(args.stripes.seed)
       }
 
       this.cut = args.stripes.cut
@@ -1058,7 +1085,7 @@ export const DrawingTools = function (pixelUnit) {
 
       const draw = this.getDraw(
         this.args.list
-          ? pixelUnit.push
+          ? this.state.pixelUnit.push
           : this.getColorArray
             ? this.getColorArray()
             : false,
@@ -1102,7 +1129,7 @@ export const DrawingTools = function (pixelUnit) {
               this.args.list[l].draw()
             }
 
-            pixelUnit.pop()
+            this.state.pixelUnit.pop()
           }
         }
       } while ((start += totalWidth) < end)
@@ -1178,7 +1205,7 @@ export const DrawingTools = function (pixelUnit) {
         }
 
         newPanels.push({
-          drawer: new Obj().create({ list: current.list }, inherit),
+          drawer: new Obj(this.state).create({ list: current.list }, inherit),
           sX: current.sX,
           sY: current.sY,
         })
@@ -1193,11 +1220,11 @@ export const DrawingTools = function (pixelUnit) {
         : 1
 
       if (args.gutterX) {
-        this.gutterSX = pixelUnit.getWidth(args.gutterX)
+        this.gutterSX = this.state.pixelUnit.getWidth(args.gutterX)
       }
 
       if (args.gutterY) {
-        this.gutterSY = pixelUnit.getWidth(args.gutterY)
+        this.gutterSY = this.state.pixelUnit.getWidth(args.gutterY)
       }
     }
 
@@ -1493,11 +1520,11 @@ export const DrawingTools = function (pixelUnit) {
           oldMask = mask(currentDim)
         }
 
-        pixelUnit.push(currentDim)
+        this.state.pixelUnit.push(currentDim)
 
         currentPanel.drawer.draw()
 
-        pixelUnit.pop()
+        this.state.pixelUnit.pop()
 
         if (mask) {
           mask(oldMask)
@@ -1543,7 +1570,7 @@ export const DrawingTools = function (pixelUnit) {
       this.jointY.autoUpdate = true
 
       // Upper Arm
-      this.upperArm = new Line().create({
+      this.upperArm = new Line(this.state).create({
         weight: args.upperArmWeight || args.weight,
         color: args.upperArmColor || args.color,
         points: [{}, { x: this.jointX, y: this.jointY }],
@@ -1551,7 +1578,7 @@ export const DrawingTools = function (pixelUnit) {
       })
 
       if (args.upperArmLightColor) {
-        this.upperArmInner = new Line().create({
+        this.upperArmInner = new Line(this.state).create({
           weight: [args.upperArmWeight || args.weight, -2],
           color: args.upperArmLightColor,
           points: [{}, { x: this.jointX, y: this.jointY }],
@@ -1560,7 +1587,7 @@ export const DrawingTools = function (pixelUnit) {
       }
 
       // Lower Arm
-      this.lowerArm = new Line().create({
+      this.lowerArm = new Line(this.state).create({
         weight: args.lowerArmWeight || args.weight,
         color: args.lowerArmColor || args.color,
         points: [
@@ -1571,7 +1598,7 @@ export const DrawingTools = function (pixelUnit) {
       })
 
       if (args.lowerArmLightColor) {
-        this.lowerArmInner = new Line().create({
+        this.lowerArmInner = new Line(this.state).create({
           weight: [args.lowerArmWeight || args.weight, -2],
           color: args.lowerArmLightColor,
           points: [
@@ -1592,7 +1619,7 @@ export const DrawingTools = function (pixelUnit) {
         // 	z: Infinity
         // });
 
-        this.debugLowerArm = new Line().create({
+        this.debugLowerArm = new Line(this.state).create({
           weight: 1,
           color: [80, 0, 0],
           points: [
@@ -1602,14 +1629,14 @@ export const DrawingTools = function (pixelUnit) {
           z: Infinity,
         })
 
-        this.debugUpperArm = new Line().create({
+        this.debugUpperArm = new Line(this.state).create({
           weight: 1,
           color: [125, 0, 0],
           points: [{ x: this.jointX, y: this.jointY }, {}],
           z: Infinity,
         })
 
-        this.debugArmTarget = new Line().create({
+        this.debugArmTarget = new Line(this.state).create({
           weight: 1,
           color: [0, 255, 255],
           points: [
@@ -1635,7 +1662,7 @@ export const DrawingTools = function (pixelUnit) {
       }
 
       if ((hand = args.hand)) {
-        this.handLength = new pixelUnit.createSize(
+        this.handLength = new this.state.pixelUnit.createSize(
           args.hand.length || {
             r: 0.1,
             useSize: this.length,
@@ -1655,7 +1682,7 @@ export const DrawingTools = function (pixelUnit) {
 
         this.handRelativeToDirection = hand.toDir
 
-        this.hand = new Line().create({
+        this.hand = new Line(this.state).create({
           weight: hand.width || args.lowerArmWeight || args.weight,
           color: hand.color || args.lowerArmColor || args.color,
           points: [
@@ -1680,7 +1707,7 @@ export const DrawingTools = function (pixelUnit) {
           // 	z: Infinity
           // });
 
-          this.debugHandTarget = new Line().create({
+          this.debugHandTarget = new Line(this.state).create({
             weight: 1,
             color: [255, 255, 0],
             points: [
@@ -1720,7 +1747,7 @@ export const DrawingTools = function (pixelUnit) {
       this.jointY.calculated = true
 
       // draw
-      pixelUnit.push(dimensions)
+      this.state.pixelUnit.push(dimensions)
 
       // Hand
       if (this.hand) {
@@ -1766,7 +1793,7 @@ export const DrawingTools = function (pixelUnit) {
 
       this.upperArm.draw()
 
-      pixelUnit.pop()
+      this.state.pixelUnit.pop()
     }
 
     calculateFromEllbow() {
@@ -1954,5 +1981,5 @@ export const DrawingTools = function (pixelUnit) {
     return pixelArray
   }
 
-  return { init, Obj }
+  return { init, getObj: () => new Obj(state) }
 }

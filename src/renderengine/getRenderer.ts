@@ -8,7 +8,7 @@ const getDrawer = (pixelStarter: PixelGraphics, renderList: unknown) => {
   // Initialize the drawingTool
   const pixelUnit = pixelStarter.pixelUnits
   const drawingTool = DrawingTools(pixelUnit)
-  const canvasTool = new drawingTool.Obj().create({ list: renderList })
+  const canvasTool = drawingTool.getObj().create({ list: renderList })
 
   return (countW: number, countH: number): PixelArray => {
     const pixelArray = drawingTool.init(countW, countH)

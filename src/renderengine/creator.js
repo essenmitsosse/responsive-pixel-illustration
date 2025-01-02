@@ -735,7 +735,26 @@ export const DrawingTools = function (pixelUnit) {
     }
   }
 
-  function Rect() {}
+  class Rect extends Primitive {
+    getName = 'Rectangle'
+
+    isRect = true
+
+    draw() {
+      const dimensions = this.dimensions.calc()
+
+      if (dimensions.checkMin()) {
+        return
+      }
+
+      this.getColorArray()({
+        posX: dimensions.posX,
+        posY: dimensions.posY,
+        width: dimensions.width,
+        height: dimensions.height,
+      })
+    }
+  }
 
   function Stripes() {}
 
@@ -764,31 +783,6 @@ export const DrawingTools = function (pixelUnit) {
     Panels,
     Arm,
   }
-
-  // ------------------ Rectangle ------------------
-  Rect.prototype = new Primitive()
-
-  Rect.prototype.getName = 'Rectangle'
-
-  Rect.prototype.isRect = true
-
-  Rect.prototype.draw = function () {
-    const dimensions = this.dimensions.calc()
-
-    if (dimensions.checkMin()) {
-      return
-    }
-
-    this.getColorArray()({
-      posX: dimensions.posX,
-      posY: dimensions.posY,
-      width: dimensions.width,
-      height: dimensions.height,
-    })
-  }
-  // ----- End Rectangle
-
-  // ----- End Primitives
 
   // ------------------ OBJECTS ------------------
   // Objects consist of other Objects or Primitives

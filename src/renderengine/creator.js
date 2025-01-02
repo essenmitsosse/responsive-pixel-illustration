@@ -552,7 +552,36 @@ export const DrawingTools = function (pixelUnit) {
     }
   }
 
-  function Polygon() {}
+  class Polygon extends Line {
+    getName = 'Polygon'
+
+    draw() {
+      // Draw all Lines
+      const edgeList = []
+      const colorArraySet = this.getColorArray()
+      const drawRow = getDrawRow(colorArraySet)
+      const getLineEdge = getLineEdgeGetter(edgeList)
+      const p = this.args.points
+
+      let l = this.args.LineCount
+      let nextPoint = p[l](true)
+
+      const firstPoint = nextPoint
+
+      while (l--) {
+        nextPoint = getLineEdge(nextPoint, p[l](true))
+      }
+
+      //  Close the Polygon
+      getLineEdge(nextPoint, firstPoint)
+
+      l = edgeList.sort(sortFunction).length
+
+      while ((l -= 2) >= 0) {
+        drawRow(edgeList[l + 1], edgeList[l])
+      }
+    }
+  }
 
   function Fill() {}
 
@@ -587,39 +616,6 @@ export const DrawingTools = function (pixelUnit) {
     Panels,
     Arm,
   }
-
-  // ------------------ Polygon ------------------
-  Polygon.prototype = new Line()
-
-  Polygon.prototype.getName = 'Polygon'
-
-  Polygon.prototype.draw = function () {
-    // Draw all Lines
-    const edgeList = []
-    const colorArraySet = this.getColorArray()
-    const drawRow = getDrawRow(colorArraySet)
-    const getLineEdge = getLineEdgeGetter(edgeList)
-    const p = this.args.points
-
-    let l = this.args.LineCount
-    let nextPoint = p[l](true)
-
-    const firstPoint = nextPoint
-
-    while (l--) {
-      nextPoint = getLineEdge(nextPoint, p[l](true))
-    }
-
-    //  Close the Polygon
-    getLineEdge(nextPoint, firstPoint)
-
-    l = edgeList.sort(sortFunction).length
-
-    while ((l -= 2) >= 0) {
-      drawRow(edgeList[l + 1], edgeList[l])
-    }
-  }
-  // ----- End Polygon
 
   // ------------------ Fill ------------------
   Fill.prototype = new Primitive()

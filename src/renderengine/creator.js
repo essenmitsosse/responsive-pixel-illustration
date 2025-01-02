@@ -166,6 +166,68 @@ const getPixelSetter = () => {
   }
 }
 
+const getDrawLine = function (set) {
+  return function (p0, p1) {
+    // Draw a single Lines
+    let x0
+    let y0
+    let x1
+    let y1
+    let err
+    let e2
+
+    if (isNaN(p0.x) || isNaN(p0.y) || isNaN(p1.x) || isNaN(p1.y)) {
+      throw new Error('Line with NaN found!', p0.x, p0.y, p1.x, p1.y)
+    }
+
+    if (p0.x > p1.x) {
+      x1 = p0.x
+
+      y1 = p0.y
+
+      x0 = p1.x
+
+      y0 = p1.y
+    } else {
+      x0 = p0.x
+
+      y0 = p0.y
+
+      x1 = p1.x
+
+      y1 = p1.y
+    }
+
+    const dx = Math.abs(x1 - x0)
+    const dy = -Math.abs(y1 - y0)
+    const sy = y0 < y1 ? 1 : -1
+
+    err = dx + dy
+
+    while (true) {
+      set(x0, y0)
+
+      if (x0 === x1 && y0 === y1) {
+        return p1
+      }
+
+      e2 = 2 * err
+
+      if (e2 > dy) {
+        err += dy
+
+        x0 += 1
+      }
+
+      if (e2 < dx) {
+        err += dx
+
+        y0 += sy
+      }
+    }
+  }
+}
+
 export const DrawingTools = function (pixelUnit) {
   const seed = getSeedHandler()
   const pixelSetter = getPixelSetter()
@@ -431,88 +493,24 @@ export const DrawingTools = function (pixelUnit) {
     }
   }
 
-  Line.prototype.draw = (function () {
-    const getDrawLine = function (set) {
-      return function (p0, p1) {
-        // Draw a single Lines
-        let x0
-        let y0
-        let x1
-        let y1
-        let err
-        let e2
+  Line.prototype.draw = function () {
+    // Draw all Lines
+    const p = this.args.points
 
-        if (isNaN(p0.x) || isNaN(p0.y) || isNaN(p1.x) || isNaN(p1.y)) {
-          throw new Error('Line with NaN found!', p0.x, p0.y, p1.x, p1.y)
-        }
+    let l = this.args.LineCount
+    let nextPoint = p[l]()
 
-        if (p0.x > p1.x) {
-          x1 = p0.x
+    const firstPoint = this.args.closed ? nextPoint : false
+    const drawLine = getDrawLine(this.lineSetter())
 
-          y1 = p0.y
-
-          x0 = p1.x
-
-          y0 = p1.y
-        } else {
-          x0 = p0.x
-
-          y0 = p0.y
-
-          x1 = p1.x
-
-          y1 = p1.y
-        }
-
-        const dx = Math.abs(x1 - x0)
-        const dy = -Math.abs(y1 - y0)
-        const sy = y0 < y1 ? 1 : -1
-
-        err = dx + dy
-
-        while (true) {
-          set(x0, y0)
-
-          if (x0 === x1 && y0 === y1) {
-            return p1
-          }
-
-          e2 = 2 * err
-
-          if (e2 > dy) {
-            err += dy
-
-            x0 += 1
-          }
-
-          if (e2 < dx) {
-            err += dx
-
-            y0 += sy
-          }
-        }
-      }
+    while (l--) {
+      nextPoint = drawLine(nextPoint, p[l]())
     }
 
-    return function () {
-      // Draw all Lines
-      const p = this.args.points
-
-      let l = this.args.LineCount
-      let nextPoint = p[l]()
-
-      const firstPoint = this.args.closed ? nextPoint : false
-      const drawLine = getDrawLine(this.lineSetter())
-
-      while (l--) {
-        nextPoint = drawLine(nextPoint, p[l]())
-      }
-
-      if (firstPoint) {
-        drawLine(nextPoint, firstPoint)
-      }
+    if (firstPoint) {
+      drawLine(nextPoint, firstPoint)
     }
-  })()
+  }
 
   // ------------------ Polygon ------------------
   Polygon.prototype = new Line()

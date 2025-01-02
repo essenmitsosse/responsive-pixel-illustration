@@ -1203,38 +1203,36 @@ export const DrawingTools = function (pixelUnit) {
       }
     }
 
-    draw = (function () {
-      // Draws Object, consisting of other Objects and Primitives.
-      return function () {
-        let countX
-        let countY
+    // Draws Object, consisting of other Objects and Primitives.
+    draw() {
+      let countX
+      let countY
 
-        this.dimensions = this.dimensions.calc()
+      this.dimensions = this.dimensions.calc()
 
-        this.sX = this.dimensions.width
+      this.sX = this.dimensions.width
 
-        this.sY = this.dimensions.height
+      this.sY = this.dimensions.height
 
-        this.gutterX = this.gutterSX.getReal()
+      this.gutterX = this.gutterSX.getReal()
 
-        this.gutterY = this.gutterSY.getReal()
+      this.gutterY = this.gutterSY.getReal()
 
-        this.countX = countX
+      this.countX = countX
 
-        this.countY = countY
+      this.countY = countY
 
-        // Find best combination of rows/cols
-        this.findBestRows(this.args.list)
+      // Find best combination of rows/cols
+      this.findBestRows(this.args.list)
 
-        const panels = this.sortRows(this.args.list)
+      const panels = this.sortRows(this.args.list)
 
-        // calculate the finale size of the panel
-        this.calcPanelsSizes(panels)
+      // calculate the finale size of the panel
+      this.calcPanelsSizes(panels)
 
-        // Draw the content of the panels
-        this.drawPanels(panels, this.args.mask)
-      }
-    })(pixelUnit)
+      // Draw the content of the panels
+      this.drawPanels(panels, this.args.mask)
+    }
 
     findBestRows(list) {
       let y = 0

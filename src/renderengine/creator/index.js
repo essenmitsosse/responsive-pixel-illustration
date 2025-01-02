@@ -1,4 +1,5 @@
 import createPixelArray from './createPixelArray'
+import Dot from './Dot'
 import getPixelSetter from './getPixelSetter'
 import getSeedHandler from './getSeedHandler'
 import Primitive from './Primitive'
@@ -217,27 +218,6 @@ const convertList = function (list, inherit, drawingTools, state) {
   } while ((i += 1) < l)
 
   return newList
-}
-
-class Dot extends Primitive {
-  getName = 'Dot'
-
-  draw() {
-    const pos = this.args.getRealPosition()
-
-    this.getColorArray()(pos.x, pos.y)
-  }
-
-  prepareSizeAndPos(args, reflectX, reflectY, rotate) {
-    return {
-      getRealPosition: this.state.pixelUnit.Position(
-        args,
-        reflectX,
-        reflectY,
-        rotate,
-      ),
-    }
-  }
 }
 
 class Line extends Primitive {

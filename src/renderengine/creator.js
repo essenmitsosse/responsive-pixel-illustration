@@ -825,36 +825,34 @@ export const DrawingTools = function (pixelUnit) {
     }
     // ------ End Object Init
 
-    draw = (function (pixelUnit) {
-      // Draws Object, consisting of other Objects and Primitives.
-      return function () {
-        let l = this.args.list.length
+    // Draws Object, consisting of other Objects and Primitives.
+    draw() {
+      let l = this.args.list.length
 
-        const dimensions = this.dimensions.calc()
+      const dimensions = this.dimensions.calc()
 
-        let oldMask
+      let oldMask
 
-        if (dimensions.checkMin()) {
-          return
-        }
-
-        if (this.args.mask) {
-          oldMask = this.args.mask(dimensions, true)
-        }
-
-        pixelUnit.push(dimensions)
-
-        while (l--) {
-          this.args.list[l].draw()
-        }
-
-        if (this.args.mask) {
-          this.args.mask(oldMask, false)
-        }
-
-        pixelUnit.pop()
+      if (dimensions.checkMin()) {
+        return
       }
-    })(pixelUnit)
+
+      if (this.args.mask) {
+        oldMask = this.args.mask(dimensions, true)
+      }
+
+      pixelUnit.push(dimensions)
+
+      while (l--) {
+        this.args.list[l].draw()
+      }
+
+      if (this.args.mask) {
+        this.args.mask(oldMask, false)
+      }
+
+      pixelUnit.pop()
+    }
   }
 
   function Stripes() {}

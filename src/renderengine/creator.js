@@ -583,7 +583,37 @@ export const DrawingTools = function (pixelUnit) {
     }
   }
 
-  function Fill() {}
+  class Fill extends Primitive {
+    getName = 'Fill'
+
+    init(args) {
+      this.use = args.use
+    }
+
+    prepareSizeAndPos = (function (pixelUnit) {
+      // Prepare Size and Position Data for Basic Objects
+      return function (args, reflectX, reflectY, rotate) {
+        const width = (rotate ? args.sY : args.sX) || args.s
+        const height = (rotate ? args.sX : args.sY) || args.s
+
+        this.width = width ? pixelUnit.getWidth(width) : false
+
+        this.height = height ? pixelUnit.getWidth(height) : false
+      }
+    })(pixelUnit)
+
+    draw() {
+      const color = this.getColorArray()
+      const array = pixelSetter.getSave(this.use)
+
+      let l = array ? array.length - 1 : -1
+      let current
+
+      while (l >= 0) {
+        color((current = array[l--])[0], current[1])
+      }
+    }
+  }
 
   function FillRandom() {}
 
@@ -616,40 +646,6 @@ export const DrawingTools = function (pixelUnit) {
     Panels,
     Arm,
   }
-
-  // ------------------ Fill ------------------
-  Fill.prototype = new Primitive()
-
-  Fill.prototype.getName = 'Fill'
-
-  Fill.prototype.init = function (args) {
-    this.use = args.use
-  }
-
-  Fill.prototype.prepareSizeAndPos = (function (pixelUnit) {
-    // Prepare Size and Position Data for Basic Objects
-    return function (args, reflectX, reflectY, rotate) {
-      const width = (rotate ? args.sY : args.sX) || args.s
-      const height = (rotate ? args.sX : args.sY) || args.s
-
-      this.width = width ? pixelUnit.getWidth(width) : false
-
-      this.height = height ? pixelUnit.getWidth(height) : false
-    }
-  })(pixelUnit)
-
-  Fill.prototype.draw = function () {
-    const color = this.getColorArray()
-    const array = pixelSetter.getSave(this.use)
-
-    let l = array ? array.length - 1 : -1
-    let current
-
-    while (l >= 0) {
-      color((current = array[l--])[0], current[1])
-    }
-  }
-  // ----- End Fill
 
   // ------------------ FillRandom ------------------
   FillRandom.prototype = new Fill()

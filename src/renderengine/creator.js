@@ -802,29 +802,27 @@ export const DrawingTools = function (pixelUnit) {
   class Obj extends Primitive {
     getName = 'Object'
 
-    init = (function (drawingTools) {
-      return function () {
-        const list = this.args.list || this.list
+    init() {
+      const list = this.args.list || this.list
 
-        if (this.args.list || this.list) {
-          this.args.list = convertList(
-            list,
-            {
-              // Things to inherit to Children
-              color: this.args.color,
-              clear: this.args.clear,
-              reflectX: this.args.reflectX,
-              reflectY: this.args.reflectY,
-              zInd: this.args.zInd,
-              id: this.args.id,
-              save: this.args.save,
-              rotate: this.args.rotate,
-            },
-            drawingTools,
-          )
-        }
+      if (this.args.list || this.list) {
+        this.args.list = convertList(
+          list,
+          {
+            // Things to inherit to Children
+            color: this.args.color,
+            clear: this.args.clear,
+            reflectX: this.args.reflectX,
+            reflectY: this.args.reflectY,
+            zInd: this.args.zInd,
+            id: this.args.id,
+            save: this.args.save,
+            rotate: this.args.rotate,
+          },
+          drawingTools,
+        )
       }
-    })(drawingTools)
+    }
     // ------ End Object Init
 
     draw = (function (pixelUnit) {

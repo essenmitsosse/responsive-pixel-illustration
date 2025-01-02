@@ -1,7 +1,7 @@
-import type { PixelArray } from './creator/createPixelArray'
+import type { PixelArray } from './DrawingTools/createPixelArray'
 import type getPixelUnits from './getPixelUnits'
 
-export declare module './creator' {
+export declare module './DrawingTools' {
   export const DrawingTools: (pixelUnit: ReturnType<typeof getPixelUnits>) => {
     getObj: () => {
       create(args: { list: unknown }): {

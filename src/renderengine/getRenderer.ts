@@ -1,6 +1,6 @@
-import { DrawingTools } from './creator'
+import { DrawingTools } from './DrawingTools'
 
-import type { ColorArray, PixelArray } from './creator/createPixelArray'
+import type { ColorArray, PixelArray } from './DrawingTools/createPixelArray'
 import type { PixelGraphics, RenderObject } from './PixelGraphics'
 import type { ColorRgb } from '@/helper/typeColor'
 

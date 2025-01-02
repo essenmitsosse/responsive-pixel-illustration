@@ -374,7 +374,7 @@ const convertList = function (list, inherit, drawingTools, state) {
                       : newTool.targetX
                         ? 'Arm'
                         : 'Rect')
-        ](state).create(newTool, inherit),
+        ](state, drawingTools).create(newTool, inherit),
       )
     }
   } while ((i += 1) < l)
@@ -818,6 +818,11 @@ export const DrawingTools = function (pixelUnit) {
   }
 
   class Obj extends Primitive {
+    constructor(state, drawingTools) {
+      super(state)
+
+      this.drawingTools = drawingTools
+    }
     getName = 'Object'
 
     init() {
@@ -837,7 +842,7 @@ export const DrawingTools = function (pixelUnit) {
             save: this.args.save,
             rotate: this.args.rotate,
           },
-          drawingTools,
+          this.drawingTools,
           this.state,
         )
       }
@@ -1205,7 +1210,10 @@ export const DrawingTools = function (pixelUnit) {
         }
 
         newPanels.push({
-          drawer: new Obj(this.state).create({ list: current.list }, inherit),
+          drawer: new Obj(this.state, this.drawingTools).create(
+            { list: current.list },
+            inherit,
+          ),
           sX: current.sX,
           sY: current.sY,
         })
@@ -1981,5 +1989,5 @@ export const DrawingTools = function (pixelUnit) {
     return pixelArray
   }
 
-  return { init, getObj: () => new Obj(state) }
+  return { init, getObj: () => new Obj(state, drawingTools) }
 }

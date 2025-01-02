@@ -590,17 +590,15 @@ export const DrawingTools = function (pixelUnit) {
       this.use = args.use
     }
 
-    prepareSizeAndPos = (function (pixelUnit) {
-      // Prepare Size and Position Data for Basic Objects
-      return function (args, reflectX, reflectY, rotate) {
-        const width = (rotate ? args.sY : args.sX) || args.s
-        const height = (rotate ? args.sX : args.sY) || args.s
+    // Prepare Size and Position Data for Basic Objects
+    prepareSizeAndPos(args, reflectX, reflectY, rotate) {
+      const width = (rotate ? args.sY : args.sX) || args.s
+      const height = (rotate ? args.sX : args.sY) || args.s
 
-        this.width = width ? pixelUnit.getWidth(width) : false
+      this.width = width ? pixelUnit.getWidth(width) : false
 
-        this.height = height ? pixelUnit.getWidth(height) : false
-      }
-    })(pixelUnit)
+      this.height = height ? pixelUnit.getWidth(height) : false
+    }
 
     draw() {
       const color = this.getColorArray()

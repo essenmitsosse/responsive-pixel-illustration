@@ -1,4 +1,3 @@
-import createPixelArray from '@/renderengine/createPixelArray'
 import { DrawingTools } from '@/renderengine/creator'
 
 import type { PixelGraphics, RenderObject } from './PixelGraphics'
@@ -12,9 +11,7 @@ const getDrawer = (pixelStarter: PixelGraphics, renderList: unknown) => {
   const canvasTool = new drawingTool.Obj().create({ list: renderList })
 
   return (countW: number, countH: number): PixelArray => {
-    const pixelArray = createPixelArray(countW, countH)
-
-    drawingTool.init(countW, countH, pixelArray)
+    const pixelArray = drawingTool.init(countW, countH)
 
     canvasTool.draw()
 

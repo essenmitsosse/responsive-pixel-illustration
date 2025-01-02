@@ -11,6 +11,6 @@ export declare module './creator' {
       }
     }
 
-    init: (countW: number, countH: number, pixelArray: PixelArray) => void
+    init: (countW: number, countH: number) => PixelArray
   }
 }

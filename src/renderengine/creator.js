@@ -1,3 +1,5 @@
+import createPixelArray from '@/renderengine/createPixelArray'
+
 const getRandom = (() => {
   const m = 2147483647
   const a = 16807
@@ -2014,15 +2016,19 @@ export const DrawingTools = function (pixelUnit) {
   }
   // ----- End Arm
 
-  const init = function (width, height, pixelArray) {
+  const init = function (width, height) {
     pixelUnit.init({
       width,
       height,
     })
 
+    const pixelArray = createPixelArray(width, height)
+
     pixelSetter.setArray(pixelArray)
 
     seed.reset()
+
+    return pixelArray
   }
 
   return { init, Obj }

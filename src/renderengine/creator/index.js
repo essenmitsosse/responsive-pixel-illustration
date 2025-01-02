@@ -7,6 +7,7 @@ import getSeedHandler from './getSeedHandler'
 import Line from './Line'
 import Polygon from './Polygon'
 import Primitive from './Primitive'
+import Rect from './Rect'
 
 // Initing a new Object, converting its List into real Objects.
 const convertList = function (list, inherit, drawingTools, state) {
@@ -49,27 +50,6 @@ const convertList = function (list, inherit, drawingTools, state) {
   } while ((i += 1) < l)
 
   return newList
-}
-
-class Rect extends Primitive {
-  getName = 'Rectangle'
-
-  isRect = true
-
-  draw() {
-    const dimensions = this.dimensions.calc()
-
-    if (dimensions.checkMin()) {
-      return
-    }
-
-    this.getColorArray()({
-      posX: dimensions.posX,
-      posY: dimensions.posY,
-      width: dimensions.width,
-      height: dimensions.height,
-    })
-  }
 }
 
 class Obj extends Primitive {

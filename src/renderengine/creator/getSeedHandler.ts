@@ -6,33 +6,43 @@ const getRandom = (() => {
 
   let i = 0
 
-  return (seed) => {
+  return (
+    seed?: number,
+  ): {
+    count: (c: number) => number
+    one: () => number
+    seed: () => number
+  } => {
     let thisZ = seed || z
 
     return {
-      one: () => (thisZ = (a * thisZ + c) % m) / m,
-      count: (c) => Math.floor(((thisZ = (a * thisZ + c) % m) / m) * c),
-      seed: () => (thisZ = (a * thisZ + c) % m) + (i += 1),
+      one: (): number => (thisZ = (a * thisZ + c) % m) / m,
+      count: (c: number): number =>
+        Math.floor(((thisZ = (a * thisZ + c) % m) / m) * c),
+      seed: (): number => (thisZ = (a * thisZ + c) % m) + (i += 1),
     }
   }
 })()
 
-const getSeedHandler = () => {
+const getSeedHandler = (): {
+  get: (j?: number) => () => ReturnType<typeof getRandom>
+  reset: () => void
+} => {
   const getSeed = getRandom().seed
 
   let count = 0
 
-  const i = []
+  const i: Array<number> = []
 
   return {
-    reset: () => {
+    reset: (): void => {
       let l = count
 
       while (l--) {
         i[l] = 0
       }
     },
-    get: (j) => {
+    get: (j?: number) => {
       const seed = j || getSeed()
       const nr = (count += 1)
 

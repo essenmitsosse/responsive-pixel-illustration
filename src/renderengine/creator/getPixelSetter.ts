@@ -1,54 +1,93 @@
-const getPixelSetter = () => {
-  let colorArray
+import type { Location, PixelArray } from './createPixelArray'
+import type { ColorRgb } from '@/helper/typeColor'
 
-  const formSave = {}
-  const getSet = (color, zInd, id) => () => colorArray.getSet(color, zInd, id)
-  const getClear = (id) => () => colorArray.getClear(id)
+const getPixelSetter = (): {
+  getMask: (name: string) => Array<Array<boolean>> | false
+  getSave: (name: string) => Array<[number, number]> | false
+  setArray: (newArray: PixelArray) => void
+  setColorArray: (
+    color: ColorRgb,
+    clear: boolean,
+    zInd: number,
+    id: string,
+    isRect: boolean,
+    save: string,
+  ) =>
+    | (() => void)
+    | ((args: Location) => void)
+    | ((x: number, y: number) => void)
+    | void
+  setColorMask: (dimensions: Location, push?: boolean) => Location
+} => {
+  let colorArray: PixelArray
 
-  const getSetForRect = (color, zInd, id) => () =>
-    colorArray.getSetForRect(color, zInd, id)
+  const formSave: Record<
+    string,
+    { mask: Array<Array<boolean>>; save: Array<[number, number]> }
+  > = {}
 
-  const getClearForRect = (id) => () => colorArray.getClearForRect(id)
+  const getSet =
+    (color: ColorRgb, zInd: number, id: string) =>
+    (): ReturnType<PixelArray['getSet']> =>
+      colorArray.getSet(color, zInd, id)
 
-  const getSave = (name, isRect) => () => {
-    const thisSave = formSave[name]
-      ? formSave[name]
-      : (formSave[name] = { save: [], mask: [] })
+  const getClear = (id: string) => (): ReturnType<PixelArray['getClear']> =>
+    colorArray.getClear(id)
 
-    return isRect
-      ? colorArray.getSaveForRect(thisSave.save, thisSave.mask)
-      : (x, y) => {
-          thisSave.save.push([x, y])
+  const getSetForRect =
+    (color: ColorRgb, zInd: number, id: string) =>
+    (): ReturnType<PixelArray['getSetForRect']> =>
+      colorArray.getSetForRect(color, zInd, id)
 
-          if (!thisSave.mask[x]) {
-            thisSave.mask[x] = []
+  const getClearForRect =
+    (id: string) => (): ReturnType<PixelArray['getClearForRect']> =>
+      colorArray.getClearForRect(id)
+
+  const getSave =
+    <TIsRect extends boolean>(name: string, isRect: TIsRect) =>
+    (): ((args: Location) => void) | ((x: number, y: number) => void) => {
+      const thisSave = formSave[name]
+        ? formSave[name]
+        : (formSave[name] = { save: [], mask: [] })
+
+      return isRect
+        ? colorArray.getSaveForRect(thisSave.save, thisSave.mask)
+        : (x: number, y: number): void => {
+            thisSave.save.push([x, y])
+
+            if (!thisSave.mask[x]) {
+              thisSave.mask[x] = []
+            }
+
+            thisSave.mask[x][y] = true
           }
-
-          thisSave.mask[x][y] = true
-        }
-  }
-
-  const getClearSave = (name, isRect) => () => {
-    const thisSave = formSave[name]
-
-    let save
-    let mask
-
-    if (thisSave) {
-      save = thisSave.save
-
-      mask = thisSave.mask
-
-      return isRect ? colorArray.getClearSaveForRect(save, mask) : () => {}
     }
-  }
 
-  const getColorMask = (dimensions, push) =>
+  const getClearSave =
+    (name: string, isRect: boolean) =>
+    (): (() => void) | ((args: Location) => void) | void => {
+      const thisSave = formSave[name]
+
+      let save: Array<[number, number]> | undefined
+      let mask: Array<Array<boolean>> | undefined
+
+      if (thisSave) {
+        save = thisSave.save
+
+        mask = thisSave.mask
+
+        return isRect
+          ? colorArray.getClearSaveForRect(save, mask)
+          : (): void => {}
+      }
+    }
+
+  const getColorMask = (dimensions: Location, push?: boolean): Location =>
     colorArray.setMask(dimensions, push)
 
   return {
-    setArray: (newArray) => {
-      let key
+    setArray: (newArray: PixelArray): void => {
+      let key: string
 
       for (key in formSave) {
         formSave[key] = { save: [], mask: [] }
@@ -57,7 +96,21 @@ const getPixelSetter = () => {
       colorArray = newArray
     },
 
-    setColorArray: (color, clear, zInd, id, isRect, save) =>
+    /**
+     * TODO: That type is a mess and there should be a better way to handle the
+     * return type of this function
+     */
+    setColorArray: (
+      color,
+      clear,
+      zInd,
+      id,
+      isRect,
+      save,
+    ):
+      | (() => (() => void) | ((args: Location) => void) | void)
+      | (() => ((args: Location) => void) | ((x: number, y: number) => void))
+      | undefined =>
       clear
         ? isRect
           ? save

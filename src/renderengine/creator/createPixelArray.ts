@@ -22,7 +22,12 @@ const getPixelArray = (width: number, height: number): ColorArray => {
   return colorArray
 }
 
-type Location = { height: number; posX: number; posY: number; width: number }
+export type Location = {
+  height: number
+  posX: number
+  posY: number
+  width: number
+}
 
 export type PixelArray = {
   get: ColorArray

@@ -339,6 +339,49 @@ const sortFunction = function (a, b) {
   return b.x0 - a.x0
 }
 
+// Initing a new Object, converting its List into real Objects.
+const convertList = function (list, inherit, drawingTools) {
+  // Loops through the List of an Object
+  const l = list ? list.length : 0
+
+  let i = 0
+
+  const newList = []
+
+  let newTool
+
+  do {
+    newTool = list[i]
+
+    if (newTool) {
+      newList.push(
+        new drawingTools[
+          newTool.name ||
+            (newTool.stripes
+              ? 'Stripes'
+              : newTool.list
+                ? 'Obj'
+                : newTool.points
+                  ? newTool.weight
+                    ? 'Line'
+                    : 'Polygon'
+                  : newTool.use
+                    ? newTool.chance
+                      ? 'FillRandom'
+                      : 'Fill'
+                    : newTool.panels
+                      ? 'Panels'
+                      : newTool.targetX
+                        ? 'Arm'
+                        : 'Rect')
+        ]().create(newTool, inherit),
+      )
+    }
+  } while ((i += 1) < l)
+
+  return newList
+}
+
 export const DrawingTools = function (pixelUnit) {
   const seed = getSeedHandler()
   const pixelSetter = getPixelSetter()
@@ -760,64 +803,25 @@ export const DrawingTools = function (pixelUnit) {
     getName = 'Object'
 
     init = (function (drawingTools) {
-      // Initing a new Object, converting its List into real Objects.
-      const convertList = function (list, inherit) {
-        // Loops through the List of an Object
-        const l = list ? list.length : 0
-
-        let i = 0
-
-        const newList = []
-
-        let newTool
-
-        do {
-          newTool = list[i]
-
-          if (newTool) {
-            newList.push(
-              new drawingTools[
-                newTool.name ||
-                  (newTool.stripes
-                    ? 'Stripes'
-                    : newTool.list
-                      ? 'Obj'
-                      : newTool.points
-                        ? newTool.weight
-                          ? 'Line'
-                          : 'Polygon'
-                        : newTool.use
-                          ? newTool.chance
-                            ? 'FillRandom'
-                            : 'Fill'
-                          : newTool.panels
-                            ? 'Panels'
-                            : newTool.targetX
-                              ? 'Arm'
-                              : 'Rect')
-              ]().create(newTool, inherit),
-            )
-          }
-        } while ((i += 1) < l)
-
-        return newList
-      }
-
       return function () {
         const list = this.args.list || this.list
 
         if (this.args.list || this.list) {
-          this.args.list = convertList(list, {
-            // Things to inherit to Children
-            color: this.args.color,
-            clear: this.args.clear,
-            reflectX: this.args.reflectX,
-            reflectY: this.args.reflectY,
-            zInd: this.args.zInd,
-            id: this.args.id,
-            save: this.args.save,
-            rotate: this.args.rotate,
-          })
+          this.args.list = convertList(
+            list,
+            {
+              // Things to inherit to Children
+              color: this.args.color,
+              clear: this.args.clear,
+              reflectX: this.args.reflectX,
+              reflectY: this.args.reflectY,
+              zInd: this.args.zInd,
+              id: this.args.id,
+              save: this.args.save,
+              rotate: this.args.rotate,
+            },
+            drawingTools,
+          )
         }
       }
     })(drawingTools)

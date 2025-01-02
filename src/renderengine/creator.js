@@ -318,21 +318,24 @@ export const DrawingTools = function (pixelUnit) {
     }
   })()
 
-  Primitive.prototype.prepareSizeAndPos = (function (getDimensions) {
-    // Prepare Size and Position Data for Basic Objects
-    return function (args, reflectX, reflectY, rotate) {
-      this.dimensions = getDimensions(
-        args,
-        (this.fromRight = rotate
-          ? (args.fY || false) === reflectY
-          : (args.fX || false) !== reflectX),
-        (this.fromBottom = rotate
-          ? (args.fX || false) !== reflectX
-          : (args.fY || false) !== reflectY),
-        rotate,
-      )
-    }
-  })(pixelUnit.getDimensions)
+  // Prepare Size and Position Data for Basic Objects
+  Primitive.prototype.prepareSizeAndPos = function (
+    args,
+    reflectX,
+    reflectY,
+    rotate,
+  ) {
+    this.dimensions = pixelUnit.getDimensions(
+      args,
+      (this.fromRight = rotate
+        ? (args.fY || false) === reflectY
+        : (args.fX || false) !== reflectX),
+      (this.fromBottom = rotate
+        ? (args.fX || false) !== reflectX
+        : (args.fY || false) !== reflectY),
+      rotate,
+    )
+  }
 
   // ------------------ PointBased ------------------
   PointBased.prototype = new Primitive()

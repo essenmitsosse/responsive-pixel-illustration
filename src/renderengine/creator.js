@@ -805,7 +805,7 @@ export const DrawingTools = function (pixelUnit) {
     init() {
       const list = this.args.list || this.list
 
-      if (this.args.list || this.list) {
+      if (list) {
         this.args.list = convertList(
           list,
           {

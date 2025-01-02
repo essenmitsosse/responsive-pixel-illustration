@@ -1,4 +1,4 @@
-import Color from '@/renderengine/Color'
+import Color from './Color'
 
 import type { ColorRgb } from '@/helper/typeColor'
 

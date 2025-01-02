@@ -1,4 +1,4 @@
-import type { PixelArray } from './createPixelArray'
+import type { PixelArray } from './creator/createPixelArray'
 import type getPixelUnits from './getPixelUnits'
 
 export declare module './creator' {

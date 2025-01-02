@@ -1,4 +1,4 @@
-import createPixelArray from '@/renderengine/createPixelArray'
+import createPixelArray from './createPixelArray'
 
 const getRandom = (() => {
   const m = 2147483647

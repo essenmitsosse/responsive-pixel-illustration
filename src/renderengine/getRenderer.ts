@@ -1,8 +1,8 @@
-import { DrawingTools } from '@/renderengine/creator'
+import { DrawingTools } from './creator'
 
+import type { ColorArray, PixelArray } from './creator/createPixelArray'
 import type { PixelGraphics, RenderObject } from './PixelGraphics'
 import type { ColorRgb } from '@/helper/typeColor'
-import type { ColorArray, PixelArray } from '@/renderengine/createPixelArray'
 
 const getDrawer = (pixelStarter: PixelGraphics, renderList: unknown) => {
   // Initialize the drawingTool

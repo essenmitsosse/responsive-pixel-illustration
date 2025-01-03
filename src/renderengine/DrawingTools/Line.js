@@ -84,6 +84,10 @@ class Line extends Primitive {
           const that = this
 
           return (x, y) => {
+            if (that.getColorArray === undefined) {
+              throw new Error('Unexpected error: getColorArray is undefined')
+            }
+
             let i = first
             let j
 
@@ -96,7 +100,13 @@ class Line extends Primitive {
             }
           }
         }
-      : () => this.getColorArray
+      : () => {
+          if (this.getColorArray === undefined) {
+            throw new Error('Unexpected error: getColorArray is undefined')
+          }
+
+          return this.getColorArray
+        }
   }
 
   prepareSizeAndPos(args, reflectX, reflectY, rotate) {

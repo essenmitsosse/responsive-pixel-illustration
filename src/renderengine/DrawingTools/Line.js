@@ -110,6 +110,10 @@ class Line extends Primitive {
   }
 
   prepareSizeAndPos(args, reflectX, reflectY, rotate) {
+    if (args.points === undefined) {
+      throw new Error('Unexpected error: args.points is undefined')
+    }
+
     const newPoints = []
 
     let l = args.points.length

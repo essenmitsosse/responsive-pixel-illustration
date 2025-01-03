@@ -129,12 +129,12 @@ class Polygon extends Line {
     const getLineEdge = getLineEdgeGetter(edgeList)
 
     let l = this.args.LineCount
-    let nextPoint = this.args.points[l](true)
+    let nextPoint = this.args.points[l]()
 
     const firstPoint = nextPoint
 
     while (l--) {
-      nextPoint = getLineEdge(nextPoint, this.args.points[l](true))
+      nextPoint = getLineEdge(nextPoint, this.args.points[l]())
     }
 
     //  Close the Polygon

@@ -63,6 +63,10 @@ const getDrawLine = (set) => (p0, p1) => {
 class Line extends Primitive {
   init(args) {
     if (args.closed) {
+      if (this.args === undefined) {
+        throw new Error('Unexpected error: args is undefined')
+      }
+
       this.args.closed = true
     }
 

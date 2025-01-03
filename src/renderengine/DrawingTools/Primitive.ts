@@ -16,6 +16,7 @@ type Inherit = {
 }
 
 type Args = Inherit & {
+  closed?: boolean
   getRealPosition?: () => { x: number; y: number }
   list?: Array<unknown>
 }

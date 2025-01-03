@@ -1,7 +1,5 @@
 import Primitive from './Primitive'
 
-import type { State } from '@/renderengine/DrawingTools/State'
-
 // Initing a new Object, converting its List into real Objects.
 const convertList = (list, inherit, recordDrawingTools, state) => {
   // Loops through the List of an Object
@@ -17,28 +15,32 @@ const convertList = (list, inherit, recordDrawingTools, state) => {
     newTool = list[i]
 
     if (newTool) {
-      newList.push(
-        new recordDrawingTools[
-          newTool.name ||
-            (newTool.stripes
-              ? 'Stripes'
-              : newTool.list
-                ? 'Obj'
-                : newTool.points
-                  ? newTool.weight
-                    ? 'Line'
-                    : 'Polygon'
-                  : newTool.use
-                    ? newTool.chance
-                      ? 'FillRandom'
-                      : 'Fill'
-                    : newTool.panels
-                      ? 'Panels'
-                      : newTool.targetX
-                        ? 'Arm'
-                        : 'Rect')
-        ](state, recordDrawingTools).create(newTool, inherit),
-      )
+      const nameDrawingTool =
+        newTool.name ||
+        (newTool.stripes
+          ? 'Stripes'
+          : newTool.list
+            ? 'Obj'
+            : newTool.points
+              ? newTool.weight
+                ? 'Line'
+                : 'Polygon'
+              : newTool.use
+                ? newTool.chance
+                  ? 'FillRandom'
+                  : 'Fill'
+                : newTool.panels
+                  ? 'Panels'
+                  : newTool.targetX
+                    ? 'Arm'
+                    : 'Rect')
+
+      const DrawingTool = recordDrawingTools[nameDrawingTool]
+      const drawingTool = new DrawingTool(state, recordDrawingTools)
+
+      newList.push(drawingTool)
+
+      drawingTool.create(newTool, inherit)
     }
   } while ((i += 1) < l)
 
@@ -46,7 +48,7 @@ const convertList = (list, inherit, recordDrawingTools, state) => {
 }
 
 class Obj extends Primitive {
-  constructor(state: State, recordDrawingTools) {
+  constructor(state, recordDrawingTools) {
     super(state)
 
     this.recordDrawingTools = recordDrawingTools

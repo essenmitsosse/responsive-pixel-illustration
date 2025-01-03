@@ -152,6 +152,10 @@ class Line extends Primitive {
       throw new Error('Unexpected error: lineSetter is undefined')
     }
 
+    if (this.args.LineCount === undefined) {
+      throw new Error('Unexpected error: args.LineCount is undefined')
+    }
+
     // Draw all Lines
     const p = this.args.points
 

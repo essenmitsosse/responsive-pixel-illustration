@@ -15,11 +15,19 @@ type Inherit = {
   zInd?: number
 }
 
+type SizeAndPos = {
+  LineCount?: number
+  getRealPosition?: () => { x: number; y: number }
+  mask?: (dimensions: Location, push?: boolean) => Location
+  points?: Array<() => { x: number; y: number }>
+}
+
 type Args = Inherit & {
   closed?: boolean
-  getRealPosition?: () => { x: number; y: number }
   list?: Array<unknown>
 }
+
+type ArgsNew = Args & SizeAndPos
 
 export type ArgsCreate = Parameters<
   ReturnType<typeof getPixelUnits>['getDimensions']
@@ -32,6 +40,9 @@ export type ArgsCreate = Parameters<
   id?: string
   list?: Array<unknown>
   mask?: unknown
+  points?: ReadonlyArray<
+    Parameters<ReturnType<typeof getPixelUnits>['Position']>[0]
+  >
   rX?: unknown
   rY?: unknown
   rotate?: number
@@ -48,7 +59,7 @@ class Primitive {
   fromBottom?: boolean
   rotate?: boolean
   getColorArray?: (x: number, y: number) => void
-  args?: Args
+  args?: ArgsNew
 
   constructor(state: State) {
     this.state = state
@@ -100,9 +111,7 @@ class Primitive {
       reflectY = !reflectY
     }
 
-    const newArgs: Args & {
-      mask?: (dimensions: Location, push?: boolean) => Location
-    } =
+    const newArgs: ArgsNew =
       this.prepareSizeAndPos(
         args,
         reflectX,
@@ -171,9 +180,7 @@ class Primitive {
     reflectX: boolean,
     reflectY: boolean,
     rotate: boolean,
-  ): {
-    getRealPosition: () => { x: number; y: number }
-  } | void {
+  ): SizeAndPos | void {
     this.dimensions = this.state.pixelUnit.getDimensions(
       args,
       (this.fromRight = rotate

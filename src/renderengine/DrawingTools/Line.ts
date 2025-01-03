@@ -1,67 +1,77 @@
 import Primitive from './Primitive'
 
-const getDrawLine = (set) => (p0, p1) => {
-  // Draw a single Lines
-  let x0
-  let y0
-  let x1
-  let y1
-  let err
-  let e2
+import type { ArgsCreate } from './Primitive'
 
-  if (isNaN(p0.x) || isNaN(p0.y) || isNaN(p1.x) || isNaN(p1.y)) {
-    throw new Error(`Line with NaN found!, ${{ p0, p1 }}`)
-  }
+type LineSetter = (x: number, y: number) => void
 
-  if (p0.x > p1.x) {
-    x1 = p0.x
+const getDrawLine =
+  (set: LineSetter) =>
+  (
+    p0: { x: number; y: number },
+    p1: { x: number; y: number },
+  ): { x: number; y: number } => {
+    // Draw a single Lines
+    let x0
+    let y0
+    let x1
+    let y1
+    let err
+    let e2
 
-    y1 = p0.y
-
-    x0 = p1.x
-
-    y0 = p1.y
-  } else {
-    x0 = p0.x
-
-    y0 = p0.y
-
-    x1 = p1.x
-
-    y1 = p1.y
-  }
-
-  const dx = Math.abs(x1 - x0)
-  const dy = -Math.abs(y1 - y0)
-  const sy = y0 < y1 ? 1 : -1
-
-  err = dx + dy
-
-  while (true) {
-    set(x0, y0)
-
-    if (x0 === x1 && y0 === y1) {
-      return p1
+    if (isNaN(p0.x) || isNaN(p0.y) || isNaN(p1.x) || isNaN(p1.y)) {
+      throw new Error(`Line with NaN found!, ${{ p0, p1 }}`)
     }
 
-    e2 = 2 * err
+    if (p0.x > p1.x) {
+      x1 = p0.x
 
-    if (e2 > dy) {
-      err += dy
+      y1 = p0.y
 
-      x0 += 1
+      x0 = p1.x
+
+      y0 = p1.y
+    } else {
+      x0 = p0.x
+
+      y0 = p0.y
+
+      x1 = p1.x
+
+      y1 = p1.y
     }
 
-    if (e2 < dx) {
-      err += dx
+    const dx = Math.abs(x1 - x0)
+    const dy = -Math.abs(y1 - y0)
+    const sy = y0 < y1 ? 1 : -1
 
-      y0 += sy
+    err = dx + dy
+
+    while (true) {
+      set(x0, y0)
+
+      if (x0 === x1 && y0 === y1) {
+        return p1
+      }
+
+      e2 = 2 * err
+
+      if (e2 > dy) {
+        err += dy
+
+        x0 += 1
+      }
+
+      if (e2 < dx) {
+        err += dx
+
+        y0 += sy
+      }
     }
   }
-}
 
 class Line extends Primitive {
-  init(args) {
+  lineSetter?: () => LineSetter
+  init(args: { closed?: boolean; weight: number }): void {
     if (args.closed) {
       if (this.args === undefined) {
         throw new Error('Unexpected error: args is undefined')
@@ -73,11 +83,11 @@ class Line extends Primitive {
     this.lineSetter = this.getLineSetter(args.weight)
   }
 
-  getLineSetter(weight) {
+  getLineSetter(weight: number): () => LineSetter {
     const w = weight ? this.state.pixelUnit.createSize(weight) : null
 
     return w
-      ? function () {
+      ? function (this: Line) {
           const thisW = w.getReal()
           const first = -Math.round(thisW / 2)
           const second = Math.round(thisW + first)
@@ -100,7 +110,7 @@ class Line extends Primitive {
             }
           }
         }
-      : () => {
+      : (): ((x: number, y: number) => void) => {
           if (this.getColorArray === undefined) {
             throw new Error('Unexpected error: getColorArray is undefined')
           }
@@ -109,7 +119,15 @@ class Line extends Primitive {
         }
   }
 
-  prepareSizeAndPos(args, reflectX, reflectY, rotate) {
+  prepareSizeAndPos(
+    args: ArgsCreate,
+    reflectX: boolean,
+    reflectY: boolean,
+    rotate: boolean,
+  ): {
+    LineCount: number
+    points: Array<() => { x: number; y: number }>
+  } {
     if (args.points === undefined) {
       throw new Error('Unexpected error: args.points is undefined')
     }
@@ -139,7 +157,7 @@ class Line extends Primitive {
     }
   }
 
-  draw() {
+  draw(): void {
     if (this.args === undefined) {
       throw new Error('Unexpected error: args is undefined')
     }

@@ -16,6 +16,10 @@ class Rect extends Primitive {
       return
     }
 
+    if (this.getColorArrayRect === undefined) {
+      throw new Error('Unexpected error: getColorArrayRect is undefined')
+    }
+
     this.getColorArrayRect()({
       posX: dimensions.posX,
       posY: dimensions.posY,

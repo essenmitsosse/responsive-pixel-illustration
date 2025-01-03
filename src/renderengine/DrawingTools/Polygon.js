@@ -1,9 +1,9 @@
 import Line from './Line'
 
-const getLineEdgeGetter = function (edgeList) {
+const getLineEdgeGetter = (edgeList) => {
   let i = -1
 
-  return function (p0, p1) {
+  return (p0, p1) => {
     // Draw a single Lines
     let x0
     let y0
@@ -93,15 +93,13 @@ const getLineEdgeGetter = function (edgeList) {
   }
 }
 
-const getDrawRow = function (set) {
-  return function (p0, p1) {
-    do {
-      set(p0.x0, p1.y)
-    } while ((p0.x0 += 1) <= p1.x1)
-  }
+const getDrawRow = (set) => (p0, p1) => {
+  do {
+    set(p0.x0, p1.y)
+  } while ((p0.x0 += 1) <= p1.x1)
 }
 
-const sortFunction = function (a, b) {
+const sortFunction = (a, b) => {
   const n = b.y - a.y
 
   if (n !== 0) {

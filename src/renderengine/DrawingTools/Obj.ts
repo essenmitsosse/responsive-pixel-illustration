@@ -1,10 +1,24 @@
 import Primitive from './Primitive'
 
+import type { Inherit, Tool } from './Primitive'
+import type recordDrawingToolsForType from './recordDrawingTools'
+import type { State } from '@/renderengine/DrawingTools/State'
+
+type ToolClasses =
+  (typeof recordDrawingToolsForType)[keyof typeof recordDrawingToolsForType]
+
+type ToolInstance = InstanceType<ToolClasses>
+
 // Initing a new Object, converting its List into real Objects.
-const convertList = (list, inherit, recordDrawingTools, state) =>
+const convertList = (
+  list: ReadonlyArray<Tool | false>,
+  inherit: Inherit,
+  recordDrawingTools: typeof recordDrawingToolsForType,
+  state: State,
+): ReadonlyArray<ToolInstance> =>
   list
     .filter((newTool) => newTool !== undefined && newTool !== false)
-    .map((newTool) => {
+    .map((newTool): ToolInstance => {
       const nameDrawingTool =
         newTool.name ||
         (newTool.stripes
@@ -35,13 +49,18 @@ const convertList = (list, inherit, recordDrawingTools, state) =>
     .toReversed()
 
 class Obj extends Primitive {
-  constructor(state, recordDrawingTools) {
+  recordDrawingTools: typeof recordDrawingToolsForType
+  listTool?: ReadonlyArray<ToolInstance>
+  constructor(
+    state: State,
+    recordDrawingTools: typeof recordDrawingToolsForType,
+  ) {
     super(state)
 
     this.recordDrawingTools = recordDrawingTools
   }
 
-  init() {
+  init(): void {
     if (this.args === undefined) {
       throw new Error('Unexpected error: args is undefined')
     }
@@ -72,7 +91,7 @@ class Obj extends Primitive {
   // ------ End Object Init
 
   // Draws Object, consisting of other Objects and Primitives.
-  draw() {
+  draw(): void {
     if (this.dimensions === undefined) {
       throw new Error('Unexpected error: dimensions is undefined')
     }

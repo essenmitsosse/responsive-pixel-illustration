@@ -1,10 +1,11 @@
 import type { Location } from './createPixelArray'
 import type { State } from './State'
 import type { ColorRgb } from '@/helper/typeColor'
+import type recordDrawingTools from '@/renderengine/DrawingTools/recordDrawingTools'
 import type getPixelUnits from '@/renderengine/getPixelUnits'
 import type { Dimensions } from '@/renderengine/getPixelUnits/Position'
 
-type Inherit = {
+export type Inherit = {
   clear?: boolean
   color?: ColorRgb
   id?: string
@@ -24,22 +25,25 @@ type SizeAndPos = {
 
 type Args = Inherit & {
   closed?: boolean
-  list?: Array<unknown>
+  list?: ReadonlyArray<Tool | false>
 }
 
 type ArgsNew = Args & SizeAndPos
 
-export type ArgsCreate = Parameters<
+export type Tool = Parameters<
   ReturnType<typeof getPixelUnits>['getDimensions']
 >[0] & {
   center: boolean
+  chance?: unknown
   clear?: boolean
   color?: ColorRgb
   fX?: boolean
   fY?: boolean
   id?: string
-  list?: Array<unknown>
+  list?: ReadonlyArray<Tool | false>
   mask?: unknown
+  name?: keyof typeof recordDrawingTools
+  panels?: unknown
   points?: ReadonlyArray<
     Parameters<ReturnType<typeof getPixelUnits>['Position']>[0]
   >
@@ -47,8 +51,12 @@ export type ArgsCreate = Parameters<
   rY?: unknown
   rotate?: number
   save?: string
+  stripes?: unknown
+  targetX?: unknown
   toLeft?: boolean
   toTop?: boolean
+  use?: unknown
+  weight?: number
   z?: number
 }
 
@@ -80,7 +88,7 @@ class Primitive {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- this should already declare the expected type, even if it is not implemented
   detailInit(_args: Args, _inherit: Inherit): void {}
 
-  create(args: ArgsCreate, inherit: Inherit): this {
+  create(args: Tool, inherit: Inherit): this {
     inherit = inherit || {}
 
     let reflectX: boolean = inherit.reflectX || false
@@ -178,7 +186,7 @@ class Primitive {
 
   // Prepare Size and Position Data for Basic Objects
   prepareSizeAndPos(
-    args: ArgsCreate,
+    args: Tool,
     reflectX: boolean,
     reflectY: boolean,
     rotate: boolean,

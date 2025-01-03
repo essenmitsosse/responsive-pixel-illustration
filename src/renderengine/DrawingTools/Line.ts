@@ -1,6 +1,6 @@
 import Primitive from './Primitive'
 
-import type { ArgsCreate } from './Primitive'
+import type { Tool } from './Primitive'
 
 type LineSetter = (x: number, y: number) => void
 
@@ -120,7 +120,7 @@ class Line extends Primitive {
   }
 
   prepareSizeAndPos(
-    args: ArgsCreate,
+    args: Tool,
     reflectX: boolean,
     reflectY: boolean,
     rotate: boolean,

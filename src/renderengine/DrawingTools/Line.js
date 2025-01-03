@@ -10,7 +10,7 @@ const getDrawLine = (set) => (p0, p1) => {
   let e2
 
   if (isNaN(p0.x) || isNaN(p0.y) || isNaN(p1.x) || isNaN(p1.y)) {
-    throw new Error('Line with NaN found!', p0.x, p0.y, p1.x, p1.y)
+    throw new Error(`Line with NaN found!, ${{ p0, p1 }}`)
   }
 
   if (p0.x > p1.x) {

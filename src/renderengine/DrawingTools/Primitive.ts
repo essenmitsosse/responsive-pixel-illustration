@@ -20,6 +20,26 @@ type Args = Inherit & {
   list?: Array<unknown>
 }
 
+export type ArgsCreate = Parameters<
+  ReturnType<typeof getPixelUnits>['getDimensions']
+>[0] & {
+  center: boolean
+  clear?: boolean
+  color?: ColorRgb
+  fX?: boolean
+  fY?: boolean
+  id?: string
+  list?: Array<unknown>
+  mask?: unknown
+  rX?: unknown
+  rY?: unknown
+  rotate?: number
+  save?: string
+  toLeft?: boolean
+  toTop?: boolean
+  z?: number
+}
+
 class Primitive {
   state: State
   dimensions?: Dimensions
@@ -46,23 +66,7 @@ class Primitive {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- this should already declare the expected type, even if it is not implemented
   detailInit(_args: Args, _inherit: Inherit): void {}
 
-  create(
-    args: Parameters<ReturnType<typeof getPixelUnits>['getDimensions']>[0] & {
-      clear?: boolean
-      color?: ColorRgb
-      fX?: boolean
-      fY?: boolean
-      id?: string
-      list?: Array<unknown>
-      mask?: unknown
-      rX?: unknown
-      rY?: unknown
-      rotate?: number
-      save?: string
-      z?: number
-    },
-    inherit: Inherit,
-  ): this {
+  create(args: ArgsCreate, inherit: Inherit): this {
     inherit = inherit || {}
 
     let reflectX: boolean = inherit.reflectX || false
@@ -162,10 +166,7 @@ class Primitive {
 
   // Prepare Size and Position Data for Basic Objects
   prepareSizeAndPos(
-    args: Parameters<ReturnType<typeof getPixelUnits>['getDimensions']>[0] & {
-      fX?: boolean
-      fY?: boolean
-    },
+    args: ArgsCreate,
     reflectX: boolean,
     reflectY: boolean,
     rotate: boolean,

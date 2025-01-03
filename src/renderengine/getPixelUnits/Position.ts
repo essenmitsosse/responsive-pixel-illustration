@@ -11,7 +11,7 @@ type ArgsAxis = {
   min?: InputDynamicVariable
   pos: InputDynamicVariable
   size?: InputDynamicVariable
-  toOtherSide: boolean
+  toOtherSide?: boolean
 }
 
 class Axis {
@@ -21,7 +21,7 @@ class Axis {
   realSize?: number
   realPos?: number
   realMargin?: number
-  toOtherSide: boolean
+  toOtherSide: boolean | undefined
   fromOtherSide: boolean
   center: boolean
   margin: Dimension | false

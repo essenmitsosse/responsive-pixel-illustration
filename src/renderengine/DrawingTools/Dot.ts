@@ -1,7 +1,9 @@
 import Primitive from './Primitive'
 
+import type { ArgsCreate } from './Primitive'
+
 class Dot extends Primitive {
-  draw() {
+  draw(): void {
     if (this.args === undefined) {
       throw new Error('Unexpected error: args is undefined')
     }
@@ -19,7 +21,14 @@ class Dot extends Primitive {
     this.getColorArray(pos.x, pos.y)
   }
 
-  prepareSizeAndPos(args, reflectX, reflectY, rotate) {
+  prepareSizeAndPos(
+    args: ArgsCreate,
+    reflectX: Parameters<typeof this.state.pixelUnit.Position>[1],
+    reflectY: Parameters<typeof this.state.pixelUnit.Position>[2],
+    rotate: Parameters<typeof this.state.pixelUnit.Position>[3],
+  ): {
+    getRealPosition: () => { x: number; y: number }
+  } {
     return {
       getRealPosition: this.state.pixelUnit.Position(
         args,

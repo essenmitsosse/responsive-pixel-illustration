@@ -1,7 +1,7 @@
 import Primitive from './Primitive'
 
 // Initing a new Object, converting its List into real Objects.
-const convertList = function (list, inherit, drawingTools, state) {
+const convertList = (list, inherit, drawingTools, state) => {
   // Loops through the List of an Object
   const l = list ? list.length : 0
 

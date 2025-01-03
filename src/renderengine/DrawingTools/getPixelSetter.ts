@@ -49,7 +49,7 @@ const getPixelSetter = (): {
     () =>
       colorArray.getSetForRect(color, zInd, id)
 
-  const getClearForRect =
+  const getClearRect =
     (id?: string): (() => (args: Location) => void) =>
     () =>
       colorArray.getClearForRect(id)
@@ -138,7 +138,7 @@ const getPixelSetter = (): {
         ? isRect
           ? save
             ? getClearSave(save, isRect)
-            : getClearForRect(id)
+            : getClearRect(id)
           : save
             ? getClearSave(save, isRect)
             : getClear(id)

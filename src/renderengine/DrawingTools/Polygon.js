@@ -115,6 +115,10 @@ class Polygon extends Line {
       throw new Error('Unexpected error: args is undefined')
     }
 
+    if (this.args.points === undefined) {
+      throw new Error('Unexpected error: args.points is undefined')
+    }
+
     // Draw all Lines
     const edgeList = []
     const drawRow = getDrawRow(this.getColorArray)

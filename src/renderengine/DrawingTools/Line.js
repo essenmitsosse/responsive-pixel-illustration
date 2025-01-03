@@ -83,7 +83,7 @@ class Line extends Primitive {
           const second = Math.round(thisW + first)
           const that = this
 
-          return function (x, y) {
+          return (x, y) => {
             let i = first
             let j
 
@@ -96,9 +96,7 @@ class Line extends Primitive {
             }
           }
         }
-      : function () {
-          return this.getColorArray
-        }
+      : () => this.getColorArray
   }
 
   prepareSizeAndPos(args, reflectX, reflectY, rotate) {

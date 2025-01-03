@@ -115,15 +115,14 @@ class Polygon extends Line {
     const edgeList = []
     const drawRow = getDrawRow(this.getColorArray)
     const getLineEdge = getLineEdgeGetter(edgeList)
-    const p = this.args.points
 
     let l = this.args.LineCount
-    let nextPoint = p[l](true)
+    let nextPoint = this.args.points[l](true)
 
     const firstPoint = nextPoint
 
     while (l--) {
-      nextPoint = getLineEdge(nextPoint, p[l](true))
+      nextPoint = getLineEdge(nextPoint, this.args.points[l](true))
     }
 
     //  Close the Polygon

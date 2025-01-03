@@ -26,8 +26,7 @@ class Primitive {
   fromRight?: boolean
   fromBottom?: boolean
   rotate?: boolean
-  isRect?: boolean
-  getColorArray?: unknown
+  getColorArray?: () => (x: number, y: number) => void
   args?: Args
 
   constructor(state: State) {
@@ -135,21 +134,7 @@ class Primitive {
     if (args.list) {
       newArgs.list = args.list
     } else {
-      this.getColorArray = this.isRect
-        ? this.state.pixelSetter.setColorArrayRect(
-            newArgs.color,
-            newArgs.clear,
-            newArgs.zInd,
-            newArgs.id,
-            newArgs.save,
-          )
-        : this.state.pixelSetter.setColorArray(
-            newArgs.color,
-            newArgs.clear,
-            newArgs.zInd,
-            newArgs.id,
-            newArgs.save,
-          )
+      this.setColorArray(newArgs)
     }
 
     this.args = newArgs
@@ -163,6 +148,22 @@ class Primitive {
     }
 
     return this
+  }
+
+  setColorArray(args: {
+    clear?: boolean
+    color?: ColorRgb
+    id?: string
+    save?: string
+    zInd?: number
+  }): void {
+    this.getColorArray = this.state.pixelSetter.setColorArray(
+      args.color,
+      args.clear,
+      args.zInd,
+      args.id,
+      args.save,
+    )
   }
 
   // Prepare Size and Position Data for Basic Objects

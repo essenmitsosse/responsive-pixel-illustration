@@ -8,17 +8,17 @@ const getPixelSetter = (): {
   setColorArray: (
     color: ColorRgb | undefined,
     clear: boolean | undefined,
-    zInd: number,
+    zInd: number | undefined,
     id: string | undefined,
     save: string | undefined,
-  ) => ((x: number, y: number) => void) | undefined
+  ) => (() => (x: number, y: number) => void) | undefined
   setColorArrayRect: (
     color: ColorRgb | undefined,
     clear: boolean | undefined,
     zInd: number,
     id: string | undefined,
     save: string | undefined,
-  ) => ((args: Location) => void) | undefined
+  ) => (() => (args: Location) => void) | undefined
   setColorMask: (dimensions: Location, push?: boolean) => Location
 } => {
   let colorArray: PixelArray
@@ -131,7 +131,7 @@ const getPixelSetter = (): {
           ? getClearSave()
           : getClear(id)
         : color
-          ? getSet(color, zInd, id)
+          ? getSet(color, zInd ?? 0, id)
           : save
             ? getSaver(save)
             : undefined,

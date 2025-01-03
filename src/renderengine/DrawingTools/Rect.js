@@ -1,7 +1,15 @@
 import Primitive from './Primitive'
 
 class Rect extends Primitive {
-  isRect = true
+  setColorArray(args) {
+    this.getColorArrayRect = this.state.pixelSetter.setColorArrayRect(
+      args.color,
+      args.clear,
+      args.zInd,
+      args.id,
+      args.save,
+    )
+  }
 
   draw() {
     const dimensions = this.dimensions.calc()
@@ -10,7 +18,7 @@ class Rect extends Primitive {
       return
     }
 
-    this.getColorArray()({
+    this.getColorArrayRect()({
       posX: dimensions.posX,
       posY: dimensions.posY,
       width: dimensions.width,

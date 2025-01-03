@@ -1,9 +1,17 @@
 import Obj from './Obj'
 
 class Stripes extends Obj {
-  isRect = true
-
   isStripe = true
+
+  setColorArray(args) {
+    this.getColorArrayStripe = this.state.pixelSetter.setColorArrayRect(
+      args.color,
+      args.clear,
+      args.zInd,
+      args.id,
+      args.save,
+    )
+  }
 
   detailInit(args) {
     let random
@@ -202,8 +210,8 @@ class Stripes extends Obj {
     const draw = this.getDraw(
       this.args.list
         ? this.state.pixelUnit.push
-        : this.getColorArray
-          ? this.getColorArray()
+        : this.getColorArrayStripe
+          ? this.getColorArrayStripe()
           : false,
       /** From Other Side? */
       this.horizontal ? this.fromRight : this.fromBottom,

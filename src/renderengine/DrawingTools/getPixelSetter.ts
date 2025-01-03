@@ -10,13 +10,15 @@ const getPixelSetter = (): {
     clear: boolean | undefined,
     zInd: number,
     id: string | undefined,
-    isRect: boolean | undefined,
     save: string | undefined,
-  ) =>
-    | (() => void)
-    | ((args: Location) => void)
-    | ((x: number, y: number) => void)
-    | void
+  ) => ((x: number, y: number) => void) | undefined
+  setColorArrayRect: (
+    color: ColorRgb | undefined,
+    clear: boolean | undefined,
+    zInd: number,
+    id: string | undefined,
+    save: string | undefined,
+  ) => ((args: Location) => void) | undefined
   setColorMask: (dimensions: Location, push?: boolean) => Location
 } => {
   let colorArray: PixelArray
@@ -117,39 +119,38 @@ const getPixelSetter = (): {
       colorArray = newArray
     },
 
-    /**
-     * TODO: That type is a mess and there should be a better way to handle the
-     * return type of this function
-     */
     setColorArray: (
       color,
       clear,
       zInd,
       id,
-      isRect,
       save,
-    ):
-      | (() =>
-          | (() => void)
-          | ((args: Location) => void)
-          | ((x: number, y: number) => void))
-      | undefined =>
+    ): (() => (x: number, y: number) => void) | undefined =>
       clear
-        ? isRect
-          ? save
-            ? getClearSaveRect(save)
-            : getClearRect(id)
-          : save
-            ? getClearSave()
-            : getClear(id)
+        ? save
+          ? getClearSave()
+          : getClear(id)
         : color
-          ? isRect
-            ? getSetRect(color, zInd, id)
-            : getSet(color, zInd, id)
+          ? getSet(color, zInd, id)
           : save
-            ? isRect
-              ? getSaverForRect(save)
-              : getSaver(save)
+            ? getSaver(save)
+            : undefined,
+
+    setColorArrayRect: (
+      color,
+      clear,
+      zInd,
+      id,
+      save,
+    ): (() => (args: Location) => void) | undefined =>
+      clear
+        ? save
+          ? getClearSaveRect(save)
+          : getClearRect(id)
+        : color
+          ? getSetRect(color, zInd, id)
+          : save
+            ? getSaverForRect(save)
             : undefined,
 
     setColorMask: getColorMask,

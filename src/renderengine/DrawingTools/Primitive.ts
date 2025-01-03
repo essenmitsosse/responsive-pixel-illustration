@@ -135,14 +135,21 @@ class Primitive {
     if (args.list) {
       newArgs.list = args.list
     } else {
-      this.getColorArray = this.state.pixelSetter.setColorArray(
-        newArgs.color,
-        newArgs.clear,
-        newArgs.zInd,
-        newArgs.id,
-        this.isRect,
-        newArgs.save,
-      )
+      this.getColorArray = this.isRect
+        ? this.state.pixelSetter.setColorArrayRect(
+            newArgs.color,
+            newArgs.clear,
+            newArgs.zInd,
+            newArgs.id,
+            newArgs.save,
+          )
+        : this.state.pixelSetter.setColorArray(
+            newArgs.color,
+            newArgs.clear,
+            newArgs.zInd,
+            newArgs.id,
+            newArgs.save,
+          )
     }
 
     this.args = newArgs

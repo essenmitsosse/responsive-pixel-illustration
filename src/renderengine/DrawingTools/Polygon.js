@@ -94,6 +94,10 @@ const getLineEdgeGetter = (edgeList) => {
 }
 
 const getDrawRow = (set) => (p0, p1) => {
+  if (p1.x1 === undefined) {
+    throw new Error('Unexpected error: edgeList[l].x1 is undefined')
+  }
+
   do {
     set(p0.x0, p1.y)
   } while ((p0.x0 += 1) <= p1.x1)

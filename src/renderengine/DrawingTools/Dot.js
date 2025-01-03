@@ -10,6 +10,10 @@ class Dot extends Primitive {
       throw new Error('Unexpected error: getRealPosition is undefined')
     }
 
+    if (this.getColorArray === undefined) {
+      throw new Error('Unexpected error: getColorArray is undefined')
+    }
+
     const pos = this.args.getRealPosition()
 
     this.getColorArray(pos.x, pos.y)

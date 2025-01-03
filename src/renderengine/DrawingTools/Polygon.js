@@ -111,6 +111,10 @@ const sortFunction = (a, b) => {
 
 class Polygon extends Line {
   draw() {
+    if (this.args === undefined) {
+      throw new Error('Unexpected error: args is undefined')
+    }
+
     // Draw all Lines
     const edgeList = []
     const drawRow = getDrawRow(this.getColorArray)

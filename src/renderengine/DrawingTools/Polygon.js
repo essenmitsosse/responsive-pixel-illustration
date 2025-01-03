@@ -123,6 +123,10 @@ class Polygon extends Line {
       throw new Error('Unexpected error: args.LineCount is undefined')
     }
 
+    if (this.getColorArray === undefined) {
+      throw new Error('Unexpected error: getColorArray is undefined')
+    }
+
     // Draw all Lines
     const edgeList = []
     const drawRow = getDrawRow(this.getColorArray)

@@ -4,13 +4,7 @@ class Stripes extends Obj {
   isStripe = true
 
   setColorArray(args) {
-    this.getColorArrayStripe = this.state.pixelSetter.setColorArrayRect(
-      args.color,
-      args.clear,
-      args.zInd,
-      args.id,
-      args.save,
-    )
+    this.getColorArrayStripe = this.state.pixelSetter.setColorArrayRect(args)
   }
 
   detailInit(args) {

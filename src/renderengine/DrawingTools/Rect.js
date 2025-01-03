@@ -2,13 +2,7 @@ import Primitive from './Primitive'
 
 class Rect extends Primitive {
   setColorArray(args) {
-    this.getColorArrayRect = this.state.pixelSetter.setColorArrayRect(
-      args.color,
-      args.clear,
-      args.zInd,
-      args.id,
-      args.save,
-    )
+    this.getColorArrayRect = this.state.pixelSetter.setColorArrayRect(args)
   }
 
   draw() {

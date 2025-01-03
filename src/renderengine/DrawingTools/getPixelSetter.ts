@@ -5,20 +5,20 @@ const getPixelSetter = (): {
   getMask: (name: string) => Array<Array<boolean>> | false
   getSave: (name: string) => Array<[number, number]> | false
   setArray: (newArray: PixelArray) => void
-  setColorArray: (
-    color: ColorRgb | undefined,
-    clear: boolean | undefined,
-    zInd: number | undefined,
-    id: string | undefined,
-    save: string | undefined,
-  ) => (() => (x: number, y: number) => void) | undefined
-  setColorArrayRect: (
-    color: ColorRgb | undefined,
-    clear: boolean | undefined,
-    zInd: number,
-    id: string | undefined,
-    save: string | undefined,
-  ) => (() => (args: Location) => void) | undefined
+  setColorArray: (arg: {
+    clear?: boolean
+    color?: ColorRgb
+    id?: string
+    save?: string
+    zInd?: number
+  }) => (() => (x: number, y: number) => void) | undefined
+  setColorArrayRect: (args: {
+    clear?: boolean
+    color?: ColorRgb
+    id?: string
+    save?: string
+    zInd?: number
+  }) => (() => (args: Location) => void) | undefined
   setColorMask: (dimensions: Location, push?: boolean) => Location
 } => {
   let colorArray: PixelArray
@@ -120,37 +120,27 @@ const getPixelSetter = (): {
     },
 
     setColorArray: (
-      color,
-      clear,
-      zInd,
-      id,
-      save,
+      args,
     ): (() => (x: number, y: number) => void) | undefined =>
-      clear
-        ? save
+      args.clear
+        ? args.save
           ? getClearSave()
-          : getClear(id)
-        : color
-          ? getSet(color, zInd ?? 0, id)
-          : save
-            ? getSaver(save)
+          : getClear(args.id)
+        : args.color
+          ? getSet(args.color, args.zInd ?? 0, args.id)
+          : args.save
+            ? getSaver(args.save)
             : undefined,
 
-    setColorArrayRect: (
-      color,
-      clear,
-      zInd,
-      id,
-      save,
-    ): (() => (args: Location) => void) | undefined =>
-      clear
-        ? save
-          ? getClearSaveRect(save)
-          : getClearRect(id)
-        : color
-          ? getSetRect(color, zInd, id)
-          : save
-            ? getSaverForRect(save)
+    setColorArrayRect: (args): (() => (args: Location) => void) | undefined =>
+      args.clear
+        ? args.save
+          ? getClearSaveRect(args.save)
+          : getClearRect(args.id)
+        : args.color
+          ? getSetRect(args.color, args.zInd ?? 0, args.id)
+          : args.save
+            ? getSaverForRect(args.save)
             : undefined,
 
     setColorMask: getColorMask,

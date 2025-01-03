@@ -157,13 +157,7 @@ class Primitive {
     save?: string
     zInd?: number
   }): void {
-    this.getColorArray = this.state.pixelSetter.setColorArray(
-      args.color,
-      args.clear,
-      args.zInd,
-      args.id,
-      args.save,
-    )
+    this.getColorArray = this.state.pixelSetter.setColorArray(args)
   }
 
   // Prepare Size and Position Data for Basic Objects

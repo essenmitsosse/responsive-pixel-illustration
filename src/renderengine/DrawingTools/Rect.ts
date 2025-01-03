@@ -1,11 +1,16 @@
 import Primitive from './Primitive'
 
+import type { Location } from './createPixelArray'
+
 class Rect extends Primitive {
-  setColorArray(args) {
+  getColorArrayRect?: (() => (args: Location) => void) | undefined
+  setColorArray(
+    args: Parameters<typeof this.state.pixelSetter.setColorArrayRect>[0],
+  ): void {
     this.getColorArrayRect = this.state.pixelSetter.setColorArrayRect(args)
   }
 
-  draw() {
+  draw(): void {
     if (this.dimensions === undefined) {
       throw new Error('Unexpected error: dimensions is undefined')
     }

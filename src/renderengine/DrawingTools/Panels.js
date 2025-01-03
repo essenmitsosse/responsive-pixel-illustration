@@ -25,7 +25,7 @@ class Panels extends Obj {
       }
 
       newPanels.push({
-        drawer: new Obj(this.state, this.drawingTools).create(
+        drawer: new Obj(this.state, this.recordDrawingTools).create(
           { list: current.list },
           inherit,
         ),

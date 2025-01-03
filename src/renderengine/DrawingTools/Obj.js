@@ -1,7 +1,9 @@
 import Primitive from './Primitive'
 
+import type { State } from '@/renderengine/DrawingTools/State'
+
 // Initing a new Object, converting its List into real Objects.
-const convertList = (list, inherit, drawingTools, state) => {
+const convertList = (list, inherit, recordDrawingTools, state) => {
   // Loops through the List of an Object
   const l = list ? list.length : 0
 
@@ -16,7 +18,7 @@ const convertList = (list, inherit, drawingTools, state) => {
 
     if (newTool) {
       newList.push(
-        new drawingTools[
+        new recordDrawingTools[
           newTool.name ||
             (newTool.stripes
               ? 'Stripes'
@@ -35,7 +37,7 @@ const convertList = (list, inherit, drawingTools, state) => {
                       : newTool.targetX
                         ? 'Arm'
                         : 'Rect')
-        ](state, drawingTools).create(newTool, inherit),
+        ](state, recordDrawingTools).create(newTool, inherit),
       )
     }
   } while ((i += 1) < l)
@@ -44,10 +46,10 @@ const convertList = (list, inherit, drawingTools, state) => {
 }
 
 class Obj extends Primitive {
-  constructor(state, drawingTools) {
+  constructor(state: State, recordDrawingTools) {
     super(state)
 
-    this.drawingTools = drawingTools
+    this.recordDrawingTools = recordDrawingTools
   }
 
   init() {
@@ -67,7 +69,7 @@ class Obj extends Primitive {
           save: this.args.save,
           rotate: this.args.rotate,
         },
-        this.drawingTools,
+        this.recordDrawingTools,
         this.state,
       )
     }

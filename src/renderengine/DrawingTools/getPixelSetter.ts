@@ -31,22 +31,22 @@ const getPixelSetter = (): {
   const getSet =
     (color: ColorRgb, zInd: number, id?: string) =>
     (x: number, y: number): void =>
-      colorArray.getSet(color, zInd, id)(x, y)
+      colorArray.getSet({ color, zInd, id, x, y })
 
   const getClear =
     (id?: string) =>
     (x: number, y: number): void =>
-      colorArray.getClear(id)(x, y)
+      colorArray.getClear({ id, x, y })
 
   const getSetRect =
     (color: ColorRgb, zInd: number, id?: string) =>
     (args: Location): void =>
-      colorArray.getSetForRect(color, zInd, id)(args)
+      colorArray.getSetForRect(color, zInd, id, args)
 
   const getClearRect =
     (id?: string) =>
     (args: Location): void =>
-      colorArray.getClearForRect(id)(args)
+      colorArray.getClearForRect(id, args)
 
   const getSaver =
     (name: string): ((x: number, y: number) => void) =>
@@ -71,7 +71,7 @@ const getPixelSetter = (): {
         ? formSave[name]
         : (formSave[name] = { save: [], mask: [] })
 
-      return colorArray.getSaveForRect(thisSave.save, thisSave.mask)(args)
+      return colorArray.getSaveForRect(thisSave.save, thisSave.mask, args)
     }
 
   const getClearSave = (): (() => void) => (): void => {}
@@ -79,18 +79,10 @@ const getPixelSetter = (): {
   const getClearSaveRect = (name: string): ((args: Location) => void) => {
     const thisSave = formSave[name]
 
-    let save: Array<[number, number]> | undefined
-    let mask: Array<Array<boolean>> | undefined
-
-    if (thisSave) {
-      save = thisSave.save
-
-      mask = thisSave.mask
-
-      return colorArray.getClearSaveForRect(save, mask)
-    }
-
-    return (): void => {}
+    return thisSave
+      ? (args): void =>
+          colorArray.getClearSaveForRect(thisSave.save, thisSave.mask, args)
+      : (): void => {}
   }
 
   const getColorMask = (dimensions: Location, push?: boolean): Location =>

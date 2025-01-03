@@ -31,26 +31,31 @@ export type Location = {
 
 export type PixelArray = {
   get: ColorArray
-  getClear: (id?: string) => (x: number, y: number) => void
-  getClearForRect: (id?: string) => (args: Location) => void
+  getClear: (args: { id?: string; x: number; y: number }) => void
+  getClearForRect: (id: string | undefined, args: Location) => void
   getClearSaveForRect: (
     save: Array<[number, number]>,
     mask: Array<Array<boolean>>,
-  ) => (args: Location) => void
+    args: Location,
+  ) => void
   getSaveForRect: (
     save: Array<[number, number]>,
     mask: Array<Array<boolean>>,
-  ) => (args: Location) => void
-  getSet: (
-    color: ColorRgb,
-    zInd: number,
-    id?: string,
-  ) => (x: number, y: number) => void
+    args: Location,
+  ) => void
+  getSet: (args: {
+    color: ColorRgb
+    id?: string
+    x: number
+    y: number
+    zInd: number
+  }) => void
   getSetForRect: (
     color: ColorRgb,
     zInd: number,
-    id?: string,
-  ) => (args: Location) => void
+    id: string | undefined,
+    args: Location,
+  ) => void
   setMask: (dimensions: Location, push?: boolean) => Location
 }
 
@@ -118,76 +123,67 @@ const createPixelArray = (
       return old
     },
 
-    getSet: (color, zInd, id) => (x, y) => {
-      if (x >= minX && x < maxX && y >= minY && y < maxY) {
-        pixelArray[x][y].draw(color, zInd, id)
+    getSet: (args): void => {
+      if (args.x >= minX && args.x < maxX && args.y >= minY && args.y < maxY) {
+        pixelArray[args.x][args.y].draw(args.color, args.zInd, args.id)
       }
     },
 
-    getClear: (id) => (x, y) => {
-      if (x >= minX && x < maxX && y >= minY && y < maxY) {
-        pixelArray[x][y].clear(id)
+    getClear: (args): void => {
+      if (args.x >= minX && args.x < maxX && args.y >= minY && args.y < maxY) {
+        pixelArray[args.x][args.y].clear(args.id)
       }
     },
 
-    getSetForRect: (color, zInd, id) => {
-      // Set Color for Rectangle for better Performance
-      const pA = pixelArray
+    getSetForRect: (color, zInd, id, args): void => {
+      const endX = args.width + args.posX
+      const endY = args.height + args.posY
 
-      return (args) => {
-        const endX = args.width + args.posX
-        const endY = args.height + args.posY
+      let sizeX = endX > maxX ? maxX : endX
+      let sizeY
 
-        let sizeX = endX > maxX ? maxX : endX
-        let sizeY
+      const sizeY_start = endY > maxY ? maxY : endY
+      const startX = args.posX < minX ? minX : args.posX
+      const startY = args.posY < minY ? minY : args.posY
 
-        const sizeY_start = endY > maxY ? maxY : endY
-        const startX = args.posX < minX ? minX : args.posX
-        const startY = args.posY < minY ? minY : args.posY
+      let row
 
-        let row
+      while ((sizeX -= 1) >= startX) {
+        sizeY = sizeY_start
 
-        while ((sizeX -= 1) >= startX) {
-          sizeY = sizeY_start
+        row = pixelArray[sizeX]
 
-          row = pA[sizeX]
-
-          while ((sizeY -= 1) >= startY) {
-            row[sizeY].draw(color, zInd, id)
-          }
+        while ((sizeY -= 1) >= startY) {
+          row[sizeY].draw(color, zInd, id)
         }
       }
     },
 
-    getClearForRect: (id) => {
-      const pA = pixelArray
+    getClearForRect: (id, args): void => {
+      const endX = args.width + args.posX
+      const endY = args.height + args.posY
 
-      return (args) => {
-        const endX = args.width + args.posX
-        const endY = args.height + args.posY
+      let sizeX = endX > maxX ? maxX : endX
+      let sizeY
 
-        let sizeX = endX > maxX ? maxX : endX
-        let sizeY
+      const initSizeY = endY > maxY ? maxY : endY
+      const startX = args.posX < minX ? minX : args.posX
+      const startY = args.posY < minY ? minY : args.posY
 
-        const initSizeY = endY > maxY ? maxY : endY
-        const startX = args.posX < minX ? minX : args.posX
-        const startY = args.posY < minY ? minY : args.posY
+      let row
 
-        let row
+      while ((sizeX -= 1) >= startX) {
+        sizeY = initSizeY
 
-        while ((sizeX -= 1) >= startX) {
-          sizeY = initSizeY
+        row = pixelArray[sizeX]
 
-          row = pA[sizeX]
-
-          while ((sizeY -= 1) >= startY) {
-            row[sizeY].clear(id)
-          }
+        while ((sizeY -= 1) >= startY) {
+          row[sizeY].clear(id)
         }
       }
     },
 
-    getSaveForRect: (save, mask) => (args) => {
+    getSaveForRect: (save, mask, args): void => {
       const endX = args.width + args.posX
       const endY = args.height + args.posY
 
@@ -215,7 +211,7 @@ const createPixelArray = (
     },
 
     /** Return prepared Color-Array, with default Color; */
-    getClearSaveForRect: (_, mask) => (args) => {
+    getClearSaveForRect: (_, mask, args): void => {
       const endX = args.width + args.posX
       const endY = args.height + args.posY
 

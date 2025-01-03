@@ -1,9 +1,14 @@
 import Line from './Line'
 
-const getLineEdgeGetter = (edgeList) => {
+type EdgeList = Array<{ x0: number; x1?: number; y: number }>
+
+const getLineEdgeGetter = (edgeList: EdgeList) => {
   let i = -1
 
-  return (p0, p1) => {
+  return (
+    p0: { x: number; y: number },
+    p1: { x: number; y: number },
+  ): { x: number; y: number } => {
     // Draw a single Lines
     let x0
     let y0
@@ -93,17 +98,22 @@ const getLineEdgeGetter = (edgeList) => {
   }
 }
 
-const getDrawRow = (set) => (p0, p1) => {
-  if (p1.x1 === undefined) {
-    throw new Error('Unexpected error: edgeList[l].x1 is undefined')
+const getDrawRow =
+  (set: (x: number, y: number) => void) =>
+  (p0: { x0: number; y: number }, p1: { x1?: number; y: number }): void => {
+    if (p1.x1 === undefined) {
+      throw new Error('Unexpected error: edgeList[l].x1 is undefined')
+    }
+
+    do {
+      set(p0.x0, p1.y)
+    } while ((p0.x0 += 1) <= p1.x1)
   }
 
-  do {
-    set(p0.x0, p1.y)
-  } while ((p0.x0 += 1) <= p1.x1)
-}
-
-const sortFunction = (a, b) => {
+const sortFunction = (
+  a: { x0: number; y: number },
+  b: { x0: number; y: number },
+): number => {
   const n = b.y - a.y
 
   if (n !== 0) {
@@ -114,7 +124,7 @@ const sortFunction = (a, b) => {
 }
 
 class Polygon extends Line {
-  draw() {
+  draw(): void {
     if (this.args === undefined) {
       throw new Error('Unexpected error: args is undefined')
     }
@@ -132,7 +142,7 @@ class Polygon extends Line {
     }
 
     // Draw all Lines
-    const edgeList = []
+    const edgeList: EdgeList = []
     const drawRow = getDrawRow(this.getColorArray)
     const getLineEdge = getLineEdgeGetter(edgeList)
 

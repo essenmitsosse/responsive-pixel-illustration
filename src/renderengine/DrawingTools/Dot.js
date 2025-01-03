@@ -2,6 +2,10 @@ import Primitive from './Primitive'
 
 class Dot extends Primitive {
   draw() {
+    if (this.args === undefined) {
+      throw new Error('Unexpected error: args is undefined')
+    }
+
     if (this.args.getRealPosition === undefined) {
       throw new Error('Unexpected error: getRealPosition is undefined')
     }

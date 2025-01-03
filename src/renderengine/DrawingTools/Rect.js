@@ -6,6 +6,10 @@ class Rect extends Primitive {
   }
 
   draw() {
+    if (this.dimensions === undefined) {
+      throw new Error('Unexpected error: dimensions is undefined')
+    }
+
     const dimensions = this.dimensions.calc()
 
     if (dimensions.checkMin()) {

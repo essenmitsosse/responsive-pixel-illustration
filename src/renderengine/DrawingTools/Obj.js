@@ -1,18 +1,10 @@
 import Primitive from './Primitive'
 
 // Initing a new Object, converting its List into real Objects.
-const convertList = (list, inherit, recordDrawingTools, state) => {
-  // Loops through the List of an Object
-  let i = 0
-
-  const newList = []
-
-  let newTool
-
-  do {
-    newTool = list[i]
-
-    if (newTool) {
+const convertList = (list, inherit, recordDrawingTools, state) =>
+  list
+    .filter((newTool) => newTool !== undefined && newTool !== false)
+    .map((newTool) => {
       const nameDrawingTool =
         newTool.name ||
         (newTool.stripes
@@ -36,14 +28,10 @@ const convertList = (list, inherit, recordDrawingTools, state) => {
       const DrawingTool = recordDrawingTools[nameDrawingTool]
       const drawingTool = new DrawingTool(state, recordDrawingTools)
 
-      newList.push(drawingTool)
-
       drawingTool.create(newTool, inherit)
-    }
-  } while ((i += 1) < list.length)
 
-  return newList
-}
+      return drawingTool
+    })
 
 class Obj extends Primitive {
   constructor(state, recordDrawingTools) {

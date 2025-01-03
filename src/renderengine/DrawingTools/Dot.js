@@ -4,7 +4,7 @@ class Dot extends Primitive {
   draw() {
     const pos = this.args.getRealPosition()
 
-    this.getColorArray()(pos.x, pos.y)
+    this.getColorArray(pos.x, pos.y)
   }
 
   prepareSizeAndPos(args, reflectX, reflectY, rotate) {

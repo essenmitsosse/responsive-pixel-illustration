@@ -11,14 +11,14 @@ const getPixelSetter = (): {
     id?: string
     save?: string
     zInd?: number
-  }) => (() => (x: number, y: number) => void) | undefined
+  }) => ((x: number, y: number) => void) | undefined
   setColorArrayRect: (args: {
     clear?: boolean
     color?: ColorRgb
     id?: string
     save?: string
     zInd?: number
-  }) => (() => (args: Location) => void) | undefined
+  }) => ((args: Location) => void) | undefined
   setColorMask: (dimensions: Location, push?: boolean) => Location
 } => {
   let colorArray: PixelArray
@@ -99,10 +99,8 @@ const getPixelSetter = (): {
       colorArray = newArray
     },
 
-    setColorArray: (
-      args,
-    ): (() => (x: number, y: number) => void) | undefined => {
-      const callback = args.clear
+    setColorArray: (args): ((x: number, y: number) => void) | undefined =>
+      args.clear
         ? args.save
           ? getClearSave()
           : getClear(args.id)
@@ -110,15 +108,10 @@ const getPixelSetter = (): {
           ? getSet(args.color, args.zInd ?? 0, args.id)
           : args.save
             ? getSaver(args.save)
-            : undefined
+            : undefined,
 
-      return callback
-        ? (): ((x: number, y: number) => void) => callback
-        : undefined
-    },
-
-    setColorArrayRect: (args): (() => (args: Location) => void) | undefined => {
-      const callback = args.clear
+    setColorArrayRect: (args): ((args: Location) => void) | undefined =>
+      args.clear
         ? args.save
           ? getClearSaveRect(args.save)
           : getClearRect(args.id)
@@ -126,10 +119,7 @@ const getPixelSetter = (): {
           ? getSetRect(args.color, args.zInd ?? 0, args.id)
           : args.save
             ? getSaverForRect(args.save)
-            : undefined
-
-      return callback ? (): ((args: Location) => void) => callback : undefined
-    },
+            : undefined,
 
     setColorMask: getColorMask,
 

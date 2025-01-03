@@ -205,7 +205,7 @@ class Stripes extends Obj {
       this.args.list
         ? this.state.pixelUnit.push
         : this.getColorArrayStripe
-          ? this.getColorArrayStripe()
+          ? this.getColorArrayStripe
           : false,
       /** From Other Side? */
       this.horizontal ? this.fromRight : this.fromBottom,

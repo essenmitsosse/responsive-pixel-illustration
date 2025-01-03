@@ -39,7 +39,6 @@ class FillRandom extends Fill {
       ? this.widthRandom.getReal() + 1
       : false
 
-    const color = this.getColorArray()
     const array = this.state.pixelSetter.getSave(this.use)
     const l = array ? array.length : 0
 
@@ -105,7 +104,7 @@ class FillRandom extends Fill {
 
             while (h--) {
               if (dontCheck || finalMaskX[currentY + h]) {
-                color(finalX, currentY + h)
+                this.getColorArray(finalX, currentY + h)
               }
             }
           }
@@ -113,7 +112,10 @@ class FillRandom extends Fill {
       }
     } else {
       while (count-- > 0) {
-        color((current = array[Math.floor(random() * l)])[0], current[1])
+        this.getColorArray(
+          (current = array[Math.floor(random() * l)])[0],
+          current[1],
+        )
       }
     }
   }

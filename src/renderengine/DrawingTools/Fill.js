@@ -16,14 +16,13 @@ class Fill extends Primitive {
   }
 
   draw() {
-    const color = this.getColorArray()
     const array = this.state.pixelSetter.getSave(this.use)
 
     let l = array ? array.length - 1 : -1
     let current
 
     while (l >= 0) {
-      color((current = array[l--])[0], current[1])
+      this.getColorArray((current = array[l--])[0], current[1])
     }
   }
 }

@@ -79,7 +79,7 @@ class Line extends Primitive {
           const thisW = w.getReal()
           const first = -Math.round(thisW / 2)
           const second = Math.round(thisW + first)
-          const set = this.getColorArray()
+          const that = this
 
           return function (x, y) {
             let i = first
@@ -89,12 +89,14 @@ class Line extends Primitive {
               j = first
 
               while ((j += 1) <= second) {
-                set(x + i, y + j)
+                that.getColorArray(x + i, y + j)
               }
             }
           }
         }
-      : this.getColorArray
+      : function () {
+          return this.getColorArray
+        }
   }
 
   prepareSizeAndPos(args, reflectX, reflectY, rotate) {

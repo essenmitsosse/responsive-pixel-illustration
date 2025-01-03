@@ -115,8 +115,7 @@ class Polygon extends Line {
   draw() {
     // Draw all Lines
     const edgeList = []
-    const colorArraySet = this.getColorArray()
-    const drawRow = getDrawRow(colorArraySet)
+    const drawRow = getDrawRow(this.getColorArray)
     const getLineEdge = getLineEdgeGetter(edgeList)
     const p = this.args.points
 

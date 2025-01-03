@@ -26,7 +26,7 @@ class Primitive {
   fromRight?: boolean
   fromBottom?: boolean
   rotate?: boolean
-  getColorArray?: () => (x: number, y: number) => void
+  getColorArray?: (x: number, y: number) => void
   args?: Args
 
   constructor(state: State) {

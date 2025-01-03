@@ -3,7 +3,7 @@ import Primitive from './Primitive'
 import type { Location } from './createPixelArray'
 
 class Rect extends Primitive {
-  getColorArrayRect?: (() => (args: Location) => void) | undefined
+  getColorArrayRect?: ((args: Location) => void) | undefined
   setColorArray(
     args: Parameters<typeof this.state.pixelSetter.setColorArrayRect>[0],
   ): void {
@@ -25,7 +25,7 @@ class Rect extends Primitive {
       throw new Error('Unexpected error: getColorArrayRect is undefined')
     }
 
-    this.getColorArrayRect()({
+    this.getColorArrayRect({
       posX: dimensions.posX,
       posY: dimensions.posY,
       width: dimensions.width,

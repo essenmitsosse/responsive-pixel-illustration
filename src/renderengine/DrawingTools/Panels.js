@@ -447,6 +447,10 @@ class Panels extends Obj {
       this.state.pixelUnit.pop()
 
       if (mask) {
+        if (oldMask === undefined) {
+          throw new Error('Unexpected error: oldMask is undefined')
+        }
+
         mask(oldMask)
       }
     } while ((c += 1) < l)

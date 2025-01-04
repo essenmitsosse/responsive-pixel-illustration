@@ -179,6 +179,10 @@ class Panels extends Obj {
   }
 
   sortRows() {
+    if (this.args === undefined) {
+      throw new Error('Unexpected error: args is undefined')
+    }
+
     const panels = []
 
     let i

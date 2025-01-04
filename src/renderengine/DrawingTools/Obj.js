@@ -73,6 +73,10 @@ class Obj extends Primitive {
 
   // Draws Object, consisting of other Objects and Primitives.
   draw() {
+    if (this.dimensions === undefined) {
+      throw new Error('Unexpected error: dimensions is undefined')
+    }
+
     const dimensions = this.dimensions.calc()
 
     let oldMask

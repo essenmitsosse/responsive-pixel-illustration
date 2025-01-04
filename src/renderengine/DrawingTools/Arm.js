@@ -324,6 +324,42 @@ class Arm extends Obj {
   }
 
   calculateFromEllbow() {
+    if (this.targetY === undefined) {
+      throw new Error('Unexpected error: targetY is undefined')
+    }
+
+    if (this.targetY.s === undefined) {
+      throw new Error('Unexpected error: targetY.s is undefined')
+    }
+
+    if (this.upperArmLength === undefined) {
+      throw new Error('Unexpected error: upperArmLength is undefined')
+    }
+
+    if (this.jointX === undefined) {
+      throw new Error('Unexpected error: jointX is undefined')
+    }
+
+    if (this.jointY === undefined) {
+      throw new Error('Unexpected error: jointY is undefined')
+    }
+
+    if (this.endX === undefined) {
+      throw new Error('Unexpected error: endX is undefined')
+    }
+
+    if (this.endY === undefined) {
+      throw new Error('Unexpected error: endY is undefined')
+    }
+
+    if (this.upperArmLength === undefined) {
+      throw new Error('Unexpected error: upperArmLength is undefined')
+    }
+
+    if (this.lowerArmLength === undefined) {
+      throw new Error('Unexpected error: lowerArmLength is undefined')
+    }
+
     const jointY = this.targetY.s.getReal()
 
     if (this.upperArmLength >= Math.abs(jointY)) {

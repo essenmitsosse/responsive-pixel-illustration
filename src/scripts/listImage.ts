@@ -9,6 +9,7 @@ export type Link = {
   height?: boolean
   main?: boolean
   r?: number
+  random?: number
   real?: number
   s?: { getReal: () => number }
 }
@@ -24,7 +25,8 @@ export type ImageContent = {
   linkList?: LinkList
   listDoHover?: ReadonlyArray<DoHover>
   recommendedPixelSize?: number
-  renderList: unknown
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: Hack till type errors are fixed
+  renderList: ReadonlyArray<any>
   variableList?: RecordVariable
 }
 

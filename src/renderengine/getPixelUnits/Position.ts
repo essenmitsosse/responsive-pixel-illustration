@@ -5,13 +5,13 @@ import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { State } from '@/renderengine/getPixelUnits/State'
 
 type ArgsAxis = {
-  center: boolean
+  center?: boolean
   fromOtherSide: boolean
   margin?: InputDynamicVariable
   min?: InputDynamicVariable
-  pos: InputDynamicVariable
+  pos?: InputDynamicVariable
   size?: InputDynamicVariable
-  toOtherSide: boolean
+  toOtherSide?: boolean
 }
 
 class Axis {
@@ -21,15 +21,15 @@ class Axis {
   realSize?: number
   realPos?: number
   realMargin?: number
-  toOtherSide: boolean
+  toOtherSide: boolean | undefined
   fromOtherSide: boolean
-  center: boolean
+  center?: boolean
   margin: Dimension | false
   min?: Dimension | false
   calcPos: () => number
   constructor(
     Size: {
-      new (args: InputDynamicVariable | undefined, state: State): Height | Width
+      new (args: InputDynamicVariable, state: State): Height | Width
     },
     Pos: {
       new (args: InputDynamicVariable, state: State): DistanceX | DistanceY
@@ -192,7 +192,7 @@ export class AxisY extends Axis {
 class Pos extends Axis {
   constructor(
     Size: {
-      new (args: InputDynamicVariable | undefined, state: State): Height | Width
+      new (args: InputDynamicVariable, state: State): Height | Width
     },
     Distance: {
       new (args: InputDynamicVariable, state: State): DistanceX | DistanceY
@@ -283,21 +283,21 @@ export class Dimensions {
   y: AxisY
   constructor(
     args: {
-      c: boolean
+      c?: boolean
       cX?: boolean
       cY?: boolean
-      m: number
+      m?: number
       mX?: number
       mY?: number
       minX?: number
       minY?: number
-      s: number
+      s?: number
       sX?: number
       sY?: number
-      tX: boolean
-      tY: boolean
-      x: number
-      y: number
+      tX?: boolean
+      tY?: boolean
+      x?: InputDynamicVariable
+      y?: InputDynamicVariable
     },
     fromRight: boolean,
     fromBottom: boolean,
@@ -407,3 +407,5 @@ export class Dimensions {
     )
   }
 }
+
+export type ParameterDimension = ConstructorParameters<typeof Dimensions>[0]

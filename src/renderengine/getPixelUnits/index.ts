@@ -1,6 +1,7 @@
 import { Dimensions, PosX, PosY } from './Position'
 import { Height, Width } from './Size'
 
+import type { ParameterDimension } from './Position'
 import type { State } from './State'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { DynamicVariable } from '@/renderengine/Variable'
@@ -12,44 +13,30 @@ type DataDimensionContext = {
   width: number
 }
 
+export type Position = (
+  args: {
+    center?: boolean
+    centerX?: boolean
+    centerY?: boolean
+    fX?: boolean
+    fY?: boolean
+    toLeft?: boolean
+    toTop?: boolean
+    x?: InputDynamicVariable
+    y?: InputDynamicVariable
+  },
+  reflectX: boolean,
+  reflectY: boolean,
+  rotate: boolean,
+) => () => { x: number; y: number }
+
 const getPixelUnits = (): {
-  Position: (
-    args: {
-      center: boolean
-      centerX?: boolean
-      centerY?: boolean
-      fX?: boolean
-      fY?: boolean
-      toLeft: boolean
-      toTop: boolean
-      x: InputDynamicVariable
-      y: InputDynamicVariable
-    },
-    reflectX: boolean,
-    reflectY: boolean,
-    rotate: boolean,
-  ) => () => { x: number; y: number }
+  Position: Position
   createSize: (
     args: InputDynamicVariable & { height?: boolean },
   ) => Height | Width
   getDimensions: (
-    args: {
-      c: boolean
-      cX?: boolean
-      cY?: boolean
-      m: number
-      mX?: number
-      mY?: number
-      minX?: number
-      minY?: number
-      s: number
-      sX?: number
-      sY?: number
-      tX: boolean
-      tY: boolean
-      x: number
-      y: number
-    },
+    args: ParameterDimension,
     fromRight: boolean,
     fromBottom: boolean,
     rotate: boolean,
@@ -104,22 +91,7 @@ const getPixelUnits = (): {
     state.dimensionHeight = dimensions.height
   }
 
-  const Position = (
-    args: {
-      center: boolean
-      centerX?: boolean
-      centerY?: boolean
-      fX?: boolean
-      fY?: boolean
-      toLeft: boolean
-      toTop: boolean
-      x: InputDynamicVariable
-      y: InputDynamicVariable
-    },
-    reflectX: boolean,
-    reflectY: boolean,
-    rotate: boolean,
-  ) => {
+  const Position: Position = (args, reflectX, reflectY, rotate) => {
     const fromRight = (args.fX || false) !== reflectX
     const fromBottom = (args.fY || false) !== reflectY
 
@@ -157,7 +129,7 @@ const getPixelUnits = (): {
       state,
     )
 
-    return (): { x: number; y: number } => ({
+    return () => ({
       x: x.calc(),
       y: y.calc(),
     })

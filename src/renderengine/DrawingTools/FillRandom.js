@@ -68,6 +68,11 @@ class FillRandom extends Fill {
       : false
 
     const array = this.state.pixelSetter.getSave(this.use)
+
+    if (array === false) {
+      throw new Error('unexpected Error: save array was not found')
+    }
+
     const l = array ? array.length : 0
 
     let count = Math.floor(

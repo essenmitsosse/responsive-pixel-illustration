@@ -89,7 +89,7 @@ class Obj extends Primitive {
 
     this.listTool.forEach((tool) => tool.draw())
 
-    if (this.args.mask) {
+    if (this.args.mask && oldMask) {
       this.args.mask(oldMask, false)
     }
 

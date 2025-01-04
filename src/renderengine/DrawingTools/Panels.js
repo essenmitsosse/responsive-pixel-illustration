@@ -97,6 +97,30 @@ class Panels extends Obj {
   }
 
   findBestRows() {
+    if (this.args === undefined) {
+      throw new Error('Unexpected error: args is undefined')
+    }
+
+    if (this.imgRatio === undefined) {
+      throw new Error('Unexpected error: imgRatio is undefined')
+    }
+
+    if (this.sX === undefined) {
+      throw new Error('Unexpected error: sX is undefined')
+    }
+
+    if (this.sY === undefined) {
+      throw new Error('Unexpected error: sY is undefined')
+    }
+
+    if (this.gutterX === undefined) {
+      throw new Error('Unexpected error: gutterX is undefined')
+    }
+
+    if (this.gutterY === undefined) {
+      throw new Error('Unexpected error: gutterY is undefined')
+    }
+
     let y = 0
     let x
 

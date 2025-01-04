@@ -4,7 +4,15 @@ import getSeedHandler from './getSeedHandler'
 import Obj from './Obj'
 import recordDrawingTools from './recordDrawingTools'
 
-export const DrawingTools = (pixelUnit) => {
+import type { PixelArray } from './createPixelArray'
+import type getPixelUnits from '@/renderengine/getPixelUnits'
+
+export const DrawingTools = (
+  pixelUnit: ReturnType<typeof getPixelUnits>,
+): {
+  getObj: () => Obj
+  init: (width: number, height: number) => PixelArray
+} => {
   const seed = getSeedHandler()
   const pixelSetter = getPixelSetter()
 
@@ -14,7 +22,7 @@ export const DrawingTools = (pixelUnit) => {
     pixelSetter,
   }
 
-  const init = (width, height) => {
+  const init = (width: number, height: number): PixelArray => {
     pixelUnit.init({
       width,
       height,
@@ -29,5 +37,5 @@ export const DrawingTools = (pixelUnit) => {
     return pixelArray
   }
 
-  return { init, getObj: () => new Obj(state, recordDrawingTools) }
+  return { init, getObj: (): Obj => new Obj(state, recordDrawingTools) }
 }

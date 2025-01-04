@@ -1,10 +1,14 @@
 import { DrawingTools } from './DrawingTools'
 
 import type { ColorArray, PixelArray } from './DrawingTools/createPixelArray'
+import type { Tool } from './DrawingTools/Primitive'
 import type { PixelGraphics, RenderObject } from './PixelGraphics'
 import type { ColorRgb } from '@/helper/typeColor'
 
-const getDrawer = (pixelStarter: PixelGraphics, renderList: unknown) => {
+const getDrawer = (
+  pixelStarter: PixelGraphics,
+  renderList: ReadonlyArray<Tool | false>,
+) => {
   // Initialize the drawingTool
   const pixelUnit = pixelStarter.pixelUnits
   const drawingTool = DrawingTools(pixelUnit)

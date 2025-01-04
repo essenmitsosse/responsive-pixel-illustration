@@ -2,6 +2,10 @@ import Obj from './Obj'
 
 class Panels extends Obj {
   init(args) {
+    if (this.args === undefined) {
+      throw new Error('Unexpected error: args is undefined')
+    }
+
     let l = args.panels.length
 
     const inherit = {}

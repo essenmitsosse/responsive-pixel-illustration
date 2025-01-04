@@ -101,6 +101,10 @@ class Panels extends Obj {
       throw new Error('Unexpected error: args is undefined')
     }
 
+    if (this.args.listPanels === undefined) {
+      throw new Error('Unexpected error: args.listPanels is undefined')
+    }
+
     if (this.imgRatio === undefined) {
       throw new Error('Unexpected error: imgRatio is undefined')
     }
@@ -181,6 +185,10 @@ class Panels extends Obj {
   sortRows() {
     if (this.args === undefined) {
       throw new Error('Unexpected error: args is undefined')
+    }
+
+    if (this.args.listPanels === undefined) {
+      throw new Error('Unexpected error: args.listPanels is undefined')
     }
 
     const panels = []

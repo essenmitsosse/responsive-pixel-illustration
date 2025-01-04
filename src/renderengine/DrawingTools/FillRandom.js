@@ -1,3 +1,5 @@
+import getIsUnknownObject from '@/lib/getIsUnknownObject'
+
 import Fill from './Fill'
 
 class FillRandom extends Fill {
@@ -13,15 +15,15 @@ class FillRandom extends Fill {
 
     this.mask = args.mask
 
-    if (height && height.random) {
+    if (getIsUnknownObject(height) && height.random) {
       this.heightRandom = this.state.pixelUnit.createSize(height.random)
     }
 
-    if (width && width.random) {
+    if (getIsUnknownObject(width) && width.random) {
       this.widthRandom = this.state.pixelUnit.createSize(width.random)
     }
 
-    if (args.size && args.size.random) {
+    if (getIsUnknownObject(args.size) && args.size.random) {
       this.sizeRandom = this.state.pixelUnit.createSize(args.size.random)
     }
   }

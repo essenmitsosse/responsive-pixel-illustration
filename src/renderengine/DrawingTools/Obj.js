@@ -3,8 +3,6 @@ import Primitive from './Primitive'
 // Initing a new Object, converting its List into real Objects.
 const convertList = (list, inherit, recordDrawingTools, state) => {
   // Loops through the List of an Object
-  const l = list ? list.length : 0
-
   let i = 0
 
   const newList = []
@@ -42,7 +40,7 @@ const convertList = (list, inherit, recordDrawingTools, state) => {
 
       drawingTool.create(newTool, inherit)
     }
-  } while ((i += 1) < l)
+  } while ((i += 1) < list.length)
 
   return newList
 }
@@ -58,22 +56,24 @@ class Obj extends Primitive {
     const list = this.args.list || this.list
 
     if (list) {
-      this.args.list = convertList(
-        list,
-        {
-          // Things to inherit to Children
-          color: this.args.color,
-          clear: this.args.clear,
-          reflectX: this.args.reflectX,
-          reflectY: this.args.reflectY,
-          zInd: this.args.zInd,
-          id: this.args.id,
-          save: this.args.save,
-          rotate: this.args.rotate,
-        },
-        this.recordDrawingTools,
-        this.state,
-      )
+      this.args.list = Array.isArray(list)
+        ? convertList(
+            list,
+            {
+              // Things to inherit to Children
+              color: this.args.color,
+              clear: this.args.clear,
+              reflectX: this.args.reflectX,
+              reflectY: this.args.reflectY,
+              zInd: this.args.zInd,
+              id: this.args.id,
+              save: this.args.save,
+              rotate: this.args.rotate,
+            },
+            this.recordDrawingTools,
+            this.state,
+          )
+        : []
     }
   }
   // ------ End Object Init

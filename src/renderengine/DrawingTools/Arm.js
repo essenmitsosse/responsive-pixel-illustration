@@ -524,6 +524,54 @@ class Arm extends Obj {
   }
 
   drawHand() {
+    if (this.endX === undefined) {
+      throw new Error('Unexpected error: endX is undefined')
+    }
+
+    if (this.endX.real === undefined) {
+      throw new Error('Unexpected error: endX.real is undefined')
+    }
+
+    if (this.endY === undefined) {
+      throw new Error('Unexpected error: endY is undefined')
+    }
+
+    if (this.endY.real === undefined) {
+      throw new Error('Unexpected error: endY.real is undefined')
+    }
+
+    if (this.handTargetX === undefined) {
+      throw new Error('Unexpected error: handTargetX is undefined')
+    }
+
+    if (this.handTargetX.s === undefined) {
+      throw new Error('Unexpected error: handTargetX.s is undefined')
+    }
+
+    if (this.handTargetY === undefined) {
+      throw new Error('Unexpected error: handTargetY is undefined')
+    }
+
+    if (this.handTargetY.s === undefined) {
+      throw new Error('Unexpected error: handTargetY.s is undefined')
+    }
+
+    if (this.handLength === undefined) {
+      throw new Error('Unexpected error: handLength is undefined')
+    }
+
+    if (this.handEndX === undefined) {
+      throw new Error('Unexpected error: handEndX is undefined')
+    }
+
+    if (this.handEndY === undefined) {
+      throw new Error('Unexpected error: handEndY is undefined')
+    }
+
+    if (this.hand === undefined) {
+      throw new Error('Unexpected error: hand is undefined')
+    }
+
     const endX = this.endX.real
     const endY = this.endY.real
     const targetX = this.handTargetX.s.getReal()

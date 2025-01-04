@@ -165,6 +165,10 @@ class Panels extends Obj {
       }
     }
 
+    if (last === undefined) {
+      return
+    }
+
     this.countX = last.x
 
     this.countY = last.y

@@ -92,10 +92,7 @@ class Panels extends Obj {
 
     const imgRatio = this.imgRatio.ratio
 
-    let last = {
-      lastSquarness: Infinity,
-      lastRatioDiff: imgRatio,
-    }
+    let last = {}
 
     while ((y += 1) <= l) {
       x = Math.round(l / y)

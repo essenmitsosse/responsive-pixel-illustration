@@ -107,6 +107,22 @@ class Stripes extends Obj {
   }
 
   draw() {
+    if (this.dimensions === undefined) {
+      throw new Error('Unexpected error: dimensions is undefined')
+    }
+
+    if (this.stripWidth === undefined) {
+      throw new Error('Unexpected error: stripWidth is undefined')
+    }
+
+    if (this.gapWidth === undefined) {
+      throw new Error('Unexpected error: gapWidth is undefined')
+    }
+
+    if (this.getDraw === undefined) {
+      throw new Error('Unexpected error: getDraw is undefined')
+    }
+
     const dimensions = this.dimensions.calc()
 
     if (dimensions.checkMin()) {

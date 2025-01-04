@@ -26,12 +26,13 @@ class Fill extends Primitive {
 
     const array = this.state.pixelSetter.getSave(this.use)
 
-    let l = array ? array.length - 1 : -1
-    let current
-
-    while (l >= 0) {
-      this.getColorArray((current = array[l--])[0], current[1])
+    if (array === false) {
+      return
     }
+
+    const { getColorArray } = this
+
+    array.forEach(([x, y]) => getColorArray(x, y))
   }
 }
 

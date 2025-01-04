@@ -1,8 +1,8 @@
 import { DistanceX, DistanceY, Height, Width } from './Size'
 
 import type { Dimension } from './Size'
+import type { State } from './State'
 import type { InputDynamicVariable } from '@/helper/typeSize'
-import type { State } from '@/renderengine/getPixelUnits/State'
 
 type ArgsAxis = {
   center?: boolean

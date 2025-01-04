@@ -1,10 +1,10 @@
 import type { Location } from './createPixelArray'
 import type { PanelPre } from './Panels'
+import type recordDrawingTools from './recordDrawingTools'
 import type { State } from './State'
+import type { ArgsInitStripes } from './Stripes'
 import type { ColorRgb } from '@/helper/typeColor'
 import type { InputDynamicVariable } from '@/helper/typeSize'
-import type recordDrawingTools from '@/renderengine/DrawingTools/recordDrawingTools'
-import type { ArgsInitStripes } from '@/renderengine/DrawingTools/Stripes'
 import type { Position } from '@/renderengine/getPixelUnits'
 import type {
   Dimensions,

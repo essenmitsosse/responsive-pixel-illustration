@@ -1,6 +1,6 @@
 import type getPixelUnits from './getPixelUnits'
+import type { Height, Width } from './getPixelUnits/Size'
 import type { InputDynamicVariable } from '@/helper/typeSize'
-import type { Height, Width } from '@/renderengine/getPixelUnits/Size'
 
 class BaseVariable {
   linkedP: Array<{ abs?: unknown }> = []

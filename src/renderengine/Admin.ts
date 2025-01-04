@@ -1,5 +1,6 @@
 import { getNumberDefaultToZero } from '@/lib/getNumberDefaultToZero'
-import getListAdmin from '@/renderengine/getListAdmin'
+
+import getListAdmin from './getListAdmin'
 
 import type { InitPixel } from './InitPixel'
 import type { DataSlider, SliderArgs } from '@/helper/typeSlider'

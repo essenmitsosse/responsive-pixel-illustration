@@ -2,7 +2,7 @@ import Primitive from './Primitive'
 
 import type { ArgsInit, Inherit, Tool } from './Primitive'
 import type recordDrawingToolsForType from './recordDrawingTools'
-import type { State } from '@/renderengine/DrawingTools/State'
+import type { State } from './State'
 
 type ToolClasses =
   (typeof recordDrawingToolsForType)[keyof typeof recordDrawingToolsForType]

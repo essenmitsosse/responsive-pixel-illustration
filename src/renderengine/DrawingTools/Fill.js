@@ -20,6 +20,10 @@ class Fill extends Primitive {
       throw new Error('Unexpexted error: use is undefined')
     }
 
+    if (this.getColorArray === undefined) {
+      throw new Error('Unexpexted error: getColorArray is undefined')
+    }
+
     const array = this.state.pixelSetter.getSave(this.use)
 
     let l = array ? array.length - 1 : -1

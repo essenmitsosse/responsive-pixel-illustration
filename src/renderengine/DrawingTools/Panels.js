@@ -9,7 +9,8 @@ class Panels extends Obj {
     let l = args.panels.length
 
     const inherit = {}
-    const newPanels = (this.args.list = [])
+
+    this.args.list = []
 
     let current
 
@@ -28,7 +29,7 @@ class Panels extends Obj {
         current.sY = {}
       }
 
-      newPanels.push({
+      this.args.list.push({
         drawer: new Obj(this.state, this.recordDrawingTools).create(
           { list: current.list },
           inherit,
@@ -75,9 +76,9 @@ class Panels extends Obj {
     this.countY = countY
 
     // Find best combination of rows/cols
-    this.findBestRows(this.args.list)
+    this.findBestRows()
 
-    const panels = this.sortRows(this.args.list)
+    const panels = this.sortRows()
 
     // calculate the finale size of the panel
     this.calcPanelsSizes(panels)
@@ -86,11 +87,11 @@ class Panels extends Obj {
     this.drawPanels(panels, this.args.mask)
   }
 
-  findBestRows(list) {
+  findBestRows() {
     let y = 0
     let x
 
-    const l = list.length
+    const l = this.args.list.length
 
     let current
 
@@ -143,13 +144,13 @@ class Panels extends Obj {
     this.singleSY = last.singleSY <= 1 ? 1 : last.singleSY
   }
 
-  sortRows(list) {
+  sortRows() {
     const panels = []
 
     let i
     let j
 
-    const l = list.length
+    const l = this.args.list.length
 
     let c = l - 1
     let total = this.countX * this.countY
@@ -195,7 +196,7 @@ class Panels extends Obj {
     i = l
 
     while (i--) {
-      current = list[i]
+      current = this.args.list[i]
 
       panels.push({
         drawer: current.drawer,

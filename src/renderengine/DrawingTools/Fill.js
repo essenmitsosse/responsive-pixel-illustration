@@ -16,6 +16,10 @@ class Fill extends Primitive {
   }
 
   draw() {
+    if (this.use === undefined) {
+      throw new Error('Unexpexted error: use is undefined')
+    }
+
     const array = this.state.pixelSetter.getSave(this.use)
 
     let l = array ? array.length - 1 : -1

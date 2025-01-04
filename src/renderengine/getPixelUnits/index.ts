@@ -20,8 +20,8 @@ const getPixelUnits = (): {
       centerY?: boolean
       fX?: boolean
       fY?: boolean
-      toLeft: boolean
-      toTop: boolean
+      toLeft?: boolean
+      toTop?: boolean
       x: InputDynamicVariable
       y: InputDynamicVariable
     },
@@ -111,8 +111,8 @@ const getPixelUnits = (): {
       centerY?: boolean
       fX?: boolean
       fY?: boolean
-      toLeft: boolean
-      toTop: boolean
+      toLeft?: boolean
+      toTop?: boolean
       x: InputDynamicVariable
       y: InputDynamicVariable
     },

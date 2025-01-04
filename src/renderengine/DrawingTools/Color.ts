@@ -1,12 +1,12 @@
 import type { ColorRgb } from '@/helper/typeColor'
 
-type LayerColor = { c: ColorRgb; id: string; zInd: number }
+type LayerColor = { c: ColorRgb; id: string | undefined; zInd: number }
 
 class Color {
   s: Array<LayerColor> = []
   constructor() {}
 
-  draw(c: ColorRgb, zInd: number, id: string): void {
+  draw(c: ColorRgb, zInd: number, id?: string): void {
     let i = this.s.length - 1
 
     const { s } = this
@@ -28,7 +28,7 @@ class Color {
     }
   }
 
-  clear(id: string): void {
+  clear(id?: string): void {
     while (this.s.length > 0 && this.s[this.s.length - 1].id === id) {
       this.s.pop()
     }

@@ -1,5 +1,5 @@
+import type { State } from './State'
 import type { InputDynamicVariable } from '@/helper/typeSize'
-import type { State } from '@/renderengine/getPixelUnits/State'
 import type { DynamicVariable } from '@/renderengine/Variable'
 
 function getRealDistanceBasic(this: {

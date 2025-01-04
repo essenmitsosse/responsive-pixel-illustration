@@ -1,5 +1,33 @@
 import Obj from './Obj'
 
+const drawerNormal =
+  (drawer, fromOtherSide, stripWidth, endX, startY, endY, overflow) =>
+  (startX, currentHeightChange, randomWidth) => {
+    const end = startX + stripWidth + randomWidth
+    const start = startY - (fromOtherSide ? currentHeightChange : 0)
+
+    drawer({
+      posX: startX,
+      posY: start,
+      width: (!overflow && end > endX ? endX : end) - startX,
+      height: endY + (!fromOtherSide ? currentHeightChange : 0) - start,
+    })
+  }
+
+const drawerHorizontal =
+  (drawer, fromOtherSide, stripWidth, endY, startX, endX, overflow) =>
+  (startY, currentHeightChange, randomWidth) => {
+    const end = startY + stripWidth + randomWidth
+    const start = startX - (fromOtherSide ? currentHeightChange : 0)
+
+    drawer({
+      posX: start,
+      posY: startY,
+      width: endX + (!fromOtherSide ? currentHeightChange : 0) - start,
+      height: (!overflow && end > endY ? endY : end) - startY,
+    })
+  }
+
 class Stripes extends Obj {
   isStripe = true
 
@@ -75,44 +103,7 @@ class Stripes extends Obj {
 
     this.fromOtherSide = horizontal ? this.fromBottom : this.fromRight
 
-    this.getDraw = horizontal ? this.drawers.horizontal : this.drawers.normal
-  }
-
-  drawers = {
-    normal(drawer, fromOtherSide, stripWidth, endX, startY, endY, overflow) {
-      return function (startX, currentHeightChange, randomWidth) {
-        const end = startX + stripWidth + randomWidth
-        const start = startY - (fromOtherSide ? currentHeightChange : 0)
-
-        drawer({
-          posX: startX,
-          posY: start,
-          width: (!overflow && end > endX ? endX : end) - startX,
-          height: endY + (!fromOtherSide ? currentHeightChange : 0) - start,
-        })
-      }
-    },
-    horizontal(
-      drawer,
-      fromOtherSide,
-      stripWidth,
-      endY,
-      startX,
-      endX,
-      overflow,
-    ) {
-      return function (startY, currentHeightChange, randomWidth) {
-        const end = startY + stripWidth + randomWidth
-        const start = startX - (fromOtherSide ? currentHeightChange : 0)
-
-        drawer({
-          posX: start,
-          posY: startY,
-          width: endX + (!fromOtherSide ? currentHeightChange : 0) - start,
-          height: (!overflow && end > endY ? endY : end) - startY,
-        })
-      }
-    },
+    this.getDraw = horizontal ? drawerHorizontal : drawerNormal
   }
 
   draw() {

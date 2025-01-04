@@ -1,4 +1,4 @@
-import { DrawingTools } from './DrawingTools'
+import { getDrawingTools } from './DrawingTools'
 
 import type { ColorArray, PixelArray } from './DrawingTools/createPixelArray'
 import type { Tool } from './DrawingTools/Primitive'
@@ -11,7 +11,7 @@ const getDrawer = (
 ) => {
   // Initialize the drawingTool
   const pixelUnit = pixelStarter.pixelUnits
-  const drawingTool = DrawingTools(pixelUnit)
+  const drawingTool = getDrawingTools(pixelUnit)
   const canvasTool = drawingTool.getObj().create({ list: renderList })
 
   return (countW: number, countH: number): PixelArray => {

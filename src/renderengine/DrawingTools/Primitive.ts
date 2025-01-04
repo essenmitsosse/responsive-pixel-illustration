@@ -75,6 +75,8 @@ class Primitive {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- this should already declare the expected type, even if it is not implemented
   init(_args: Args): void {}
 
+  draw(): void {}
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- this should already declare the expected type, even if it is not implemented
   detailInit(_args: Args, _inherit: Inherit): void {}
 

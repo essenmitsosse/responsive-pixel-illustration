@@ -32,6 +32,7 @@ const convertList = (list, inherit, recordDrawingTools, state) =>
 
       return drawingTool
     })
+    .toReversed()
 
 class Obj extends Primitive {
   constructor(state, recordDrawingTools) {
@@ -72,8 +73,6 @@ class Obj extends Primitive {
 
   // Draws Object, consisting of other Objects and Primitives.
   draw() {
-    let l = this.listTool.length
-
     const dimensions = this.dimensions.calc()
 
     let oldMask
@@ -88,9 +87,7 @@ class Obj extends Primitive {
 
     this.state.pixelUnit.push(dimensions)
 
-    while (l--) {
-      this.listTool[l].draw()
-    }
+    this.listTool.forEach((tool) => tool.draw())
 
     if (this.args.mask) {
       this.args.mask(oldMask, false)

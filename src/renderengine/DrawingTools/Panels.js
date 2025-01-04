@@ -10,7 +10,7 @@ class Panels extends Obj {
 
     const inherit = {}
 
-    this.args.list = []
+    this.args.listPanels = []
 
     let current
 
@@ -29,7 +29,7 @@ class Panels extends Obj {
         current.sY = {}
       }
 
-      this.args.list.push({
+      this.args.listPanels.push({
         drawer: new Obj(this.state, this.recordDrawingTools).create(
           { list: current.list },
           inherit,
@@ -91,7 +91,7 @@ class Panels extends Obj {
     let y = 0
     let x
 
-    const l = this.args.list.length
+    const l = this.args.listPanels.length
 
     let current
 
@@ -150,7 +150,7 @@ class Panels extends Obj {
     let i
     let j
 
-    const l = this.args.list.length
+    const l = this.args.listPanels.length
 
     let c = l - 1
     let total = this.countX * this.countY
@@ -196,7 +196,7 @@ class Panels extends Obj {
     i = l
 
     while (i--) {
-      current = this.args.list[i]
+      current = this.args.listPanels[i]
 
       panels.push({
         drawer: current.drawer,

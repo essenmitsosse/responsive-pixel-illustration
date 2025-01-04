@@ -25,7 +25,11 @@ const getRandom = (() => {
 })()
 
 const getSeedHandler = (): {
-  get: (j?: number) => () => ReturnType<typeof getRandom>
+  get: (j?: number) => () => {
+    count: (c: number) => number
+    one: () => number
+    seed: () => number
+  }
   reset: () => void
 } => {
   const getSeed = getRandom().seed

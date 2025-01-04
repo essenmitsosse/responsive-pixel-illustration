@@ -2,8 +2,34 @@ import getIsUnknownObject from '@/lib/getIsUnknownObject'
 
 import Fill from './Fill'
 
+import type { Location } from './createPixelArray'
+import type { ArgsInit, ArgsPrepare } from './Primitive'
+import type { InputDynamicVariable } from '@/helper/typeSize'
+import type { Height, Width } from '@/renderengine/getPixelUnits/Size'
+
+type ArgsInitFillRandom = {
+  chance?: number
+  mask?: (dimensions: Location, push?: boolean) => Location
+  sX?: InputDynamicVariable
+  sY?: InputDynamicVariable
+  seed?: number
+  size?: InputDynamicVariable
+}
+
 class FillRandom extends Fill {
-  init(args) {
+  chance?: number
+  random?: () => {
+    count: (c: number) => number
+    one: () => number
+    seed: () => number
+  }
+  mask?: (dimensions: Location, push?: boolean) => Location
+  heightRandom?: Height | Width
+  widthRandom?: Height | Width
+  sizeRandom?: Height | Width
+  width?: Width | false
+  height?: Height | false
+  init(args: ArgsInit & ArgsInitFillRandom): void {
     const width = this.rotate ? args.sY : args.sX
     const height = this.rotate ? args.sX : args.sY
 
@@ -29,7 +55,12 @@ class FillRandom extends Fill {
   }
 
   // Prepare Size and Position Data for Basic Objects
-  prepareSizeAndPos(args, reflectX, reflectY, rotate) {
+  prepareSizeAndPos(
+    args: ArgsPrepare,
+    _: boolean,
+    __: boolean,
+    rotate: boolean,
+  ): void {
     const width = (rotate ? args.sY : args.sX) || args.s
     const height = (rotate ? args.sX : args.sY) || args.s
 
@@ -38,7 +69,7 @@ class FillRandom extends Fill {
     this.height = height ? this.state.pixelUnit.getWidth(height) : false
   }
 
-  draw() {
+  draw(): void {
     if (this.use === undefined) {
       throw new Error('unexpected Error: use is undefined')
     }

@@ -58,6 +58,22 @@ class Panels extends Obj {
 
   // Draws Object, consisting of other Objects and Primitives.
   draw() {
+    if (this.dimensions === undefined) {
+      throw new Error('Unexpected error: dimensions is undefined')
+    }
+
+    if (this.gutterSX === undefined) {
+      throw new Error('Unexpected error: gutterSX is undefined')
+    }
+
+    if (this.gutterSY === undefined) {
+      throw new Error('Unexpected error: gutterSY is undefined')
+    }
+
+    if (this.args === undefined) {
+      throw new Error('Unexpected error: args is undefined')
+    }
+
     this.dimensions = this.dimensions.calc()
 
     this.sX = this.dimensions.width

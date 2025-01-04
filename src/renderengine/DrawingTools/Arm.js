@@ -1,3 +1,6 @@
+import Rect from '@/renderengine/DrawingTools/Rect'
+
+import Dot from './Dot'
 import Line from './Line'
 import Obj from './Obj'
 
@@ -77,13 +80,14 @@ class Arm extends Obj {
 
     if (args.debug) {
       this.showDebug = true
-      // this.debug = new drawingTool.Rect().create({
-      // 	x: this.targetX,
-      // 	y: this.targetY,
-      // 	s:1,
-      // 	color: [255,0,0],
-      // 	z: Infinity
-      // });
+
+      this.debug = new Rect(this.state).create({
+        x: this.targetX,
+        y: this.targetY,
+        s: 1,
+        color: [255, 0, 0],
+        z: Infinity,
+      })
 
       this.debugLowerArm = new Line(this.state).create({
         weight: 1,
@@ -112,19 +116,19 @@ class Arm extends Obj {
         z: Infinity,
       })
 
-      // this.debugEllbow = new drawingTool.Dot().create({
-      // 	color:[0,150,0],
-      // 	x: this.jointX,
-      // 	y: this.jointY,
-      // 	z: Infinity
-      // });
+      this.debugEllbow = new Dot(this.state).create({
+        color: [0, 150, 0],
+        x: this.jointX,
+        y: this.jointY,
+        z: Infinity,
+      })
 
-      // this.debugEnd = new drawingTool.Dot().create({
-      // 	color:[0,255,0],
-      // 	x: this.endX,
-      // 	y: this.endY,
-      // 	z: Infinity
-      // });
+      this.debugEnd = new Dot(this.state).create({
+        color: [0, 255, 0],
+        x: this.endX,
+        y: this.endY,
+        z: Infinity,
+      })
     }
 
     if ((hand = args.hand)) {
@@ -159,19 +163,12 @@ class Arm extends Obj {
       })
 
       if (this.showDebug) {
-        // this.debugHandEnd = new drawingTool.Dot().create({
-        // 	color:[0,0,255],
-        // 	x: this.handEndX,
-        // 	y: this.handEndY,
-        // 	z: Infinity
-        // });
-
-        // this.debugHandTarget = new drawingTool.Dot().create({
-        // 	color:[0,255,0],
-        // 	x: [ this.handTargetX, this.endX ],
-        // 	y: [ this.handTargetY, this.endY ],
-        // 	z: Infinity
-        // });
+        this.debugHandEnd = new Dot(this.state).create({
+          color: [0, 0, 255],
+          x: this.handEndX,
+          y: this.handEndY,
+          z: Infinity,
+        })
 
         this.debugHandTarget = new Line(this.state).create({
           weight: 1,

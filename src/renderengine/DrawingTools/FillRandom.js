@@ -83,14 +83,13 @@ class FillRandom extends Fill {
     )
 
     const mask = this.mask ? this.state.pixelSetter.getMask(this.use) : false
-    const dontCheck = !mask
+    const dontCheck = mask === false
     const random = this.random().one
 
     let current
     let currentX
     let currentY
     let finalX
-    let finalMaskX
     let odd = true
     let w
     let h
@@ -132,11 +131,13 @@ class FillRandom extends Fill {
         while (w--) {
           finalX = currentX + w
 
-          if (dontCheck || (finalMaskX = mask[finalX])) {
+          const finalMaskX = dontCheck === false && mask[finalX]
+
+          if (dontCheck || finalMaskX) {
             h = realHeight
 
             while (h--) {
-              if (dontCheck || finalMaskX[currentY + h]) {
+              if (dontCheck || (finalMaskX && finalMaskX[currentY + h])) {
                 this.getColorArray(finalX, currentY + h)
               }
             }

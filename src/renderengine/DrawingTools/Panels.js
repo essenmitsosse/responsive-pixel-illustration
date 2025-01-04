@@ -130,7 +130,7 @@ class Panels extends Obj {
 
     const imgRatio = this.imgRatio.ratio
 
-    let last = {}
+    let last = undefined
 
     while ((y += 1) <= l) {
       x = Math.round(l / y)
@@ -158,6 +158,7 @@ class Panels extends Obj {
         // current.squareness = Math.abs( 1 - current.ratio );
 
         if (
+          last &&
           last.ratioDiff < current.ratioDiff
           // && last.squareness < current.squareness
         ) {

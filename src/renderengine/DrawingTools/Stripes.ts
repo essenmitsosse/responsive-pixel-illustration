@@ -1,8 +1,8 @@
 import Obj from './Obj'
 
+import type { Location } from './createPixelArray'
 import type { ColorRgb } from '@/helper/typeColor'
 import type { InputDynamicVariableBase } from '@/helper/typeSize'
-import type { Location } from '@/renderengine/DrawingTools/createPixelArray'
 import type { Height, Width } from '@/renderengine/getPixelUnits/Size'
 
 type GetDraw = (

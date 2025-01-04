@@ -7,7 +7,7 @@ import recordDrawingTools from './recordDrawingTools'
 import type { PixelArray } from './createPixelArray'
 import type getPixelUnits from '@/renderengine/getPixelUnits'
 
-export const DrawingTools = (
+export const getDrawingTools = (
   pixelUnit: ReturnType<typeof getPixelUnits>,
 ): {
   getObj: () => Obj

@@ -26,3 +26,4 @@ export type InputDynamicVariable =
   | Link
   | number
   | string
+  | undefined

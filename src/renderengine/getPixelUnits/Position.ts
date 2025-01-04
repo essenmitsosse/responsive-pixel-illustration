@@ -5,7 +5,7 @@ import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { State } from '@/renderengine/getPixelUnits/State'
 
 type ArgsAxis = {
-  center: boolean
+  center?: boolean
   fromOtherSide: boolean
   margin?: InputDynamicVariable
   min?: InputDynamicVariable
@@ -23,7 +23,7 @@ class Axis {
   realMargin?: number
   toOtherSide: boolean | undefined
   fromOtherSide: boolean
-  center: boolean
+  center?: boolean
   margin: Dimension | false
   min?: Dimension | false
   calcPos: () => number

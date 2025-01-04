@@ -12,23 +12,25 @@ type DataDimensionContext = {
   width: number
 }
 
+type Position = (
+  args: {
+    center?: boolean
+    centerX?: boolean
+    centerY?: boolean
+    fX?: boolean
+    fY?: boolean
+    toLeft?: boolean
+    toTop?: boolean
+    x?: InputDynamicVariable
+    y?: InputDynamicVariable
+  },
+  reflectX: boolean,
+  reflectY: boolean,
+  rotate: boolean,
+) => () => { x: number; y: number }
+
 const getPixelUnits = (): {
-  Position: (
-    args: {
-      center: boolean
-      centerX?: boolean
-      centerY?: boolean
-      fX?: boolean
-      fY?: boolean
-      toLeft?: boolean
-      toTop?: boolean
-      x: InputDynamicVariable
-      y: InputDynamicVariable
-    },
-    reflectX: boolean,
-    reflectY: boolean,
-    rotate: boolean,
-  ) => () => { x: number; y: number }
+  Position: Position
   createSize: (
     args: InputDynamicVariable & { height?: boolean },
   ) => Height | Width
@@ -104,22 +106,7 @@ const getPixelUnits = (): {
     state.dimensionHeight = dimensions.height
   }
 
-  const Position = (
-    args: {
-      center: boolean
-      centerX?: boolean
-      centerY?: boolean
-      fX?: boolean
-      fY?: boolean
-      toLeft?: boolean
-      toTop?: boolean
-      x: InputDynamicVariable
-      y: InputDynamicVariable
-    },
-    reflectX: boolean,
-    reflectY: boolean,
-    rotate: boolean,
-  ) => {
+  const Position: Position = (args, reflectX, reflectY, rotate) => {
     const fromRight = (args.fX || false) !== reflectX
     const fromBottom = (args.fY || false) !== reflectY
 

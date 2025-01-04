@@ -23,12 +23,13 @@ type SizeAndPos = {
   points?: Array<() => { x: number; y: number }>
 }
 
-type Args = Inherit & {
+export type ArgsInit = Inherit & {
   closed?: boolean
   list?: ReadonlyArray<Tool | false>
+  use?: string
 }
 
-type ArgsNew = Args & SizeAndPos
+type ArgsNew = ArgsInit & SizeAndPos
 
 export type Tool = Parameters<
   ReturnType<typeof getPixelUnits>['getDimensions']
@@ -55,7 +56,7 @@ export type Tool = Parameters<
   targetX?: unknown
   toLeft?: boolean
   toTop?: boolean
-  use?: unknown
+  use?: string
   weight?: number
   z?: number
 }
@@ -81,12 +82,12 @@ class Primitive {
    * they won't get overwrittten.
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- this should already declare the expected type, even if it is not implemented
-  init(_args: Args): void {}
+  init(_args: ArgsInit): void {}
 
   draw(): void {}
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- this should already declare the expected type, even if it is not implemented
-  detailInit(_args: Args, _inherit: Inherit): void {}
+  detailInit(_args: ArgsInit, _inherit: Inherit): void {}
 
   create(args: Tool, inherit: Inherit): this {
     inherit = inherit || {}

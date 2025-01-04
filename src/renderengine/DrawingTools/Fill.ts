@@ -1,11 +1,14 @@
 import Primitive from './Primitive'
 
+import type { ArgsInit } from './Primitive'
+
 class Fill extends Primitive {
-  init(args) {
+  use?: string
+  init(args: ArgsInit): void {
     this.use = args.use
   }
 
-  draw() {
+  draw(): void {
     if (this.use === undefined) {
       throw new Error('Unexpexted error: use is undefined')
     }

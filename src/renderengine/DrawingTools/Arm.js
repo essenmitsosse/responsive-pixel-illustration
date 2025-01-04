@@ -176,10 +176,6 @@ class Arm extends Obj {
 
       this.handTargetY = hand.targetY
 
-      this.handRelativeToArm = hand.toArm || this.ellbow
-
-      this.handRelativeToDirection = hand.toDir
-
       this.hand = new Line(this.state).create({
         weight: hand.width || args.lowerArmWeight || args.weight,
         color: hand.color || args.lowerArmColor || args.color,

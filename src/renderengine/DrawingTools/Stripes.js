@@ -36,6 +36,10 @@ class Stripes extends Obj {
   }
 
   detailInit(args) {
+    if (args.stripes === undefined) {
+      throw new Error('Unexpected error: stripes is undefined')
+    }
+
     let random
 
     /** Width of a single Line */

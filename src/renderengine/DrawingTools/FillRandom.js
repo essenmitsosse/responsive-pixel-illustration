@@ -39,6 +39,22 @@ class FillRandom extends Fill {
   }
 
   draw() {
+    if (this.use === undefined) {
+      throw new Error('unexpected Error: use is undefined')
+    }
+
+    if (this.chance === undefined) {
+      throw new Error('unexpected Error: chance is undefined')
+    }
+
+    if (this.random === undefined) {
+      throw new Error('unexpected Error: random is undefined')
+    }
+
+    if (this.getColorArray === undefined) {
+      throw new Error('unexpected Error: getColorArray is undefined')
+    }
+
     const width = this.width ? this.width.getReal() : 1
     const height = this.height ? this.height.getReal() : 1
     const sizeRandom = this.sizeRandom ? this.sizeRandom.getReal() + 1 : false

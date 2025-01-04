@@ -1,6 +1,21 @@
 import Obj from './Obj'
 
-const drawerNormal =
+import type { ColorRgb } from '@/helper/typeColor'
+import type { InputDynamicVariableBase } from '@/helper/typeSize'
+import type { Location } from '@/renderengine/DrawingTools/createPixelArray'
+import type { Height, Width } from '@/renderengine/getPixelUnits/Size'
+
+type GetDraw = (
+  drawer: (args: Location) => void,
+  fromOtherSide: boolean | undefined,
+  stripWidth: number,
+  endX: number,
+  startY: number,
+  endY: number,
+  overflow: boolean | undefined,
+) => (startX: number, currentHeightChange: number, randomWidth: number) => void
+
+const drawerNormal: GetDraw =
   (drawer, fromOtherSide, stripWidth, endX, startY, endY, overflow) =>
   (startX, currentHeightChange, randomWidth) => {
     const end = startX + stripWidth + randomWidth
@@ -14,7 +29,7 @@ const drawerNormal =
     })
   }
 
-const drawerHorizontal =
+const drawerHorizontal: GetDraw =
   (drawer, fromOtherSide, stripWidth, endY, startX, endX, overflow) =>
   (startY, currentHeightChange, randomWidth) => {
     const end = startY + stripWidth + randomWidth
@@ -28,14 +43,56 @@ const drawerHorizontal =
     })
   }
 
+type Stripe = {
+  change?: { height?: boolean }
+  cut?: unknown
+  fromStart?: unknown
+  gap?: InputDynamicVariableBase
+  horizontal?: boolean
+  overflow?: boolean
+  random?: InputDynamicVariableBase
+  round?: unknown
+  seed?: number
+  strip?: InputDynamicVariableBase
+}
+
+export type ArgsInitStripes = {
+  stripes?: Stripe
+}
+
 class Stripes extends Obj {
   isStripe = true
+  getColorArrayStripe?: ((args: Location) => void) | undefined
+  horizontal?: boolean
+  stripWidth?: Height | Width
+  gapWidth?: Height | Width
+  stripWidthRandom?: Height | Width
+  gapWidthRandom?: Height | Width
+  lengthRandom?: Height | Width
+  lengthChange?: Height | Width
+  random?: () => {
+    count: (c: number) => number
+    one: () => number
+    seed: () => number
+  }
+  cut?: unknown
+  overflow?: boolean
+  round?: unknown
+  fromStart?: unknown
+  fromOtherSide?: boolean
+  getDraw?: GetDraw
 
-  setColorArray(args) {
+  setColorArray(args: {
+    clear?: boolean
+    color?: ColorRgb
+    id?: string
+    save?: string
+    zInd?: number
+  }): void {
     this.getColorArrayStripe = this.state.pixelSetter.setColorArrayRect(args)
   }
 
-  detailInit(args) {
+  detailInit(args: ArgsInitStripes): void {
     if (args.stripes === undefined) {
       throw new Error('Unexpected error: stripes is undefined')
     }
@@ -110,7 +167,7 @@ class Stripes extends Obj {
     this.getDraw = horizontal ? drawerHorizontal : drawerNormal
   }
 
-  draw() {
+  draw(): void {
     if (this.dimensions === undefined) {
       throw new Error('Unexpected error: dimensions is undefined')
     }
@@ -246,7 +303,9 @@ class Stripes extends Obj {
       if (!this.cut || start + totalWidth <= end) {
         draw(
           start,
-          (lengthRandom !== 0 ? Math.round(lengthRandom * random()) : 0) +
+          (lengthRandom !== 0 && random
+            ? Math.round(lengthRandom * random())
+            : 0) +
             (lengthChangeStep
               ? Math.round((totalHeightChange += lengthChangeStep * totalWidth))
               : 0),

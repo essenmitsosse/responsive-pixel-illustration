@@ -4,6 +4,7 @@ import type { State } from './State'
 import type { ColorRgb } from '@/helper/typeColor'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type recordDrawingTools from '@/renderengine/DrawingTools/recordDrawingTools'
+import type { ArgsInitStripes } from '@/renderengine/DrawingTools/Stripes'
 import type { Position } from '@/renderengine/getPixelUnits'
 import type {
   Dimensions,
@@ -38,7 +39,7 @@ export type ArgsInit = Inherit & {
 
 type ArgsNew = ArgsInit & SizeAndPos
 
-export type Tool = {
+export type Tool = ArgsInitStripes & {
   chance?: unknown
   list?: ReadonlyArray<Tool | false>
   name?: keyof typeof recordDrawingTools
@@ -48,7 +49,6 @@ export type Tool = {
   rY?: boolean
   rotate?: number
   save?: string
-  stripes?: unknown
   targetX?: unknown
   use?: string
   weight?: InputDynamicVariable
@@ -61,7 +61,8 @@ export type ArgsPrepare = ParameterDimension &
     rY?: boolean
   }
 
-type ArgsCreate = ArgsPrepare &
+type ArgsCreate = ArgsInitStripes &
+  ArgsPrepare &
   Pick<Tool, 'list' | 'weight'> & {
     clear?: boolean
     color?: ColorRgb
@@ -98,7 +99,7 @@ class Primitive {
   draw(): void {}
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- this should already declare the expected type, even if it is not implemented
-  detailInit(_args: ArgsInit, _inherit: Inherit): void {}
+  detailInit(_args: ArgsInitStripes): void {}
 
   create(args: ArgsCreate, inherit?: Inherit): this {
     inherit = inherit || {}
@@ -180,7 +181,7 @@ class Primitive {
     }
 
     if (this.detailInit) {
-      this.detailInit(args, inherit)
+      this.detailInit(args)
     }
 
     return this

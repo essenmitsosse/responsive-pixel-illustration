@@ -90,7 +90,7 @@ export class Dimension {
    * `constructor` call, so after `super` has been called we need to explicitly
    * call `prepare`.
    */
-  prepare(args: InputDynamicVariable | undefined, axis: boolean): void {
+  prepare(args: InputDynamicVariable, axis: boolean): void {
     if (
       this.state.variableListLink === null ||
       this.state.variableListCreate === null
@@ -337,8 +337,8 @@ export class Dimension {
   }
 
   getRealDistanceWithMaxMin(
-    max: InputDynamicVariable | undefined,
-    min: InputDynamicVariable | undefined,
+    max: InputDynamicVariable,
+    min: InputDynamicVariable,
     Dim: { new (args: InputDynamicVariable, state: State): Height | Width },
   ): () => number {
     const dimMax = max && new Dim(max, this.state)
@@ -418,7 +418,7 @@ class Distance extends Dimension {
 }
 
 export class Width extends Dimension {
-  constructor(args: InputDynamicVariable | undefined, state: State) {
+  constructor(args: InputDynamicVariable, state: State) {
     super(state)
 
     this.prepare(args, true)
@@ -426,7 +426,7 @@ export class Width extends Dimension {
 }
 
 export class Height extends Dimension {
-  constructor(args: InputDynamicVariable | undefined, state: State) {
+  constructor(args: InputDynamicVariable, state: State) {
     super(state)
 
     this.prepare(args, false)

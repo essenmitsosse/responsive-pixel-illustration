@@ -9,7 +9,7 @@ type ArgsAxis = {
   fromOtherSide: boolean
   margin?: InputDynamicVariable
   min?: InputDynamicVariable
-  pos: InputDynamicVariable
+  pos?: InputDynamicVariable
   size?: InputDynamicVariable
   toOtherSide?: boolean
 }
@@ -29,7 +29,7 @@ class Axis {
   calcPos: () => number
   constructor(
     Size: {
-      new (args: InputDynamicVariable | undefined, state: State): Height | Width
+      new (args: InputDynamicVariable, state: State): Height | Width
     },
     Pos: {
       new (args: InputDynamicVariable, state: State): DistanceX | DistanceY
@@ -192,7 +192,7 @@ export class AxisY extends Axis {
 class Pos extends Axis {
   constructor(
     Size: {
-      new (args: InputDynamicVariable | undefined, state: State): Height | Width
+      new (args: InputDynamicVariable, state: State): Height | Width
     },
     Distance: {
       new (args: InputDynamicVariable, state: State): DistanceX | DistanceY
@@ -283,21 +283,21 @@ export class Dimensions {
   y: AxisY
   constructor(
     args: {
-      c: boolean
+      c?: boolean
       cX?: boolean
       cY?: boolean
-      m: number
+      m?: number
       mX?: number
       mY?: number
       minX?: number
       minY?: number
-      s: number
+      s?: number
       sX?: number
       sY?: number
-      tX: boolean
-      tY: boolean
-      x: number
-      y: number
+      tX?: boolean
+      tY?: boolean
+      x?: InputDynamicVariable
+      y?: InputDynamicVariable
     },
     fromRight: boolean,
     fromBottom: boolean,
@@ -407,3 +407,5 @@ export class Dimensions {
     )
   }
 }
+
+export type ParameterDimension = ConstructorParameters<typeof Dimensions>[0]

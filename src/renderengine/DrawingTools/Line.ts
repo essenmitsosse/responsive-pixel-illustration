@@ -1,6 +1,7 @@
 import Primitive from './Primitive'
 
-import type { Tool } from './Primitive'
+import type { ArgsInit, ArgsPrepare } from './Primitive'
+import type { InputDynamicVariable } from '@/helper/typeSize'
 
 type LineSetter = (x: number, y: number) => void
 
@@ -71,7 +72,7 @@ const getDrawLine =
 
 class Line extends Primitive {
   lineSetter?: () => LineSetter
-  init(args: { closed?: boolean; weight: number }): void {
+  init(args: ArgsInit): void {
     if (args.closed) {
       if (this.args === undefined) {
         throw new Error('Unexpected error: args is undefined')
@@ -83,7 +84,7 @@ class Line extends Primitive {
     this.lineSetter = this.getLineSetter(args.weight)
   }
 
-  getLineSetter(weight: number): () => LineSetter {
+  getLineSetter(weight?: InputDynamicVariable): () => LineSetter {
     const w = weight ? this.state.pixelUnit.createSize(weight) : null
 
     return w
@@ -120,7 +121,7 @@ class Line extends Primitive {
   }
 
   prepareSizeAndPos(
-    args: Tool,
+    args: ArgsPrepare,
     reflectX: boolean,
     reflectY: boolean,
     rotate: boolean,

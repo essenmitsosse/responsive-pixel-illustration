@@ -1,6 +1,6 @@
 import Primitive from './Primitive'
 
-import type { Tool } from './Primitive'
+import type { ArgsPrepare } from './Primitive'
 
 class Dot extends Primitive {
   draw(): void {
@@ -22,7 +22,7 @@ class Dot extends Primitive {
   }
 
   prepareSizeAndPos(
-    args: Tool,
+    args: ArgsPrepare,
     reflectX: Parameters<typeof this.state.pixelUnit.Position>[1],
     reflectY: Parameters<typeof this.state.pixelUnit.Position>[2],
     rotate: Parameters<typeof this.state.pixelUnit.Position>[3],

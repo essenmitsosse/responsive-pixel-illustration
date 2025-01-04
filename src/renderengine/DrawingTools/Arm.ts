@@ -1,16 +1,87 @@
-import Rect from '@/renderengine/DrawingTools/Rect'
-
 import Dot from './Dot'
 import Line from './Line'
 import Obj from './Obj'
+import Rect from './Rect'
+
+import type { ArgsInit } from './Primitive'
+import type { ColorRgb } from '@/helper/typeColor'
+import type { InputDynamicVariableBase } from '@/helper/typeSize'
+import type { Height, Width } from '@/renderengine/getPixelUnits/Size'
+import type { Link } from '@/scripts/listImage'
+
+type ArgsArm = {
+  debug?: boolean
+  ellbow?: boolean
+  endX?: InputDynamicVariableBase
+  endY?: InputDynamicVariableBase
+  flip?: boolean
+  hand?: {
+    color: ColorRgb
+    endX: InputDynamicVariableBase
+    endY: InputDynamicVariableBase
+    length: number
+    targetX: InputDynamicVariableBase
+    targetY: InputDynamicVariableBase
+    width: number
+  }
+  jointX?: InputDynamicVariableBase
+  jointY?: InputDynamicVariableBase
+  length?: InputDynamicVariableBase
+  lowerArmColor?: ColorRgb
+  lowerArmLightColor?: ColorRgb
+  lowerArmWeight?: number
+  maxStraight?: number
+  ratio?: number
+  targetX?: InputDynamicVariableBase
+  targetY?: InputDynamicVariableBase
+  upperArmColor?: ColorRgb
+  upperArmLightColor?: ColorRgb
+  upperArmWeight?: number
+  weight?: number
+}
 
 class Arm extends Obj {
-  init(args) {
+  upperArm?: Line
+  upperArmInner?: Line
+  lowerArm?: Line
+  lowerArmInner?: Line
+  showDebug?: boolean
+  debugLowerArm?: Line
+  debugUpperArm?: Line
+  debugArmTarget?: Line
+  handLength?: Height | Width
+  hand?: Line
+  debugEnd?: Dot
+  debugEllbow?: Dot
+  debug?: Rect
+  debugHandEnd?: Dot
+  debugHandTarget?: Line
+  targetX?: InputDynamicVariableBase & Link
+  targetY?: InputDynamicVariableBase & Link
+  endX?: InputDynamicVariableBase & Link
+  endY?: InputDynamicVariableBase & Link
+  jointX?: InputDynamicVariableBase & Link
+  jointY?: InputDynamicVariableBase & Link
+  length?: InputDynamicVariableBase & Link
+  ratio?: number
+  flip?: boolean
+  maxStraight?: number
+  ellbow?: boolean
+  handEndX?: InputDynamicVariableBase & Link
+  handEndY?: InputDynamicVariableBase & Link
+  handTargetX?: InputDynamicVariableBase & Link
+  handTargetY?: InputDynamicVariableBase & Link
+  fullLength?: number
+  upperArmLength?: number
+  lowerArmLength?: number
+  straightAngle?: number
+
+  init(args: ArgsArm & ArgsInit): void {
     if (this.args === undefined) {
       throw new Error('Unexpected error: args is undefined')
     }
 
-    let hand
+    let hand: ArgsArm['hand']
 
     this.targetX = args.targetX
 
@@ -210,7 +281,7 @@ class Arm extends Obj {
     }
   }
 
-  draw() {
+  draw(): void {
     if (this.dimensions === undefined) {
       throw new Error('Unexpected error: dimensions is undefined')
     }
@@ -323,7 +394,7 @@ class Arm extends Obj {
     this.state.pixelUnit.pop()
   }
 
-  calculateFromEllbow() {
+  calculateFromEllbow(): void {
     if (this.targetY === undefined) {
       throw new Error('Unexpected error: targetY is undefined')
     }
@@ -399,7 +470,7 @@ class Arm extends Obj {
     this.straightAngle = 0.5
   }
 
-  calculateFromHand() {
+  calculateFromHand(): void {
     if (this.targetX === undefined) {
       throw new Error('Unexpected error: targetX is undefined')
     }
@@ -523,7 +594,7 @@ class Arm extends Obj {
     }
   }
 
-  drawHand() {
+  drawHand(): void {
     if (this.endX === undefined) {
       throw new Error('Unexpected error: endX is undefined')
     }

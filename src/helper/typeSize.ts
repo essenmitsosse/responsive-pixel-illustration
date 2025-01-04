@@ -2,9 +2,10 @@ import type { Link } from '@/scripts/listImage'
 
 export type SizeHover<T> = { r?: T; s: { rele?: T } }
 
-type InputDynamicVariableBase = {
+export type InputDynamicVariableBase = {
   a?: number | string
   add?: ReadonlyArray<InputDynamicVariable>
+  autoUpdate?: boolean
   debug?: unknown
   getBiggerDim?: boolean
   getLength?: [number, number]

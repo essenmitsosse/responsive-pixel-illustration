@@ -1,9 +1,13 @@
 import type { Location } from './createPixelArray'
 import type { State } from './State'
 import type { ColorRgb } from '@/helper/typeColor'
+import type { InputDynamicVariable } from '@/helper/typeSize'
 import type recordDrawingTools from '@/renderengine/DrawingTools/recordDrawingTools'
-import type getPixelUnits from '@/renderengine/getPixelUnits'
-import type { Dimensions } from '@/renderengine/getPixelUnits/Position'
+import type { Position } from '@/renderengine/getPixelUnits'
+import type {
+  Dimensions,
+  ParameterDimension,
+} from '@/renderengine/getPixelUnits/Position'
 
 export type Inherit = {
   clear?: boolean
@@ -27,39 +31,44 @@ export type ArgsInit = Inherit & {
   closed?: boolean
   list?: ReadonlyArray<Tool | false>
   use?: string
+  weight?: InputDynamicVariable
 }
 
 type ArgsNew = ArgsInit & SizeAndPos
 
-export type Tool = Parameters<
-  ReturnType<typeof getPixelUnits>['getDimensions']
->[0] & {
-  center: boolean
+export type Tool = {
   chance?: unknown
-  clear?: boolean
-  color?: ColorRgb
-  fX?: boolean
-  fY?: boolean
-  id?: string
   list?: ReadonlyArray<Tool | false>
-  mask?: unknown
   name?: keyof typeof recordDrawingTools
   panels?: unknown
-  points?: ReadonlyArray<
-    Parameters<ReturnType<typeof getPixelUnits>['Position']>[0]
-  >
-  rX?: unknown
-  rY?: unknown
+  points?: ReadonlyArray<Parameters<Position>[0]>
+  rX?: boolean
+  rY?: boolean
   rotate?: number
   save?: string
   stripes?: unknown
   targetX?: unknown
-  toLeft?: boolean
-  toTop?: boolean
   use?: string
-  weight?: number
-  z?: number
+  weight?: InputDynamicVariable
 }
+
+export type ArgsPrepare = ParameterDimension &
+  Parameters<Position>[0] &
+  Pick<Tool, 'points'> & {
+    rX?: boolean
+    rY?: boolean
+  }
+
+type ArgsCreate = ArgsPrepare &
+  Pick<Tool, 'list' | 'weight'> & {
+    clear?: boolean
+    color?: ColorRgb
+    id?: string
+    mask?: unknown
+    rotate?: number
+    save?: string
+    z?: number
+  }
 
 class Primitive {
   state: State
@@ -89,7 +98,7 @@ class Primitive {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- this should already declare the expected type, even if it is not implemented
   detailInit(_args: ArgsInit, _inherit: Inherit): void {}
 
-  create(args: Tool, inherit: Inherit): this {
+  create(args: ArgsCreate, inherit?: Inherit): this {
     inherit = inherit || {}
 
     let reflectX: boolean = inherit.reflectX || false
@@ -187,7 +196,7 @@ class Primitive {
 
   // Prepare Size and Position Data for Basic Objects
   prepareSizeAndPos(
-    args: Tool,
+    args: ArgsPrepare,
     reflectX: boolean,
     reflectY: boolean,
     rotate: boolean,

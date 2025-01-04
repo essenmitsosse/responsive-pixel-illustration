@@ -1,6 +1,7 @@
 import { Dimensions, PosX, PosY } from './Position'
 import { Height, Width } from './Size'
 
+import type { ParameterDimension } from './Position'
 import type { State } from './State'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { DynamicVariable } from '@/renderengine/Variable'
@@ -12,7 +13,7 @@ type DataDimensionContext = {
   width: number
 }
 
-type Position = (
+export type Position = (
   args: {
     center?: boolean
     centerX?: boolean
@@ -35,23 +36,7 @@ const getPixelUnits = (): {
     args: InputDynamicVariable & { height?: boolean },
   ) => Height | Width
   getDimensions: (
-    args: {
-      c: boolean
-      cX?: boolean
-      cY?: boolean
-      m: number
-      mX?: number
-      mY?: number
-      minX?: number
-      minY?: number
-      s: number
-      sX?: number
-      sY?: number
-      tX: boolean
-      tY: boolean
-      x: number
-      y: number
-    },
+    args: ParameterDimension,
     fromRight: boolean,
     fromBottom: boolean,
     rotate: boolean,
@@ -144,7 +129,7 @@ const getPixelUnits = (): {
       state,
     )
 
-    return (): { x: number; y: number } => ({
+    return () => ({
       x: x.calc(),
       y: y.calc(),
     })

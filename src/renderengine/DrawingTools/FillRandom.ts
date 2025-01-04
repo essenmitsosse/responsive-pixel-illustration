@@ -124,7 +124,7 @@ class FillRandom extends Fill {
     let randWidth = 0
     let randHeight = 0
 
-    if (count === Infinity) {
+    if (count === Infinity || array === false) {
       return
     } else if (
       count < Infinity &&

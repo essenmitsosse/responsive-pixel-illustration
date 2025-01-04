@@ -81,6 +81,10 @@ class Obj extends Primitive {
       throw new Error('Unexpected error: listTool is undefined')
     }
 
+    if (this.args === undefined) {
+      throw new Error('Unexpected error: args is undefined')
+    }
+
     const dimensions = this.dimensions.calc()
 
     let oldMask

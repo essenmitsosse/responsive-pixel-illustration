@@ -6,6 +6,10 @@ import Obj from './Obj'
 
 class Arm extends Obj {
   init(args) {
+    if (this.args === undefined) {
+      throw new Error('Unexpected error: args is undefined')
+    }
+
     let hand
 
     this.targetX = args.targetX

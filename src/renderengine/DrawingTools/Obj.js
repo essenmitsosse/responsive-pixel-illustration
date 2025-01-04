@@ -41,7 +41,11 @@ class Obj extends Primitive {
   }
 
   init() {
-    const list = this.args.list || this.list
+    if (this.args === undefined) {
+      throw new Error('Unexpected error: args is undefined')
+    }
+
+    const list = this.args.list || ('list' in this ? this.list : undefined)
 
     if (list) {
       this.args.list = Array.isArray(list)

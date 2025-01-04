@@ -249,7 +249,13 @@ class Panels extends Obj {
     while (total > l) {
       total -= 1
 
-      panels[priorites.pop()].size += 1
+      const priority = priorites.pop()
+
+      if (priority === undefined) {
+        throw new Error('Unexpected error: no more priorities')
+      }
+
+      panels[priority].size += 1
     }
 
     j = this.countY

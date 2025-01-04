@@ -1,7 +1,59 @@
 import Obj from './Obj'
 
+import type { Location } from './createPixelArray'
+import type { ArgsInit, Tool } from './Primitive'
+import type {
+  InputDynamicVariable,
+  InputDynamicVariableBase,
+} from '@/helper/typeSize'
+import type { Height, Width } from '@/renderengine/getPixelUnits/Size'
+import type { Link } from '@/scripts/listImage'
+
+type PanelInput = {
+  list: ReadonlyArray<Tool>
+  sX?: InputDynamicVariableBase & Link
+  sY?: InputDynamicVariableBase & Link
+}
+
+export type PanelPre = {
+  dimensions?: Location
+  drawer: Obj
+  sX: InputDynamicVariable & Link
+  sY: InputDynamicVariable & Link
+}
+
+type PanelSorted = PanelPre & {
+  first: boolean
+  last: boolean
+  odd?: boolean
+  size: number
+  x?: number
+  y?: number
+}
+
+type ArgsPanels = ArgsInit & {
+  fluctuation?: number
+  gutterX?: InputDynamicVariable
+  gutterY?: InputDynamicVariable
+  imgRatio?: { ratio: number }
+  panels: Array<PanelInput>
+}
+
 class Panels extends Obj {
-  init(args) {
+  gutterSX?: Width
+  gutterSY?: Height
+  imgRatio?: { ratio: number }
+  listPanels?: ReadonlyArray<PanelPre>
+  fluctuation?: number
+  sX?: number
+  sY?: number
+  gutterX?: number
+  gutterY?: number
+  countX?: number
+  countY?: number
+  singleSX?: number
+  singleSY?: number
+  init(args: ArgsPanels): void {
     if (this.args === undefined) {
       throw new Error('Unexpected error: args is undefined')
     }
@@ -12,7 +64,7 @@ class Panels extends Obj {
 
     this.args.listPanels = []
 
-    let current
+    let current: PanelInput
 
     while (l--) {
       current = args.panels[l]
@@ -57,7 +109,7 @@ class Panels extends Obj {
   }
 
   // Draws Object, consisting of other Objects and Primitives.
-  draw() {
+  draw(): void {
     if (this.dimensions === undefined) {
       throw new Error('Unexpected error: dimensions is undefined')
     }
@@ -96,7 +148,7 @@ class Panels extends Obj {
     this.drawPanels(panels, this.args.mask)
   }
 
-  findBestRows() {
+  findBestRows(): void {
     if (this.args === undefined) {
       throw new Error('Unexpected error: args is undefined')
     }
@@ -129,9 +181,21 @@ class Panels extends Obj {
     let x
 
     const l = this.args.listPanels.length
+
+    type Data = {
+      ratio: number
+      ratioDiff: number
+      singleSX: number
+      singleSXWithGutter: number
+      singleSY: number
+      singleSYWithGutter: number
+      x: number
+      y: number
+    }
+
     const imgRatio = this.imgRatio.ratio
 
-    let last = undefined
+    let last: Data | undefined = undefined
 
     while ((y += 1) <= l) {
       x = Math.round(l / y)
@@ -146,7 +210,7 @@ class Panels extends Obj {
         const singleSYWithGutter = Math.floor((this.sY + this.gutterY) / y)
         const ratio = singleSXWithGutter / singleSYWithGutter
 
-        const current = {
+        const current: Data = {
           x,
           y,
           singleSXWithGutter,
@@ -182,7 +246,7 @@ class Panels extends Obj {
     this.singleSY = last.singleSY <= 1 ? 1 : last.singleSY
   }
 
-  sortRows() {
+  sortRows(): ReadonlyArray<PanelSorted> {
     if (this.args === undefined) {
       throw new Error('Unexpected error: args is undefined')
     }
@@ -191,7 +255,15 @@ class Panels extends Obj {
       throw new Error('Unexpected error: args.listPanels is undefined')
     }
 
-    const panels = []
+    if (this.countX === undefined) {
+      throw new Error('Unexpected error: countX is undefined')
+    }
+
+    if (this.countY === undefined) {
+      throw new Error('Unexpected error: countY is undefined')
+    }
+
+    const panels: Array<PanelSorted> = []
 
     let i
     let j
@@ -301,7 +373,7 @@ class Panels extends Obj {
     return panels
   }
 
-  calcPanelsSizes(panels) {
+  calcPanelsSizes(panels: ReadonlyArray<PanelSorted>): void {
     if (this.singleSX === undefined) {
       throw new Error('Unexpected error: singleSX is undefined')
     }
@@ -332,6 +404,10 @@ class Panels extends Obj {
 
     if (this.gutterX === undefined) {
       throw new Error('Unexpected error: gutterX is undefined')
+    }
+
+    if (this.gutterY === undefined) {
+      throw new Error('Unexpected error: gutterY is undefined')
     }
 
     if (this.dimensions === undefined) {
@@ -426,10 +502,13 @@ class Panels extends Obj {
     } while ((c += 1) < l)
   }
 
-  drawPanels(panels, mask) {
+  drawPanels(
+    panels: ReadonlyArray<PanelSorted>,
+    mask: ((dimensions: Location, push?: boolean) => Location) | undefined,
+  ): void {
     let currentPanel
-    let currentDim
-    let oldMask
+    let currentDim: Location | undefined
+    let oldMask: Location | undefined = undefined
 
     const l = panels.length
 

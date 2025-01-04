@@ -1,4 +1,5 @@
 import type { Location } from './createPixelArray'
+import type { PanelPre } from './Panels'
 import type { State } from './State'
 import type { ColorRgb } from '@/helper/typeColor'
 import type { InputDynamicVariable } from '@/helper/typeSize'
@@ -30,6 +31,7 @@ type SizeAndPos = {
 export type ArgsInit = Inherit & {
   closed?: boolean
   list?: ReadonlyArray<Tool | false>
+  listPanels?: Array<PanelPre>
   use?: string
   weight?: InputDynamicVariable
 }

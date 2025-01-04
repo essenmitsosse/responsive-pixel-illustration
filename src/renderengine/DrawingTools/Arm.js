@@ -34,6 +34,30 @@ class Arm extends Obj {
 
     this.ellbow = args.ellbow
 
+    if (this.targetX === undefined) {
+      throw new Error('Unexpected error: targetX is undefined')
+    }
+
+    if (this.targetY === undefined) {
+      throw new Error('Unexpected error: targetY is undefined')
+    }
+
+    if (this.endX === undefined) {
+      throw new Error('Unexpected error: endX is undefined')
+    }
+
+    if (this.endY === undefined) {
+      throw new Error('Unexpected error: endY is undefined')
+    }
+
+    if (this.jointX === undefined) {
+      throw new Error('Unexpected error: jointX is undefined')
+    }
+
+    if (this.jointY === undefined) {
+      throw new Error('Unexpected error: jointY is undefined')
+    }
+
     this.endX.autoUpdate = true
 
     this.endY.autoUpdate = true

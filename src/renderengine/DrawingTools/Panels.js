@@ -432,6 +432,10 @@ class Panels extends Obj {
 
       currentDim = currentPanel.dimensions
 
+      if (currentDim === undefined) {
+        throw new Error('Unexpected error: dimensions is undefined')
+      }
+
       if (mask) {
         oldMask = mask(currentDim)
       }

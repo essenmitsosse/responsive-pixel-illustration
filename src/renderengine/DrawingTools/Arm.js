@@ -521,8 +521,6 @@ class Arm extends Obj {
     if (isNaN(this.jointY.real)) {
       this.jointY.real = 0
     }
-
-    this.x = x
   }
 
   drawHand() {

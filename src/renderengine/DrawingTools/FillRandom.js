@@ -100,9 +100,9 @@ class FillRandom extends Fill {
       count < Infinity &&
       (width > 1 ||
         height > 1 ||
-        heightRandom > 0 ||
-        widthRandom > 0 ||
-        sizeRandom > 0)
+        (typeof heightRandom === 'number' && heightRandom > 0) ||
+        (typeof widthRandom === 'number' && widthRandom > 0) ||
+        (typeof sizeRandom === 'number' && sizeRandom > 0))
     ) {
       while (count-- > 0) {
         w =

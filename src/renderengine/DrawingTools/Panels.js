@@ -45,7 +45,7 @@ class Panels extends Obj {
       ? typeof args.imgRatio === 'object'
         ? args.imgRatio
         : { ratio: args.imgRatio }
-      : 1
+      : undefined
 
     if (args.gutterX) {
       this.gutterSX = this.state.pixelUnit.getWidth(args.gutterX)

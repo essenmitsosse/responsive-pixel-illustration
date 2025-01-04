@@ -211,6 +211,46 @@ class Arm extends Obj {
   }
 
   draw() {
+    if (this.dimensions === undefined) {
+      throw new Error('Unexpected error: dimensions is undefined')
+    }
+
+    if (this.length === undefined) {
+      throw new Error('Unexpected error: length is undefined')
+    }
+
+    if (this.length.s === undefined) {
+      throw new Error('Unexpected error: length.s is undefined')
+    }
+
+    if (this.ratio === undefined) {
+      throw new Error('Unexpected error: ratio is undefined')
+    }
+
+    if (this.endX === undefined) {
+      throw new Error('Unexpected error: endX is undefined')
+    }
+
+    if (this.endY === undefined) {
+      throw new Error('Unexpected error: endY is undefined')
+    }
+
+    if (this.jointX === undefined) {
+      throw new Error('Unexpected error: jointX is undefined')
+    }
+
+    if (this.jointY === undefined) {
+      throw new Error('Unexpected error: jointY is undefined')
+    }
+
+    if (this.lowerArm === undefined) {
+      throw new Error('Unexpected error: lowerArm is undefined')
+    }
+
+    if (this.upperArm === undefined) {
+      throw new Error('Unexpected error: upperArm is undefined')
+    }
+
     const dimensions = this.dimensions.calc()
 
     this.fullLength = this.length.s.getReal()

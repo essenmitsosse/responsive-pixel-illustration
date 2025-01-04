@@ -294,6 +294,42 @@ class Panels extends Obj {
   }
 
   calcPanelsSizes(panels) {
+    if (this.singleSX === undefined) {
+      throw new Error('Unexpected error: singleSX is undefined')
+    }
+
+    if (this.singleSY === undefined) {
+      throw new Error('Unexpected error: singleSY is undefined')
+    }
+
+    if (this.countX === undefined) {
+      throw new Error('Unexpected error: countX is undefined')
+    }
+
+    if (this.countY === undefined) {
+      throw new Error('Unexpected error: countY is undefined')
+    }
+
+    if (this.fluctuation === undefined) {
+      throw new Error('Unexpected error: fluctuation is undefined')
+    }
+
+    if (this.sX === undefined) {
+      throw new Error('Unexpected error: sX is undefined')
+    }
+
+    if (this.sY === undefined) {
+      throw new Error('Unexpected error: sY is undefined')
+    }
+
+    if (this.gutterX === undefined) {
+      throw new Error('Unexpected error: gutterX is undefined')
+    }
+
+    if (this.dimensions === undefined) {
+      throw new Error('Unexpected error: dimensions is undefined')
+    }
+
     let c = 0
 
     const l = panels.length
@@ -315,6 +351,14 @@ class Panels extends Obj {
       x = currentPanel.x
 
       y = currentPanel.y
+
+      if (x === undefined) {
+        throw new Error('Unexpected error: x is undefined')
+      }
+
+      if (y === undefined) {
+        throw new Error('Unexpected error: y is undefined')
+      }
 
       size = currentPanel.size
 
@@ -354,6 +398,10 @@ class Panels extends Obj {
             currentWidth * this.singleSX + (currentWidth - 1) * this.gutterX,
           )
         }
+      }
+
+      if (currentPanel === undefined) {
+        throw new Error('Unexpected error: currentPanel is undefined')
       }
 
       // Update the linked sizes of the panel

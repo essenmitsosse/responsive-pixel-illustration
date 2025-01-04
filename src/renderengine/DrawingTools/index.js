@@ -4,7 +4,7 @@ import getSeedHandler from './getSeedHandler'
 import Obj from './Obj'
 import recordDrawingTools from './recordDrawingTools'
 
-export const DrawingTools = function (pixelUnit) {
+export const DrawingTools = (pixelUnit) => {
   const seed = getSeedHandler()
   const pixelSetter = getPixelSetter()
 
@@ -14,7 +14,7 @@ export const DrawingTools = function (pixelUnit) {
     pixelSetter,
   }
 
-  const init = function (width, height) {
+  const init = (width, height) => {
     pixelUnit.init({
       width,
       height,

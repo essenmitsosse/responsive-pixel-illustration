@@ -400,6 +400,54 @@ class Arm extends Obj {
   }
 
   calculateFromHand() {
+    if (this.targetX === undefined) {
+      throw new Error('Unexpected error: targetX is undefined')
+    }
+
+    if (this.targetX.s === undefined) {
+      throw new Error('Unexpected error: targetX.s is undefined')
+    }
+
+    if (this.targetY === undefined) {
+      throw new Error('Unexpected error: targetY is undefined')
+    }
+
+    if (this.targetY.s === undefined) {
+      throw new Error('Unexpected error: targetY.s is undefined')
+    }
+
+    if (this.fullLength === undefined) {
+      throw new Error('Unexpected error: fullLength is undefined')
+    }
+
+    if (this.maxStraight === undefined) {
+      throw new Error('Unexpected error: maxStraight is undefined')
+    }
+
+    if (this.upperArmLength === undefined) {
+      throw new Error('Unexpected error: upperArmLength is undefined')
+    }
+
+    if (this.lowerArmLength === undefined) {
+      throw new Error('Unexpected error: lowerArmLength is undefined')
+    }
+
+    if (this.endX === undefined) {
+      throw new Error('Unexpected error: endX is undefined')
+    }
+
+    if (this.endY === undefined) {
+      throw new Error('Unexpected error: endY is undefined')
+    }
+
+    if (this.jointX === undefined) {
+      throw new Error('Unexpected error: jointX is undefined')
+    }
+
+    if (this.jointY === undefined) {
+      throw new Error('Unexpected error: jointY is undefined')
+    }
+
     let x = this.targetX.s.getReal()
     let y = this.targetY.s.getReal()
     let fullDistance = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))

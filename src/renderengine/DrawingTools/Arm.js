@@ -160,7 +160,7 @@ class Arm extends Obj {
     }
 
     if ((hand = args.hand)) {
-      this.handLength = new this.state.pixelUnit.createSize(
+      this.handLength = this.state.pixelUnit.createSize(
         args.hand.length || {
           r: 0.1,
           useSize: this.length,

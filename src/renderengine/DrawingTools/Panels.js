@@ -58,9 +58,6 @@ class Panels extends Obj {
 
   // Draws Object, consisting of other Objects and Primitives.
   draw() {
-    let countX
-    let countY
-
     this.dimensions = this.dimensions.calc()
 
     this.sX = this.dimensions.width
@@ -70,10 +67,6 @@ class Panels extends Obj {
     this.gutterX = this.gutterSX.getReal()
 
     this.gutterY = this.gutterSY.getReal()
-
-    this.countX = countX
-
-    this.countY = countY
 
     // Find best combination of rows/cols
     this.findBestRows()

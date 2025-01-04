@@ -205,12 +205,18 @@ class Stripes extends Obj {
     let randomWidth
     let totalWidth
 
+    const drawer = this.listTool
+      ? this.state.pixelUnit.push
+      : this.getColorArrayStripe
+        ? this.getColorArrayStripe
+        : false
+
+    if (drawer === false) {
+      throw new Error('Unexpected error: drawer is false')
+    }
+
     const draw = this.getDraw(
-      this.listTool
-        ? this.state.pixelUnit.push
-        : this.getColorArrayStripe
-          ? this.getColorArrayStripe
-          : false,
+      drawer,
       /** From Other Side? */
       this.horizontal ? this.fromRight : this.fromBottom,
       stripWidth,

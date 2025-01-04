@@ -223,10 +223,11 @@ class Stripes extends Obj {
     do {
       totalWidth =
         singleSX +
-        (randomWidth = stripWidthRandom
-          ? Math.floor(stripWidthRandom * random())
-          : 0) +
-        (gapWidthRandom ? Math.floor(gapWidthRandom * random()) : 0)
+        (randomWidth =
+          stripWidthRandom && random
+            ? Math.floor(stripWidthRandom * random())
+            : 0) +
+        (gapWidthRandom && random ? Math.floor(gapWidthRandom * random()) : 0)
 
       if (totalWidth < 1) {
         totalWidth = 1

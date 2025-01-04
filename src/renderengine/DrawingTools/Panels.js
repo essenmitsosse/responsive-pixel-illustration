@@ -125,9 +125,6 @@ class Panels extends Obj {
     let x
 
     const l = this.args.listPanels.length
-
-    let current
-
     const imgRatio = this.imgRatio.ratio
 
     let last = undefined
@@ -141,21 +138,20 @@ class Panels extends Obj {
       }
 
       if (x * y - x < l) {
-        current = {
+        const singleSXWithGutter = Math.floor((this.sX + this.gutterX) / x)
+        const singleSYWithGutter = Math.floor((this.sY + this.gutterY) / y)
+        const ratio = singleSXWithGutter / singleSYWithGutter
+
+        const current = {
           x,
           y,
-          singleSXWithGutter: Math.floor((this.sX + this.gutterX) / x),
-          singleSYWithGutter: Math.floor((this.sY + this.gutterY) / y),
+          singleSXWithGutter,
+          singleSYWithGutter,
+          singleSX: singleSXWithGutter - this.gutterX,
+          singleSY: singleSYWithGutter - this.gutterY,
+          ratio,
+          ratioDiff: Math.abs(ratio - imgRatio),
         }
-
-        current.singleSX = current.singleSXWithGutter - this.gutterX
-
-        current.singleSY = current.singleSYWithGutter - this.gutterY
-
-        current.ratio = current.singleSXWithGutter / current.singleSYWithGutter
-
-        current.ratioDiff = Math.abs(current.ratio - imgRatio)
-        // current.squareness = Math.abs( 1 - current.ratio );
 
         if (
           last &&

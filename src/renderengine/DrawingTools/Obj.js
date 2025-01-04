@@ -48,7 +48,7 @@ class Obj extends Primitive {
     const list = this.args.list || ('list' in this ? this.list : undefined)
 
     if (list) {
-      this.args.list = Array.isArray(list)
+      this.listTool = Array.isArray(list)
         ? convertList(
             list,
             {
@@ -72,7 +72,7 @@ class Obj extends Primitive {
 
   // Draws Object, consisting of other Objects and Primitives.
   draw() {
-    let l = this.args.list.length
+    let l = this.listTool.length
 
     const dimensions = this.dimensions.calc()
 
@@ -89,7 +89,7 @@ class Obj extends Primitive {
     this.state.pixelUnit.push(dimensions)
 
     while (l--) {
-      this.args.list[l].draw()
+      this.listTool[l].draw()
     }
 
     if (this.args.mask) {

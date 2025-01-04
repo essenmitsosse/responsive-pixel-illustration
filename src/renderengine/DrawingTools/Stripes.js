@@ -199,10 +199,10 @@ class Stripes extends Obj {
     let totalWidth
     let l
 
-    const length = this.args.list ? this.args.list.length : 0
+    const length = this.listTool ? this.listTool.length : 0
 
     const draw = this.getDraw(
-      this.args.list
+      this.listTool
         ? this.state.pixelUnit.push
         : this.getColorArrayStripe
           ? this.getColorArrayStripe
@@ -238,11 +238,11 @@ class Stripes extends Obj {
           randomWidth,
         )
 
-        if (this.args.list) {
+        if (this.listTool) {
           l = length
 
           while (l--) {
-            this.args.list[l].draw()
+            this.listTool[l].draw()
           }
 
           this.state.pixelUnit.pop()

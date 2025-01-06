@@ -31,12 +31,12 @@ type PanelSorted = PanelPre & {
   y?: number
 }
 
-type ArgsPanels = ArgsInit & {
+type ArgsInitPanels = ArgsInit & {
   fluctuation?: number
   gutterX?: InputDynamicVariable
   gutterY?: InputDynamicVariable
   imgRatio?: { ratio: number }
-  panels: Array<PanelInput>
+  panels?: Array<PanelInput>
 }
 
 class Panels extends Obj {
@@ -53,14 +53,14 @@ class Panels extends Obj {
   countY?: number
   singleSX?: number
   singleSY?: number
-  init(args: ArgsPanels): void {
-    if (this.args === undefined) {
-      throw new Error('Unexpected error: args is undefined')
+  init(args: ArgsInitPanels): void {
+    if (args.panels === undefined) {
+      throw new Error('Unexpected error: panels is undefined')
     }
 
     const inherit = {}
 
-    this.args.listPanels = args.panels.toReversed().map((current) => {
+    this.listPanels = args.panels.toReversed().map((current) => {
       if (current.sX) {
         current.sX.autoUpdate = true
       } else {
@@ -141,12 +141,8 @@ class Panels extends Obj {
   }
 
   findBestRows(): void {
-    if (this.args === undefined) {
-      throw new Error('Unexpected error: args is undefined')
-    }
-
-    if (this.args.listPanels === undefined) {
-      throw new Error('Unexpected error: args.listPanels is undefined')
+    if (this.listPanels === undefined) {
+      throw new Error('Unexpected error: listPanels is undefined')
     }
 
     if (this.imgRatio === undefined) {
@@ -172,7 +168,7 @@ class Panels extends Obj {
     let y = 0
     let x
 
-    const l = this.args.listPanels.length
+    const l = this.listPanels.length
 
     type Data = {
       ratio: number
@@ -239,11 +235,7 @@ class Panels extends Obj {
   }
 
   sortRows(): ReadonlyArray<PanelSorted> {
-    if (this.args === undefined) {
-      throw new Error('Unexpected error: args is undefined')
-    }
-
-    if (this.args.listPanels === undefined) {
+    if (this.listPanels === undefined) {
       throw new Error('Unexpected error: args.listPanels is undefined')
     }
 
@@ -256,41 +248,41 @@ class Panels extends Obj {
     }
 
     const priorites = [
-      this.args.listPanels.length - 1,
+      this.listPanels.length - 1,
       0,
-      this.args.listPanels.length - 1,
+      this.listPanels.length - 1,
       0,
-      this.args.listPanels.length - 1,
+      this.listPanels.length - 1,
       0,
-      this.args.listPanels.length - 1,
+      this.listPanels.length - 1,
       0,
-      this.args.listPanels.length - 1,
+      this.listPanels.length - 1,
       0,
-      this.args.listPanels.length - 1,
+      this.listPanels.length - 1,
       0,
-      this.args.listPanels.length - 1,
+      this.listPanels.length - 1,
       0,
-      this.args.listPanels.length - 1,
+      this.listPanels.length - 1,
       0,
-      this.args.listPanels.length - 1,
+      this.listPanels.length - 1,
       0,
-      this.args.listPanels.length - 1,
+      this.listPanels.length - 1,
       0,
-      this.args.listPanels.length - 1,
+      this.listPanels.length - 1,
       0,
-      this.args.listPanels.length - 1,
+      this.listPanels.length - 1,
       0,
-      this.args.listPanels.length - 1,
+      this.listPanels.length - 1,
       0,
-      this.args.listPanels.length - 1,
+      this.listPanels.length - 1,
       0,
-      this.args.listPanels.length - 1,
+      this.listPanels.length - 1,
       0,
-      this.args.listPanels.length - 1,
+      this.listPanels.length - 1,
       0,
     ]
 
-    const panels: Array<PanelSorted> = this.args.listPanels
+    const panels: Array<PanelSorted> = this.listPanels
       .toReversed()
       .map((current) => ({
         drawer: current.drawer,
@@ -305,13 +297,13 @@ class Panels extends Obj {
 
     priorites
       .toReversed()
-      .toSpliced(total - this.args.listPanels.length)
+      .toSpliced(total - this.listPanels.length)
       .forEach((priority) => {
         panels[priority]!.size += 1
       })
 
     let j = this.countY
-    let c = this.args.listPanels.length - 1
+    let c = this.listPanels.length - 1
     let odd = true
 
     while (j--) {

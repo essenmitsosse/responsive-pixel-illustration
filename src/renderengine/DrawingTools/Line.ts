@@ -71,16 +71,13 @@ const getDrawLine =
   }
 
 class Line extends Primitive {
+  closed?: boolean
   lineSetter?: () => LineSetter
   points?: Array<() => { x: number; y: number }>
 
   init(args: ArgsInit): void {
     if (args.closed) {
-      if (this.args === undefined) {
-        throw new Error('Unexpected error: args is undefined')
-      }
-
-      this.args.closed = true
+      this.closed = true
     }
 
     this.lineSetter = this.getLineSetter(args.weight)
@@ -172,7 +169,7 @@ class Line extends Primitive {
       drawLine(pointsReversed[index - 1]!, point)
     })
 
-    if (this.args.closed) {
+    if (this.closed) {
       drawLine(pointsCalculated.at(0)!, pointsCalculated.at(-1)!)
     }
   }

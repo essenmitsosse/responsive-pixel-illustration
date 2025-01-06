@@ -3,6 +3,7 @@ import type { Location } from './createPixelArray'
 import type { ArgsInitFill } from './Fill'
 import type { ArgsInitFillRandom } from './FillRandom'
 import type { ArgsInitLine } from './Line'
+import type { ArgsInitObj } from './Obj'
 import type { ArgsInitPanels } from './Panels'
 import type recordDrawingTools from './recordDrawingTools'
 import type { State } from './State'
@@ -18,6 +19,7 @@ type ArgsInit = ArgsInitArm &
   ArgsInitFill &
   ArgsInitFillRandom &
   ArgsInitLine &
+  ArgsInitObj &
   ArgsInitPanels
 
 type ArgsInitDetailed = InitDetailedStripes
@@ -54,7 +56,6 @@ type Args = {
   clear?: boolean
   color?: ColorRgb
   id?: string
-  list?: ReadonlyArray<Tool | false | undefined>
   mask?: (dimensions: Location, push?: boolean) => Location
   reflectX?: boolean
   reflectY?: boolean
@@ -170,9 +171,7 @@ class Primitive {
 
     newArgs.zInd = (inherit.zInd || 0) + (args.z || 0)
 
-    if (args.list) {
-      newArgs.list = args.list
-    } else {
+    if (!args.list) {
       this.setColorArray(newArgs)
     }
 

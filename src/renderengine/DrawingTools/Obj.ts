@@ -1,5 +1,7 @@
 import Primitive from './Primitive'
 
+import type { ArgsInitArm } from './Arm'
+import type { ArgsInitPanels } from './Panels'
 import type { Inherit, Tool } from './Primitive'
 import type recordDrawingToolsForType from './recordDrawingTools'
 import type { State } from './State'
@@ -8,6 +10,8 @@ type ToolClasses =
   (typeof recordDrawingToolsForType)[keyof typeof recordDrawingToolsForType]
 
 type ToolInstance = InstanceType<ToolClasses>
+
+export type ArgsInitObj = { list?: ReadonlyArray<Tool | false | undefined> }
 
 // Initing a new Object, converting its List into real Objects.
 const convertList = (
@@ -60,12 +64,12 @@ class Obj extends Primitive {
     this.recordDrawingTools = recordDrawingTools
   }
 
-  init(_args: never): void {
+  init(args: ArgsInitArm & ArgsInitObj & ArgsInitPanels): void {
     if (this.args === undefined) {
       throw new Error('Unexpected error: args is undefined')
     }
 
-    const list = this.args.list || ('list' in this ? this.list : undefined)
+    const list = args.list || ('list' in this ? this.list : undefined)
 
     if (list) {
       this.listTool = Array.isArray(list)

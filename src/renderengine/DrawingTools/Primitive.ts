@@ -14,10 +14,6 @@ import type {
   ParameterDimension,
 } from '@/renderengine/getPixelUnits/Position'
 
-type SizeAndPos = {
-  mask?: (dimensions: Location, push?: boolean) => Location
-}
-
 type ArgsInit = ArgsInitArm &
   ArgsInitFill &
   ArgsInitFillRandom &
@@ -54,11 +50,12 @@ export type Tool = ToolPrimitive & {
   name?: keyof typeof recordDrawingTools
 }
 
-type Args = SizeAndPos & {
+type Args = {
   clear?: boolean
   color?: ColorRgb
   id?: string
   list?: ReadonlyArray<Tool | false | undefined>
+  mask?: (dimensions: Location, push?: boolean) => Location
   reflectX?: boolean
   reflectY?: boolean
   rotate?: number
@@ -138,13 +135,14 @@ class Primitive {
       reflectY = !reflectY
     }
 
-    const newArgs: Args =
-      this.prepareSizeAndPos(
-        args,
-        reflectX,
-        reflectY,
-        (this.rotate = rotate === 90),
-      ) || {}
+    this.prepareSizeAndPos(
+      args,
+      reflectX,
+      reflectY,
+      (this.rotate = rotate === 90),
+    )
+
+    const newArgs: Args = {}
 
     newArgs.reflectX = (args.rX || false) !== reflectX
 
@@ -203,7 +201,7 @@ class Primitive {
     reflectX: boolean,
     reflectY: boolean,
     rotate: boolean,
-  ): SizeAndPos | void {
+  ): void {
     this.dimensions = this.state.pixelUnit.getDimensions(
       args,
       (this.fromRight = rotate

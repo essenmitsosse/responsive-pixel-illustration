@@ -37,7 +37,7 @@ type ArgsArm = {
   upperArmColor?: ColorRgb
   upperArmLightColor?: ColorRgb
   upperArmWeight?: number
-  weight?: number
+  weightArm?: number
 }
 
 class Arm extends Obj {
@@ -139,7 +139,7 @@ class Arm extends Obj {
 
     // Upper Arm
     this.upperArm = new Line(this.state).create({
-      weight: args.upperArmWeight || args.weight,
+      weight: args.upperArmWeight || args.weightArm,
       color: args.upperArmColor || args.color,
       points: [{}, { x: this.jointX, y: this.jointY }],
       z: this.args.zInd,
@@ -147,7 +147,7 @@ class Arm extends Obj {
 
     if (args.upperArmLightColor) {
       this.upperArmInner = new Line(this.state).create({
-        weight: [args.upperArmWeight || args.weight, -2],
+        weight: [args.upperArmWeight || args.weightArm, -2],
         color: args.upperArmLightColor,
         points: [{}, { x: this.jointX, y: this.jointY }],
         z: this.args.zInd,
@@ -156,7 +156,7 @@ class Arm extends Obj {
 
     // Lower Arm
     this.lowerArm = new Line(this.state).create({
-      weight: args.lowerArmWeight || args.weight,
+      weight: args.lowerArmWeight || args.weightArm,
       color: args.lowerArmColor || args.color,
       points: [
         { x: this.jointX, y: this.jointY },
@@ -167,7 +167,7 @@ class Arm extends Obj {
 
     if (args.lowerArmLightColor) {
       this.lowerArmInner = new Line(this.state).create({
-        weight: [args.lowerArmWeight || args.weight, -2],
+        weight: [args.lowerArmWeight || args.weightArm, -2],
         color: args.lowerArmLightColor,
         points: [
           { x: this.jointX, y: this.jointY },
@@ -248,7 +248,7 @@ class Arm extends Obj {
       this.handTargetY = hand.targetY
 
       this.hand = new Line(this.state).create({
-        weight: hand.width || args.lowerArmWeight || args.weight,
+        weight: hand.width || args.lowerArmWeight || args.weightArm,
         color: hand.color || args.lowerArmColor || args.color,
         points: [
           { x: this.endX, y: this.endY },

@@ -38,7 +38,7 @@ type ToolPrimitive = ArgsInit &
     color?: ColorRgb
     id?: string
     list?: ReadonlyArray<Tool | false | undefined>
-    mask?: unknown
+    mask?: boolean
     rX?: boolean
     rY?: boolean
     rotate?: number

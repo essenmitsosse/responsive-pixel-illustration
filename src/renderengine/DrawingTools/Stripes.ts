@@ -56,7 +56,7 @@ type Stripe = {
   strip?: InputDynamicVariableBase
 }
 
-export type ArgsInitStripes = {
+export type InitDetailedStripes = {
   stripes?: Stripe
 }
 
@@ -92,7 +92,7 @@ class Stripes extends Obj {
     this.getColorArrayStripe = this.state.pixelSetter.setColorArrayRect(args)
   }
 
-  detailInit(args: ArgsInitStripes): void {
+  detailInit(args: InitDetailedStripes): void {
     if (args.stripes === undefined) {
       throw new Error('Unexpected error: stripes is undefined')
     }

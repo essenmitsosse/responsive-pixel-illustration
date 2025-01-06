@@ -1,7 +1,7 @@
 import Obj from './Obj'
 
 import type { Location } from './createPixelArray'
-import type { ArgsInit, Tool } from './Primitive'
+import type { Tool } from './Primitive'
 import type {
   InputDynamicVariable,
   InputDynamicVariableBase,
@@ -10,12 +10,12 @@ import type { Height, Width } from '@/renderengine/getPixelUnits/Size'
 import type { Link } from '@/scripts/listImage'
 
 type PanelInput = {
-  list: ReadonlyArray<Tool>
+  list: ReadonlyArray<Tool | false>
   sX?: InputDynamicVariableBase & Link
   sY?: InputDynamicVariableBase & Link
 }
 
-export type PanelPre = {
+type PanelPre = {
   dimensions?: Location
   drawer: Obj
   sX: InputDynamicVariable & Link
@@ -31,7 +31,7 @@ type PanelSorted = PanelPre & {
   y?: number
 }
 
-type ArgsInitPanels = ArgsInit & {
+export type ArgsInitPanels = {
   fluctuation?: number
   gutterX?: InputDynamicVariable
   gutterY?: InputDynamicVariable

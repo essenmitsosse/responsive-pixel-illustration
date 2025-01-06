@@ -1,20 +1,64 @@
+import type { ArgsInitArm } from './Arm'
 import type { Location } from './createPixelArray'
-import type { PanelPre } from './Panels'
+import type { ArgsInitFill } from './Fill'
+import type { ArgsInitFillRandom } from './FillRandom'
+import type { ArgsInitLine } from './Line'
+import type { ArgsInitPanels } from './Panels'
 import type recordDrawingTools from './recordDrawingTools'
 import type { State } from './State'
-import type { ArgsInitStripes } from './Stripes'
+import type { InitDetailedStripes } from './Stripes'
 import type { ColorRgb } from '@/helper/typeColor'
-import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { Position } from '@/renderengine/getPixelUnits'
 import type {
   Dimensions,
   ParameterDimension,
 } from '@/renderengine/getPixelUnits/Position'
 
-export type Inherit = {
+type SizeAndPos = {
+  mask?: (dimensions: Location, push?: boolean) => Location
+}
+
+type ArgsInit = ArgsInitArm &
+  ArgsInitFill &
+  ArgsInitFillRandom &
+  ArgsInitLine &
+  ArgsInitPanels
+
+type ArgsInitDetailed = InitDetailedStripes
+
+type PreparePrimitive = ParameterDimension &
+  Parameters<Position>[0] & {
+    points?: ReadonlyArray<Parameters<Position>[0]>
+    rX?: boolean
+    rY?: boolean
+  }
+
+export type ArgsPrepare = PreparePrimitive
+
+type ToolPrimitive = ArgsInit &
+  ArgsInitDetailed &
+  ArgsPrepare & {
+    clear?: boolean
+    color?: ColorRgb
+    id?: string
+    list?: ReadonlyArray<Tool | false | undefined>
+    mask?: unknown
+    rX?: boolean
+    rY?: boolean
+    rotate?: number
+    save?: string
+    z?: number
+  }
+
+export type Tool = ToolPrimitive & {
+  name?: keyof typeof recordDrawingTools
+}
+
+type Args = SizeAndPos & {
   clear?: boolean
   color?: ColorRgb
   id?: string
+  list?: ReadonlyArray<Tool | false | undefined>
   reflectX?: boolean
   reflectY?: boolean
   rotate?: number
@@ -22,53 +66,17 @@ export type Inherit = {
   zInd?: number
 }
 
-type SizeAndPos = {
-  mask?: (dimensions: Location, push?: boolean) => Location
-}
-
-export type ArgsInit = Inherit & {
-  closed?: boolean
-  list?: ReadonlyArray<Tool | false | undefined>
-  listPanels?: Array<PanelPre>
-  use?: string
-  weight?: InputDynamicVariable
-}
-
-type ArgsNew = ArgsInit & SizeAndPos
-
-export type Tool = ArgsInitStripes & {
-  chance?: unknown
-  list?: ReadonlyArray<Tool | false | undefined>
-  name?: keyof typeof recordDrawingTools
-  panels?: unknown
-  points?: ReadonlyArray<Parameters<Position>[0]>
-  rX?: boolean
-  rY?: boolean
-  rotate?: number
-  save?: string
-  targetX?: unknown
-  use?: string
-  weight?: InputDynamicVariable
-}
-
-export type ArgsPrepare = ParameterDimension &
-  Parameters<Position>[0] &
-  Pick<Tool, 'points'> & {
-    rX?: boolean
-    rY?: boolean
-  }
-
-type ArgsCreate = ArgsInitStripes &
-  ArgsPrepare &
-  Pick<Tool, 'list' | 'weight'> & {
-    clear?: boolean
-    color?: ColorRgb
-    id?: string
-    mask?: unknown
-    rotate?: number
-    save?: string
-    z?: number
-  }
+export type Inherit = Pick<
+  Args,
+  | 'clear'
+  | 'color'
+  | 'id'
+  | 'reflectX'
+  | 'reflectY'
+  | 'rotate'
+  | 'save'
+  | 'zInd'
+>
 
 class Primitive {
   state: State
@@ -77,7 +85,7 @@ class Primitive {
   fromBottom?: boolean
   rotate?: boolean
   getColorArray?: (x: number, y: number) => void
-  args?: ArgsNew
+  args?: Args
 
   constructor(state: State) {
     this.state = state
@@ -95,9 +103,9 @@ class Primitive {
 
   draw(): void {}
 
-  detailInit(_args: ArgsInitStripes): void {}
+  detailInit(_args: ArgsInitDetailed): void {}
 
-  create(args: ArgsCreate, inherit?: Inherit): this {
+  create(args: Tool, inherit?: Inherit): this {
     inherit = inherit || {}
 
     let reflectX: boolean = inherit.reflectX || false
@@ -130,7 +138,7 @@ class Primitive {
       reflectY = !reflectY
     }
 
-    const newArgs: ArgsNew =
+    const newArgs: Args =
       this.prepareSizeAndPos(
         args,
         reflectX,

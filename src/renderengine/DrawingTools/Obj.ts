@@ -1,6 +1,6 @@
 import Primitive from './Primitive'
 
-import type { ArgsInit, Inherit, Tool } from './Primitive'
+import type { Inherit, Tool } from './Primitive'
 import type recordDrawingToolsForType from './recordDrawingTools'
 import type { State } from './State'
 
@@ -60,7 +60,7 @@ class Obj extends Primitive {
     this.recordDrawingTools = recordDrawingTools
   }
 
-  init(_args: ArgsInit): void {
+  init(_args: never): void {
     if (this.args === undefined) {
       throw new Error('Unexpected error: args is undefined')
     }

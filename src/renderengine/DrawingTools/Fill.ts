@@ -1,10 +1,12 @@
 import Primitive from './Primitive'
 
-import type { ArgsInit } from './Primitive'
+export type ArgsInitFill = {
+  use?: string
+}
 
 class Fill extends Primitive {
   use?: string
-  init(args: ArgsInit): void {
+  init(args: ArgsInitFill): void {
     this.use = args.use
   }
 

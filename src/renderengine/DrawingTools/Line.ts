@@ -1,9 +1,14 @@
 import Primitive from './Primitive'
 
-import type { ArgsInit, ArgsPrepare } from './Primitive'
+import type { ArgsPrepare } from './Primitive'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 
 type LineSetter = (x: number, y: number) => void
+
+export type ArgsInitLine = {
+  closed?: boolean
+  weight?: InputDynamicVariable
+}
 
 const getDrawLine =
   (set: LineSetter) =>
@@ -75,7 +80,7 @@ class Line extends Primitive {
   lineSetter?: () => LineSetter
   points?: Array<() => { x: number; y: number }>
 
-  init(args: ArgsInit): void {
+  init(args: ArgsInitLine): void {
     if (args.closed) {
       this.closed = true
     }

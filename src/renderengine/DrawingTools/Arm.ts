@@ -3,13 +3,13 @@ import Line from './Line'
 import Obj from './Obj'
 import Rect from './Rect'
 
-import type { ArgsInit } from './Primitive'
 import type { ColorRgb } from '@/helper/typeColor'
 import type { InputDynamicVariableBase } from '@/helper/typeSize'
 import type { Height, Width } from '@/renderengine/getPixelUnits/Size'
 import type { Link } from '@/scripts/listImage'
 
-type ArgsArm = {
+export type ArgsInitArm = {
+  color?: ColorRgb
   debug?: boolean
   ellbow?: boolean
   endX?: InputDynamicVariableBase
@@ -76,12 +76,12 @@ class Arm extends Obj {
   lowerArmLength?: number
   straightAngle?: number
 
-  init(args: ArgsArm & ArgsInit): void {
+  init(args: ArgsInitArm): void {
     if (this.args === undefined) {
       throw new Error('Unexpected error: args is undefined')
     }
 
-    let hand: ArgsArm['hand']
+    let hand: ArgsInitArm['hand']
 
     this.targetX = args.targetX
 

@@ -1,3 +1,5 @@
+import getObjectEntries from '@/lib/getObjectEntries'
+
 import getInfo from './getInfo'
 import getPixelUnits from './getPixelUnits'
 import getRenderer from './getRenderer'
@@ -41,17 +43,14 @@ type Resize = (height?: number, width?: number) => void
 const getRedraw =
   (options: RenderObject, resize: (w?: number, h?: number) => void): Redraw =>
   (args) => {
-    let key
     let first = !args.dontHighlight
 
     if (options.sliderObject) {
-      for (key in args) {
-        if (options.sliderObject[key]) {
-          options.sliderObject[key](args[key], first)
+      getObjectEntries(options.sliderObject).forEach(([key, callback]) => {
+        callback(args[key], first)
 
-          first = false
-        }
-      }
+        first = false
+      })
     }
 
     options.init.addToQueryString(args, true)

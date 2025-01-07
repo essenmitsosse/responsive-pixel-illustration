@@ -7,12 +7,10 @@ class Color {
   constructor() {}
 
   draw(c: ColorRgb, zInd: number, id?: string): void {
-    const i = this.s.length - 1
     const { s } = this
+    const oldZInd = s.at(-1)?.zInd ?? 0
 
-    let oldZInd
-
-    if (i === -1 || (oldZInd = s[i].zInd) < zInd) {
+    if (this.s.length === 0 || oldZInd < zInd) {
       s.push({ id, c, zInd })
 
       return

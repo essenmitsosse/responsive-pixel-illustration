@@ -32,10 +32,8 @@ export const lighten = (lighten: ColorRgb, strength: number) => {
 
     const newColor: ColorRgb = [0, 0, 0]
 
-    let thisC: number
-
     while (l--) {
-      newColor[l] = (thisC = color[l] + finaleLighten[l]) > 255 ? 255 : thisC
+      newColor[l] = Math.min(255, color[l] + finaleLighten[l])
     }
 
     return newColor

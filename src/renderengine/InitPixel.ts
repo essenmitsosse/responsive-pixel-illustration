@@ -78,8 +78,6 @@ const getQueryString = (): Record<string, boolean | number | undefined> => {
 
   const l = vars.length
 
-  let pair
-
   const convert = (value: string): boolean | number => {
     if (value === 'true') {
       return true
@@ -91,7 +89,7 @@ const getQueryString = (): Record<string, boolean | number | undefined> => {
   }
 
   while (i < l) {
-    pair = vars[i].split('=')
+    const pair = vars[i].split('=')
 
     if (pair[0]) {
       list[pair[0]] = convert(pair[1])

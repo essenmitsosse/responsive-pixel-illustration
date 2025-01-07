@@ -82,7 +82,6 @@ class Primitive {
   fromRight?: boolean
   fromBottom?: boolean
   rotate?: boolean
-  getColorArray?: (x: number, y: number) => void
   args?: Args
 
   constructor(state: State) {
@@ -171,9 +170,7 @@ class Primitive {
 
     newArgs.zInd = (inherit.zInd || 0) + (args.z || 0)
 
-    if (!args.list) {
-      this.setColorArray(newArgs)
-    }
+    this.setColorArray(newArgs)
 
     this.args = newArgs
 
@@ -184,15 +181,7 @@ class Primitive {
     return this
   }
 
-  setColorArray(args: {
-    clear?: boolean
-    color?: ColorRgb
-    id?: string
-    save?: string
-    zInd?: number
-  }): void {
-    this.getColorArray = this.state.pixelSetter.setColorArray(args)
-  }
+  setColorArray(_args: Args): void {}
 
   // Prepare Size and Position Data for Basic Objects
   prepareSizeAndPos(

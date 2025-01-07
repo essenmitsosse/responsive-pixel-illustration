@@ -77,6 +77,8 @@ class Arm extends Obj {
   straightAngle?: number
 
   init(args: ArgsInitArm): void {
+    super.init(args)
+
     if (this.args === undefined) {
       throw new Error('Unexpected error: args is undefined')
     }

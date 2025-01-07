@@ -1,8 +1,8 @@
-import Primitive from './Primitive'
+import Pixel from './Pixel'
 
 import type { ArgsPrepare } from './Primitive'
 
-class Dot extends Primitive {
+class Dot extends Pixel {
   getRealPosition?: () => { x: number; y: number }
 
   draw(): void {

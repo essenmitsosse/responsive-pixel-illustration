@@ -1,7 +1,7 @@
 import Obj from './Obj'
 
 import type { Location } from './createPixelArray'
-import type { ColorRgb } from '@/helper/typeColor'
+import type getPixelSetter from './getPixelSetter'
 import type { InputDynamicVariableBase } from '@/helper/typeSize'
 import type { Height, Width } from '@/renderengine/getPixelUnits/Size'
 
@@ -82,13 +82,9 @@ class Stripes extends Obj {
   fromOtherSide?: boolean
   getDraw?: GetDraw
 
-  setColorArray(args: {
-    clear?: boolean
-    color?: ColorRgb
-    id?: string
-    save?: string
-    zInd?: number
-  }): void {
+  setColorArray(
+    args: Parameters<ReturnType<typeof getPixelSetter>['setColorArrayRect']>[0],
+  ): void {
     this.getColorArrayStripe = this.state.pixelSetter.setColorArrayRect(args)
   }
 

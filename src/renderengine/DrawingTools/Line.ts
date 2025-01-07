@@ -1,4 +1,4 @@
-import Primitive from './Primitive'
+import Pixel from './Pixel'
 
 import type { ArgsPrepare } from './Primitive'
 import type { InputDynamicVariable } from '@/helper/typeSize'
@@ -75,12 +75,14 @@ const getDrawLine =
     }
   }
 
-class Line extends Primitive {
+class Line extends Pixel {
   closed?: boolean
   lineSetter?: () => LineSetter
   points?: Array<() => { x: number; y: number }>
 
   init(args: ArgsInitLine): void {
+    super.init(args)
+
     if (args.closed) {
       this.closed = true
     }

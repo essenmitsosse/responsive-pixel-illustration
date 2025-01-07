@@ -9,16 +9,14 @@ export const darken = (darken: ColorRgb, strength: number) => {
     darken[2] * strength,
   ]
 
-  return (color: ColorRgb, copy?: ColorRgb): ColorRgb => {
-    let l = color.length
+  return (color: ColorRgb, copy: ColorRgb = [0, 0, 0]): ColorRgb => {
+    copy[0] = Math.floor(color[0] * finalDarken[0])
 
-    const newColor: ColorRgb = copy || [0, 0, 0]
+    copy[1] = Math.floor(color[1] * finalDarken[1])
 
-    while (l--) {
-      newColor[l] = Math.floor(color[l] * finalDarken[l])
-    }
+    copy[2] = Math.floor(color[2] * finalDarken[1])
 
-    return newColor
+    return copy
   }
 }
 

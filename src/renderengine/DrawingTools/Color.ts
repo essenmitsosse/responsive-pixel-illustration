@@ -10,7 +10,7 @@ class Color {
     const oldZInd = this.s.at(-1)?.zInd ?? 0
 
     if (this.s.length === 0 || oldZInd < zInd) {
-      this.s.push({ id, c, zInd })
+      this.s = [...this.s, { id, c, zInd }]
 
       return
     }

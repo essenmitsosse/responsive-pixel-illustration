@@ -89,10 +89,10 @@ const getQueryString = (): Record<string, boolean | number | undefined> => {
   }
 
   while (i < l) {
-    const pair = vars[i].split('=')
+    const [key, value] = vars[i].split('=')
 
-    if (pair[0]) {
-      list[pair[0]] = convert(pair[1])
+    if (key) {
+      list[key] = convert(value)
     }
 
     i += 1

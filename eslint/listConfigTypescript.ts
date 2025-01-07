@@ -91,15 +91,6 @@ const listConfigTypeScript: ReadonlyArray<Linter.Config> = [
       ],
 
       /**
-       * Overwrite default rule by TypeScript ESLint, to allow unused
-       * variables,if they are followed by used parameters.
-       */
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        { args: 'after-used', destructuredArrayIgnorePattern: '^_' },
-      ],
-
-      /**
        * Enforce constituents of a type union/intersection to be sorted
        * alphabetically.
        * {@link https://typescript-eslint.io/rules/sort-type-constituents/}
@@ -145,8 +136,13 @@ const listConfigTypeScript: ReadonlyArray<Linter.Config> = [
        * This also adds some exception, where an unused variable is followed by
        * a used parameter, in which case fixing this rule would mean changing
        * the function signature.
+       *
+       * {@link https://typescript-eslint.io/rules/no-unused-vars/}
        */
-      '@typescript-eslint/no-unused-vars': ['error', { args: 'after-used' }],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { args: 'after-used', argsIgnorePattern: '^_' },
+      ],
 
       'no-unused-vars': 'off',
     },

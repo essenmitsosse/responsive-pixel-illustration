@@ -60,7 +60,6 @@ class Obj extends Primitive {
     this.recordDrawingTools = recordDrawingTools
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- args is used in subclasses
   init(_args: ArgsInit): void {
     if (this.args === undefined) {
       throw new Error('Unexpected error: args is undefined')

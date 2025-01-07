@@ -90,12 +90,11 @@ class Primitive {
    * because declaring them as an `undefined` property doesn't work, because
    * they won't get overwrittten.
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- this should already declare the expected type, even if it is not implemented
+
   init(_args: ArgsInit): void {}
 
   draw(): void {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- this should already declare the expected type, even if it is not implemented
   detailInit(_args: ArgsInitStripes): void {}
 
   create(args: ArgsCreate, inherit?: Inherit): this {

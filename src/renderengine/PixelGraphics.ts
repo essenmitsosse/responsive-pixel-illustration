@@ -1,4 +1,5 @@
 import getObjectEntries from '@/lib/getObjectEntries'
+import getObjectValues from '@/lib/getObjectValues'
 
 import getInfo from './getInfo'
 import getPixelUnits from './getPixelUnits'
@@ -278,11 +279,7 @@ export class PixelGraphics {
     let key
 
     const updater = (): void => {
-      let key
-
-      for (key in vl) {
-        newVL[key].set()
-      }
+      getObjectValues(newVL).forEach((variable) => variable.set())
     }
 
     const link = (name: string, vari: { abs?: number | string }): void => {

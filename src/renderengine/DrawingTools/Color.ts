@@ -7,8 +7,7 @@ class Color {
   constructor() {}
 
   draw(c: ColorRgb, zInd: number, id?: string): void {
-    let i = this.s.length - 1
-
+    const i = this.s.length - 1
     const { s } = this
 
     let oldZInd
@@ -20,13 +19,9 @@ class Color {
     }
 
     if (oldZInd !== zInd) {
-      do {
-        if (s[i].zInd < zInd) {
-          break
-        }
-      } while (i--)
+      const indexFirstZIndHigher = s.findIndex((save) => save.zInd >= zInd)
 
-      s.splice(i + 1, 0, { id, c, zInd })
+      s.splice(indexFirstZIndHigher, 0, { id, c, zInd })
     }
   }
 

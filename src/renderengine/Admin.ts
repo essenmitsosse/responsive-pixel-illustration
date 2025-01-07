@@ -129,6 +129,10 @@ class Admin {
     }
 
     const activateSliders = (): void => {
+      if (body === undefined) {
+        throw new Error('Unexpected error: document body is undefined')
+      }
+
       if (!hasSliders) {
         hasSliders = true
 

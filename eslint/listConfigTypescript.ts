@@ -9,13 +9,13 @@ const listConfigTypeScript: ReadonlyArray<Linter.Config> = [
        * Basic ESLint TypeScript rules, that work without type checking
        * {@link https://typescript-eslint.io/}
        */
-      ...typescript.configs['eslint-recommended'].rules,
+      ...typescript.configs['eslint-recommended']!.rules,
 
       /**
        * Basic ESLint TypeScript rules, that require type checking
        * {@link https://typescript-eslint.io/linting/typed-linting/}
        */
-      ...typescript.configs.recommended.rules,
+      ...typescript.configs.recommended!.rules,
 
       /**
        * Overwrite `typed-fp` rule, to enforce TypeScript Arrays to always be

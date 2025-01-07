@@ -43,14 +43,12 @@ type Resize = (height?: number, width?: number) => void
 const getRedraw =
   (options: RenderObject, resize: (w?: number, h?: number) => void): Redraw =>
   (args) => {
-    let first = !args.dontHighlight
-
     if (options.sliderObject) {
-      getObjectEntries(options.sliderObject).forEach(([key, callback]) => {
-        callback(args[key], first)
-
-        first = false
-      })
+      getObjectEntries(options.sliderObject).forEach(
+        ([key, callback], index) => {
+          callback(args[key], index === 0 && !args.dontHighlight)
+        },
+      )
     }
 
     options.init.addToQueryString(args, true)

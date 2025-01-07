@@ -1,15 +1,13 @@
 import type { ColorRgb } from './typeColor'
 
 export const darken = (darken: ColorRgb, strength: number) => {
-  let l = darken.length
-
-  const finalDarken: Array<number> = []
-
   strength /= 255
 
-  while (l--) {
-    finalDarken[l] = darken[l] * strength
-  }
+  const finalDarken: ColorRgb = [
+    darken[0] * strength,
+    darken[1] * strength,
+    darken[2] * strength,
+  ]
 
   return (color: ColorRgb, copy?: ColorRgb): ColorRgb => {
     let l = color.length

@@ -106,9 +106,7 @@ class Admin {
     ): void => {
       const wrap = document.createElement('li')
       const innerWrap = document.createElement('div')
-      const l = objects.length
 
-      let count = 0
       let label
 
       wrap.setAttribute('class', 'input ' + name)
@@ -123,11 +121,7 @@ class Admin {
         wrap.appendChild(label)
       }
 
-      while (count < l) {
-        innerWrap.appendChild(objects[count])
-
-        count += 1
-      }
+      objects.forEach((object) => innerWrap.appendChild(object))
 
       wrap.appendChild(innerWrap)
 

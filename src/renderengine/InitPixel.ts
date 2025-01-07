@@ -53,19 +53,8 @@ const doSetDocumentTitle = (
 // };
 
 /** Create a new Canvas, add it to the div and return it */
-const createSingleCanvas = (
-  canvasData: CSSStyleDeclaration | false,
-  div: HTMLElement,
-) => {
+const createSingleCanvas = (div: HTMLElement) => {
   const canvas = document.createElement('canvas')
-
-  let key: keyof CSSStyleDeclaration
-
-  if (canvasData) {
-    for (key in canvasData) {
-      canvas.style[key] = canvasData[key]
-    }
-  }
 
   div.appendChild(canvas)
 
@@ -205,8 +194,7 @@ export class InitPixel {
 
     const imageName = forceName || currentSlide.name || 'tantalos'
     /** Change for multiple Canvases */
-    const canvasDataList = false
-    const canvasRenderer = createSingleCanvas(canvasDataList, args.div)
+    const canvasRenderer = createSingleCanvas(args.div)
     const [body] = document.getElementsByTagName('body')
 
     if (currentSlide.resizeable) {

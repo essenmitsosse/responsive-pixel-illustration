@@ -309,13 +309,8 @@ export class Dimension {
   getRealDistance = getRealDistanceBasic
 
   getRealDistanceWithCalc(): number {
-    if (this.adder === undefined) {
-      throw new Error('Unexpected error: adder is undefined')
-    }
-
     return (
-      this.getRealDistanceBasic() +
-      this.adder.map((size) => size.getReal()).reduce(getSumForReduce, 0)
+      this.getRealDistanceBasic() + this.getRealDistanceWithCalcOnlyAdding()
     )
   }
 

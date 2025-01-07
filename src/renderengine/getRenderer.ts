@@ -61,7 +61,7 @@ const getRenderPixelToImage =
       row = pA[pW]
 
       while (pH--) {
-        if ((c = row[pH].s.pop())) {
+        if ((c = row[pH].pop())) {
           c = c.c
 
           imageData[(i = w4 + (full -= wFull))] = c[0]

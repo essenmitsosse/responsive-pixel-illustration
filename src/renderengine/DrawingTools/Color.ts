@@ -3,7 +3,7 @@ import type { ColorRgb } from '@/helper/typeColor'
 type LayerColor = { c: ColorRgb; id: string | undefined; zInd: number }
 
 class Color {
-  s: Array<LayerColor> = []
+  s: ReadonlyArray<LayerColor> = []
   constructor() {}
 
   draw(c: ColorRgb, zInd: number, id?: string): void {
@@ -27,6 +27,16 @@ class Color {
       .toReversed()
       .filter((save) => save.id !== id)
       .toReversed()
+  }
+
+  pop(): LayerColor | undefined {
+    const last = this.s.at(-1)
+
+    if (last) {
+      this.s = this.s.toSpliced(-1)
+    }
+
+    return last
   }
 }
 

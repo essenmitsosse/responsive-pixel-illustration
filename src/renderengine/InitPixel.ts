@@ -74,10 +74,6 @@ const getQueryString = (): Record<string, boolean | number | undefined> => {
   const list: Record<string, boolean | number | undefined> = {}
   const vars = location.search.substring(1).split('&')
 
-  let i = 0
-
-  const l = vars.length
-
   const convert = (value: string): boolean | number => {
     if (value === 'true') {
       return true
@@ -88,19 +84,11 @@ const getQueryString = (): Record<string, boolean | number | undefined> => {
     return Number.parseFloat(value)
   }
 
-  while (i < l) {
-    const [key, value] = vars[i].split('=')
+  vars.forEach((variable) => {
+    const [key, value] = variable.split('=')
 
-    if (key) {
-      list[key] = convert(value)
-    }
-
-    i += 1
-  }
-
-  // if( !list.slide ) { list.slide = "0"; }
-  // else { list.slide = list.slide.toString(); }
-  // if( !list.id ) { list.id = 666; }
+    list[key] = convert(value)
+  })
 
   return list
 }

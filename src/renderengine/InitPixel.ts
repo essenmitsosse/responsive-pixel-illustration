@@ -80,28 +80,24 @@ const convert = (value: string): boolean | number => {
   return Number.parseFloat(value)
 }
 
-const getQueryString = (): Record<string, boolean | number | undefined> => {
-  const list: Record<string, boolean | number | undefined> = {}
-  const vars = location.search.substring(1).split('&')
+const getQueryString = (): Record<string, boolean | number | undefined> =>
+  getObjectFromEntries(
+    location.search
+      .substring(1)
+      .split('&')
+      .filter((variable) => variable !== '')
+      .map((variable) => {
+        const [key, value] = variable.split('=')
 
-  vars.forEach((variable) => {
-    if (variable === '') {
-      return
-    }
+        if (key === undefined || value === undefined) {
+          throw new Error(
+            `Unexpected error: key or value are undefined in key-value pair from query string: "${variable}"`,
+          )
+        }
 
-    const [key, value] = variable.split('=')
-
-    if (key === undefined || value === undefined) {
-      throw new Error(
-        `Unexpected error: key or value are undefined in key-value pair from query string: "${variable}"`,
-      )
-    }
-
-    list[key] = convert(value)
-  })
-
-  return list
-}
+        return [key, convert(value)]
+      }),
+  )
 
 /** Create the Callback Function, when the script is loaded */
 const getCallback =

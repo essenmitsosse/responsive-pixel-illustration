@@ -27,17 +27,11 @@ export const lighten = (lighten: ColorRgb, strength: number) => {
     lighten[2] * strength,
   ]
 
-  return (color: ColorRgb): ColorRgb => {
-    let l = color.length
-
-    const newColor: ColorRgb = [0, 0, 0]
-
-    while (l--) {
-      newColor[l] = Math.min(255, color[l] + finaleLighten[l])
-    }
-
-    return newColor
-  }
+  return (color: ColorRgb): ColorRgb => [
+    Math.min(255, color[0] + finaleLighten[0]),
+    Math.min(255, color[1] + finaleLighten[1]),
+    Math.min(255, color[2] + finaleLighten[2]),
+  ]
 }
 
 export const multiplyColor = (rgb: ColorRgb, factor: number): ColorRgb => [

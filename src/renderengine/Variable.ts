@@ -56,10 +56,8 @@ export class DynamicVariable extends BaseVariable {
   linkedP: Array<{ abs?: unknown }> = []
 
   set(value?: unknown): void {
-    let { l } = this
-
-    while (l--) {
-      this.linkedP[l].abs = value
-    }
+    this.linkedP.forEach((variable) => {
+      variable.abs = value
+    })
   }
 }

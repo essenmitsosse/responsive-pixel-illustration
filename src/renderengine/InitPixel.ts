@@ -85,7 +85,17 @@ const getQueryString = (): Record<string, boolean | number | undefined> => {
   }
 
   vars.forEach((variable) => {
+    if (variable === '') {
+      return
+    }
+
     const [key, value] = variable.split('=')
+
+    if (key === undefined || value === undefined) {
+      throw new Error(
+        `Unexpected error: key or value are undefined in key-value pair from query string: "${variable}"`,
+      )
+    }
 
     list[key] = convert(value)
   })

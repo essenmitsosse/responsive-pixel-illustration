@@ -73,22 +73,7 @@ class Obj extends Primitive {
 
     if (list) {
       this.listTool = Array.isArray(list)
-        ? convertList(
-            list,
-            {
-              // Things to inherit to Children
-              color: this.args.color,
-              clear: this.args.clear,
-              reflectX: this.args.reflectX,
-              reflectY: this.args.reflectY,
-              zInd: this.args.zInd,
-              id: this.args.id,
-              save: this.args.save,
-              rotate: this.args.rotate,
-            },
-            this.recordDrawingTools,
-            this.state,
-          )
+        ? convertList(list, this.args, this.recordDrawingTools, this.state)
         : []
     }
   }

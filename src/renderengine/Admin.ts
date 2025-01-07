@@ -64,24 +64,19 @@ class Admin {
 
   setupSlides(slides: ReadonlyArray<DataImage>): void {
     const currentSlide = getNumberDefaultToZero(this.pixel.queryString.slide)
-    const l = slides.length
-
-    let count = 0
 
     const sideBarContentUl = getListAdmin({
       id: 'slides',
       container: this.sideBarInnerDiv,
     })
 
-    while (count < l) {
+    slides.forEach((slide, index) =>
       sideBarContentUl.addMessage(
-        '<strong>' + getSlideName(slides[count]) + '</strong>',
-        count === currentSlide ? 'current slideLink' : 'slideLink',
-        this.getClicker(count),
-      )
-
-      count += 1
-    }
+        '<strong>' + getSlideName(slide) + '</strong>',
+        index === currentSlide ? 'current slideLink' : 'slideLink',
+        this.getClicker(index),
+      ),
+    )
   }
 
   setupSlider(): void {

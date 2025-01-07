@@ -257,7 +257,13 @@ export class PixelGraphics {
     const touchMove = (event: TouchEvent): void => {
       event.preventDefault()
 
-      mouseMove(event.changedTouches[0], true)
+      const [touchFirst] = event.changedTouches
+
+      if (touchFirst === undefined) {
+        return
+      }
+
+      mouseMove(touchFirst, true)
     }
 
     canvas.addEventListener('mousemove', mouseMove, false)

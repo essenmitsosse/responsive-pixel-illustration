@@ -21,13 +21,11 @@ export const darken = (darken: ColorRgb, strength: number) => {
 }
 
 export const lighten = (lighten: ColorRgb, strength: number) => {
-  let l = lighten.length
-
-  const finaleLighten: ColorRgb = [0, 0, 0]
-
-  while (l--) {
-    finaleLighten[l] = lighten[l] * strength
-  }
+  const finaleLighten: ColorRgb = [
+    lighten[0] * strength,
+    lighten[1] * strength,
+    lighten[2] * strength,
+  ]
 
   return (color: ColorRgb): ColorRgb => {
     let l = color.length

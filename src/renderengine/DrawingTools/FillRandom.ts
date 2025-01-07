@@ -24,7 +24,6 @@ class FillRandom extends Fill {
     one: () => number
     seed: () => number
   }
-  mask?: (dimensions: Location, push?: boolean) => Location
   heightRandom?: Height | Width
   widthRandom?: Height | Width
   sizeRandom?: Height | Width

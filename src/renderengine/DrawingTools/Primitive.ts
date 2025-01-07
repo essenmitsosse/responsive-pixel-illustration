@@ -56,7 +56,6 @@ type Args = {
   clear?: boolean
   color?: ColorRgb
   id?: string
-  mask?: (dimensions: Location, push?: boolean) => Location
   reflectX?: boolean
   reflectY?: boolean
   rotate?: number
@@ -83,6 +82,7 @@ class Primitive {
   fromBottom?: boolean
   rotate?: boolean
   args?: Args
+  mask?: (dimensions: Location, push?: boolean) => Location
 
   constructor(state: State) {
     this.state = state
@@ -165,7 +165,7 @@ class Primitive {
     }
 
     if (args.mask) {
-      newArgs.mask = this.state.pixelSetter.setColorMask
+      this.mask = this.state.pixelSetter.setColorMask
     }
 
     newArgs.zInd = (inherit.zInd || 0) + (args.z || 0)

@@ -104,10 +104,6 @@ class Obj extends Primitive {
       throw new Error('Unexpected error: listTool is undefined')
     }
 
-    if (this.args === undefined) {
-      throw new Error('Unexpected error: args is undefined')
-    }
-
     const dimensions = this.dimensions.calc()
 
     let oldMask
@@ -116,16 +112,16 @@ class Obj extends Primitive {
       return
     }
 
-    if (this.args.mask) {
-      oldMask = this.args.mask(dimensions, true)
+    if (this.mask) {
+      oldMask = this.mask(dimensions, true)
     }
 
     this.state.pixelUnit.push(dimensions)
 
     this.listTool.forEach((tool) => tool.draw())
 
-    if (this.args.mask && oldMask) {
-      this.args.mask(oldMask, false)
+    if (this.mask && oldMask) {
+      this.mask(oldMask, false)
     }
 
     this.state.pixelUnit.pop()

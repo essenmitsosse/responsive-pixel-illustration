@@ -114,10 +114,6 @@ class Panels extends Obj {
       throw new Error('Unexpected error: gutterSY is undefined')
     }
 
-    if (this.args === undefined) {
-      throw new Error('Unexpected error: args is undefined')
-    }
-
     this.dimensions = this.dimensions.calc()
 
     this.sX = this.dimensions.width
@@ -137,7 +133,7 @@ class Panels extends Obj {
     this.calcPanelsSizes(panels)
 
     // Draw the content of the panels
-    this.drawPanels(panels, this.args.mask)
+    this.drawPanels(panels, this.mask)
   }
 
   findBestRows(): void {

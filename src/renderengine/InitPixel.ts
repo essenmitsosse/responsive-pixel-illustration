@@ -197,6 +197,10 @@ export class InitPixel {
     const canvasRenderer = createSingleCanvas(args.div)
     const [body] = document.getElementsByTagName('body')
 
+    if (body === undefined) {
+      throw new Error('Unexpected error: No body found')
+    }
+
     if (currentSlide.resizeable) {
       this.queryString.resizeable = true
     }

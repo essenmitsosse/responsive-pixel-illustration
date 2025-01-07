@@ -7,19 +7,18 @@ class Color {
   constructor() {}
 
   draw(c: ColorRgb, zInd: number, id?: string): void {
-    const { s } = this
-    const oldZInd = s.at(-1)?.zInd ?? 0
+    const oldZInd = this.s.at(-1)?.zInd ?? 0
 
     if (this.s.length === 0 || oldZInd < zInd) {
-      s.push({ id, c, zInd })
+      this.s.push({ id, c, zInd })
 
       return
     }
 
     if (oldZInd !== zInd) {
-      const indexFirstZIndHigher = s.findIndex((save) => save.zInd >= zInd)
+      const indexFirstZIndHigher = this.s.findIndex((save) => save.zInd >= zInd)
 
-      s.splice(indexFirstZIndHigher, 0, { id, c, zInd })
+      this.s.splice(indexFirstZIndHigher, 0, { id, c, zInd })
     }
   }
 

@@ -23,10 +23,7 @@ class Color {
   }
 
   clear(id?: string): void {
-    this.s = this.s
-      .toReversed()
-      .filter((save) => save.id !== id)
-      .toReversed()
+    this.s = this.s.filter((save) => save.id !== id)
   }
 
   pop(): LayerColor | undefined {

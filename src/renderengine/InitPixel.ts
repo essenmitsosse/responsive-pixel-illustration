@@ -70,19 +70,19 @@ const loadScript = (
     callback(imageImport.default)
   })
 
+const convert = (value: string): boolean | number => {
+  if (value === 'true') {
+    return true
+  } else if (value === 'false') {
+    return false
+  }
+
+  return Number.parseFloat(value)
+}
+
 const getQueryString = (): Record<string, boolean | number | undefined> => {
   const list: Record<string, boolean | number | undefined> = {}
   const vars = location.search.substring(1).split('&')
-
-  const convert = (value: string): boolean | number => {
-    if (value === 'true') {
-      return true
-    } else if (value === 'false') {
-      return false
-    }
-
-    return Number.parseFloat(value)
-  }
 
   vars.forEach((variable) => {
     if (variable === '') {

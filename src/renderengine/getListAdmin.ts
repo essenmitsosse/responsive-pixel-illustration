@@ -1,5 +1,4 @@
 const getListAdmin = (args: {
-  atBeginning?: boolean
   container: HTMLElement
   id: string
 }): {
@@ -12,11 +11,7 @@ const getListAdmin = (args: {
 } => {
   const list = document.createElement('ul')
 
-  if (args.atBeginning) {
-    args.container.insertBefore(list, args.container.children[0])
-  } else {
-    args.container.appendChild(list)
-  }
+  args.container.appendChild(list)
 
   list.setAttribute('id', args.id)
 

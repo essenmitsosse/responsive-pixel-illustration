@@ -18,7 +18,7 @@ class Color {
     if (oldZInd !== zInd) {
       const indexFirstZIndHigher = this.s.findIndex((save) => save.zInd >= zInd)
 
-      this.s.splice(indexFirstZIndHigher, 0, { id, c, zInd })
+      this.s = this.s.toSpliced(indexFirstZIndHigher, 0, { id, c, zInd })
     }
   }
 

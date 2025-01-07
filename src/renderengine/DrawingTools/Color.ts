@@ -23,7 +23,7 @@ class Color {
   }
 
   clear(id?: string): void {
-    while (this.s.length > 0 && this.s[this.s.length - 1].id === id) {
+    while (this.s.length > 0 && this.s.at(-1)?.id === id) {
       this.s.pop()
     }
   }

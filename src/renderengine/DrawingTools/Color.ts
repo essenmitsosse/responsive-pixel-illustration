@@ -23,9 +23,10 @@ class Color {
   }
 
   clear(id?: string): void {
-    while (this.s.length > 0 && this.s.at(-1)?.id === id) {
-      this.s.pop()
-    }
+    this.s = this.s
+      .toReversed()
+      .filter((save) => save.id !== id)
+      .toReversed()
   }
 }
 

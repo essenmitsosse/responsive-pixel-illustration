@@ -324,14 +324,7 @@ export class Dimension {
       throw new Error('Unexpected error: adder is undefined')
     }
 
-    let add = 0
-    let l = this.adder.length
-
-    while (l--) {
-      add += this.adder[l].getReal()
-    }
-
-    return add
+    return this.adder.map((size) => size.getReal()).reduce(getSumForReduce, 0)
   }
 
   getRealDistanceWithMaxMin(

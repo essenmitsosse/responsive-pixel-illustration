@@ -31,8 +31,7 @@ const getRenderPixelToImage =
     pixelArray: ColorArray,
     imageData: Uint8ClampedArray<ArrayBufferLike>,
   ): Uint8ClampedArray<ArrayBufferLike> => {
-    let pW = pixelW
-    let w4 = pW * 4
+    let w4 = pixelW * 4
 
     const wFull = w4
     const pHSave = pixelH
@@ -42,13 +41,11 @@ const getRenderPixelToImage =
     const defaultGreen = backgroundColor && backgroundColor[1]
     const defaultBlue = backgroundColor && backgroundColor[2]
 
-    while (pW--) {
+    pA.toReversed().forEach((row) => {
       w4 -= 4
 
       let pH = pHSave
       let full = fullSave
-
-      const row = pA[pW]
 
       while (pH--) {
         const pixel = row[pH].last()
@@ -74,7 +71,7 @@ const getRenderPixelToImage =
           imageData[w4 + (full -= wFull) + 3] = 0
         }
       }
-    }
+    })
 
     return imageData
   }

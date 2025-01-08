@@ -35,16 +35,11 @@ const getSeedHandler = (): {
   const getSeed = getRandom().seed
 
   let count = 0
-
-  const i: Array<number> = []
+  let i: Array<number> = []
 
   return {
     reset: (): void => {
-      let l = count
-
-      while (l--) {
-        i[l] = 0
-      }
+      i = new Array(count).fill(0)
     },
     get: (j?: number) => {
       const seed = j || getSeed()

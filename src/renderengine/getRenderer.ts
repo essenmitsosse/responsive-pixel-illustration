@@ -30,9 +30,6 @@ const getRenderPixelToImage =
     imageData: Uint8ClampedArray<ArrayBufferLike>,
   ): Uint8ClampedArray<ArrayBufferLike> => {
     const wFull = pixelArray.length * 4
-    const defaultRed = backgroundColor && backgroundColor[0]
-    const defaultGreen = backgroundColor && backgroundColor[1]
-    const defaultBlue = backgroundColor && backgroundColor[2]
 
     pixelArray.forEach((row, index) => {
       const w4 = index * 4
@@ -51,11 +48,11 @@ const getRenderPixelToImage =
 
           imageData[start + 3] = 255
         } else if (backgroundColor) {
-          imageData[start] = defaultRed
+          imageData[start] = backgroundColor[0]
 
-          imageData[start + 1] = defaultGreen
+          imageData[start + 1] = backgroundColor[1]
 
-          imageData[start + 2] = defaultBlue
+          imageData[start + 2] = backgroundColor[2]
 
           imageData[start + 3] = 255
         } else {

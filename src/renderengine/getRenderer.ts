@@ -42,7 +42,6 @@ const getRenderPixelToImage =
     const fullSave = w4 * pHSave
 
     let full
-    let c
     let i
     let row
 
@@ -61,14 +60,14 @@ const getRenderPixelToImage =
       row = pA[pW]
 
       while (pH--) {
-        if ((c = row[pH].pop())) {
-          c = c.c
+        const pixel = row[pH].pop()
 
-          imageData[(i = w4 + (full -= wFull))] = c[0]
+        if (pixel) {
+          imageData[(i = w4 + (full -= wFull))] = pixel.c[0]
 
-          imageData[(i += 1)] = c[1]
+          imageData[(i += 1)] = pixel.c[1]
 
-          imageData[(i += 1)] = c[2]
+          imageData[(i += 1)] = pixel.c[2]
 
           imageData[(i += 1)] = 255
         } else if (backgroundColor) {

@@ -63,7 +63,7 @@ const getRenderPixelToImage =
 
           imageData[start + 3] = 255
         } else {
-          imageData[w4 + (full -= wFull) + 3] = 0
+          imageData[start + 3] = 0
         }
       })
     })

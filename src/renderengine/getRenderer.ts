@@ -42,11 +42,10 @@ const getRenderPixelToImage =
     pixelArray.toReversed().forEach((row) => {
       w4 -= 4
 
-      let pH = pixelH
       let full = fullSave
 
-      while (pH--) {
-        const pixel = row[pH].last()
+      row.toReversed().forEach((color) => {
+        const pixel = color.last()
         const start = w4 + (full -= wFull)
 
         if (pixel) {
@@ -68,7 +67,7 @@ const getRenderPixelToImage =
         } else {
           imageData[w4 + (full -= wFull) + 3] = 0
         }
-      }
+      })
     })
 
     return imageData

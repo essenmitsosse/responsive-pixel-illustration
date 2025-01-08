@@ -83,6 +83,18 @@ const listScreenshots = [
 describe('basic screenshots', () => {
   listScreenshots.forEach(({ niceName, query, index }) => {
     test(niceName, async ({ page }) => {
+      // Fail on console.error
+      page.on('console', (msg) => {
+        if (msg.type() === 'error') {
+          throw new Error(`Browser console error: ${msg.text()}`)
+        }
+      })
+
+      // Fail on uncaught exceptions within the browser context
+      page.on('pageerror', (error) => {
+        throw new Error(`Page error: ${error.message}`)
+      })
+
       await page.goto(`/?slide=${index}&${query}`)
 
       await expect(page).toHaveScreenshot(`${niceName}.png`)

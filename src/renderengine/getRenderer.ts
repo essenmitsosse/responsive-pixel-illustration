@@ -40,11 +40,10 @@ const getRenderPixelToImage =
     pixelArray.toReversed().forEach((row, index) => {
       const w4 = wFull - (index + 1) * 4
 
-      let full = fullSave
-
-      row.toReversed().forEach((color) => {
+      row.toReversed().forEach((color, index) => {
         const pixel = color.last()
-        const start = w4 + (full -= wFull)
+        const full = fullSave - (index + 1) * wFull
+        const start = w4 + full
 
         if (pixel) {
           imageData[start] = pixel.c[0]

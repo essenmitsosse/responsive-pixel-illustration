@@ -29,14 +29,12 @@ const getRenderPixelToImage =
     pixelArray: ColorArray,
     imageData: Uint8ClampedArray<ArrayBufferLike>,
   ): Uint8ClampedArray<ArrayBufferLike> => {
-    const wFull = pixelArray.length * 4
-
     pixelArray.forEach((row, index) => {
       const w4 = index * 4
 
       row.forEach((color, index) => {
         const pixel = color.last()
-        const full = index * wFull
+        const full = index * pixelArray.length * 4
         const start = w4 + full
 
         if (pixel) {

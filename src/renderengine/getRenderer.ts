@@ -27,22 +27,20 @@ const getRenderPixelToImage =
   (backgroundColor: ColorRgb) =>
   (
     pixelW: number,
-    pixelH: number,
     pixelArray: ColorArray,
     imageData: Uint8ClampedArray<ArrayBufferLike>,
   ): Uint8ClampedArray<ArrayBufferLike> => {
     const wFull = pixelW * 4
-    const fullSave = wFull * pixelH
     const defaultRed = backgroundColor && backgroundColor[0]
     const defaultGreen = backgroundColor && backgroundColor[1]
     const defaultBlue = backgroundColor && backgroundColor[2]
 
-    pixelArray.toReversed().forEach((row, index) => {
-      const w4 = wFull - (index + 1) * 4
+    pixelArray.forEach((row, index) => {
+      const w4 = index * 4
 
-      row.toReversed().forEach((color, index) => {
+      row.forEach((color, index) => {
         const pixel = color.last()
-        const full = fullSave - (index + 1) * wFull
+        const full = index * wFull
         const start = w4 + full
 
         if (pixel) {
@@ -140,7 +138,7 @@ const getRenderer = (
         time = Date.now() - time
 
         // Render the Pixel Array to the Image
-        renderPixelToImage(countW, countH, drawing, image.data)
+        renderPixelToImage(countW, drawing, image.data)
 
         // Place Image on the Context
         virtualContext.putImageData(image, 0, 0)

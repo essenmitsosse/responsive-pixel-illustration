@@ -35,9 +35,6 @@ const getRenderPixelToImage =
     let w4 = pW * 4
 
     const wFull = w4
-
-    let pH
-
     const pHSave = pixelH
     const fullSave = w4 * pHSave
 
@@ -51,8 +48,7 @@ const getRenderPixelToImage =
     while (pW--) {
       w4 -= 4
 
-      pH = pHSave
-
+      let pH = pHSave
       let full = fullSave
 
       const row = pA[pW]

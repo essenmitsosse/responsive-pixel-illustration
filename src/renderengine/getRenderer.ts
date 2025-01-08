@@ -43,7 +43,6 @@ const getRenderPixelToImage =
 
     let full
     let i
-    let row
 
     const pA = pixelArray
     const defaultRed = backgroundColor && backgroundColor[0]
@@ -57,7 +56,7 @@ const getRenderPixelToImage =
 
       full = fullSave
 
-      row = pA[pW]
+      const row = pA[pW]
 
       while (pH--) {
         const pixel = row[pH].pop()

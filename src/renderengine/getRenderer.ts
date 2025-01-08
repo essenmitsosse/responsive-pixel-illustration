@@ -31,16 +31,14 @@ const getRenderPixelToImage =
     pixelArray: ColorArray,
     imageData: Uint8ClampedArray<ArrayBufferLike>,
   ): Uint8ClampedArray<ArrayBufferLike> => {
-    let w4 = pixelW * 4
-
-    const wFull = w4
-    const fullSave = w4 * pixelH
+    const wFull = pixelW * 4
+    const fullSave = wFull * pixelH
     const defaultRed = backgroundColor && backgroundColor[0]
     const defaultGreen = backgroundColor && backgroundColor[1]
     const defaultBlue = backgroundColor && backgroundColor[2]
 
-    pixelArray.toReversed().forEach((row) => {
-      w4 -= 4
+    pixelArray.toReversed().forEach((row, index) => {
+      const w4 = wFull - (index + 1) * 4
 
       let full = fullSave
 

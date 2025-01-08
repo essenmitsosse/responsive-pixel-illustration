@@ -2,7 +2,9 @@ import { inject } from '@vercel/analytics'
 
 import { InitPixel } from './renderengine/InitPixel'
 
-inject()
+if (!import.meta.env.VITE_CI && !import.meta.env.DEV) {
+  inject()
+}
 
 const mainDiv = document.getElementById('main')
 

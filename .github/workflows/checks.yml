@@ -117,6 +117,9 @@ jobs:
         if: steps.playwright-cache.outputs.cache-hit != 'true'
       - name: Build the project
         run: npm run build
+        env:
+          # This is used for disabling Vercel tracking in CI
+          VITE_CI: true
       - name: Run Playwright tests
         run: npx playwright test --update-snapshots
       - uses: actions/upload-artifact@v4

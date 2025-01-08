@@ -51,7 +51,7 @@ const getRenderPixelToImage =
       const row = pA[pW]
 
       while (pH--) {
-        const pixel = row[pH].pop()
+        const pixel = row[pH].last()
         const start = w4 + (full -= wFull)
 
         if (pixel) {

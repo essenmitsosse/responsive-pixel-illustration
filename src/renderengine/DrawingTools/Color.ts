@@ -26,14 +26,8 @@ class Color {
     this.s = this.s.filter((save) => save.id !== id)
   }
 
-  pop(): LayerColor | undefined {
-    const last = this.s.at(-1)
-
-    if (last) {
-      this.s = this.s.toSpliced(-1)
-    }
-
-    return last
+  last(): LayerColor | undefined {
+    return this.s.at(-1)
   }
 }
 

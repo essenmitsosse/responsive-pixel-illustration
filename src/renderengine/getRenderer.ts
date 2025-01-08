@@ -37,9 +37,6 @@ const getRenderPixelToImage =
     const wFull = w4
     const pHSave = pixelH
     const fullSave = w4 * pHSave
-
-    let i
-
     const pA = pixelArray
     const defaultRed = backgroundColor && backgroundColor[0]
     const defaultGreen = backgroundColor && backgroundColor[1]
@@ -55,25 +52,26 @@ const getRenderPixelToImage =
 
       while (pH--) {
         const pixel = row[pH].pop()
+        const start = w4 + (full -= wFull)
 
         if (pixel) {
-          imageData[(i = w4 + (full -= wFull))] = pixel.c[0]
+          imageData[start] = pixel.c[0]
 
-          imageData[(i += 1)] = pixel.c[1]
+          imageData[start + 1] = pixel.c[1]
 
-          imageData[(i += 1)] = pixel.c[2]
+          imageData[start + 2] = pixel.c[2]
 
-          imageData[(i += 1)] = 255
+          imageData[start + 3] = 255
         } else if (backgroundColor) {
-          imageData[(i = w4 + (full -= wFull))] = defaultRed
+          imageData[start] = defaultRed
 
-          imageData[(i += 1)] = defaultGreen
+          imageData[start + 1] = defaultGreen
 
-          imageData[(i += 1)] = defaultBlue
+          imageData[start + 2] = defaultBlue
 
-          imageData[(i += 1)] = 255
+          imageData[start + 3] = 255
         } else {
-          imageData[(i = w4 + (full -= wFull) + 3)] = 0
+          imageData[w4 + (full -= wFull) + 3] = 0
         }
       }
     }

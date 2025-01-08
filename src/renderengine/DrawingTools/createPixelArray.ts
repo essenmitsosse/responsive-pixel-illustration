@@ -4,23 +4,10 @@ import type { ColorRgb } from '@/helper/typeColor'
 
 export type ColorArray = Array<Array<Color>>
 
-const getPixelArray = (width: number, height: number): ColorArray => {
-  let countH
-
-  const colorArray: ColorArray = []
-
-  while (width--) {
-    countH = height
-
-    colorArray[width] = []
-
-    while (countH--) {
-      colorArray[width][countH] = new Color()
-    }
-  }
-
-  return colorArray
-}
+const getPixelArray = (width: number, height: number): ColorArray =>
+  new Array(width)
+    .fill(null)
+    .map(() => new Array(height).fill(null).map(() => new Color()))
 
 export type Location = {
   height: number

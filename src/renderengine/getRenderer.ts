@@ -34,8 +34,7 @@ const getRenderPixelToImage =
     let w4 = pixelW * 4
 
     const wFull = w4
-    const pHSave = pixelH
-    const fullSave = w4 * pHSave
+    const fullSave = w4 * pixelH
     const defaultRed = backgroundColor && backgroundColor[0]
     const defaultGreen = backgroundColor && backgroundColor[1]
     const defaultBlue = backgroundColor && backgroundColor[2]
@@ -43,7 +42,7 @@ const getRenderPixelToImage =
     pixelArray.toReversed().forEach((row) => {
       w4 -= 4
 
-      let pH = pHSave
+      let pH = pixelH
       let full = fullSave
 
       while (pH--) {

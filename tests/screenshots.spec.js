@@ -95,7 +95,7 @@ describe('basic screenshots', () => {
         throw new Error(`Page error: ${error.message}`)
       })
 
-      await page.goto(`/?slide=${index}&${query}`)
+      await page.goto(`/?slide=${index}&${query ?? ''}`)
 
       await expect(page).toHaveScreenshot(`${niceName}.png`)
     })

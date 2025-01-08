@@ -26,11 +26,10 @@ const getDrawer = (
 const getRenderPixelToImage =
   (backgroundColor: ColorRgb) =>
   (
-    pixelW: number,
     pixelArray: ColorArray,
     imageData: Uint8ClampedArray<ArrayBufferLike>,
   ): Uint8ClampedArray<ArrayBufferLike> => {
-    const wFull = pixelW * 4
+    const wFull = pixelArray.length * 4
     const defaultRed = backgroundColor && backgroundColor[0]
     const defaultGreen = backgroundColor && backgroundColor[1]
     const defaultBlue = backgroundColor && backgroundColor[2]
@@ -138,7 +137,7 @@ const getRenderer = (
         time = Date.now() - time
 
         // Render the Pixel Array to the Image
-        renderPixelToImage(countW, drawing, image.data)
+        renderPixelToImage(drawing, image.data)
 
         // Place Image on the Context
         virtualContext.putImageData(image, 0, 0)

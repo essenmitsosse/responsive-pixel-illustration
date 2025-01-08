@@ -45,7 +45,15 @@ const getSeedHandler = (): {
       const seed = j || getSeed()
       const nr = (count += 1)
 
-      return () => getRandom(seed + i[nr]++ || 0)
+      return () => {
+        if (nr in i === false || i[nr] === undefined) {
+          throw new Error(
+            `Unexpected error: Trying to access non-existing seed #${nr}`,
+          )
+        }
+
+        return getRandom(seed + i[nr]++ || 0)
+      }
     },
   }
 }

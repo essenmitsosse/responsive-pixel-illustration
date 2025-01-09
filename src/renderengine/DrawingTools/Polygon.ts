@@ -152,13 +152,16 @@ class Polygon extends Line {
     //  Close the Polygon
     getLineEdge(pointsCalculated.at(0)!, pointsCalculated.at(-1)!)
 
-    const edgeListSorted = edgeList.sort(sortFunction)
+    edgeList
+      .sort(sortFunction)
+      .toReversed()
+      .forEach((edge, index, edgeListSorted) => {
+        if (index % 2 === 0) {
+          return
+        }
 
-    let l = edgeListSorted.length
-
-    while ((l -= 2) >= 0) {
-      drawRow(edgeListSorted[l + 1], edgeListSorted[l])
-    }
+        drawRow(edgeListSorted[index - 1]!, edge)
+      })
   }
 }
 

@@ -64,7 +64,7 @@ const getLineEdgeGetter = (edgeList: EdgeList) => {
       if (x0 === x1 && y0 === y1) {
         // Add List Point and Break
         if (last) {
-          edgeList[i].x1 = x0
+          edgeList[i]!.x1 = x0
         } else {
           i -= 1
 
@@ -76,7 +76,7 @@ const getLineEdgeGetter = (edgeList: EdgeList) => {
 
       if (e2 < dx) {
         if (first) {
-          edgeList[i].x1 = x0
+          edgeList[i]!.x1 = x0
         } else {
           first = true
         }

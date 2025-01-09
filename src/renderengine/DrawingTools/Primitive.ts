@@ -24,9 +24,7 @@ export type Inherit = {
 
 type SizeAndPos = {
   getRealPosition?: () => { x: number; y: number }
-  lineCount?: number
   mask?: (dimensions: Location, push?: boolean) => Location
-  points?: Array<() => { x: number; y: number }>
 }
 
 export type ArgsInit = Inherit & {

@@ -72,6 +72,9 @@ const getDrawLine =
 
 class Line extends Primitive {
   lineSetter?: () => LineSetter
+  lineCount?: number
+  points?: Array<() => { x: number; y: number }>
+
   init(args: ArgsInit): void {
     if (args.closed) {
       if (this.args === undefined) {
@@ -125,10 +128,7 @@ class Line extends Primitive {
     reflectX: boolean,
     reflectY: boolean,
     rotate: boolean,
-  ): {
-    lineCount: number
-    points: Array<() => { x: number; y: number }>
-  } {
+  ): void {
     if (args.points === undefined) {
       throw new Error('Unexpected error: args.points is undefined')
     }
@@ -143,10 +143,9 @@ class Line extends Primitive {
         this.state.pixelUnit.Position(point, reflectX, reflectY, rotate),
       )
 
-    return {
-      points: newPoints,
-      lineCount: newPoints.length - 1,
-    }
+    this.points = newPoints
+
+    this.lineCount = newPoints.length - 1
   }
 
   draw(): void {
@@ -154,7 +153,7 @@ class Line extends Primitive {
       throw new Error('Unexpected error: args is undefined')
     }
 
-    if (this.args.points === undefined) {
+    if (this.points === undefined) {
       throw new Error('Unexpected error: args.points is undefined')
     }
 
@@ -162,14 +161,14 @@ class Line extends Primitive {
       throw new Error('Unexpected error: lineSetter is undefined')
     }
 
-    if (this.args.lineCount === undefined) {
+    if (this.lineCount === undefined) {
       throw new Error('Unexpected error: args.LineCount is undefined')
     }
 
     // Draw all Lines
-    const p = this.args.points
+    const p = this.points
 
-    let l = this.args.lineCount
+    let l = this.lineCount
     let nextPoint = p[l]()
 
     const firstPoint = this.args.closed ? nextPoint : false

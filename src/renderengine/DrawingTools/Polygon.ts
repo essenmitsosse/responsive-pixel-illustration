@@ -125,15 +125,11 @@ const sortFunction = (
 
 class Polygon extends Line {
   draw(): void {
-    if (this.args === undefined) {
-      throw new Error('Unexpected error: args is undefined')
-    }
-
-    if (this.args.points === undefined) {
+    if (this.points === undefined) {
       throw new Error('Unexpected error: args.points is undefined')
     }
 
-    if (this.args.lineCount === undefined) {
+    if (this.lineCount === undefined) {
       throw new Error('Unexpected error: args.LineCount is undefined')
     }
 
@@ -146,13 +142,13 @@ class Polygon extends Line {
     const drawRow = getDrawRow(this.getColorArray)
     const getLineEdge = getLineEdgeGetter(edgeList)
 
-    let l = this.args.lineCount
-    let nextPoint = this.args.points[l]()
+    let l = this.lineCount
+    let nextPoint = this.points[l]()
 
     const firstPoint = nextPoint
 
     while (l--) {
-      nextPoint = getLineEdge(nextPoint, this.args.points[l]())
+      nextPoint = getLineEdge(nextPoint, this.points[l]())
     }
 
     //  Close the Polygon

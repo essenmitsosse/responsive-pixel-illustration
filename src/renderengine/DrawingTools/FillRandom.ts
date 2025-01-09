@@ -113,13 +113,7 @@ class FillRandom extends Fill {
     const random = this.random().one
 
     let current
-    let currentX
-    let currentY
-    let finalX
     let odd = true
-    let w
-    let h
-    let realHeight
     let randSize = 0
     let randWidth = 0
     let randHeight = 0
@@ -135,32 +129,31 @@ class FillRandom extends Fill {
         (typeof sizeRandom === 'number' && sizeRandom > 0))
     ) {
       while (count-- > 0) {
-        w =
+        let w =
           width +
           (randWidth =
             (widthRandom ? Math.floor(widthRandom * random()) : 0) +
             (randSize = sizeRandom ? Math.floor(sizeRandom * random()) : 0))
 
-        realHeight =
+        const realHeight =
           height +
           (randHeight =
             (heightRandom ? Math.floor(heightRandom * random()) : 0) + randSize)
 
         odd = !odd
 
-        currentX =
+        const currentX =
           (current = array[Math.floor(random() * l)])[0] -
           (odd ? width + randWidth : 0)
 
-        currentY = current[1] - (odd ? height + randHeight : 0)
+        const currentY = current[1] - (odd ? height + randHeight : 0)
 
         while (w--) {
-          finalX = currentX + w
-
+          const finalX = currentX + w
           const finalMaskX = dontCheck === false && mask[finalX]
 
           if (dontCheck || finalMaskX) {
-            h = realHeight
+            let h = realHeight
 
             while (h--) {
               if (dontCheck || (finalMaskX && finalMaskX[currentY + h])) {

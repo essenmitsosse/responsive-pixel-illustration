@@ -135,10 +135,10 @@ const createPixelArray = (
       while ((sizeX -= 1) >= startX) {
         let sizeY = sizeY_start
 
-        const row = pixelArray[sizeX]
+        const row = pixelArray[sizeX]!
 
         while ((sizeY -= 1) >= startY) {
-          row[sizeY].draw(color, zInd, id)
+          row[sizeY]!.draw(color, zInd, id)
         }
       }
     },
@@ -156,10 +156,10 @@ const createPixelArray = (
       while ((sizeX -= 1) >= startX) {
         let sizeY = initSizeY
 
-        const row = pixelArray[sizeX]
+        const row = pixelArray[sizeX]!
 
         while ((sizeY -= 1) >= startY) {
-          row[sizeY].clear(id)
+          row[sizeY]!.clear(id)
         }
       }
     },

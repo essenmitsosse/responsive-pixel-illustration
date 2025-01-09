@@ -169,19 +169,16 @@ const createPixelArray = (
       const endY = args.height + args.posY
 
       let sizeX = endX > canvasWidth ? canvasWidth : endX
-      let sizeY
 
       const initSizeY = endY > canvasHeight ? canvasHeight : endY
       const startX = args.posX < 0 ? 0 : args.posX
       const startY = args.posY < 0 ? 0 : args.posY
       const s = save
 
-      let col: Array<boolean>
-
       while ((sizeX -= 1) >= startX) {
-        sizeY = initSizeY
+        let sizeY = initSizeY
 
-        col = mask[sizeX] || (mask[sizeX] = [])
+        const col = mask[sizeX] || (mask[sizeX] = [])
 
         while ((sizeY -= 1) >= startY) {
           s.push([sizeX, sizeY])

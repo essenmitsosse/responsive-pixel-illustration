@@ -139,22 +139,22 @@ class Polygon extends Line {
     const edgeList: EdgeList = []
     const drawRow = getDrawRow(this.getColorArray)
     const getLineEdge = getLineEdgeGetter(edgeList)
+    const pointsCalculated = this.points.map((point) => point())
 
-    let l = this.points.length - 1
-    let nextPoint = this.points[l]()
+    pointsCalculated.toReversed().forEach((point, index, pointsReversed) => {
+      if (index === 0) {
+        return
+      }
 
-    const firstPoint = nextPoint
-
-    while (l--) {
-      nextPoint = getLineEdge(nextPoint, this.points[l]())
-    }
+      getLineEdge(pointsReversed[index - 1]!, point)
+    })
 
     //  Close the Polygon
-    getLineEdge(nextPoint, firstPoint)
+    getLineEdge(pointsCalculated.at(0)!, pointsCalculated.at(-1)!)
 
     const edgeListSorted = edgeList.sort(sortFunction)
 
-    l = edgeListSorted.length
+    let l = edgeListSorted.length
 
     while ((l -= 2) >= 0) {
       drawRow(edgeListSorted[l + 1], edgeListSorted[l])

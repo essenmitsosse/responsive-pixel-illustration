@@ -141,7 +141,7 @@ class FillRandom extends Fill {
 
         odd = !odd
 
-        const current = array[Math.floor(random() * l)]
+        const current = array[Math.floor(random() * l)]!
         const currentX = current[0] - (odd ? width + randWidth : 0)
         const currentY = current[1] - (odd ? height + randHeight : 0)
 
@@ -162,7 +162,7 @@ class FillRandom extends Fill {
       }
     } else {
       while (count-- > 0) {
-        const current = array[Math.floor(random() * l)]
+        const current = array[Math.floor(random() * l)]!
 
         this.getColorArray(current[0], current[1])
       }

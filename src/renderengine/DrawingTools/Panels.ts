@@ -301,12 +301,10 @@ class Panels extends Obj {
       0,
     ]
 
-    let current
-
     i = l
 
     while (i--) {
-      current = this.args.listPanels[i]
+      const current = this.args.listPanels[i]
 
       panels.push({
         drawer: current.drawer,
@@ -336,6 +334,8 @@ class Panels extends Obj {
       i = this.countX
 
       odd = !odd
+
+      let current
 
       while ((i -= (current = panels[c]).size) >= 0) {
         current.x = i

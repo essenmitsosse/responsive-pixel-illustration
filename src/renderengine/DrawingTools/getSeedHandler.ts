@@ -43,7 +43,9 @@ const getSeedHandler = (): {
     },
     get: (j?: number) => {
       const seed = j || getSeed()
-      const nr = (count += 1)
+      const nr = count
+
+      count += 1
 
       return () => {
         if (nr in i === false || i[nr] === undefined) {

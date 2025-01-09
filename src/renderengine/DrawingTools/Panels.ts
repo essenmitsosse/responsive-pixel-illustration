@@ -255,8 +255,6 @@ class Panels extends Obj {
       throw new Error('Unexpected error: countY is undefined')
     }
 
-    const panels: Array<PanelSorted> = []
-
     let i
     let j
 
@@ -301,20 +299,16 @@ class Panels extends Obj {
       0,
     ]
 
-    i = l
-
-    while (i--) {
-      const current = this.args.listPanels[i]
-
-      panels.push({
+    const panels: Array<PanelSorted> = this.args.listPanels
+      .toReversed()
+      .map((current) => ({
         drawer: current.drawer,
         first: false,
         last: false,
         size: 1,
         sX: current.sX,
         sY: current.sY,
-      })
-    }
+      }))
 
     while (total > l) {
       total -= 1

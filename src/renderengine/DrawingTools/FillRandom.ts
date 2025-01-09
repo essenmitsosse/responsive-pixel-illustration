@@ -112,7 +112,6 @@ class FillRandom extends Fill {
     const dontCheck = mask === false
     const random = this.random().one
 
-    let current
     let odd = true
     let randSize = 0
     let randWidth = 0
@@ -142,10 +141,8 @@ class FillRandom extends Fill {
 
         odd = !odd
 
-        const currentX =
-          (current = array[Math.floor(random() * l)])[0] -
-          (odd ? width + randWidth : 0)
-
+        const current = array[Math.floor(random() * l)]
+        const currentX = current[0] - (odd ? width + randWidth : 0)
         const currentY = current[1] - (odd ? height + randHeight : 0)
 
         while (w--) {
@@ -165,10 +162,9 @@ class FillRandom extends Fill {
       }
     } else {
       while (count-- > 0) {
-        this.getColorArray(
-          (current = array[Math.floor(random() * l)])[0],
-          current[1],
-        )
+        const current = array[Math.floor(random() * l)]
+
+        this.getColorArray(current[0], current[1])
       }
     }
   }

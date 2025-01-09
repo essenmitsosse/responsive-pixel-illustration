@@ -55,7 +55,9 @@ const getLineEdgeGetter = (edgeList: EdgeList) => {
     const last = !first
 
     if (first) {
-      edgeList[(i += 1)] = { x0, y: y0 }
+      i += 1
+
+      edgeList[i] = { x0, y: y0 }
     }
 
     while (true) {

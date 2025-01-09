@@ -152,10 +152,12 @@ class Polygon extends Line {
     //  Close the Polygon
     getLineEdge(nextPoint, firstPoint)
 
-    l = edgeList.sort(sortFunction).length
+    const edgeListSorted = edgeList.sort(sortFunction)
+
+    l = edgeListSorted.length
 
     while ((l -= 2) >= 0) {
-      drawRow(edgeList[l + 1], edgeList[l])
+      drawRow(edgeListSorted[l + 1], edgeListSorted[l])
     }
   }
 }

@@ -163,15 +163,14 @@ class Line extends Primitive {
     let l = this.points.length - 1
     let nextPoint = this.points[l]()
 
-    const firstPoint = this.args.closed ? nextPoint : false
     const drawLine = getDrawLine(this.lineSetter())
 
     while (l--) {
       nextPoint = drawLine(nextPoint, this.points[l]())
     }
 
-    if (firstPoint) {
-      drawLine(nextPoint, firstPoint)
+    if (this.args.closed) {
+      drawLine(nextPoint, this.points[this.points.length - 1]())
     }
   }
 }

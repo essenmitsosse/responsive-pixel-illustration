@@ -129,10 +129,6 @@ class Polygon extends Line {
       throw new Error('Unexpected error: args.points is undefined')
     }
 
-    if (this.lineCount === undefined) {
-      throw new Error('Unexpected error: args.LineCount is undefined')
-    }
-
     if (this.getColorArray === undefined) {
       throw new Error('Unexpected error: getColorArray is undefined')
     }
@@ -142,7 +138,7 @@ class Polygon extends Line {
     const drawRow = getDrawRow(this.getColorArray)
     const getLineEdge = getLineEdgeGetter(edgeList)
 
-    let l = this.lineCount
+    let l = this.points.length - 1
     let nextPoint = this.points[l]()
 
     const firstPoint = nextPoint

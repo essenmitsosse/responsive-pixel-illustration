@@ -72,7 +72,6 @@ const getDrawLine =
 
 class Line extends Primitive {
   lineSetter?: () => LineSetter
-  lineCount?: number
   points?: Array<() => { x: number; y: number }>
 
   init(args: ArgsInit): void {
@@ -144,8 +143,6 @@ class Line extends Primitive {
       )
 
     this.points = newPoints
-
-    this.lineCount = newPoints.length - 1
   }
 
   draw(): void {
@@ -161,13 +158,9 @@ class Line extends Primitive {
       throw new Error('Unexpected error: lineSetter is undefined')
     }
 
-    if (this.lineCount === undefined) {
-      throw new Error('Unexpected error: args.LineCount is undefined')
-    }
-
     // Draw all Lines
 
-    let l = this.lineCount
+    let l = this.points.length - 1
     let nextPoint = this.points[l]()
 
     const firstPoint = this.args.closed ? nextPoint : false

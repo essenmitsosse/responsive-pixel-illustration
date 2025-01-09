@@ -58,15 +58,9 @@ class Panels extends Obj {
       throw new Error('Unexpected error: args is undefined')
     }
 
-    let l = args.panels.length
-
     const inherit = {}
 
-    this.args.listPanels = []
-
-    while (l--) {
-      const current = args.panels[l]
-
+    this.args.listPanels = args.panels.toReversed().map((current) => {
       if (current.sX) {
         current.sX.autoUpdate = true
       } else {
@@ -79,15 +73,15 @@ class Panels extends Obj {
         current.sY = {}
       }
 
-      this.args.listPanels.push({
+      return {
         drawer: new Obj(this.state, this.recordDrawingTools).create(
           { list: current.list },
           inherit,
         ),
         sX: current.sX,
         sY: current.sY,
-      })
-    }
+      }
+    })
 
     this.fluctuation = args.fluctuation || 0
 

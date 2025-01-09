@@ -3,12 +3,10 @@ import Primitive from './Primitive'
 import type { ArgsPrepare } from './Primitive'
 
 class Dot extends Primitive {
-  draw(): void {
-    if (this.args === undefined) {
-      throw new Error('Unexpected error: args is undefined')
-    }
+  getRealPosition?: () => { x: number; y: number }
 
-    if (this.args.getRealPosition === undefined) {
+  draw(): void {
+    if (this.getRealPosition === undefined) {
       throw new Error('Unexpected error: getRealPosition is undefined')
     }
 
@@ -16,7 +14,7 @@ class Dot extends Primitive {
       throw new Error('Unexpected error: getColorArray is undefined')
     }
 
-    const pos = this.args.getRealPosition()
+    const pos = this.getRealPosition()
 
     this.getColorArray(pos.x, pos.y)
   }
@@ -26,17 +24,13 @@ class Dot extends Primitive {
     reflectX: Parameters<typeof this.state.pixelUnit.Position>[1],
     reflectY: Parameters<typeof this.state.pixelUnit.Position>[2],
     rotate: Parameters<typeof this.state.pixelUnit.Position>[3],
-  ): {
-    getRealPosition: () => { x: number; y: number }
-  } {
-    return {
-      getRealPosition: this.state.pixelUnit.Position(
-        args,
-        reflectX,
-        reflectY,
-        rotate,
-      ),
-    }
+  ): void {
+    this.getRealPosition = this.state.pixelUnit.Position(
+      args,
+      reflectX,
+      reflectY,
+      rotate,
+    )
   }
 }
 

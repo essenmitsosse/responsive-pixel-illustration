@@ -23,7 +23,6 @@ export type Inherit = {
 }
 
 type SizeAndPos = {
-  getRealPosition?: () => { x: number; y: number }
   mask?: (dimensions: Location, push?: boolean) => Location
 }
 

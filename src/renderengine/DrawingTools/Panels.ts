@@ -64,10 +64,8 @@ class Panels extends Obj {
 
     this.args.listPanels = []
 
-    let current: PanelInput
-
     while (l--) {
-      current = args.panels[l]
+      const current = args.panels[l]
 
       if (current.sX) {
         current.sX.autoUpdate = true

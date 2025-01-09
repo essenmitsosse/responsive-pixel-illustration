@@ -112,13 +112,13 @@ const createPixelArray = (
 
     getSet: (args): void => {
       if (args.x >= minX && args.x < maxX && args.y >= minY && args.y < maxY) {
-        pixelArray[args.x][args.y].draw(args.color, args.zInd, args.id)
+        pixelArray[args.x]![args.y]!.draw(args.color, args.zInd, args.id)
       }
     },
 
     getClear: (args): void => {
       if (args.x >= minX && args.x < maxX && args.y >= minY && args.y < maxY) {
-        pixelArray[args.x][args.y].clear(args.id)
+        pixelArray[args.x]![args.y]!.clear(args.id)
       }
     },
 

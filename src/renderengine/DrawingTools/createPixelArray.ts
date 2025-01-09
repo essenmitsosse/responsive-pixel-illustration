@@ -148,18 +148,15 @@ const createPixelArray = (
       const endY = args.height + args.posY
 
       let sizeX = endX > maxX ? maxX : endX
-      let sizeY
 
       const initSizeY = endY > maxY ? maxY : endY
       const startX = args.posX < minX ? minX : args.posX
       const startY = args.posY < minY ? minY : args.posY
 
-      let row
-
       while ((sizeX -= 1) >= startX) {
-        sizeY = initSizeY
+        let sizeY = initSizeY
 
-        row = pixelArray[sizeX]
+        const row = pixelArray[sizeX]
 
         while ((sizeY -= 1) >= startY) {
           row[sizeY].clear(id)

@@ -133,24 +133,15 @@ class Line extends Primitive {
       throw new Error('Unexpected error: args.points is undefined')
     }
 
-    const newPoints = []
-
-    let l = args.points.length
-
     reflectX = (args.rX || false) !== reflectX
 
     reflectY = (args.rY || false) !== reflectY
 
-    while (l--) {
-      newPoints.push(
-        this.state.pixelUnit.Position(
-          args.points[l],
-          reflectX,
-          reflectY,
-          rotate,
-        ),
+    const newPoints = args.points
+      .toReversed()
+      .map((point) =>
+        this.state.pixelUnit.Position(point, reflectX, reflectY, rotate),
       )
-    }
 
     return {
       points: newPoints,

@@ -160,17 +160,20 @@ class Line extends Primitive {
 
     // Draw all Lines
 
-    let l = this.points.length - 1
-    let nextPoint = this.points[l]()
-
     const drawLine = getDrawLine(this.lineSetter())
+    // Draw all Lines
+    const pointsCalculated = this.points.toReversed().map((point) => point())
 
-    while (l--) {
-      nextPoint = drawLine(nextPoint, this.points[l]())
-    }
+    pointsCalculated.forEach((point, index, pointsReversed) => {
+      if (index === 0) {
+        return
+      }
+
+      drawLine(pointsReversed[index - 1]!, point)
+    })
 
     if (this.args.closed) {
-      drawLine(nextPoint, this.points[this.points.length - 1]())
+      drawLine(pointsCalculated.at(0)!, pointsCalculated.at(-1)!)
     }
   }
 }

@@ -478,26 +478,19 @@ class Panels extends Obj {
     panels: ReadonlyArray<PanelSorted>,
     mask: ((dimensions: Location, push?: boolean) => Location) | undefined,
   ): void {
-    let currentPanel
-    let currentDim: Location | undefined
-    let oldMask: Location | undefined = undefined
-
     const l = panels.length
 
     let c = 0
 
     do {
-      currentPanel = panels[c]
-
-      currentDim = currentPanel.dimensions
+      const currentPanel = panels[c]
+      const currentDim = currentPanel.dimensions
 
       if (currentDim === undefined) {
         throw new Error('Unexpected error: dimensions is undefined')
       }
 
-      if (mask) {
-        oldMask = mask(currentDim)
-      }
+      const oldMask = mask ? mask(currentDim) : undefined
 
       this.state.pixelUnit.push(currentDim)
 

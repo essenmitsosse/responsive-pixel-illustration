@@ -479,15 +479,13 @@ class Panels extends Obj {
     mask: ((dimensions: Location, push?: boolean) => Location) | undefined,
   ): void {
     panels.forEach((currentPanel) => {
-      const currentDim = currentPanel.dimensions
-
-      if (currentDim === undefined) {
+      if (currentPanel.dimensions === undefined) {
         throw new Error('Unexpected error: dimensions is undefined')
       }
 
-      const oldMask = mask ? mask(currentDim) : undefined
+      const oldMask = mask ? mask(currentPanel.dimensions) : undefined
 
-      this.state.pixelUnit.push(currentDim)
+      this.state.pixelUnit.push(currentPanel.dimensions)
 
       currentPanel.drawer.draw()
 

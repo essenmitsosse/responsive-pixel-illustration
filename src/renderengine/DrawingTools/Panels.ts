@@ -400,7 +400,6 @@ class Panels extends Obj {
 
     const l = panels.length
 
-    let currentWidth
     let width = 0
     let height = this.singleSY
     let posX = 0
@@ -440,13 +439,10 @@ class Panels extends Obj {
           width = this.sX - posX
         } else {
           // Calc PanelWidth and add to total.
-          if (currentPanel.first) {
-            currentWidth =
-              currentPanel.size +
+          const currentWidth = currentPanel.first
+            ? currentPanel.size +
               (currentPanel.odd ? -this.fluctuation : this.fluctuation)
-          } else {
-            currentWidth = currentPanel.size
-          }
+            : currentPanel.size
 
           width = Math.round(
             currentWidth * this.singleSX + (currentWidth - 1) * this.gutterX,

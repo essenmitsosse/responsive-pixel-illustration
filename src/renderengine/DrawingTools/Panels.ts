@@ -255,9 +255,6 @@ class Panels extends Obj {
       throw new Error('Unexpected error: countY is undefined')
     }
 
-    let i
-    let j
-
     const l = this.args.listPanels.length
 
     let c = l - 1
@@ -322,10 +319,10 @@ class Panels extends Obj {
       panels[priority].size += 1
     }
 
-    j = this.countY
+    let j = this.countY
 
     while (j--) {
-      i = this.countX
+      let i = this.countX
 
       odd = !odd
 

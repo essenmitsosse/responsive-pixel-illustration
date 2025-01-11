@@ -313,7 +313,7 @@ class Panels extends Obj {
       .toReversed()
       .toSpliced(total - l)
       .forEach((priority) => {
-        panels[priority].size += 1
+        panels[priority]!.size += 1
       })
 
     let j = this.countY

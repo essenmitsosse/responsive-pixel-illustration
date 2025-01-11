@@ -258,7 +258,9 @@ class Panels extends Obj {
     const l = this.args.listPanels.length
 
     let c = l - 1
-    let total = this.countX * this.countY
+
+    const total = this.countX * this.countY
+
     let odd = true
 
     const priorites = [
@@ -307,17 +309,12 @@ class Panels extends Obj {
         sY: current.sY,
       }))
 
-    while (total > l) {
-      total -= 1
-
-      const priority = priorites.pop()
-
-      if (priority === undefined) {
-        throw new Error('Unexpected error: no more priorities')
-      }
-
-      panels[priority].size += 1
-    }
+    priorites
+      .toReversed()
+      .toSpliced(total - l)
+      .forEach((priority) => {
+        panels[priority].size += 1
+      })
 
     let j = this.countY
 

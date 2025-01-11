@@ -400,43 +400,30 @@ class Panels extends Obj {
 
     const l = panels.length
 
-    let currentPanel
-    let x
-    let y
-    let size
     let currentWidth
-    let first
     let width = 0
     let height = this.singleSY
     let posX = 0
     let posY = 0
 
     do {
-      currentPanel = panels[c]!
+      const currentPanel = panels[c]!
 
-      x = currentPanel.x
-
-      y = currentPanel.y
-
-      if (x === undefined) {
+      if (currentPanel.x === undefined) {
         throw new Error('Unexpected error: x is undefined')
       }
 
-      if (y === undefined) {
+      if (currentPanel.y === undefined) {
         throw new Error('Unexpected error: y is undefined')
       }
 
-      size = currentPanel.size
+      if (currentPanel.first) {
+        posX = currentPanel.x * (this.singleSX + this.gutterX)
 
-      first = currentPanel.first
-
-      if (first) {
-        posX = x * (this.singleSX + this.gutterX)
-
-        if (y > 0) {
+        if (currentPanel.y > 0) {
           posY += height + this.gutterY
 
-          if (y === this.countY - 1) {
+          if (currentPanel.y === this.countY - 1) {
             height = this.sY - posY
           }
         }
@@ -444,7 +431,7 @@ class Panels extends Obj {
         posX += width + this.gutterX
       }
 
-      if (first && size === this.countX) {
+      if (currentPanel.first && currentPanel.size === this.countX) {
         // If a single panel fills a whole row
         width = this.sX
       } else {
@@ -453,11 +440,12 @@ class Panels extends Obj {
           width = this.sX - posX
         } else {
           // Calc PanelWidth and add to total.
-          if (first) {
+          if (currentPanel.first) {
             currentWidth =
-              size + (currentPanel.odd ? -this.fluctuation : this.fluctuation)
+              currentPanel.size +
+              (currentPanel.odd ? -this.fluctuation : this.fluctuation)
           } else {
-            currentWidth = size
+            currentWidth = currentPanel.size
           }
 
           width = Math.round(

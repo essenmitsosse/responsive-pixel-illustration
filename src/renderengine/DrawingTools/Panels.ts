@@ -396,18 +396,24 @@ class Panels extends Obj {
       throw new Error('Unexpected error: dimensions is undefined')
     }
 
-    let c = 0
-
-    const l = panels.length
-
     let width = 0
     let height = this.singleSY
     let posX = 0
     let posY = 0
 
-    do {
-      const currentPanel = panels[c]!
+    const {
+      singleSX,
+      gutterX,
+      gutterY,
+      countY,
+      sY,
+      countX,
+      sX,
+      fluctuation,
+      dimensions,
+    } = this
 
+    panels.forEach((currentPanel) => {
       if (currentPanel.x === undefined) {
         throw new Error('Unexpected error: x is undefined')
       }
@@ -417,35 +423,35 @@ class Panels extends Obj {
       }
 
       if (currentPanel.first) {
-        posX = currentPanel.x * (this.singleSX + this.gutterX)
+        posX = currentPanel.x * (singleSX + gutterX)
 
         if (currentPanel.y > 0) {
-          posY += height + this.gutterY
+          posY += height + gutterY
 
-          if (currentPanel.y === this.countY - 1) {
-            height = this.sY - posY
+          if (currentPanel.y === countY - 1) {
+            height = sY - posY
           }
         }
       } else {
-        posX += width + this.gutterX
+        posX += width + gutterX
       }
 
-      if (currentPanel.first && currentPanel.size === this.countX) {
+      if (currentPanel.first && currentPanel.size === countX) {
         // If a single panel fills a whole row
-        width = this.sX
+        width = sX
       } else {
         if (currentPanel.last) {
           // last Panel is as wide as what’s left.
-          width = this.sX - posX
+          width = sX - posX
         } else {
           // Calc PanelWidth and add to total.
           const currentWidth = currentPanel.first
             ? currentPanel.size +
-              (currentPanel.odd ? -this.fluctuation : this.fluctuation)
+              (currentPanel.odd ? -fluctuation : fluctuation)
             : currentPanel.size
 
           width = Math.round(
-            currentWidth * this.singleSX + (currentWidth - 1) * this.gutterX,
+            currentWidth * singleSX + (currentWidth - 1) * gutterX,
           )
         }
       }
@@ -462,10 +468,10 @@ class Panels extends Obj {
       currentPanel.dimensions = {
         width,
         height,
-        posX: posX + this.dimensions.posX,
-        posY: posY + this.dimensions.posY,
+        posX: posX + dimensions.posX,
+        posY: posY + dimensions.posY,
       }
-    } while ((c += 1) < l)
+    })
   }
 
   drawPanels(

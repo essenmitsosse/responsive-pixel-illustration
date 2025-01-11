@@ -326,7 +326,7 @@ class Panels extends Obj {
 
       odd = !odd
 
-      let current
+      let current: PanelSorted
 
       while ((i -= (current = panels[c]).size) >= 0) {
         current.x = i

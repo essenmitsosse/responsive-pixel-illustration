@@ -255,46 +255,44 @@ class Panels extends Obj {
       throw new Error('Unexpected error: countY is undefined')
     }
 
-    const l = this.args.listPanels.length
-
-    let c = l - 1
+    let c = this.args.listPanels.length - 1
 
     const total = this.countX * this.countY
 
     let odd = true
 
     const priorites = [
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
     ]
 
@@ -311,7 +309,7 @@ class Panels extends Obj {
 
     priorites
       .toReversed()
-      .toSpliced(total - l)
+      .toSpliced(total - this.args.listPanels.length)
       .forEach((priority) => {
         panels[priority]!.size += 1
       })

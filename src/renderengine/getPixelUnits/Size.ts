@@ -1,3 +1,5 @@
+import getSumForReduce from '@/lib/getSumForReduce'
+
 import type { State } from './State'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { DynamicVariable } from '@/renderengine/Variable'
@@ -307,18 +309,9 @@ export class Dimension {
   getRealDistance = getRealDistanceBasic
 
   getRealDistanceWithCalc(): number {
-    if (this.adder === undefined) {
-      throw new Error('Unexpected error: adder is undefined')
-    }
-
-    let add = 0
-    let l = this.adder.length
-
-    while (l--) {
-      add += this.adder[l].getReal()
-    }
-
-    return this.getRealDistanceBasic() + add
+    return (
+      this.getRealDistanceBasic() + this.getRealDistanceWithCalcOnlyAdding()
+    )
   }
 
   getRealDistanceWithCalcOnlyAdding(): number {
@@ -326,14 +319,7 @@ export class Dimension {
       throw new Error('Unexpected error: adder is undefined')
     }
 
-    let add = 0
-    let l = this.adder.length
-
-    while (l--) {
-      add += this.adder[l].getReal()
-    }
-
-    return add
+    return this.adder.map((size) => size.getReal()).reduce(getSumForReduce, 0)
   }
 
   getRealDistanceWithMaxMin(

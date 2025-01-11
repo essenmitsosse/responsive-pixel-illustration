@@ -112,14 +112,7 @@ class FillRandom extends Fill {
     const dontCheck = mask === false
     const random = this.random().one
 
-    let current
-    let currentX
-    let currentY
-    let finalX
     let odd = true
-    let w
-    let h
-    let realHeight
     let randSize = 0
     let randWidth = 0
     let randHeight = 0
@@ -135,32 +128,29 @@ class FillRandom extends Fill {
         (typeof sizeRandom === 'number' && sizeRandom > 0))
     ) {
       while (count-- > 0) {
-        w =
+        let w =
           width +
           (randWidth =
             (widthRandom ? Math.floor(widthRandom * random()) : 0) +
             (randSize = sizeRandom ? Math.floor(sizeRandom * random()) : 0))
 
-        realHeight =
+        const realHeight =
           height +
           (randHeight =
             (heightRandom ? Math.floor(heightRandom * random()) : 0) + randSize)
 
         odd = !odd
 
-        currentX =
-          (current = array[Math.floor(random() * l)])[0] -
-          (odd ? width + randWidth : 0)
-
-        currentY = current[1] - (odd ? height + randHeight : 0)
+        const current = array[Math.floor(random() * l)]!
+        const currentX = current[0] - (odd ? width + randWidth : 0)
+        const currentY = current[1] - (odd ? height + randHeight : 0)
 
         while (w--) {
-          finalX = currentX + w
-
+          const finalX = currentX + w
           const finalMaskX = dontCheck === false && mask[finalX]
 
           if (dontCheck || finalMaskX) {
-            h = realHeight
+            let h = realHeight
 
             while (h--) {
               if (dontCheck || (finalMaskX && finalMaskX[currentY + h])) {
@@ -172,10 +162,9 @@ class FillRandom extends Fill {
       }
     } else {
       while (count-- > 0) {
-        this.getColorArray(
-          (current = array[Math.floor(random() * l)])[0],
-          current[1],
-        )
+        const current = array[Math.floor(random() * l)]!
+
+        this.getColorArray(current[0], current[1])
       }
     }
   }

@@ -1,51 +1,37 @@
 import type { ColorRgb } from './typeColor'
 
 export const darken = (darken: ColorRgb, strength: number) => {
-  let l = darken.length
-
-  const finalDarken: Array<number> = []
-
   strength /= 255
 
-  while (l--) {
-    finalDarken[l] = darken[l] * strength
-  }
+  const finalDarken: ColorRgb = [
+    darken[0] * strength,
+    darken[1] * strength,
+    darken[2] * strength,
+  ]
 
-  return (color: ColorRgb, copy?: ColorRgb): ColorRgb => {
-    let l = color.length
+  return (color: ColorRgb, copy: ColorRgb = [0, 0, 0]): ColorRgb => {
+    copy[0] = Math.floor(color[0] * finalDarken[0])
 
-    const newColor: ColorRgb = copy || [0, 0, 0]
+    copy[1] = Math.floor(color[1] * finalDarken[1])
 
-    while (l--) {
-      newColor[l] = Math.floor(color[l] * finalDarken[l])
-    }
+    copy[2] = Math.floor(color[2] * finalDarken[1])
 
-    return newColor
+    return copy
   }
 }
 
 export const lighten = (lighten: ColorRgb, strength: number) => {
-  let l = lighten.length
+  const finaleLighten: ColorRgb = [
+    lighten[0] * strength,
+    lighten[1] * strength,
+    lighten[2] * strength,
+  ]
 
-  const finaleLighten: ColorRgb = [0, 0, 0]
-
-  while (l--) {
-    finaleLighten[l] = lighten[l] * strength
-  }
-
-  return (color: ColorRgb): ColorRgb => {
-    let l = color.length
-
-    const newColor: ColorRgb = [0, 0, 0]
-
-    let thisC: number
-
-    while (l--) {
-      newColor[l] = (thisC = color[l] + finaleLighten[l]) > 255 ? 255 : thisC
-    }
-
-    return newColor
-  }
+  return (color: ColorRgb): ColorRgb => [
+    Math.min(255, color[0] + finaleLighten[0]),
+    Math.min(255, color[1] + finaleLighten[1]),
+    Math.min(255, color[2] + finaleLighten[2]),
+  ]
 }
 
 export const multiplyColor = (rgb: ColorRgb, factor: number): ColorRgb => [

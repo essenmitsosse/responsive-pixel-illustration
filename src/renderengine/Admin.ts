@@ -64,24 +64,19 @@ class Admin {
 
   setupSlides(slides: ReadonlyArray<DataImage>): void {
     const currentSlide = getNumberDefaultToZero(this.pixel.queryString.slide)
-    const l = slides.length
-
-    let count = 0
 
     const sideBarContentUl = getListAdmin({
       id: 'slides',
       container: this.sideBarInnerDiv,
     })
 
-    while (count < l) {
+    slides.forEach((slide, index) =>
       sideBarContentUl.addMessage(
-        '<strong>' + getSlideName(slides[count]) + '</strong>',
-        count === currentSlide ? 'current slideLink' : 'slideLink',
-        this.getClicker(count),
-      )
-
-      count += 1
-    }
+        '<strong>' + getSlideName(slide) + '</strong>',
+        index === currentSlide ? 'current slideLink' : 'slideLink',
+        this.getClicker(index),
+      ),
+    )
   }
 
   setupSlider(): void {
@@ -111,9 +106,7 @@ class Admin {
     ): void => {
       const wrap = document.createElement('li')
       const innerWrap = document.createElement('div')
-      const l = objects.length
 
-      let count = 0
       let label
 
       wrap.setAttribute('class', 'input ' + name)
@@ -128,11 +121,7 @@ class Admin {
         wrap.appendChild(label)
       }
 
-      while (count < l) {
-        innerWrap.appendChild(objects[count])
-
-        count += 1
-      }
+      objects.forEach((object) => innerWrap.appendChild(object))
 
       wrap.appendChild(innerWrap)
 
@@ -140,6 +129,10 @@ class Admin {
     }
 
     const activateSliders = (): void => {
+      if (body === undefined) {
+        throw new Error('Unexpected error: document body is undefined')
+      }
+
       if (!hasSliders) {
         hasSliders = true
 

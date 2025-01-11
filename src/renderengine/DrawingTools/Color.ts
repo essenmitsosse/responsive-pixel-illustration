@@ -3,35 +3,31 @@ import type { ColorRgb } from '@/helper/typeColor'
 type LayerColor = { c: ColorRgb; id: string | undefined; zInd: number }
 
 class Color {
-  s: Array<LayerColor> = []
+  s: ReadonlyArray<LayerColor> = []
   constructor() {}
 
   draw(c: ColorRgb, zInd: number, id?: string): void {
-    let i = this.s.length - 1
+    const oldZInd = this.s.at(-1)?.zInd ?? 0
 
-    const { s } = this
+    if (this.s.length === 0 || oldZInd < zInd) {
+      this.s = [...this.s, { id, c, zInd }]
 
-    let oldZInd
+      return
+    }
 
-    if (i === -1 || (oldZInd = s[i].zInd) < zInd) {
-      s.push({ id, c, zInd })
-    } else {
-      if (oldZInd !== zInd) {
-        do {
-          if (s[i].zInd < zInd) {
-            break
-          }
-        } while (i--)
+    if (oldZInd !== zInd) {
+      const indexFirstZIndHigher = this.s.findIndex((save) => save.zInd >= zInd)
 
-        s.splice(i + 1, 0, { id, c, zInd })
-      }
+      this.s = this.s.toSpliced(indexFirstZIndHigher, 0, { id, c, zInd })
     }
   }
 
   clear(id?: string): void {
-    while (this.s.length > 0 && this.s[this.s.length - 1].id === id) {
-      this.s.pop()
-    }
+    this.s = this.s.filter((save) => save.id !== id)
+  }
+
+  last(): LayerColor | undefined {
+    return this.s.at(-1)
   }
 }
 

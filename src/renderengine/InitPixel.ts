@@ -53,19 +53,8 @@ const doSetDocumentTitle = (
 // };
 
 /** Create a new Canvas, add it to the div and return it */
-const createSingleCanvas = (
-  canvasData: CSSStyleDeclaration | false,
-  div: HTMLElement,
-) => {
+const createSingleCanvas = (div: HTMLElement) => {
   const canvas = document.createElement('canvas')
-
-  let key: keyof CSSStyleDeclaration
-
-  if (canvasData) {
-    for (key in canvasData) {
-      canvas.style[key] = canvasData[key]
-    }
-  }
 
   div.appendChild(canvas)
 
@@ -81,42 +70,34 @@ const loadScript = (
     callback(imageImport.default)
   })
 
-const getQueryString = (): Record<string, boolean | number | undefined> => {
-  const list: Record<string, boolean | number | undefined> = {}
-  const vars = location.search.substring(1).split('&')
-
-  let i = 0
-
-  const l = vars.length
-
-  let pair
-
-  const convert = (value: string): boolean | number => {
-    if (value === 'true') {
-      return true
-    } else if (value === 'false') {
-      return false
-    }
-
-    return Number.parseFloat(value)
+const convert = (value: string): boolean | number => {
+  if (value === 'true') {
+    return true
+  } else if (value === 'false') {
+    return false
   }
 
-  while (i < l) {
-    pair = vars[i].split('=')
-
-    if (pair[0]) {
-      list[pair[0]] = convert(pair[1])
-    }
-
-    i += 1
-  }
-
-  // if( !list.slide ) { list.slide = "0"; }
-  // else { list.slide = list.slide.toString(); }
-  // if( !list.id ) { list.id = 666; }
-
-  return list
+  return Number.parseFloat(value)
 }
+
+const getQueryString = (): Record<string, boolean | number | undefined> =>
+  getObjectFromEntries(
+    location.search
+      .substring(1)
+      .split('&')
+      .filter((variable) => variable !== '')
+      .map((variable) => {
+        const [key, value] = variable.split('=')
+
+        if (key === undefined || value === undefined) {
+          throw new Error(
+            `Unexpected error: key or value are undefined in key-value pair from query string: "${variable}"`,
+          )
+        }
+
+        return [key, convert(value)]
+      }),
+  )
 
 /** Create the Callback Function, when the script is loaded */
 const getCallback =
@@ -205,9 +186,12 @@ export class InitPixel {
 
     const imageName = forceName || currentSlide.name || 'tantalos'
     /** Change for multiple Canvases */
-    const canvasDataList = false
-    const canvasRenderer = createSingleCanvas(canvasDataList, args.div)
+    const canvasRenderer = createSingleCanvas(args.div)
     const [body] = document.getElementsByTagName('body')
+
+    if (body === undefined) {
+      throw new Error('Unexpected error: No body found')
+    }
 
     if (currentSlide.resizeable) {
       this.queryString.resizeable = true

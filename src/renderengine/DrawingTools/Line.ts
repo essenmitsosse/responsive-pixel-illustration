@@ -20,7 +20,7 @@ const getDrawLine =
     let e2
 
     if (isNaN(p0.x) || isNaN(p0.y) || isNaN(p1.x) || isNaN(p1.y)) {
-      throw new Error(`Line with NaN found!, ${{ p0, p1 }}`)
+      throw new Error(`Line with NaN found!, ${JSON.stringify({ p0, p1 })}`)
     }
 
     if (p0.x > p1.x) {
@@ -72,6 +72,8 @@ const getDrawLine =
 
 class Line extends Primitive {
   lineSetter?: () => LineSetter
+  points?: Array<() => { x: number; y: number }>
+
   init(args: ArgsInit): void {
     if (args.closed) {
       if (this.args === undefined) {
@@ -125,37 +127,22 @@ class Line extends Primitive {
     reflectX: boolean,
     reflectY: boolean,
     rotate: boolean,
-  ): {
-    LineCount: number
-    points: Array<() => { x: number; y: number }>
-  } {
+  ): void {
     if (args.points === undefined) {
       throw new Error('Unexpected error: args.points is undefined')
     }
-
-    const newPoints = []
-
-    let l = args.points.length
 
     reflectX = (args.rX || false) !== reflectX
 
     reflectY = (args.rY || false) !== reflectY
 
-    while (l--) {
-      newPoints.push(
-        this.state.pixelUnit.Position(
-          args.points[l],
-          reflectX,
-          reflectY,
-          rotate,
-        ),
+    const newPoints = args.points
+      .toReversed()
+      .map((point) =>
+        this.state.pixelUnit.Position(point, reflectX, reflectY, rotate),
       )
-    }
 
-    return {
-      points: newPoints,
-      LineCount: newPoints.length - 1,
-    }
+    this.points = newPoints
   }
 
   draw(): void {
@@ -163,7 +150,7 @@ class Line extends Primitive {
       throw new Error('Unexpected error: args is undefined')
     }
 
-    if (this.args.points === undefined) {
+    if (this.points === undefined) {
       throw new Error('Unexpected error: args.points is undefined')
     }
 
@@ -171,25 +158,22 @@ class Line extends Primitive {
       throw new Error('Unexpected error: lineSetter is undefined')
     }
 
-    if (this.args.LineCount === undefined) {
-      throw new Error('Unexpected error: args.LineCount is undefined')
-    }
-
     // Draw all Lines
-    const p = this.args.points
 
-    let l = this.args.LineCount
-    let nextPoint = p[l]()
-
-    const firstPoint = this.args.closed ? nextPoint : false
     const drawLine = getDrawLine(this.lineSetter())
+    // Draw all Lines
+    const pointsCalculated = this.points.toReversed().map((point) => point())
 
-    while (l--) {
-      nextPoint = drawLine(nextPoint, p[l]())
-    }
+    pointsCalculated.forEach((point, index, pointsReversed) => {
+      if (index === 0) {
+        return
+      }
 
-    if (firstPoint) {
-      drawLine(nextPoint, firstPoint)
+      drawLine(pointsReversed[index - 1]!, point)
+    })
+
+    if (this.args.closed) {
+      drawLine(pointsCalculated.at(0)!, pointsCalculated.at(-1)!)
     }
   }
 }

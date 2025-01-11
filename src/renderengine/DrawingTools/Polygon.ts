@@ -55,14 +55,16 @@ const getLineEdgeGetter = (edgeList: EdgeList) => {
     const last = !first
 
     if (first) {
-      edgeList[(i += 1)] = { x0, y: y0 }
+      i += 1
+
+      edgeList[i] = { x0, y: y0 }
     }
 
     while (true) {
       if (x0 === x1 && y0 === y1) {
         // Add List Point and Break
         if (last) {
-          edgeList[i].x1 = x0
+          edgeList[i]!.x1 = x0
         } else {
           i -= 1
 
@@ -74,7 +76,7 @@ const getLineEdgeGetter = (edgeList: EdgeList) => {
 
       if (e2 < dx) {
         if (first) {
-          edgeList[i].x1 = x0
+          edgeList[i]!.x1 = x0
         } else {
           first = true
         }
@@ -125,16 +127,8 @@ const sortFunction = (
 
 class Polygon extends Line {
   draw(): void {
-    if (this.args === undefined) {
-      throw new Error('Unexpected error: args is undefined')
-    }
-
-    if (this.args.points === undefined) {
+    if (this.points === undefined) {
       throw new Error('Unexpected error: args.points is undefined')
-    }
-
-    if (this.args.LineCount === undefined) {
-      throw new Error('Unexpected error: args.LineCount is undefined')
     }
 
     if (this.getColorArray === undefined) {
@@ -145,24 +139,29 @@ class Polygon extends Line {
     const edgeList: EdgeList = []
     const drawRow = getDrawRow(this.getColorArray)
     const getLineEdge = getLineEdgeGetter(edgeList)
+    const pointsCalculated = this.points.map((point) => point())
 
-    let l = this.args.LineCount
-    let nextPoint = this.args.points[l]()
+    pointsCalculated.toReversed().forEach((point, index, pointsReversed) => {
+      if (index === 0) {
+        return
+      }
 
-    const firstPoint = nextPoint
-
-    while (l--) {
-      nextPoint = getLineEdge(nextPoint, this.args.points[l]())
-    }
+      getLineEdge(pointsReversed[index - 1]!, point)
+    })
 
     //  Close the Polygon
-    getLineEdge(nextPoint, firstPoint)
+    getLineEdge(pointsCalculated.at(0)!, pointsCalculated.at(-1)!)
 
-    l = edgeList.sort(sortFunction).length
+    edgeList
+      .sort(sortFunction)
+      .toReversed()
+      .forEach((edge, index, edgeListSorted) => {
+        if (index % 2 === 0) {
+          return
+        }
 
-    while ((l -= 2) >= 0) {
-      drawRow(edgeList[l + 1], edgeList[l])
-    }
+        drawRow(edgeListSorted[index - 1]!, edge)
+      })
   }
 }
 

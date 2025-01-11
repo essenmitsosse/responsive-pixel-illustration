@@ -58,17 +58,9 @@ class Panels extends Obj {
       throw new Error('Unexpected error: args is undefined')
     }
 
-    let l = args.panels.length
-
     const inherit = {}
 
-    this.args.listPanels = []
-
-    let current: PanelInput
-
-    while (l--) {
-      current = args.panels[l]
-
+    this.args.listPanels = args.panels.toReversed().map((current) => {
       if (current.sX) {
         current.sX.autoUpdate = true
       } else {
@@ -81,15 +73,15 @@ class Panels extends Obj {
         current.sY = {}
       }
 
-      this.args.listPanels.push({
+      return {
         drawer: new Obj(this.state, this.recordDrawingTools).create(
           { list: current.list },
           inherit,
         ),
         sX: current.sX,
         sY: current.sY,
-      })
-    }
+      }
+    })
 
     this.fluctuation = args.fluctuation || 0
 
@@ -263,89 +255,79 @@ class Panels extends Obj {
       throw new Error('Unexpected error: countY is undefined')
     }
 
-    const panels: Array<PanelSorted> = []
-
-    let i
-    let j
-
-    const l = this.args.listPanels.length
-
-    let c = l - 1
-    let total = this.countX * this.countY
-    let odd = true
-
     const priorites = [
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
-      l - 1,
+      this.args.listPanels.length - 1,
       0,
     ]
 
-    let current
-
-    i = l
-
-    while (i--) {
-      current = this.args.listPanels[i]
-
-      panels.push({
+    const panels: Array<PanelSorted> = this.args.listPanels
+      .toReversed()
+      .map((current) => ({
         drawer: current.drawer,
         first: false,
         last: false,
         size: 1,
         sX: current.sX,
         sY: current.sY,
+      }))
+
+    const total = this.countX * this.countY
+
+    priorites
+      .toReversed()
+      .toSpliced(total - this.args.listPanels.length)
+      .forEach((priority) => {
+        panels[priority]!.size += 1
       })
-    }
 
-    while (total > l) {
-      total -= 1
-
-      const priority = priorites.pop()
-
-      if (priority === undefined) {
-        throw new Error('Unexpected error: no more priorities')
-      }
-
-      panels[priority].size += 1
-    }
-
-    j = this.countY
+    let j = this.countY
+    let c = this.args.listPanels.length - 1
+    let odd = true
 
     while (j--) {
-      i = this.countX
+      let i = this.countX
 
       odd = !odd
 
-      while ((i -= (current = panels[c]).size) >= 0) {
+      while (true) {
+        const current = panels[c]!
+
+        i -= current.size
+
+        if (i < 0) {
+          break
+        }
+
         current.x = i
 
         current.y = j
@@ -414,72 +396,62 @@ class Panels extends Obj {
       throw new Error('Unexpected error: dimensions is undefined')
     }
 
-    let c = 0
-
-    const l = panels.length
-
-    let currentPanel
-    let x
-    let y
-    let size
-    let currentWidth
-    let first
     let width = 0
     let height = this.singleSY
     let posX = 0
     let posY = 0
 
-    do {
-      currentPanel = panels[c]
+    const {
+      singleSX,
+      gutterX,
+      gutterY,
+      countY,
+      sY,
+      countX,
+      sX,
+      fluctuation,
+      dimensions,
+    } = this
 
-      x = currentPanel.x
-
-      y = currentPanel.y
-
-      if (x === undefined) {
+    panels.forEach((currentPanel) => {
+      if (currentPanel.x === undefined) {
         throw new Error('Unexpected error: x is undefined')
       }
 
-      if (y === undefined) {
+      if (currentPanel.y === undefined) {
         throw new Error('Unexpected error: y is undefined')
       }
 
-      size = currentPanel.size
+      if (currentPanel.first) {
+        posX = currentPanel.x * (singleSX + gutterX)
 
-      first = currentPanel.first
+        if (currentPanel.y > 0) {
+          posY += height + gutterY
 
-      if (first) {
-        posX = x * (this.singleSX + this.gutterX)
-
-        if (y > 0) {
-          posY += height + this.gutterY
-
-          if (y === this.countY - 1) {
-            height = this.sY - posY
+          if (currentPanel.y === countY - 1) {
+            height = sY - posY
           }
         }
       } else {
-        posX += width + this.gutterX
+        posX += width + gutterX
       }
 
-      if (first && size === this.countX) {
+      if (currentPanel.first && currentPanel.size === countX) {
         // If a single panel fills a whole row
-        width = this.sX
+        width = sX
       } else {
         if (currentPanel.last) {
           // last Panel is as wide as what’s left.
-          width = this.sX - posX
+          width = sX - posX
         } else {
           // Calc PanelWidth and add to total.
-          if (first) {
-            currentWidth =
-              size + (currentPanel.odd ? -this.fluctuation : this.fluctuation)
-          } else {
-            currentWidth = size
-          }
+          const currentWidth = currentPanel.first
+            ? currentPanel.size +
+              (currentPanel.odd ? -fluctuation : fluctuation)
+            : currentPanel.size
 
           width = Math.round(
-            currentWidth * this.singleSX + (currentWidth - 1) * this.gutterX,
+            currentWidth * singleSX + (currentWidth - 1) * gutterX,
           )
         }
       }
@@ -496,38 +468,24 @@ class Panels extends Obj {
       currentPanel.dimensions = {
         width,
         height,
-        posX: posX + this.dimensions.posX,
-        posY: posY + this.dimensions.posY,
+        posX: posX + dimensions.posX,
+        posY: posY + dimensions.posY,
       }
-    } while ((c += 1) < l)
+    })
   }
 
   drawPanels(
     panels: ReadonlyArray<PanelSorted>,
     mask: ((dimensions: Location, push?: boolean) => Location) | undefined,
   ): void {
-    let currentPanel
-    let currentDim: Location | undefined
-    let oldMask: Location | undefined = undefined
-
-    const l = panels.length
-
-    let c = 0
-
-    do {
-      currentPanel = panels[c]
-
-      currentDim = currentPanel.dimensions
-
-      if (currentDim === undefined) {
+    panels.forEach((currentPanel) => {
+      if (currentPanel.dimensions === undefined) {
         throw new Error('Unexpected error: dimensions is undefined')
       }
 
-      if (mask) {
-        oldMask = mask(currentDim)
-      }
+      const oldMask = mask ? mask(currentPanel.dimensions) : undefined
 
-      this.state.pixelUnit.push(currentDim)
+      this.state.pixelUnit.push(currentPanel.dimensions)
 
       currentPanel.drawer.draw()
 
@@ -540,7 +498,7 @@ class Panels extends Obj {
 
         mask(oldMask)
       }
-    } while ((c += 1) < l)
+    })
   }
 }
 

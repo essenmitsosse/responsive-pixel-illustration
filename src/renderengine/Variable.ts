@@ -34,17 +34,15 @@ export class Variable extends BaseVariable {
   }
 
   set(): void {
-    let { l } = this
-
     if (this.vari === undefined) {
       throw new Error('Unexpected Error: Variable is not defined')
     }
 
     const value = this.vari.getReal()
 
-    while (l--) {
-      this.linkedP[l].abs = value
-    }
+    this.linkedP.forEach((variable) => {
+      variable.abs = value
+    })
   }
 
   link(p: { abs?: number | string }): void {
@@ -58,10 +56,8 @@ export class DynamicVariable extends BaseVariable {
   linkedP: Array<{ abs?: unknown }> = []
 
   set(value?: unknown): void {
-    let { l } = this
-
-    while (l--) {
-      this.linkedP[l].abs = value
-    }
+    this.linkedP.forEach((variable) => {
+      variable.abs = value
+    })
   }
 }

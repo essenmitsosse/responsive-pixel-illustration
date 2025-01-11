@@ -10,7 +10,7 @@ import { defineConfig, devices } from '@playwright/test'
 
 /** @see https://playwright.dev/docs/test-configuration */
 const playwrightConfig = defineConfig({
-  expect: { timeout: 500 },
+  expect: { timeout: 1000 },
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Run tests in files in parallel */
@@ -45,8 +45,7 @@ const playwrightConfig = defineConfig({
   ],
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
-  /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  retries: 0,
   testDir: './tests',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {

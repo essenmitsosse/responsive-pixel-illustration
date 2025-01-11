@@ -4,23 +4,10 @@ import type { ColorRgb } from '@/helper/typeColor'
 
 export type ColorArray = Array<Array<Color>>
 
-const getPixelArray = (width: number, height: number): ColorArray => {
-  let countH
-
-  const colorArray: ColorArray = []
-
-  while (width--) {
-    countH = height
-
-    colorArray[width] = []
-
-    while (countH--) {
-      colorArray[width][countH] = new Color()
-    }
-  }
-
-  return colorArray
-}
+const getPixelArray = (width: number, height: number): ColorArray =>
+  new Array(width)
+    .fill(null)
+    .map(() => new Array(height).fill(null).map(() => new Color()))
 
 export type Location = {
   height: number
@@ -125,13 +112,13 @@ const createPixelArray = (
 
     getSet: (args): void => {
       if (args.x >= minX && args.x < maxX && args.y >= minY && args.y < maxY) {
-        pixelArray[args.x][args.y].draw(args.color, args.zInd, args.id)
+        pixelArray[args.x]![args.y]!.draw(args.color, args.zInd, args.id)
       }
     },
 
     getClear: (args): void => {
       if (args.x >= minX && args.x < maxX && args.y >= minY && args.y < maxY) {
-        pixelArray[args.x][args.y].clear(args.id)
+        pixelArray[args.x]![args.y]!.clear(args.id)
       }
     },
 
@@ -140,21 +127,18 @@ const createPixelArray = (
       const endY = args.height + args.posY
 
       let sizeX = endX > maxX ? maxX : endX
-      let sizeY
 
       const sizeY_start = endY > maxY ? maxY : endY
       const startX = args.posX < minX ? minX : args.posX
       const startY = args.posY < minY ? minY : args.posY
 
-      let row
-
       while ((sizeX -= 1) >= startX) {
-        sizeY = sizeY_start
+        let sizeY = sizeY_start
 
-        row = pixelArray[sizeX]
+        const row = pixelArray[sizeX]!
 
         while ((sizeY -= 1) >= startY) {
-          row[sizeY].draw(color, zInd, id)
+          row[sizeY]!.draw(color, zInd, id)
         }
       }
     },
@@ -164,21 +148,18 @@ const createPixelArray = (
       const endY = args.height + args.posY
 
       let sizeX = endX > maxX ? maxX : endX
-      let sizeY
 
       const initSizeY = endY > maxY ? maxY : endY
       const startX = args.posX < minX ? minX : args.posX
       const startY = args.posY < minY ? minY : args.posY
 
-      let row
-
       while ((sizeX -= 1) >= startX) {
-        sizeY = initSizeY
+        let sizeY = initSizeY
 
-        row = pixelArray[sizeX]
+        const row = pixelArray[sizeX]!
 
         while ((sizeY -= 1) >= startY) {
-          row[sizeY].clear(id)
+          row[sizeY]!.clear(id)
         }
       }
     },
@@ -188,19 +169,16 @@ const createPixelArray = (
       const endY = args.height + args.posY
 
       let sizeX = endX > canvasWidth ? canvasWidth : endX
-      let sizeY
 
       const initSizeY = endY > canvasHeight ? canvasHeight : endY
       const startX = args.posX < 0 ? 0 : args.posX
       const startY = args.posY < 0 ? 0 : args.posY
       const s = save
 
-      let col: Array<boolean>
-
       while ((sizeX -= 1) >= startX) {
-        sizeY = initSizeY
+        let sizeY = initSizeY
 
-        col = mask[sizeX] || (mask[sizeX] = [])
+        const col = mask[sizeX] || (mask[sizeX] = [])
 
         while ((sizeY -= 1) >= startY) {
           s.push([sizeX, sizeY])
@@ -216,18 +194,17 @@ const createPixelArray = (
       const endY = args.height + args.posY
 
       let sizeX = endX > canvasWidth ? canvasWidth : endX
-      let sizeY
 
       const initSizeY = endY > canvasHeight ? canvasHeight : endY
       const startX = args.posX < 0 ? 0 : args.posX
       const startY = args.posY < 0 ? 0 : args.posY
 
-      let col
-
       while ((sizeX -= 1) >= startX) {
-        sizeY = initSizeY
+        let sizeY = initSizeY
 
-        if ((col = mask[sizeX])) {
+        const col = mask[sizeX]
+
+        if (col) {
           while ((sizeY -= 1) >= startY) {
             if (col[sizeY]) {
               col[sizeY] = false

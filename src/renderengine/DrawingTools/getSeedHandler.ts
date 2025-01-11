@@ -35,22 +35,27 @@ const getSeedHandler = (): {
   const getSeed = getRandom().seed
 
   let count = 0
-
-  const i: Array<number> = []
+  let i: Array<number> = []
 
   return {
     reset: (): void => {
-      let l = count
-
-      while (l--) {
-        i[l] = 0
-      }
+      i = new Array(count).fill(0)
     },
     get: (j?: number) => {
       const seed = j || getSeed()
-      const nr = (count += 1)
+      const nr = count
 
-      return () => getRandom(seed + i[nr]++ || 0)
+      count += 1
+
+      return () => {
+        if (nr in i === false || i[nr] === undefined) {
+          throw new Error(
+            `Unexpected error: Trying to access non-existing seed #${nr}`,
+          )
+        }
+
+        return getRandom(seed + i[nr]++ || 0)
+      }
     },
   }
 }

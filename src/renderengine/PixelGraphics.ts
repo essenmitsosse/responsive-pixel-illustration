@@ -1,3 +1,6 @@
+import getObjectEntries from '@/lib/getObjectEntries'
+import getObjectValues from '@/lib/getObjectValues'
+
 import getInfo from './getInfo'
 import getPixelUnits from './getPixelUnits'
 import getRenderer from './getRenderer'
@@ -41,17 +44,12 @@ type Resize = (height?: number, width?: number) => void
 const getRedraw =
   (options: RenderObject, resize: (w?: number, h?: number) => void): Redraw =>
   (args) => {
-    let key
-    let first = !args.dontHighlight
-
     if (options.sliderObject) {
-      for (key in args) {
-        if (options.sliderObject[key]) {
-          options.sliderObject[key](args[key], first)
-
-          first = false
-        }
-      }
+      getObjectEntries(options.sliderObject).forEach(
+        ([key, callback], index) => {
+          callback(args[key], index === 0 && !args.dontHighlight)
+        },
+      )
     }
 
     options.init.addToQueryString(args, true)
@@ -260,7 +258,13 @@ export class PixelGraphics {
     const touchMove = (event: TouchEvent): void => {
       event.preventDefault()
 
-      mouseMove(event.changedTouches[0], true)
+      const [touchFirst] = event.changedTouches
+
+      if (touchFirst === undefined) {
+        return
+      }
+
+      mouseMove(touchFirst, true)
     }
 
     canvas.addEventListener('mousemove', mouseMove, false)
@@ -275,11 +279,7 @@ export class PixelGraphics {
     let key
 
     const updater = (): void => {
-      let key
-
-      for (key in vl) {
-        newVL[key].set()
-      }
+      getObjectValues(newVL).forEach((variable) => variable.set())
     }
 
     const link = (name: string, vari: { abs?: number | string }): void => {

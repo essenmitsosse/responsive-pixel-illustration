@@ -26,64 +26,36 @@ const getDrawer = (
 const getRenderPixelToImage =
   (backgroundColor: ColorRgb) =>
   (
-    pixelW: number,
-    pixelH: number,
     pixelArray: ColorArray,
     imageData: Uint8ClampedArray<ArrayBufferLike>,
   ): Uint8ClampedArray<ArrayBufferLike> => {
-    let pW = pixelW
-    let w4 = pW * 4
+    pixelArray.forEach((row, indexCol) =>
+      row.forEach((color, indexRow) => {
+        const pixel = color.last()
+        const full = indexRow * pixelArray.length * 4
+        const start = indexCol * 4 + full
 
-    const wFull = w4
+        if (pixel) {
+          imageData[start] = pixel.c[0]
 
-    let pH
+          imageData[start + 1] = pixel.c[1]
 
-    const pHSave = pixelH
-    const fullSave = w4 * pHSave
+          imageData[start + 2] = pixel.c[2]
 
-    let full
-    let c
-    let i
-    let row
-
-    const pA = pixelArray
-    const defaultRed = backgroundColor && backgroundColor[0]
-    const defaultGreen = backgroundColor && backgroundColor[1]
-    const defaultBlue = backgroundColor && backgroundColor[2]
-
-    while (pW--) {
-      w4 -= 4
-
-      pH = pHSave
-
-      full = fullSave
-
-      row = pA[pW]
-
-      while (pH--) {
-        if ((c = row[pH].s.pop())) {
-          c = c.c
-
-          imageData[(i = w4 + (full -= wFull))] = c[0]
-
-          imageData[(i += 1)] = c[1]
-
-          imageData[(i += 1)] = c[2]
-
-          imageData[(i += 1)] = 255
+          imageData[start + 3] = 255
         } else if (backgroundColor) {
-          imageData[(i = w4 + (full -= wFull))] = defaultRed
+          imageData[start] = backgroundColor[0]
 
-          imageData[(i += 1)] = defaultGreen
+          imageData[start + 1] = backgroundColor[1]
 
-          imageData[(i += 1)] = defaultBlue
+          imageData[start + 2] = backgroundColor[2]
 
-          imageData[(i += 1)] = 255
+          imageData[start + 3] = 255
         } else {
-          imageData[(i = w4 + (full -= wFull) + 3)] = 0
+          imageData[start + 3] = 0
         }
-      }
-    }
+      }),
+    )
 
     return imageData
   }
@@ -158,7 +130,7 @@ const getRenderer = (
         time = Date.now() - time
 
         // Render the Pixel Array to the Image
-        renderPixelToImage(countW, countH, drawing, image.data)
+        renderPixelToImage(drawing, image.data)
 
         // Place Image on the Context
         virtualContext.putImageData(image, 0, 0)

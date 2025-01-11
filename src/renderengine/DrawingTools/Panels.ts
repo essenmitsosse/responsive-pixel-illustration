@@ -255,12 +255,6 @@ class Panels extends Obj {
       throw new Error('Unexpected error: countY is undefined')
     }
 
-    let c = this.args.listPanels.length - 1
-
-    const total = this.countX * this.countY
-
-    let odd = true
-
     const priorites = [
       this.args.listPanels.length - 1,
       0,
@@ -307,6 +301,8 @@ class Panels extends Obj {
         sY: current.sY,
       }))
 
+    const total = this.countX * this.countY
+
     priorites
       .toReversed()
       .toSpliced(total - this.args.listPanels.length)
@@ -315,6 +311,8 @@ class Panels extends Obj {
       })
 
     let j = this.countY
+    let c = this.args.listPanels.length - 1
+    let odd = true
 
     while (j--) {
       let i = this.countX

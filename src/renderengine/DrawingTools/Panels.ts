@@ -478,12 +478,7 @@ class Panels extends Obj {
     panels: ReadonlyArray<PanelSorted>,
     mask: ((dimensions: Location, push?: boolean) => Location) | undefined,
   ): void {
-    const l = panels.length
-
-    let c = 0
-
-    do {
-      const currentPanel = panels[c]
+    panels.forEach((currentPanel) => {
       const currentDim = currentPanel.dimensions
 
       if (currentDim === undefined) {
@@ -505,7 +500,7 @@ class Panels extends Obj {
 
         mask(oldMask)
       }
-    } while ((c += 1) < l)
+    })
   }
 }
 

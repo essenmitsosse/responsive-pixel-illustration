@@ -412,7 +412,7 @@ class Panels extends Obj {
     let posY = 0
 
     do {
-      currentPanel = panels[c]
+      currentPanel = panels[c]!
 
       x = currentPanel.x
 

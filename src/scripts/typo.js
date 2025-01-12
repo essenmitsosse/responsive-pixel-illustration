@@ -1,6 +1,6 @@
 import { getSmallerDim, mult, sub } from '@/helper/helperDim'
 
-function typo() {
+function typo(init) {
   const backgroundColor = [170, 190, 230]
   const font = [30, 30, 30]
 
@@ -9,7 +9,7 @@ function typo() {
 
   const word = 'MAUTZN'
   const contrast = 0.4
-  const serif = true
+  const serif = init.showSerif ?? true
   const roundSerif = true
   const middleStemLength = 0.8
   const serifWidth = 0.6

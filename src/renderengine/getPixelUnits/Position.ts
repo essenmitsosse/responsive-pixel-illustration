@@ -286,14 +286,14 @@ export class Dimensions {
       c?: boolean
       cX?: boolean
       cY?: boolean
-      m?: number
-      mX?: number
-      mY?: number
-      minX?: number
-      minY?: number
-      s?: number
-      sX?: number
-      sY?: number
+      m?: InputDynamicVariable
+      mX?: InputDynamicVariable
+      mY?: InputDynamicVariable
+      minX?: InputDynamicVariable
+      minY?: InputDynamicVariable
+      s?: InputDynamicVariable
+      sX?: InputDynamicVariable
+      sY?: InputDynamicVariable
       tX?: boolean
       tY?: boolean
       x?: InputDynamicVariable

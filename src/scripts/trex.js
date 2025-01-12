@@ -1,4 +1,4 @@
-function trex() {
+const trex = () => {
   const white = [255, 255, 255]
   const ground = [90, 60, 50]
 

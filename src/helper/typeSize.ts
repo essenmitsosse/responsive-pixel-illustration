@@ -20,7 +20,7 @@ export type InputDynamicVariableBase = {
   r2?: number
   random?: InputDynamicVariable
   save?: string
-  useSize?: InputDynamicVariableBase | string
+  useSize?: InputDynamicVariable
 }
 
 export type InputDynamicVariable =

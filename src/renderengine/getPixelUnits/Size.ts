@@ -1,3 +1,4 @@
+import getIsUnknownObject from '@/lib/getIsUnknownObject'
 import getSumForReduce from '@/lib/getSumForReduce'
 
 import type { State } from './State'
@@ -136,6 +137,7 @@ export class Dimension {
         if (typeof args.useSize === 'string') {
           this.state.variableListLink(args.useSize, (this.useVari = {}))
         } else if (
+          (getIsUnknownObject(args.useSize) || Array.isArray(args.useSize)) &&
           'getLinkedVariable' in args.useSize &&
           args.useSize.getLinkedVariable
         ) {

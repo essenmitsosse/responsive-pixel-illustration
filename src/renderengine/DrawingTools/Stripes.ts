@@ -1,8 +1,10 @@
+import getIsUnknownObject from '@/lib/getIsUnknownObject'
+
 import Obj from './Obj'
 
 import type { Location } from './createPixelArray'
 import type getPixelSetter from './getPixelSetter'
-import type { InputDynamicVariableBase } from '@/helper/typeSize'
+import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { Height, Width } from '@/renderengine/getPixelUnits/Size'
 
 type GetDraw = (
@@ -44,16 +46,16 @@ const drawerHorizontal: GetDraw =
   }
 
 type Stripe = {
-  change?: { height?: boolean }
+  change?: InputDynamicVariable
   cut?: unknown
   fromStart?: unknown
-  gap?: InputDynamicVariableBase
+  gap?: InputDynamicVariable
   horizontal?: boolean
   overflow?: boolean
-  random?: InputDynamicVariableBase
+  random?: InputDynamicVariable
   round?: unknown
   seed?: number
-  strip?: InputDynamicVariableBase
+  strip?: InputDynamicVariable
 }
 
 export type InitStripes = {
@@ -112,7 +114,7 @@ class Stripes extends Obj {
     /** Width of a single Line */
     this.gapWidth = getDimension(args.stripes.gap || { a: 0 })
 
-    if (args.stripes.strip && args.stripes.strip.random) {
+    if (getIsUnknownObject(args.stripes.strip) && args.stripes.strip.random) {
       this.stripWidthRandom = this.state.pixelUnit.createSize(
         args.stripes.strip.random,
       )
@@ -120,7 +122,7 @@ class Stripes extends Obj {
       random = true
     }
 
-    if (args.stripes.gap && args.stripes.gap.random) {
+    if (getIsUnknownObject(args.stripes.gap) && args.stripes.gap.random) {
       this.gapWidthRandom = this.state.pixelUnit.createSize(
         args.stripes.gap.random,
       )
@@ -129,7 +131,7 @@ class Stripes extends Obj {
     }
 
     if (args.stripes.random) {
-      if (typeof args.stripes.random === 'object') {
+      if (getIsUnknownObject(args.stripes.random)) {
         args.stripes.random.height = !horizontal
       }
 
@@ -139,7 +141,7 @@ class Stripes extends Obj {
     }
 
     if (args.stripes.change) {
-      if (typeof args.stripes.change === 'object') {
+      if (getIsUnknownObject(args.stripes.change)) {
         args.stripes.change.height = !horizontal
       }
 

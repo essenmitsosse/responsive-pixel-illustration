@@ -173,9 +173,8 @@ const teiresias = () => {
     return [
       {
         sY: { r: 1.2 },
-        stripes: { strip: 2, random: 'treeRandom' },
+        stripes: { strip: 2, random: 'treeRandom', change: random },
         color: treesDark,
-        change: random,
       },
       { use: name },
       { use: name2, color: treesDark, chance: 0.2, sY: 2 },

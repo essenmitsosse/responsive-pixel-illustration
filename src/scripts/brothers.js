@@ -1,7 +1,7 @@
 import { darken, lighten } from '@/helper/helperColor'
 import { getBiggerDim, getSmallerDim, mult, sub } from '@/helper/helperDim'
 
-function brothers() {
+const brothers = () => {
   const shadowColor = [255, 255, 255]
   const shadow = darken(shadowColor, 0.7)
   const shadowSoft = darken(shadowColor, 0.9)

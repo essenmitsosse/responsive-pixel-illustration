@@ -2,7 +2,7 @@ import { darken } from '@/helper/helperColor'
 import { getBiggerDim, getSmallerDim, mult, sub } from '@/helper/helperDim'
 import setValue from '@/helper/setValue'
 
-function graien(_, __, createSlider) {
+const graien = (_, __, createSlider) => {
   const background = [60, 120, 110]
   const bSS = 0.5
   const shadowAdd = 195

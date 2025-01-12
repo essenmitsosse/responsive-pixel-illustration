@@ -2493,7 +2493,6 @@ const graien = (_, __, createSlider) => {
                                   list: [
                                     {},
                                     {
-                                      horizontal: true,
                                       color: graie3Shadow,
                                       stripes: {
                                         gap: 1,

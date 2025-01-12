@@ -1,6 +1,6 @@
 import { getBiggerDim, getSmallerDim, mult, sub } from '@/helper/helperDim'
 
-function sphinx() {
+const sphinx = () => {
   const c1 = [255, 0, 0]
   const g1 = [0, 0, 0]
   const g2 = [85, 85, 85]

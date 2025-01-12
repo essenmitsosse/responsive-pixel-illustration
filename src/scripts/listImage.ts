@@ -9,7 +9,7 @@ export type Link = {
   height?: boolean
   main?: boolean
   r?: number
-  random?: number
+  random?: InputDynamicVariable
   real?: number
   s?: { getReal: () => number }
 }

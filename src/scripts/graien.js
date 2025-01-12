@@ -2169,11 +2169,11 @@ const graien = (_, __, createSlider) => {
                           list: [
                             {
                               sX: { r: 0.4 },
-                              list: graieEyes(2),
+                              list: graieEyes(),
                             },
                             {
                               sX: { r: 0.4 },
-                              list: graieEyes(2),
+                              list: graieEyes(),
                               rX: true,
                               fX: true,
                             },
@@ -2692,14 +2692,14 @@ const graien = (_, __, createSlider) => {
                                           sX: {
                                             r: 0.25,
                                           },
-                                          list: graieEyes(3),
+                                          list: graieEyes(),
                                         },
                                         {
                                           sX: {
                                             r: 0.25,
                                           },
                                           fX: true,
-                                          list: graieEyes(3),
+                                          list: graieEyes(),
                                           rX: true,
                                         },
                                       ],

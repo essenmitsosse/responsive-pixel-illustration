@@ -8,7 +8,7 @@ function randomDistribution(init) {
   const square = { r: 1, useSize: width, max: height }
   const biggerSquare = { r: 1, useSize: width, min: height }
   const linkList = [width, height, square, biggerSquare]
-  const backgroundGrid = true
+  const backgroundGrid = init.hideBackgroundGrid !== true
   const minSize = random.getRandomFloat(0, 0.8)
   const maxSize = random.getRandomFloat(minSize, 1)
   const minR = random.getRandom(0, 200)

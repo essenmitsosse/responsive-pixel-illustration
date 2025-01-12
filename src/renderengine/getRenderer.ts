@@ -7,7 +7,7 @@ import type { ColorRgb } from '@/helper/typeColor'
 
 const getDrawer = (
   pixelStarter: PixelGraphics,
-  renderList: ReadonlyArray<Tool | false>,
+  renderList: ReadonlyArray<Tool | false | undefined>,
 ) => {
   // Initialize the drawingTool
   const pixelUnit = pixelStarter.pixelUnits
@@ -24,7 +24,7 @@ const getDrawer = (
 }
 
 const getRenderPixelToImage =
-  (backgroundColor: ColorRgb) =>
+  (backgroundColor?: ColorRgb) =>
   (
     pixelArray: ColorArray,
     imageData: Uint8ClampedArray<ArrayBufferLike>,
@@ -89,7 +89,7 @@ const getRenderer = (
 
   const renderPixelToImage = getRenderPixelToImage(
     // TODO: Remove casting here
-    options.imageFunction.background as ColorRgb,
+    options.imageFunction.background as ColorRgb | undefined,
   )
 
   return {

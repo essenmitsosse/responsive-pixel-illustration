@@ -196,9 +196,7 @@ export class PixelGraphics {
       that.canvasSize = render(w || currentW, h || currentH)
 
       // Log Drawing Time and Full RenderTime
-      if (that.canvasSize) {
-        info.logRenderTime(that.canvasSize[2], Date.now() - time)
-      }
+      info.logRenderTime(that.canvasSize[2], Date.now() - time)
 
       needsToResize = false
     }

@@ -629,13 +629,15 @@ Eye.prototype.draw = function (args) {
                 { r: 0.2, useSize: 'eyeSY' + args.nr, max: 1 },
               ]
             : 'eyeBrowSY' + args.nr,
-          y:
-            (eyeBrowRaised && -1) ||
-            (eyeBrowLow && {
-              r: 0.2,
-              useSize: 'eyeSX' + args.nr,
-              max: 1,
-            }),
+          y: eyeBrowRaised
+            ? -1
+            : eyeBrowLow
+              ? {
+                  r: 0.2,
+                  useSize: 'eyeSX' + args.nr,
+                  max: 1,
+                }
+              : undefined,
           minX: 2,
           fX: this.monoBrow,
           tY: true,
@@ -765,13 +767,12 @@ Mouth.prototype.draw = function (args) {
             { sX: { r: 1, a: -1 }, sY: 1, fY: !mouthD },
           ]
         : mouthOpen && [
-            mouthOpen &&
-              (mouthD || mouthGrin) && {
-                name: 'Dot',
-                clear: true,
-                fX: true,
-                fY: mouthD,
-              },
+            (mouthD || mouthGrin) && {
+              name: 'Dot',
+              clear: true,
+              fX: true,
+              fY: mouthD,
+            },
 
             {},
 
@@ -1262,9 +1263,11 @@ Hat.prototype.draw = function (args) {
         id: 'hatRim' + args.nr,
         z: 20,
         sY: { a: this.thickRim ? 2 : 1, save: 'hatRim' + args.nr },
-        sX:
-          (!this.baseCap && { r: this.hatRimSY }) ||
-          (args.sideView && { r: (this.hatRimSY - 1) / 2 + 1 }),
+        sX: !this.baseCap
+          ? { r: this.hatRimSY }
+          : args.sideView
+            ? { r: (this.hatRimSY - 1) / 2 + 1 }
+            : undefined,
         cX: args.sideView && !this.baseCap,
         fX: args.sideView,
         fY: true,

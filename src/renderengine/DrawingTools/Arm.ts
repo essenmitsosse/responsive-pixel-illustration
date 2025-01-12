@@ -16,7 +16,7 @@ type ArgsArm = {
   endY?: InputDynamicVariableBase
   flip?: boolean
   hand?: {
-    color: ColorRgb
+    color?: ColorRgb
     endX: InputDynamicVariableBase
     endY: InputDynamicVariableBase
     length: number
@@ -421,10 +421,6 @@ class Arm extends Obj {
 
     if (this.endY === undefined) {
       throw new Error('Unexpected error: endY is undefined')
-    }
-
-    if (this.upperArmLength === undefined) {
-      throw new Error('Unexpected error: upperArmLength is undefined')
     }
 
     if (this.lowerArmLength === undefined) {

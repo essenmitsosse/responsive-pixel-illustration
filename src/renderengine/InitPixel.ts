@@ -111,45 +111,41 @@ const getCallback =
     ) => ReturnType<PixelGraphics['callback']>
   }) =>
   (ImageFunction: ImageFunction): void => {
-    if (ImageFunction) {
-      // if (args.context.createSlider) {
-      // that.createSlider.title( { title: "Image Size" } );
-      // that.createSlider.slider( { niceName: "Width", valueName: "width", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
-      // that.createSlider.slider( { niceName: "Height", 	 valueName: "height", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
-      // }
+    // if (args.context.createSlider) {
+    // that.createSlider.title( { title: "Image Size" } );
+    // that.createSlider.slider( { niceName: "Width", valueName: "width", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
+    // that.createSlider.slider( { niceName: "Height", 	 valueName: "height", defaultValue: 1, input: { min: 0, max: 1, step: 0.02 } } );
+    // }
 
-      const imageFunction = ImageFunction(
-        args.queryString,
-        args.currentSlide,
-        args.context.createSlider,
-      )
+    const imageFunction = ImageFunction(
+      args.queryString,
+      args.currentSlide,
+      args.context.createSlider,
+    )
 
-      const renderObject: RenderObject = {
-        showInfos: false,
-        slide: args.currentSlide,
-        imageFunction,
-        queryString: args.queryString,
-        pixelSize:
-          (getNumberDefaultToZero(args.queryString.p) ||
-            args.currentSlide.p ||
-            7) *
-            1 +
-          (getNumberDefaultToZero(args.queryString.pAdd) ||
-            imageFunction.recommendedPixelSize ||
-            0) *
-            1,
-        sliderObject: args.context.sliderObject,
-        sliderValues: args.context.sliderValues,
-        init: args.context,
-      }
+    const renderObject: RenderObject = {
+      showInfos: false,
+      slide: args.currentSlide,
+      imageFunction,
+      queryString: args.queryString,
+      pixelSize:
+        (getNumberDefaultToZero(args.queryString.p) ||
+          args.currentSlide.p ||
+          7) *
+          1 +
+        (getNumberDefaultToZero(args.queryString.pAdd) ||
+          imageFunction.recommendedPixelSize ||
+          0) *
+          1,
+      sliderObject: args.context.sliderObject,
+      sliderValues: args.context.sliderValues,
+      init: args.context,
+    }
 
-      args.context.renderer = args.rendererInit(renderObject)
+    args.context.renderer = args.rendererInit(renderObject)
 
-      if (args.context.timerAnimation) {
-        args.context.timerAnimation()
-      }
-    } else {
-      throw `${args.imageName} was loaded but is not a function!`
+    if (args.context.timerAnimation) {
+      args.context.timerAnimation()
     }
   }
 

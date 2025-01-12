@@ -1,5 +1,5 @@
 export type DataSlider = {
-  map: string
+  map?: string
   max: number
   min: number
 }

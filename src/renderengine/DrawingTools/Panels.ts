@@ -456,10 +456,6 @@ class Panels extends Obj {
         }
       }
 
-      if (currentPanel === undefined) {
-        throw new Error('Unexpected error: currentPanel is undefined')
-      }
-
       // Update the linked sizes of the panel
       currentPanel.sX.real = width
 

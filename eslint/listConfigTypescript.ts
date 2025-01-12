@@ -81,6 +81,16 @@ const listConfigTypeScript: ReadonlyArray<Linter.Config> = [
       '@typescript-eslint/no-this-alias': ['error', { allowedNames: ['that'] }],
 
       /**
+       * Disallow conditionals where the type is always truthy or always falsy.
+       *
+       * {@link https://typescript-eslint.io/rules/no-unnecessary-condition/}
+       */
+      '@typescript-eslint/no-unnecessary-condition': [
+        'error',
+        { allowConstantLoopConditions: true },
+      ],
+
+      /**
        * Overwrite default rule by TypeScript ESLint, to allow unused
        * variables,if they are followed by used parameters.
        */

@@ -12,7 +12,7 @@ export const LowerBody = function (args) {
   this.wideHips = this.IF(0.05)
 
   this.pantless = args.pantless =
-    args.animal || this.IF(this.skirt ? 0.4 : 0.01)
+    args.animal || this.IF(args.skirt ? 0.4 : 0.01)
 
   // Colors
   this.pantsColor = args.pantsColor = this.pantless

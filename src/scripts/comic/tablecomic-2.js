@@ -1254,7 +1254,7 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
 
     let innerCount = 0
 
-    const camerasLength = current.cameras && current.cameras.length
+    const camerasLength = current.cameras.length
 
     let cameraCount = 0
 

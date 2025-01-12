@@ -11,7 +11,7 @@ type ToolInstance = InstanceType<ToolClasses>
 
 // Initing a new Object, converting its List into real Objects.
 const convertList = (
-  list: ReadonlyArray<Tool | false>,
+  list: ReadonlyArray<Tool | false | undefined>,
   inherit: Inherit,
   recordDrawingTools: typeof recordDrawingToolsForType,
   state: State,

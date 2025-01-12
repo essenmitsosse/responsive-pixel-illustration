@@ -1,6 +1,7 @@
 import Primitive from './Primitive'
 
 import type { ArgsInitArm } from './Arm'
+import type { Location } from './createPixelArray'
 import type { ArgsInitPanels } from './Panels'
 import type { Inherit, Tool } from './Primitive'
 import type recordDrawingToolsForType from './recordDrawingTools'
@@ -12,7 +13,10 @@ type ToolClasses =
 
 type ToolInstance = InstanceType<ToolClasses>
 
-export type ArgsInitObj = { list?: ReadonlyArray<Tool | false | undefined> }
+export type ArgsInitObj = {
+  list?: ReadonlyArray<Tool | false | undefined>
+  mask?: boolean
+}
 
 // Initing a new Object, converting its List into real Objects.
 const convertList = (
@@ -56,6 +60,8 @@ const convertList = (
 class Obj extends Primitive {
   recordDrawingTools: typeof recordDrawingToolsForType
   listTool?: ReadonlyArray<ToolInstance>
+  setMask?: (dimensions: Location, push?: boolean) => Location
+
   constructor(
     state: State,
     recordDrawingTools: typeof recordDrawingToolsForType,
@@ -68,6 +74,10 @@ class Obj extends Primitive {
   init(args: ArgsInitArm & ArgsInitObj & ArgsInitPanels & InitStripes): void {
     if (this.args === undefined) {
       throw new Error('Unexpected error: args is undefined')
+    }
+
+    if (args.mask) {
+      this.setMask = this.state.pixelSetter.setColorMask
     }
 
     const list = args.list || ('list' in this ? this.list : undefined)

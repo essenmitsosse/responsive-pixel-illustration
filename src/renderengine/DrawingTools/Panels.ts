@@ -36,6 +36,7 @@ export type ArgsInitPanels = {
   gutterX?: InputDynamicVariable
   gutterY?: InputDynamicVariable
   imgRatio?: { ratio: number }
+  mask?: boolean
   panels?: Array<PanelInput>
 }
 
@@ -97,6 +98,10 @@ class Panels extends Obj {
 
     if (args.gutterY) {
       this.gutterSY = this.state.pixelUnit.getWidth(args.gutterY)
+    }
+
+    if (args.mask) {
+      this.setMask = this.state.pixelSetter.setColorMask
     }
   }
 

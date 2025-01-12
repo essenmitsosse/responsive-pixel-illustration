@@ -6,7 +6,7 @@ import Rect from './Rect'
 import type { ColorRgb } from '@/helper/typeColor'
 import type { InputDynamicVariableBase } from '@/helper/typeSize'
 import type { Height, Width } from '@/renderengine/getPixelUnits/Size'
-import type { Link } from '@/scripts/listImage'
+import type { LinkPrepared } from '@/renderengine/PixelGraphics'
 
 export type ArgsInitArm = {
   color?: ColorRgb
@@ -56,21 +56,21 @@ class Arm extends Obj {
   debug?: Rect
   debugHandEnd?: Dot
   debugHandTarget?: Line
-  targetX?: InputDynamicVariableBase & Link
-  targetY?: InputDynamicVariableBase & Link
-  endX?: InputDynamicVariableBase & Link
-  endY?: InputDynamicVariableBase & Link
-  jointX?: InputDynamicVariableBase & Link
-  jointY?: InputDynamicVariableBase & Link
-  length?: InputDynamicVariableBase & Link
+  targetX?: InputDynamicVariableBase & LinkPrepared
+  targetY?: InputDynamicVariableBase & LinkPrepared
+  endX?: InputDynamicVariableBase & LinkPrepared
+  endY?: InputDynamicVariableBase & LinkPrepared
+  jointX?: InputDynamicVariableBase & LinkPrepared
+  jointY?: InputDynamicVariableBase & LinkPrepared
+  length?: InputDynamicVariableBase & LinkPrepared
   ratio?: number
   flip?: boolean
   maxStraight?: number
   ellbow?: boolean
-  handEndX?: InputDynamicVariableBase & Link
-  handEndY?: InputDynamicVariableBase & Link
-  handTargetX?: InputDynamicVariableBase & Link
-  handTargetY?: InputDynamicVariableBase & Link
+  handEndX?: InputDynamicVariableBase & LinkPrepared
+  handEndY?: InputDynamicVariableBase & LinkPrepared
+  handTargetX?: InputDynamicVariableBase & LinkPrepared
+  handTargetY?: InputDynamicVariableBase & LinkPrepared
   fullLength?: number
   upperArmLength?: number
   lowerArmLength?: number

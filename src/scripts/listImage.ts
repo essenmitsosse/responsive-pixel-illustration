@@ -3,18 +3,14 @@ import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { CreateSlider } from '@/helper/typeSlider'
 
 export type Link = {
-  autoUpdate?: boolean
-  calculated?: boolean
-  getLinkedVariable?: () => number
   height?: boolean
   main?: boolean
   r?: number
   random?: InputDynamicVariable
   real?: number
-  s?: { getReal: () => number }
 }
 
-export type LinkList = ReadonlyArray<Link>
+type LinkList = ReadonlyArray<Link | ReadonlyArray<Link>>
 
 export type RecordVariable = Record<string, InputDynamicVariable>
 

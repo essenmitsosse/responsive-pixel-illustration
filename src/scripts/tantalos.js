@@ -1,6 +1,6 @@
 import { getBiggerDim, getSmallerDim } from '@/helper/helperDim'
 
-function tantalos() {
+const tantalos = () => {
   const water = [36, 44, 53]
   const waterLight = [74, 81, 88]
   const ground = [72, 71, 68]

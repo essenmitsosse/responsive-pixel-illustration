@@ -762,13 +762,12 @@ Mouth.prototype.draw = function (args) {
             { sX: { r: 1, a: -1 }, sY: 1, fY: !mouthD },
           ]
         : mouthOpen && [
-            mouthOpen &&
-              (mouthD || mouthGrin) && {
-                name: 'Dot',
-                clear: true,
-                fX: true,
-                fY: mouthD,
-              },
+            (mouthD || mouthGrin) && {
+              name: 'Dot',
+              clear: true,
+              fX: true,
+              fY: mouthD,
+            },
 
             {},
 

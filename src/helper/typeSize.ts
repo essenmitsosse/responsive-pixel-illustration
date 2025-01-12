@@ -22,9 +22,9 @@ export type InputDynamicVariableBase = {
 }
 
 export type InputDynamicVariable =
-  | Array<InputDynamicVariable>
   | InputDynamicVariableBase
   | Link
+  | ReadonlyArray<InputDynamicVariable>
   | number
   | string
   | undefined

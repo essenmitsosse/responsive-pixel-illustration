@@ -36,7 +36,6 @@ const randomDistribution = (init) => {
           r: random.getRandomFloat(minSize, maxSize),
           useSize: s,
           odd: true,
-          test: true,
         }),
       )
 

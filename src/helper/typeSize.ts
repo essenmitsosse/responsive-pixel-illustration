@@ -6,7 +6,7 @@ export type InputDynamicVariableBase = {
   autoUpdate?: boolean
   debug?: unknown
   getBiggerDim?: boolean
-  getLength?: [number, number]
+  getLength?: [InputDynamicVariable, InputDynamicVariable]
   getLinkedVariable?: () => number
   height?: boolean
   main?: boolean

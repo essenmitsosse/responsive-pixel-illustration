@@ -61,7 +61,11 @@ function getRealDistanceBasic(this: {
   )
 }
 
-const getGetLengthCalculation = (x: number, y: number, state: State) => {
+const getGetLengthCalculation = (
+  x: InputDynamicVariable,
+  y: InputDynamicVariable,
+  state: State,
+) => {
   const sizeX = new Width(x, state)
   const sizeY = new Width(y, state)
 

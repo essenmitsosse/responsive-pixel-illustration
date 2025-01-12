@@ -84,7 +84,7 @@ class Primitive {
   fromBottom?: boolean
   rotate?: boolean
   args?: Args
-  mask?: (dimensions: Location, push?: boolean) => Location
+  setMask?: (dimensions: Location, push?: boolean) => Location
 
   constructor(state: State) {
     this.state = state
@@ -209,7 +209,7 @@ class Primitive {
     }
 
     if (args.mask) {
-      this.mask = this.state.pixelSetter.setColorMask
+      this.setMask = this.state.pixelSetter.setColorMask
     }
 
     if (

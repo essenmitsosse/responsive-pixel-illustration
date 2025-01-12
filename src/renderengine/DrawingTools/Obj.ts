@@ -98,16 +98,16 @@ class Obj extends Primitive {
       return
     }
 
-    if (this.mask) {
-      oldMask = this.mask(dimensions, true)
+    if (this.setMask) {
+      oldMask = this.setMask(dimensions, true)
     }
 
     this.state.pixelUnit.push(dimensions)
 
     this.listTool.forEach((tool) => tool.draw())
 
-    if (this.mask && oldMask) {
-      this.mask(oldMask, false)
+    if (this.setMask && oldMask) {
+      this.setMask(oldMask, false)
     }
 
     this.state.pixelUnit.pop()

@@ -133,7 +133,7 @@ class Panels extends Obj {
     this.calcPanelsSizes(panels)
 
     // Draw the content of the panels
-    this.drawPanels(panels, this.mask)
+    this.drawPanels(panels, this.setMask)
   }
 
   findBestRows(): void {
@@ -460,14 +460,14 @@ class Panels extends Obj {
 
   drawPanels(
     panels: ReadonlyArray<PanelSorted>,
-    mask: ((dimensions: Location, push?: boolean) => Location) | undefined,
+    setMask: ((dimensions: Location, push?: boolean) => Location) | undefined,
   ): void {
     panels.forEach((currentPanel) => {
       if (currentPanel.dimensions === undefined) {
         throw new Error('Unexpected error: dimensions is undefined')
       }
 
-      const oldMask = mask ? mask(currentPanel.dimensions) : undefined
+      const oldMask = setMask ? setMask(currentPanel.dimensions) : undefined
 
       this.state.pixelUnit.push(currentPanel.dimensions)
 
@@ -475,12 +475,12 @@ class Panels extends Obj {
 
       this.state.pixelUnit.pop()
 
-      if (mask) {
+      if (setMask) {
         if (oldMask === undefined) {
           throw new Error('Unexpected error: oldMask is undefined')
         }
 
-        mask(oldMask)
+        setMask(oldMask)
       }
     })
   }

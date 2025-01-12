@@ -5,7 +5,7 @@ function letter(args, init, createSlider) {
   const backgroundColor = [200, 200, 240]
   const linkList = []
 
-  const linkListPush = function (obj) {
+  const linkListPush = (obj) => {
     linkList.push(obj)
 
     return obj

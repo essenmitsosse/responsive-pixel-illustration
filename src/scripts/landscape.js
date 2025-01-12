@@ -2,7 +2,7 @@ import { getSmallerDim, mult, sub } from '@/helper/helperDim'
 
 const getRandomInt = (i) => Math.floor(Math.random() * i)
 
-function landscape() {
+const landscape = () => {
   const backgroundColor = [0, 0, 0]
   const colorNr = getRandomInt(4)
   const dayNight = getRandomInt(2)

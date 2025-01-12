@@ -16,7 +16,7 @@ type ArgsArm = {
   endY?: InputDynamicVariableBase
   flip?: boolean
   hand?: {
-    color: ColorRgb
+    color?: ColorRgb
     endX: InputDynamicVariableBase
     endY: InputDynamicVariableBase
     length: number

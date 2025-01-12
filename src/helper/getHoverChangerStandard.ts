@@ -27,13 +27,13 @@ const getHoverChangerStandard = (): {
 } => {
   const listChangerStandard: Array<{
     change: number
-    map: string
+    map?: string
     min: number
     variable: { r?: unknown; s: { rele?: unknown } }
   }> = []
 
   const push = (args: {
-    map: string
+    map?: string
     max: number
     min: number
     variable: { r?: unknown; s: { rele?: unknown } }
@@ -90,7 +90,7 @@ const getHoverChangerStandard = (): {
     },
     doHover: (args): void => {
       listChangerStandard.forEach((current) => {
-        const value = args[current.map]
+        const value = current.map !== undefined ? args[current.map] : undefined
 
         // TODO: Shouldn't need to check for `number`
         if (value === undefined || typeof value !== 'number') {

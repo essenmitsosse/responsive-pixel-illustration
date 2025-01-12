@@ -1,32 +1,36 @@
 import { getBiggerDim, getSmallerDim, mult, sub } from '@/helper/helperDim'
 
-const argos = () => {
-  const wood = [155, 114, 70]
-  const wood1 = [143, 92, 57]
-  const wood2 = [177, 124, 62]
-  const wood3 = [130, 99, 64]
-  const woodDark = [60, 51, 45]
-  const holes = [64, 37, 19]
-  const sail = [208, 202, 202]
-  const string = [171, 177, 190]
-  const oar = [131, 93, 39]
-  const paddle = [219, 216, 211]
-  const ram = [149, 136, 100]
-  const slaveSkin = [162, 142, 128]
-  const slaveCloth = [65, 71, 79]
-  const spear = [151, 176, 175]
-  const spearTip = [137, 137, 137]
-  const argoCloth = [108, 50, 50]
-  const argoSkin = [200, 172, 151]
-  const argoHelm = [161, 133, 88]
-  const water = [26, 59, 120]
-  const water1 = [0, 36, 102]
-  const water2 = [9, 22, 71]
-  const foam = [245, 249, 255]
-  const backgroundColor = [165, 239, 255]
-  const cloud = [198, 245, 255]
+import type { ImageContent, ImageFunction, RecordVariable } from './listImage'
+import type { ColorRgb } from '@/helper/typeColor'
+import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 
-  const mast = function (center, fromRight) {
+const argos: ImageFunction = (): ImageContent => {
+  const wood: ColorRgb = [155, 114, 70]
+  const wood1: ColorRgb = [143, 92, 57]
+  const wood2: ColorRgb = [177, 124, 62]
+  const wood3: ColorRgb = [130, 99, 64]
+  const woodDark: ColorRgb = [60, 51, 45]
+  const holes: ColorRgb = [64, 37, 19]
+  const sail: ColorRgb = [208, 202, 202]
+  const string: ColorRgb = [171, 177, 190]
+  const oar: ColorRgb = [131, 93, 39]
+  const paddle: ColorRgb = [219, 216, 211]
+  const ram: ColorRgb = [149, 136, 100]
+  const slaveSkin: ColorRgb = [162, 142, 128]
+  const slaveCloth: ColorRgb = [65, 71, 79]
+  const spear: ColorRgb = [151, 176, 175]
+  const spearTip: ColorRgb = [137, 137, 137]
+  const argoCloth: ColorRgb = [108, 50, 50]
+  const argoSkin: ColorRgb = [200, 172, 151]
+  const argoHelm: ColorRgb = [161, 133, 88]
+  const water: ColorRgb = [26, 59, 120]
+  const water1: ColorRgb = [0, 36, 102]
+  const water2: ColorRgb = [9, 22, 71]
+  const foam: ColorRgb = [245, 249, 255]
+  const backgroundColor: ColorRgb = [165, 239, 255]
+  const cloud: ColorRgb = [198, 245, 255]
+
+  const mast = function (center?: boolean, fromRight?: boolean): Tool {
     return {
       sX: 'mastSX',
       color: wood1,
@@ -111,16 +115,18 @@ const argos = () => {
     }
   }
 
-  const fullOar = [
+  const fullOar: ReadonlyArray<Tool> = [
     { color: oar, weight: 1, points: [{ fY: true }, { fX: true }] },
     { color: paddle, s: 2, fY: true, tY: true, tX: true },
     { color: paddle, s: 2, fY: true, tY: true, tX: true, x: -1, y: -1 },
     { color: paddle, s: 2, fY: true, tY: true, tX: true, x: -2, y: -2 },
   ]
 
-  const faceSlop = [{ weight: 3, points: [{}, { fX: true, fY: true }] }]
+  const faceSlop: ReadonlyArray<Tool> = [
+    { weight: 3, points: [{}, { fX: true, fY: true }] },
+  ]
 
-  const eye = [
+  const eye: ReadonlyArray<Tool> = [
     {},
     { x: { r: 0.5 } },
     { y: { r: 0.5 }, fX: true },
@@ -128,7 +134,7 @@ const argos = () => {
     { fY: true, x: { r: 0.3 }, y: { r: 0.3 } },
   ]
 
-  const cloudShape = [
+  const cloudShape: ReadonlyArray<Tool> = [
     {
       points: [
         { x: { r: 0.5 } },
@@ -160,7 +166,7 @@ const argos = () => {
     },
   ]
 
-  const renderList = [
+  const renderList: ReadonlyArray<Tool> = [
     // { s:10, color:wood, list:[
     // 	{},
     // 	{ m:2, list:[
@@ -1048,7 +1054,7 @@ const argos = () => {
     },
   ]
 
-  const variableList = {
+  const variableList: RecordVariable = {
     fullRect: { r: 1, max: { r: 1, height: true } },
 
     // BORDER

@@ -804,12 +804,12 @@ Shield.prototype.draw = function (args, z) {
         },
       },
 
-      logo && {
+      {
         sX: { r: 0.5 },
         rX: true,
         list: logo,
       },
-      logo && {
+      {
         sX: { r: 0.5 },
         fX: true,
         list: logo,

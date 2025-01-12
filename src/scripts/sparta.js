@@ -119,14 +119,18 @@ const sparta = () => {
 
         // Hair
         {
-          gap: { a: 0 },
-          random: { r: 0.2 },
+          stripes: {
+            gap: { a: 0 },
+            random: { r: 0.2 },
+          },
           color: skinShadow,
           sY: { r: 0.1, min: 1 },
         },
         {
-          gap: { a: 0 },
-          random: { r: 0.4 },
+          stripes: {
+            gap: { a: 0 },
+            random: { r: 0.4 },
+          },
           color: skinShadow,
           sX: { r: 0.15 },
           sY: { r: 0.3 },
@@ -225,12 +229,14 @@ const sparta = () => {
         // { color:[255,0,0], gap:1, strip:{a:5, r:.005, random:{r:.1, add:[{r:.12, height:true}]} }, random:{r:-.9}, fY:true, list:person  }
         {
           color: [255, 0, 0],
-          gap: 1,
-          strip: { r: 0.15, otherDim: true, min: 10 },
-          change: { r: -0.9 },
+          stripes: {
+            gap: 1,
+            strip: { r: 0.15, otherDim: true, min: 10 },
+            change: { r: -0.9 },
+            cut: true,
+          },
           fY: true,
           list: person,
-          cut: true,
         },
       ],
     },

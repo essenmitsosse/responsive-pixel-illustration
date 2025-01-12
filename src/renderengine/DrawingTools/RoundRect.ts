@@ -1,7 +1,9 @@
 import Obj from './Obj'
 
+import type { Tool } from './Primitive'
+
 class RoundRect extends Obj {
-  list = [
+  list: ReadonlyArray<Tool> = [
     // { mY:1 },
     // { mX:1, height: {a:1} },
     // { mX:1, height: {a:1}, fromBottom:true },

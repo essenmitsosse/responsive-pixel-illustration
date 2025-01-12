@@ -4,9 +4,10 @@ const trex = () => {
   const white = [255, 255, 255]
   const ground = [90, 60, 50]
 
-  const trexsingle = [
+  const trexsingle = (color) => [
     {
       name: 'Obj',
+      color,
       sX: { r: 0.25, min: 10 },
       sY: { r: 0.25, min: 5 },
       list: [
@@ -36,6 +37,7 @@ const trex = () => {
       fY: true,
       sX: { r: 0.85 },
       sY: { r: 0.7 },
+      color,
       list: [
         //Body
         {
@@ -167,9 +169,8 @@ const trex = () => {
       y: { r: 0.2 },
       fY: true,
       // Trex
-      color: [100, 120, 200],
       rX: true,
-      list: trexsingle,
+      list: trexsingle([100, 120, 200]),
     },
     {
       name: 'Obj',
@@ -180,8 +181,7 @@ const trex = () => {
       x: { a: -20, r: -0.2 },
       fX: true,
       // Trex
-      color: [180, 50, 50],
-      list: trexsingle,
+      list: trexsingle([180, 50, 50]),
     },
   ]
 

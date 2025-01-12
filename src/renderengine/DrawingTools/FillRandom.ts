@@ -3,17 +3,23 @@ import getIsUnknownObject from '@/lib/getIsUnknownObject'
 import Fill from './Fill'
 
 import type { Location } from './createPixelArray'
-import type { ArgsInit, ArgsPrepare } from './Primitive'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { Height, Width } from '@/renderengine/getPixelUnits/Size'
 
-type ArgsInitFillRandom = {
+export type ArgsInitFillRandom = {
   chance?: number
   mask?: (dimensions: Location, push?: boolean) => Location
   sX?: InputDynamicVariable
   sY?: InputDynamicVariable
   seed?: number
   size?: InputDynamicVariable
+  use?: string
+}
+
+export type ArgsPrepareFillRandom = {
+  s?: InputDynamicVariable
+  sX?: InputDynamicVariable
+  sY?: InputDynamicVariable
 }
 
 class FillRandom extends Fill {
@@ -23,13 +29,12 @@ class FillRandom extends Fill {
     one: () => number
     seed: () => number
   }
-  mask?: (dimensions: Location, push?: boolean) => Location
   heightRandom?: Height | Width
   widthRandom?: Height | Width
   sizeRandom?: Height | Width
   width?: Width | false
   height?: Height | false
-  init(args: ArgsInit & ArgsInitFillRandom): void {
+  init(args: ArgsInitFillRandom): void {
     const width = this.rotate ? args.sY : args.sX
     const height = this.rotate ? args.sX : args.sY
 
@@ -56,7 +61,7 @@ class FillRandom extends Fill {
 
   // Prepare Size and Position Data for Basic Objects
   prepareSizeAndPos(
-    args: ArgsPrepare,
+    args: ArgsPrepareFillRandom,
     _: boolean,
     __: boolean,
     rotate: boolean,

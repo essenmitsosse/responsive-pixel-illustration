@@ -17,7 +17,7 @@ export type InputDynamicVariableBase = {
   otherDim?: boolean
   r?: number
   r2?: number
-  random?: number
+  random?: InputDynamicVariable
   save?: string
   useSize?: InputDynamicVariableBase | string
 }

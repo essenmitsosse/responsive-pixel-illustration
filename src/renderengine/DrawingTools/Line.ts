@@ -1,9 +1,20 @@
-import Primitive from './Primitive'
+import Pixel from './Pixel'
 
-import type { ArgsInit, ArgsPrepare } from './Primitive'
 import type { InputDynamicVariable } from '@/helper/typeSize'
+import type { Position } from '@/renderengine/getPixelUnits'
 
 type LineSetter = (x: number, y: number) => void
+
+export type ArgsInitLine = {
+  closed?: boolean
+  weight?: InputDynamicVariable
+}
+
+export type ArgsPrepareLine = {
+  points?: ReadonlyArray<Parameters<Position>[0]>
+  rX?: boolean
+  rY?: boolean
+}
 
 const getDrawLine =
   (set: LineSetter) =>
@@ -70,17 +81,16 @@ const getDrawLine =
     }
   }
 
-class Line extends Primitive {
+class Line extends Pixel {
+  closed?: boolean
   lineSetter?: () => LineSetter
   points?: Array<() => { x: number; y: number }>
 
-  init(args: ArgsInit): void {
-    if (args.closed) {
-      if (this.args === undefined) {
-        throw new Error('Unexpected error: args is undefined')
-      }
+  init(args: ArgsInitLine): void {
+    super.init(args)
 
-      this.args.closed = true
+    if (args.closed) {
+      this.closed = true
     }
 
     this.lineSetter = this.getLineSetter(args.weight)
@@ -123,7 +133,7 @@ class Line extends Primitive {
   }
 
   prepareSizeAndPos(
-    args: ArgsPrepare,
+    args: ArgsPrepareLine,
     reflectX: boolean,
     reflectY: boolean,
     rotate: boolean,
@@ -172,7 +182,7 @@ class Line extends Primitive {
       drawLine(pointsReversed[index - 1]!, point)
     })
 
-    if (this.args.closed) {
+    if (this.closed) {
       drawLine(pointsCalculated.at(0)!, pointsCalculated.at(-1)!)
     }
   }

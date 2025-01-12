@@ -1,17 +1,60 @@
+import getIsColorRgb from '@/helper/getIsColorRgb'
+import getIsUnknownObject from '@/lib/getIsUnknownObject'
+
+import type { ArgsInitArm } from './Arm'
 import type { Location } from './createPixelArray'
-import type { PanelPre } from './Panels'
+import type { ArgsPrepareDot } from './Dot'
+import type { ArgsInitFill } from './Fill'
+import type { ArgsInitFillRandom, ArgsPrepareFillRandom } from './FillRandom'
+import type { ArgsInitLine, ArgsPrepareLine } from './Line'
+import type { ArgsInitObj } from './Obj'
+import type { ArgsInitPanels } from './Panels'
 import type recordDrawingTools from './recordDrawingTools'
 import type { State } from './State'
-import type { ArgsInitStripes } from './Stripes'
+import type { InitStripes } from './Stripes'
 import type { ColorRgb } from '@/helper/typeColor'
-import type { InputDynamicVariable } from '@/helper/typeSize'
-import type { Position } from '@/renderengine/getPixelUnits'
 import type {
   Dimensions,
   ParameterDimension,
 } from '@/renderengine/getPixelUnits/Position'
 
-export type Inherit = {
+type ArgsInit = ArgsInitArm &
+  ArgsInitFill &
+  ArgsInitFillRandom &
+  ArgsInitLine &
+  ArgsInitObj &
+  ArgsInitPanels &
+  InitStripes
+
+type ArgsPreparePrimitive = ParameterDimension & {
+  fX?: boolean
+  fY?: boolean
+}
+
+type ArgsPrepare = ArgsPrepareDot &
+  ArgsPrepareFillRandom &
+  ArgsPrepareLine &
+  ArgsPreparePrimitive
+
+type ToolPrimitive = ArgsInit &
+  ArgsPrepare & {
+    clear?: boolean
+    color?: ColorRgb
+    id?: string
+    list?: ReadonlyArray<Tool | false | undefined>
+    mask?: boolean
+    rX?: boolean
+    rY?: boolean
+    rotate?: number
+    save?: string
+    z?: number
+  }
+
+export type Tool = ToolPrimitive & {
+  name?: keyof typeof recordDrawingTools
+}
+
+type Args = {
   clear?: boolean
   color?: ColorRgb
   id?: string
@@ -22,53 +65,17 @@ export type Inherit = {
   zInd?: number
 }
 
-type SizeAndPos = {
-  mask?: (dimensions: Location, push?: boolean) => Location
-}
-
-export type ArgsInit = Inherit & {
-  closed?: boolean
-  list?: ReadonlyArray<Tool | false | undefined>
-  listPanels?: Array<PanelPre>
-  use?: string
-  weight?: InputDynamicVariable
-}
-
-type ArgsNew = ArgsInit & SizeAndPos
-
-export type Tool = ArgsInitStripes & {
-  chance?: unknown
-  list?: ReadonlyArray<Tool | false | undefined>
-  name?: keyof typeof recordDrawingTools
-  panels?: unknown
-  points?: ReadonlyArray<Parameters<Position>[0]>
-  rX?: boolean
-  rY?: boolean
-  rotate?: number
-  save?: string
-  targetX?: unknown
-  use?: string
-  weight?: InputDynamicVariable
-}
-
-export type ArgsPrepare = ParameterDimension &
-  Parameters<Position>[0] &
-  Pick<Tool, 'points'> & {
-    rX?: boolean
-    rY?: boolean
-  }
-
-type ArgsCreate = ArgsInitStripes &
-  ArgsPrepare &
-  Pick<Tool, 'list' | 'weight'> & {
-    clear?: boolean
-    color?: ColorRgb
-    id?: string
-    mask?: unknown
-    rotate?: number
-    save?: string
-    z?: number
-  }
+export type Inherit = Pick<
+  Args,
+  | 'clear'
+  | 'color'
+  | 'id'
+  | 'reflectX'
+  | 'reflectY'
+  | 'rotate'
+  | 'save'
+  | 'zInd'
+>
 
 class Primitive {
   state: State
@@ -76,8 +83,8 @@ class Primitive {
   fromRight?: boolean
   fromBottom?: boolean
   rotate?: boolean
-  getColorArray?: (x: number, y: number) => void
-  args?: ArgsNew
+  args?: Args
+  mask?: (dimensions: Location, push?: boolean) => Location
 
   constructor(state: State) {
     this.state = state
@@ -90,15 +97,16 @@ class Primitive {
    * because declaring them as an `undefined` property doesn't work, because
    * they won't get overwrittten.
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- this should already declare the expected type, even if it is not implemented
+
   init(_args: ArgsInit): void {}
 
   draw(): void {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- this should already declare the expected type, even if it is not implemented
-  detailInit(_args: ArgsInitStripes): void {}
+  create(args: unknown, inherit?: Inherit): this {
+    if (!getIsUnknownObject(args)) {
+      throw new Error('Unexpected error: args is not an object')
+    }
 
-  create(args: ArgsCreate, inherit?: Inherit): this {
     inherit = inherit || {}
 
     let reflectX: boolean = inherit.reflectX || false
@@ -131,23 +139,54 @@ class Primitive {
       reflectY = !reflectY
     }
 
-    const newArgs: ArgsNew =
-      this.prepareSizeAndPos(
-        args,
-        reflectX,
-        reflectY,
-        (this.rotate = rotate === 90),
-      ) || {}
+    this.prepareSizeAndPos(
+      args,
+      reflectX,
+      reflectY,
+      (this.rotate = rotate === 90),
+    )
+
+    const newArgs: Args = {}
 
     newArgs.reflectX = (args.rX || false) !== reflectX
 
     newArgs.reflectY = (args.rY || false) !== reflectY
 
+    if (
+      args.rotate !== undefined &&
+      args.rotate !== false &&
+      typeof args.rotate !== 'number'
+    ) {
+      throw new Error(
+        `Unexpected error: args.rotate is defined and not a number, it is: ${typeof args.rotate} (${JSON.stringify(args.rotate)})`,
+      )
+    }
+
     newArgs.rotate = rotate + (args.rotate || 0)
 
     if (args.save || inherit.save) {
+      if (
+        args.save !== undefined &&
+        args.save !== false &&
+        typeof args.save !== 'string'
+      ) {
+        throw new Error(
+          `Unexpected error: args.save is defined and not a string, it is: ${typeof args.save} (${JSON.stringify(args.save)})`,
+        )
+      }
+
       newArgs.save = args.save || inherit.save
     } else if (args.color || inherit.color) {
+      if (
+        args.color !== undefined &&
+        args.color !== false &&
+        getIsColorRgb(args.color) === false
+      ) {
+        throw new Error(
+          `Unexpected error: args.color is defined and is not a RGB value and not a list of RGB value, it is: ${typeof args.color} (${JSON.stringify(args.color)})`,
+        )
+      }
+
       newArgs.color = args.color || inherit.color
     }
 
@@ -156,39 +195,45 @@ class Primitive {
     }
 
     if (args.id || inherit.id || newArgs.save) {
+      if (
+        args.id !== undefined &&
+        args.id !== false &&
+        typeof args.id !== 'string'
+      ) {
+        throw new Error(
+          `Unexpected error: args.id is defined and not a string, it is: ${typeof args.id} (${JSON.stringify(args.id)})`,
+        )
+      }
+
       newArgs.id = args.id || inherit.id || newArgs.save
     }
 
     if (args.mask) {
-      newArgs.mask = this.state.pixelSetter.setColorMask
+      this.mask = this.state.pixelSetter.setColorMask
+    }
+
+    if (
+      args.z !== undefined &&
+      args.z !== false &&
+      typeof args.z !== 'number'
+    ) {
+      throw new Error(
+        `Unexpected error: args.z is defined and not a number, it is: ${typeof args.z} (${JSON.stringify(args.z)})`,
+      )
     }
 
     newArgs.zInd = (inherit.zInd || 0) + (args.z || 0)
 
-    if (args.list) {
-      newArgs.list = args.list
-    } else {
-      this.setColorArray(newArgs)
-    }
+    this.setColorArray(newArgs)
 
     this.args = newArgs
 
     this.init(args)
 
-    this.detailInit(args)
-
     return this
   }
 
-  setColorArray(args: {
-    clear?: boolean
-    color?: ColorRgb
-    id?: string
-    save?: string
-    zInd?: number
-  }): void {
-    this.getColorArray = this.state.pixelSetter.setColorArray(args)
-  }
+  setColorArray(_args: Args): void {}
 
   // Prepare Size and Position Data for Basic Objects
   prepareSizeAndPos(
@@ -196,7 +241,7 @@ class Primitive {
     reflectX: boolean,
     reflectY: boolean,
     rotate: boolean,
-  ): SizeAndPos | void {
+  ): void {
     this.dimensions = this.state.pixelUnit.getDimensions(
       args,
       (this.fromRight = rotate

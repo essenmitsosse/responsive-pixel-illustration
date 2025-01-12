@@ -1,10 +1,14 @@
-import Primitive from './Primitive'
+import Pixel from './Pixel'
 
-import type { ArgsInit } from './Primitive'
-
-class Fill extends Primitive {
+export type ArgsInitFill = {
   use?: string
-  init(args: ArgsInit): void {
+}
+
+class Fill extends Pixel {
+  use?: string
+  init(args: ArgsInitFill): void {
+    super.init(args)
+
     this.use = args.use
   }
 

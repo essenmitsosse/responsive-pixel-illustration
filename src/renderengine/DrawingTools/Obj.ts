@@ -1,13 +1,18 @@
 import Primitive from './Primitive'
 
-import type { ArgsInit, Inherit, Tool } from './Primitive'
+import type { ArgsInitArm } from './Arm'
+import type { ArgsInitPanels } from './Panels'
+import type { Inherit, Tool } from './Primitive'
 import type recordDrawingToolsForType from './recordDrawingTools'
 import type { State } from './State'
+import type { InitStripes } from './Stripes'
 
 type ToolClasses =
   (typeof recordDrawingToolsForType)[keyof typeof recordDrawingToolsForType]
 
 type ToolInstance = InstanceType<ToolClasses>
+
+export type ArgsInitObj = { list?: ReadonlyArray<Tool | false | undefined> }
 
 // Initing a new Object, converting its List into real Objects.
 const convertList = (
@@ -60,32 +65,16 @@ class Obj extends Primitive {
     this.recordDrawingTools = recordDrawingTools
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- args is used in subclasses
-  init(_args: ArgsInit): void {
+  init(args: ArgsInitArm & ArgsInitObj & ArgsInitPanels & InitStripes): void {
     if (this.args === undefined) {
       throw new Error('Unexpected error: args is undefined')
     }
 
-    const list = this.args.list || ('list' in this ? this.list : undefined)
+    const list = args.list || ('list' in this ? this.list : undefined)
 
     if (list) {
       this.listTool = Array.isArray(list)
-        ? convertList(
-            list,
-            {
-              // Things to inherit to Children
-              color: this.args.color,
-              clear: this.args.clear,
-              reflectX: this.args.reflectX,
-              reflectY: this.args.reflectY,
-              zInd: this.args.zInd,
-              id: this.args.id,
-              save: this.args.save,
-              rotate: this.args.rotate,
-            },
-            this.recordDrawingTools,
-            this.state,
-          )
+        ? convertList(list, this.args, this.recordDrawingTools, this.state)
         : []
     }
   }
@@ -101,10 +90,6 @@ class Obj extends Primitive {
       throw new Error('Unexpected error: listTool is undefined')
     }
 
-    if (this.args === undefined) {
-      throw new Error('Unexpected error: args is undefined')
-    }
-
     const dimensions = this.dimensions.calc()
 
     let oldMask
@@ -113,16 +98,16 @@ class Obj extends Primitive {
       return
     }
 
-    if (this.args.mask) {
-      oldMask = this.args.mask(dimensions, true)
+    if (this.mask) {
+      oldMask = this.mask(dimensions, true)
     }
 
     this.state.pixelUnit.push(dimensions)
 
     this.listTool.forEach((tool) => tool.draw())
 
-    if (this.args.mask && oldMask) {
-      this.args.mask(oldMask, false)
+    if (this.mask && oldMask) {
+      this.mask(oldMask, false)
     }
 
     this.state.pixelUnit.pop()

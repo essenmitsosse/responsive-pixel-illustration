@@ -1,11 +1,13 @@
 import Primitive from './Primitive'
 
 import type { Location } from './createPixelArray'
+import type getPixelSetter from './getPixelSetter'
 
 class Rect extends Primitive {
   getColorArrayRect?: ((args: Location) => void) | undefined
+
   setColorArray(
-    args: Parameters<typeof this.state.pixelSetter.setColorArrayRect>[0],
+    args: Parameters<ReturnType<typeof getPixelSetter>['setColorArrayRect']>[0],
   ): void {
     this.getColorArrayRect = this.state.pixelSetter.setColorArrayRect(args)
   }

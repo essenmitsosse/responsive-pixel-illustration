@@ -1,8 +1,10 @@
-import Primitive from './Primitive'
+import Pixel from './Pixel'
 
-import type { ArgsPrepare } from './Primitive'
+import type { Position } from '@/renderengine/getPixelUnits'
 
-class Dot extends Primitive {
+export type ArgsPrepareDot = Parameters<Position>[0]
+
+class Dot extends Pixel {
   getRealPosition?: () => { x: number; y: number }
 
   draw(): void {
@@ -20,7 +22,7 @@ class Dot extends Primitive {
   }
 
   prepareSizeAndPos(
-    args: ArgsPrepare,
+    args: ArgsPrepareDot,
     reflectX: Parameters<typeof this.state.pixelUnit.Position>[1],
     reflectY: Parameters<typeof this.state.pixelUnit.Position>[2],
     rotate: Parameters<typeof this.state.pixelUnit.Position>[3],

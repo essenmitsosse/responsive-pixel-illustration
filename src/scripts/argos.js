@@ -808,7 +808,7 @@ function argos() {
                       color: string,
                       points: [{ x: { r: 0.5 } }, { fX: true, fY: true }],
                     },
-                    mast(true, false, true),
+                    mast(true, false),
                     {
                       weight: 1,
                       color: string,

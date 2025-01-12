@@ -11,6 +11,7 @@ export type InputDynamicVariableBase = {
   getLength?: [number, number]
   getLinkedVariable?: () => number
   height?: boolean
+  main?: boolean
   max?: InputDynamicVariable
   min?: InputDynamicVariable
   odd?: boolean

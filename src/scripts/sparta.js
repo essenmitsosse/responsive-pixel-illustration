@@ -1,7 +1,7 @@
 import { darken } from '@/helper/helperColor'
 import { getBiggerDim, getSmallerDim, mult, sub } from '@/helper/helperDim'
 
-function sparta() {
+const sparta = () => {
   const shadowColor = [255, 255, 255]
   const shadow = darken(shadowColor, 0.5)
   const detail = darken(shadowColor, 0.2)

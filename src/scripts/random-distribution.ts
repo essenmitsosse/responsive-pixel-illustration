@@ -1,13 +1,28 @@
 import { getRandom } from '@/helper/getRandom'
 
-const randomDistribution = (init) => {
+import type { ImageFunction, InputDynamicLink } from './listImage'
+import type { ColorRgb } from '@/helper/typeColor'
+import type { InputDynamicVariableBase } from '@/helper/typeSize'
+import type { Tool } from '@/renderengine/DrawingTools/Primitive'
+
+const randomDistribution: ImageFunction = (init: {
+  hideBackgroundGrid?: boolean
+  id?: number
+}) => {
   const random = getRandom(init.id)
-  const backgroundColor = [0, 0, 0]
+  const backgroundColor: ColorRgb = [0, 0, 0]
   const width = { main: true }
   const height = { main: true, height: true }
   const square = { r: 1, useSize: width, max: height }
   const biggerSquare = { r: 1, useSize: width, min: height }
-  const linkList = [width, height, square, biggerSquare]
+
+  const linkList: Array<InputDynamicLink> = [
+    width,
+    height,
+    square,
+    biggerSquare,
+  ]
+
   const backgroundGrid = init.hideBackgroundGrid !== true
   const minSize = random.getRandomFloat(0, 0.8)
   const maxSize = random.getRandomFloat(minSize, 1)
@@ -18,17 +33,17 @@ const randomDistribution = (init) => {
   const minB = random.getRandom(0, 200)
   const maxB = random.getRandom(minB, 255)
 
-  const renderList = (function () {
+  const renderList = (function (): ReadonlyArray<Tool> {
     const count = random.getRandom(5, 20)
     const s_ = 1 / (count - 1)
 
     let row = count
-    let col
-    let s
+    let col: number
+    let s: InputDynamicVariableBase
 
-    const list = []
+    const list: Array<Tool> = []
 
-    const getSquare = function () {
+    const getSquare = function (): void {
       let innerS
 
       linkList.push(

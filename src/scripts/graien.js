@@ -662,7 +662,6 @@ const graien = (_, __, createSlider) => {
           },
           {
             save: 'graieLeg' + i++,
-            minHeight: hor ? 3 : 0,
             minX: hor ? 0 : 3,
           },
         ],
@@ -693,7 +692,6 @@ const graien = (_, __, createSlider) => {
             fX: true,
             sX: 1,
             color: shadow,
-            minHeight: 4,
           },
           {
             stripes: {
@@ -947,7 +945,6 @@ const graien = (_, __, createSlider) => {
                               mY: 1,
                               sX: 1,
                               list: graie3butt,
-                              minHeight: 3,
                             },
                             {
                               fX: true,
@@ -956,7 +953,6 @@ const graien = (_, __, createSlider) => {
                               sX: 1,
                               x: -1,
                               list: graie3butt,
-                              minHeight: 3,
                             },
                             {
                               sY: armShadow,
@@ -1278,7 +1274,6 @@ const graien = (_, __, createSlider) => {
                       ],
                     },
                     {
-                      minHeight: [breadWidth, 1],
                       color: breadDark,
                       list: [
                         {
@@ -1777,7 +1772,6 @@ const graien = (_, __, createSlider) => {
                                         },
                                         {
                                           save: 'graie1Nose',
-                                          minHeight: 3,
                                         },
                                       ],
                                     },
@@ -1987,7 +1981,6 @@ const graien = (_, __, createSlider) => {
                               },
                               y: 1,
                               tX: true,
-                              minHeight: 4,
                               list: [
                                 {},
                                 {
@@ -2004,7 +1997,6 @@ const graien = (_, __, createSlider) => {
                               cY: true,
                               tX: true,
                               fX: true,
-                              minHeight: 3,
                               list: [
                                 {},
                                 {

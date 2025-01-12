@@ -3,7 +3,6 @@ import getIsUnknownObject from '@/lib/getIsUnknownObject'
 import Fill from './Fill'
 
 import type { Location } from './createPixelArray'
-import type { ArgsPrepare } from './Primitive'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { Height, Width } from '@/renderengine/getPixelUnits/Size'
 
@@ -15,6 +14,12 @@ export type ArgsInitFillRandom = {
   seed?: number
   size?: InputDynamicVariable
   use?: string
+}
+
+export type ArgsPrepareFillRandom = {
+  s?: number
+  sX?: number
+  sY?: number
 }
 
 class FillRandom extends Fill {
@@ -56,7 +61,7 @@ class FillRandom extends Fill {
 
   // Prepare Size and Position Data for Basic Objects
   prepareSizeAndPos(
-    args: ArgsPrepare,
+    args: ArgsPrepareFillRandom,
     _: boolean,
     __: boolean,
     rotate: boolean,

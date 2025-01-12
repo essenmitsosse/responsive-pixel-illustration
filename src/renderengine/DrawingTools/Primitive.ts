@@ -1,15 +1,15 @@
 import type { ArgsInitArm } from './Arm'
 import type { Location } from './createPixelArray'
+import type { ArgsPrepareDot } from './Dot'
 import type { ArgsInitFill } from './Fill'
-import type { ArgsInitFillRandom } from './FillRandom'
-import type { ArgsInitLine } from './Line'
+import type { ArgsInitFillRandom, ArgsPrepareFillRandom } from './FillRandom'
+import type { ArgsInitLine, ArgsPrepareLine } from './Line'
 import type { ArgsInitObj } from './Obj'
 import type { ArgsInitPanels } from './Panels'
 import type recordDrawingTools from './recordDrawingTools'
 import type { State } from './State'
 import type { InitStripes } from './Stripes'
 import type { ColorRgb } from '@/helper/typeColor'
-import type { Position } from '@/renderengine/getPixelUnits'
 import type {
   Dimensions,
   ParameterDimension,
@@ -23,14 +23,15 @@ type ArgsInit = ArgsInitArm &
   ArgsInitPanels &
   InitStripes
 
-type PreparePrimitive = ParameterDimension &
-  Parameters<Position>[0] & {
-    points?: ReadonlyArray<Parameters<Position>[0]>
-    rX?: boolean
-    rY?: boolean
-  }
+type ArgsPreparePrimitive = ParameterDimension & {
+  fX?: boolean
+  fY?: boolean
+}
 
-export type ArgsPrepare = PreparePrimitive
+type ArgsPrepare = ArgsPrepareDot &
+  ArgsPrepareFillRandom &
+  ArgsPrepareLine &
+  ArgsPreparePrimitive
 
 type ToolPrimitive = ArgsInit &
   ArgsPrepare & {

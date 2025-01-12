@@ -1,13 +1,19 @@
 import Pixel from './Pixel'
 
-import type { ArgsPrepare } from './Primitive'
 import type { InputDynamicVariable } from '@/helper/typeSize'
+import type { Position } from '@/renderengine/getPixelUnits'
 
 type LineSetter = (x: number, y: number) => void
 
 export type ArgsInitLine = {
   closed?: boolean
   weight?: InputDynamicVariable
+}
+
+export type ArgsPrepareLine = {
+  points?: ReadonlyArray<Parameters<Position>[0]>
+  rX?: boolean
+  rY?: boolean
 }
 
 const getDrawLine =
@@ -127,7 +133,7 @@ class Line extends Pixel {
   }
 
   prepareSizeAndPos(
-    args: ArgsPrepare,
+    args: ArgsPrepareLine,
     reflectX: boolean,
     reflectY: boolean,
     rotate: boolean,

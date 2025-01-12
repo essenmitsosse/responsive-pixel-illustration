@@ -1,6 +1,6 @@
 import getHoverChangerStandard from '@/helper/getHoverChangerStandard'
 
-function stripes(args, init, createSlider) {
+const stripes = (args, init, createSlider) => {
   const hoverChangerStandard = getHoverChangerStandard()
   const backgroundColor = [100, 100, 120]
   const linkList = []

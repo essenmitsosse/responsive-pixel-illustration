@@ -1376,7 +1376,7 @@ const graien = (_, __, createSlider) => {
                                 add: [armWidth, 2],
                               },
                               stripes: {
-                                striplengt: 1,
+                                strip: 1,
                                 gap: 1,
                                 horizontal: true,
                                 random: {

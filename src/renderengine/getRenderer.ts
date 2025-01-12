@@ -7,7 +7,7 @@ import type { ColorRgb } from '@/helper/typeColor'
 
 const getDrawer = (
   pixelStarter: PixelGraphics,
-  renderList: ReadonlyArray<Tool | false>,
+  renderList: ReadonlyArray<Tool | false | undefined>,
 ) => {
   // Initialize the drawingTool
   const pixelUnit = pixelStarter.pixelUnits

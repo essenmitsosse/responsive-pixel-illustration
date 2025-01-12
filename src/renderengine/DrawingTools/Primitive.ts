@@ -28,7 +28,7 @@ type SizeAndPos = {
 
 export type ArgsInit = Inherit & {
   closed?: boolean
-  list?: ReadonlyArray<Tool | false>
+  list?: ReadonlyArray<Tool | false | undefined>
   listPanels?: Array<PanelPre>
   use?: string
   weight?: InputDynamicVariable
@@ -38,7 +38,7 @@ type ArgsNew = ArgsInit & SizeAndPos
 
 export type Tool = ArgsInitStripes & {
   chance?: unknown
-  list?: ReadonlyArray<Tool | false>
+  list?: ReadonlyArray<Tool | false | undefined>
   name?: keyof typeof recordDrawingTools
   panels?: unknown
   points?: ReadonlyArray<Parameters<Position>[0]>

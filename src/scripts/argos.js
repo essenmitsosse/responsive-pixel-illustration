@@ -1,6 +1,6 @@
 import { getBiggerDim, getSmallerDim, mult, sub } from '@/helper/helperDim'
 
-function argos() {
+const argos = () => {
   const wood = [155, 114, 70]
   const wood1 = [143, 92, 57]
   const wood2 = [177, 124, 62]

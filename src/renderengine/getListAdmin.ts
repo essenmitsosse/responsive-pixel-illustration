@@ -27,9 +27,7 @@ const getListAdmin = (args: {
 
       list.appendChild(newMessage)
 
-      if (clickEvent) {
-        newMessage.addEventListener('click', clickEvent)
-      }
+      newMessage.addEventListener('click', clickEvent)
 
       return newMessage
     },

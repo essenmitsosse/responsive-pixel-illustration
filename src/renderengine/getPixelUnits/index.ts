@@ -1,3 +1,5 @@
+import getIsUnknownObject from '@/lib/getIsUnknownObject'
+
 import { Dimensions, PosX, PosY } from './Position'
 import { Height, Width } from './Size'
 
@@ -75,7 +77,9 @@ const getPixelUnits = (): {
       throw new Error('Unexpected Error: args is not defined')
     }
 
-    return args.height ? new Height(args, state) : new Width(args, state)
+    return getIsUnknownObject(args) && args.height
+      ? new Height(args, state)
+      : new Width(args, state)
   }
 
   const oneDSet = (dimensions: DataDimensionContext): void => {

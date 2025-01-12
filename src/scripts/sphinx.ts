@@ -1,14 +1,18 @@
 import { getBiggerDim, getSmallerDim, mult, sub } from '@/helper/helperDim'
 
-const sphinx = () => {
-  const c1 = [255, 0, 0]
-  const g1 = [0, 0, 0]
-  const g2 = [85, 85, 85]
-  const g3 = [170, 170, 170]
-  const g4 = [255, 255, 255]
+import type { ImageFunction, RecordVariable } from './listImage'
+import type { ColorRgb } from '@/helper/typeColor'
+import type { Tool } from '@/renderengine/DrawingTools/Primitive'
+
+const sphinx: ImageFunction = () => {
+  const c1: ColorRgb = [255, 0, 0]
+  const g1: ColorRgb = [0, 0, 0]
+  const g2: ColorRgb = [85, 85, 85]
+  const g3: ColorRgb = [170, 170, 170]
+  const g4: ColorRgb = [255, 255, 255]
   const backgroundColor = g1
 
-  const eye = [
+  const eye: ReadonlyArray<Tool> = [
     {
       minX: 3,
       minY: 4,
@@ -38,14 +42,14 @@ const sphinx = () => {
     },
   ]
 
-  const arm = [
+  const arm: ReadonlyArray<Tool> = [
     {
       weight: 'pArmWeight',
       points: [{}, { x: { r: 0.35 }, y: { r: 0.5 } }, { fX: true, fY: true }],
     },
   ]
 
-  const shadow = [
+  const shadow: ReadonlyArray<Tool> = [
     { fY: true, x: { r: 0.1 } },
     { y: { r: 0.5 } },
     { x: { r: 0.1 }, y: -1 },
@@ -55,7 +59,7 @@ const sphinx = () => {
     { fX: true, fY: true, x: { r: 0.1 } },
   ]
 
-  const renderList = [
+  const renderList: ReadonlyArray<Tool> = [
     // MAIN IMAGE
     {
       m: 'border',
@@ -1046,7 +1050,7 @@ const sphinx = () => {
 
   const personRatio = 2.3
 
-  const variableList = {
+  const variableList: RecordVariable = {
     fullRect: { r: 1, max: { r: 1, height: true } },
 
     // BORDER

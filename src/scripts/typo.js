@@ -15,9 +15,7 @@ const typo = (init) => {
   const serifWidth = 0.6
 
   const getSerif = serif
-    ? function (args) {
-        args = args || {}
-
+    ? function (args = {}) {
         return args.hor
           ? {
               sX: 'serifheight',

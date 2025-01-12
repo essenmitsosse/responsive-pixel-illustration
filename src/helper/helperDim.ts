@@ -56,9 +56,9 @@ export const getBiggerDim = (x: {
 export const mult = <TR, TUse, TA>(
   r: TR,
   use: TUse,
-  a: TA,
+  a?: TA,
 ): {
-  a: TA
+  a?: TA
   r: TR
   useSize: TUse
 } => ({ r, useSize: use, a })

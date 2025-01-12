@@ -10,7 +10,9 @@ export type Link = {
   real?: number
 }
 
-type LinkList = ReadonlyArray<Link | ReadonlyArray<Link>>
+export type InputDynamicLink =
+  | ReadonlyArray<InputDynamicLink>
+  | (InputDynamicVariable & Link)
 
 export type RecordVariable = Record<string, InputDynamicVariable>
 
@@ -18,7 +20,7 @@ export type ImageContent = {
   // TODO: Add proper type here (`ColorRGB`)
   background?: ReadonlyArray<number> | { get: () => ReadonlyArray<number> }
   hover?: boolean
-  linkList?: LinkList
+  linkList?: ReadonlyArray<InputDynamicLink>
   listDoHover?: ReadonlyArray<DoHover>
   recommendedPixelSize?: number
   renderList: ReadonlyArray<unknown>

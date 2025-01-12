@@ -72,7 +72,7 @@ type LinkPreparedBase = {
 
 export type LinkPrepared =
   | (Link & LinkPreparedBase)
-  | (LinkPreparedBase & ReadonlyArray<LinkPreparedBase>)
+  | (LinkPreparedBase & ReadonlyArray<LinkPrepared>)
 
 type LinkListPrepared = ReadonlyArray<LinkPrepared>
 
@@ -143,6 +143,7 @@ export class PixelGraphics {
 
     if (
       options.imageFunction.linkList &&
+      Array.isArray(options.imageFunction.linkList) &&
       options.imageFunction.linkList.length > 0
     ) {
       doAddVariable(options.imageFunction.linkList, this.pixelUnits)

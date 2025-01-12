@@ -99,7 +99,6 @@ Arm.prototype.draw = function ArmDraw(args) {
   return {
     fX: this.right,
     rX: this.right,
-    color: this.color,
     x: this.x,
     y: this.y,
     s: 1,

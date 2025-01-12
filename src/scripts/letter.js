@@ -1,6 +1,6 @@
 import getHoverChangerStandard from '@/helper/getHoverChangerStandard'
 
-function letter(args, init, createSlider) {
+const letter = (args, init, createSlider) => {
   const hoverChangerStandard = getHoverChangerStandard()
   const backgroundColor = [200, 200, 240]
   const linkList = []

@@ -61,7 +61,7 @@ const trex = () => {
               sY: { r: 0.5, a: 1 },
               fY: true,
               fX: true,
-              changeColor: { what: 'multiply', amount: 0.6 },
+              color: multiplyColor(color, 0.6),
               list: [
                 // Back Leg
                 {

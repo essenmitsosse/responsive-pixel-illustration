@@ -1,18 +1,23 @@
 import getHoverChangerStandard from '@/helper/getHoverChangerStandard'
 
-const stripes = (args, init, createSlider) => {
-  const hoverChangerStandard = getHoverChangerStandard()
-  const backgroundColor = [100, 100, 120]
-  const linkList = []
+import type { ImageFunction, InputDynamicLink } from './listImage'
+import type { ColorRgb } from '@/helper/typeColor'
+import type { InputDynamicVariableBase } from '@/helper/typeSize'
+import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 
-  const linkListPush = function (obj) {
+const stripes: ImageFunction = (_args, _init, createSlider) => {
+  const hoverChangerStandard = getHoverChangerStandard()
+  const backgroundColor: ColorRgb = [100, 100, 120]
+  const linkList: Array<InputDynamicLink> = []
+
+  const linkListPush = function <T extends InputDynamicLink>(obj: T): T {
     linkList.push(obj)
 
     return obj
   }
 
-  const white = [220, 220, 255]
-  const red = [220, 50, 40]
+  const white: ColorRgb = [220, 220, 255]
+  const red: ColorRgb = [220, 50, 40]
   const count = 5
   const width = linkListPush({ main: true })
   const height = linkListPush({ main: true, height: true })
@@ -54,7 +59,7 @@ const stripes = (args, init, createSlider) => {
   const redSXa = redSXrel
   const redSXb = linkListPush([redSXabs, redSXminMaxDiff])
 
-  const versions = function () {
+  const versions = function (): ReadonlyArray<ReadonlyArray<Tool>> {
     return [
       [
         { color: white },
@@ -87,10 +92,12 @@ const stripes = (args, init, createSlider) => {
     ]
   }
 
-  const sizes = (function (count) {
+  const sizes = (function (
+    count,
+  ): Record<`s${number}`, InputDynamicVariableBase> {
     let i = 0
 
-    const obj = {}
+    const obj: Record<`s${number}`, InputDynamicVariableBase> = {}
 
     while (i < count) {
       obj[`s${i}`] = stripRealSX
@@ -101,8 +108,8 @@ const stripes = (args, init, createSlider) => {
     return obj
   })(count)
 
-  const getSquares = function () {
-    const list = []
+  const getSquares = function (): ReadonlyArray<Tool> {
+    const list: Array<Tool> = []
 
     let i = 0
 
@@ -126,7 +133,7 @@ const stripes = (args, init, createSlider) => {
     return list
   }
 
-  const renderList = [
+  const renderList: ReadonlyArray<Tool> = [
     {
       sX: {
         add: [{ r: 10000, useSize: heightOvershot }],

@@ -1,6 +1,6 @@
 import { getRandom } from '@/helper/getRandom'
 
-function randomDistribution(init) {
+const randomDistribution = (init) => {
   const random = getRandom(init.id)
   const backgroundColor = [0, 0, 0]
   const width = { main: true }

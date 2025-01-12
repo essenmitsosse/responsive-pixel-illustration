@@ -262,7 +262,6 @@ export const getStripInfo = function () {
 
   const emotion1 = new this.basic.Emotion({})
   const emotion2 = new this.basic.Emotion({})
-  const noCameraMovement = false
 
   const getZoom = (function () {
     let min = 1
@@ -288,7 +287,7 @@ export const getStripInfo = function () {
 
       i += 1
 
-      return noCameraMovement ? (zoom.max + zoom.min) / 2 : zoom
+      return zoom
     }
   })()
 
@@ -319,7 +318,7 @@ export const getStripInfo = function () {
     //4
     0,
     //5
-    noCameraMovement ? 0.2 : { map: 'a', min: 0.3, max: 0.25 },
+    { map: 'a', min: 0.3, max: 0.25 },
   ]
 
   const actor1PosRel = 0.1

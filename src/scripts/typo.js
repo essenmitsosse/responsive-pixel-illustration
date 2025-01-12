@@ -1,6 +1,6 @@
 import { getSmallerDim, mult, sub } from '@/helper/helperDim'
 
-function typo(init) {
+const typo = (init) => {
   const backgroundColor = [170, 190, 230]
   const font = [30, 30, 30]
 

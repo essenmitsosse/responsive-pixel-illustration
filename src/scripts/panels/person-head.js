@@ -1263,9 +1263,11 @@ Hat.prototype.draw = function (args) {
         id: 'hatRim' + args.nr,
         z: 20,
         sY: { a: this.thickRim ? 2 : 1, save: 'hatRim' + args.nr },
-        sX:
-          (!this.baseCap && { r: this.hatRimSY }) ||
-          (args.sideView && { r: (this.hatRimSY - 1) / 2 + 1 }),
+        sX: !this.baseCap
+          ? { r: this.hatRimSY }
+          : args.sideView
+            ? { r: (this.hatRimSY - 1) / 2 + 1 }
+            : undefined,
         cX: args.sideView && !this.baseCap,
         fX: args.sideView,
         fY: true,

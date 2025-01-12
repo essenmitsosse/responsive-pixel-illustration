@@ -116,7 +116,7 @@ const stripes = (args, init, createSlider) => {
         x: 1,
         list: [
           { color: [50, 50, 60] },
-          { m: 1, mask: true, list: versions(sizes[`s${i}`])[i] },
+          { m: 1, mask: true, list: versions()[i] },
         ],
       })
 

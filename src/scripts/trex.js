@@ -1,3 +1,5 @@
+import { multiplyColor } from '@/helper/helperColor'
+
 const trex = () => {
   const white = [255, 255, 255]
   const ground = [90, 60, 50]
@@ -45,8 +47,7 @@ const trex = () => {
               name: 'RoundRect',
               sY: { r: 0.1, min: 3 },
               fY: true,
-              color: ground,
-              changeColor: { what: 'multiply', amount: 0.6 },
+              color: multiplyColor(ground, 0.6),
             },
             //Shadow
 

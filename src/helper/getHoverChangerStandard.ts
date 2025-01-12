@@ -4,14 +4,14 @@ import getObjectKeys from '@/lib/getObjectKeys'
 import setValue from './setValue'
 
 import type { DoHover } from './typeHover'
-import type { SizeHover } from './typeSize'
+import type { InputDynamicVariableBase } from './typeSize'
 import type { DataSlider } from '@/helper/typeSlider'
 
 const getHoverChangerStandard = (): {
   doHover: DoHover
   push: (
     args: DataSlider & {
-      variable: { r?: unknown; s: { rele?: unknown } }
+      variable: InputDynamicVariableBase
     },
   ) => void
 
@@ -21,7 +21,7 @@ const getHoverChangerStandard = (): {
    * variables max, min and can be changed by what is defined by map
    */
   pushAutomatic: <T extends string>(
-    parent: Record<T, SizeHover<unknown>>,
+    parent: Record<T, InputDynamicVariableBase>,
     info: Record<T, DataSlider>,
   ) => void
 } => {
@@ -29,14 +29,14 @@ const getHoverChangerStandard = (): {
     change: number
     map?: string
     min: number
-    variable: { r?: unknown; s: { rele?: unknown } }
+    variable: InputDynamicVariableBase
   }> = []
 
   const push = (args: {
     map?: string
     max: number
     min: number
-    variable: { r?: unknown; s: { rele?: unknown } }
+    variable: InputDynamicVariableBase
   }): void => {
     listChangerStandard.push({
       change: args.max - args.min,
@@ -49,7 +49,7 @@ const getHoverChangerStandard = (): {
   return {
     push,
     pushAutomatic: (
-      parent: Record<string, SizeHover<unknown>>,
+      parent: Record<string, InputDynamicVariableBase>,
       info?: Record<string, DataSlider>,
     ): void => {
       if (!info) {
@@ -57,12 +57,7 @@ const getHoverChangerStandard = (): {
       }
 
       getObjectKeys(info).forEach((key) => {
-        const currentSize:
-          | {
-              r?: unknown
-              s: { rele?: unknown }
-            }
-          | undefined = parent[key]
+        const currentSize: InputDynamicVariableBase | undefined = parent[key]
 
         if (!currentSize) {
           return

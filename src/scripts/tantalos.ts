@@ -1,28 +1,33 @@
 import { getBiggerDim, getSmallerDim } from '@/helper/helperDim'
 
-const tantalos = () => {
-  const water = [36, 44, 53]
-  const waterLight = [74, 81, 88]
-  const ground = [72, 71, 68]
-  const groundDark = [65, 54, 57]
-  const groundWater = [54, 58, 61]
-  const tree = [100, 118, 64]
-  const treeShadow = [90, 90, 53]
-  const treeBackground = [49, 45, 35]
-  const fruit = [123, 35, 35]
-  const trunk = [82, 76, 68]
-  const trunkShadow = [74, 58, 58]
-  const skin = [193, 180, 163]
-  const skinWater = [69, 74, 79]
-  const skinShadow = [162, 146, 129]
-  const borderColor = [111, 67, 29]
-  const borderDetailColor = [123, 87, 35]
-  const shorts = [139, 146, 154]
-  const shortsWater = [60, 68, 77]
-  // Variables
-  const linkList = []
+import type { ImageFunction, InputDynamicLink } from './listImage'
+import type { ColorRgb } from '@/helper/typeColor'
+import type { InputDynamicVariableBase } from '@/helper/typeSize'
+import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 
-  const linkListPush = function (obj) {
+const tantalos: ImageFunction = () => {
+  const water: ColorRgb = [36, 44, 53]
+  const waterLight: ColorRgb = [74, 81, 88]
+  const ground: ColorRgb = [72, 71, 68]
+  const groundDark: ColorRgb = [65, 54, 57]
+  const groundWater: ColorRgb = [54, 58, 61]
+  const tree: ColorRgb = [100, 118, 64]
+  const treeShadow: ColorRgb = [90, 90, 53]
+  const treeBackground: ColorRgb = [49, 45, 35]
+  const fruit: ColorRgb = [123, 35, 35]
+  const trunk: ColorRgb = [82, 76, 68]
+  const trunkShadow: ColorRgb = [74, 58, 58]
+  const skin: ColorRgb = [193, 180, 163]
+  const skinWater: ColorRgb = [69, 74, 79]
+  const skinShadow: ColorRgb = [162, 146, 129]
+  const borderColor: ColorRgb = [111, 67, 29]
+  const borderDetailColor: ColorRgb = [123, 87, 35]
+  const shorts: ColorRgb = [139, 146, 154]
+  const shortsWater: ColorRgb = [60, 68, 77]
+  // Variables
+  const linkList: Array<InputDynamicLink> = []
+
+  const linkListPush = function <T extends InputDynamicLink>(obj: T): T {
     linkList.push(obj)
 
     return obj
@@ -105,7 +110,11 @@ const tantalos = () => {
   const torsoRel = 0.25
   const upperArmRel = handRel * 0.4
 
-  const getBodyPartSize = function (rel, height, min) {
+  const getBodyPartSize = function (
+    rel: number,
+    height?: boolean,
+    min?: boolean,
+  ): InputDynamicLink {
     return linkListPush({
       r: rel,
       useSize: height ? movementSY : movementSX,
@@ -432,14 +441,14 @@ const tantalos = () => {
   })
 
   // End Variables
-  const leg = [
+  const leg: ReadonlyArray<Tool> = [
     // {color:c1},
     { sX: legUpperS },
     { fY: true, sY: legLowerS },
     { s: kneeS, fY: true, x: -1 },
   ]
 
-  const teiresias = function (reflect) {
+  const teiresias = function (reflect?: boolean): Tool {
     const skinColor = reflect ? skinWater : skin
     const skinShadowColor = reflect ? skinWater : skinShadow
     const shortsColor = reflect ? shortsWater : shorts
@@ -642,7 +651,11 @@ const tantalos = () => {
     }
   }
 
-  const trunkObj = function (shadowColor, hor, vert) {
+  const trunkObj = function (
+    shadowColor: ColorRgb,
+    hor: InputDynamicVariableBase,
+    vert?: InputDynamicVariableBase,
+  ): ReadonlyArray<Tool> {
     return [
       { fY: true, sY: hor },
       { sX: vert },
@@ -659,7 +672,7 @@ const tantalos = () => {
     ]
   }
 
-  const mainImage = function () {
+  const mainImage = function (): ReadonlyArray<Tool> {
     return [
       // Background Tree
       {
@@ -881,8 +894,8 @@ const tantalos = () => {
     ]
   }
 
-  const border = function () {
-    const edgeDetail = [
+  const border = function (): Tool {
+    const edgeDetail: ReadonlyArray<Tool> = [
       {},
       { sX: 1, sY: { r: 0.3, max: 1 }, color: borderColor },
       {
@@ -899,7 +912,7 @@ const tantalos = () => {
       },
     ]
 
-    const borderEdgeTop = [
+    const borderEdgeTop: ReadonlyArray<Tool> = [
       {
         clear: true,
         sX: 1,
@@ -923,7 +936,7 @@ const tantalos = () => {
       },
     ]
 
-    const borderEdgeBottom = [
+    const borderEdgeBottom: ReadonlyArray<Tool> = [
       { clear: true, sX: 1, sY: { r: 0.2, max: 1 }, fX: true },
       {},
       {
@@ -934,7 +947,7 @@ const tantalos = () => {
       },
     ]
 
-    const borderVertDetail = [
+    const borderVertDetail: ReadonlyArray<Tool> = [
       {
         clear: true,
         sY: 1,
@@ -959,7 +972,7 @@ const tantalos = () => {
       },
     ]
 
-    const borderVert = [
+    const borderVert: ReadonlyArray<Tool> = [
       {
         stripes: { strip: frameDetailSize },
         sX: { r: 0.5 },
@@ -976,7 +989,7 @@ const tantalos = () => {
       },
     ]
 
-    const borderHor = [
+    const borderHor: ReadonlyArray<Tool> = [
       {
         stripes: { strip: frameDetailSize, horizontal: true },
         list: [
@@ -1066,13 +1079,13 @@ const tantalos = () => {
     }
   }
 
-  const renderList = [
+  const renderList: ReadonlyArray<Tool> = [
     // Image
     { list: mainImage() },
     border(),
   ]
 
-  const backgroundColor = [31, 29, 29]
+  const backgroundColor: ColorRgb = [31, 29, 29]
 
   return {
     renderList,

@@ -630,9 +630,11 @@ Eye.prototype.draw = function (args) {
           sY: eyeBrowAngry
             ? [args.eyeBrowSY, { r: 0.2, useSize: args.eyeSY, max: 1 }]
             : args.eyeBrowSY,
-          y:
-            (eyeBrowRaised && -1) ||
-            (eyeBrowLow && { r: 0.2, useSize: args.eyeSX, max: 1 }),
+          y: eyeBrowRaised
+            ? -1
+            : eyeBrowLow
+              ? { r: 0.2, useSize: args.eyeSX, max: 1 }
+              : undefined,
           minX: 2,
           fX: this.monoBrow,
           tY: true,

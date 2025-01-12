@@ -10,7 +10,7 @@ function typo(init) {
   const word = 'MAUTZN'
   const contrast = 0.4
   const serif = init.showSerif ?? true
-  const roundSerif = true
+  const roundSerif = init.roundSerif ?? true
   const middleStemLength = 0.8
   const serifWidth = 0.6
 

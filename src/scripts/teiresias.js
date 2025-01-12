@@ -1,7 +1,7 @@
 import { darken, lighten } from '@/helper/helperColor'
 import { getBiggerDim, getSmallerDim, mult, sub } from '@/helper/helperDim'
 
-function teiresias() {
+const teiresias = () => {
   const shadowColor = [255, 200, 255]
   const shadow = darken(shadowColor, 0.7)
   const detail = darken(shadowColor, 0.4)

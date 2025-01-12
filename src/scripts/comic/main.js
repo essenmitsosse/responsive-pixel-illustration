@@ -616,28 +616,28 @@ TableComic.prototype.getColorShades = function (color) {
       map: color.map,
       min: color.min,
       max: color.max,
-      color: (c0 = []),
+      color: (c0 = [-1, -1, -1]),
     })
 
     this.hoverChangerColor.push({
       map: color.map,
       min: multiplyColor(color.min, 0.9),
       max: multiplyColor(color.max, 0.9),
-      color: (c1 = []),
+      color: (c1 = [-1, -1, -1]),
     })
 
     this.hoverChangerColor.push({
       map: color.map,
       min: multiplyColor(color.min, 0.7),
       max: multiplyColor(color.max, 0.7),
-      color: (c2 = []),
+      color: (c2 = [-1, -1, -1]),
     })
 
     this.hoverChangerColor.push({
       map: color.map,
       min: multiplyColor(color.min, 0.5),
       max: multiplyColor(color.max, 0.5),
-      color: (c3 = []),
+      color: (c3 = [-1, -1, -1]),
     })
 
     return [c0, c1, c2, c3]

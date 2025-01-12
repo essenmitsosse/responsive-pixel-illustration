@@ -25,8 +25,7 @@ export type ImageContent = {
   linkList?: LinkList
   listDoHover?: ReadonlyArray<DoHover>
   recommendedPixelSize?: number
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: Hack till type errors are fixed
-  renderList: ReadonlyArray<any>
+  renderList: ReadonlyArray<unknown>
   variableList?: RecordVariable
 }
 

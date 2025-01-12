@@ -1,3 +1,6 @@
+import getIsColorRgb from '@/helper/getIsColorRgb'
+import getIsUnknownObject from '@/lib/getIsUnknownObject'
+
 import type { ArgsInitArm } from './Arm'
 import type { Location } from './createPixelArray'
 import type { ArgsPrepareDot } from './Dot'
@@ -99,7 +102,11 @@ class Primitive {
 
   draw(): void {}
 
-  create(args: Tool, inherit?: Inherit): this {
+  create(args: unknown, inherit?: Inherit): this {
+    if (!getIsUnknownObject(args)) {
+      throw new Error('Unexpected error: args is not an object')
+    }
+
     inherit = inherit || {}
 
     let reflectX: boolean = inherit.reflectX || false
@@ -145,11 +152,41 @@ class Primitive {
 
     newArgs.reflectY = (args.rY || false) !== reflectY
 
+    if (
+      args.rotate !== undefined &&
+      args.rotate !== false &&
+      typeof args.rotate !== 'number'
+    ) {
+      throw new Error(
+        `Unexpected error: args.rotate is defined and not a number, it is: ${typeof args.rotate} (${JSON.stringify(args.rotate)})`,
+      )
+    }
+
     newArgs.rotate = rotate + (args.rotate || 0)
 
     if (args.save || inherit.save) {
+      if (
+        args.save !== undefined &&
+        args.save !== false &&
+        typeof args.save !== 'string'
+      ) {
+        throw new Error(
+          `Unexpected error: args.save is defined and not a string, it is: ${typeof args.save} (${JSON.stringify(args.save)})`,
+        )
+      }
+
       newArgs.save = args.save || inherit.save
     } else if (args.color || inherit.color) {
+      if (
+        args.color !== undefined &&
+        args.color !== false &&
+        getIsColorRgb(args.color) === false
+      ) {
+        throw new Error(
+          `Unexpected error: args.color is defined and is not a RGB value and not a list of RGB value, it is: ${typeof args.color} (${JSON.stringify(args.color)})`,
+        )
+      }
+
       newArgs.color = args.color || inherit.color
     }
 
@@ -158,11 +195,31 @@ class Primitive {
     }
 
     if (args.id || inherit.id || newArgs.save) {
+      if (
+        args.id !== undefined &&
+        args.id !== false &&
+        typeof args.id !== 'string'
+      ) {
+        throw new Error(
+          `Unexpected error: args.id is defined and not a string, it is: ${typeof args.id} (${JSON.stringify(args.id)})`,
+        )
+      }
+
       newArgs.id = args.id || inherit.id || newArgs.save
     }
 
     if (args.mask) {
       this.mask = this.state.pixelSetter.setColorMask
+    }
+
+    if (
+      args.z !== undefined &&
+      args.z !== false &&
+      typeof args.z !== 'number'
+    ) {
+      throw new Error(
+        `Unexpected error: args.z is defined and not a number, it is: ${typeof args.z} (${JSON.stringify(args.z)})`,
+      )
     }
 
     newArgs.zInd = (inherit.zInd || 0) + (args.z || 0)

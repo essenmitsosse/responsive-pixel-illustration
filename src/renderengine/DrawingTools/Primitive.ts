@@ -173,13 +173,9 @@ class Primitive {
 
     this.args = newArgs
 
-    if (this.init) {
-      this.init(args)
-    }
+    this.init(args)
 
-    if (this.detailInit) {
-      this.detailInit(args)
-    }
+    this.detailInit(args)
 
     return this
   }

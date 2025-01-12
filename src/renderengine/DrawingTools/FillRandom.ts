@@ -17,9 +17,9 @@ export type ArgsInitFillRandom = {
 }
 
 export type ArgsPrepareFillRandom = {
-  s?: number
-  sX?: number
-  sY?: number
+  s?: InputDynamicVariable
+  sX?: InputDynamicVariable
+  sY?: InputDynamicVariable
 }
 
 class FillRandom extends Fill {

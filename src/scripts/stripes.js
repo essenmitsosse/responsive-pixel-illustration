@@ -93,7 +93,7 @@ const stripes = (args, init, createSlider) => {
     const obj = {}
 
     while (i < count) {
-      obj['s' + i] = stripRealSX
+      obj[`s${i}`] = stripRealSX
 
       i += 1
     }
@@ -111,12 +111,12 @@ const stripes = (args, init, createSlider) => {
     while (i < max) {
       list.push({
         sY: [singleSY, -1],
-        sX: sizes['s' + i],
+        sX: sizes[`s${i}`],
         y: { r: i, useSize: singleSY, a: 1 },
         x: 1,
         list: [
           { color: [50, 50, 60] },
-          { m: 1, mask: true, list: versions(sizes['s' + i])[i] },
+          { m: 1, mask: true, list: versions(sizes[`s${i}`])[i] },
         ],
       })
 

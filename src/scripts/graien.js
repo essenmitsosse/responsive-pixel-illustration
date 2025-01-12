@@ -1281,7 +1281,6 @@ const graien = (_, __, createSlider) => {
                             strip: breadDetail,
                             gap: breadDetail,
                           },
-                          horizontal: true,
                           m: breadDetail,
                         },
                       ],

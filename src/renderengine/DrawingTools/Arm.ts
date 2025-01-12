@@ -423,10 +423,6 @@ class Arm extends Obj {
       throw new Error('Unexpected error: endY is undefined')
     }
 
-    if (this.upperArmLength === undefined) {
-      throw new Error('Unexpected error: upperArmLength is undefined')
-    }
-
     if (this.lowerArmLength === undefined) {
       throw new Error('Unexpected error: lowerArmLength is undefined')
     }

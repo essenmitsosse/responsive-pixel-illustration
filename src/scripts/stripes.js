@@ -139,7 +139,7 @@ const stripes = (args, init, createSlider) => {
       color: [0, 255, 255],
       rotate: 90,
       rY: true,
-      list: getSquares({ horizontal: true }),
+      list: getSquares(),
     },
     {
       sX: { add: [{ r: 10000, useSize: widthOvershot }], max: width },
@@ -148,7 +148,7 @@ const stripes = (args, init, createSlider) => {
         max: height,
       },
       color: [255, 0, 0],
-      list: getSquares({ horizontal: false }),
+      list: getSquares(),
     },
   ]
 

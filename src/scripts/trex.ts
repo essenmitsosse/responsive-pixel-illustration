@@ -1,10 +1,14 @@
 import { multiplyColor } from '@/helper/helperColor'
 
-const trex = () => {
-  const white = [255, 255, 255]
-  const ground = [90, 60, 50]
+import type { ImageFunction } from './listImage'
+import type { ColorRgb } from '@/helper/typeColor'
+import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 
-  const trexsingle = (color) => [
+const trex: ImageFunction = () => {
+  const white: ColorRgb = [255, 255, 255]
+  const ground: ColorRgb = [90, 60, 50]
+
+  const trexsingle = (color: ColorRgb): ReadonlyArray<Tool> => [
     {
       name: 'Obj',
       color,
@@ -157,7 +161,7 @@ const trex = () => {
     },
   ]
 
-  const renderList = [
+  const renderList: ReadonlyArray<Tool> = [
     { name: 'Rect', sY: { r: 0.4 }, fY: true, color: ground },
     {
       name: 'Obj',
@@ -185,7 +189,7 @@ const trex = () => {
     },
   ]
 
-  const backgroundColor = [170, 190, 230]
+  const backgroundColor: ColorRgb = [170, 190, 230]
 
   return {
     renderList,

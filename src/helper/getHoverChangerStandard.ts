@@ -48,9 +48,9 @@ const getHoverChangerStandard = (): {
 
   return {
     push,
-    pushAutomatic: <T extends string>(
-      parent: Record<T, SizeHover<unknown>>,
-      info?: Record<T, DataSlider>,
+    pushAutomatic: (
+      parent: Record<string, SizeHover<unknown>>,
+      info?: Record<string, DataSlider>,
     ): void => {
       if (!info) {
         return

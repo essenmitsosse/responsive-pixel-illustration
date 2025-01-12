@@ -36,9 +36,9 @@ const landscape = (init) => {
       [100, 100, 0],
       [40, 40, 0],
     ],
-  ][colorNr]
+  ]
 
-  const [, c2, c3, c4] = colorScheme
+  const [, c2, c3, c4] = colorScheme[colorNr]
 
   const renderList = [
     {

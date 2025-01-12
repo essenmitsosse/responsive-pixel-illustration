@@ -1,32 +1,37 @@
 import { darken, lighten } from '@/helper/helperColor'
 import { getBiggerDim, getSmallerDim, mult, sub } from '@/helper/helperDim'
 
-const teiresias = () => {
-  const shadowColor = [255, 200, 255]
+import type { ImageFunction, RecordVariable } from './listImage'
+import type { ColorRgb } from '@/helper/typeColor'
+import type { InputDynamicVariable } from '@/helper/typeSize'
+import type { Tool } from '@/renderengine/DrawingTools/Primitive'
+
+const teiresias: ImageFunction = () => {
+  const shadowColor: ColorRgb = [255, 200, 255]
   const shadow = darken(shadowColor, 0.7)
   const detail = darken(shadowColor, 0.4)
   const lightenSoft = lighten(shadowColor, 0.3)
-  const trees = [40, 74, 95]
+  const trees: ColorRgb = [40, 74, 95]
   const frame = lightenSoft(trees)
   const frameDark = shadow(frame)
   const treesDark = shadow(trees)
   const backgroundColor = detail(trees)
-  const teiresias = [100, 50, 60]
+  const teiresias: ColorRgb = [100, 50, 60]
   const teiresiasShadow = shadow(teiresias)
-  const stick = [90, 90, 90]
+  const stick: ColorRgb = [90, 90, 90]
   const stickDark = shadow(stick)
   const stickDarkest = detail(stick)
-  const skin = [193, 180, 163]
+  const skin: ColorRgb = [193, 180, 163]
   const skinShadow = shadow(skin)
   const eyes = detail(skin)
   const snake1 = teiresias
   const snake1Detail = shadow(snake1)
-  const snake2 = [165, 157, 105]
+  const snake2: ColorRgb = [165, 157, 105]
   const snake2Detail = shadow(snake2)
-  const snakeTongue = [150, 85, 94]
+  const snakeTongue: ColorRgb = [150, 85, 94]
   const snakeEyes = backgroundColor
 
-  const getFrame = [
+  const getFrame: ReadonlyArray<Tool> = [
     {},
     {
       mY: 1,
@@ -83,7 +88,7 @@ const teiresias = () => {
     },
   ]
 
-  const bigEdge = [
+  const bigEdge: ReadonlyArray<Tool> = [
     { sX: { r: 0.5 } },
     { sY: { r: 0.5 }, fY: true },
     {
@@ -113,11 +118,14 @@ const teiresias = () => {
     },
   ]
 
-  const hair = [255, 255, 255]
+  const hair: ColorRgb = [255, 255, 255]
 
   let i = 0
 
-  const snake = function (nr, vert) {
+  const snake = function (
+    nr: 1 | 2,
+    vert?: boolean,
+  ): ReadonlyArray<Tool | undefined> {
     const x = !vert ? ['snakeWeight', -1] : undefined
     const y = vert ? ['snakeWeight', -1] : undefined
     const s = { r: 1, add: [sub('snakeWeight')] }
@@ -144,7 +152,7 @@ const teiresias = () => {
         ]
   }
 
-  const treeTrunk = function () {
+  const treeTrunk = function (): ReadonlyArray<Tool> {
     const name = 'treeBark' + (i += 1)
 
     return [
@@ -166,7 +174,9 @@ const teiresias = () => {
     ]
   }
 
-  const treeLeaves = function (random) {
+  const treeLeaves = function (
+    random: InputDynamicVariable,
+  ): ReadonlyArray<Tool> {
     const name = 'treeLeaves' + (i += 1)
     const name2 = 'treesSpots' + i
 
@@ -186,7 +196,7 @@ const teiresias = () => {
     ]
   }
 
-  const shadowGround = [
+  const shadowGround: ReadonlyArray<Tool> = [
     {
       sY: { r: 0.5 },
       y: { r: 0.5 },
@@ -203,7 +213,7 @@ const teiresias = () => {
   const torsoMargin = 0.4
   const torsoTop = 0.35
 
-  const renderList = [
+  const renderList: ReadonlyArray<Tool> = [
     // IMAGE
     {
       m: 'borderWidth',
@@ -1287,10 +1297,17 @@ const teiresias = () => {
     },
   ]
 
-  const imgDims = ['imgWidth', 'imgheight']
-  const motiveDims = ['motiveWidth', 'motiveheight']
+  const imgDims: [InputDynamicVariable, InputDynamicVariable] = [
+    'imgWidth',
+    'imgheight',
+  ]
 
-  const variableList = {
+  const motiveDims: [InputDynamicVariable, InputDynamicVariable] = [
+    'motiveWidth',
+    'motiveheight',
+  ]
+
+  const variableList: RecordVariable = {
     fullRect: { r: 1, max: { r: 1, height: true } },
     borderWidth: { r: 0.06, a: 1, useSize: 'fullRect', min: 1 },
     borderInner: ['borderWidth', -4],

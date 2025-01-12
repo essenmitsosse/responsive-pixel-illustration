@@ -70,9 +70,7 @@ const getPixelUnits = (): {
     addY: null,
   }
 
-  const createSize = function (
-    args: InputDynamicVariable & { height?: boolean },
-  ): Height | Width {
+  const createSize = function (args: InputDynamicVariable): Height | Width {
     if (args === undefined) {
       throw new Error('Unexpected Error: args is not defined')
     }

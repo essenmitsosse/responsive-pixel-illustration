@@ -160,7 +160,7 @@ const trex = () => {
       name: 'Obj',
       id: 'trex2',
       sX: { r: 0.5 },
-      minWidth: 15,
+      minX: 15,
       sY: { r: 0.2, a: 5, otherDim: true },
       x: { r: -0.1 },
       y: { r: 0.2 },

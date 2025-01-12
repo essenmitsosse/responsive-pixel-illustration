@@ -5,6 +5,7 @@ import type { ArgsInitPanels } from './Panels'
 import type { Inherit, Tool } from './Primitive'
 import type recordDrawingToolsForType from './recordDrawingTools'
 import type { State } from './State'
+import type { InitStripes } from './Stripes'
 
 type ToolClasses =
   (typeof recordDrawingToolsForType)[keyof typeof recordDrawingToolsForType]
@@ -64,7 +65,7 @@ class Obj extends Primitive {
     this.recordDrawingTools = recordDrawingTools
   }
 
-  init(args: ArgsInitArm & ArgsInitObj & ArgsInitPanels): void {
+  init(args: ArgsInitArm & ArgsInitObj & ArgsInitPanels & InitStripes): void {
     if (this.args === undefined) {
       throw new Error('Unexpected error: args is undefined')
     }

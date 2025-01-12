@@ -7,7 +7,7 @@ import type { ArgsInitObj } from './Obj'
 import type { ArgsInitPanels } from './Panels'
 import type recordDrawingTools from './recordDrawingTools'
 import type { State } from './State'
-import type { InitDetailedStripes } from './Stripes'
+import type { InitStripes } from './Stripes'
 import type { ColorRgb } from '@/helper/typeColor'
 import type { Position } from '@/renderengine/getPixelUnits'
 import type {
@@ -20,9 +20,8 @@ type ArgsInit = ArgsInitArm &
   ArgsInitFillRandom &
   ArgsInitLine &
   ArgsInitObj &
-  ArgsInitPanels
-
-type ArgsInitDetailed = InitDetailedStripes
+  ArgsInitPanels &
+  InitStripes
 
 type PreparePrimitive = ParameterDimension &
   Parameters<Position>[0] & {
@@ -34,7 +33,6 @@ type PreparePrimitive = ParameterDimension &
 export type ArgsPrepare = PreparePrimitive
 
 type ToolPrimitive = ArgsInit &
-  ArgsInitDetailed &
   ArgsPrepare & {
     clear?: boolean
     color?: ColorRgb
@@ -99,8 +97,6 @@ class Primitive {
   init(_args: ArgsInit): void {}
 
   draw(): void {}
-
-  detailInit(_args: ArgsInitDetailed): void {}
 
   create(args: Tool, inherit?: Inherit): this {
     inherit = inherit || {}
@@ -175,8 +171,6 @@ class Primitive {
     this.args = newArgs
 
     this.init(args)
-
-    this.detailInit(args)
 
     return this
   }

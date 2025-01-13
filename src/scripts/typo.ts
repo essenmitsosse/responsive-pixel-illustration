@@ -1,8 +1,12 @@
 import { getSmallerDim, mult, sub } from '@/helper/helperDim'
 
-const typo = (init) => {
-  const backgroundColor = [170, 190, 230]
-  const font = [30, 30, 30]
+import type { ImageFunction, RecordVariable } from './listImage'
+import type { ColorRgb } from '@/helper/typeColor'
+import type { Tool } from '@/renderengine/DrawingTools/Primitive'
+
+const typo: ImageFunction = (init) => {
+  const backgroundColor: ColorRgb = [170, 190, 230]
+  const font: ColorRgb = [30, 30, 30]
 
   let letterCount = 0
   let spacingCount = 0
@@ -15,7 +19,16 @@ const typo = (init) => {
   const serifWidth = 0.6
 
   const getSerif = serif
-    ? function (args = {}) {
+    ? function (
+        args: {
+          bottom?: boolean
+          c?: boolean
+          half?: boolean
+          hor?: boolean
+          onlyLeft?: boolean
+          right?: boolean
+        } = {},
+      ): Tool {
         return args.hor
           ? {
               sX: 'serifheight',
@@ -125,15 +138,17 @@ const typo = (init) => {
                     ],
             }
       }
-    : function () {
+    : function (): undefined {
         return undefined
       }
 
   // letterCount * letterWidth + letterCount
   const getLetter = (function () {
-    const vertStem = { sY: 'stemVert', cY: true }
+    type LetterTool = Tool & { half?: boolean; sX: number }
 
-    const missing = {
+    const vertStem: Tool = { sY: 'stemVert', cY: true }
+
+    const missing: LetterTool = {
       sX: 2,
       list: [
         {
@@ -146,12 +161,12 @@ const typo = (init) => {
       ],
     }
 
-    const space = {
+    const space: LetterTool = {
       sX: 3,
       list: [],
     }
 
-    const A = {
+    const A: LetterTool = {
       sX: 4,
       half: true,
       list: [
@@ -190,7 +205,7 @@ const typo = (init) => {
       ],
     }
 
-    const C = {
+    const C: LetterTool = {
       sX: 3,
       list: [
         { sX: 'stem' },
@@ -201,7 +216,7 @@ const typo = (init) => {
       ],
     }
 
-    const E = {
+    const E: LetterTool = {
       sX: 2,
       list: [
         { sX: 'stem' },
@@ -220,7 +235,7 @@ const typo = (init) => {
       ],
     }
 
-    const F = {
+    const F: LetterTool = {
       sX: 2,
       list: [
         { sX: 'stem' },
@@ -237,13 +252,13 @@ const typo = (init) => {
       ],
     }
 
-    const H = {
+    const H: LetterTool = {
       sX: 3,
       half: true,
       list: [{ sX: 'stem' }, vertStem, getSerif(), getSerif({ bottom: true })],
     }
 
-    const I = {
+    const I: LetterTool = {
       sX: 1,
       list: [
         { sX: 'stem', c: true },
@@ -252,7 +267,7 @@ const typo = (init) => {
       ],
     }
 
-    const J = {
+    const J: LetterTool = {
       sX: 2,
       list: [
         { sX: 'stem', fX: true },
@@ -262,7 +277,7 @@ const typo = (init) => {
       ],
     }
 
-    const L = {
+    const L: LetterTool = {
       sX: 2,
       list: [
         { sX: 'stem' },
@@ -273,7 +288,7 @@ const typo = (init) => {
       ],
     }
 
-    const M = {
+    const M: LetterTool = {
       sX: 4,
       list: [
         { sX: 'stem' },
@@ -316,7 +331,7 @@ const typo = (init) => {
       ],
     }
 
-    const N = {
+    const N: LetterTool = {
       sX: 3,
       list: [
         { sX: 'stem' },
@@ -352,7 +367,7 @@ const typo = (init) => {
       ],
     }
 
-    const O = {
+    const O: LetterTool = {
       sX: 3,
       list: [
         { sX: 'stem' },
@@ -362,7 +377,7 @@ const typo = (init) => {
       ],
     }
 
-    const T = {
+    const T: LetterTool = {
       sX: 4,
       list: [
         { sX: 'stem', cX: true },
@@ -373,7 +388,7 @@ const typo = (init) => {
       ],
     }
 
-    const U = {
+    const U: LetterTool = {
       sX: 3,
       list: [
         { sX: 'stem' },
@@ -384,7 +399,7 @@ const typo = (init) => {
       ],
     }
 
-    const Z = {
+    const Z: LetterTool = {
       sX: 3,
       list: [
         { sY: 'stemVert' },
@@ -410,7 +425,7 @@ const typo = (init) => {
       ],
     }
 
-    const Letters = {
+    const Letters: Record<string, LetterTool> = {
       A,
       C,
       E,
@@ -429,10 +444,10 @@ const typo = (init) => {
       space,
     }
 
-    return function (letter) {
+    return function (letter: string): Tool {
       const thisLetter = Letters[letter] || (letter === ' ' ? space : missing)
 
-      const letterObject = {
+      const letterObject: Tool = {
         sX: mult(thisLetter.sX, 'wordUnit'),
         x: [mult(letterCount, 'wordUnit'), mult(spacingCount, 'spacingUnit')],
         fX: true,
@@ -468,7 +483,7 @@ const typo = (init) => {
 
   spacingCount -= 1
 
-  const renderList = [
+  const renderList: ReadonlyArray<Tool> = [
     {
       mY: 'border',
       sX: [mult(letterCount, 'wordUnit'), mult(spacingCount, 'spacingUnit')],
@@ -479,7 +494,7 @@ const typo = (init) => {
     // { gap:{a:0}, color:[255,255,0], change:{r:-1} },
   ]
 
-  const variableList = {
+  const variableList: RecordVariable = {
     border: getSmallerDim({ r: 0.08 }),
     borderSide: { r: 0.04 },
     imgWidth: { r: 1, add: [mult(-2, 'borderSide', -spacingCount)] },

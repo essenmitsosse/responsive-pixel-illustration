@@ -131,295 +131,306 @@ const typo = (init) => {
 
   // letterCount * letterWidth + letterCount
   const getLetter = (function () {
-    const Letters = new (function () {
-      const vertStem = { sY: 'stemVert', cY: true }
+    const vertStem = { sY: 'stemVert', cY: true }
 
-      this.missing = {
-        sX: 2,
-        list: [
-          {
-            stripes: {
-              gap: 1,
-              strip: 'stemVert',
-              horizontal: true,
-            },
+    const missing = {
+      sX: 2,
+      list: [
+        {
+          stripes: {
+            gap: 1,
+            strip: 'stemVert',
+            horizontal: true,
           },
-        ],
-      }
+        },
+      ],
+    }
 
-      this.space = {
-        sX: 3,
-        list: [],
-      }
+    const space = {
+      sX: 3,
+      list: [],
+    }
 
-      this.A = {
-        sX: 4,
-        half: true,
-        list: [
-          {
-            stripes: {
-              horizontal: true,
-              change: { r: -0.9 },
-            },
-            fY: true,
-            fX: true,
-            sX: { r: 1, a: 'stemNeg' },
-            id: 'A',
-            clear: true,
+    const A = {
+      sX: 4,
+      half: true,
+      list: [
+        {
+          stripes: {
+            horizontal: true,
+            change: { r: -0.9 },
           },
-          {
-            stripes: {
-              horizontal: true,
-              change: { r: -0.9 },
-            },
-            fY: true,
-            fX: true,
-            id: 'A',
+          fY: true,
+          fX: true,
+          sX: { r: 1, a: 'stemNeg' },
+          id: 'A',
+          clear: true,
+        },
+        {
+          stripes: {
+            horizontal: true,
+            change: { r: -0.9 },
           },
+          fY: true,
+          fX: true,
+          id: 'A',
+        },
 
-          {
-            sY: 'stemVert',
-            y: { r: 0.6 },
-            sX: { r: 0.5 },
-            fX: true,
-          },
-          { x: -1, list: [getSerif({ bottom: true })] },
-          {
-            x: 1,
-            list: [getSerif({ half: true, right: true })],
-          },
-        ],
-      }
+        {
+          sY: 'stemVert',
+          y: { r: 0.6 },
+          sX: { r: 0.5 },
+          fX: true,
+        },
+        { x: -1, list: [getSerif({ bottom: true })] },
+        {
+          x: 1,
+          list: [getSerif({ half: true, right: true })],
+        },
+      ],
+    }
 
-      this.C = {
-        sX: 3,
-        list: [
-          { sX: 'stem' },
-          { sY: 'stemVert' },
-          { sY: 'stemVert', fY: true },
-          getSerif({ right: true, hor: true }),
-          getSerif({ right: true, bottom: true, hor: true }),
-        ],
-      }
+    const C = {
+      sX: 3,
+      list: [
+        { sX: 'stem' },
+        { sY: 'stemVert' },
+        { sY: 'stemVert', fY: true },
+        getSerif({ right: true, hor: true }),
+        getSerif({ right: true, bottom: true, hor: true }),
+      ],
+    }
 
-      this.E = {
-        sX: 2,
-        list: [
-          { sX: 'stem' },
-          {
-            sY: 'stemVert',
-            cY: true,
-            sX: { r: middleStemLength },
-          },
-          { sY: 'stemVert' },
-          { sY: 'stemVert', fY: true },
-          getSerif(),
-          getSerif({ bottom: true }),
-          getSerif({ bottom: true, right: true, hor: true }),
-          getSerif({ right: true, hor: true }),
-          getSerif({ c: true, right: true, hor: true }),
-        ],
-      }
+    const E = {
+      sX: 2,
+      list: [
+        { sX: 'stem' },
+        {
+          sY: 'stemVert',
+          cY: true,
+          sX: { r: middleStemLength },
+        },
+        { sY: 'stemVert' },
+        { sY: 'stemVert', fY: true },
+        getSerif(),
+        getSerif({ bottom: true }),
+        getSerif({ bottom: true, right: true, hor: true }),
+        getSerif({ right: true, hor: true }),
+        getSerif({ c: true, right: true, hor: true }),
+      ],
+    }
 
-      this.F = {
-        sX: 2,
-        list: [
-          { sX: 'stem' },
-          {
-            sY: 'stemVert',
-            cY: true,
-            sX: { r: middleStemLength },
-          },
-          { sY: 'stemVert' },
-          getSerif(),
-          getSerif({ bottom: true }),
-          getSerif({ right: true, hor: true }),
-          getSerif({ c: true, right: true, hor: true }),
-        ],
-      }
+    const F = {
+      sX: 2,
+      list: [
+        { sX: 'stem' },
+        {
+          sY: 'stemVert',
+          cY: true,
+          sX: { r: middleStemLength },
+        },
+        { sY: 'stemVert' },
+        getSerif(),
+        getSerif({ bottom: true }),
+        getSerif({ right: true, hor: true }),
+        getSerif({ c: true, right: true, hor: true }),
+      ],
+    }
 
-      this.H = {
-        sX: 3,
-        half: true,
-        list: [
-          { sX: 'stem' },
-          vertStem,
-          getSerif(),
-          getSerif({ bottom: true }),
-        ],
-      }
+    const H = {
+      sX: 3,
+      half: true,
+      list: [{ sX: 'stem' }, vertStem, getSerif(), getSerif({ bottom: true })],
+    }
 
-      this.I = {
-        sX: 1,
-        list: [
-          { sX: 'stem', c: true },
-          getSerif({ c: true }),
-          getSerif({ bottom: true, c: true }),
-        ],
-      }
+    const I = {
+      sX: 1,
+      list: [
+        { sX: 'stem', c: true },
+        getSerif({ c: true }),
+        getSerif({ bottom: true, c: true }),
+      ],
+    }
 
-      this.J = {
-        sX: 2,
-        list: [
-          { sX: 'stem', fX: true },
-          { sX: 'stem', sY: { r: 0.2 }, fY: true },
-          { sY: 'stemVert', fY: true },
-          getSerif({ right: true }),
-        ],
-      }
+    const J = {
+      sX: 2,
+      list: [
+        { sX: 'stem', fX: true },
+        { sX: 'stem', sY: { r: 0.2 }, fY: true },
+        { sY: 'stemVert', fY: true },
+        getSerif({ right: true }),
+      ],
+    }
 
-      this.L = {
-        sX: 2,
-        list: [
-          { sX: 'stem' },
-          { sY: 'stemVert', fY: true },
-          getSerif(),
-          getSerif({ bottom: true }),
-          getSerif({ bottom: true, right: true, hor: true }),
-        ],
-      }
+    const L = {
+      sX: 2,
+      list: [
+        { sX: 'stem' },
+        { sY: 'stemVert', fY: true },
+        getSerif(),
+        getSerif({ bottom: true }),
+        getSerif({ bottom: true, right: true, hor: true }),
+      ],
+    }
 
-      this.M = {
-        sX: 4,
-        list: [
-          { sX: 'stem' },
-          { sX: 'stem', fX: true },
-          getSerif({ onlyLeft: true }),
-          getSerif({ right: true, onlyLeft: true }),
-          getSerif({ bottom: true }),
-          getSerif({ bottom: true, right: true }),
+    const M = {
+      sX: 4,
+      list: [
+        { sX: 'stem' },
+        { sX: 'stem', fX: true },
+        getSerif({ onlyLeft: true }),
+        getSerif({ right: true, onlyLeft: true }),
+        getSerif({ bottom: true }),
+        getSerif({ bottom: true, right: true }),
 
-          {
-            sX: { r: 0.5 },
-            stripes: { change: { r: -1 } },
-            fY: true,
-            id: 'M',
-            clear: true,
-          },
-          {
-            sX: { r: 0.5 },
-            stripes: { change: { r: -1 } },
-            fY: true,
-            fX: true,
-            id: 'M',
-            clear: true,
-          },
-          {
-            x: 'stem',
-            sX: { r: 0.5 },
-            stripes: { change: { r: -1 } },
-            fY: true,
-            id: 'M',
-          },
-          {
-            x: 'stem',
-            sX: { r: 0.5 },
-            stripes: { change: { r: -1 } },
-            fY: true,
-            fX: true,
-            id: 'M',
-          },
-        ],
-      }
+        {
+          sX: { r: 0.5 },
+          stripes: { change: { r: -1 } },
+          fY: true,
+          id: 'M',
+          clear: true,
+        },
+        {
+          sX: { r: 0.5 },
+          stripes: { change: { r: -1 } },
+          fY: true,
+          fX: true,
+          id: 'M',
+          clear: true,
+        },
+        {
+          x: 'stem',
+          sX: { r: 0.5 },
+          stripes: { change: { r: -1 } },
+          fY: true,
+          id: 'M',
+        },
+        {
+          x: 'stem',
+          sX: { r: 0.5 },
+          stripes: { change: { r: -1 } },
+          fY: true,
+          fX: true,
+          id: 'M',
+        },
+      ],
+    }
 
-      this.N = {
-        sX: 3,
-        list: [
-          { sX: 'stem' },
-          getSerif({ onlyLeft: true }),
-          getSerif({ bottom: true }),
-          getSerif({ right: true }),
-          {
-            fY: true,
-            fX: true,
-            sY: { a: 0 },
-            stripes: { change: { r: 1 } },
-            id: 'N',
-            clear: true,
-          },
-          {
-            sX: 'stem',
-            sY: { r: 0.5 },
-            fY: true,
-            fX: true,
-            tX: true,
-            clear: true,
-            id: 'N',
-          },
-          {
-            fY: true,
-            fX: true,
-            sY: { a: 0 },
-            x: 'stemNeg',
-            stripes: { change: { r: 1 } },
-            id: 'N',
-          },
-          { sX: 'stem', fX: true, id: 'N' },
-        ],
-      }
+    const N = {
+      sX: 3,
+      list: [
+        { sX: 'stem' },
+        getSerif({ onlyLeft: true }),
+        getSerif({ bottom: true }),
+        getSerif({ right: true }),
+        {
+          fY: true,
+          fX: true,
+          sY: { a: 0 },
+          stripes: { change: { r: 1 } },
+          id: 'N',
+          clear: true,
+        },
+        {
+          sX: 'stem',
+          sY: { r: 0.5 },
+          fY: true,
+          fX: true,
+          tX: true,
+          clear: true,
+          id: 'N',
+        },
+        {
+          fY: true,
+          fX: true,
+          sY: { a: 0 },
+          x: 'stemNeg',
+          stripes: { change: { r: 1 } },
+          id: 'N',
+        },
+        { sX: 'stem', fX: true, id: 'N' },
+      ],
+    }
 
-      this.O = {
-        sX: 3,
-        list: [
-          { sX: 'stem' },
-          { sX: 'stem', fX: true },
-          { sY: 'stemVert' },
-          { sY: 'stemVert', fY: true },
-        ],
-      }
+    const O = {
+      sX: 3,
+      list: [
+        { sX: 'stem' },
+        { sX: 'stem', fX: true },
+        { sY: 'stemVert' },
+        { sY: 'stemVert', fY: true },
+      ],
+    }
 
-      this.T = {
-        sX: 4,
-        list: [
-          { sX: 'stem', cX: true },
-          { sY: 'stemVert' },
-          getSerif({ hor: true }),
-          getSerif({ right: true, hor: true }),
-          getSerif({ bottom: true, c: true }),
-        ],
-      }
+    const T = {
+      sX: 4,
+      list: [
+        { sX: 'stem', cX: true },
+        { sY: 'stemVert' },
+        getSerif({ hor: true }),
+        getSerif({ right: true, hor: true }),
+        getSerif({ bottom: true, c: true }),
+      ],
+    }
 
-      this.U = {
-        sX: 3,
-        list: [
-          { sX: 'stem' },
-          { sX: 'stem', fX: true },
-          { sY: 'stemVert', fY: true },
-          getSerif(),
-          getSerif({ right: true }),
-        ],
-      }
+    const U = {
+      sX: 3,
+      list: [
+        { sX: 'stem' },
+        { sX: 'stem', fX: true },
+        { sY: 'stemVert', fY: true },
+        getSerif(),
+        getSerif({ right: true }),
+      ],
+    }
 
-      this.Z = {
-        sX: 3,
-        list: [
-          { sY: 'stemVert' },
-          { sY: 'stemVert', fY: true },
-          getSerif({ bottom: true, right: true, hor: true }),
-          getSerif({ hor: true }),
-          { clear: true, id: 'N', tY: true },
-          {
-            fY: true,
-            sY: { a: 0 },
-            x: 'stem',
-            stripes: { change: { r: 1, a: 'stem' } },
-            id: 'N',
-            clear: true,
-          },
-          {
-            fY: true,
-            sY: { a: 0 },
-            stripes: { change: { r: 1, a: 'stem' } },
-            id: 'N',
-          },
-          serif ? { sY: 'stemVert', sX: { r: 0.6 }, c: true } : undefined,
-        ],
-      }
-    })()
+    const Z = {
+      sX: 3,
+      list: [
+        { sY: 'stemVert' },
+        { sY: 'stemVert', fY: true },
+        getSerif({ bottom: true, right: true, hor: true }),
+        getSerif({ hor: true }),
+        { clear: true, id: 'N', tY: true },
+        {
+          fY: true,
+          sY: { a: 0 },
+          x: 'stem',
+          stripes: { change: { r: 1, a: 'stem' } },
+          id: 'N',
+          clear: true,
+        },
+        {
+          fY: true,
+          sY: { a: 0 },
+          stripes: { change: { r: 1, a: 'stem' } },
+          id: 'N',
+        },
+        serif ? { sY: 'stemVert', sX: { r: 0.6 }, c: true } : undefined,
+      ],
+    }
+
+    const Letters = {
+      A,
+      C,
+      E,
+      F,
+      H,
+      I,
+      J,
+      L,
+      M,
+      N,
+      O,
+      T,
+      U,
+      Z,
+      missing,
+      space,
+    }
 
     return function (letter) {
-      const thisLetter =
-        Letters[letter] || (letter === ' ' ? Letters.space : Letters.missing)
+      const thisLetter = Letters[letter] || (letter === ' ' ? space : missing)
 
       const letterObject = {
         sX: mult(thisLetter.sX, 'wordUnit'),

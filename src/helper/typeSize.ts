@@ -1,16 +1,15 @@
 import type { Link } from '@/scripts/listImage'
 
-export type SizeHover<T> = { r?: T; s: { rele?: T } }
-
 export type InputDynamicVariableBase = {
   a?: number | string
   add?: ReadonlyArray<InputDynamicVariable>
   autoUpdate?: boolean
   debug?: unknown
   getBiggerDim?: boolean
-  getLength?: [number, number]
+  getLength?: [InputDynamicVariable, InputDynamicVariable]
   getLinkedVariable?: () => number
   height?: boolean
+  main?: boolean
   max?: InputDynamicVariable
   min?: InputDynamicVariable
   odd?: boolean
@@ -19,13 +18,13 @@ export type InputDynamicVariableBase = {
   r2?: number
   random?: InputDynamicVariable
   save?: string
-  useSize?: InputDynamicVariableBase | string
+  useSize?: InputDynamicVariable
 }
 
 export type InputDynamicVariable =
-  | Array<InputDynamicVariable>
   | InputDynamicVariableBase
   | Link
+  | ReadonlyArray<InputDynamicVariable>
   | number
   | string
   | undefined

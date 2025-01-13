@@ -2,12 +2,21 @@ import { darken } from '@/helper/helperColor'
 import { getBiggerDim, getSmallerDim, mult, sub } from '@/helper/helperDim'
 import setValue from '@/helper/setValue'
 
-function graien(_, __, createSlider) {
-  const background = [60, 120, 110]
+import type { ImageFunction, InputDynamicLink } from './listImage'
+import type { ColorRgb } from '@/helper/typeColor'
+import type {
+  InputDynamicVariable,
+  InputDynamicVariableBase,
+} from '@/helper/typeSize'
+import type { Tool } from '@/renderengine/DrawingTools/Primitive'
+import type { LinkPrepared } from '@/renderengine/PixelGraphics'
+
+const graien: ImageFunction = (_, __, createSlider) => {
+  const background: ColorRgb = [60, 120, 110]
   const bSS = 0.5
   const shadowAdd = 195
 
-  const shadowColor = [
+  const shadowColor: ColorRgb = [
     background[0] * bSS + shadowAdd,
     background[1] * bSS + shadowAdd,
     background[2] * bSS + shadowAdd,
@@ -15,15 +24,15 @@ function graien(_, __, createSlider) {
 
   const shadow = darken(shadowColor, 0.7)
   const detail = darken(shadowColor, 0.4)
-  const grey = [204, 204, 204]
-  const bread = [150, 130, 100]
+  const grey: ColorRgb = [204, 204, 204]
+  const bread: ColorRgb = [150, 130, 100]
   const breadDark = shadow(bread)
   const backgroundMedium = shadow(background)
   const backgroundDark = detail(background)
-  const hair = [255, 255, 255]
-  const graie1 = [227, 200, 190]
-  const graie2 = [192, 176, 133]
-  const graie3 = [232, 204, 151]
+  const hair: ColorRgb = [255, 255, 255]
+  const graie1: ColorRgb = [227, 200, 190]
+  const graie2: ColorRgb = [192, 176, 133]
+  const graie3: ColorRgb = [232, 204, 151]
 
   let graie1Shadow = shadow(graie1)
   let graie1Detail = detail(graie1)
@@ -33,9 +42,9 @@ function graien(_, __, createSlider) {
   let graie3Detail = detail(graie3)
 
   const imgDifference = 0.05
-  const linkList = []
+  const linkList: Array<InputDynamicLink> = []
 
-  const linkListPush = function (obj) {
+  const linkListPush = function <T extends InputDynamicLink>(obj: T): T {
     linkList.push(obj)
 
     return obj
@@ -426,11 +435,20 @@ function graien(_, __, createSlider) {
   const graie3EarSize = linkListPush(mult(0.3, graie3FaceHeight))
   const graie3EarPos = linkListPush(mult(0.1, graie3FaceHeight))
 
-  const graienValues = function (what, faktor, value) {
+  const graienValues = function (
+    what: InputDynamicVariableBase & LinkPrepared,
+    faktor: number,
+    value: number,
+  ): void {
     setValue(what, faktor * value * 2 + value * 0.2)
   }
 
-  const doHover = function (args) {
+  const doHover = function (args: {
+    a?: number
+    b?: number
+    c?: number
+    d?: number
+  }): void {
     if (args.a) {
       graienValues(handWidth, args.a, 0.07)
 
@@ -486,15 +504,15 @@ function graien(_, __, createSlider) {
     }
   }
 
-  const getShadow = function (nr) {
+  const getShadow = function (nr: 1 | 2 | 3): ColorRgb {
     return nr === 1 ? graie1Shadow : nr === 2 ? graie2Shadow : graie3Shadow
   }
 
-  const getSkin = function (nr) {
+  const getSkin = function (nr: 1 | 2 | 3): ColorRgb {
     return nr === 1 ? graie1 : nr === 2 ? graie2 : graie3
   }
 
-  const graie1Eye = [
+  const graie1Eye: ReadonlyArray<Tool> = [
     {
       color: graie1Shadow,
       sY: { r: 0.05, max: 1 },
@@ -508,7 +526,7 @@ function graien(_, __, createSlider) {
     { fX: true, sY: { a: -2, r: 1 }, sX: { r: 0.4 } },
   ]
 
-  const breast = function (left) {
+  const breast = function (left?: boolean): ReadonlyArray<Tool | undefined> {
     return [
       {},
       {
@@ -550,13 +568,18 @@ function graien(_, __, createSlider) {
     ]
   }
 
-  const foot = function (hor, down, fX, nr) {
+  const foot = function (
+    hor: boolean,
+    down: boolean,
+    fX: boolean,
+    nr: 1 | 2 | 3,
+  ): ReadonlyArray<Tool | undefined> {
     const shadow = getShadow(nr)
-    const withoutToes = { r: 1, add: [sub(toeSize)] }
-    const anklePos = { r: 0.5, useSize: legLowerWidth }
-    const ankleSize = { r: 0.6, useSize: legLowerWidth }
-    const ankleWidth = { r: 1, a: -1 }
-    const ankleHeight = { r: 1, a: -2 }
+    const withoutToes: InputDynamicVariable = { r: 1, add: [sub(toeSize)] }
+    const anklePos: InputDynamicVariable = { r: 0.5, useSize: legLowerWidth }
+    const ankleSize: InputDynamicVariable = { r: 0.6, useSize: legLowerWidth }
+    const ankleWidth: InputDynamicVariable = { r: 1, a: -1 }
+    const ankleHeight: InputDynamicVariable = { r: 1, a: -2 }
 
     return [
       {
@@ -641,10 +664,10 @@ function graien(_, __, createSlider) {
   const legStructure = (function () {
     let i = 0
 
-    const s = { a: 0, random: legDetailWidth }
-    const armSize = { a: 0, random: armDetailLength }
+    const s: InputDynamicVariable = { a: 0, random: legDetailWidth }
+    const armSize: InputDynamicVariable = { a: 0, random: armDetailLength }
 
-    return function (nr, hor, arm) {
+    return function (nr: 1 | 2 | 3, hor?: boolean, arm?: boolean): Tool {
       const shadow = getShadow(nr)
 
       hor = arm ? !hor : hor
@@ -662,7 +685,6 @@ function graien(_, __, createSlider) {
           },
           {
             save: 'graieLeg' + i++,
-            minHeight: hor ? 3 : 0,
             minX: hor ? 0 : 3,
           },
         ],
@@ -670,7 +692,10 @@ function graien(_, __, createSlider) {
     }
   })()
 
-  const armToLeft = function (nr, down) {
+  const armToLeft = function (
+    nr: 1 | 2 | 3,
+    down?: boolean,
+  ): ReadonlyArray<Tool> {
     const shadow = getShadow(nr)
 
     return [
@@ -693,7 +718,6 @@ function graien(_, __, createSlider) {
             fX: true,
             sX: 1,
             color: shadow,
-            minHeight: 4,
           },
           {
             stripes: {
@@ -731,7 +755,7 @@ function graien(_, __, createSlider) {
     ]
   }
 
-  const skinPoint = function (nr, big, obj) {
+  const skinPoint = function (nr: 1 | 2 | 3, big: boolean, obj?: Tool): Tool {
     const shadow = getShadow(nr)
     const skin = getSkin(nr)
 
@@ -748,7 +772,7 @@ function graien(_, __, createSlider) {
     return obj
   }
 
-  const graieEyes = function () {
+  const graieEyes = function (): ReadonlyArray<Tool> {
     return [
       { sY: { r: 1, a: -1, min: 1 }, sX: { r: 1, a: -1, min: 1 } },
       {
@@ -760,9 +784,12 @@ function graien(_, __, createSlider) {
     ]
   }
 
-  const graie3butt = [{}, { name: 'Dot', fY: true, color: graie3Shadow }]
+  const graie3butt: ReadonlyArray<Tool> = [
+    {},
+    { name: 'Dot', fY: true, color: graie3Shadow },
+  ]
 
-  const borderVert = [
+  const borderVert: ReadonlyArray<Tool> = [
     {},
     {
       stripes: { gap: 1, strip: frameDetailSize },
@@ -782,7 +809,7 @@ function graien(_, __, createSlider) {
     },
   ]
 
-  const borderHor = [
+  const borderHor: ReadonlyArray<Tool> = [
     {},
     {
       stripes: { gap: 1, strip: frameDetailSize, horizontal: true },
@@ -792,7 +819,7 @@ function graien(_, __, createSlider) {
     },
   ]
 
-  const bottomEdge = [
+  const bottomEdge: ReadonlyArray<Tool> = [
     {},
     { color: backgroundDark, m: 1 },
     {
@@ -832,7 +859,7 @@ function graien(_, __, createSlider) {
     },
   ]
 
-  const renderList = [
+  const renderList: ReadonlyArray<Tool> = [
     // ---- FRAME ----------------
     {
       mX: framePadding,
@@ -947,7 +974,6 @@ function graien(_, __, createSlider) {
                               mY: 1,
                               sX: 1,
                               list: graie3butt,
-                              minHeight: 3,
                             },
                             {
                               fX: true,
@@ -956,7 +982,6 @@ function graien(_, __, createSlider) {
                               sX: 1,
                               x: -1,
                               list: graie3butt,
-                              minHeight: 3,
                             },
                             {
                               sY: armShadow,
@@ -1278,7 +1303,6 @@ function graien(_, __, createSlider) {
                       ],
                     },
                     {
-                      minHeight: [breadWidth, 1],
                       color: breadDark,
                       list: [
                         {
@@ -1286,7 +1310,6 @@ function graien(_, __, createSlider) {
                             strip: breadDetail,
                             gap: breadDetail,
                           },
-                          horizontal: true,
                           m: breadDetail,
                         },
                       ],
@@ -1382,7 +1405,7 @@ function graien(_, __, createSlider) {
                                 add: [armWidth, 2],
                               },
                               stripes: {
-                                striplengt: 1,
+                                strip: 1,
                                 gap: 1,
                                 horizontal: true,
                                 random: {
@@ -1777,7 +1800,6 @@ function graien(_, __, createSlider) {
                                         },
                                         {
                                           save: 'graie1Nose',
-                                          minHeight: 3,
                                         },
                                       ],
                                     },
@@ -1987,7 +2009,6 @@ function graien(_, __, createSlider) {
                               },
                               y: 1,
                               tX: true,
-                              minHeight: 4,
                               list: [
                                 {},
                                 {
@@ -2004,7 +2025,6 @@ function graien(_, __, createSlider) {
                               cY: true,
                               tX: true,
                               fX: true,
-                              minHeight: 3,
                               list: [
                                 {},
                                 {
@@ -2178,11 +2198,11 @@ function graien(_, __, createSlider) {
                           list: [
                             {
                               sX: { r: 0.4 },
-                              list: graieEyes(2),
+                              list: graieEyes(),
                             },
                             {
                               sX: { r: 0.4 },
-                              list: graieEyes(2),
+                              list: graieEyes(),
                               rX: true,
                               fX: true,
                             },
@@ -2502,7 +2522,6 @@ function graien(_, __, createSlider) {
                                   list: [
                                     {},
                                     {
-                                      horizontal: true,
                                       color: graie3Shadow,
                                       stripes: {
                                         gap: 1,
@@ -2701,14 +2720,14 @@ function graien(_, __, createSlider) {
                                           sX: {
                                             r: 0.25,
                                           },
-                                          list: graieEyes(3),
+                                          list: graieEyes(),
                                         },
                                         {
                                           sX: {
                                             r: 0.25,
                                           },
                                           fX: true,
-                                          list: graieEyes(3),
+                                          list: graieEyes(),
                                           rX: true,
                                         },
                                       ],

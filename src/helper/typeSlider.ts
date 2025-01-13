@@ -2,6 +2,7 @@ export type DataSlider = {
   map?: string
   max: number
   min: number
+  step?: number
 }
 
 export type SliderArgs = {

@@ -7,12 +7,12 @@ import getRenderer from './getRenderer'
 import { DynamicVariable, Variable } from './Variable'
 
 import type { Info } from './getInfo'
+import type { Height, Width } from './getPixelUnits/Size'
 import type { InitPixel } from './InitPixel'
 import type {
   DataImage,
   ImageContent,
   Link,
-  LinkList,
   RecordVariable,
 } from '@/scripts/listImage'
 
@@ -61,12 +61,27 @@ const getRedraw =
     resize(args.width, args.height)
   }
 
+type LinkPreparedBase = {
+  autoUpdate?: boolean
+  calculated?: boolean
+  getLinkedVariable?: () => number
+  main?: boolean
+  real?: number
+  s?: Height | Width
+}
+
+export type LinkPrepared =
+  | (Link & LinkPreparedBase)
+  | (LinkPreparedBase & ReadonlyArray<LinkPrepared>)
+
+type LinkListPrepared = ReadonlyArray<LinkPrepared>
+
 // Prepare
 const doAddVariable = (
-  vl: LinkList,
+  vl: LinkListPrepared,
   pixelUnits: ReturnType<typeof getPixelUnits>,
 ): void => {
-  const getLinkedVariable = (args: Link) => (): number => {
+  const getLinkedVariable = (args: LinkPrepared) => (): number => {
     if (args.calculated && typeof args.real === 'number') {
       return args.real
     }
@@ -84,7 +99,7 @@ const doAddVariable = (
   }
 
   vl.forEach((current) => {
-    if (current.s) {
+    if (Array.isArray(current) === false && current.s) {
       return
     }
 
@@ -101,13 +116,14 @@ const doAddVariable = (
 }
 
 const getCalculate =
-  (vl: LinkList) =>
+  (vl: LinkListPrepared) =>
   (dimensions: { height: number; width: number }): void =>
     vl.forEach((current) => {
       if (current.main) {
         current.calculated = true
 
-        current.real = dimensions[current.height ? 'height' : 'width']
+        current.real =
+          dimensions['height' in current && current.height ? 'height' : 'width']
       } else {
         current.calculated = current.autoUpdate
       }
@@ -127,6 +143,7 @@ export class PixelGraphics {
 
     if (
       options.imageFunction.linkList &&
+      Array.isArray(options.imageFunction.linkList) &&
       options.imageFunction.linkList.length > 0
     ) {
       doAddVariable(options.imageFunction.linkList, this.pixelUnits)

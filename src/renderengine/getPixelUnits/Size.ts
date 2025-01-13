@@ -1,3 +1,4 @@
+import getIsUnknownObject from '@/lib/getIsUnknownObject'
 import getSumForReduce from '@/lib/getSumForReduce'
 
 import type { State } from './State'
@@ -60,7 +61,11 @@ function getRealDistanceBasic(this: {
   )
 }
 
-const getGetLengthCalculation = (x: number, y: number, state: State) => {
+const getGetLengthCalculation = (
+  x: InputDynamicVariable,
+  y: InputDynamicVariable,
+  state: State,
+) => {
   const sizeX = new Width(x, state)
   const sizeY = new Width(y, state)
 
@@ -136,6 +141,7 @@ export class Dimension {
         if (typeof args.useSize === 'string') {
           this.state.variableListLink(args.useSize, (this.useVari = {}))
         } else if (
+          (getIsUnknownObject(args.useSize) || Array.isArray(args.useSize)) &&
           'getLinkedVariable' in args.useSize &&
           args.useSize.getLinkedVariable
         ) {
@@ -151,7 +157,10 @@ export class Dimension {
 
       // Get gefaults and try to do quick version
       if (
-        this.getDefaults(args.r, 'a' in args ? args.a : undefined) &&
+        this.getDefaults(
+          'r' in args ? args.r : undefined,
+          'a' in args ? args.a : undefined,
+        ) &&
         !('useSize' in args && args.useSize) &&
         !('add' in args && args.add)
       ) {

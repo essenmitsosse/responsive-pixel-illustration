@@ -1,17 +1,22 @@
+import { getRandom } from '@/helper/getRandom'
 import { getSmallerDim, mult, sub } from '@/helper/helperDim'
 
-const getRandomInt = (i) => Math.floor(Math.random() * i)
+import type { ImageFunction, RecordVariable } from './listImage'
+import type { ColorRgb } from '@/helper/typeColor'
+import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 
-function landscape() {
+const landscape: ImageFunction = (init: { id?: number }) => {
   const backgroundColor = [0, 0, 0]
-  const colorNr = getRandomInt(4)
-  const dayNight = getRandomInt(2)
-  const sunPos = getRandomInt(2)
-  const mountains = getRandomInt(2)
-  const clouds = getRandomInt(2)
-  const tree = getRandomInt(2)
+  const random = getRandom(init.id)
+  // TODO: Remove casting hereC
+  const colorNr = random.getRandom(0, 3)
+  const dayNight = random.getRandom(0, 1)
+  const sunPos = random.getRandom(0, 1)
+  const mountains = random.getRandom(0, 1)
+  const clouds = random.getRandom(0, 1)
+  const tree = random.getRandom(0, 1)
 
-  const colorScheme = [
+  const colorScheme: ReadonlyArray<[ColorRgb, ColorRgb, ColorRgb, ColorRgb]> = [
     [
       [255, 255, 255],
       [180, 180, 180],
@@ -36,11 +41,11 @@ function landscape() {
       [100, 100, 0],
       [40, 40, 0],
     ],
-  ][colorNr]
+  ]
 
-  const [, c2, c3, c4] = colorScheme
+  const [, c2, c3, c4] = colorScheme[colorNr]!
 
-  const renderList = [
+  const renderList: ReadonlyArray<Tool> = [
     {
       m: 'borderS',
       list: [
@@ -137,7 +142,7 @@ function landscape() {
     },
   ]
 
-  const variableList = {
+  const variableList: RecordVariable = {
     width: { r: 1 },
     height: { r: 1, height: true },
     squ: { a: 'width', max: 'height' },

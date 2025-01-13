@@ -3,18 +3,16 @@ import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { CreateSlider } from '@/helper/typeSlider'
 
 export type Link = {
-  autoUpdate?: boolean
-  calculated?: boolean
-  getLinkedVariable?: () => number
   height?: boolean
   main?: boolean
   r?: number
   random?: InputDynamicVariable
   real?: number
-  s?: { getReal: () => number }
 }
 
-export type LinkList = ReadonlyArray<Link>
+export type InputDynamicLink =
+  | ReadonlyArray<InputDynamicLink>
+  | (InputDynamicVariable & Link)
 
 export type RecordVariable = Record<string, InputDynamicVariable>
 
@@ -22,7 +20,7 @@ export type ImageContent = {
   // TODO: Add proper type here (`ColorRGB`)
   background?: ReadonlyArray<number> | { get: () => ReadonlyArray<number> }
   hover?: boolean
-  linkList?: LinkList
+  linkList?: ReadonlyArray<InputDynamicLink>
   listDoHover?: ReadonlyArray<DoHover>
   recommendedPixelSize?: number
   renderList: ReadonlyArray<unknown>

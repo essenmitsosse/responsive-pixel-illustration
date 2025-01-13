@@ -1,18 +1,23 @@
 import getHoverChangerStandard from '@/helper/getHoverChangerStandard'
 
-function stripes(args, init, createSlider) {
-  const hoverChangerStandard = getHoverChangerStandard()
-  const backgroundColor = [100, 100, 120]
-  const linkList = []
+import type { ImageFunction, InputDynamicLink } from './listImage'
+import type { ColorRgb } from '@/helper/typeColor'
+import type { InputDynamicVariableBase } from '@/helper/typeSize'
+import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 
-  const linkListPush = function (obj) {
+const stripes: ImageFunction = (_args, _init, createSlider) => {
+  const hoverChangerStandard = getHoverChangerStandard()
+  const backgroundColor: ColorRgb = [100, 100, 120]
+  const linkList: Array<InputDynamicLink> = []
+
+  const linkListPush = function <T extends InputDynamicLink>(obj: T): T {
     linkList.push(obj)
 
     return obj
   }
 
-  const white = [220, 220, 255]
-  const red = [220, 50, 40]
+  const white: ColorRgb = [220, 220, 255]
+  const red: ColorRgb = [220, 50, 40]
   const count = 5
   const width = linkListPush({ main: true })
   const height = linkListPush({ main: true, height: true })
@@ -54,7 +59,7 @@ function stripes(args, init, createSlider) {
   const redSXa = redSXrel
   const redSXb = linkListPush([redSXabs, redSXminMaxDiff])
 
-  const versions = function () {
+  const versions = function (): ReadonlyArray<ReadonlyArray<Tool>> {
     return [
       [
         { color: white },
@@ -87,13 +92,15 @@ function stripes(args, init, createSlider) {
     ]
   }
 
-  const sizes = (function (count) {
+  const sizes = (function (
+    count,
+  ): Record<`s${number}`, InputDynamicVariableBase> {
     let i = 0
 
-    const obj = {}
+    const obj: Record<`s${number}`, InputDynamicVariableBase> = {}
 
     while (i < count) {
-      obj['s' + i] = stripRealSX
+      obj[`s${i}`] = stripRealSX
 
       i += 1
     }
@@ -101,8 +108,8 @@ function stripes(args, init, createSlider) {
     return obj
   })(count)
 
-  const getSquares = function () {
-    const list = []
+  const getSquares = function (): ReadonlyArray<Tool> {
+    const list: Array<Tool> = []
 
     let i = 0
 
@@ -111,12 +118,12 @@ function stripes(args, init, createSlider) {
     while (i < max) {
       list.push({
         sY: [singleSY, -1],
-        sX: sizes['s' + i],
+        sX: sizes[`s${i}`],
         y: { r: i, useSize: singleSY, a: 1 },
         x: 1,
         list: [
           { color: [50, 50, 60] },
-          { m: 1, mask: true, list: versions(sizes['s' + i])[i] },
+          { m: 1, mask: true, list: versions()[i] },
         ],
       })
 
@@ -126,7 +133,7 @@ function stripes(args, init, createSlider) {
     return list
   }
 
-  const renderList = [
+  const renderList: ReadonlyArray<Tool> = [
     {
       sX: {
         add: [{ r: 10000, useSize: heightOvershot }],
@@ -139,7 +146,7 @@ function stripes(args, init, createSlider) {
       color: [0, 255, 255],
       rotate: 90,
       rY: true,
-      list: getSquares({ horizontal: true }),
+      list: getSquares(),
     },
     {
       sX: { add: [{ r: 10000, useSize: widthOvershot }], max: width },
@@ -148,7 +155,7 @@ function stripes(args, init, createSlider) {
         max: height,
       },
       color: [255, 0, 0],
-      list: getSquares({ horizontal: false }),
+      list: getSquares(),
     },
   ]
 

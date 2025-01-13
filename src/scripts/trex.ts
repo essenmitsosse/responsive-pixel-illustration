@@ -1,10 +1,17 @@
-function trex() {
-  const white = [255, 255, 255]
-  const ground = [90, 60, 50]
+import { multiplyColor } from '@/helper/helperColor'
 
-  const trexsingle = [
+import type { ImageFunction } from './listImage'
+import type { ColorRgb } from '@/helper/typeColor'
+import type { Tool } from '@/renderengine/DrawingTools/Primitive'
+
+const trex: ImageFunction = () => {
+  const white: ColorRgb = [255, 255, 255]
+  const ground: ColorRgb = [90, 60, 50]
+
+  const trexsingle = (color: ColorRgb): ReadonlyArray<Tool> => [
     {
       name: 'Obj',
+      color,
       sX: { r: 0.25, min: 10 },
       sY: { r: 0.25, min: 5 },
       list: [
@@ -34,6 +41,7 @@ function trex() {
       fY: true,
       sX: { r: 0.85 },
       sY: { r: 0.7 },
+      color,
       list: [
         //Body
         {
@@ -45,8 +53,7 @@ function trex() {
               name: 'RoundRect',
               sY: { r: 0.1, min: 3 },
               fY: true,
-              color: ground,
-              changeColor: { what: 'multiply', amount: 0.6 },
+              color: multiplyColor(ground, 0.6),
             },
             //Shadow
 
@@ -58,7 +65,7 @@ function trex() {
               sY: { r: 0.5, a: 1 },
               fY: true,
               fX: true,
-              changeColor: { what: 'multiply', amount: 0.6 },
+              color: multiplyColor(color, 0.6),
               list: [
                 // Back Leg
                 {
@@ -154,21 +161,20 @@ function trex() {
     },
   ]
 
-  const renderList = [
+  const renderList: ReadonlyArray<Tool> = [
     { name: 'Rect', sY: { r: 0.4 }, fY: true, color: ground },
     {
       name: 'Obj',
       id: 'trex2',
       sX: { r: 0.5 },
-      minWidth: 15,
+      minX: 15,
       sY: { r: 0.2, a: 5, otherDim: true },
       x: { r: -0.1 },
       y: { r: 0.2 },
       fY: true,
       // Trex
-      color: [100, 120, 200],
       rX: true,
-      list: trexsingle,
+      list: trexsingle([100, 120, 200]),
     },
     {
       name: 'Obj',
@@ -179,12 +185,11 @@ function trex() {
       x: { a: -20, r: -0.2 },
       fX: true,
       // Trex
-      color: [180, 50, 50],
-      list: trexsingle,
+      list: trexsingle([180, 50, 50]),
     },
   ]
 
-  const backgroundColor = [170, 190, 230]
+  const backgroundColor: ColorRgb = [170, 190, 230]
 
   return {
     renderList,

@@ -69,6 +69,12 @@ const listScreenshots = [
   },
   { index: 13, niceName: 'Relativity' },
   { index: 14, niceName: 'Stripe' },
+  { index: 15, niceName: 'Landscape', query: 'id=2' },
+  {
+    index: 15,
+    niceName: 'Landscape (alt, portrait)',
+    query: 'id=12313421&width=0.6',
+  },
   { index: 16, niceName: 'Sparta' },
   { index: 17, niceName: 'T-Rex', query: 'p=10' },
   { index: 18, niceName: 'Typo' },

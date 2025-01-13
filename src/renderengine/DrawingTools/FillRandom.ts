@@ -2,13 +2,12 @@ import getIsUnknownObject from '@/lib/getIsUnknownObject'
 
 import Fill from './Fill'
 
-import type { Location } from './createPixelArray'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { Height, Width } from '@/renderengine/getPixelUnits/Size'
 
 export type ArgsInitFillRandom = {
   chance?: number
-  mask?: (dimensions: Location, push?: boolean) => Location
+  mask?: boolean
   sX?: InputDynamicVariable
   sY?: InputDynamicVariable
   seed?: number
@@ -34,6 +33,7 @@ class FillRandom extends Fill {
   sizeRandom?: Height | Width
   width?: Width | false
   height?: Height | false
+  mask?: boolean
   init(args: ArgsInitFillRandom): void {
     const width = this.rotate ? args.sY : args.sX
     const height = this.rotate ? args.sX : args.sY

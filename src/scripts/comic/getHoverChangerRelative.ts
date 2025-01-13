@@ -1,16 +1,16 @@
 import setValue from '@/helper/setValue'
 
 import type { DoHover } from '@/helper/typeHover'
-import type { SizeHover } from '@/helper/typeSize'
+import type { InputDynamicVariableBase } from '@/helper/typeSize'
 
 const getHoverChangerRelative = (): {
   doHover: DoHover
-  push: (size: SizeHover<unknown>, value: DoHover) => void
+  push: (size: InputDynamicVariableBase, value: DoHover) => void
 } => {
-  const listChangerRelative: Array<[SizeHover<unknown>, DoHover]> = []
+  const listChangerRelative: Array<[InputDynamicVariableBase, DoHover]> = []
 
   return {
-    push(size: SizeHover<unknown>, value: DoHover): void {
+    push(size: InputDynamicVariableBase, value: DoHover): void {
       listChangerRelative.push([size, value])
     },
     doHover: (args): void => {

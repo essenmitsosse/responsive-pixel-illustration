@@ -1,17 +1,21 @@
 import { darken } from '@/helper/helperColor'
 import { getBiggerDim, getSmallerDim, mult, sub } from '@/helper/helperDim'
 
-function sparta() {
-  const shadowColor = [255, 255, 255]
+import type { ImageFunction } from './listImage'
+import type { ColorRgb } from '@/helper/typeColor'
+import type { Tool } from '@/renderengine/DrawingTools/Primitive'
+
+const sparta: ImageFunction = () => {
+  const shadowColor: ColorRgb = [255, 255, 255]
   const shadow = darken(shadowColor, 0.5)
   const detail = darken(shadowColor, 0.2)
-  const backgroundColor = [60, 60, 60]
-  const water = [36, 44, 53]
-  const skin = [227, 200, 190]
+  const backgroundColor: ColorRgb = [60, 60, 60]
+  const water: ColorRgb = [36, 44, 53]
+  const skin: ColorRgb = [227, 200, 190]
   const skinDetail = detail(skin)
   const skinShadow = shadow(skin)
 
-  const leftHalf = [
+  const leftHalf: ReadonlyArray<Tool> = [
     {
       sY: { r: 1, add: [sub('headHeight'), sub('legs'), -1] },
       y: ['legs'],
@@ -119,14 +123,18 @@ function sparta() {
 
         // Hair
         {
-          gap: { a: 0 },
-          random: { r: 0.2 },
+          stripes: {
+            gap: { a: 0 },
+            random: { r: 0.2 },
+          },
           color: skinShadow,
           sY: { r: 0.1, min: 1 },
         },
         {
-          gap: { a: 0 },
-          random: { r: 0.4 },
+          stripes: {
+            gap: { a: 0 },
+            random: { r: 0.4 },
+          },
           color: skinShadow,
           sX: { r: 0.15 },
           sY: { r: 0.3 },
@@ -168,7 +176,7 @@ function sparta() {
     },
   ]
 
-  const person = [
+  const person: ReadonlyArray<Tool> = [
     {
       minX: 5,
       list: [
@@ -218,19 +226,21 @@ function sparta() {
     },
   ]
 
-  const renderList = [
+  const renderList: ReadonlyArray<Tool> = [
     {
       m: 'border',
       list: [
         // { color:[255,0,0], gap:1, strip:{a:5, r:.005, random:{r:.1, add:[{r:.12, height:true}]} }, random:{r:-.9}, fY:true, list:person  }
         {
           color: [255, 0, 0],
-          gap: 1,
-          strip: { r: 0.15, otherDim: true, min: 10 },
-          change: { r: -0.9 },
+          stripes: {
+            gap: 1,
+            strip: { r: 0.15, otherDim: true, min: 10 },
+            change: { r: -0.9 },
+            cut: true,
+          },
           fY: true,
           list: person,
-          cut: true,
         },
       ],
     },

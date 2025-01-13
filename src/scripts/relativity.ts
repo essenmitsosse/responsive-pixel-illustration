@@ -1,11 +1,15 @@
-function relativity() {
-  const c1 = [255, 0, 0]
-  const c2 = [0, 255, 0]
-  const c3 = [0, 0, 255]
-  const c4 = [0, 255, 255]
-  const backgroundColor = [50, 50, 50]
+import type { ImageFunction, RecordVariable } from './listImage'
+import type { ColorRgb } from '@/helper/typeColor'
+import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 
-  const renderList = [
+const relativity: ImageFunction = () => {
+  const c1: ColorRgb = [255, 0, 0]
+  const c2: ColorRgb = [0, 255, 0]
+  const c3: ColorRgb = [0, 0, 255]
+  const c4: ColorRgb = [0, 255, 255]
+  const backgroundColor: ColorRgb = [50, 50, 50]
+
+  const renderList: ReadonlyArray<Tool> = [
     {
       m: 'border',
       list: [
@@ -44,7 +48,7 @@ function relativity() {
     },
   ]
 
-  const variableList = {
+  const variableList: RecordVariable = {
     border: { r: 0.1, height: true },
     imgHeight: {
       r: 1,

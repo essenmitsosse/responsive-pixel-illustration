@@ -1,26 +1,31 @@
 import { darken, lighten } from '@/helper/helperColor'
 import { getBiggerDim, getSmallerDim, mult, sub } from '@/helper/helperDim'
 
-function brothers() {
-  const shadowColor = [255, 255, 255]
+import type { ImageFunction } from './listImage'
+import type { ColorRgb } from '@/helper/typeColor'
+import type { InputDynamicVariableBase } from '@/helper/typeSize'
+import type { Tool } from '@/renderengine/DrawingTools/Primitive'
+
+const brothers: ImageFunction = () => {
+  const shadowColor: ColorRgb = [255, 255, 255]
   const shadow = darken(shadowColor, 0.7)
   const shadowSoft = darken(shadowColor, 0.9)
   const darkenColor = darken(shadowColor, 0.4)
   const lightenHard = lighten(shadowColor, 0.3)
   const lightenSoft = lighten(shadowColor, 0.1)
-  const c3 = [0, 0, 255]
-  const zBackground = [200, 150, 255]
+  const c3: ColorRgb = [0, 0, 255]
+  const zBackground: ColorRgb = [200, 150, 255]
   const zSkin = shadow(zBackground)
   const zSkinShadow = shadow(zSkin)
   const zHair = lightenHard(zBackground)
   const zCloth = darkenColor(zBackground)
-  const flash = [255, 220, 180]
-  const hBasic = [210, 100, 20]
+  const flash: ColorRgb = [255, 220, 180]
+  const hBasic: ColorRgb = [210, 100, 20]
   const hSkin = shadow(hBasic)
   const hHair = lightenHard(hBasic)
   const hCloth = darkenColor(hBasic)
   const hBackground = hBasic
-  const pBasic = [116, 150, 150]
+  const pBasic: ColorRgb = [116, 150, 150]
   const pSkin = shadow(pBasic)
   const pHair = lightenHard(pBasic)
   const pCloth = darkenColor(pBasic)
@@ -28,7 +33,7 @@ function brothers() {
   const borderDetail = shadow(zCloth)
   const backgroundColor = darkenColor(borderDetail)
 
-  const flashForm = [
+  const flashForm: ReadonlyArray<Tool> = [
     {
       points: [
         { y: { r: 0.4 } },
@@ -42,11 +47,11 @@ function brothers() {
     },
   ]
 
-  const beard = function (hair, center) {
-    const beardSideHeight = { r: 0.6, a: -1 }
+  const beard = function (hair: ColorRgb, center?: boolean): Tool {
+    const beardSideHeight: InputDynamicVariableBase = { r: 0.6, a: -1 }
     const beardSideWidth = center ? 0.4 : 0.2
 
-    const beardInner = [
+    const beardInner: ReadonlyArray<Tool> = [
       {
         stripes: {
           horizontal: true,
@@ -58,7 +63,7 @@ function brothers() {
       },
     ]
 
-    const beardOuter = [
+    const beardOuter: ReadonlyArray<Tool> = [
       {
         stripes: {
           horizontal: true,
@@ -187,8 +192,8 @@ function brothers() {
     }
   }
 
-  const mustach = function (hades) {
-    const mustachHalf = [
+  const mustach = function (hades: boolean): ReadonlyArray<Tool> {
+    const mustachHalf: ReadonlyArray<Tool> = [
       {
         sY: { r: 0.5 },
         y: { r: 0.5 },
@@ -212,8 +217,12 @@ function brothers() {
     ]
   }
 
-  const eyes = function (color, hair, hades) {
-    const eye = [
+  const eyes = function (
+    color: ColorRgb,
+    hair: ColorRgb,
+    hades?: boolean,
+  ): Tool {
+    const eye: ReadonlyArray<Tool> = [
       { mX: 2, x: 1 },
       { mY: 1, sY: { min: 3 } },
       {
@@ -248,11 +257,17 @@ function brothers() {
     }
   }
 
-  const getOthers = function (posei, skin, hair, cloth, background) {
+  const getOthers = function (
+    posei: boolean,
+    skin: ColorRgb,
+    hair: ColorRgb,
+    cloth: ColorRgb,
+    background: ColorRgb,
+  ): ReadonlyArray<Tool | undefined> {
     const clothShadow = !posei ? cloth : shadow(cloth)
     const skinShadow = shadow(skin)
 
-    const clothDetail = [
+    const clothDetail: ReadonlyArray<Tool> = [
       {
         weight: 1,
         points: [
@@ -264,9 +279,9 @@ function brothers() {
       },
     ]
 
-    const rightShoulder = { r: -0.3 }
+    const rightShoulder: InputDynamicVariableBase = { r: -0.3 }
     const headRatio = posei ? 1.2 : 0.8
-    const leftShoulder = { r: -1, useSize: 'torsoSY' }
+    const leftShoulder: InputDynamicVariableBase = { r: -1, useSize: 'torsoSY' }
 
     return [
       { color: background },
@@ -647,7 +662,9 @@ function brothers() {
     },
   ]
 
-  const edgeWide = function (center) {
+  const edgeWide = function (
+    center?: boolean,
+  ): ReadonlyArray<Tool | undefined> {
     return [
       { color: backgroundColor },
       { sY: 'borderSmallOutline', y: 'borderSmallMargin', fY: true },
@@ -721,7 +738,9 @@ function brothers() {
 
   const areaStrip = { strip: 'strip', gap: 1, horizontal: true }
 
-  const areaPiece = function (who) {
+  const areaPiece = function (
+    who: 'hades' | 'poseidon' | 'zeus',
+  ): ReadonlyArray<Tool> {
     const hades = who === 'hades'
 
     return [

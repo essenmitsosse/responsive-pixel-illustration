@@ -2,7 +2,6 @@ import getIsColorRgb from '@/helper/getIsColorRgb'
 import getIsUnknownObject from '@/lib/getIsUnknownObject'
 
 import type { ArgsInitArm } from './Arm'
-import type { Location } from './createPixelArray'
 import type { ArgsPrepareDot } from './Dot'
 import type { ArgsInitFill } from './Fill'
 import type { ArgsInitFillRandom, ArgsPrepareFillRandom } from './FillRandom'
@@ -42,7 +41,6 @@ type ToolPrimitive = ArgsInit &
     color?: ColorRgb
     id?: string
     list?: ReadonlyArray<Tool | false | undefined>
-    mask?: boolean
     rX?: boolean
     rY?: boolean
     rotate?: number
@@ -84,7 +82,6 @@ class Primitive {
   fromBottom?: boolean
   rotate?: boolean
   args?: Args
-  mask?: (dimensions: Location, push?: boolean) => Location
 
   constructor(state: State) {
     this.state = state
@@ -206,10 +203,6 @@ class Primitive {
       }
 
       newArgs.id = args.id || inherit.id || newArgs.save
-    }
-
-    if (args.mask) {
-      this.mask = this.state.pixelSetter.setColorMask
     }
 
     if (

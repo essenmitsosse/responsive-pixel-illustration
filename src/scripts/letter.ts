@@ -1,11 +1,15 @@
 import getHoverChangerStandard from '@/helper/getHoverChangerStandard'
 
-function letter(args, init, createSlider) {
+import type { ImageFunction, InputDynamicLink } from './listImage'
+import type { InputDynamicVariableBase } from '@/helper/typeSize'
+import type { Tool } from '@/renderengine/DrawingTools/Primitive'
+
+const letter: ImageFunction = (_, init, createSlider) => {
   const hoverChangerStandard = getHoverChangerStandard()
   const backgroundColor = [200, 200, 240]
-  const linkList = []
+  const linkList: Array<InputDynamicLink> = []
 
-  const linkListPush = function (obj) {
+  const linkListPush = function <T extends InputDynamicLink>(obj: T): T {
     linkList.push(obj)
 
     return obj
@@ -66,7 +70,11 @@ function letter(args, init, createSlider) {
     min: 1,
   })
 
-  const getLetter = function (args) {
+  const getLetter = function (args: {
+    letter: ReadonlyArray<Tool>
+    x?: InputDynamicVariableBase
+    y?: InputDynamicVariableBase
+  }): Tool {
     return {
       x: args.x,
       y: args.y,
@@ -109,7 +117,7 @@ function letter(args, init, createSlider) {
     }
   }
 
-  const renderList = [
+  const renderList: ReadonlyArray<Tool | undefined> = [
     getLetter({
       letter: [
         // Stämme

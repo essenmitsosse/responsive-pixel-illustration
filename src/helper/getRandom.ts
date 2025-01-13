@@ -1,5 +1,5 @@
 export const getRandom = (
-  seed: number,
+  seed?: number,
 ): {
   getFloat(): number
   getIf(chance?: number): boolean

@@ -152,6 +152,10 @@ export class Rotater extends BBObj {
   constructor(args) {
     super()
 
+    if (this.ll === undefined) {
+      throw new Error('Unexpected error: ll is undefined')
+    }
+
     this.list = []
 
     this.ll.push(

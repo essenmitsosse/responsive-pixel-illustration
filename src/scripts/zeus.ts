@@ -1,23 +1,28 @@
 import { darken } from '@/helper/helperColor'
 import { getBiggerDim, getSmallerDim, mult, sub } from '@/helper/helperDim'
 
-const zeus = () => {
-  const zero = { a: 0 }
-  const shadowColor = [255, 255, 255]
+import type { ImageFunction, RecordVariable } from './listImage'
+import type { ColorRgb } from '@/helper/typeColor'
+import type { InputDynamicVariable } from '@/helper/typeSize'
+import type { Tool } from '@/renderengine/DrawingTools/Primitive'
+
+const zeus: ImageFunction = () => {
+  const zero: InputDynamicVariable = { a: 0 }
+  const shadowColor: ColorRgb = [255, 255, 255]
   const shadow = darken(shadowColor, 0.7)
   const detail = darken(shadowColor, 0.4)
-  const eyes = [182, 0, 234]
+  const eyes: ColorRgb = [182, 0, 234]
   const frame = shadow(eyes)
-  const red = [255, 0, 0]
-  const backgroundColor = [31, 14, 63]
-  const zeus = [240, 240, 240]
+  const red: ColorRgb = [255, 0, 0]
+  const backgroundColor: ColorRgb = [31, 14, 63]
+  const zeus: ColorRgb = [240, 240, 240]
   const zeusShadow = shadow(zeus)
-  const flesh = [190, 160, 160]
+  const flesh: ColorRgb = [190, 160, 160]
   const fleshShadow = shadow(flesh)
   const hair = zeusShadow
   const cloth = eyes
 
-  const arm = [
+  const arm: ReadonlyArray<Tool> = [
     { sX: 'arm' },
     { sY: 'arm' },
     {
@@ -52,7 +57,7 @@ const zeus = () => {
     },
   ]
 
-  const eye = [
+  const eye: ReadonlyArray<Tool> = [
     {
       tY: true,
       color: hair,
@@ -75,7 +80,7 @@ const zeus = () => {
     },
   ]
 
-  const beard = [
+  const beard: ReadonlyArray<Tool> = [
     {
       sX: {
         r: 0.5,
@@ -105,11 +110,15 @@ const zeus = () => {
     },
   ]
 
-  const beak = [{}, { fX: true, fY: true }, { fY: true }]
-  const menLeg = [{}]
-  const cowleg = [{}, { sY: { r: 1, otherDim: true }, fY: true, color: hair }]
+  const beak: ReadonlyArray<Tool> = [{}, { fX: true, fY: true }, { fY: true }]
+  const menLeg: ReadonlyArray<Tool> = [{}]
 
-  const beardSide = [
+  const cowleg: ReadonlyArray<Tool> = [
+    {},
+    { sY: { r: 1, otherDim: true }, fY: true, color: hair },
+  ]
+
+  const beardSide: ReadonlyArray<Tool> = [
     {
       sY: { r: 0.3 },
       y: { r: 0.7 },
@@ -137,7 +146,7 @@ const zeus = () => {
     },
   ]
 
-  const chest = [
+  const chest: ReadonlyArray<Tool> = [
     { color: zeus },
     { sY: 1, fY: true },
     {
@@ -149,14 +158,16 @@ const zeus = () => {
     },
   ]
 
-  const abs = [
+  const abs: ReadonlyArray<Tool> = [
     { sY: 1, sX: { r: 1, a: -1 }, fY: true },
     { sX: 1, sY: { r: 1, a: -1 }, fX: true },
   ]
 
-  const teeth = [{ points: [{}, { fX: true }, { fY: true, x: { r: 0.5 } }] }]
+  const teeth: ReadonlyArray<Tool> = [
+    { points: [{}, { fX: true }, { fY: true, x: { r: 0.5 } }] },
+  ]
 
-  const border = [
+  const border: ReadonlyArray<Tool> = [
     { minY: 3, list: [{ color: backgroundColor, y: 1, sY: 1, mX: 1 }] },
     {
       minY: 5,
@@ -164,7 +175,7 @@ const zeus = () => {
     },
   ]
 
-  const clothing = function (down) {
+  const clothing = function (down?: boolean): ReadonlyArray<Tool> {
     return [
       {
         points: [
@@ -178,7 +189,7 @@ const zeus = () => {
     ]
   }
 
-  const renderList = [
+  const renderList: ReadonlyArray<Tool> = [
     // IMAGE
     {
       m: 'borderSX',
@@ -1180,10 +1191,17 @@ const zeus = () => {
     // { sY:2, y:2, fromBottom:true, sX:"squarySuper", color:[160,160,0] },
   ]
 
-  const imgDims = ['imgSX', 'imgSY']
-  const motiveDims = ['motiveSX', 'motiveSY']
+  const imgDims: [InputDynamicVariable, InputDynamicVariable] = [
+    'imgSX',
+    'imgSY',
+  ]
 
-  const variableList = {
+  const motiveDims: [InputDynamicVariable, InputDynamicVariable] = [
+    'motiveSX',
+    'motiveSY',
+  ]
+
+  const variableList: RecordVariable = {
     width: { r: 1 },
     height: { r: 1, height: true },
     squ: { a: 'width', max: 'height' },

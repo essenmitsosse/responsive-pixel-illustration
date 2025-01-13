@@ -1,3 +1,16 @@
+const getRotation = (rotate) => {
+  if (rotate > 180) {
+    rotate -= 360
+  } else if (rotate < -180) {
+    rotate += 360
+  }
+
+  return {
+    real: (rotate = rotate / 90),
+    abs: 1 - Math.abs(rotate),
+  }
+}
+
 export const BBObj = function () {}
 
 // GET ROTATION
@@ -22,10 +35,10 @@ BBObj.prototype.calcRotation = function (rotate) {
   const front = Math.abs(Math.abs(rotate - 180) - 90) / 90
 
   return {
-    FL: this.getRotation(realRotation),
-    FR: this.getRotation(realRotation + 90),
-    BL: this.getRotation(realRotation - 90),
-    BR: this.getRotation(realRotation + 180),
+    FL: getRotation(realRotation),
+    FR: getRotation(realRotation + 90),
+    BL: getRotation(realRotation - 90),
+    BR: getRotation(realRotation + 180),
     position: (sin + cos) / (Math.sin(Math.PI * 0.25) * 2),
     sin,
     cos,
@@ -33,19 +46,6 @@ BBObj.prototype.calcRotation = function (rotate) {
     turnedAway: rotate > 90 && rotate < 270 ? -1 : 1,
     front,
     side: 1 - front,
-  }
-}
-
-BBObj.prototype.calcRotation.prototype.getRotation = function (rotate) {
-  if (rotate > 180) {
-    rotate -= 360
-  } else if (rotate < -180) {
-    rotate += 360
-  }
-
-  return {
-    real: (rotate = rotate / 90),
-    abs: 1 - Math.abs(rotate),
   }
 }
 

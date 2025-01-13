@@ -445,20 +445,19 @@ const typo = (init) => {
   })()
 
   const letters = (function () {
-    const list = []
+    return word
+      .split('')
+      .toReversed()
+      .map((char) => {
+        const letter = getLetter(char)
 
-    let l = word.length
+        spacingCount += 1
 
-    while (l--) {
-      list.push(getLetter(word[l]))
-
-      spacingCount += 1
-    }
-
-    spacingCount -= 1
-
-    return list
+        return letter
+      })
   })()
+
+  spacingCount -= 1
 
   const renderList = [
     {

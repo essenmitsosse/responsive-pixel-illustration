@@ -1,7 +1,7 @@
 import { darken } from '@/helper/helperColor'
 import { getBiggerDim, getSmallerDim, mult, sub } from '@/helper/helperDim'
 
-function zeus() {
+const zeus = () => {
   const zero = { a: 0 }
   const shadowColor = [255, 255, 255]
   const shadow = darken(shadowColor, 0.7)

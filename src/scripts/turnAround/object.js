@@ -142,100 +142,102 @@ export class BBObj {
 }
 
 // Rotater
-export const Rotater = function (args) {
-  this.list = []
+export class Rotater extends BBObj {
+  constructor(args) {
+    super()
 
-  this.ll.push(
-    (this.sX = {
-      r:
-        1 +
-        // Base Size (change for Front)
-        (args.frontSX !== undefined
-          ? args.rotate.front * (args.frontSX - 1)
-          : 0),
-      // + ( args.sideSX !== undefined ? rotate.side * ( args.sideSX - 1 ) : 0 ), 	// change for Side
-      useSize: args.baseSX,
-      odd: true,
-    }),
-  )
+    this.list = []
 
-  if (args.side) {
-    if (!args.side.sX) {
-      args.side.sX = this.sX
+    this.ll.push(
+      (this.sX = {
+        r:
+          1 +
+          // Base Size (change for Front)
+          (args.frontSX !== undefined
+            ? args.rotate.front * (args.frontSX - 1)
+            : 0),
+        // + ( args.sideSX !== undefined ? rotate.side * ( args.sideSX - 1 ) : 0 ), 	// change for Side
+        useSize: args.baseSX,
+        odd: true,
+      }),
+    )
+
+    if (args.side) {
+      if (!args.side.sX) {
+        args.side.sX = this.sX
+      }
+
+      this.x = this.moveOut(args.side, args.rotate)
     }
 
-    this.x = this.moveOut(args.side, args.rotate)
-  }
+    if (args.sY) {
+      this.ll.push((this.sY = args.sY))
+    }
 
-  if (args.sY) {
-    this.ll.push((this.sY = args.sY))
-  }
+    if (args.y) {
+      this.ll.push((this.y = args.y))
+    }
 
-  if (args.y) {
-    this.ll.push((this.y = args.y))
-  }
+    if (args.roundTop || args.roundBottom) {
+      this.list.push({
+        minX: 5,
+        minY: 5,
+        list: [
+          args.roundTop && { name: 'Dot', clear: true },
+          args.roundTop && { name: 'Dot', fX: true, clear: true },
+          args.roundBottom && { name: 'Dot', fY: true, clear: true },
+          args.roundBottom && {
+            name: 'Dot',
+            fX: true,
+            fY: true,
+            clear: true,
+          },
+        ],
+      })
+    }
 
-  if (args.roundTop || args.roundBottom) {
-    this.list.push({
-      minX: 5,
-      minY: 5,
-      list: [
-        args.roundTop && { name: 'Dot', clear: true },
-        args.roundTop && { name: 'Dot', fX: true, clear: true },
-        args.roundBottom && { name: 'Dot', fY: true, clear: true },
-        args.roundBottom && {
-          name: 'Dot',
-          fX: true,
-          fY: true,
-          clear: true,
-        },
-      ],
-    })
-  }
+    this.pusher(args.rotate.FL, args.drawer.draw(args, true, false))
 
-  this.pusher(args.rotate.FL, args.drawer.draw(args, true, false))
+    this.pusher(args.rotate.FR, args.drawer.draw(args, true, true), true)
 
-  this.pusher(args.rotate.FR, args.drawer.draw(args, true, true), true)
+    this.pusher(args.rotate.BR, args.drawer.draw(args, false, true))
 
-  this.pusher(args.rotate.BR, args.drawer.draw(args, false, true))
+    this.pusher(args.rotate.BL, args.drawer.draw(args, false, false), true)
 
-  this.pusher(args.rotate.BL, args.drawer.draw(args, false, false), true)
-
-  return {
-    get: {
+    return {
+      get: {
+        sX: this.sX,
+        sY: this.sY,
+        fY: args.fY,
+        tY: args.tY,
+        x: this.x,
+        y: args.y,
+        id: args.id,
+        cX: true,
+        z:
+          (args.z ? args.z * args.rotate.turnedAway : 0) +
+          (args.zAbs ? args.zAbs : 0),
+        list: this.list,
+      },
+      rotate: args.rotate,
       sX: this.sX,
       sY: this.sY,
-      fY: args.fY,
-      tY: args.tY,
-      x: this.x,
-      y: args.y,
-      id: args.id,
-      cX: true,
-      z:
-        (args.z ? args.z * args.rotate.turnedAway : 0) +
-        (args.zAbs ? args.zAbs : 0),
-      list: this.list,
-    },
-    rotate: args.rotate,
-    sX: this.sX,
-    sY: this.sY,
-    x: this.X,
-    y: this.y,
+      x: this.X,
+      y: this.y,
+    }
   }
-}
 
-Rotater.prototype = new BBObj()
+  pusher(rotate, list, reflect) {
+    const front = rotate.abs > 0
 
-Rotater.prototype.pusher = function (rotate, list, reflect) {
-  const front = rotate.abs > 0
-
-  this.list.push({
-    sX: { r: front ? rotate.abs : -rotate.abs },
-    fX: rotate.real > 0,
-    z: front ? 50 : -50,
-    list,
-    rX: reflect,
-  })
+    this.list.push({
+      sX: { r: front ? rotate.abs : -rotate.abs },
+      fX: rotate.real > 0,
+      z: front ? 50 : -50,
+      list,
+      rX: reflect,
+    })
+  }
 }
 
 export const RotateInfo = function (rotate) {

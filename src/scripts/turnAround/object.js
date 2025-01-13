@@ -137,9 +137,11 @@ export class BBObj {
   }
 
   merge(what, args) {
-    for (const attr in args) {
-      what[attr] = args[attr]
-    }
+    what.x = args.x
+
+    what.y = args.y
+
+    what.z = args.z
 
     return what
   }

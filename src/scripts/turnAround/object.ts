@@ -1,4 +1,13 @@
-const getRotation = (rotate) => {
+import type { ColorRgb } from '@/helper/typeColor'
+import type { InputDynamicVariable } from '@/helper/typeSize'
+import type { Tool } from '@/renderengine/DrawingTools/Primitive'
+
+type Rotation = {
+  abs: number
+  real: number
+}
+
+const getRotation = (rotate: number): Rotation => {
   if (rotate > 180) {
     rotate -= 360
   } else if (rotate < -180) {
@@ -11,23 +20,72 @@ const getRotation = (rotate) => {
   }
 }
 
+type MoveOut = {
+  add: ReadonlyArray<InputDynamicVariable>
+  max?: InputDynamicVariable
+  min?: InputDynamicVariable
+}
+
+type Move = {
+  max?: InputDynamicVariable
+  sX?: InputDynamicVariable
+  sXBase?: InputDynamicVariable
+  xAdd?: InputDynamicVariable
+  xBase?: number
+  xRel?: number
+  y?: InputDynamicVariable
+  z?: number
+}
+
+type What = {
+  cX: boolean
+  fY: boolean
+  get: Omit<What, 'get' | 'rotate'>
+  id: number
+  list: ReadonlyArray<Tool>
+  rotate: {
+    position: number
+    turnedAway: number
+  }
+  sX: InputDynamicVariable
+  sY: InputDynamicVariable
+  tY: InputDynamicVariable
+  x?: InputDynamicVariable
+  y?: InputDynamicVariable
+  z?: number
+}
+
 export class BBObj {
-  white = [200, 200, 200]
-  black = [20, 20, 20]
-  c1 = [200, 20, 20]
-  c2 = [20, 200, 20]
-  c3 = [20, 0, 200]
-  c4 = [200, 200, 20]
-  c5 = [20, 200, 200]
-  c6 = [200, 20, 200]
-  c1D = [150, 20, 20]
-  c2D = [20, 150, 20]
-  c3D = [20, 0, 150]
-  c4D = [150, 150, 20]
-  c5D = [20, 150, 150]
-  c6D = [150, 20, 150]
+  declare ll?: Array<InputDynamicVariable>
+  declare max?: InputDynamicVariable
+  white: ColorRgb = [200, 200, 200]
+  black: ColorRgb = [20, 20, 20]
+  c1: ColorRgb = [200, 20, 20]
+  c2: ColorRgb = [20, 200, 20]
+  c3: ColorRgb = [20, 0, 200]
+  c4: ColorRgb = [200, 200, 20]
+  c5: ColorRgb = [20, 200, 200]
+  c6: ColorRgb = [200, 20, 200]
+  c1D: ColorRgb = [150, 20, 20]
+  c2D: ColorRgb = [20, 150, 20]
+  c3D: ColorRgb = [20, 0, 150]
+  c4D: ColorRgb = [150, 150, 20]
+  c5D: ColorRgb = [20, 150, 150]
+  c6D: ColorRgb = [150, 20, 150]
   // GET ROTATION
-  calcRotation(rotate) {
+  calcRotation(rotate: number): {
+    BL: Rotation
+    BR: Rotation
+    FL: Rotation
+    FR: Rotation
+    cos: number
+    front: number
+    position: number
+    rotate: number
+    side: number
+    sin: number
+    turnedAway: number
+  } {
     let realRotation = rotate - 45
 
     if (realRotation > 180) {
@@ -61,17 +119,26 @@ export class BBObj {
       side: 1 - front,
     }
   }
-  moveOut(args, rotate) {
+  moveOut(
+    args: Move,
+    rotate: {
+      position: number
+    },
+  ): MoveOut {
     // Takes arguments:
     //	sXBase, xBase,
     //	xAdd,
     //	XRel
 
-    let diff
+    let diff: InputDynamicVariable
 
-    const add = []
+    const add: Array<InputDynamicVariable> = []
 
-    const X = {
+    const X: {
+      add: ReadonlyArray<InputDynamicVariable>
+      max?: InputDynamicVariable
+      min?: InputDynamicVariable
+    } = {
       add,
     }
 
@@ -125,7 +192,7 @@ export class BBObj {
     return X
   }
 
-  mover(what, move) {
+  mover(what: What, move: Move): What {
     let x
 
     move.sX = what.sX
@@ -150,7 +217,14 @@ export class BBObj {
     return what
   }
 
-  merge(what, args) {
+  merge<T extends Pick<What, 'x' | 'y' | 'z'>>(
+    what: T,
+    args: {
+      x: InputDynamicVariable
+      y: InputDynamicVariable
+      z: number
+    },
+  ): T {
     what.x = args.x
 
     what.y = args.y
@@ -161,9 +235,46 @@ export class BBObj {
   }
 }
 
+type ArgsRotater = {
+  baseSX: InputDynamicVariable
+  drawer: {
+    draw: (args: ArgsRotater, a: boolean, b: boolean) => ReadonlyArray<Tool>
+  }
+  fY: boolean
+  frontSX?: number
+  id: number
+  rotate: {
+    BL: { abs: number; real: number }
+    BR: { abs: number; real: number }
+    FL: { abs: number; real: number }
+    FR: { abs: number; real: number }
+    front: number
+    position: number
+    turnedAway: number
+  }
+  roundBottom: boolean
+  roundTop: boolean
+  sY?: InputDynamicVariable
+  side?: {
+    sX: InputDynamicVariable
+  }
+  tY: InputDynamicVariable
+  y: InputDynamicVariable
+  z?: number
+  zAbs?: number
+}
+
 // Rotater
 export class Rotater extends BBObj {
-  constructor(args) {
+  declare list: Array<Tool>
+  result: Omit<What, 'cX' | 'fY' | 'id' | 'list' | 'tY'>
+  declare sX: InputDynamicVariable
+  declare sY: InputDynamicVariable
+  declare x: MoveOut
+  declare X: InputDynamicVariable
+  declare y: InputDynamicVariable
+
+  constructor(args: ArgsRotater) {
     super()
 
     if (this.ll === undefined) {
@@ -251,7 +362,11 @@ export class Rotater extends BBObj {
     }
   }
 
-  pusher(rotate, list, reflect) {
+  pusher(
+    rotate: { abs: number; real: number },
+    list: ReadonlyArray<Tool>,
+    reflect?: boolean,
+  ): void {
     const front = rotate.abs > 0
 
     this.list.push({
@@ -265,7 +380,8 @@ export class Rotater extends BBObj {
 }
 
 export class RotateInfo extends BBObj {
-  constructor(rotate) {
+  declare result: Tool
+  constructor(rotate: { cos: number; sin: number }) {
     super()
 
     if (this.ll === undefined) {

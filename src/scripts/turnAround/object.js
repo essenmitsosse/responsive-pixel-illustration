@@ -76,7 +76,7 @@ export class BBObj {
         r: rotate.position * args.xBase,
 
         /** Correct the 1 subtracted Pixel */
-        a: args.xBase > 0 && rotate.position * -1,
+        a: args.xBase > 0 ? rotate.position * -1 : undefined,
         useSize: diff,
       })
     }

@@ -43,7 +43,7 @@ Head.prototype.draw = function (args) {
     fY: true,
     roundTop: true,
     roundBottom: true,
-  })
+  }).result
 
   const headTop = new this.basic.Rotater({
     drawer: this.headTop,
@@ -57,7 +57,7 @@ Head.prototype.draw = function (args) {
     sY: { add: [{ r: -1, useSize: headBottom.sY }, args.sY, 2] },
     roundTop: true,
     roundBottom: true,
-  })
+  }).result
 
   const nose = new this.basic.Rotater({
     drawer: this.nose,
@@ -75,7 +75,7 @@ Head.prototype.draw = function (args) {
       xRel: 1,
       xAdd: this.wideJaw && headTop.x,
     },
-  })
+  }).result
 
   // this.ll.push(
   // 	sizes.headTopSY = { r:this.headTopSY, useSize:args.sY },

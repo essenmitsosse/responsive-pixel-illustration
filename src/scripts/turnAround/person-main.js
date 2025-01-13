@@ -124,7 +124,7 @@ BodyMain.prototype.draw = function (args) {
     sY: this.lowerBodySY,
     fY: true,
     z: 20,
-  })
+  }).result
 
   const chest = new this.basic.Rotater({
     drawer: this.chest,
@@ -135,7 +135,7 @@ BodyMain.prototype.draw = function (args) {
     frontSX: this.chestFrontSX,
     sY: this.chestSY,
     z: 40,
-  })
+  }).result
 
   lowerBody = this.mover(lowerBody, {
     xRel: 0,

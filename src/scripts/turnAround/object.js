@@ -214,7 +214,7 @@ export class Rotater extends BBObj {
 
     this.pusher(args.rotate.BL, args.drawer.draw(args, false, false), true)
 
-    return {
+    this.result = {
       get: {
         sX: this.sX,
         sY: this.sY,

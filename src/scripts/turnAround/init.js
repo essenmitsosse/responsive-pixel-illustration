@@ -1,6 +1,6 @@
 import { BB } from './bb'
 
-function turnAround(init) {
+const turnAround = (init) => {
   const bb = new BB(init)
 
   return {

@@ -61,6 +61,10 @@ export class BBObj {
       add,
     }
 
+    if (this.ll === undefined) {
+      throw new Error('Unexpected error: ll is undefined')
+    }
+
     if (args.sXBase && args.xBase) {
       // Move out, relative to the Base
       this.ll.push(

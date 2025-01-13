@@ -444,18 +444,16 @@ const typo = (init) => {
     }
   })()
 
-  const letters = (function () {
-    return word
-      .split('')
-      .toReversed()
-      .map((char) => {
-        const letter = getLetter(char)
+  const letters = word
+    .split('')
+    .toReversed()
+    .map((char) => {
+      const letter = getLetter(char)
 
-        spacingCount += 1
+      spacingCount += 1
 
-        return letter
-      })
-  })()
+      return letter
+    })
 
   spacingCount -= 1
 

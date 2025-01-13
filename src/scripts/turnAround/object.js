@@ -49,6 +49,99 @@ BBObj.prototype.calcRotation = function (rotate) {
   }
 }
 
+BBObj.prototype.moveOut = function (args, rotate) {
+  // Takes arguments:
+  //	sXBase, xBase,
+  //	xAdd,
+  //	XRel
+
+  let diff
+
+  const add = []
+
+  const X = {
+    add,
+  }
+
+  if (args.sXBase && args.xBase) {
+    // Move out, relative to the Base
+    this.ll.push(
+      (diff = {
+        add: [
+          { r: 0.5, useSize: args.sXBase },
+          { r: -0.5, useSize: args.sX },
+        ],
+      }),
+    )
+
+    add.push({
+      r: rotate.position * args.xBase,
+
+      /** Correct the 1 subtracted Pixel */
+      a: args.xBase > 0 && rotate.position * -1,
+      useSize: diff,
+    })
+  }
+
+  if (args.xAdd) {
+    // Move Center Point to correct center
+    add.push(args.xAdd)
+  }
+
+  if (args.xRel) {
+    // Move relative to the size of the object
+    add.push({
+      r: rotate.position * args.xRel,
+      useSize: args.sX,
+    })
+  }
+
+  if (args.max) {
+    this.ll.push((this.max = args.max))
+
+    X.max = this.max
+
+    X.min = { r: -1, useSize: this.max }
+  }
+
+  this.ll.push(X)
+
+  return X
+}
+
+BBObj.prototype.mover = function (what, move) {
+  let x
+
+  move.sX = what.sX
+
+  what.x = x = this.moveOut(move, what.rotate)
+
+  what.get = this.merge(what.get, {
+    x,
+    y: move.y,
+    z:
+      (move.xRel
+        ? move.xRel && move.xRel < 0
+          ? -1
+          : 1
+        : move.xBase && move.xBase < 0
+          ? -1
+          : 1) *
+      (move.z || 50) *
+      what.rotate.turnedAway,
+  })
+
+  return what
+}
+
+BBObj.prototype.merge = function (what, args) {
+  for (const attr in args) {
+    what[attr] = args[attr]
+  }
+
+  return what
+}
+
 // Rotater
 export const Rotater = function (args) {
   this.list = []
@@ -144,99 +237,6 @@ Rotater.prototype.pusher = function (rotate, list, reflect) {
     list,
     rX: reflect,
   })
-}
-
-BBObj.prototype.moveOut = function (args, rotate) {
-  // Takes arguments:
-  //	sXBase, xBase,
-  //	xAdd,
-  //	XRel
-
-  let diff
-
-  const add = []
-
-  const X = {
-    add,
-  }
-
-  if (args.sXBase && args.xBase) {
-    // Move out, relative to the Base
-    this.ll.push(
-      (diff = {
-        add: [
-          { r: 0.5, useSize: args.sXBase },
-          { r: -0.5, useSize: args.sX },
-        ],
-      }),
-    )
-
-    add.push({
-      r: rotate.position * args.xBase,
-
-      /** Correct the 1 subtracted Pixel */
-      a: args.xBase > 0 && rotate.position * -1,
-      useSize: diff,
-    })
-  }
-
-  if (args.xAdd) {
-    // Move Center Point to correct center
-    add.push(args.xAdd)
-  }
-
-  if (args.xRel) {
-    // Move relative to the size of the object
-    add.push({
-      r: rotate.position * args.xRel,
-      useSize: args.sX,
-    })
-  }
-
-  if (args.max) {
-    this.ll.push((this.max = args.max))
-
-    X.max = this.max
-
-    X.min = { r: -1, useSize: this.max }
-  }
-
-  this.ll.push(X)
-
-  return X
-}
-
-BBObj.prototype.mover = function (what, move) {
-  let x
-
-  move.sX = what.sX
-
-  what.x = x = this.moveOut(move, what.rotate)
-
-  what.get = this.merge(what.get, {
-    x,
-    y: move.y,
-    z:
-      (move.xRel
-        ? move.xRel && move.xRel < 0
-          ? -1
-          : 1
-        : move.xBase && move.xBase < 0
-          ? -1
-          : 1) *
-      (move.z || 50) *
-      what.rotate.turnedAway,
-  })
-
-  return what
-}
-
-BBObj.prototype.merge = function (what, args) {
-  for (const attr in args) {
-    what[attr] = args[attr]
-  }
-
-  return what
 }
 
 export const RotateInfo = function (rotate) {

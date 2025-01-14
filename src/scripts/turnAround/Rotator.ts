@@ -9,7 +9,7 @@ type ArgsRotater = {
   baseSX: InputDynamicVariable
   drawer: {
     draw: (
-      args: ArgsRotater,
+      args: Omit<ArgsRotater, 'drawer'>,
       isFront: boolean,
       isRight: boolean,
     ) => ReadonlyArray<Tool>

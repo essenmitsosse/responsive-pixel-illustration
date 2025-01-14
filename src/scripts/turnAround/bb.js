@@ -8,7 +8,7 @@ import { Chest } from './person-upperBody'
 
 export const BB = function (init) {
   const args = {}
-  const ObjProto = BB.prototype.Obj.prototype
+  const ObjProto = BBObj.prototype
   const random = getRandom(init.id || Math.floor(Math.random() * 4294967296))
 
   for (const attr in init) {
@@ -31,8 +31,6 @@ export const BB = function (init) {
 
   ObjProto.R = random.getRandomFloat
 }
-
-BB.prototype.Obj = BBObj
 
 // OVERVIEW
 BB.prototype.Overview = function (init) {

@@ -1,7 +1,7 @@
 import { getRandom } from '@/helper/getRandom'
 import { BBObj } from '@/scripts/turnAround/object'
 
-import { Overview } from './bb'
+import { Overview } from './Overview'
 
 const turnAround = (init) => {
   const args = {

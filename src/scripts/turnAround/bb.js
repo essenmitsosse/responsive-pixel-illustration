@@ -25,34 +25,6 @@ export const BB = function (init) {
 
   ObjProto.ll = this.ll = []
 
-  ObjProto.white = [200, 200, 200]
-
-  ObjProto.black = [20, 20, 20]
-
-  ObjProto.c1 = [200, 20, 20]
-
-  ObjProto.c2 = [20, 200, 20]
-
-  ObjProto.c3 = [20, 0, 200]
-
-  ObjProto.c4 = [200, 200, 20]
-
-  ObjProto.c5 = [20, 200, 200]
-
-  ObjProto.c6 = [200, 20, 200]
-
-  ObjProto.c1D = [150, 20, 20]
-
-  ObjProto.c2D = [20, 150, 20]
-
-  ObjProto.c3D = [20, 0, 150]
-
-  ObjProto.c4D = [150, 150, 20]
-
-  ObjProto.c5D = [20, 150, 150]
-
-  ObjProto.c6D = [150, 20, 150]
-
   ObjProto.IF = random.getIf
 
   ObjProto.GR = random.getRandom

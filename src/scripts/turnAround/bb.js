@@ -21,13 +21,12 @@ const recordObj = {
 }
 
 export const BB = function (init = {}) {
-  const args = {}
+  const args = {
+    ...init,
+  }
+
   const ObjProto = BBObj.prototype
   const random = getRandom(init.id || Math.floor(Math.random() * 4294967296))
-
-  for (const attr in init) {
-    args[attr] = init[attr]
-  }
 
   args.rotate = args.rotate * 1
 

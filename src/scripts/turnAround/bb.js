@@ -21,8 +21,6 @@ export const BB = function (init) {
 
   ObjProto.basic = this
 
-  ObjProto.basicArgs = args
-
   ObjProto.ll = this.ll = []
 
   ObjProto.IF = random.getIf

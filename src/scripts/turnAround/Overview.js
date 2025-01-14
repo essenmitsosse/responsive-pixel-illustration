@@ -1,8 +1,16 @@
-import { BBObj, RotateInfo, Rotater } from './object'
-import { Head, HeadBottom, HeadTop, Neck, Nose } from './person-head'
-import { LowerBody } from './person-lowerBody'
-import { BodyMain, PersonMain } from './person-main'
-import { Chest } from './person-upperBody'
+import BBObj from '@/scripts/turnAround/BBObj'
+
+import BodyMain from './BodyMain'
+import Chest from './Chest'
+import Head from './Head'
+import HeadBottom from './HeadBottom'
+import HeadTop from './HeadTop'
+import LowerBody from './LowerBody'
+import Neck from './Neck'
+import Nose from './Nose'
+import PersonMain from './PersonMain'
+import Rotater from './Rotator'
+import RotateInfo from './RotatorInfo'
 
 const recordObj = {
   PersonMain,
@@ -19,7 +27,7 @@ const recordObj = {
 }
 
 // OVERVIEW
-export function Overview(init) {
+function Overview(init) {
   const list = []
   const rotations = []
   const rows = init.rows || 2
@@ -98,3 +106,5 @@ export function Overview(init) {
 }
 
 Overview.prototype = new BBObj()
+
+export default Overview

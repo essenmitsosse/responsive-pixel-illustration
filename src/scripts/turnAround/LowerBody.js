@@ -1,7 +1,7 @@
-import { BBObj } from './object'
+import BBObj from './BBObj'
 
 // LOWER BODY  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-export const LowerBody = function (args) {
+const LowerBody = function (args) {
   this.color = args.color
 
   this.colorDark = args.colorDark
@@ -18,3 +18,5 @@ LowerBody.prototype.draw = function (args, front, right) {
   ]
 }
 // End LowerBody Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+export default LowerBody

@@ -13,7 +13,7 @@ class Nose extends BBObj {
     return [
       {
         color: this.colorDark,
-        sY: !front && { r: 1, a: 1 },
+        sY: !front ? { r: 1, a: 1 } : undefined,
         fY: true,
       },
     ]

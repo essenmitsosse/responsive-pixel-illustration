@@ -1,5 +1,3 @@
-import { getRandom } from '@/helper/getRandom'
-
 import { BBObj, RotateInfo, Rotater } from './object'
 import { Head, HeadBottom, HeadTop, Neck, Nose } from './person-head'
 import { LowerBody } from './person-lowerBody'
@@ -18,27 +16,6 @@ const recordObj = {
   Neck,
   Rotater,
   RotateInfo,
-}
-
-export const BB = function (init = {}) {
-  const args = {
-    ...init,
-  }
-
-  const ObjProto = BBObj.prototype
-  const random = getRandom(init.id || Math.floor(Math.random() * 4294967296))
-
-  args.rotate = args.rotate * 1
-
-  ObjProto.rotate = args.rotate
-
-  ObjProto.ll = this.ll = []
-
-  ObjProto.IF = random.getIf
-
-  ObjProto.GR = random.getRandom
-
-  ObjProto.R = random.getRandomFloat
 }
 
 // OVERVIEW

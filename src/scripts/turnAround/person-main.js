@@ -1,4 +1,7 @@
-import { BBObj } from './object'
+import { BBObj, Rotater } from './object'
+import { Head, Neck } from './person-head'
+import { LowerBody } from './person-lowerBody'
+import { Chest } from './person-upperBody'
 
 // PERSON MAIN  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 export const PersonMain = function (args) {
@@ -13,11 +16,11 @@ export const PersonMain = function (args) {
   this.colorDark = args.colorDark = this['c' + color + 'D']
 
   // Assets
-  this.head = new this.basic.Head(args)
+  this.head = new Head(args)
 
-  this.neck = new this.basic.Neck(args)
+  this.neck = new Neck(args)
 
-  this.bodyMain = new this.basic.BodyMain(args)
+  this.bodyMain = new BodyMain(args)
 }
 // End PersonMain
 
@@ -100,9 +103,9 @@ export const BodyMain = function (args) {
   this.colorDark = args.colorDark
 
   // Assets
-  this.chest = new this.basic.Chest(args)
+  this.chest = new Chest(args)
 
-  this.lowerBody = new this.basic.LowerBody(args)
+  this.lowerBody = new LowerBody(args)
 }
 // End BodyMain
 
@@ -115,7 +118,7 @@ BodyMain.prototype.draw = function (args) {
 
   this.ll.push((this.lowerBodySY = [args.sY, { r: -1, useSize: this.chestSY }]))
 
-  let lowerBody = new this.basic.Rotater({
+  let lowerBody = new Rotater({
     drawer: this.lowerBody,
     id: 'lowerBody',
     rotate: args.rotate,
@@ -126,7 +129,7 @@ BodyMain.prototype.draw = function (args) {
     z: 20,
   }).result
 
-  const chest = new this.basic.Rotater({
+  const chest = new Rotater({
     drawer: this.chest,
     id: 'chest',
     rotate: args.rotate,

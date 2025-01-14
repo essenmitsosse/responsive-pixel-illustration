@@ -1,4 +1,4 @@
-import { BBObj } from './object'
+import { BBObj, Rotater } from './object'
 
 // HEAD MAIN  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 export const Head = function (args) {
@@ -20,11 +20,11 @@ export const Head = function (args) {
 
   this.headTopSY = this.R(0.2, 0.8)
 
-  this.headTop = new this.basic.HeadTop(args)
+  this.headTop = new HeadTop(args)
 
-  this.headBottom = new this.basic.HeadBottom(args)
+  this.headBottom = new HeadBottom(args)
 
-  this.nose = new this.basic.Nose(args)
+  this.nose = new Nose(args)
 }
 // End Head
 
@@ -33,7 +33,7 @@ Head.prototype = new BBObj()
 Head.prototype.draw = function (args) {
   this.ll.push((this.sX = { r: this._sX, useSize: args.sY }))
 
-  const headBottom = new this.basic.Rotater({
+  const headBottom = new Rotater({
     drawer: this.headBottom,
     id: 'lowerHead',
     rotate: args.rotate,
@@ -45,7 +45,7 @@ Head.prototype.draw = function (args) {
     roundBottom: true,
   }).result
 
-  const headTop = new this.basic.Rotater({
+  const headTop = new Rotater({
     drawer: this.headTop,
     id: 'topHead',
     rotate: args.rotate,
@@ -59,7 +59,7 @@ Head.prototype.draw = function (args) {
     roundBottom: true,
   }).result
 
-  const nose = new this.basic.Rotater({
+  const nose = new Rotater({
     drawer: this.nose,
     id: 'nose',
     rotate: args.rotate,

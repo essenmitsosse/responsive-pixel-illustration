@@ -6,7 +6,21 @@ import { LowerBody } from './person-lowerBody'
 import { BodyMain, PersonMain } from './person-main'
 import { Chest } from './person-upperBody'
 
-export const BB = function (init) {
+const recordObj = {
+  PersonMain,
+  BodyMain,
+  Chest,
+  LowerBody,
+  Head,
+  HeadTop,
+  HeadBottom,
+  Nose,
+  Neck,
+  Rotater,
+  RotateInfo,
+}
+
+export const BB = function (init = {}) {
   const args = {}
   const ObjProto = BBObj.prototype
   const random = getRandom(init.id || Math.floor(Math.random() * 4294967296))
@@ -19,8 +33,6 @@ export const BB = function (init) {
 
   ObjProto.rotate = args.rotate
 
-  ObjProto.basic = this
-
   ObjProto.ll = this.ll = []
 
   ObjProto.IF = random.getIf
@@ -31,7 +43,7 @@ export const BB = function (init) {
 }
 
 // OVERVIEW
-BB.prototype.Overview = function (init) {
+export function Overview(init) {
   const list = []
   const rotations = []
   const rows = init.rows || 2
@@ -71,7 +83,7 @@ BB.prototype.Overview = function (init) {
     do {
       i = 0
 
-      this.entity = new this.basic[init.what || 'PersonMain']({})
+      this.entity = new recordObj[init.what || 'PersonMain']({})
 
       do {
         list.push({
@@ -104,31 +116,9 @@ BB.prototype.Overview = function (init) {
     } while ((j += 1) < rows)
   } while ((k += 1) < reps)
 
-  list.push(new this.basic.RotateInfo(rotations[0]).result)
+  list.push(new RotateInfo(rotations[0]).result)
 
   return list
 }
 
-BB.prototype.Overview.prototype = new BBObj()
-
-BB.prototype.PersonMain = PersonMain
-
-BB.prototype.BodyMain = BodyMain
-
-BB.prototype.Chest = Chest
-
-BB.prototype.LowerBody = LowerBody
-
-BB.prototype.Head = Head
-
-BB.prototype.HeadTop = HeadTop
-
-BB.prototype.HeadBottom = HeadBottom
-
-BB.prototype.Nose = Nose
-
-BB.prototype.Neck = Neck
-
-BB.prototype.Rotater = Rotater
-
-BB.prototype.RotateInfo = RotateInfo
+Overview.prototype = new BBObj()

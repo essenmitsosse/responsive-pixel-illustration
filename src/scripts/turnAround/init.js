@@ -1,10 +1,10 @@
-import { BB } from './bb'
+import { BB, Overview } from './bb'
 
 const turnAround = (init) => {
   const bb = new BB(init)
 
   return {
-    renderList: new bb.Overview(init, 'Head'),
+    renderList: new Overview(init, 'Head'),
     linkList: bb.ll,
     background: bb.background || [160, 200, 200],
   }

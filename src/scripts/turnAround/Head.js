@@ -1,103 +1,103 @@
-import BBObj from '@/scripts/turnAround/BBObj'
-import HeadBottom from '@/scripts/turnAround/HeadBottom'
-import Nose from '@/scripts/turnAround/Nose'
-import Rotater from '@/scripts/turnAround/Rotator'
-
+import BBObj from './BBObj'
+import HeadBottom from './HeadBottom'
 import HeadTop from './HeadTop'
+import Nose from './Nose'
+import Rotater from './Rotator'
 
-const Head = function (args) {
-  this.color = args.color || [255, 0, 0]
+class Head extends BBObj {
+  constructor(args) {
+    super()
 
-  this.colorDark = args.colorDark || [150, 0, 0]
+    this.color = args.color || [255, 0, 0]
 
-  this._sX = this.R(0.4, 1.8)
+    this.colorDark = args.colorDark || [150, 0, 0]
 
-  this.headSideRatio = this.R(0.5, 1.5)
+    this._sX = this.R(0.4, 1.8)
 
-  this.headTopFrontSX = this.R(0.5, 1.5)
+    this.headSideRatio = this.R(0.5, 1.5)
 
-  this.headTopSideSX = this.headTopFrontSX + this.R(-0.2, 0.2)
+    this.headTopFrontSX = this.R(0.5, 1.5)
 
-  this.wideJaw = this.headSideRatio > this.headTopSideSX
+    this.headTopSideSX = this.headTopFrontSX + this.R(-0.2, 0.2)
 
-  this.headTopX = (this.wideJaw ? -1 : 1) * this.R(0, 1)
+    this.wideJaw = this.headSideRatio > this.headTopSideSX
 
-  this.headTopSY = this.R(0.2, 0.8)
+    this.headTopX = (this.wideJaw ? -1 : 1) * this.R(0, 1)
 
-  this.headTop = new HeadTop(args)
+    this.headTopSY = this.R(0.2, 0.8)
 
-  this.headBottom = new HeadBottom(args)
+    this.headTop = new HeadTop(args)
 
-  this.nose = new Nose(args)
-}
-// End Head
+    this.headBottom = new HeadBottom(args)
 
-Head.prototype = new BBObj()
+    this.nose = new Nose(args)
+  }
 
-Head.prototype.draw = function (args) {
-  this.ll.push((this.sX = { r: this._sX, useSize: args.sY }))
+  draw(args) {
+    this.ll.push((this.sX = { r: this._sX, useSize: args.sY }))
 
-  const headBottom = new Rotater({
-    drawer: this.headBottom,
-    id: 'lowerHead',
-    rotate: args.rotate,
-    baseSX: this.sX,
-    sideSX: this.headSideRatio,
-    sY: { r: this.headTopSY, useSize: args.sY },
-    fY: true,
-    roundTop: true,
-    roundBottom: true,
-  }).result
+    const headBottom = new Rotater({
+      drawer: this.headBottom,
+      id: 'lowerHead',
+      rotate: args.rotate,
+      baseSX: this.sX,
+      sideSX: this.headSideRatio,
+      sY: { r: this.headTopSY, useSize: args.sY },
+      fY: true,
+      roundTop: true,
+      roundBottom: true,
+    }).result
 
-  const headTop = new Rotater({
-    drawer: this.headTop,
-    id: 'topHead',
-    rotate: args.rotate,
-    baseSX: this.sX,
-    frontSX: this.headTopFrontSX,
-    sideSX: this.headTopSideSX,
-    sideBaseSX: headBottom.sX,
-    sideX: this.headTopX,
-    sY: { add: [{ r: -1, useSize: headBottom.sY }, args.sY, 2] },
-    roundTop: true,
-    roundBottom: true,
-  }).result
+    const headTop = new Rotater({
+      drawer: this.headTop,
+      id: 'topHead',
+      rotate: args.rotate,
+      baseSX: this.sX,
+      frontSX: this.headTopFrontSX,
+      sideSX: this.headTopSideSX,
+      sideBaseSX: headBottom.sX,
+      sideX: this.headTopX,
+      sY: { add: [{ r: -1, useSize: headBottom.sY }, args.sY, 2] },
+      roundTop: true,
+      roundBottom: true,
+    }).result
 
-  const nose = new Rotater({
-    drawer: this.nose,
-    id: 'nose',
-    rotate: args.rotate,
-    baseSX: this.sX,
-    frontSX: 0.1,
-    sideSX: 0.5,
-    sY: { a: 2 },
-    y: [headTop.sY, -2],
-    z: 500,
-    side: {
-      sXBase: (this.wideJaw ? headTop : headBottom).sX,
-      xBase: 1,
-      xRel: 1,
-      xAdd: this.wideJaw && headTop.x,
-    },
-  }).result
+    const nose = new Rotater({
+      drawer: this.nose,
+      id: 'nose',
+      rotate: args.rotate,
+      baseSX: this.sX,
+      frontSX: 0.1,
+      sideSX: 0.5,
+      sY: { a: 2 },
+      y: [headTop.sY, -2],
+      z: 500,
+      side: {
+        sXBase: (this.wideJaw ? headTop : headBottom).sX,
+        xBase: 1,
+        xRel: 1,
+        xAdd: this.wideJaw && headTop.x,
+      },
+    }).result
 
-  // this.ll.push(
-  // 	sizes.headTopSY = { r:this.headTopSY, useSize:args.sY },
-  // 	sizes.headBottomSY = [ { r:-1, useSize: sizes.headTopSY }, args.sY ]
-  // );
+    // this.ll.push(
+    // 	sizes.headTopSY = { r:this.headTopSY, useSize:args.sY },
+    // 	sizes.headBottomSY = [ { r:-1, useSize: sizes.headTopSY }, args.sY ]
+    // );
 
-  return {
-    get: {
-      color: this.color,
+    return {
+      get: {
+        color: this.color,
+        sY: args.sY,
+        list: [headTop.get, headBottom.get, nose.get],
+      },
+      headTop,
+      headBottom,
+      nose,
+      sX: headBottom.sX,
       sY: args.sY,
-      list: [headTop.get, headBottom.get, nose.get],
-    },
-    headTop,
-    headBottom,
-    nose,
-    sX: headBottom.sX,
-    sY: args.sY,
-    rotate: args.rotate,
+      rotate: args.rotate,
+    }
   }
 }
 

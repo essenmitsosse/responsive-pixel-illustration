@@ -1,20 +1,21 @@
 import BBObj from './BBObj'
 
-const Chest = function (args) {
-  this.color = args.color
+class Chest extends BBObj {
+  constructor(args) {
+    super()
 
-  this.colorDark = args.colorDark
-}
-// End Chest
+    this.color = args.color
 
-Chest.prototype = new BBObj()
+    this.colorDark = args.colorDark
+  }
 
-Chest.prototype.draw = function (args, front, right) {
-  return [
-    {
-      color: [front ? 200 : 150, right ? 200 : 150, front || right ? 0 : 0],
-    },
-  ]
+  draw(args, front, right) {
+    return [
+      {
+        color: [front ? 200 : 150, right ? 200 : 150, front || right ? 0 : 0],
+      },
+    ]
+  }
 }
 
 export default Chest

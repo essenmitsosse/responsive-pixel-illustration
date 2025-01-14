@@ -1,22 +1,22 @@
 import BBObj from './BBObj'
 
 // LOWER BODY  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-const LowerBody = function (args) {
-  this.color = args.color
+class LowerBody extends BBObj {
+  constructor(args) {
+    super()
 
-  this.colorDark = args.colorDark
+    this.color = args.color
+
+    this.colorDark = args.colorDark
+  }
+
+  draw(args, front, right) {
+    return [
+      {
+        color: [front ? 150 : 100, right ? 150 : 100, front || right ? 0 : 0],
+      },
+    ]
+  }
 }
-// End LowerBody
-
-LowerBody.prototype = new BBObj()
-
-LowerBody.prototype.draw = function (args, front, right) {
-  return [
-    {
-      color: [front ? 150 : 100, right ? 150 : 100, front || right ? 0 : 0],
-    },
-  ]
-}
-// End LowerBody Draw - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 export default LowerBody

@@ -3,80 +3,81 @@ import BodyMain from './BodyMain'
 import Head from './Head'
 import Neck from './Neck'
 
-const PersonMain = function (args) {
-  // Sizes and Forms
-  this._headSY = this.R(0.1, 0.4)
+class PersonMain extends BBObj {
+  constructor(args) {
+    super()
 
-  // Colors
-  const color = this.GR(1, 6)
+    // Sizes and Forms
+    this._headSY = this.R(0.1, 0.4)
 
-  this.color = args.color = this['c' + color]
+    // Colors
+    const color = this.GR(1, 6)
 
-  this.colorDark = args.colorDark = this['c' + color + 'D']
+    this.color = args.color = this['c' + color]
 
-  // Assets
-  this.head = new Head(args)
+    this.colorDark = args.colorDark = this['c' + color + 'D']
 
-  this.neck = new Neck(args)
+    // Assets
+    this.head = new Head(args)
 
-  this.bodyMain = new BodyMain(args)
-}
-// End PersonMain
+    this.neck = new Neck(args)
 
-PersonMain.prototype = new BBObj()
+    this.bodyMain = new BodyMain(args)
+  }
 
-PersonMain.prototype.draw = function (args) {
-  this.ll.push((this.headSY = { r: this._headSY, useSize: args.sY }))
+  draw(args) {
+    this.ll.push((this.headSY = { r: this._headSY, useSize: args.sY }))
 
-  this.ll.push((this.neckSY = { a: 5 }))
+    this.ll.push((this.neckSY = { a: 5 }))
 
-  this.ll.push(
-    (this.bodySY = [
-      args.sY,
-      { r: -1, useSize: this.headSY },
-      { r: -1, useSize: this.neckSY },
-      1,
-    ]),
-  )
+    this.ll.push(
+      (this.bodySY = [
+        args.sY,
+        { r: -1, useSize: this.headSY },
+        { r: -1, useSize: this.neckSY },
+        1,
+      ]),
+    )
 
-  let head = this.head.draw({
-    sY: this.headSY,
-    rotate: args.rotate,
-  })
+    let head = this.head.draw({
+      sY: this.headSY,
+      rotate: args.rotate,
+    })
 
-  const bodyMain = this.bodyMain.draw({
-    sX: args.sX,
-    sY: this.bodySY,
-    rotate: args.rotate,
-    fY: true,
-  })
+    const bodyMain = this.bodyMain.draw({
+      sX: args.sX,
+      sY: this.bodySY,
+      rotate: args.rotate,
+      fY: true,
+    })
 
-  this.ll.push(
-    (this.neckSX = {
-      r: 0.5,
-      useSize: head.sX,
-      max: { r: 0.5, useSize: bodyMain.chest.sX },
-    }),
-  )
+    this.ll.push(
+      (this.neckSX = {
+        r: 0.5,
+        useSize: head.sX,
+        max: { r: 0.5, useSize: bodyMain.chest.sX },
+      }),
+    )
 
-  this.headXSide = 1
+    this.headXSide = 1
 
-  head = this.mover(head, {
-    sXBase: bodyMain.chest.sX,
-    xBase: this.headXSide,
-    xRel: this.headXSide,
-    xAdd: bodyMain.chest.x,
-    y: 5,
-    z: 100,
-  })
+    head = this.mover(head, {
+      sXBase: bodyMain.chest.sX,
+      xBase: this.headXSide,
+      xRel: this.headXSide,
+      xAdd: bodyMain.chest.x,
+      y: 5,
+      z: 100,
+    })
 
-  return {
-    color: this.color,
-    sY: args.sY,
-    sX: args.sX,
-    cX: true,
-    fY: true,
-    list: [head.get, bodyMain.get],
+    return {
+      color: this.color,
+      sY: args.sY,
+      sX: args.sX,
+      cX: true,
+      fY: true,
+      list: [head.get, bodyMain.get],
+    }
   }
 }
 

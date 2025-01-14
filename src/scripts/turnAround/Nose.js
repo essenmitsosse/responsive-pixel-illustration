@@ -1,22 +1,23 @@
 import BBObj from './BBObj'
 
-const Nose = function (args) {
-  this.color = args.color
+class Nose extends BBObj {
+  constructor(args) {
+    super()
 
-  this.colorDark = args.colorDark
-}
-// End Nose
+    this.color = args.color
 
-Nose.prototype = new BBObj()
+    this.colorDark = args.colorDark
+  }
 
-Nose.prototype.draw = function (args, front) {
-  return [
-    {
-      color: this.colorDark,
-      sY: !front && { r: 1, a: 1 },
-      fY: true,
-    },
-  ]
+  draw(args, front) {
+    return [
+      {
+        color: this.colorDark,
+        sY: !front && { r: 1, a: 1 },
+        fY: true,
+      },
+    ]
+  }
 }
 
 export default Nose

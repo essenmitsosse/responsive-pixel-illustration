@@ -1,20 +1,21 @@
 import BBObj from './BBObj'
 
-const Neck = function (args) {
-  this.color = args.color
+class Neck extends BBObj {
+  constructor(args) {
+    super()
 
-  this.colorDark = args.colorDark
-}
-// End Neck
+    this.color = args.color
 
-Neck.prototype = new BBObj()
+    this.colorDark = args.colorDark
+  }
 
-Neck.prototype.draw = function () {
-  return [
-    {
-      color: this.colorDark,
-    },
-  ]
+  draw() {
+    return [
+      {
+        color: this.colorDark,
+      },
+    ]
+  }
 }
 
 export default Neck

@@ -1,38 +1,39 @@
 import BBObj from './BBObj'
 
-const HeadBottom = function (args) {
-  this.color = args.color
+class HeadBottom extends BBObj {
+  constructor(args) {
+    super()
 
-  this.colorDark = args.colorDark
-}
-// End Head Bottom
+    this.color = args.color
 
-HeadBottom.prototype = new BBObj()
+    this.colorDark = args.colorDark
+  }
 
-HeadBottom.prototype.draw = function (args, front) {
-  return [
-    { color: !front && this.colorDark },
+  draw(args, front) {
+    return [
+      { color: !front && this.colorDark },
 
-    // MOUTH
-    front && {
-      color: this.black,
-      sX: { r: 0.6 },
-      y: { r: 0.2, min: 1 },
-      fY: true,
-      fX: true,
-      sY: 1,
-    },
+      // MOUTH
+      front && {
+        color: this.black,
+        sX: { r: 0.6 },
+        y: { r: 0.2, min: 1 },
+        fY: true,
+        fX: true,
+        sY: 1,
+      },
 
-    // // BEARD
-    // front && {
-    // 	fY:true,
-    // 	tY:true,
-    // 	y:1,
-    // 	z:100,
-    // 	id:"beard",
-    // 	color:this.black,
-    // },
-  ]
+      // // BEARD
+      // front && {
+      // 	fY:true,
+      // 	tY:true,
+      // 	y:1,
+      // 	z:100,
+      // 	id:"beard",
+      // 	color:this.black,
+      // },
+    ]
+  }
 }
 
 export default HeadBottom

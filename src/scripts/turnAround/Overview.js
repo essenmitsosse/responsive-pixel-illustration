@@ -1,5 +1,4 @@
-import BBObj from '@/scripts/turnAround/BBObj'
-
+import BBObj from './BBObj'
 import BodyMain from './BodyMain'
 import Chest from './Chest'
 import Head from './Head'
@@ -27,84 +26,86 @@ const recordObj = {
 }
 
 // OVERVIEW
-function Overview(init) {
-  const list = []
-  const rotations = []
-  const rows = init.rows || 2
-  const vari = init.vari || 3
-  const reps = Math.round(rows / vari / 0.55)
-  const cols = reps === 0 ? vari : vari * reps
+class Overview extends BBObj {
+  constructor(init) {
+    super()
 
-  let i = 0
-  let j = 0
-  let k = 0
+    const list = []
+    const rotations = []
+    const rows = init.rows || 2
+    const vari = init.vari || 3
+    const reps = Math.round(rows / vari / 0.55)
+    const cols = reps === 0 ? vari : vari * reps
 
-  const inner = init.inner * 1 || 0.8
+    let i = 0
+    let j = 0
+    let k = 0
 
-  this.counter = 1
+    const inner = init.inner * 1 || 0.8
 
-  this.side = 'left'
+    this.counter = 1
 
-  this.ll.push(
-    (this.outerSX = { r: 1 / cols }),
-    (this.outerSY = { r: 1 / rows, height: true }),
-    (this.innerS = {
-      r: inner,
-      useSize: this.outerSX,
-      max: { r: inner, useSize: this.outerSY },
-      odd: true,
-    }),
-    // this.innerS = { r:2, a:-1, useSize:this.innerSHalf }
-  )
+    this.side = 'left'
 
-  do {
-    rotations.push(this.calcRotation((this.rotate || 0) + (180 / vari) * i))
-  } while ((i += 1) < vari)
-
-  do {
-    j = 0
+    this.ll.push(
+      (this.outerSX = { r: 1 / cols }),
+      (this.outerSY = { r: 1 / rows, height: true }),
+      (this.innerS = {
+        r: inner,
+        useSize: this.outerSX,
+        max: { r: inner, useSize: this.outerSY },
+        odd: true,
+      }),
+      // this.innerS = { r:2, a:-1, useSize:this.innerSHalf }
+    )
 
     do {
-      i = 0
+      rotations.push(this.calcRotation((this.rotate || 0) + (180 / vari) * i))
+    } while ((i += 1) < vari)
 
-      this.entity = new recordObj[init.what || 'PersonMain']({})
+    do {
+      j = 0
 
       do {
-        list.push({
-          sX: this.outerSX,
-          sY: this.outerSY,
-          x: { r: i + k * vari, useSize: this.outerSX },
-          y: { r: j, useSize: this.outerSY },
-          fY: true,
-          list: [
-            {
-              color: [(255 / rows) * j, (255 / vari) * i, 0],
-              z: -Infinity,
-            },
-            {
-              s: this.innerS,
-              color: this.white,
-              cX: true,
-              fY: true,
-              z: -Infinity,
-            },
-            this.entity.draw({
-              sX: this.innerS,
-              sY: this.innerS,
-              rotate: rotations[i],
-              nr: (this.counter += 1),
-            }),
-          ],
-        })
-      } while ((i += 1) < vari)
-    } while ((j += 1) < rows)
-  } while ((k += 1) < reps)
+        i = 0
 
-  list.push(new RotateInfo(rotations[0]).result)
+        this.entity = new recordObj[init.what || 'PersonMain']({})
 
-  return list
+        do {
+          list.push({
+            sX: this.outerSX,
+            sY: this.outerSY,
+            x: { r: i + k * vari, useSize: this.outerSX },
+            y: { r: j, useSize: this.outerSY },
+            fY: true,
+            list: [
+              {
+                color: [(255 / rows) * j, (255 / vari) * i, 0],
+                z: -Infinity,
+              },
+              {
+                s: this.innerS,
+                color: this.white,
+                cX: true,
+                fY: true,
+                z: -Infinity,
+              },
+              this.entity.draw({
+                sX: this.innerS,
+                sY: this.innerS,
+                rotate: rotations[i],
+                nr: (this.counter += 1),
+              }),
+            ],
+          })
+        } while ((i += 1) < vari)
+      } while ((j += 1) < rows)
+    } while ((k += 1) < reps)
+
+    list.push(new RotateInfo(rotations[0]).result)
+
+    return list
+  }
 }
-
-Overview.prototype = new BBObj()
 
 export default Overview

@@ -4,8 +4,6 @@ class Neck extends BBObj {
   constructor(args) {
     super()
 
-    this.color = args.color
-
     this.colorDark = args.colorDark
   }
 

@@ -108,7 +108,7 @@ BB.prototype.Overview = function (init) {
     } while ((j += 1) < rows)
   } while ((k += 1) < reps)
 
-  list.push(new this.basic.RotateInfo(rotations[0]))
+  list.push(new this.basic.RotateInfo(rotations[0]).result)
 
   return list
 }

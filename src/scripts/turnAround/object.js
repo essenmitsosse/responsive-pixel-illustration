@@ -276,7 +276,7 @@ export class RotateInfo extends BBObj {
 
     this.ll.push(s)
 
-    return {
+    this.result = {
       color: this.black,
       s: [s, s, 1],
       x: { r: 0.02 },

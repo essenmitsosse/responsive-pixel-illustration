@@ -1,10 +1,6 @@
-import BBObj from './BBObj'
-
 // LOWER BODY  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-class LowerBody extends BBObj {
+class LowerBody {
   constructor(args) {
-    super()
-
     this.color = args.color
 
     this.colorDark = args.colorDark

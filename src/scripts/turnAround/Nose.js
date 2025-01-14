@@ -1,9 +1,5 @@
-import BBObj from './BBObj'
-
-class Nose extends BBObj {
+class Nose {
   constructor(args) {
-    super()
-
     this.color = args.color
 
     this.colorDark = args.colorDark

@@ -7,7 +7,11 @@ import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 type ArgsRotater = {
   baseSX: InputDynamicVariable
   drawer: {
-    draw: (args: ArgsRotater, a: boolean, b: boolean) => ReadonlyArray<Tool>
+    draw: (
+      args: ArgsRotater,
+      isFront: boolean,
+      isRight: boolean,
+    ) => ReadonlyArray<Tool>
   }
   fY: boolean
   frontSX?: number

@@ -70,7 +70,7 @@ const loadScript = (
     callback(imageImport.default)
   })
 
-const convert = (value: string): boolean | number | string => {
+const convert = (value: string): Query[keyof Query] => {
   if (value === 'true') {
     return true
   } else if (value === 'false') {

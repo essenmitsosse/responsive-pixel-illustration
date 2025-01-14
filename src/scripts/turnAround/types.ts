@@ -8,18 +8,18 @@ export type MoveOut = {
 }
 
 export type What = {
-  cX: boolean
-  fY: boolean
-  get: Omit<What, 'get' | 'rotate'>
-  id: number
+  cX?: boolean
+  fY?: boolean
+  get: Tool
+  id: string
   list: ReadonlyArray<Tool>
   rotate: {
     position: number
     turnedAway: number
   }
-  sX: InputDynamicVariable
-  sY: InputDynamicVariable
-  tY: InputDynamicVariable
+  sX?: InputDynamicVariable
+  sY?: InputDynamicVariable
+  tY?: boolean
   x?: InputDynamicVariable
   y?: InputDynamicVariable
   z?: number

@@ -1,13 +1,18 @@
 import BBObj from './BBObj'
 
+import type { StateTurnAround } from './BBObj'
+import type { ColorRgb } from '@/helper/typeColor'
+import type { Tool } from '@/renderengine/DrawingTools/Primitive'
+
 class Neck extends BBObj {
-  constructor(args, state) {
+  declare colorDark: ColorRgb
+  constructor(args: { colorDark: ColorRgb }, state: StateTurnAround) {
     super(state)
 
     this.colorDark = args.colorDark
   }
 
-  draw() {
+  draw(): ReadonlyArray<Tool> {
     return [
       {
         color: this.colorDark,

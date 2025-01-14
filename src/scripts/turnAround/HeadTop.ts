@@ -1,7 +1,20 @@
 import BBObj from './BBObj'
 
+import type { StateTurnAround } from './BBObj'
+import type { ColorRgb } from '@/helper/typeColor'
+import type { Tool } from '@/renderengine/DrawingTools/Primitive'
+
+type ArgsHeadTop = {
+  color: ColorRgb
+  colorDark: ColorRgb
+}
+
 class HeadTop extends BBObj {
-  constructor(args, state) {
+  color: ColorRgb
+  colorDark: ColorRgb
+  eyeSYLeft: number
+  eyeSYRight: number
+  constructor(args: ArgsHeadTop, state: StateTurnAround) {
     super(state)
 
     this.color = args.color
@@ -15,7 +28,11 @@ class HeadTop extends BBObj {
       : this.eyeSYLeft + this.state.R(-0.1, 0.1)
   }
 
-  draw(args, front, right) {
+  draw(
+    _: unknown,
+    front?: boolean,
+    right?: boolean,
+  ): ReadonlyArray<Tool | undefined> {
     return [
       { color: front ? undefined : this.colorDark },
 

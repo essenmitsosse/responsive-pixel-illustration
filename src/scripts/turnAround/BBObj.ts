@@ -8,7 +8,7 @@ type Rotation = {
   real: number
 }
 
-type Move = {
+export type Move = {
   max?: InputDynamicVariable
   sX?: InputDynamicVariable
   sXBase?: InputDynamicVariable
@@ -182,7 +182,10 @@ class BBObj {
     return X
   }
 
-  mover(what: What, move: Move): What {
+  mover(
+    what: Omit<What, 'id' | 'list'>,
+    move: Move,
+  ): Omit<What, 'id' | 'list'> {
     let x
 
     move.sX = what.sX

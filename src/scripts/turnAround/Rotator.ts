@@ -1,9 +1,19 @@
 import BBObj from './BBObj'
 
-import type { StateTurnAround } from './BBObj'
+import type { Move, StateTurnAround } from './BBObj'
 import type { MoveOut, What } from './types'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
+
+export type Rotate = {
+  BL: { abs: number; real: number }
+  BR: { abs: number; real: number }
+  FL: { abs: number; real: number }
+  FR: { abs: number; real: number }
+  front: number
+  position: number
+  turnedAway: number
+}
 
 type ArgsRotater = {
   baseSX: InputDynamicVariable
@@ -12,28 +22,18 @@ type ArgsRotater = {
       args: Omit<ArgsRotater, 'drawer'>,
       isFront: boolean,
       isRight: boolean,
-    ) => ReadonlyArray<Tool>
+    ) => ReadonlyArray<Tool | undefined>
   }
-  fY: boolean
+  fY?: boolean
   frontSX?: number
-  id: number
-  rotate: {
-    BL: { abs: number; real: number }
-    BR: { abs: number; real: number }
-    FL: { abs: number; real: number }
-    FR: { abs: number; real: number }
-    front: number
-    position: number
-    turnedAway: number
-  }
-  roundBottom: boolean
-  roundTop: boolean
+  id: string
+  rotate: Rotate
+  roundBottom?: boolean
+  roundTop?: boolean
   sY?: InputDynamicVariable
-  side?: {
-    sX: InputDynamicVariable
-  }
-  tY: InputDynamicVariable
-  y: InputDynamicVariable
+  side?: Move
+  tY?: boolean
+  y?: InputDynamicVariable
   z?: number
   zAbs?: number
 }
@@ -41,7 +41,7 @@ type ArgsRotater = {
 // Rotater
 class Rotater extends BBObj {
   declare list: Array<Tool>
-  result: Omit<What, 'cX' | 'fY' | 'id' | 'list' | 'tY'>
+  result: Omit<What, 'id' | 'list'>
   declare sX: InputDynamicVariable
   declare sY: InputDynamicVariable
   declare x: MoveOut
@@ -134,7 +134,7 @@ class Rotater extends BBObj {
 
   pusher(
     rotate: { abs: number; real: number },
-    list: ReadonlyArray<Tool>,
+    list: ReadonlyArray<Tool | undefined>,
     reflect?: boolean,
   ): void {
     const front = rotate.abs > 0

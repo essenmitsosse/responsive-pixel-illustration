@@ -1,13 +1,19 @@
 import BBObj from './BBObj'
 
+import type { StateTurnAround } from './BBObj'
+import type { ColorRgb } from '@/helper/typeColor'
+import type { Tool } from '@/renderengine/DrawingTools/Primitive'
+
 class HeadBottom extends BBObj {
-  constructor(args, state) {
+  declare colorDark: ColorRgb
+
+  constructor(args: { colorDark: ColorRgb }, state: StateTurnAround) {
     super(state)
 
     this.colorDark = args.colorDark
   }
 
-  draw(args, front) {
+  draw(_: unknown, front?: boolean): ReadonlyArray<Tool | undefined> {
     return [
       { color: front ? undefined : this.colorDark },
 

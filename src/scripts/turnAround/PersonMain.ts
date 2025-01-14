@@ -3,15 +3,32 @@ import BodyMain from './BodyMain'
 import Head from './Head'
 import Neck from './Neck'
 
+import type { StateTurnAround } from './BBObj'
+import type { Rotate } from './Rotator'
+import type { ColorRgb } from '@/helper/typeColor'
+import type { InputDynamicVariable } from '@/helper/typeSize'
+import type { Tool } from '@/renderengine/DrawingTools/Primitive'
+
+type ArgsPersonMain = {
+  color: ColorRgb
+  colorDark: ColorRgb
+}
+
 class PersonMain extends BBObj {
-  constructor(args, state) {
+  declare _headSY: number
+  declare color: ColorRgb
+  declare colorDark: ColorRgb
+  declare head: Head
+  declare neck: Neck
+  declare bodyMain: BodyMain
+  constructor(args: ArgsPersonMain, state: StateTurnAround) {
     super(state)
 
     // Sizes and Forms
     this._headSY = this.state.R(0.1, 0.4)
 
     // Colors
-    const color = this.state.GR(1, 6)
+    const color = this.state.GR(1, 6) as 1 | 2 | 3 | 4 | 5 | 6
 
     const argsNew = {
       ...args,
@@ -31,9 +48,16 @@ class PersonMain extends BBObj {
     this.bodyMain = new BodyMain(argsNew, state)
   }
 
-  draw(args) {
-    const headSY = { r: this._headSY, useSize: args.sY }
-    const neckSY = { a: 5 }
+  draw(args: { rotate: Rotate; sX: number; sY: number }): {
+    cX: boolean
+    color: ColorRgb
+    fY: boolean
+    list: Array<Tool>
+    sX: number
+    sY: number
+  } {
+    const headSY: InputDynamicVariable = { r: this._headSY, useSize: args.sY }
+    const neckSY: InputDynamicVariable = { a: 5 }
 
     const bodySY = [
       args.sY,

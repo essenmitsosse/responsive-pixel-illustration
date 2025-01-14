@@ -3,8 +3,29 @@ import Chest from './Chest'
 import LowerBody from './LowerBody'
 import Rotater from './Rotator'
 
+import type { StateTurnAround } from './BBObj'
+import type { Rotate } from './Rotator'
+import type { What } from './types'
+import type { ColorRgb } from '@/helper/typeColor'
+import type { InputDynamicVariable } from '@/helper/typeSize'
+
+type ArgsBodyMain = {
+  color: ColorRgb
+  colorDark: ColorRgb
+}
+
 class BodyMain extends BBObj {
-  constructor(args, state) {
+  declare chest: Chest
+  declare lowerBody: LowerBody
+  declare _sX: number
+  declare _chestSY: number
+  declare chestSX: number
+  declare torsoSide: number
+  declare chestSideSX: number
+  declare chestFrontSX: number
+  declare color: ColorRgb
+  declare colorDark: ColorRgb
+  constructor(args: ArgsBodyMain, state: StateTurnAround) {
     super(state)
 
     // Forms & Sizes
@@ -26,12 +47,20 @@ class BodyMain extends BBObj {
     this.colorDark = args.colorDark
 
     // Assets
-    this.chest = new Chest(args, state)
+    this.chest = new Chest(state)
 
-    this.lowerBody = new LowerBody(args, state)
+    this.lowerBody = new LowerBody(state)
   }
 
-  draw(args) {
+  draw(args: {
+    fY?: boolean
+    rotate: Rotate
+    sY: InputDynamicVariable
+    z?: number
+  }): Omit<What, 'id' | 'list' | 'rotate'> & {
+    chest: Omit<What, 'id' | 'list'>
+    lowerBody: Omit<What, 'id' | 'list'>
+  } {
     const sX = { r: this._sX, useSize: args.sY }
     const chestSY = { r: this._chestSY, useSize: args.sY }
     const lowerBodySY = [args.sY, { r: -1, useSize: chestSY }]

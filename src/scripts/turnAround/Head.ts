@@ -4,8 +4,32 @@ import HeadTop from './HeadTop'
 import Nose from './Nose'
 import Rotater from './Rotator'
 
+import type { StateTurnAround } from './BBObj'
+import type { Rotate } from './Rotator'
+import type { What } from './types'
+import type { ColorRgb } from '@/helper/typeColor'
+import type { InputDynamicVariable } from '@/helper/typeSize'
+
+type ArgsHead = {
+  color: ColorRgb
+  colorDark: ColorRgb
+}
+
 class Head extends BBObj {
-  constructor(args, state) {
+  declare color: ColorRgb
+  declare colorDark: ColorRgb
+  declare headTop: HeadTop
+  declare headBottom: HeadBottom
+  declare nose: Nose
+  declare headSideRatio: number
+  declare headTopFrontSX: number
+  declare headTopSideSX: number
+  declare headTopX: number
+  declare headTopSY: number
+  declare wideJaw: boolean
+  _sX: number
+
+  constructor(args: ArgsHead, state: StateTurnAround) {
     super(state)
 
     this.color = args.color
@@ -33,7 +57,23 @@ class Head extends BBObj {
     this.nose = new Nose(args, state)
   }
 
-  draw(args) {
+  draw(args: {
+    rotate: Rotate
+    sX?: InputDynamicVariable
+    sY?: InputDynamicVariable
+  }): {
+    get: {
+      color: ColorRgb
+      list: ReadonlyArray<Omit<What, 'get' | 'id' | 'list' | 'rotate'>>
+      sY: InputDynamicVariable
+    }
+    headBottom: Omit<What, 'id' | 'list'>
+    headTop: Omit<What, 'id' | 'list'>
+    nose: Omit<What, 'id' | 'list'>
+    rotate: Rotate
+    sX: InputDynamicVariable
+    sY: InputDynamicVariable
+  } {
     const sX = { r: this._sX, useSize: args.sY }
 
     this.ll.push(sX)

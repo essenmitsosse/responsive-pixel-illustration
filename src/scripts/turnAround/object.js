@@ -254,6 +254,10 @@ export class RotateInfo extends BBObj {
   constructor(rotate) {
     super()
 
+    if (this.ll === undefined) {
+      throw new Error('Unexpected error: ll is undefined')
+    }
+
     const s = { a: 5 }
 
     this.ll.push(s)

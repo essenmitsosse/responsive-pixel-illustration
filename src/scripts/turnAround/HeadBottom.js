@@ -1,8 +1,8 @@
 import BBObj from './BBObj'
 
 class HeadBottom extends BBObj {
-  constructor(args) {
-    super()
+  constructor(args, state) {
+    super(state)
 
     this.colorDark = args.colorDark
   }

@@ -27,8 +27,8 @@ const recordObj = {
 
 // OVERVIEW
 class Overview extends BBObj {
-  constructor(init) {
-    super()
+  constructor(init, state) {
+    super(state)
 
     const list = []
     const rotations = []
@@ -69,7 +69,7 @@ class Overview extends BBObj {
       do {
         i = 0
 
-        this.entity = new recordObj[init.what || 'PersonMain']({})
+        this.entity = new recordObj[init.what || 'PersonMain']({}, state)
 
         do {
           list.push({
@@ -102,7 +102,7 @@ class Overview extends BBObj {
       } while ((j += 1) < rows)
     } while ((k += 1) < reps)
 
-    list.push(new RotateInfo(rotations[0]).result)
+    list.push(new RotateInfo(rotations[0], state).result)
 
     return list
   }

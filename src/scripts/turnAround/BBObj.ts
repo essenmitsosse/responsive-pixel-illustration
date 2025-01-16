@@ -1,6 +1,7 @@
 import type { MoveOut, What } from './types'
 import type { ColorRgb } from '@/helper/typeColor'
 import type { InputDynamicVariable } from '@/helper/typeSize'
+import type { InputDynamicLink } from '@/scripts/listImage'
 
 type Rotation = {
   abs: number
@@ -31,8 +32,16 @@ const getRotation = (rotate: number): Rotation => {
   }
 }
 
+export type StateTurnAround = {
+  ll: Array<InputDynamicLink>
+  rotate: number
+  GR(min: number, max: number): number
+  IF(chance?: number): boolean
+  R(min: number, max: number): number
+}
+
 class BBObj {
-  declare ll?: Array<InputDynamicVariable>
+  declare ll: Array<InputDynamicVariable>
   declare max?: InputDynamicVariable
   white: ColorRgb = [200, 200, 200]
   black: ColorRgb = [20, 20, 20]
@@ -48,6 +57,14 @@ class BBObj {
   c4D: ColorRgb = [150, 150, 20]
   c5D: ColorRgb = [20, 150, 150]
   c6D: ColorRgb = [150, 20, 150]
+  declare state: StateTurnAround
+
+  constructor(state: StateTurnAround) {
+    this.state = state
+
+    this.ll = state.ll
+  }
+
   // GET ROTATION
   calcRotation(rotate: number): {
     BL: Rotation
@@ -117,10 +134,6 @@ class BBObj {
       min?: InputDynamicVariable
     } = {
       add,
-    }
-
-    if (this.ll === undefined) {
-      throw new Error('Unexpected error: ll is undefined')
     }
 
     if (args.sXBase && args.xBase) {

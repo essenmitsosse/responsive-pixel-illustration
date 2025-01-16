@@ -1,18 +1,18 @@
 import BBObj from './BBObj'
 
 class HeadTop extends BBObj {
-  constructor(args) {
-    super()
+  constructor(args, state) {
+    super(state)
 
     this.color = args.color
 
     this.colorDark = args.colorDark
 
-    this.eyeSYLeft = this.R(0.2, 0.9)
+    this.eyeSYLeft = this.state.R(0.2, 0.9)
 
-    this.eyeSYRight = this.IF(0.5)
+    this.eyeSYRight = this.state.IF(0.5)
       ? this.eyeSYLeft
-      : this.eyeSYLeft + this.R(-0.1, 0.1)
+      : this.eyeSYLeft + this.state.R(-0.1, 0.1)
   }
 
   draw(args, front, right) {

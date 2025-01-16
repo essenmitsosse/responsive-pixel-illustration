@@ -4,25 +4,25 @@ import Head from './Head'
 import Neck from './Neck'
 
 class PersonMain extends BBObj {
-  constructor(args) {
-    super()
+  constructor(args, state) {
+    super(state)
 
     // Sizes and Forms
-    this._headSY = this.R(0.1, 0.4)
+    this._headSY = this.state.R(0.1, 0.4)
 
     // Colors
-    const color = this.GR(1, 6)
+    const color = this.state.GR(1, 6)
 
     this.color = args.color = this['c' + color]
 
     this.colorDark = args.colorDark = this['c' + color + 'D']
 
     // Assets
-    this.head = new Head(args)
+    this.head = new Head(args, state)
 
-    this.neck = new Neck(args)
+    this.neck = new Neck(args, state)
 
-    this.bodyMain = new BodyMain(args)
+    this.bodyMain = new BodyMain(args, state)
   }
 
   draw(args) {

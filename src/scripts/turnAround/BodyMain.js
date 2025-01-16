@@ -4,21 +4,21 @@ import LowerBody from './LowerBody'
 import Rotater from './Rotator'
 
 class BodyMain extends BBObj {
-  constructor(args) {
-    super()
+  constructor(args, state) {
+    super(state)
 
     // Forms & Sizes
-    this._sX = this.R(0.4, 1)
+    this._sX = this.state.R(0.4, 1)
 
-    this._chestSY = this.R(0.1, 0.3)
+    this._chestSY = this.state.R(0.1, 0.3)
 
-    this.chestSX = this.GR(-1, 1)
+    this.chestSX = this.state.GR(-1, 1)
 
-    this.torsoSide = this.R(0.5, 1.5)
+    this.torsoSide = this.state.R(0.5, 1.5)
 
-    this.chestSideSX = this.R(0.8, 1.2)
+    this.chestSideSX = this.state.R(0.8, 1.2)
 
-    this.chestFrontSX = this.R(0.8, 1.2)
+    this.chestFrontSX = this.state.R(0.8, 1.2)
 
     // Colors
     this.color = args.color
@@ -26,9 +26,9 @@ class BodyMain extends BBObj {
     this.colorDark = args.colorDark
 
     // Assets
-    this.chest = new Chest(args)
+    this.chest = new Chest(args, state)
 
-    this.lowerBody = new LowerBody(args)
+    this.lowerBody = new LowerBody(args, state)
   }
 
   draw(args) {
@@ -40,27 +40,33 @@ class BodyMain extends BBObj {
       (this.lowerBodySY = [args.sY, { r: -1, useSize: this.chestSY }]),
     )
 
-    let lowerBody = new Rotater({
-      drawer: this.lowerBody,
-      id: 'lowerBody',
-      rotate: args.rotate,
-      baseSX: this.sX,
-      sideSX: this.torsoSide,
-      sY: this.lowerBodySY,
-      fY: true,
-      z: 20,
-    }).result
+    let lowerBody = new Rotater(
+      {
+        drawer: this.lowerBody,
+        id: 'lowerBody',
+        rotate: args.rotate,
+        baseSX: this.sX,
+        sideSX: this.torsoSide,
+        sY: this.lowerBodySY,
+        fY: true,
+        z: 20,
+      },
+      this.state,
+    ).result
 
-    const chest = new Rotater({
-      drawer: this.chest,
-      id: 'chest',
-      rotate: args.rotate,
-      baseSX: this.sX,
-      sideSX: this.chestSideSX,
-      frontSX: this.chestFrontSX,
-      sY: this.chestSY,
-      z: 40,
-    }).result
+    const chest = new Rotater(
+      {
+        drawer: this.chest,
+        id: 'chest',
+        rotate: args.rotate,
+        baseSX: this.sX,
+        sideSX: this.chestSideSX,
+        frontSX: this.chestFrontSX,
+        sY: this.chestSY,
+        z: 40,
+      },
+      this.state,
+    ).result
 
     lowerBody = this.mover(lowerBody, {
       xRel: 0,

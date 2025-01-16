@@ -1,8 +1,8 @@
 import BBObj from './BBObj'
 
 class Nose extends BBObj {
-  constructor(args) {
-    super()
+  constructor(args, state) {
+    super(state)
 
     this.color = args.color
 

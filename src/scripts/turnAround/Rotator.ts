@@ -1,5 +1,6 @@
 import BBObj from './BBObj'
 
+import type { StateTurnAround } from './BBObj'
 import type { MoveOut, What } from './types'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
@@ -47,12 +48,8 @@ class Rotater extends BBObj {
   declare X: InputDynamicVariable
   declare y: InputDynamicVariable
 
-  constructor(args: ArgsRotater) {
-    super()
-
-    if (this.ll === undefined) {
-      throw new Error('Unexpected error: ll is undefined')
-    }
+  constructor(args: ArgsRotater, state: StateTurnAround) {
+    super(state)
 
     this.list = []
 

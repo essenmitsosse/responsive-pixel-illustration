@@ -9,7 +9,7 @@ class HeadBottom extends BBObj {
 
   draw(args, front) {
     return [
-      { color: !front && this.colorDark },
+      { color: front ? undefined : this.colorDark },
 
       // MOUTH
       front

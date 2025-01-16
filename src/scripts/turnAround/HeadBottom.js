@@ -12,14 +12,16 @@ class HeadBottom extends BBObj {
       { color: !front && this.colorDark },
 
       // MOUTH
-      front && {
-        color: this.black,
-        sX: { r: 0.6 },
-        y: { r: 0.2, min: 1 },
-        fY: true,
-        fX: true,
-        sY: 1,
-      },
+      front
+        ? {
+            color: this.black,
+            sX: { r: 0.6 },
+            y: { r: 0.2, min: 1 },
+            fY: true,
+            fX: true,
+            sY: 1,
+          }
+        : undefined,
 
       // // BEARD
       // front && {

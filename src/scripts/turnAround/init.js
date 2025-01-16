@@ -4,16 +4,8 @@ import BBObj from './BBObj'
 import Overview from './Overview'
 
 const turnAround = (init) => {
-  const args = {
-    ...init,
-  }
-
   const random = getRandom(init.id || Math.floor(Math.random() * 4294967296))
   const ll = []
-
-  args.rotate = args.rotate * 1
-
-  BBObj.prototype.rotate = args.rotate
 
   BBObj.prototype.ll = ll
 

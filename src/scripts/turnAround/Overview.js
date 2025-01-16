@@ -60,7 +60,7 @@ class Overview extends BBObj {
     )
 
     do {
-      rotations.push(this.calcRotation((this.rotate || 0) + (180 / vari) * i))
+      rotations.push(this.calcRotation((init.rotate || 0) + (180 / vari) * i))
     } while ((i += 1) < vari)
 
     do {

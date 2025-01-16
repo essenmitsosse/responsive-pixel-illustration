@@ -16,7 +16,7 @@ const turnAround = (init) => {
   BBObj.prototype.R = random.getRandomFloat
 
   return {
-    renderList: new Overview(init, 'Head'),
+    renderList: new Overview(init),
     linkList: ll,
     background: [160, 200, 200],
   }

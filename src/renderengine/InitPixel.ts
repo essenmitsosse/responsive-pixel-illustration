@@ -8,7 +8,7 @@ import { PixelGraphics } from './PixelGraphics'
 
 import type { RenderObject } from './PixelGraphics'
 import type { CreateSlider } from '@/helper/typeSlider'
-import type { DataImage, ImageFunction } from '@/scripts/listImage'
+import type { DataImage, ImageFunction, Query } from '@/scripts/listImage'
 
 const doSetDocumentTitle = (
   imageName: string,
@@ -80,7 +80,7 @@ const convert = (value: string): boolean | number => {
   return Number.parseFloat(value)
 }
 
-const getQueryString = (): Record<string, boolean | number | undefined> =>
+const getQueryString = (): Query =>
   getObjectFromEntries(
     location.search
       .substring(1)
@@ -105,7 +105,7 @@ const getCallback =
     context: InitPixel
     currentSlide: DataImage
     imageName: string
-    queryString: Record<string, boolean | number | undefined>
+    queryString: Query
     rendererInit: (
       renderObject: RenderObject,
     ) => ReturnType<PixelGraphics['callback']>
@@ -152,14 +152,14 @@ const getCallback =
 export class InitPixel {
   showcase?: boolean
   slides: typeof listImage
-  queryString: Record<string, boolean | number | undefined>
+  queryString: Query
   timerAnimation?: () => void
   sliderObject?: Record<
     string,
-    (value: boolean | number | undefined, first?: boolean) => void
+    (value: Query[keyof Query], first?: boolean) => void
   >
   sliderValues?: Record<string, number>
-  defaultValues?: Record<string, boolean | number | undefined>
+  defaultValues?: Query
   createSlider?: CreateSlider
   renderer?: ReturnType<PixelGraphics['callback']>
   toggleResizabilityButton?: HTMLElement
@@ -219,10 +219,7 @@ export class InitPixel {
     }
   }
 
-  addToQueryString(
-    newObj: Record<string, boolean | number | undefined>,
-    dontRefresh?: boolean,
-  ): void {
+  addToQueryString(newObj: Query, dontRefresh?: boolean): void {
     getObjectEntries(newObj).map(([key, value]) => {
       this.queryString[key] = value
     })
@@ -267,7 +264,7 @@ export class InitPixel {
     })
   }
 
-  sliderChange(obj: Record<string, boolean | number | undefined>): void {
+  sliderChange(obj: Query): void {
     if (this.renderer) {
       this.renderer.redraw(obj)
     }
@@ -312,7 +309,7 @@ export class InitPixel {
     }
   }
 
-  getShortcuts(queryString: Record<string, boolean | number | undefined>) {
+  getShortcuts(queryString: Query) {
     const that = this
 
     return (event: KeyboardEvent): void => {
@@ -498,7 +495,7 @@ export class InitPixel {
     )
 
     const getFrame = (): void => {
-      const renderObject: Record<string, boolean | number | undefined> = {}
+      const renderObject: Query = {}
 
       getObjectEntries(animations).forEach(([key, value]) => {
         const current = { ...value }

@@ -13,6 +13,7 @@ import type {
   DataImage,
   ImageContent,
   Link,
+  Query,
   RecordVariable,
 } from '@/scripts/listImage'
 
@@ -22,22 +23,23 @@ export type RenderObject = {
   imageFunction: ImageContent
   init: InitPixel
   pixelSize: number
-  queryString: Record<string, boolean | number | undefined>
+  queryString: Query
   showInfos: boolean
   slide: DataImage
   sliderObject?: Record<
     string,
-    (value: boolean | number | undefined, first?: boolean) => void
+    (value: Query[keyof Query], first?: boolean) => void
   >
   sliderValues?: Record<string, number>
 }
 
-type Redraw = (args: {
-  [key: string]: boolean | number | undefined
-  dontHighlight?: boolean
-  height?: number
-  width?: number
-}) => void
+type Redraw = (
+  args: Query & {
+    dontHighlight?: boolean
+    height?: number
+    width?: number
+  },
+) => void
 
 type Resize = (height?: number, width?: number) => void
 
@@ -246,7 +248,7 @@ export class PixelGraphics {
 
     const changeImage = (
       event: MouseEvent | Touch,
-      size?: boolean | number,
+      size?: Query[keyof Query],
     ): void => {
       if (that.canvasSize === undefined) {
         return

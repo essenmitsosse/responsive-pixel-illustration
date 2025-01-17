@@ -15,8 +15,8 @@ class PersonMain extends BBObj {
 
     const argsNew = {
       ...args,
-      color: this['c' + color],
-      colorDark: this['c' + color + 'D'],
+      color: this[`c${color}`],
+      colorDark: this[`c${color}D`],
     }
 
     this.color = argsNew.color

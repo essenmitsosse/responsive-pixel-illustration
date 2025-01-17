@@ -13,16 +13,22 @@ class PersonMain extends BBObj {
     // Colors
     const color = this.state.GR(1, 6)
 
-    this.color = args.color = this['c' + color]
+    const argsNew = {
+      ...args,
+      color: this['c' + color],
+      colorDark: this['c' + color + 'D'],
+    }
 
-    this.colorDark = args.colorDark = this['c' + color + 'D']
+    this.color = argsNew.color
+
+    this.colorDark = argsNew.colorDark
 
     // Assets
-    this.head = new Head(args, state)
+    this.head = new Head(argsNew, state)
 
-    this.neck = new Neck(args, state)
+    this.neck = new Neck(argsNew, state)
 
-    this.bodyMain = new BodyMain(args, state)
+    this.bodyMain = new BodyMain(argsNew, state)
   }
 
   draw(args) {

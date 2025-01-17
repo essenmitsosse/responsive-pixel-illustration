@@ -70,14 +70,20 @@ const loadScript = (
     callback(imageImport.default)
   })
 
-const convert = (value: string): boolean | number => {
+const convert = (value: string): boolean | number | string => {
   if (value === 'true') {
     return true
   } else if (value === 'false') {
     return false
   }
 
-  return Number.parseFloat(value)
+  const number = Number.parseFloat(value)
+
+  if (!Number.isNaN(number)) {
+    return number
+  }
+
+  return value
 }
 
 const getQueryString = (): Query =>

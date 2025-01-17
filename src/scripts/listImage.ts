@@ -27,7 +27,7 @@ export type ImageContent = {
   variableList?: RecordVariable
 }
 
-export type Query = Record<string, boolean | number | undefined>
+export type Query = Record<string, boolean | number | string | undefined>
 
 export type ImageFunction = (
   queryString: Query,

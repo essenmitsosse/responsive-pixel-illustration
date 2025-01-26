@@ -54,7 +54,6 @@ class PersonMain extends BBObj {
     })
 
     const bodyMain = this.bodyMain.draw({
-      sX: args.sX,
       sY: bodySY,
       rotate: args.rotate,
       fY: true,

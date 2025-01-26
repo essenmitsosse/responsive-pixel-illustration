@@ -48,7 +48,7 @@ class HeadTop extends BBObj {
             fX: true,
             fY: true,
             z: 10,
-            id: 'eye' + this.suffix,
+            id: 'eye',
             list: [
               {},
               {

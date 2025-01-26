@@ -3,7 +3,6 @@ import PersonMain from './PersonMain'
 import RotateInfo from './RotatorInfo'
 
 import type { Rotate, Rotation, StateTurnAround } from './types'
-import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 
 const getRotation = (rotate: number): Rotate => {
@@ -57,9 +56,6 @@ const calcRotation = (rotate: number): Rotation => {
 // OVERVIEW
 class Overview {
   declare side: string
-  declare outerSX: InputDynamicVariable
-  declare outerSY: InputDynamicVariable
-  declare innerS: InputDynamicVariable
   declare entity: PersonMain
   declare result: ReadonlyArray<Tool>
 
@@ -84,19 +80,17 @@ class Overview {
     let k = 0
 
     const inner = init.inner ? init.inner : 0.8
+    const outerSX = { r: 1 / cols }
+    const outerSY = { r: 1 / rows, height: true }
 
-    this.outerSX = { r: 1 / cols }
-
-    this.outerSY = { r: 1 / rows, height: true }
-
-    this.innerS = {
+    const innerS = {
       r: inner,
-      useSize: this.outerSX,
-      max: { r: inner, useSize: this.outerSY },
+      useSize: outerSX,
+      max: { r: inner, useSize: outerSY },
       odd: true,
     }
 
-    state.ll.push(this.outerSX, this.outerSY, this.innerS)
+    state.ll.push(outerSX, outerSY, innerS)
 
     do {
       rotations.push(calcRotation((init.rotate || 0) + (180 / vari) * i))
@@ -112,10 +106,10 @@ class Overview {
 
         do {
           list.push({
-            sX: this.outerSX,
-            sY: this.outerSY,
-            x: { r: i + k * vari, useSize: this.outerSX },
-            y: { r: j, useSize: this.outerSY },
+            sX: outerSX,
+            sY: outerSY,
+            x: { r: i + k * vari, useSize: outerSX },
+            y: { r: j, useSize: outerSY },
             fY: true,
             list: [
               {
@@ -123,15 +117,15 @@ class Overview {
                 z: -Infinity,
               },
               {
-                s: this.innerS,
+                s: innerS,
                 color: colorWhite,
                 cX: true,
                 fY: true,
                 z: -Infinity,
               },
               this.entity.draw({
-                sX: this.innerS,
-                sY: this.innerS,
+                sX: innerS,
+                sY: innerS,
                 rotate: rotations[i]!,
               }),
             ],

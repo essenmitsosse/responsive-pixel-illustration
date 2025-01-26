@@ -27,8 +27,10 @@ export type ImageContent = {
   variableList?: RecordVariable
 }
 
+export type Query = Record<string, boolean | number | string | undefined>
+
 export type ImageFunction = (
-  queryString: Record<string, boolean | number | undefined>,
+  queryString: Query,
   currentSlite: DataImage,
   createSlider?: CreateSlider,
 ) => ImageContent

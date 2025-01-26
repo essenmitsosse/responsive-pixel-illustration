@@ -4,7 +4,7 @@ import getListAdmin from './getListAdmin'
 
 import type { InitPixel } from './InitPixel'
 import type { DataSlider, SliderArgs } from '@/helper/typeSlider'
-import type { DataImage } from '@/scripts/listImage'
+import type { DataImage, Query } from '@/scripts/listImage'
 
 const getClickerGetter = (pixel: InitPixel) => (nr: number) => (): void => {
   pixel.changeForceRedraw({ slide: nr })
@@ -89,7 +89,7 @@ class Admin {
 
     const sliderObject: Record<
       string,
-      (setValue: boolean | number | undefined, dontForce?: boolean) => void
+      (setValue: Query[keyof Query], dontForce?: boolean) => void
     > = {}
 
     const sliderValues: Record<string, number> = {}
@@ -215,12 +215,12 @@ class Admin {
         forceRedraw?: boolean
         valueName: string
       },
-    ) => (setValue: boolean | number | undefined, dontForce?: boolean) => void
+    ) => (setValue: Query[keyof Query], dontForce?: boolean) => void
     slider: (
       slider: HTMLInputElement,
       span: HTMLSpanElement,
       args: SliderArgs,
-    ) => (setValue: boolean | number | undefined, dontForce?: boolean) => void
+    ) => (setValue: Query[keyof Query], dontForce?: boolean) => void
   } {
     let lastSliderParent: ParentNode | null | undefined
     let lastValueName: string
@@ -232,10 +232,7 @@ class Admin {
         slider,
         span,
         args,
-      ): ((
-        setValue: boolean | number | undefined,
-        single?: boolean,
-      ) => void) => {
+      ): ((setValue: Query[keyof Query], single?: boolean) => void) => {
         let value: number
 
         const diff = args.input.max - args.input.min
@@ -253,7 +250,7 @@ class Admin {
         }
 
         const update = (
-          setValue?: MouseEvent | TouchEvent | boolean | number,
+          setValue?: MouseEvent | Query[keyof Query] | TouchEvent,
           single?: boolean,
         ): void => {
           const obj: Record<string, number> = {}
@@ -307,14 +304,11 @@ class Admin {
       number: (
         number,
         args,
-      ): ((
-        setValue: boolean | number | undefined,
-        dontForce?: boolean,
-      ) => void) => {
+      ): ((setValue: Query[keyof Query], dontForce?: boolean) => void) => {
         let value: number
 
         const update = (
-          setValue?: MouseEvent | boolean | number,
+          setValue?: MouseEvent | Query[keyof Query],
           dontForce?: MouseEvent | boolean,
         ): void => {
           const obj: Record<string, number> = {}

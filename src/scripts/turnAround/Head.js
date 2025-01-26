@@ -59,7 +59,6 @@ class Head extends BBObj {
         rotate: args.rotate,
         baseSX: sX,
         frontSX: this.headTopFrontSX,
-        sideX: this.headTopX,
         sY: { add: [{ r: -1, useSize: headBottom.sY }, args.sY, 2] },
         roundTop: true,
         roundBottom: true,

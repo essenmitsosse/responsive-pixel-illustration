@@ -63,7 +63,6 @@ const getOverview = (
   state: StateTurnAround,
 ): ReadonlyArray<Tool> => {
   const list: Array<Tool> = []
-  const rotations: Array<Rotation> = []
   const rows = init.rows || 2
   const vari = init.vari || 3
   const reps = Math.round(rows / vari / 0.55)
@@ -86,9 +85,9 @@ const getOverview = (
 
   state.ll.push(outerSX, outerSY, innerS)
 
-  do {
-    rotations.push(calcRotation((init.rotate || 0) + (180 / vari) * i))
-  } while ((i += 1) < vari)
+  const rotations: ReadonlyArray<Rotation> = new Array(vari)
+    .fill(null)
+    .map((_, index) => calcRotation((init.rotate || 0) + (180 / vari) * index))
 
   do {
     j = 0

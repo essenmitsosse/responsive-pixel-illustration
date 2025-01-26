@@ -80,7 +80,7 @@ class Head extends BBObj {
           sXBase: (this.wideJaw ? headTop : headBottom).sX,
           xBase: 1,
           xRel: 1,
-          xAdd: this.wideJaw && headTop.x,
+          xAdd: this.wideJaw ? headTop.x : undefined,
         },
       },
       this.state,

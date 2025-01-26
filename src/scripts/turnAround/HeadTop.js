@@ -28,7 +28,7 @@ class HeadTop extends BBObj {
       // HAIR SIDE
       {
         color: this.black,
-        sX: front && { r: 0.2 },
+        sX: front ? { r: 0.2 } : undefined,
         sY: { r: 0.9 },
         z: 5,
       },

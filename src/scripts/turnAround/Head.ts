@@ -4,8 +4,7 @@ import HeadTop from './HeadTop'
 import Nose from './Nose'
 import Rotater from './Rotator'
 
-import type { StateTurnAround } from './BBObj'
-import type { Rotate } from './Rotator'
+import type { Rotation, StateTurnAround } from './BBObj'
 import type { What } from './types'
 import type { ColorRgb } from '@/helper/typeColor'
 import type { InputDynamicVariable } from '@/helper/typeSize'
@@ -58,7 +57,7 @@ class Head extends BBObj {
   }
 
   draw(args: {
-    rotate: Rotate
+    rotate: Rotation
     sX?: InputDynamicVariable
     sY?: InputDynamicVariable
   }): {
@@ -70,7 +69,7 @@ class Head extends BBObj {
     headBottom: Omit<What, 'id' | 'list'>
     headTop: Omit<What, 'id' | 'list'>
     nose: Omit<What, 'id' | 'list'>
-    rotate: Rotate
+    rotate: Rotation
     sX: InputDynamicVariable
     sY: InputDynamicVariable
   } {

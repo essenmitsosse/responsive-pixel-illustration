@@ -3,7 +3,7 @@ import type { ColorRgb } from '@/helper/typeColor'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { InputDynamicLink } from '@/scripts/listImage'
 
-type Rotation = {
+type Rotate = {
   abs: number
   real: number
 }
@@ -19,7 +19,7 @@ export type Move = {
   z?: number
 }
 
-const getRotation = (rotate: number): Rotation => {
+const getRotation = (rotate: number): Rotate => {
   if (rotate > 180) {
     rotate -= 360
   } else if (rotate < -180) {
@@ -40,6 +40,19 @@ export type StateTurnAround = {
   R(min: number, max: number): number
 }
 
+export type Rotation = {
+  BL: Rotate
+  BR: Rotate
+  FL: Rotate
+  FR: Rotate
+  cos: number
+  front: number
+  position: number
+  rotate: number
+  side: number
+  sin: number
+  turnedAway: number
+}
 class BBObj {
   declare ll: Array<InputDynamicVariable>
   declare max?: InputDynamicVariable
@@ -66,19 +79,7 @@ class BBObj {
   }
 
   // GET ROTATION
-  calcRotation(rotate: number): {
-    BL: Rotation
-    BR: Rotation
-    FL: Rotation
-    FR: Rotation
-    cos: number
-    front: number
-    position: number
-    rotate: number
-    side: number
-    sin: number
-    turnedAway: number
-  } {
+  calcRotation(rotate: number): Rotation {
     let realRotation = rotate - 45
 
     if (realRotation > 180) {

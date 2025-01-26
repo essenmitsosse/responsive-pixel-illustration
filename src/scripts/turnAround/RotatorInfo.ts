@@ -1,11 +1,11 @@
 import BBObj from './BBObj'
 
-import type { StateTurnAround } from './BBObj'
+import type { Rotation, StateTurnAround } from './BBObj'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 
 class RotateInfo extends BBObj {
   declare result: Tool
-  constructor(rotate: { cos: number; sin: number }, state: StateTurnAround) {
+  constructor(rotate: Rotation, state: StateTurnAround) {
     super(state)
 
     const s = { a: 5 }

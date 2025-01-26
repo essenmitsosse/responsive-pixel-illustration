@@ -2,14 +2,33 @@ import BBObj from './BBObj'
 import PersonMain from './PersonMain'
 import RotateInfo from './RotatorInfo'
 
+import type { Rotation, StateTurnAround } from './BBObj'
+import type { InputDynamicVariable } from '@/helper/typeSize'
+import type { Tool } from '@/renderengine/DrawingTools/Primitive'
+
 // OVERVIEW
 class Overview extends BBObj {
+  declare counter: number
+  declare side: string
+  declare outerSX: InputDynamicVariable
+  declare outerSY: InputDynamicVariable
+  declare innerS: InputDynamicVariable
+  declare entity: PersonMain
+  declare result: ReadonlyArray<Tool>
   // eslint-disable-next-line constructor-super -- false negative
-  constructor(init, state) {
+  constructor(
+    init: {
+      inner?: number
+      rotate?: number
+      rows?: number
+      vari?: number
+    },
+    state: StateTurnAround,
+  ) {
     super(state)
 
-    const list = []
-    const rotations = []
+    const list: Array<Tool> = []
+    const rotations: Array<Rotation> = []
     const rows = init.rows || 2
     const vari = init.vari || 3
     const reps = Math.round(rows / vari / 0.55)
@@ -69,7 +88,7 @@ class Overview extends BBObj {
               this.entity.draw({
                 sX: this.innerS,
                 sY: this.innerS,
-                rotate: rotations[i],
+                rotate: rotations[i]!,
               }),
             ],
           })
@@ -77,7 +96,7 @@ class Overview extends BBObj {
       } while ((j += 1) < rows)
     } while ((k += 1) < reps)
 
-    list.push(new RotateInfo(rotations[0], state).result)
+    list.push(new RotateInfo(rotations[0]!, state).result)
 
     this.result = list
   }

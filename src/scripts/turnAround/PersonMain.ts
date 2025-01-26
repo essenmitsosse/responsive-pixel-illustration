@@ -3,8 +3,7 @@ import BodyMain from './BodyMain'
 import Head from './Head'
 import Neck from './Neck'
 
-import type { StateTurnAround } from './BBObj'
-import type { Rotate } from './Rotator'
+import type { Rotation, StateTurnAround } from './BBObj'
 import type { ColorRgb } from '@/helper/typeColor'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
@@ -42,13 +41,17 @@ class PersonMain extends BBObj {
     this.bodyMain = new BodyMain(argsNew, state)
   }
 
-  draw(args: { rotate: Rotate; sX: number; sY: number }): {
+  draw(args: {
+    rotate: Rotation
+    sX: InputDynamicVariable
+    sY: InputDynamicVariable
+  }): {
     cX: boolean
     color: ColorRgb
     fY: boolean
     list: Array<Tool>
-    sX: number
-    sY: number
+    sX: InputDynamicVariable
+    sY: InputDynamicVariable
   } {
     const headSY: InputDynamicVariable = { r: this._headSY, useSize: args.sY }
     const neckSY: InputDynamicVariable = { a: 5 }

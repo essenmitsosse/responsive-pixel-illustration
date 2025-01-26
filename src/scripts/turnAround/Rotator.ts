@@ -1,19 +1,9 @@
 import BBObj from './BBObj'
 
-import type { Move, StateTurnAround } from './BBObj'
+import type { Move, Rotation, StateTurnAround } from './BBObj'
 import type { MoveOut, What } from './types'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
-
-export type Rotate = {
-  BL: { abs: number; real: number }
-  BR: { abs: number; real: number }
-  FL: { abs: number; real: number }
-  FR: { abs: number; real: number }
-  front: number
-  position: number
-  turnedAway: number
-}
 
 type ArgsRotater = {
   baseSX: InputDynamicVariable
@@ -27,7 +17,7 @@ type ArgsRotater = {
   fY?: boolean
   frontSX?: number
   id: string
-  rotate: Rotate
+  rotate: Rotation
   roundBottom?: boolean
   roundTop?: boolean
   sY?: InputDynamicVariable

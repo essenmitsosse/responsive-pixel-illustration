@@ -3,8 +3,7 @@ import Chest from './Chest'
 import LowerBody from './LowerBody'
 import Rotater from './Rotator'
 
-import type { StateTurnAround } from './BBObj'
-import type { Rotate } from './Rotator'
+import type { Rotation, StateTurnAround } from './BBObj'
 import type { What } from './types'
 import type { ColorRgb } from '@/helper/typeColor'
 import type { InputDynamicVariable } from '@/helper/typeSize'
@@ -54,7 +53,7 @@ class BodyMain extends BBObj {
 
   draw(args: {
     fY?: boolean
-    rotate: Rotate
+    rotate: Rotation
     sY: InputDynamicVariable
     z?: number
   }): Omit<What, 'id' | 'list' | 'rotate'> & {

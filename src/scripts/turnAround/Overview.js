@@ -70,7 +70,6 @@ class Overview extends BBObj {
                 sX: this.innerS,
                 sY: this.innerS,
                 rotate: rotations[i],
-                nr: (this.counter += 1),
               }),
             ],
           })

@@ -27,6 +27,7 @@ const recordObj = {
 
 // OVERVIEW
 class Overview extends BBObj {
+  // eslint-disable-next-line constructor-super -- false negative
   constructor(init, state) {
     super(state)
 
@@ -102,7 +103,7 @@ class Overview extends BBObj {
 
     list.push(new RotateInfo(rotations[0], state).result)
 
-    return list
+    this.result = list
   }
 }
 

@@ -14,7 +14,7 @@ const turnAround = (init) => {
   }
 
   return {
-    renderList: new Overview(init, state),
+    renderList: new Overview(init, state).result,
     linkList: ll,
     background: [160, 200, 200],
   }

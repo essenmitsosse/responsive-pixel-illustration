@@ -124,7 +124,6 @@ const listImage: ReadonlyArray<DataImage> = [
     hasRandom: true,
   },
   {
-    /* @ts-expect-error - temporarily disable type checks here */
     import: () => import('./turnAround/init'),
     name: 'turnaround',
     niceName: 'Turnaround',

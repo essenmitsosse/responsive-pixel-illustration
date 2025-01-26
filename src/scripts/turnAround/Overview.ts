@@ -86,8 +86,6 @@ class Overview {
 
     const inner = init.inner ? init.inner : 0.8
 
-    this.counter = 1
-
     state.ll.push(
       (this.outerSX = { r: 1 / cols }),
       (this.outerSY = { r: 1 / rows, height: true }),

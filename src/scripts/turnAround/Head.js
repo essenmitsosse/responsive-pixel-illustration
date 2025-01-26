@@ -34,14 +34,16 @@ class Head extends BBObj {
   }
 
   draw(args) {
-    this.ll.push((this.sX = { r: this._sX, useSize: args.sY }))
+    const sX = { r: this._sX, useSize: args.sY }
+
+    this.ll.push(sX)
 
     const headBottom = new Rotater(
       {
         drawer: this.headBottom,
         id: 'lowerHead',
         rotate: args.rotate,
-        baseSX: this.sX,
+        baseSX: sX,
         sideSX: this.headSideRatio,
         sY: { r: this.headTopSY, useSize: args.sY },
         fY: true,
@@ -56,7 +58,7 @@ class Head extends BBObj {
         drawer: this.headTop,
         id: 'topHead',
         rotate: args.rotate,
-        baseSX: this.sX,
+        baseSX: sX,
         frontSX: this.headTopFrontSX,
         sideSX: this.headTopSideSX,
         sideBaseSX: headBottom.sX,
@@ -73,7 +75,7 @@ class Head extends BBObj {
         drawer: this.nose,
         id: 'nose',
         rotate: args.rotate,
-        baseSX: this.sX,
+        baseSX: sX,
         frontSX: 0.1,
         sideSX: 0.5,
         sY: { a: 2 },

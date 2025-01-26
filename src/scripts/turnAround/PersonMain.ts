@@ -2,6 +2,7 @@ import BBObj from './BBObj'
 import BodyMain from './BodyMain'
 import { recordColor } from './colors'
 import Head from './Head'
+import { mover } from './mover'
 import Neck from './Neck'
 
 import type { Rotation, StateTurnAround } from './BBObj'
@@ -91,14 +92,18 @@ class PersonMain extends BBObj {
 
     const headXSide = 1
 
-    const headFinal = this.mover(head, {
-      sXBase: bodyMain.chest.sX,
-      xBase: headXSide,
-      xRel: headXSide,
-      xAdd: bodyMain.chest.x,
-      y: 5,
-      z: 100,
-    })
+    const headFinal = mover(
+      head,
+      {
+        sXBase: bodyMain.chest.sX,
+        xBase: headXSide,
+        xRel: headXSide,
+        xAdd: bodyMain.chest.x,
+        y: 5,
+        z: 100,
+      },
+      this.ll,
+    )
 
     return {
       color: this.color,

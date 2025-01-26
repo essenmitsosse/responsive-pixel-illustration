@@ -1,6 +1,7 @@
 import BBObj from './BBObj'
 import Chest from './Chest'
 import LowerBody from './LowerBody'
+import { mover } from './mover'
 import Rotater from './Rotator'
 
 import type { Rotation, StateTurnAround } from './BBObj'
@@ -96,10 +97,14 @@ class BodyMain extends BBObj {
       this.state,
     ).result
 
-    lowerBody = this.mover(lowerBody, {
-      xRel: 0,
-      max: { a: 2 },
-    })
+    lowerBody = mover(
+      lowerBody,
+      {
+        xRel: 0,
+        max: { a: 2 },
+      },
+      this.ll,
+    )
 
     return {
       get: {

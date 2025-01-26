@@ -69,7 +69,7 @@ class Overview extends BBObj {
       do {
         i = 0
 
-        this.entity = new recordObj[init.what || 'PersonMain']({}, state)
+        this.entity = new recordObj[init.what || 'PersonMain'](state)
 
         do {
           list.push({

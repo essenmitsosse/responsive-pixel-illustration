@@ -9,11 +9,6 @@ import type { ColorRgb } from '@/helper/typeColor'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 
-type ArgsPersonMain = {
-  color: ColorRgb
-  colorDark: ColorRgb
-}
-
 class PersonMain extends BBObj {
   declare _headSY: number
   declare color: ColorRgb
@@ -21,7 +16,7 @@ class PersonMain extends BBObj {
   declare head: Head
   declare neck: Neck
   declare bodyMain: BodyMain
-  constructor(args: ArgsPersonMain, state: StateTurnAround) {
+  constructor(state: StateTurnAround) {
     super(state)
 
     // Sizes and Forms
@@ -31,7 +26,6 @@ class PersonMain extends BBObj {
     const color = this.state.GR(1, 6) as 1 | 2 | 3 | 4 | 5 | 6
 
     const argsNew = {
-      ...args,
       color: this[`c${color}`],
       colorDark: this[`c${color}D`],
     }

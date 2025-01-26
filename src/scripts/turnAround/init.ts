@@ -2,11 +2,20 @@ import { getRandom } from '@/helper/getRandom'
 
 import Overview from './Overview'
 
-const turnAround = (init) => {
-  const random = getRandom(init.id || Math.floor(Math.random() * 4294967296))
-  const ll = []
+import type { StateTurnAround } from './BBObj'
+import type { ImageFunction, InputDynamicLink } from '@/scripts/listImage'
 
-  const state = {
+const turnAround: ImageFunction = (init: {
+  id?: number
+  inner?: number
+  rotate?: number
+  rows?: number
+  vari?: number
+}) => {
+  const random = getRandom(init.id || Math.floor(Math.random() * 4294967296))
+  const ll: Array<InputDynamicLink> = []
+
+  const state: StateTurnAround = {
     ll,
     IF: random.getIf,
     GR: random.getRandom,

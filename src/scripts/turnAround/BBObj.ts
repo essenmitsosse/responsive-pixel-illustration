@@ -34,7 +34,6 @@ const getRotation = (rotate: number): Rotate => {
 
 export type StateTurnAround = {
   ll: Array<InputDynamicLink>
-  rotate: number
   GR(min: number, max: number): number
   IF(chance?: number): boolean
   R(min: number, max: number): number

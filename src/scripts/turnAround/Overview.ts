@@ -3,9 +3,57 @@ import { colorWhite } from './colors'
 import PersonMain from './PersonMain'
 import RotateInfo from './RotatorInfo'
 
-import type { Rotation, StateTurnAround } from './BBObj'
+import type { Rotate, Rotation, StateTurnAround } from './BBObj'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
+
+const getRotation = (rotate: number): Rotate => {
+  if (rotate > 180) {
+    rotate -= 360
+  } else if (rotate < -180) {
+    rotate += 360
+  }
+
+  return {
+    real: (rotate = rotate / 90),
+    abs: 1 - Math.abs(rotate),
+  }
+}
+
+const calcRotation = (rotate: number): Rotation => {
+  let realRotation = rotate - 45
+
+  if (realRotation > 180) {
+    realRotation -= 360
+  } else if (realRotation < -180) {
+    realRotation += 360
+  }
+
+  if (rotate > 360) {
+    rotate -= 360
+  } else if (rotate < -360) {
+    rotate += 360
+  }
+
+  const rad = (realRotation * Math.PI) / 180
+  const sin = Math.sin(rad)
+  const cos = Math.cos(rad)
+  const front = Math.abs(Math.abs(rotate - 180) - 90) / 90
+
+  return {
+    FL: getRotation(realRotation),
+    FR: getRotation(realRotation + 90),
+    BL: getRotation(realRotation - 90),
+    BR: getRotation(realRotation + 180),
+    position: (sin + cos) / (Math.sin(Math.PI * 0.25) * 2),
+    sin,
+    cos,
+    rotate,
+    turnedAway: rotate > 90 && rotate < 270 ? -1 : 1,
+    front,
+    side: 1 - front,
+  }
+}
 
 // OVERVIEW
 class Overview extends BBObj {
@@ -56,7 +104,7 @@ class Overview extends BBObj {
     )
 
     do {
-      rotations.push(this.calcRotation((init.rotate || 0) + (180 / vari) * i))
+      rotations.push(calcRotation((init.rotate || 0) + (180 / vari) * i))
     } while ((i += 1) < vari)
 
     do {

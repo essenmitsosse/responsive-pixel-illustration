@@ -2,7 +2,7 @@ import type { MoveOut, What } from './types'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { InputDynamicLink } from '@/scripts/listImage'
 
-type Rotate = {
+export type Rotate = {
   abs: number
   real: number
 }
@@ -16,19 +16,6 @@ export type Move = {
   xRel?: number
   y?: InputDynamicVariable
   z?: number
-}
-
-const getRotation = (rotate: number): Rotate => {
-  if (rotate > 180) {
-    rotate -= 360
-  } else if (rotate < -180) {
-    rotate += 360
-  }
-
-  return {
-    real: (rotate = rotate / 90),
-    abs: 1 - Math.abs(rotate),
-  }
 }
 
 export type StateTurnAround = {
@@ -78,42 +65,6 @@ class BBObj {
     this.state = state
 
     this.ll = state.ll
-  }
-
-  // GET ROTATION
-  calcRotation(rotate: number): Rotation {
-    let realRotation = rotate - 45
-
-    if (realRotation > 180) {
-      realRotation -= 360
-    } else if (realRotation < -180) {
-      realRotation += 360
-    }
-
-    if (rotate > 360) {
-      rotate -= 360
-    } else if (rotate < -360) {
-      rotate += 360
-    }
-
-    const rad = (realRotation * Math.PI) / 180
-    const sin = Math.sin(rad)
-    const cos = Math.cos(rad)
-    const front = Math.abs(Math.abs(rotate - 180) - 90) / 90
-
-    return {
-      FL: getRotation(realRotation),
-      FR: getRotation(realRotation + 90),
-      BL: getRotation(realRotation - 90),
-      BR: getRotation(realRotation + 180),
-      position: (sin + cos) / (Math.sin(Math.PI * 0.25) * 2),
-      sin,
-      cos,
-      rotate,
-      turnedAway: rotate > 90 && rotate < 270 ? -1 : 1,
-      front,
-      side: 1 - front,
-    }
   }
 
   moveOut(

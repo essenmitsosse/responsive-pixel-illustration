@@ -4,8 +4,7 @@ import HeadTop from './HeadTop'
 import Nose from './Nose'
 import Rotater from './Rotator'
 
-import type { Rotation, StateTurnAround } from './BBObj'
-import type { What } from './types'
+import type { Rotation, StateTurnAround, What } from './types'
 import type { ColorRgb } from '@/helper/typeColor'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 

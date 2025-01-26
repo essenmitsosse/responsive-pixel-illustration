@@ -3,7 +3,7 @@ import { colorWhite } from './colors'
 import PersonMain from './PersonMain'
 import RotateInfo from './RotatorInfo'
 
-import type { Rotate, Rotation, StateTurnAround } from './BBObj'
+import type { Rotate, Rotation, StateTurnAround } from './types'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 

@@ -1,8 +1,7 @@
 import BBObj from './BBObj'
 import { moveOut } from './moveOut'
 
-import type { Move, Rotation, StateTurnAround } from './BBObj'
-import type { MoveOut, What } from './types'
+import type { Move, MoveOut, Rotation, StateTurnAround, What } from './types'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 

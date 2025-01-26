@@ -1,6 +1,6 @@
 import BBObj from './BBObj'
 
-import type { StateTurnAround } from './BBObj'
+import type { StateTurnAround } from './types'
 import type { ColorRgb } from '@/helper/typeColor'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 

@@ -1,5 +1,4 @@
-import type { Move } from './BBObj'
-import type { MoveOut } from './types'
+import type { Move, MoveOut } from './types'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 
 export const moveOut = (

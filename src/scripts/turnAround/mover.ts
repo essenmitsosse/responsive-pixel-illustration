@@ -1,7 +1,6 @@
 import { moveOut } from './moveOut'
 
-import type { Move } from './BBObj'
-import type { What } from './types'
+import type { Move, What } from './types'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 
 const merge = <T extends Pick<What, 'x' | 'y' | 'z'>>(

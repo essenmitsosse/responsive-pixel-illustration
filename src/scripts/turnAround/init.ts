@@ -2,7 +2,7 @@ import { getRandom } from '@/helper/getRandom'
 
 import Overview from './Overview'
 
-import type { StateTurnAround } from './BBObj'
+import type { StateTurnAround } from './types'
 import type { ImageFunction, InputDynamicLink } from '@/scripts/listImage'
 
 const turnAround: ImageFunction = (init: {

@@ -1,7 +1,7 @@
 import BBObj from './BBObj'
 import { colorBlack, recordColor } from './colors'
 
-import type { Rotation, StateTurnAround } from './BBObj'
+import type { Rotation, StateTurnAround } from './types'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 
 class RotateInfo extends BBObj {

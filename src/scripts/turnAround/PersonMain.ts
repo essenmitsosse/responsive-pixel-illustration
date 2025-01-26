@@ -5,7 +5,7 @@ import Head from './Head'
 import { mover } from './mover'
 import Neck from './Neck'
 
-import type { Rotation, StateTurnAround } from './BBObj'
+import type { Rotation, StateTurnAround } from './types'
 import type { ColorRgb } from '@/helper/typeColor'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'

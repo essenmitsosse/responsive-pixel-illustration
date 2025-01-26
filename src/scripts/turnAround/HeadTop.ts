@@ -1,4 +1,5 @@
 import BBObj from './BBObj'
+import { colorBlack, colorWhite } from './colors'
 
 import type { StateTurnAround } from './BBObj'
 import type { ColorRgb } from '@/helper/typeColor'
@@ -38,13 +39,13 @@ class HeadTop extends BBObj {
 
       // HAIR TOP
       {
-        color: this.black,
+        color: colorBlack,
         sY: { r: 0.1 },
       },
 
       // HAIR SIDE
       {
-        color: this.black,
+        color: colorBlack,
         sX: front ? { r: 0.2 } : undefined,
         sY: { r: 0.9 },
         z: 5,
@@ -53,7 +54,7 @@ class HeadTop extends BBObj {
       // EYE
       front
         ? {
-            color: this.white,
+            color: colorWhite,
             sX: { r: 0.3, min: 1 },
             sY: {
               r: right ? this.eyeSYRight : this.eyeSYLeft,
@@ -69,7 +70,7 @@ class HeadTop extends BBObj {
             list: [
               {},
               {
-                color: this.black,
+                color: colorBlack,
                 sX: { r: 0.6 },
                 sY: { r: 0.7 },
                 fX: true,

@@ -1,4 +1,5 @@
 import BBObj from './BBObj'
+import { colorWhite } from './colors'
 import PersonMain from './PersonMain'
 import RotateInfo from './RotatorInfo'
 
@@ -80,7 +81,7 @@ class Overview extends BBObj {
               },
               {
                 s: this.innerS,
-                color: this.white,
+                color: colorWhite,
                 cX: true,
                 fY: true,
                 z: -Infinity,

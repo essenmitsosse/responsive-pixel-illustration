@@ -1,4 +1,5 @@
 import BBObj from './BBObj'
+import { colorBlack } from './colors'
 
 import type { StateTurnAround } from './BBObj'
 import type { ColorRgb } from '@/helper/typeColor'
@@ -20,7 +21,7 @@ class HeadBottom extends BBObj {
       // MOUTH
       front
         ? {
-            color: this.black,
+            color: colorBlack,
             sX: { r: 0.6 },
             y: { r: 0.2, min: 1 },
             fY: true,

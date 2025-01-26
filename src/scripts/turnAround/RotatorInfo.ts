@@ -1,4 +1,5 @@
 import BBObj from './BBObj'
+import { colorBlack, recordColor } from './colors'
 
 import type { Rotation, StateTurnAround } from './BBObj'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
@@ -13,7 +14,7 @@ class RotateInfo extends BBObj {
     this.ll.push(s)
 
     this.result = {
-      color: this.black,
+      color: colorBlack,
       s: [s, s, 1],
       x: { r: 0.02 },
       y: { r: 0.02 },
@@ -27,8 +28,8 @@ class RotateInfo extends BBObj {
           s,
           list: [
             {},
-            { sX: 1, color: this.c1 },
-            { sY: 1, fY: true, color: this.c1D },
+            { sX: 1, color: recordColor.c1 },
+            { sY: 1, fY: true, color: recordColor.c1D },
           ],
         },
         {
@@ -36,7 +37,7 @@ class RotateInfo extends BBObj {
           c: true,
           list: [
             {
-              color: this.c2D,
+              color: recordColor.c2D,
               points: [
                 {},
                 {

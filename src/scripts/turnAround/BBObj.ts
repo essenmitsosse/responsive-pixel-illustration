@@ -1,5 +1,4 @@
 import type { MoveOut, What } from './types'
-import type { ColorRgb } from '@/helper/typeColor'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { InputDynamicLink } from '@/scripts/listImage'
 
@@ -55,20 +54,7 @@ export type Rotation = {
 class BBObj {
   declare ll: Array<InputDynamicVariable>
   declare max?: InputDynamicVariable
-  white: ColorRgb = [200, 200, 200]
-  black: ColorRgb = [20, 20, 20]
-  c1: ColorRgb = [200, 20, 20]
-  c2: ColorRgb = [20, 200, 20]
-  c3: ColorRgb = [20, 0, 200]
-  c4: ColorRgb = [200, 200, 20]
-  c5: ColorRgb = [20, 200, 200]
-  c6: ColorRgb = [200, 20, 200]
-  c1D: ColorRgb = [150, 20, 20]
-  c2D: ColorRgb = [20, 150, 20]
-  c3D: ColorRgb = [20, 0, 150]
-  c4D: ColorRgb = [150, 150, 20]
-  c5D: ColorRgb = [20, 150, 150]
-  c6D: ColorRgb = [150, 20, 150]
+
   declare state: StateTurnAround
 
   constructor(state: StateTurnAround) {

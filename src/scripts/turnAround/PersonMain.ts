@@ -1,5 +1,6 @@
 import BBObj from './BBObj'
 import BodyMain from './BodyMain'
+import { recordColor } from './colors'
 import Head from './Head'
 import Neck from './Neck'
 
@@ -25,8 +26,8 @@ class PersonMain extends BBObj {
     const color = this.state.GR(1, 6) as 1 | 2 | 3 | 4 | 5 | 6
 
     const argsNew = {
-      color: this[`c${color}`],
-      colorDark: this[`c${color}D`],
+      color: recordColor[`c${color}`],
+      colorDark: recordColor[`c${color}D`],
     }
 
     this.color = argsNew.color

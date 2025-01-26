@@ -1,6 +1,6 @@
 import { getRandom } from '@/helper/getRandom'
 
-import Overview from './Overview'
+import getOverview from './getOverview'
 
 import type { StateTurnAround } from './types'
 import type { ImageFunction, InputDynamicLink } from '@/scripts/listImage'
@@ -23,7 +23,7 @@ const turnAround: ImageFunction = (init: {
   }
 
   return {
-    renderList: new Overview(init, state).result,
+    renderList: getOverview(init, state),
     linkList: ll,
     background: [160, 200, 200],
   }

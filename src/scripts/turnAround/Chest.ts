@@ -1,8 +1,6 @@
-import BBObj from './BBObj'
-
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 
-class Chest extends BBObj {
+class Chest {
   draw(_: unknown, front?: boolean, right?: boolean): ReadonlyArray<Tool> {
     return [
       {

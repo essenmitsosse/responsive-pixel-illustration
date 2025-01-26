@@ -46,9 +46,9 @@ class BodyMain extends BBObj {
     this.colorDark = args.colorDark
 
     // Assets
-    this.chest = new Chest(state)
+    this.chest = new Chest()
 
-    this.lowerBody = new LowerBody(state)
+    this.lowerBody = new LowerBody()
   }
 
   draw(args: {

@@ -1,9 +1,7 @@
-import BBObj from './BBObj'
-
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 
 // LOWER BODY  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-class LowerBody extends BBObj {
+class LowerBody {
   draw(_: unknown, front?: boolean, right?: boolean): ReadonlyArray<Tool> {
     return [
       {

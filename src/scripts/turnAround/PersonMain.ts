@@ -36,7 +36,7 @@ class PersonMain extends BBObj {
     // Assets
     this.head = new Head(argsNew, state)
 
-    this.neck = new Neck(argsNew, state)
+    this.neck = new Neck(argsNew)
 
     this.bodyMain = new BodyMain(argsNew, state)
   }

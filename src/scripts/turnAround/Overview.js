@@ -41,7 +41,7 @@ class Overview extends BBObj {
     let j = 0
     let k = 0
 
-    const inner = init.inner * 1 || 0.8
+    const inner = init.inner ? init.inner : 0.8
 
     this.counter = 1
 

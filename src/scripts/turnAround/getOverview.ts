@@ -88,8 +88,8 @@ const getOverview = (
       new Array(rows).fill(null).flatMap((_, j): ReadonlyArray<Tool> => {
         const entity = new PersonMain(state)
 
-        return new Array(vari).fill(null).map(
-          (_, i): Tool => ({
+        return rotations.map(
+          (rotate, i): Tool => ({
             sX: outerSX,
             sY: outerSY,
             x: { r: i + k * vari, useSize: outerSX },
@@ -110,7 +110,7 @@ const getOverview = (
               entity.draw({
                 sX: innerS,
                 sY: innerS,
-                rotate: rotations[i]!,
+                rotate,
               }),
             ],
           }),

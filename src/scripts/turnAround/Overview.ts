@@ -56,7 +56,6 @@ const calcRotation = (rotate: number): Rotation => {
 
 // OVERVIEW
 class Overview {
-  declare counter: number
   declare side: string
   declare outerSX: InputDynamicVariable
   declare outerSY: InputDynamicVariable
@@ -86,17 +85,18 @@ class Overview {
 
     const inner = init.inner ? init.inner : 0.8
 
-    state.ll.push(
-      (this.outerSX = { r: 1 / cols }),
-      (this.outerSY = { r: 1 / rows, height: true }),
-      (this.innerS = {
-        r: inner,
-        useSize: this.outerSX,
-        max: { r: inner, useSize: this.outerSY },
-        odd: true,
-      }),
-      // this.innerS = { r:2, a:-1, useSize:this.innerSHalf }
-    )
+    this.outerSX = { r: 1 / cols }
+
+    this.outerSY = { r: 1 / rows, height: true }
+
+    this.innerS = {
+      r: inner,
+      useSize: this.outerSX,
+      max: { r: inner, useSize: this.outerSY },
+      odd: true,
+    }
+
+    state.ll.push(this.outerSX, this.outerSY, this.innerS)
 
     do {
       rotations.push(calcRotation((init.rotate || 0) + (180 / vari) * i))

@@ -1,14 +1,9 @@
-import BBObj from './BBObj'
-
-import type { StateTurnAround } from './types'
 import type { ColorRgb } from '@/helper/typeColor'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 
-class Nose extends BBObj {
+class Nose {
   colorDark: ColorRgb
-  constructor(args: { colorDark: ColorRgb }, state: StateTurnAround) {
-    super(state)
-
+  constructor(args: { colorDark: ColorRgb }) {
     this.colorDark = args.colorDark
   }
 

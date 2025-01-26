@@ -1,4 +1,3 @@
-import BBObj from './BBObj'
 import Chest from './Chest'
 import LowerBody from './LowerBody'
 import { mover } from './mover'
@@ -13,7 +12,7 @@ type ArgsBodyMain = {
   colorDark: ColorRgb
 }
 
-class BodyMain extends BBObj {
+class BodyMain {
   declare chest: Chest
   declare lowerBody: LowerBody
   declare _sX: number
@@ -24,21 +23,25 @@ class BodyMain extends BBObj {
   declare chestFrontSX: number
   declare color: ColorRgb
   declare colorDark: ColorRgb
+  declare ll: Array<InputDynamicVariable>
+  declare state: StateTurnAround
   constructor(args: ArgsBodyMain, state: StateTurnAround) {
-    super(state)
+    this.ll = state.ll
+
+    this.state = state
 
     // Forms & Sizes
-    this._sX = this.state.R(0.4, 1)
+    this._sX = state.R(0.4, 1)
 
-    this._chestSY = this.state.R(0.1, 0.3)
+    this._chestSY = state.R(0.1, 0.3)
 
-    this.chestSX = this.state.GR(-1, 1)
+    this.chestSX = state.GR(-1, 1)
 
-    this.torsoSide = this.state.R(0.5, 1.5)
+    this.torsoSide = state.R(0.5, 1.5)
 
-    this.chestSideSX = this.state.R(0.8, 1.2)
+    this.chestSideSX = state.R(0.8, 1.2)
 
-    this.chestFrontSX = this.state.R(0.8, 1.2)
+    this.chestFrontSX = state.R(0.8, 1.2)
 
     // Colors
     this.color = args.color

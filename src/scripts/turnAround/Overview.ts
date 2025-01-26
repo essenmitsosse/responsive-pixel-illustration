@@ -1,4 +1,3 @@
-import BBObj from './BBObj'
 import { colorWhite } from './colors'
 import PersonMain from './PersonMain'
 import RotateInfo from './RotatorInfo'
@@ -56,7 +55,7 @@ const calcRotation = (rotate: number): Rotation => {
 }
 
 // OVERVIEW
-class Overview extends BBObj {
+class Overview {
   declare counter: number
   declare side: string
   declare outerSX: InputDynamicVariable
@@ -64,7 +63,7 @@ class Overview extends BBObj {
   declare innerS: InputDynamicVariable
   declare entity: PersonMain
   declare result: ReadonlyArray<Tool>
-  // eslint-disable-next-line constructor-super -- false negative
+
   constructor(
     init: {
       inner?: number
@@ -74,8 +73,6 @@ class Overview extends BBObj {
     },
     state: StateTurnAround,
   ) {
-    super(state)
-
     const list: Array<Tool> = []
     const rotations: Array<Rotation> = []
     const rows = init.rows || 2
@@ -91,7 +88,7 @@ class Overview extends BBObj {
 
     this.counter = 1
 
-    this.ll.push(
+    state.ll.push(
       (this.outerSX = { r: 1 / cols }),
       (this.outerSY = { r: 1 / rows, height: true }),
       (this.innerS = {

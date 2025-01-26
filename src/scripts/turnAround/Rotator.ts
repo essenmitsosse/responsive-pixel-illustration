@@ -1,4 +1,3 @@
-import BBObj from './BBObj'
 import { moveOut } from './moveOut'
 
 import type { Move, MoveOut, Rotation, StateTurnAround, What } from './types'
@@ -29,7 +28,7 @@ type ArgsRotater = {
 }
 
 // Rotater
-class Rotater extends BBObj {
+class Rotater {
   declare list: Array<Tool>
   result: Omit<What, 'id' | 'list'>
   declare sX: InputDynamicVariable
@@ -39,11 +38,9 @@ class Rotater extends BBObj {
   declare y: InputDynamicVariable
 
   constructor(args: ArgsRotater, state: StateTurnAround) {
-    super(state)
-
     this.list = []
 
-    this.ll.push(
+    state.ll.push(
       (this.sX = {
         r:
           1 +
@@ -62,15 +59,15 @@ class Rotater extends BBObj {
         args.side.sX = this.sX
       }
 
-      this.x = moveOut(args.side, args.rotate, this.ll)
+      this.x = moveOut(args.side, args.rotate, state.ll)
     }
 
     if (args.sY) {
-      this.ll.push((this.sY = args.sY))
+      state.ll.push((this.sY = args.sY))
     }
 
     if (args.y) {
-      this.ll.push((this.y = args.y))
+      state.ll.push((this.y = args.y))
     }
 
     if (args.roundTop || args.roundBottom) {

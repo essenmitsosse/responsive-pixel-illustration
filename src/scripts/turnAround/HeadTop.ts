@@ -1,4 +1,3 @@
-import BBObj from './BBObj'
 import { colorBlack, colorWhite } from './colors'
 
 import type { StateTurnAround } from './types'
@@ -10,23 +9,21 @@ type ArgsHeadTop = {
   colorDark: ColorRgb
 }
 
-class HeadTop extends BBObj {
+class HeadTop {
   color: ColorRgb
   colorDark: ColorRgb
   eyeSYLeft: number
   eyeSYRight: number
   constructor(args: ArgsHeadTop, state: StateTurnAround) {
-    super(state)
-
     this.color = args.color
 
     this.colorDark = args.colorDark
 
-    this.eyeSYLeft = this.state.R(0.2, 0.9)
+    this.eyeSYLeft = state.R(0.2, 0.9)
 
-    this.eyeSYRight = this.state.IF(0.5)
+    this.eyeSYRight = state.IF(0.5)
       ? this.eyeSYLeft
-      : this.eyeSYLeft + this.state.R(-0.1, 0.1)
+      : this.eyeSYLeft + state.R(-0.1, 0.1)
   }
 
   draw(

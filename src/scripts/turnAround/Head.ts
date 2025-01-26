@@ -1,4 +1,3 @@
-import BBObj from './BBObj'
 import HeadBottom from './HeadBottom'
 import HeadTop from './HeadTop'
 import Nose from './Nose'
@@ -13,7 +12,7 @@ type ArgsHead = {
   colorDark: ColorRgb
 }
 
-class Head extends BBObj {
+class Head {
   declare color: ColorRgb
   declare colorDark: ColorRgb
   declare headTop: HeadTop
@@ -25,34 +24,38 @@ class Head extends BBObj {
   declare headTopX: number
   declare headTopSY: number
   declare wideJaw: boolean
-  _sX: number
+  declare _sX: number
+  declare ll: Array<InputDynamicVariable>
+  declare state: StateTurnAround
 
   constructor(args: ArgsHead, state: StateTurnAround) {
-    super(state)
+    this.ll = state.ll
+
+    this.state = state
 
     this.color = args.color
 
     this.colorDark = args.colorDark
 
-    this._sX = this.state.R(0.4, 1.8)
+    this._sX = state.R(0.4, 1.8)
 
-    this.headSideRatio = this.state.R(0.5, 1.5)
+    this.headSideRatio = state.R(0.5, 1.5)
 
-    this.headTopFrontSX = this.state.R(0.5, 1.5)
+    this.headTopFrontSX = state.R(0.5, 1.5)
 
-    this.headTopSideSX = this.headTopFrontSX + this.state.R(-0.2, 0.2)
+    this.headTopSideSX = this.headTopFrontSX + state.R(-0.2, 0.2)
 
     this.wideJaw = this.headSideRatio > this.headTopSideSX
 
-    this.headTopX = (this.wideJaw ? -1 : 1) * this.state.R(0, 1)
+    this.headTopX = (this.wideJaw ? -1 : 1) * state.R(0, 1)
 
-    this.headTopSY = this.state.R(0.2, 0.8)
+    this.headTopSY = state.R(0.2, 0.8)
 
     this.headTop = new HeadTop(args, state)
 
-    this.headBottom = new HeadBottom(args, state)
+    this.headBottom = new HeadBottom(args)
 
-    this.nose = new Nose(args, state)
+    this.nose = new Nose(args)
   }
 
   draw(args: {

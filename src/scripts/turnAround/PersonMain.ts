@@ -1,4 +1,3 @@
-import BBObj from './BBObj'
 import BodyMain from './BodyMain'
 import { recordColor } from './colors'
 import Head from './Head'
@@ -10,21 +9,25 @@ import type { ColorRgb } from '@/helper/typeColor'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 
-class PersonMain extends BBObj {
+class PersonMain {
   declare _headSY: number
   declare color: ColorRgb
   declare colorDark: ColorRgb
   declare head: Head
   declare neck: Neck
   declare bodyMain: BodyMain
+  declare ll: Array<InputDynamicVariable>
+  declare state: StateTurnAround
   constructor(state: StateTurnAround) {
-    super(state)
+    this.ll = state.ll
+
+    this.state = state
 
     // Sizes and Forms
-    this._headSY = this.state.R(0.1, 0.4)
+    this._headSY = state.R(0.1, 0.4)
 
     // Colors
-    const color = this.state.GR(1, 6) as 1 | 2 | 3 | 4 | 5 | 6
+    const color = state.GR(1, 6) as 1 | 2 | 3 | 4 | 5 | 6
 
     const argsNew = {
       color: recordColor[`c${color}`],

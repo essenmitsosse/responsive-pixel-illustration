@@ -1,17 +1,14 @@
-import BBObj from './BBObj'
 import { colorBlack, recordColor } from './colors'
 
 import type { Rotation, StateTurnAround } from './types'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 
-class RotateInfo extends BBObj {
+class RotateInfo {
   declare result: Tool
   constructor(rotate: Rotation, state: StateTurnAround) {
-    super(state)
-
     const s = { a: 5 }
 
-    this.ll.push(s)
+    state.ll.push(s)
 
     this.result = {
       color: colorBlack,

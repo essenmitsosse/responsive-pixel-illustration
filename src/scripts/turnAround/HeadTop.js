@@ -17,7 +17,7 @@ class HeadTop extends BBObj {
 
   draw(args, front, right) {
     return [
-      { color: !front && this.colorDark },
+      { color: front ? undefined : this.colorDark },
 
       // HAIR TOP
       {

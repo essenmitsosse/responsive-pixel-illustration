@@ -55,7 +55,6 @@ const calcRotation = (rotate: number): Rotation => {
 
 // OVERVIEW
 class Overview {
-  declare side: string
   declare entity: PersonMain
   declare result: ReadonlyArray<Tool>
 

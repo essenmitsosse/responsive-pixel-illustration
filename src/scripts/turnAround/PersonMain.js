@@ -32,45 +32,48 @@ class PersonMain extends BBObj {
   }
 
   draw(args) {
-    this.ll.push((this.headSY = { r: this._headSY, useSize: args.sY }))
+    const headSY = { r: this._headSY, useSize: args.sY }
+    const neckSY = { a: 5 }
 
-    this.ll.push((this.neckSY = { a: 5 }))
+    const bodySY = [
+      args.sY,
+      { r: -1, useSize: headSY },
+      { r: -1, useSize: neckSY },
+      1,
+    ]
 
-    this.ll.push(
-      (this.bodySY = [
-        args.sY,
-        { r: -1, useSize: this.headSY },
-        { r: -1, useSize: this.neckSY },
-        1,
-      ]),
-    )
+    this.ll.push(headSY)
 
-    let head = this.head.draw({
-      sY: this.headSY,
+    this.ll.push(neckSY)
+
+    this.ll.push(bodySY)
+
+    const head = this.head.draw({
+      sY: headSY,
       rotate: args.rotate,
     })
 
     const bodyMain = this.bodyMain.draw({
       sX: args.sX,
-      sY: this.bodySY,
+      sY: bodySY,
       rotate: args.rotate,
       fY: true,
     })
 
-    this.ll.push(
-      (this.neckSX = {
-        r: 0.5,
-        useSize: head.sX,
-        max: { r: 0.5, useSize: bodyMain.chest.sX },
-      }),
-    )
+    const neckSX = {
+      r: 0.5,
+      useSize: head.sX,
+      max: { r: 0.5, useSize: bodyMain.chest.sX },
+    }
 
-    this.headXSide = 1
+    this.ll.push(neckSX)
 
-    head = this.mover(head, {
+    const headXSide = 1
+
+    const headFinal = this.mover(head, {
       sXBase: bodyMain.chest.sX,
-      xBase: this.headXSide,
-      xRel: this.headXSide,
+      xBase: headXSide,
+      xRel: headXSide,
       xAdd: bodyMain.chest.x,
       y: 5,
       z: 100,
@@ -82,7 +85,7 @@ class PersonMain extends BBObj {
       sX: args.sX,
       cX: true,
       fY: true,
-      list: [head.get, bodyMain.get],
+      list: [headFinal.get, bodyMain.get],
     }
   }
 }

@@ -55,7 +55,6 @@ const calcRotation = (rotate: number): Rotation => {
 
 // OVERVIEW
 class Overview {
-  declare entity: PersonMain
   declare result: ReadonlyArray<Tool>
 
   constructor(
@@ -101,7 +100,7 @@ class Overview {
       do {
         i = 0
 
-        this.entity = new PersonMain(state)
+        const entity = new PersonMain(state)
 
         do {
           list.push({
@@ -122,7 +121,7 @@ class Overview {
                 fY: true,
                 z: -Infinity,
               },
-              this.entity.draw({
+              entity.draw({
                 sX: innerS,
                 sY: innerS,
                 rotate: rotations[i]!,

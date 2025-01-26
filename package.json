@@ -7,7 +7,7 @@
     "dev": "vite --port 8000",
     "build": "vite build",
     "ts": "tsc",
-    "lint": "eslint . --max-warnings 0 --flag unstable_ts_config",
+    "lint": "eslint . --max-warnings 0",
     "play": "playwright test",
     "preview": "vite preview",
     "prettier": "prettier --write .",

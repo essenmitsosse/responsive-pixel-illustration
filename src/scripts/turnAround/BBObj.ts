@@ -1,4 +1,6 @@
-import type { MoveOut, What } from './types'
+import { moveOut } from './moveOut'
+
+import type { What } from './types'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { InputDynamicLink } from '@/scripts/listImage'
 
@@ -67,75 +69,6 @@ class BBObj {
     this.ll = state.ll
   }
 
-  moveOut(
-    args: Move,
-    rotate: {
-      position: number
-    },
-  ): MoveOut {
-    // Takes arguments:
-    //	sXBase, xBase,
-    //	xAdd,
-    //	XRel
-
-    let diff: InputDynamicVariable
-
-    const add: Array<InputDynamicVariable> = []
-
-    const X: {
-      add: ReadonlyArray<InputDynamicVariable>
-      max?: InputDynamicVariable
-      min?: InputDynamicVariable
-    } = {
-      add,
-    }
-
-    if (args.sXBase && args.xBase) {
-      // Move out, relative to the Base
-      this.ll.push(
-        (diff = {
-          add: [
-            { r: 0.5, useSize: args.sXBase },
-            { r: -0.5, useSize: args.sX },
-          ],
-        }),
-      )
-
-      add.push({
-        r: rotate.position * args.xBase,
-
-        /** Correct the 1 subtracted Pixel */
-        a: args.xBase > 0 ? rotate.position * -1 : undefined,
-        useSize: diff,
-      })
-    }
-
-    if (args.xAdd) {
-      // Move Center Point to correct center
-      add.push(args.xAdd)
-    }
-
-    if (args.xRel) {
-      // Move relative to the size of the object
-      add.push({
-        r: rotate.position * args.xRel,
-        useSize: args.sX,
-      })
-    }
-
-    if (args.max) {
-      this.ll.push(args.max)
-
-      X.max = args.max
-
-      X.min = { r: -1, useSize: args.max }
-    }
-
-    this.ll.push(X)
-
-    return X
-  }
-
   mover(
     what: Omit<What, 'id' | 'list'>,
     move: Move,
@@ -144,7 +77,7 @@ class BBObj {
 
     move.sX = what.sX
 
-    what.x = x = this.moveOut(move, what.rotate)
+    what.x = x = moveOut(move, what.rotate, this.ll)
 
     what.get = merge(what.get, {
       x,

@@ -1,4 +1,5 @@
 import BBObj from './BBObj'
+import { moveOut } from './moveOut'
 
 import type { Move, Rotation, StateTurnAround } from './BBObj'
 import type { MoveOut, What } from './types'
@@ -62,7 +63,7 @@ class Rotater extends BBObj {
         args.side.sX = this.sX
       }
 
-      this.x = this.moveOut(args.side, args.rotate)
+      this.x = moveOut(args.side, args.rotate, this.ll)
     }
 
     if (args.sY) {

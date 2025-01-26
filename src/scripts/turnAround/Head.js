@@ -8,9 +8,9 @@ class Head extends BBObj {
   constructor(args, state) {
     super(state)
 
-    this.color = args.color || [255, 0, 0]
+    this.color = args.color
 
-    this.colorDark = args.colorDark || [150, 0, 0]
+    this.colorDark = args.colorDark
 
     this._sX = this.state.R(0.4, 1.8)
 

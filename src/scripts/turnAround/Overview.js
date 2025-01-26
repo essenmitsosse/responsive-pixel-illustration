@@ -45,8 +45,6 @@ class Overview extends BBObj {
 
     this.counter = 1
 
-    this.side = 'left'
-
     this.ll.push(
       (this.outerSX = { r: 1 / cols }),
       (this.outerSY = { r: 1 / rows, height: true }),

@@ -53,7 +53,6 @@ export type Rotation = {
 }
 class BBObj {
   declare ll: Array<InputDynamicVariable>
-  declare max?: InputDynamicVariable
 
   declare state: StateTurnAround
 
@@ -156,11 +155,11 @@ class BBObj {
     }
 
     if (args.max) {
-      this.ll.push((this.max = args.max))
+      this.ll.push(args.max)
 
-      X.max = this.max
+      X.max = args.max
 
-      X.min = { r: -1, useSize: this.max }
+      X.min = { r: -1, useSize: args.max }
     }
 
     this.ll.push(X)

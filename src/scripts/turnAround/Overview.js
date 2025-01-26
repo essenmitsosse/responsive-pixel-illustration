@@ -1,29 +1,6 @@
 import BBObj from './BBObj'
-import BodyMain from './BodyMain'
-import Chest from './Chest'
-import Head from './Head'
-import HeadBottom from './HeadBottom'
-import HeadTop from './HeadTop'
-import LowerBody from './LowerBody'
-import Neck from './Neck'
-import Nose from './Nose'
 import PersonMain from './PersonMain'
-import Rotater from './Rotator'
 import RotateInfo from './RotatorInfo'
-
-const recordObj = {
-  PersonMain,
-  BodyMain,
-  Chest,
-  LowerBody,
-  Head,
-  HeadTop,
-  HeadBottom,
-  Nose,
-  Neck,
-  Rotater,
-  RotateInfo,
-}
 
 // OVERVIEW
 class Overview extends BBObj {
@@ -68,7 +45,7 @@ class Overview extends BBObj {
       do {
         i = 0
 
-        this.entity = new recordObj[init.what || 'PersonMain'](state)
+        this.entity = new PersonMain(state)
 
         do {
           list.push({

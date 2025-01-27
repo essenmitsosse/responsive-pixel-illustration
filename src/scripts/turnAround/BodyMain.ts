@@ -3,7 +3,8 @@ import drawRotator from './drawRotator'
 import LowerBody from './LowerBody'
 import { mover } from './mover'
 
-import type { DataSize, GetTool, Rotation, StateTurnAround } from './types'
+import type { Rotation } from './getOverview'
+import type { DataSize, GetTool, StateTurnAround } from './types'
 import type { ColorRgb } from '@/helper/typeColor'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 

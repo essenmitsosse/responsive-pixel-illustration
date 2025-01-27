@@ -3,13 +3,8 @@ import HeadBottom from './HeadBottom'
 import HeadTop from './HeadTop'
 import Nose from './Nose'
 
-import type {
-  DataRotation,
-  DataSize,
-  GetTool,
-  Rotation,
-  StateTurnAround,
-} from './types'
+import type { Rotation } from './getOverview'
+import type { DataRotation, DataSize, GetTool, StateTurnAround } from './types'
 import type { ColorRgb } from '@/helper/typeColor'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 

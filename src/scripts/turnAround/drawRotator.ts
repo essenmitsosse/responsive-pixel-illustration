@@ -1,12 +1,12 @@
 import { moveOut } from './moveOut'
 
+import type { Rotation } from './getOverview'
 import type {
   DataRotation,
   DataSize,
   GetTool,
   Move,
   MoveOut,
-  Rotation,
   StateTurnAround,
 } from './types'
 import type { InputDynamicVariable } from '@/helper/typeSize'

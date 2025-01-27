@@ -1,6 +1,7 @@
 import { colorBlack, recordColor } from './colors'
 
-import type { Rotation, StateTurnAround } from './types'
+import type { Rotation } from './getOverview'
+import type { StateTurnAround } from './types'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 

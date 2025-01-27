@@ -30,11 +30,6 @@ export type DataPos = {
   z?: number
 }
 
-export type Rotate = {
-  abs: number
-  real: number
-}
-
 export type Move = {
   max?: InputDynamicVariable
   sX?: InputDynamicVariable
@@ -50,18 +45,4 @@ export type StateTurnAround = {
   GR(min: number, max: number): number
   IF(chance?: number): boolean
   R(min: number, max: number): number
-}
-
-export type Rotation = {
-  BL: Rotate
-  BR: Rotate
-  FL: Rotate
-  FR: Rotate
-  cos: number
-  front: number
-  position: number
-  rotate: number
-  side: number
-  sin: number
-  turnedAway: number
 }

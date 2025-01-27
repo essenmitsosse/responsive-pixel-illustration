@@ -3,7 +3,8 @@ import { recordColor } from './colors'
 import getDrawHead from './getDrawHead'
 import { mover } from './mover'
 
-import type { Rotation, StateTurnAround } from './types'
+import type { Rotation } from './getOverview'
+import type { StateTurnAround } from './types'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 

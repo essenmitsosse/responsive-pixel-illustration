@@ -2,8 +2,27 @@ import { colorWhite } from './colors'
 import drawRotateInfo from './drawRotateInfo'
 import getDrawPersonMain from './getDrawPersonMain'
 
-import type { Rotate, Rotation, StateTurnAround } from './types'
+import type { StateTurnAround } from './types'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
+
+type Rotate = {
+  abs: number
+  real: number
+}
+
+export type Rotation = {
+  BL: Rotate
+  BR: Rotate
+  FL: Rotate
+  FR: Rotate
+  cos: number
+  front: number
+  position: number
+  rotate: number
+  side: number
+  sin: number
+  turnedAway: number
+}
 
 const getRotation = (rotate: number): Rotate => {
   if (rotate > 180) {

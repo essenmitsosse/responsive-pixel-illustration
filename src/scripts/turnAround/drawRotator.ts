@@ -1,14 +1,8 @@
 import { moveOut } from './moveOut'
 
 import type { Rotation } from './getOverview'
-import type {
-  DataRotation,
-  DataSize,
-  GetTool,
-  Move,
-  MoveOut,
-  StateTurnAround,
-} from './types'
+import type { Move, MoveOut } from './moveOut'
+import type { DataRotation, DataSize, GetTool, StateTurnAround } from './types'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 

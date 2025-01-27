@@ -2,12 +2,6 @@ import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 import type { InputDynamicLink } from '@/scripts/listImage'
 
-export type MoveOut = {
-  add: ReadonlyArray<InputDynamicVariable>
-  max?: InputDynamicVariable
-  min?: InputDynamicVariable
-}
-
 export type GetTool = {
   get: Tool
 }
@@ -26,16 +20,6 @@ export type DataSize = {
 
 export type DataPos = {
   x?: InputDynamicVariable
-  y?: InputDynamicVariable
-  z?: number
-}
-
-export type Move = {
-  max?: InputDynamicVariable
-  sX?: InputDynamicVariable
-  sXBase?: InputDynamicVariable
-  xBase?: number
-  xRel?: number
   y?: InputDynamicVariable
   z?: number
 }

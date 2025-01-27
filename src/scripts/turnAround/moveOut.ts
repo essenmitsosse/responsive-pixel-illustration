@@ -1,5 +1,18 @@
-import type { Move, MoveOut } from './types'
 import type { InputDynamicVariable } from '@/helper/typeSize'
+
+export type MoveOut = {
+  add: ReadonlyArray<InputDynamicVariable>
+  max?: InputDynamicVariable
+  min?: InputDynamicVariable
+}
+
+export type Move = {
+  max?: InputDynamicVariable
+  sX?: InputDynamicVariable
+  sXBase?: InputDynamicVariable
+  xBase?: number
+  xRel?: number
+}
 
 export const moveOut = (
   move: Move,

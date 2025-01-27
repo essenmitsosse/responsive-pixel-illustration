@@ -1,7 +1,7 @@
 import Chest from './Chest'
+import drawRotator from './drawRotator'
 import LowerBody from './LowerBody'
 import { mover } from './mover'
-import drawRotator from './Rotator'
 
 import type { Rotation, StateTurnAround, What } from './types'
 import type { ColorRgb } from '@/helper/typeColor'

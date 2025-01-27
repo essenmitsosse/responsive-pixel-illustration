@@ -1,7 +1,7 @@
+import drawRotator from './drawRotator'
 import HeadBottom from './HeadBottom'
 import HeadTop from './HeadTop'
 import Nose from './Nose'
-import drawRotator from './Rotator'
 
 import type { Rotation, StateTurnAround, What } from './types'
 import type { ColorRgb } from '@/helper/typeColor'

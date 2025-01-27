@@ -20,11 +20,8 @@ export type DataRotation = {
 }
 
 export type What = {
-  cX?: boolean
-  fY?: boolean
   sX?: InputDynamicVariable
   sY?: InputDynamicVariable
-  tY?: boolean
   x?: InputDynamicVariable
   y?: InputDynamicVariable
   z?: number

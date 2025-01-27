@@ -1,6 +1,6 @@
 import { colorWhite } from './colors'
+import drawRotateInfo from './drawRotateInfo'
 import getDrawPersonMain from './getDrawPersonMain'
-import drawRotateInfo from './RotatorInfo'
 
 import type { Rotate, Rotation, StateTurnAround } from './types'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'

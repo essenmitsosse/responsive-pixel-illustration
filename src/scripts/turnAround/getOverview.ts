@@ -1,5 +1,5 @@
 import { colorWhite } from './colors'
-import PersonMain from './PersonMain'
+import getDrawPersonMain from './PersonMain'
 import RotateInfo from './RotatorInfo'
 
 import type { Rotate, Rotation, StateTurnAround } from './types'
@@ -86,7 +86,7 @@ const getOverview = (
   const list: ReadonlyArray<Tool> = new Array(reps).fill(null).flatMap(
     (_, k): ReadonlyArray<Tool> =>
       new Array(rows).fill(null).flatMap((_, j): ReadonlyArray<Tool> => {
-        const entity = new PersonMain(state)
+        const personMainDraw = getDrawPersonMain(state)
 
         return rotations.map(
           (rotate, i): Tool => ({
@@ -107,7 +107,7 @@ const getOverview = (
                 fY: true,
                 z: -Infinity,
               },
-              entity.draw({
+              personMainDraw({
                 sX: innerS,
                 sY: innerS,
                 rotate,

@@ -73,7 +73,7 @@ class BodyMain {
 
     this.ll.push(lowerBodySY)
 
-    let lowerBody = drawRotator(
+    const lowerBody = drawRotator(
       {
         drawer: this.lowerBody,
         id: 'lowerBody',
@@ -99,7 +99,7 @@ class BodyMain {
       this.state,
     )
 
-    lowerBody = mover(
+    const lowerBodyMoved = mover(
       lowerBody,
       {
         xRel: 0,
@@ -113,7 +113,7 @@ class BodyMain {
         sY: args.sY,
         fY: args.fY,
         z: args.z,
-        list: [chest.get, lowerBody.get],
+        list: [chest.get, lowerBodyMoved.get],
       },
       chest,
       lowerBody,

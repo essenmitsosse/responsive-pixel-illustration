@@ -25,11 +25,9 @@ export const mover = (
   move: Move,
   linkedList: Array<InputDynamicVariable>,
 ): What => {
-  let x
-
   move.sX = what.sX
 
-  what.x = x = moveOut(move, what.rotate, linkedList)
+  const x = moveOut(move, what.rotate, linkedList)
 
   what.get = merge(what.get, {
     x,

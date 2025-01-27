@@ -8,10 +8,13 @@ export type MoveOut = {
   min?: InputDynamicVariable
 }
 
+export type GetTool = {
+  get: Tool
+}
+
 export type What = {
   cX?: boolean
   fY?: boolean
-  get: Tool
   rotate: {
     position: number
     turnedAway: number

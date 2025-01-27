@@ -1,6 +1,13 @@
 import { moveOut } from './moveOut'
 
-import type { Move, MoveOut, Rotation, StateTurnAround, What } from './types'
+import type {
+  GetTool,
+  Move,
+  MoveOut,
+  Rotation,
+  StateTurnAround,
+  What,
+} from './types'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 
@@ -43,7 +50,10 @@ const getTool = (
   }
 }
 
-const drawRotator = (args: ArgsRotater, state: StateTurnAround): What => {
+const drawRotator = (
+  args: ArgsRotater,
+  state: StateTurnAround,
+): GetTool & What => {
   const list: Array<Tool> = []
 
   const sX: InputDynamicVariable = {

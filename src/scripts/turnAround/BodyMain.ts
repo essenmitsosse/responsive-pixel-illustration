@@ -18,7 +18,6 @@ class BodyMain {
   declare lowerBody: LowerBody
   declare _sX: number
   declare _chestSY: number
-  declare chestSX: number
   declare torsoSide: number
   declare chestSideSX: number
   declare chestFrontSX: number
@@ -35,8 +34,6 @@ class BodyMain {
     this._sX = state.R(0.4, 1)
 
     this._chestSY = state.R(0.1, 0.3)
-
-    this.chestSX = state.GR(-1, 1)
 
     this.torsoSide = state.R(0.5, 1.5)
 

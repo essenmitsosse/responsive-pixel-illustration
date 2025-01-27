@@ -27,16 +27,7 @@ const getDrawHead = (args: ArgsHead, state: StateTurnAround) => {
     rotate: Rotation
     sX?: InputDynamicVariable
     sY?: InputDynamicVariable
-  }): {
-    get: {
-      color: ColorRgb
-      list: ReadonlyArray<Omit<What, 'get' | 'id' | 'list' | 'rotate'>>
-      sY: InputDynamicVariable
-    }
-    rotate: Rotation
-    sX: InputDynamicVariable
-    sY: InputDynamicVariable
-  } => {
+  }): Omit<What, 'id' | 'list'> => {
     const sX = { r: _sX, useSize: argsDraw.sY }
 
     state.ll.push(sX)

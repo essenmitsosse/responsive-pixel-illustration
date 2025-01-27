@@ -27,6 +27,22 @@ type ArgsRotater = {
   zAbs?: number
 }
 
+const getTool = (
+  rotate: { abs: number; real: number },
+  list: ReadonlyArray<Tool | undefined>,
+  reflect?: boolean,
+): Tool => {
+  const front = rotate.abs > 0
+
+  return {
+    sX: { r: front ? rotate.abs : -rotate.abs },
+    fX: rotate.real > 0,
+    z: front ? 50 : -50,
+    list,
+    rX: reflect,
+  }
+}
+
 // Rotater
 class Rotater {
   declare list: Array<Tool>
@@ -88,20 +104,16 @@ class Rotater {
       })
     }
 
-    this.list.push(
-      this.getTool(args.rotate.FL, args.drawer.draw(args, true, false)),
-    )
+    this.list.push(getTool(args.rotate.FL, args.drawer.draw(args, true, false)))
 
     this.list.push(
-      this.getTool(args.rotate.FR, args.drawer.draw(args, true, true), true),
+      getTool(args.rotate.FR, args.drawer.draw(args, true, true), true),
     )
 
-    this.list.push(
-      this.getTool(args.rotate.BR, args.drawer.draw(args, false, true)),
-    )
+    this.list.push(getTool(args.rotate.BR, args.drawer.draw(args, false, true)))
 
     this.list.push(
-      this.getTool(args.rotate.BL, args.drawer.draw(args, false, false), true),
+      getTool(args.rotate.BL, args.drawer.draw(args, false, false), true),
     )
 
     this.result = {
@@ -124,22 +136,6 @@ class Rotater {
       sY: this.sY,
       x: this.X,
       y: this.y,
-    }
-  }
-
-  getTool(
-    rotate: { abs: number; real: number },
-    list: ReadonlyArray<Tool | undefined>,
-    reflect?: boolean,
-  ): Tool {
-    const front = rotate.abs > 0
-
-    return {
-      sX: { r: front ? rotate.abs : -rotate.abs },
-      fX: rotate.real > 0,
-      z: front ? 50 : -50,
-      list,
-      rX: reflect,
     }
   }
 }

@@ -5,13 +5,7 @@ import { mover } from './mover'
 
 import type { Rotation } from './getOverview'
 import type { DataSize, GetTool, StateTurnAround } from './types'
-import type { ColorRgb } from '@/helper/typeColor'
 import type { InputDynamicVariable } from '@/helper/typeSize'
-
-type ArgsBodyMain = {
-  color: ColorRgb
-  colorDark: ColorRgb
-}
 
 class BodyMain {
   declare chest: Chest
@@ -20,11 +14,9 @@ class BodyMain {
   declare _chestSY: number
   declare torsoSide: number
   declare chestFrontSX: number
-  declare color: ColorRgb
-  declare colorDark: ColorRgb
   declare ll: Array<InputDynamicVariable>
   declare state: StateTurnAround
-  constructor(args: ArgsBodyMain, state: StateTurnAround) {
+  constructor(state: StateTurnAround) {
     this.ll = state.ll
 
     this.state = state
@@ -39,9 +31,6 @@ class BodyMain {
     this.chestFrontSX = state.R(0.8, 1.2)
 
     // Colors
-    this.color = args.color
-
-    this.colorDark = args.colorDark
 
     // Assets
     this.chest = new Chest()

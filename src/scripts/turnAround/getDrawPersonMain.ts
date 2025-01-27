@@ -18,7 +18,7 @@ const getDrawPersonMain = (state: StateTurnAround) => {
   }
 
   const drawHead = getDrawHead(argsNew, state)
-  const bodyMain = new BodyMain(argsNew, state)
+  const bodyMain = new BodyMain(state)
 
   return (args: {
     rotate: Rotation

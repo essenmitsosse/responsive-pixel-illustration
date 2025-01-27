@@ -1,6 +1,6 @@
 import { colorWhite } from './colors'
 import getDrawPersonMain from './getDrawPersonMain'
-import RotateInfo from './RotatorInfo'
+import drawRotateInfo from './RotatorInfo'
 
 import type { Rotate, Rotation, StateTurnAround } from './types'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
@@ -118,7 +118,7 @@ const getOverview = (
       }),
   )
 
-  return [...list, new RotateInfo(rotations[0]!, state).result]
+  return [...list, drawRotateInfo(rotations[0]!, state)]
 }
 
 export default getOverview

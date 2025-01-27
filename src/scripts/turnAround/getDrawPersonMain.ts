@@ -1,6 +1,6 @@
 import BodyMain from './BodyMain'
 import { recordColor } from './colors'
-import Head from './Head'
+import getDrawHead from './Head'
 import { mover } from './mover'
 
 import type { Rotation, StateTurnAround } from './types'
@@ -16,7 +16,7 @@ const getDrawPersonMain = (state: StateTurnAround) => {
     colorDark: recordColor[`c${color}D`],
   }
 
-  const head = new Head(argsNew, state)
+  const drawHead = getDrawHead(argsNew, state)
   const bodyMain = new BodyMain(argsNew, state)
 
   return (args: {
@@ -40,7 +40,7 @@ const getDrawPersonMain = (state: StateTurnAround) => {
 
     state.ll.push(bodySY)
 
-    const headDrawn = head.draw({
+    const head = drawHead({
       sY: headSY,
       rotate: args.rotate,
     })
@@ -53,7 +53,7 @@ const getDrawPersonMain = (state: StateTurnAround) => {
 
     const neckSX = {
       r: 0.5,
-      useSize: headDrawn.sX,
+      useSize: head.sX,
       max: { r: 0.5, useSize: bodyMainDrawn.chest.sX },
     }
 
@@ -62,7 +62,7 @@ const getDrawPersonMain = (state: StateTurnAround) => {
     const headXSide = 1
 
     const headFinal = mover(
-      headDrawn,
+      head,
       {
         sXBase: bodyMainDrawn.chest.sX,
         xBase: headXSide,

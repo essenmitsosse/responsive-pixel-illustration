@@ -12,47 +12,18 @@ type ArgsHead = {
   colorDark: ColorRgb
 }
 
-class Head {
-  declare color: ColorRgb
-  declare headTop: HeadTop
-  declare headBottom: HeadBottom
-  declare nose: Nose
-  declare headSideRatio: number
-  declare headTopFrontSX: number
-  declare headTopSideSX: number
-  declare headTopSY: number
-  declare wideJaw: boolean
-  declare _sX: number
-  declare ll: Array<InputDynamicVariable>
-  declare state: StateTurnAround
+const getDrawHead = (args: ArgsHead, state: StateTurnAround) => {
+  const _sX = state.R(0.4, 1.8)
+  const headSideRatio = state.R(0.5, 1.5)
+  const headTopFrontSX = state.R(0.5, 1.5)
+  const headTopSideSX = headTopFrontSX + state.R(-0.2, 0.2)
+  const wideJaw = headSideRatio > headTopSideSX
+  const headTopSY = state.R(0.2, 0.8)
+  const headTop = new HeadTop(args, state)
+  const headBottom = new HeadBottom(args)
+  const nose = new Nose(args)
 
-  constructor(args: ArgsHead, state: StateTurnAround) {
-    this.ll = state.ll
-
-    this.state = state
-
-    this.color = args.color
-
-    this._sX = state.R(0.4, 1.8)
-
-    this.headSideRatio = state.R(0.5, 1.5)
-
-    this.headTopFrontSX = state.R(0.5, 1.5)
-
-    this.headTopSideSX = this.headTopFrontSX + state.R(-0.2, 0.2)
-
-    this.wideJaw = this.headSideRatio > this.headTopSideSX
-
-    this.headTopSY = state.R(0.2, 0.8)
-
-    this.headTop = new HeadTop(args, state)
-
-    this.headBottom = new HeadBottom(args)
-
-    this.nose = new Nose(args)
-  }
-
-  draw(args: {
+  return (argsDraw: {
     rotate: Rotation
     sX?: InputDynamicVariable
     sY?: InputDynamicVariable
@@ -68,78 +39,73 @@ class Head {
     rotate: Rotation
     sX: InputDynamicVariable
     sY: InputDynamicVariable
-  } {
-    const sX = { r: this._sX, useSize: args.sY }
+  } => {
+    const sX = { r: _sX, useSize: argsDraw.sY }
 
-    this.ll.push(sX)
+    state.ll.push(sX)
 
-    const headBottom = new Rotater(
+    const headBottomRotated = new Rotater(
       {
-        drawer: this.headBottom,
+        drawer: headBottom,
         id: 'lowerHead',
-        rotate: args.rotate,
+        rotate: argsDraw.rotate,
         baseSX: sX,
-        sY: { r: this.headTopSY, useSize: args.sY },
+        sY: { r: headTopSY, useSize: argsDraw.sY },
         fY: true,
         roundTop: true,
         roundBottom: true,
       },
-      this.state,
+      state,
     ).result
 
-    const headTop = new Rotater(
+    const headTopRotated = new Rotater(
       {
-        drawer: this.headTop,
+        drawer: headTop,
         id: 'topHead',
-        rotate: args.rotate,
+        rotate: argsDraw.rotate,
         baseSX: sX,
-        frontSX: this.headTopFrontSX,
-        sY: { add: [{ r: -1, useSize: headBottom.sY }, args.sY, 2] },
+        frontSX: headTopFrontSX,
+        sY: { add: [{ r: -1, useSize: headBottomRotated.sY }, argsDraw.sY, 2] },
         roundTop: true,
         roundBottom: true,
       },
-      this.state,
+      state,
     ).result
 
-    const nose = new Rotater(
+    const noseRotated = new Rotater(
       {
-        drawer: this.nose,
+        drawer: nose,
         id: 'nose',
-        rotate: args.rotate,
+        rotate: argsDraw.rotate,
         baseSX: sX,
         frontSX: 0.1,
         sY: { a: 2 },
-        y: [headTop.sY, -2],
+        y: [headTopRotated.sY, -2],
         z: 500,
         side: {
-          sXBase: (this.wideJaw ? headTop : headBottom).sX,
+          sXBase: (wideJaw ? headTopRotated : headBottomRotated).sX,
           xBase: 1,
           xRel: 1,
-          xAdd: this.wideJaw ? headTop.x : undefined,
+          xAdd: wideJaw ? headTopRotated.x : undefined,
         },
       },
-      this.state,
+      state,
     ).result
-
-    // this.ll.push(
-    // 	sizes.headTopSY = { r:this.headTopSY, useSize:args.sY },
-    // 	sizes.headBottomSY = [ { r:-1, useSize: sizes.headTopSY }, args.sY ]
-    // );
 
     return {
       get: {
-        color: this.color,
-        sY: args.sY,
-        list: [headTop.get, headBottom.get, nose.get],
+        color: args.color,
+        sY: argsDraw.sY,
+        list: [headTopRotated.get, headBottomRotated.get, noseRotated.get],
       },
-      headTop,
-      headBottom,
-      nose,
-      sX: headBottom.sX,
-      sY: args.sY,
-      rotate: args.rotate,
+      headTop: headTopRotated,
+      headBottom: headBottomRotated,
+      nose: noseRotated,
+      sX: headBottomRotated.sX,
+      sY: argsDraw.sY,
+      rotate: argsDraw.rotate,
     }
   }
 }
 
-export default Head
+export default getDrawHead

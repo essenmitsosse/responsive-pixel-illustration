@@ -19,9 +19,12 @@ export type DataRotation = {
   }
 }
 
-export type What = {
-  sX?: InputDynamicVariable
-  sY?: InputDynamicVariable
+export type DataSize = {
+  sX: InputDynamicVariable
+  sY: InputDynamicVariable
+}
+
+export type DataPos = {
   x?: InputDynamicVariable
   y?: InputDynamicVariable
   z?: number

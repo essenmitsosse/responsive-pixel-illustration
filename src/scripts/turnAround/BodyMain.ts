@@ -3,7 +3,7 @@ import drawRotator from './drawRotator'
 import LowerBody from './LowerBody'
 import { mover } from './mover'
 
-import type { GetTool, Rotation, StateTurnAround, What } from './types'
+import type { DataSize, GetTool, Rotation, StateTurnAround } from './types'
 import type { ColorRgb } from '@/helper/typeColor'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 
@@ -59,7 +59,7 @@ class BodyMain {
     rotate: Rotation
     sY: InputDynamicVariable
     z?: number
-  }): GetTool & Omit<What, 'rotate'> & { chest: What } {
+  }): GetTool & { chest: DataSize } {
     const sX = { r: this._sX, useSize: args.sY }
     const chestSY = { r: this._chestSY, useSize: args.sY }
     const lowerBodySY = [args.sY, { r: -1, useSize: chestSY }]

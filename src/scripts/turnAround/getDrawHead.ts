@@ -5,10 +5,10 @@ import Nose from './Nose'
 
 import type {
   DataRotation,
+  DataSize,
   GetTool,
   Rotation,
   StateTurnAround,
-  What,
 } from './types'
 import type { ColorRgb } from '@/helper/typeColor'
 import type { InputDynamicVariable } from '@/helper/typeSize'
@@ -33,7 +33,7 @@ const getDrawHead = (args: ArgsHead, state: StateTurnAround) => {
     rotate: Rotation
     sX?: InputDynamicVariable
     sY?: InputDynamicVariable
-  }): DataRotation & GetTool & What => {
+  }): DataRotation & DataSize & GetTool => {
     const sX = { r: _sX, useSize: argsDraw.sY }
 
     state.ll.push(sX)

@@ -50,7 +50,6 @@ class Rotater {
   declare sX: InputDynamicVariable
   declare sY: InputDynamicVariable
   declare x: MoveOut
-  declare X: InputDynamicVariable
   declare y: InputDynamicVariable
 
   constructor(args: ArgsRotater, state: StateTurnAround) {
@@ -134,7 +133,6 @@ class Rotater {
       rotate: args.rotate,
       sX: this.sX,
       sY: this.sY,
-      x: this.X,
       y: this.y,
     }
   }

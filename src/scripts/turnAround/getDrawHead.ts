@@ -1,7 +1,7 @@
 import HeadBottom from './HeadBottom'
 import HeadTop from './HeadTop'
 import Nose from './Nose'
-import Rotater from './Rotator'
+import drawRotator from './Rotator'
 
 import type { Rotation, StateTurnAround, What } from './types'
 import type { ColorRgb } from '@/helper/typeColor'
@@ -32,7 +32,7 @@ const getDrawHead = (args: ArgsHead, state: StateTurnAround) => {
 
     state.ll.push(sX)
 
-    const headBottomRotated = new Rotater(
+    const headBottomRotated = drawRotator(
       {
         drawer: headBottom,
         id: 'lowerHead',
@@ -44,9 +44,9 @@ const getDrawHead = (args: ArgsHead, state: StateTurnAround) => {
         roundBottom: true,
       },
       state,
-    ).result
+    )
 
-    const headTopRotated = new Rotater(
+    const headTopRotated = drawRotator(
       {
         drawer: headTop,
         id: 'topHead',
@@ -58,9 +58,9 @@ const getDrawHead = (args: ArgsHead, state: StateTurnAround) => {
         roundBottom: true,
       },
       state,
-    ).result
+    )
 
-    const noseRotated = new Rotater(
+    const noseRotated = drawRotator(
       {
         drawer: nose,
         id: 'nose',
@@ -78,7 +78,7 @@ const getDrawHead = (args: ArgsHead, state: StateTurnAround) => {
         },
       },
       state,
-    ).result
+    )
 
     return {
       get: {

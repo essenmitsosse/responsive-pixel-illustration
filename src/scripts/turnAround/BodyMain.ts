@@ -1,7 +1,7 @@
 import Chest from './Chest'
 import LowerBody from './LowerBody'
 import { mover } from './mover'
-import Rotater from './Rotator'
+import drawRotator from './Rotator'
 
 import type { Rotation, StateTurnAround, What } from './types'
 import type { ColorRgb } from '@/helper/typeColor'
@@ -73,7 +73,7 @@ class BodyMain {
 
     this.ll.push(lowerBodySY)
 
-    let lowerBody = new Rotater(
+    let lowerBody = drawRotator(
       {
         drawer: this.lowerBody,
         id: 'lowerBody',
@@ -84,9 +84,9 @@ class BodyMain {
         z: 20,
       },
       this.state,
-    ).result
+    )
 
-    const chest = new Rotater(
+    const chest = drawRotator(
       {
         drawer: this.chest,
         id: 'chest',
@@ -97,7 +97,7 @@ class BodyMain {
         z: 40,
       },
       this.state,
-    ).result
+    )
 
     lowerBody = mover(
       lowerBody,

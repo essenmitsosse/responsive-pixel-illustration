@@ -43,94 +43,88 @@ const getTool = (
   }
 }
 
-// Rotater
-class Rotater {
-  result: Omit<What, 'id' | 'list'>
+const drawRotator = (
+  args: ArgsRotater,
+  state: StateTurnAround,
+): Omit<What, 'id' | 'list'> => {
+  const list: Array<Tool> = []
 
-  constructor(args: ArgsRotater, state: StateTurnAround) {
-    const list: Array<Tool> = []
+  const sX: InputDynamicVariable = {
+    r:
+      1 +
+      // Base Size (change for Front)
+      (args.frontSX !== undefined ? args.rotate.front * (args.frontSX - 1) : 0),
+    // + ( args.sideSX !== undefined ? rotate.side * ( args.sideSX - 1 ) : 0 ), 	// change for Side
+    useSize: args.baseSX,
+    odd: true,
+  }
 
-    const sX: InputDynamicVariable = {
-      r:
-        1 +
-        // Base Size (change for Front)
-        (args.frontSX !== undefined
-          ? args.rotate.front * (args.frontSX - 1)
-          : 0),
-      // + ( args.sideSX !== undefined ? rotate.side * ( args.sideSX - 1 ) : 0 ), 	// change for Side
-      useSize: args.baseSX,
-      odd: true,
+  state.ll.push(sX)
+
+  let x: MoveOut | undefined = undefined
+
+  if (args.side) {
+    if (!args.side.sX) {
+      args.side.sX = sX
     }
 
-    state.ll.push(sX)
+    x = moveOut(args.side, args.rotate, state.ll)
+  }
 
-    let x: MoveOut | undefined = undefined
+  if (args.sY) {
+    state.ll.push(args.sY)
+  }
 
-    if (args.side) {
-      if (!args.side.sX) {
-        args.side.sX = sX
-      }
+  if (args.y) {
+    state.ll.push(args.y)
+  }
 
-      x = moveOut(args.side, args.rotate, state.ll)
-    }
+  if (args.roundTop || args.roundBottom) {
+    list.push({
+      minX: 5,
+      minY: 5,
+      list: [
+        args.roundTop && { name: 'Dot', clear: true },
+        args.roundTop && { name: 'Dot', fX: true, clear: true },
+        args.roundBottom && { name: 'Dot', fY: true, clear: true },
+        args.roundBottom && {
+          name: 'Dot',
+          fX: true,
+          fY: true,
+          clear: true,
+        },
+      ],
+    })
+  }
 
-    if (args.sY) {
-      state.ll.push(args.sY)
-    }
+  list.push(getTool(args.rotate.FL, args.drawer.draw(args, true, false)))
 
-    if (args.y) {
-      state.ll.push(args.y)
-    }
+  list.push(getTool(args.rotate.FR, args.drawer.draw(args, true, true), true))
 
-    if (args.roundTop || args.roundBottom) {
-      list.push({
-        minX: 5,
-        minY: 5,
-        list: [
-          args.roundTop && { name: 'Dot', clear: true },
-          args.roundTop && { name: 'Dot', fX: true, clear: true },
-          args.roundBottom && { name: 'Dot', fY: true, clear: true },
-          args.roundBottom && {
-            name: 'Dot',
-            fX: true,
-            fY: true,
-            clear: true,
-          },
-        ],
-      })
-    }
+  list.push(getTool(args.rotate.BR, args.drawer.draw(args, false, true)))
 
-    list.push(getTool(args.rotate.FL, args.drawer.draw(args, true, false)))
+  list.push(getTool(args.rotate.BL, args.drawer.draw(args, false, false), true))
 
-    list.push(getTool(args.rotate.FR, args.drawer.draw(args, true, true), true))
-
-    list.push(getTool(args.rotate.BR, args.drawer.draw(args, false, true)))
-
-    list.push(
-      getTool(args.rotate.BL, args.drawer.draw(args, false, false), true),
-    )
-
-    this.result = {
-      get: {
-        sX,
-        sY: args.sY,
-        fY: args.fY,
-        tY: args.tY,
-        x,
-        y: args.y,
-        id: args.id,
-        cX: true,
-        z:
-          (args.z ? args.z * args.rotate.turnedAway : 0) +
-          (args.zAbs ? args.zAbs : 0),
-        list,
-      },
-      rotate: args.rotate,
+  return {
+    get: {
       sX,
       sY: args.sY,
+      fY: args.fY,
+      tY: args.tY,
+      x,
       y: args.y,
-    }
+      id: args.id,
+      cX: true,
+      z:
+        (args.z ? args.z * args.rotate.turnedAway : 0) +
+        (args.zAbs ? args.zAbs : 0),
+      list,
+    },
+    rotate: args.rotate,
+    sX,
+    sY: args.sY,
+    y: args.y,
   }
 }
 
-export default Rotater
+export default drawRotator

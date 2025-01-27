@@ -1,6 +1,6 @@
 import BodyMain from './BodyMain'
 import { recordColor } from './colors'
-import getDrawHead from './Head'
+import getDrawHead from './getDrawHead'
 import { mover } from './mover'
 
 import type { Rotation, StateTurnAround } from './types'

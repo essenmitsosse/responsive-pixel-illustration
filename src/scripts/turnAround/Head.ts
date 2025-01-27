@@ -14,7 +14,6 @@ type ArgsHead = {
 
 class Head {
   declare color: ColorRgb
-  declare colorDark: ColorRgb
   declare headTop: HeadTop
   declare headBottom: HeadBottom
   declare nose: Nose
@@ -34,8 +33,6 @@ class Head {
     this.state = state
 
     this.color = args.color
-
-    this.colorDark = args.colorDark
 
     this._sX = state.R(0.4, 1.8)
 

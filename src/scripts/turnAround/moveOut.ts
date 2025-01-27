@@ -2,7 +2,7 @@ import type { Move, MoveOut } from './types'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 
 export const moveOut = (
-  args: Move,
+  move: Move,
   rotate: {
     position: number
   },
@@ -24,40 +24,40 @@ export const moveOut = (
     add,
   }
 
-  if (args.sXBase && args.xBase) {
+  if (move.sXBase && move.xBase) {
     // Move out, relative to the Base
     linkedList.push(
       (diff = {
         add: [
-          { r: 0.5, useSize: args.sXBase },
-          { r: -0.5, useSize: args.sX },
+          { r: 0.5, useSize: move.sXBase },
+          { r: -0.5, useSize: move.sX },
         ],
       }),
     )
 
     add.push({
-      r: rotate.position * args.xBase,
+      r: rotate.position * move.xBase,
 
       /** Correct the 1 subtracted Pixel */
-      a: args.xBase > 0 ? rotate.position * -1 : undefined,
+      a: move.xBase > 0 ? rotate.position * -1 : undefined,
       useSize: diff,
     })
   }
 
-  if (args.xRel) {
+  if (move.xRel) {
     // Move relative to the size of the object
     add.push({
-      r: rotate.position * args.xRel,
-      useSize: args.sX,
+      r: rotate.position * move.xRel,
+      useSize: move.sX,
     })
   }
 
-  if (args.max) {
-    linkedList.push(args.max)
+  if (move.max) {
+    linkedList.push(move.max)
 
-    X.max = args.max
+    X.max = move.max
 
-    X.min = { r: -1, useSize: args.max }
+    X.min = { r: -1, useSize: move.max }
   }
 
   linkedList.push(X)

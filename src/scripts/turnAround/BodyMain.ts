@@ -59,11 +59,7 @@ class BodyMain {
     rotate: Rotation
     sY: InputDynamicVariable
     z?: number
-  }): GetTool &
-    Omit<What, 'rotate'> & {
-      chest: What
-      lowerBody: What
-    } {
+  }): GetTool & Omit<What, 'rotate'> & { chest: What } {
     const sX = { r: this._sX, useSize: args.sY }
     const chestSY = { r: this._chestSY, useSize: args.sY }
     const lowerBodySY = [args.sY, { r: -1, useSize: chestSY }]
@@ -117,7 +113,6 @@ class BodyMain {
         list: [chest.get, lowerBodyMoved.get],
       },
       chest,
-      lowerBody,
     }
   }
 }

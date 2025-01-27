@@ -12,7 +12,6 @@ import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 class PersonMain {
   declare _headSY: number
   declare color: ColorRgb
-  declare colorDark: ColorRgb
   declare head: Head
   declare neck: Neck
   declare bodyMain: BodyMain
@@ -35,8 +34,6 @@ class PersonMain {
     }
 
     this.color = argsNew.color
-
-    this.colorDark = argsNew.colorDark
 
     // Assets
     this.head = new Head(argsNew, state)

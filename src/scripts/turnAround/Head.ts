@@ -20,7 +20,6 @@ class Head {
   declare headSideRatio: number
   declare headTopFrontSX: number
   declare headTopSideSX: number
-  declare headTopX: number
   declare headTopSY: number
   declare wideJaw: boolean
   declare _sX: number
@@ -43,8 +42,6 @@ class Head {
     this.headTopSideSX = this.headTopFrontSX + state.R(-0.2, 0.2)
 
     this.wideJaw = this.headSideRatio > this.headTopSideSX
-
-    this.headTopX = (this.wideJaw ? -1 : 1) * state.R(0, 1)
 
     this.headTopSY = state.R(0.2, 0.8)
 

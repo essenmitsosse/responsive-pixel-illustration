@@ -1,6 +1,6 @@
 import { moveOut } from './moveOut'
 
-import type { GetTool, Move, What } from './types'
+import type { DataRotation, GetTool, Move, What } from './types'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 
 const merge = <T extends Pick<What, 'x' | 'y' | 'z'>>(
@@ -21,7 +21,7 @@ const merge = <T extends Pick<What, 'x' | 'y' | 'z'>>(
 }
 
 export const mover = (
-  what: GetTool & What,
+  what: DataRotation & GetTool & What,
   move: Move,
   linkedList: Array<InputDynamicVariable>,
 ): GetTool => {

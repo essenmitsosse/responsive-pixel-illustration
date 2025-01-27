@@ -12,13 +12,16 @@ export type GetTool = {
   get: Tool
 }
 
-export type What = {
-  cX?: boolean
-  fY?: boolean
+export type DataRotation = {
   rotate: {
     position: number
     turnedAway: number
   }
+}
+
+export type What = {
+  cX?: boolean
+  fY?: boolean
   sX?: InputDynamicVariable
   sY?: InputDynamicVariable
   tY?: boolean

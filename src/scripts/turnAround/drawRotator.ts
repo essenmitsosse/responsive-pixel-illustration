@@ -1,6 +1,7 @@
 import { moveOut } from './moveOut'
 
 import type {
+  DataRotation,
   GetTool,
   Move,
   MoveOut,
@@ -53,7 +54,7 @@ const getTool = (
 const drawRotator = (
   args: ArgsRotater,
   state: StateTurnAround,
-): GetTool & What => {
+): DataRotation & GetTool & What => {
   const list: Array<Tool> = []
 
   const sX: InputDynamicVariable = {

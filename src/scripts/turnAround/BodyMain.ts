@@ -19,7 +19,6 @@ class BodyMain {
   declare _sX: number
   declare _chestSY: number
   declare torsoSide: number
-  declare chestSideSX: number
   declare chestFrontSX: number
   declare color: ColorRgb
   declare colorDark: ColorRgb
@@ -36,8 +35,6 @@ class BodyMain {
     this._chestSY = state.R(0.1, 0.3)
 
     this.torsoSide = state.R(0.5, 1.5)
-
-    this.chestSideSX = state.R(0.8, 1.2)
 
     this.chestFrontSX = state.R(0.8, 1.2)
 

@@ -2,7 +2,6 @@ import BodyMain from './BodyMain'
 import { recordColor } from './colors'
 import Head from './Head'
 import { mover } from './mover'
-import Neck from './Neck'
 
 import type { Rotation, StateTurnAround } from './types'
 import type { ColorRgb } from '@/helper/typeColor'
@@ -13,7 +12,6 @@ class PersonMain {
   declare _headSY: number
   declare color: ColorRgb
   declare head: Head
-  declare neck: Neck
   declare bodyMain: BodyMain
   declare ll: Array<InputDynamicVariable>
   declare state: StateTurnAround
@@ -37,8 +35,6 @@ class PersonMain {
 
     // Assets
     this.head = new Head(argsNew, state)
-
-    this.neck = new Neck(argsNew)
 
     this.bodyMain = new BodyMain(argsNew, state)
   }

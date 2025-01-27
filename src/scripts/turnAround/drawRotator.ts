@@ -131,7 +131,6 @@ const drawRotator = (
     rotate: args.rotate,
     sX,
     sY: args.sY,
-    y: args.y,
   }
 }
 

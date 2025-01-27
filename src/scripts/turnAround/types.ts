@@ -12,7 +12,6 @@ export type What = {
   cX?: boolean
   fY?: boolean
   get: Tool
-  list: ReadonlyArray<Tool>
   rotate: {
     position: number
     turnedAway: number

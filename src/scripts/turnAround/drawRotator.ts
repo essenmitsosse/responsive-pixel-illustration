@@ -43,10 +43,7 @@ const getTool = (
   }
 }
 
-const drawRotator = (
-  args: ArgsRotater,
-  state: StateTurnAround,
-): Omit<What, 'list'> => {
+const drawRotator = (args: ArgsRotater, state: StateTurnAround): What => {
   const list: Array<Tool> = []
 
   const sX: InputDynamicVariable = {

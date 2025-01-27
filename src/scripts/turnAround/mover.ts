@@ -21,10 +21,10 @@ const merge = <T extends Pick<What, 'x' | 'y' | 'z'>>(
 }
 
 export const mover = (
-  what: Omit<What, 'list'>,
+  what: What,
   move: Move,
   linkedList: Array<InputDynamicVariable>,
-): Omit<What, 'list'> => {
+): What => {
   let x
 
   move.sX = what.sX

@@ -24,25 +24,25 @@ export const mover = (
   what: What,
   move: Move,
   linkedList: Array<InputDynamicVariable>,
-): What => {
+): Pick<What, 'get'> => {
   move.sX = what.sX
 
   const x = moveOut(move, what.rotate, linkedList)
 
-  what.get = merge(what.get, {
-    x,
-    y: move.y,
-    z:
-      (move.xRel
-        ? move.xRel && move.xRel < 0
-          ? -1
-          : 1
-        : move.xBase && move.xBase < 0
-          ? -1
-          : 1) *
-      (move.z || 50) *
-      what.rotate.turnedAway,
-  })
-
-  return what
+  return {
+    get: merge(what.get, {
+      x,
+      y: move.y,
+      z:
+        (move.xRel
+          ? move.xRel && move.xRel < 0
+            ? -1
+            : 1
+          : move.xBase && move.xBase < 0
+            ? -1
+            : 1) *
+        (move.z || 50) *
+        what.rotate.turnedAway,
+    }),
+  }
 }

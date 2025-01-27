@@ -88,13 +88,21 @@ class Rotater {
       })
     }
 
-    this.pusher(args.rotate.FL, args.drawer.draw(args, true, false))
+    this.list.push(
+      this.getTool(args.rotate.FL, args.drawer.draw(args, true, false)),
+    )
 
-    this.pusher(args.rotate.FR, args.drawer.draw(args, true, true), true)
+    this.list.push(
+      this.getTool(args.rotate.FR, args.drawer.draw(args, true, true), true),
+    )
 
-    this.pusher(args.rotate.BR, args.drawer.draw(args, false, true))
+    this.list.push(
+      this.getTool(args.rotate.BR, args.drawer.draw(args, false, true)),
+    )
 
-    this.pusher(args.rotate.BL, args.drawer.draw(args, false, false), true)
+    this.list.push(
+      this.getTool(args.rotate.BL, args.drawer.draw(args, false, false), true),
+    )
 
     this.result = {
       get: {
@@ -119,20 +127,20 @@ class Rotater {
     }
   }
 
-  pusher(
+  getTool(
     rotate: { abs: number; real: number },
     list: ReadonlyArray<Tool | undefined>,
     reflect?: boolean,
-  ): void {
+  ): Tool {
     const front = rotate.abs > 0
 
-    this.list.push({
+    return {
       sX: { r: front ? rotate.abs : -rotate.abs },
       fX: rotate.real > 0,
       z: front ? 50 : -50,
       list,
       rX: reflect,
-    })
+    }
   }
 }
 

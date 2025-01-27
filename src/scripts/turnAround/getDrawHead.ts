@@ -33,9 +33,6 @@ const getDrawHead = (args: ArgsHead, state: StateTurnAround) => {
       list: ReadonlyArray<Omit<What, 'get' | 'id' | 'list' | 'rotate'>>
       sY: InputDynamicVariable
     }
-    headBottom: Omit<What, 'id' | 'list'>
-    headTop: Omit<What, 'id' | 'list'>
-    nose: Omit<What, 'id' | 'list'>
     rotate: Rotation
     sX: InputDynamicVariable
     sY: InputDynamicVariable
@@ -98,9 +95,6 @@ const getDrawHead = (args: ArgsHead, state: StateTurnAround) => {
         sY: argsDraw.sY,
         list: [headTopRotated.get, headBottomRotated.get, noseRotated.get],
       },
-      headTop: headTopRotated,
-      headBottom: headBottomRotated,
-      nose: noseRotated,
       sX: headBottomRotated.sX,
       sY: argsDraw.sY,
       rotate: argsDraw.rotate,

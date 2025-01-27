@@ -4,7 +4,6 @@ import Head from './Head'
 import { mover } from './mover'
 
 import type { Rotation, StateTurnAround } from './types'
-import type { ColorRgb } from '@/helper/typeColor'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 
@@ -24,14 +23,7 @@ const getDrawPersonMain = (state: StateTurnAround) => {
     rotate: Rotation
     sX: InputDynamicVariable
     sY: InputDynamicVariable
-  }): {
-    cX: boolean
-    color: ColorRgb
-    fY: boolean
-    list: Array<Tool>
-    sX: InputDynamicVariable
-    sY: InputDynamicVariable
-  } => {
+  }): Tool => {
     const headSY: InputDynamicVariable = { r: _headSY, useSize: args.sY }
     const neckSY: InputDynamicVariable = { a: 5 }
 

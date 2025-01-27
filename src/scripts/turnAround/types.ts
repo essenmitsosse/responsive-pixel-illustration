@@ -36,7 +36,6 @@ export type Move = {
   max?: InputDynamicVariable
   sX?: InputDynamicVariable
   sXBase?: InputDynamicVariable
-  xAdd?: InputDynamicVariable
   xBase?: number
   xRel?: number
   y?: InputDynamicVariable

@@ -44,11 +44,6 @@ export const moveOut = (
     })
   }
 
-  if (args.xAdd) {
-    // Move Center Point to correct center
-    add.push(args.xAdd)
-  }
-
   if (args.xRel) {
     // Move relative to the size of the object
     add.push({

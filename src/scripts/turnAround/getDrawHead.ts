@@ -80,7 +80,6 @@ const getDrawHead = (args: ArgsHead, state: StateTurnAround) => {
           sXBase: (wideJaw ? headTopRotated : headBottomRotated).sX,
           xBase: 1,
           xRel: 1,
-          xAdd: wideJaw ? headTopRotated.x : undefined,
         },
       },
       state,

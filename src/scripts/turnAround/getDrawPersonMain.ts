@@ -67,7 +67,6 @@ const getDrawPersonMain = (state: StateTurnAround) => {
         sXBase: bodyMainDrawn.chest.sX,
         xBase: headXSide,
         xRel: headXSide,
-        xAdd: bodyMainDrawn.chest.x,
         y: 5,
         z: 100,
       },

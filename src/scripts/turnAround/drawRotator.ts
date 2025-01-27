@@ -46,7 +46,7 @@ const getTool = (
 const drawRotator = (
   args: ArgsRotater,
   state: StateTurnAround,
-): Omit<What, 'id' | 'list'> => {
+): Omit<What, 'list'> => {
   const list: Array<Tool> = []
 
   const sX: InputDynamicVariable = {

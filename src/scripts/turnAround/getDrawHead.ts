@@ -27,7 +27,7 @@ const getDrawHead = (args: ArgsHead, state: StateTurnAround) => {
     rotate: Rotation
     sX?: InputDynamicVariable
     sY?: InputDynamicVariable
-  }): Omit<What, 'id' | 'list'> => {
+  }): Omit<What, 'list'> => {
     const sX = { r: _sX, useSize: argsDraw.sY }
 
     state.ll.push(sX)

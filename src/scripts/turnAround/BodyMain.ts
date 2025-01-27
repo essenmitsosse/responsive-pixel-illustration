@@ -59,9 +59,9 @@ class BodyMain {
     rotate: Rotation
     sY: InputDynamicVariable
     z?: number
-  }): Omit<What, 'id' | 'list' | 'rotate'> & {
-    chest: Omit<What, 'id' | 'list'>
-    lowerBody: Omit<What, 'id' | 'list'>
+  }): Omit<What, 'list' | 'rotate'> & {
+    chest: Omit<What, 'list'>
+    lowerBody: Omit<What, 'list'>
   } {
     const sX = { r: this._sX, useSize: args.sY }
     const chestSY = { r: this._chestSY, useSize: args.sY }

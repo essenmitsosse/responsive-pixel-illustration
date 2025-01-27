@@ -1,4 +1,4 @@
-import BodyMain from './BodyMain'
+import getDrawBodyMain from './BodyMain'
 import { recordColor } from './colors'
 import getDrawHead from './getDrawHead'
 import { mover } from './mover'
@@ -18,7 +18,7 @@ const getDrawPersonMain = (state: StateTurnAround) => {
   }
 
   const drawHead = getDrawHead(argsNew, state)
-  const bodyMain = new BodyMain(state)
+  const drawBodyMain = getDrawBodyMain(state)
 
   return (args: {
     rotate: Rotation
@@ -46,7 +46,7 @@ const getDrawPersonMain = (state: StateTurnAround) => {
       rotate: args.rotate,
     })
 
-    const bodyMainDrawn = bodyMain.draw({
+    const bodyMain = drawBodyMain({
       sY: bodySY,
       rotate: args.rotate,
       fY: true,
@@ -55,7 +55,7 @@ const getDrawPersonMain = (state: StateTurnAround) => {
     const neckSX = {
       r: 0.5,
       useSize: head.sX,
-      max: { r: 0.5, useSize: bodyMainDrawn.chest.sX },
+      max: { r: 0.5, useSize: bodyMain.chest.sX },
     }
 
     state.ll.push(neckSX)
@@ -65,7 +65,7 @@ const getDrawPersonMain = (state: StateTurnAround) => {
     const headFinal = mover(
       head,
       {
-        sXBase: bodyMainDrawn.chest.sX,
+        sXBase: bodyMain.chest.sX,
         xBase: headXSide,
         xRel: headXSide,
         y: 5,
@@ -80,7 +80,7 @@ const getDrawPersonMain = (state: StateTurnAround) => {
       sX: args.sX,
       cX: true,
       fY: true,
-      list: [headFinal.get, bodyMainDrawn.get],
+      list: [headFinal.get, bodyMain.get],
     }
   }
 }

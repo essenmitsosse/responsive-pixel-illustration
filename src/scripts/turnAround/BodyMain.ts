@@ -7,53 +7,32 @@ import type { Rotation } from './getOverview'
 import type { DataSize, GetTool, StateTurnAround } from './types'
 import type { InputDynamicVariable } from '@/helper/typeSize'
 
-class BodyMain {
-  declare chest: Chest
-  declare lowerBody: LowerBody
-  declare _sX: number
-  declare _chestSY: number
-  declare chestFrontSX: number
-  declare ll: Array<InputDynamicVariable>
-  declare state: StateTurnAround
-  constructor(state: StateTurnAround) {
-    this.ll = state.ll
+const getDrawBodyMain = (state: StateTurnAround) => {
+  const _sX = state.R(0.4, 1)
+  const _chestSY = state.R(0.1, 0.3)
+  const chestFrontSX = state.R(0.8, 1.2)
+  const chest = new Chest()
+  const lowerBody = new LowerBody()
 
-    this.state = state
-
-    // Forms & Sizes
-    this._sX = state.R(0.4, 1)
-
-    this._chestSY = state.R(0.1, 0.3)
-
-    this.chestFrontSX = state.R(0.8, 1.2)
-
-    // Colors
-
-    // Assets
-    this.chest = new Chest()
-
-    this.lowerBody = new LowerBody()
-  }
-
-  draw(args: {
+  return (args: {
     fY?: boolean
     rotate: Rotation
     sY: InputDynamicVariable
     z?: number
-  }): GetTool & { chest: DataSize } {
-    const sX = { r: this._sX, useSize: args.sY }
-    const chestSY = { r: this._chestSY, useSize: args.sY }
+  }): GetTool & { chest: DataSize } => {
+    const sX = { r: _sX, useSize: args.sY }
+    const chestSY = { r: _chestSY, useSize: args.sY }
     const lowerBodySY = [args.sY, { r: -1, useSize: chestSY }]
 
-    this.ll.push(sX)
+    state.ll.push(sX)
 
-    this.ll.push(chestSY)
+    state.ll.push(chestSY)
 
-    this.ll.push(lowerBodySY)
+    state.ll.push(lowerBodySY)
 
-    const lowerBody = drawRotator(
+    const lowerBodyDrawn = drawRotator(
       {
-        drawer: this.lowerBody,
+        drawer: lowerBody,
         id: 'lowerBody',
         rotate: args.rotate,
         baseSX: sX,
@@ -61,29 +40,29 @@ class BodyMain {
         fY: true,
         z: 20,
       },
-      this.state,
+      state,
     )
 
-    const chest = drawRotator(
+    const chestDrawn = drawRotator(
       {
-        drawer: this.chest,
+        drawer: chest,
         id: 'chest',
         rotate: args.rotate,
         baseSX: sX,
-        frontSX: this.chestFrontSX,
+        frontSX: chestFrontSX,
         sY: chestSY,
         z: 40,
       },
-      this.state,
+      state,
     )
 
     const lowerBodyMoved = mover(
-      lowerBody,
+      lowerBodyDrawn,
       {
         xRel: 0,
         max: { a: 2 },
       },
-      this.ll,
+      state.ll,
     )
 
     return {
@@ -91,11 +70,11 @@ class BodyMain {
         sY: args.sY,
         fY: args.fY,
         z: args.z,
-        list: [chest.get, lowerBodyMoved.get],
+        list: [chestDrawn.get, lowerBodyMoved.get],
       },
-      chest,
+      chest: chestDrawn,
     }
   }
 }
 
-export default BodyMain
+export default getDrawBodyMain

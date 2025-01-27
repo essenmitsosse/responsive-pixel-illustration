@@ -1,5 +1,5 @@
 import { colorWhite } from './colors'
-import getDrawPersonMain from './PersonMain'
+import getDrawPersonMain from './getDrawPersonMain'
 import RotateInfo from './RotatorInfo'
 
 import type { Rotate, Rotation, StateTurnAround } from './types'

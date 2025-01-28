@@ -1,6 +1,6 @@
 import drawChest from './drawChest'
 import drawRotator from './drawRotator'
-import LowerBody from './LowerBody'
+import drawLowerBody from './LowerBody'
 import { mover } from './mover'
 
 import type { Rotation } from './getOverview'
@@ -11,7 +11,6 @@ const getDrawBodyMain = (state: StateTurnAround) => {
   const _sX = state.R(0.4, 1)
   const _chestSY = state.R(0.1, 0.3)
   const chestFrontSX = state.R(0.8, 1.2)
-  const lowerBody = new LowerBody()
 
   return (args: {
     fY?: boolean
@@ -31,7 +30,7 @@ const getDrawBodyMain = (state: StateTurnAround) => {
 
     const lowerBodyDrawn = drawRotator(
       {
-        drawer: lowerBody,
+        drawer: { draw: drawLowerBody },
         id: 'lowerBody',
         rotate: args.rotate,
         baseSX: sX,

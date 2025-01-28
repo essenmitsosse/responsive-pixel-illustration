@@ -1,7 +1,7 @@
 import drawRotator from './drawRotator'
 import getDrawHeadBottom from './getDrawHeadBottom'
+import getDrawNose from './getDrawNose'
 import HeadTop from './HeadTop'
-import getDrawNose from './Nose'
 
 import type { Rotation } from './getOverview'
 import type { DataRotation, DataSize, GetTool, StateTurnAround } from './types'

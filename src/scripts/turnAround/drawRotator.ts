@@ -8,13 +8,11 @@ import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 
 type ArgsRotater = {
   baseSX: InputDynamicVariable
-  drawer: {
-    draw: (
-      args: Omit<ArgsRotater, 'drawer'>,
-      isFront: boolean,
-      isRight: boolean,
-    ) => ReadonlyArray<Tool | undefined>
-  }
+  draw: (
+    args: Omit<ArgsRotater, 'drawer'>,
+    isFront: boolean,
+    isRight: boolean,
+  ) => ReadonlyArray<Tool | undefined>
   fY?: boolean
   frontSX?: number
   id: string
@@ -99,13 +97,13 @@ const drawRotator = (
     })
   }
 
-  list.push(getTool(args.rotate.FL, args.drawer.draw(args, true, false)))
+  list.push(getTool(args.rotate.FL, args.draw(args, true, false)))
 
-  list.push(getTool(args.rotate.FR, args.drawer.draw(args, true, true), true))
+  list.push(getTool(args.rotate.FR, args.draw(args, true, true), true))
 
-  list.push(getTool(args.rotate.BR, args.drawer.draw(args, false, true)))
+  list.push(getTool(args.rotate.BR, args.draw(args, false, true)))
 
-  list.push(getTool(args.rotate.BL, args.drawer.draw(args, false, false), true))
+  list.push(getTool(args.rotate.BL, args.draw(args, false, false), true))
 
   return {
     get: {

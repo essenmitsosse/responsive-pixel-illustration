@@ -30,7 +30,7 @@ const getDrawBodyMain = (state: StateTurnAround) => {
 
     const lowerBodyDrawn = drawRotator(
       {
-        drawer: { draw: drawLowerBody },
+        draw: drawLowerBody,
         id: 'lowerBody',
         rotate: args.rotate,
         baseSX: sX,
@@ -43,7 +43,7 @@ const getDrawBodyMain = (state: StateTurnAround) => {
 
     const chestDrawn = drawRotator(
       {
-        drawer: { draw: drawChest },
+        draw: drawChest,
         id: 'chest',
         rotate: args.rotate,
         baseSX: sX,

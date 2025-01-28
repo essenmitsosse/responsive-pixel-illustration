@@ -35,7 +35,7 @@ const getDrawHead = (args: ArgsHead, state: StateTurnAround) => {
 
     const headBottomRotated = drawRotator(
       {
-        drawer: { draw: drawHeadBottom },
+        draw: drawHeadBottom,
         id: 'lowerHead',
         rotate: argsDraw.rotate,
         baseSX: sX,
@@ -49,7 +49,7 @@ const getDrawHead = (args: ArgsHead, state: StateTurnAround) => {
 
     const headTopRotated = drawRotator(
       {
-        drawer: { draw: drawHeadTop },
+        draw: drawHeadTop,
         id: 'topHead',
         rotate: argsDraw.rotate,
         baseSX: sX,
@@ -63,7 +63,7 @@ const getDrawHead = (args: ArgsHead, state: StateTurnAround) => {
 
     const noseRotated = drawRotator(
       {
-        drawer: { draw: drawNose },
+        draw: drawNose,
         id: 'nose',
         rotate: argsDraw.rotate,
         baseSX: sX,

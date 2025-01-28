@@ -1,6 +1,6 @@
 import drawChest from './drawChest'
+import drawLowerBody from './drawLowerBody'
 import drawRotator from './drawRotator'
-import drawLowerBody from './LowerBody'
 import { mover } from './mover'
 
 import type { Rotation } from './getOverview'

@@ -1,5 +1,5 @@
 import drawRotator from './drawRotator'
-import HeadBottom from './HeadBottom'
+import getDrawHeadBottom from './HeadBottom'
 import HeadTop from './HeadTop'
 import Nose from './Nose'
 
@@ -21,7 +21,7 @@ const getDrawHead = (args: ArgsHead, state: StateTurnAround) => {
   const wideJaw = headSideRatio > headTopSideSX
   const headTopSY = state.R(0.2, 0.8)
   const headTop = new HeadTop(args, state)
-  const headBottom = new HeadBottom(args)
+  const drawHeadBottom = getDrawHeadBottom(args)
   const nose = new Nose(args)
 
   return (argsDraw: {
@@ -35,7 +35,7 @@ const getDrawHead = (args: ArgsHead, state: StateTurnAround) => {
 
     const headBottomRotated = drawRotator(
       {
-        drawer: headBottom,
+        drawer: { draw: drawHeadBottom },
         id: 'lowerHead',
         rotate: argsDraw.rotate,
         baseSX: sX,

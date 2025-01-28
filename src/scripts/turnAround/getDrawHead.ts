@@ -1,5 +1,5 @@
 import drawRotator from './drawRotator'
-import getDrawHeadBottom from './HeadBottom'
+import getDrawHeadBottom from './getDrawHeadBottom'
 import HeadTop from './HeadTop'
 import Nose from './Nose'
 

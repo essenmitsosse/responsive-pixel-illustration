@@ -75,6 +75,7 @@ const calcRotation = (rotate: number): Rotation => {
 const getOverview = (
   init: {
     inner?: number
+    range?: number
     rotate?: number
     rows?: number
     vari?: number
@@ -83,6 +84,7 @@ const getOverview = (
 ): ReadonlyArray<Tool> => {
   const rows = init.rows || 2
   const vari = init.vari || 3
+  const rangeRotation = init.range || 180
   const reps = Math.round(rows / vari / 0.55)
   const cols = reps === 0 ? vari : vari * reps
   const inner = init.inner ? init.inner : 0.8
@@ -100,7 +102,9 @@ const getOverview = (
 
   const rotations: ReadonlyArray<Rotation> = new Array(vari)
     .fill(null)
-    .map((_, index) => calcRotation((init.rotate || 0) + (180 / vari) * index))
+    .map((_, index) =>
+      calcRotation((init.rotate || 0) + (rangeRotation / vari) * index),
+    )
 
   const list: ReadonlyArray<Tool> = new Array(reps).fill(null).flatMap(
     (_, k): ReadonlyArray<Tool> =>

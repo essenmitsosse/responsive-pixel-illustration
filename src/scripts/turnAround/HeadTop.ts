@@ -5,18 +5,14 @@ import type { ColorRgb } from '@/helper/typeColor'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
 
 type ArgsHeadTop = {
-  color: ColorRgb
   colorDark: ColorRgb
 }
 
 class HeadTop {
-  color: ColorRgb
   colorDark: ColorRgb
   eyeSYLeft: number
   eyeSYRight: number
   constructor(args: ArgsHeadTop, state: StateTurnAround) {
-    this.color = args.color
-
     this.colorDark = args.colorDark
 
     this.eyeSYLeft = state.R(0.2, 0.9)

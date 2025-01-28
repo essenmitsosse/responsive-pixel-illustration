@@ -1,5 +1,5 @@
-import getDrawBodyMain from './BodyMain'
 import { recordColor } from './colors'
+import getDrawBodyMain from './getDrawBodyMain'
 import getDrawHead from './getDrawHead'
 import { mover } from './mover'
 

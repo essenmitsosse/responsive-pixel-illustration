@@ -1,4 +1,4 @@
-import drawChest from './Chest'
+import drawChest from './drawChest'
 import drawRotator from './drawRotator'
 import LowerBody from './LowerBody'
 import { mover } from './mover'

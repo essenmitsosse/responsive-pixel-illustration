@@ -42,8 +42,6 @@ const Builder = function (init) {
 
   Object.prototype.R = this.R
 
-  Object.prototype.colorGen = this.colorGen
-
   Object.prototype.basic = this
 
   Object.prototype.pushLinkList = pushLinkList

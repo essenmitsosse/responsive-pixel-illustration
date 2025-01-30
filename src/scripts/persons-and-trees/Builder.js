@@ -30,7 +30,7 @@ const Builder = function (init) {
     steps: 6,
   }
 
-  Color.prototype.colors = this.buildColors(this.colorInfo)
+  Color.prototype.colors = buildColors(this.colorInfo, this.R)
 
   this.backgroundColor = new Color(this.IF() ? 1 : 0, 5)
 
@@ -67,9 +67,7 @@ const Builder = function (init) {
   }
 }
 
-function buildColors(info) {
-  const rInt = this.R
-
+function buildColors(info, rInt) {
   let i = info.colors
 
   const colors = []
@@ -128,7 +126,5 @@ function buildColors(info) {
 
   return colors
 }
-
-Builder.prototype.buildColors = buildColors
 
 export default Builder

@@ -2,10 +2,10 @@ import Person from '@/scripts/persons-and-trees/Person'
 import Tree from '@/scripts/persons-and-trees/Tree'
 import TreeFamily from '@/scripts/persons-and-trees/TreeFamily'
 
-import Builder from './Builder'
+import getBuilder from './getBuilder'
 
 const builder = (init, slide, createSlider) => {
-  const builder = new Builder(init)
+  const builder = getBuilder(init)
   const width = builder.pushLinkList({ main: true })
   const height = builder.pushLinkList({ main: true, height: true })
   const squ = builder.pushLinkList({ add: [width], max: height })
@@ -15,9 +15,9 @@ const builder = (init, slide, createSlider) => {
   const showPerson = slide.showPerson || init.showPerson
 
   const getPosition = (() => {
-    const rFl = builder.basic.R
-    const rIf = builder.basic.IF
-    const rInt = builder.basic.GR
+    const rFl = builder.R
+    const rIf = builder.IF
+    const rInt = builder.GR
     const eyeLookVert = ['', '', '', 'left', 'right']
 
     const eyeLookHor = [

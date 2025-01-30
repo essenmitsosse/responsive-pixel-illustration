@@ -1,26 +1,32 @@
 import type { InputDynamicVariable } from '@/helper/typeSize'
 import type { Tool } from '@/renderengine/DrawingTools/Primitive'
+import type { InputDynamicLink } from '@/scripts/listImage'
 
-export type MoveOut = {
-  add: ReadonlyArray<InputDynamicVariable>
-  max?: InputDynamicVariable
-  min?: InputDynamicVariable
+export type GetTool = {
+  get: Tool
 }
 
-export type What = {
-  cX?: boolean
-  fY?: boolean
-  get: Tool
-  id: string
-  list: ReadonlyArray<Tool>
+export type DataRotation = {
   rotate: {
     position: number
     turnedAway: number
   }
-  sX?: InputDynamicVariable
-  sY?: InputDynamicVariable
-  tY?: boolean
+}
+
+export type DataSize = {
+  sX: InputDynamicVariable
+  sY: InputDynamicVariable
+}
+
+export type DataPos = {
   x?: InputDynamicVariable
   y?: InputDynamicVariable
   z?: number
+}
+
+export type StateTurnAround = {
+  ll: Array<InputDynamicLink>
+  GR(min: number, max: number): number
+  IF(chance?: number): boolean
+  R(min: number, max: number): number
 }

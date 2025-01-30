@@ -231,7 +231,6 @@ const builder = (init, slide, createSlider) => {
       imgRatio: 1,
       panels: getPanels(),
     },
-    init.cs === 'true' && builder.colorScheme(),
   ]
 
   if (showPerson && createSlider) {

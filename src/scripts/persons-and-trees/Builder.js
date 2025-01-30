@@ -61,7 +61,6 @@ const Builder = function (init) {
     }),
     Color,
     colorInfo: this.colorInfo,
-    colorScheme: this.colorScheme,
     hoverChangerStandard,
   }
 }

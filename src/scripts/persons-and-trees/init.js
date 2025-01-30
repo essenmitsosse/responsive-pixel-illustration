@@ -1,3 +1,7 @@
+import Person from '@/scripts/persons-and-trees/Person'
+import Tree from '@/scripts/persons-and-trees/Tree'
+import TreeFamily from '@/scripts/persons-and-trees/TreeFamily'
+
 import Builder from './Builder'
 
 const builder = (init, slide, createSlider) => {
@@ -165,11 +169,11 @@ const builder = (init, slide, createSlider) => {
     const sY = builder.pushLinkList({})
     const square = builder.pushLinkList({ add: [sX], max: sY })
     const innerSquare = builder.pushLinkList({ r: 0.7, useSize: square })
-    const SingleObject = showPerson ? builder.Person : builder.Tree
+    const SingleObject = showPerson ? Person : Tree
 
     const Tree1Family =
       !showPerson &&
-      new builder.TreeFamily({
+      new TreeFamily({
         color: builder.backgroundColor,
         secondColor: builder.backgroundColor.copy({
           next: true,
@@ -178,7 +182,7 @@ const builder = (init, slide, createSlider) => {
 
     const Tree2Family =
       !showPerson &&
-      new builder.TreeFamily({
+      new TreeFamily({
         color: builder.backgroundColor,
         secondColor: builder.backgroundColor.copy({
           prev: true,

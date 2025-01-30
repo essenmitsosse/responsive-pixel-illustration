@@ -1,4 +1,4 @@
-import { Builder } from './builder'
+import Builder from './Builder'
 
 const builder = (init, slide, createSlider) => {
   const builder = new Builder(init)

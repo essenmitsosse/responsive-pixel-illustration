@@ -1,82 +1,8 @@
 import { mult, sub } from '@/helper/helperDim'
 
-import { Object } from './object'
+const Tree = function (args, state) {
+  this.state = state
 
-// TREE FAMILY
-export const TreeFamily = function (args) {
-  this.chance = this.R()
-
-  // Forms & Sizes
-  this.minFoliagePos = (this.R(0, 1) + 0.4) * 0.5
-
-  // branches
-  this.branchCount = Math.floor(this.R(0, 1) * 3 + 3)
-
-  this.thinner = 0.8 / this.branchCount
-
-  this.shorter = this.R(0, 1) * 0.8
-
-  this.horFactor = this.R(0, 1) * 0.6 + 0.4
-
-  this.fruit = this.IF()
-
-  this.fruitChance = this.fruit && this.R(0, 1) * 0.02
-
-  this.fruitSize = this.fruit && this.GR(2, 4)
-
-  this.leaveX = this.GR(1, 4)
-
-  this.leaveY = this.GR(1, 4)
-
-  this.leaveDetail = this.IF(0.8)
-
-  this.leaveDetailX =
-    this.leaveDetail && this.leaveX > this.leaveY ? this.leaveX : 1
-
-  this.leaveDetailY = this.leaveDetail && this.leaveX === 1 ? this.leaveY : 1
-
-  this.fooliageCoverage = this.IF(0.3) && this.R(0, 1) * 0.5 + 1
-
-  this.crooked = this.IF()
-
-  this.noDetail = this.IF()
-
-  this.detailSX = !this.noDetail && this.GR(1, 4)
-
-  this.detailSY = !this.noDetail && this.GR(1, 4)
-
-  // Colors
-  this.trunkColor = args.groundColor
-    ? (args.skyColor && this.IF(0.2) ? args.skyColor : args.groundColor).copy({
-        brSet: Math.floor(this.GR(1, 4)),
-      })
-    : new this.Color(this.IF() ? 1 : 0, Math.floor(this.GR(1, 4)))
-
-  this.trunkColorDetail = this.trunkColor.copy({ brContrast: -1 })
-
-  this.foliageColor = args.skyColor
-    ? (args.groundColor && this.IF(0.8)
-        ? args.skyColor
-        : args.groundColor
-      ).copy({ brContrast: this.IF() ? -2 : 2 })
-    : this.trunkColor.copy({
-        nextColor: this.IF(),
-        brContrast: this.IF() ? -2 : 2,
-      })
-
-  this.foliageColorDetail = this.foliageColor.copy({ brAdd: -1 })
-
-  // this.groundColor = this.trunkColor.copy( { nextColor: this.IF(), brContrast: this.IF() ? -1 : 1 } );
-  this.fruitColor =
-    this.fruit &&
-    this.foliageColor.copy({ nextColor: this.IF(0.8), brContrast: 2 })
-}
-
-// END TreeFamily
-TreeFamily.prototype = new Object()
-
-// TREE
-export const Tree = function (args) {
   if (!args) {
     args = args || {}
   }
@@ -89,31 +15,31 @@ export const Tree = function (args) {
 
   this.nr = 0
 
-  this.id = this.basic.objectCount += 1
+  this.id = state.objectCount += 1
 
   // Sizes & Forms
-  this.crookedY = (this.crooked && this.R(0.2, 0.9)) || undefined
+  this.crookedY = (this.crooked && state.R(0.2, 0.9)) || undefined
 
-  this.crookedSX = this.crooked && this.R(1, 4)
+  this.crookedSX = this.crooked && state.R(1, 4)
 
-  this.reflectCrookedTrunk = this.IF(0.5)
+  this.reflectCrookedTrunk = state.IF(0.5)
 
-  this.foliageSX = this.R(0.2, 0.6)
+  this.foliageSX = state.R(0.2, 0.6)
 
-  this.foliageSY = this.R(0, 0.2) * (1 - this.minFoliagePos) + 0.2
+  this.foliageSY = state.R(0, 0.2) * (1 - this.minFoliagePos) + 0.2
 
-  this.trunkSX = this.R(0.02, 0.1)
+  this.trunkSX = state.R(0.02, 0.1)
 
-  this.leaveChange = this.R(0, 1)
+  this.leaveChange = state.R(0, 1)
 
   this.random = [
-    this.R(0, 1),
-    this.R(0, 1),
-    this.R(0, 1),
-    this.R(0, 1),
-    this.R(0, 1),
-    this.R(0, 1),
-    this.R(0, 1),
+    state.R(0, 1),
+    state.R(0, 1),
+    state.R(0, 1),
+    state.R(0, 1),
+    state.R(0, 1),
+    state.R(0, 1),
+    state.R(0, 1),
   ]
 
   // this.branches = this.addBranches( args, true, true, this.branchCount, 1 );
@@ -121,8 +47,6 @@ export const Tree = function (args) {
   // Copy
 }
 // END Tree
-
-Tree.prototype = new Object()
 
 Tree.prototype.draw = function (args, z, size) {
   const code = (this.code = this.id + '_' + (this.nr += 1))
@@ -133,25 +57,25 @@ Tree.prototype.draw = function (args, z, size) {
 
   args.treeSqu = size
 
-  args.foliageSX = this.pushLinkList({
+  args.foliageSX = this.state.pushLinkList({
     r: this.foliageSX,
     useSize: args.treeSqu,
     min: 1,
   })
 
-  args.foliageSY = this.pushLinkList({
+  args.foliageSY = this.state.pushLinkList({
     r: this.foliageSY,
     useSize: args.foliageSX,
     min: 1,
   })
 
-  args.trunkSX = this.pushLinkList({
+  args.trunkSX = this.state.pushLinkList({
     r: this.trunkSX,
     useSize: args.treeSqu,
     min: 1,
   })
 
-  args.topTrunk = this.pushLinkList({
+  args.topTrunk = this.state.pushLinkList({
     r: this.crookedY,
     useSize: args.treeSqu,
   })
@@ -439,60 +363,4 @@ Tree.prototype.getRandom = function () {
   return this.random[this.randomCount]
 }
 
-// FORREST
-export const Forrest = function () {
-  let i = (this.treeKindsCount = this.IF(0.8) ? 1 : this.IF(0.8) ? 2 : 3)
-  // trees,
-  let family
-  let count
-
-  this.trees = []
-
-  while (i--) {
-    count = this.GR(1, 6 - this.treeKindsCount)
-
-    family = new this.basic.TreeFamily({
-      color: this.groundColor,
-      secondColor: this.skyColor,
-    })
-
-    while (count--) {
-      this.trees.push({
-        x: this.R(0, 1),
-        tree: new this.basic.Tree(family),
-      })
-    }
-  }
-
-  this.treeCount = this.trees.length
-}
-
-// END Forrest
-Forrest.prototype = new Object()
-
-Forrest.prototype.draw = function (args, z, size) {
-  const list = []
-
-  let i = this.treeCount
-  let thisTree
-
-  while (i--) {
-    thisTree = this.trees[i]
-
-    list.push({
-      x: { r: thisTree.x },
-      s: size,
-      list: thisTree.tree.draw(args, z, size),
-    })
-  }
-
-  return [
-    {
-      z,
-      sY: size,
-      sX: { r: 4, useSize: size },
-      cX: true,
-      list,
-    },
-  ]
-}
+export default Tree

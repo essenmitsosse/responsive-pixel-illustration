@@ -1,7 +1,11 @@
-import { Builder } from './builder'
+import Person from '@/scripts/persons-and-trees/Person'
+import Tree from '@/scripts/persons-and-trees/Tree'
+import TreeFamily from '@/scripts/persons-and-trees/TreeFamily'
 
-function builder(init, slide, createSlider) {
-  const builder = new Builder(init)
+import getBuilder from './getBuilder'
+
+const builder = (init, slide, createSlider) => {
+  const builder = getBuilder(init)
   const width = builder.pushLinkList({ main: true })
   const height = builder.pushLinkList({ main: true, height: true })
   const squ = builder.pushLinkList({ add: [width], max: height })
@@ -10,10 +14,10 @@ function builder(init, slide, createSlider) {
   const imgSY = builder.pushLinkList([height, { r: -2, useSize: borderS }])
   const showPerson = slide.showPerson || init.showPerson
 
-  const getPosition = (function () {
-    const rFl = builder.basic.R
-    const rIf = builder.basic.IF
-    const rInt = builder.basic.GR
+  const getPosition = (() => {
+    const rFl = builder.R
+    const rIf = builder.IF
+    const rInt = builder.GR
     const eyeLookVert = ['', '', '', 'left', 'right']
 
     const eyeLookHor = [
@@ -96,7 +100,7 @@ function builder(init, slide, createSlider) {
 
     const teethPos = ['', 'top', 'bottom', 'both', 'full']
 
-    return function (args) {
+    return (args) => {
       args.eye = {
         lookVert: eyeLookVert[rInt(0, eyeLookVert.length)],
         lookHor: eyeLookHor[rInt(0, eyeLookHor.length)],
@@ -152,7 +156,7 @@ function builder(init, slide, createSlider) {
     }
   })()
 
-  const getPanels = function () {
+  const getPanels = () => {
     let l = init.panelCount || 6
 
     const half = l / 2
@@ -165,25 +169,31 @@ function builder(init, slide, createSlider) {
     const sY = builder.pushLinkList({})
     const square = builder.pushLinkList({ add: [sX], max: sY })
     const innerSquare = builder.pushLinkList({ r: 0.7, useSize: square })
-    const SingleObject = showPerson ? builder.Person : builder.Tree
+    const SingleObject = showPerson ? Person : Tree
 
     const Tree1Family =
       !showPerson &&
-      new builder.TreeFamily({
-        color: builder.backgroundColor,
-        secondColor: builder.backgroundColor.copy({
-          next: true,
-        }),
-      })
+      new TreeFamily(
+        {
+          color: builder.backgroundColor,
+          secondColor: builder.backgroundColor.copy({
+            next: true,
+          }),
+        },
+        builder.state,
+      )
 
     const Tree2Family =
       !showPerson &&
-      new builder.TreeFamily({
-        color: builder.backgroundColor,
-        secondColor: builder.backgroundColor.copy({
-          prev: true,
-        }),
-      })
+      new TreeFamily(
+        {
+          color: builder.backgroundColor,
+          secondColor: builder.backgroundColor.copy({
+            prev: true,
+          }),
+        },
+        builder.state,
+      )
 
     while (l--) {
       drawArgs = {}
@@ -212,7 +222,11 @@ function builder(init, slide, createSlider) {
             sX: square,
             cX: true,
             // list: ( new Person( args ) ).draw( drawArgs )
-            list: new SingleObject(args).draw(drawArgs, 0, square),
+            list: new SingleObject(args, builder.state).draw(
+              drawArgs,
+              0,
+              square,
+            ),
           },
         ],
       })
@@ -231,7 +245,6 @@ function builder(init, slide, createSlider) {
       imgRatio: 1,
       panels: getPanels(),
     },
-    init.cs === 'true' && builder.colorScheme(),
   ]
 
   if (showPerson && createSlider) {

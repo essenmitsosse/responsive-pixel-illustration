@@ -1,1 +1,1 @@
-export const Object = function () {}
+export class Object {}

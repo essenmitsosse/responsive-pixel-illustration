@@ -1,6 +1,9 @@
 import { mult } from '@/helper/helperDim'
 
+import Belt from './Belt'
+import Leg from './Leg'
 import Object from './Object'
+import Skirt from './Skirt'
 
 const BodyLower = function (args) {
   // Form & Sizes
@@ -19,14 +22,14 @@ const BodyLower = function (args) {
     : args.secondColor
 
   // Assets
-  this.leg = new this.basic.Leg(args)
+  this.leg = new Leg(args)
 
   this.skirt = args.skirt =
     (args.demo || this.wideHips || this.IF(args.animal ? 0.05 : 0.15)) &&
-    new this.basic.Skirt(args)
+    new Skirt(args)
 
   if (!args.animal && this.IF(0.3)) {
-    this.belt = new this.basic.Belt(args)
+    this.belt = new Belt(args)
   }
 }
 // END BodyLower

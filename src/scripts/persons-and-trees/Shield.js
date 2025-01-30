@@ -1,3 +1,4 @@
+import Logo from './Logo'
 import Object from './Object'
 
 const Shield = function (args, right) {
@@ -27,7 +28,7 @@ const Shield = function (args, right) {
 
   // Assets
   if (this.IF(1.1)) {
-    this.logo = new this.basic.Logo(
+    this.logo = new Logo(
       args,
       right,
       true,

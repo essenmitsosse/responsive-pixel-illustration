@@ -1,39 +1,9 @@
 import getHoverChangerStandard from '@/helper/getHoverChangerStandard'
 import { getRandom } from '@/helper/getRandom'
 
-import Arm from './Arm'
-import Beard from './Beard'
-import Belt from './Belt'
-import BodyBasic from './BodyBasic'
-import BodyLower from './BodyLower'
-import BodyUpper from './BodyUpper'
-import Buttons from './Buttons'
-import Cape from './Cape'
-import Cleavage from './Cleavage'
-import Collar from './Collar'
 import Color from './Color'
-import Eye from './Eye'
-import Forrest from './Forrest'
-import Hair from './Hair'
-import Hat from './Hat'
-import Head from './Head'
-import HeadBand from './HeadBand'
-import Helm from './Helm'
-import Horns from './Horn'
-import Leg from './Leg'
-import Logo from './Logo'
-import Mouth from './Mouth'
-import Nipples from './Nipples'
 import Object from './Object'
 import Person from './Person'
-import Shield from './Shield'
-import ShoulderPad from './ShoulderPad'
-import Skirt from './Skirt'
-import Strap from './Strap'
-import Stripes from './Stripes'
-import Suspenders from './Suspenders'
-import Sword from './Sword'
-import Tool from './Tool'
 import Tree from './Tree'
 import TreeFamily from './TreeFamily'
 
@@ -60,36 +30,32 @@ const Builder = function (init) {
     steps: 6,
   }
 
-  this.Color.prototype.colors = this.buildColors(this.colorInfo)
+  Color.prototype.colors = this.buildColors(this.colorInfo)
 
-  this.Color.prototype.Color = this.Color
-
-  this.backgroundColor = new this.Color(this.IF() ? 1 : 0, 5)
+  this.backgroundColor = new Color(this.IF() ? 1 : 0, 5)
 
   this.backgroundShadowColor = this.backgroundColor.copy({ brAdd: -1 })
 
   this.objectCount = 0
 
-  this.Object.prototype.IF = this.IF
+  Object.prototype.IF = this.IF
 
-  this.Object.prototype.GR = this.GR
+  Object.prototype.GR = this.GR
 
-  this.Object.prototype.R = this.R
+  Object.prototype.R = this.R
 
-  this.Object.prototype.colorGen = this.colorGen
+  Object.prototype.colorGen = this.colorGen
 
-  this.Object.prototype.Color = this.Color
+  Object.prototype.basic = this
 
-  this.Object.prototype.basic = this
+  Object.prototype.pushLinkList = pushLinkList
 
-  this.Object.prototype.pushLinkList = pushLinkList
-
-  this.Object.prototype.hoverChangerStandard = hoverChangerStandard
+  Object.prototype.hoverChangerStandard = hoverChangerStandard
 
   return {
-    Person: this.Person,
-    Tree: this.Tree,
-    TreeFamily: this.TreeFamily,
+    Person,
+    Tree,
+    TreeFamily,
     basic: this,
     linkList,
     pushLinkList,
@@ -98,7 +64,7 @@ const Builder = function (init) {
       nextColor: true,
       brSet: 0,
     }),
-    Color: this.Color,
+    Color,
     colorInfo: this.colorInfo,
     colorScheme: this.colorScheme,
     hoverChangerStandard,
@@ -167,76 +133,6 @@ function buildColors(info) {
   return colors
 }
 
-Builder.prototype.Color = Color
-
 Builder.prototype.buildColors = buildColors
-
-Builder.prototype.Object = Object
-
-Builder.prototype.Person = Person
-
-Builder.prototype.BasicBody = BodyBasic
-
-Builder.prototype.Logo = Logo
-
-Builder.prototype.TreeFamily = TreeFamily
-
-Builder.prototype.Forrest = Forrest
-
-Builder.prototype.Tree = Tree
-
-Builder.prototype.Arm = Arm
-
-Builder.prototype.Shield = Shield
-
-Builder.prototype.ShoulderPad = ShoulderPad
-
-Builder.prototype.Sword = Sword
-
-Builder.prototype.Tool = Tool
-
-Builder.prototype.Beard = Beard
-
-Builder.prototype.Eye = Eye
-
-Builder.prototype.Hair = Hair
-
-Builder.prototype.Hat = Hat
-
-Builder.prototype.Head = Head
-
-Builder.prototype.HeadBand = HeadBand
-
-Builder.prototype.Helm = Helm
-
-Builder.prototype.Horns = Horns
-
-Builder.prototype.Mouth = Mouth
-
-Builder.prototype.Belt = Belt
-
-Builder.prototype.Leg = Leg
-
-Builder.prototype.LowerBody = BodyLower
-
-Builder.prototype.Skirt = Skirt
-
-Builder.prototype.Buttons = Buttons
-
-Builder.prototype.Cape = Cape
-
-Builder.prototype.Cleavage = Cleavage
-
-Builder.prototype.Collar = Collar
-
-Builder.prototype.Nipples = Nipples
-
-Builder.prototype.Strap = Strap
-
-Builder.prototype.Stripes = Stripes
-
-Builder.prototype.Suspenders = Suspenders
-
-Builder.prototype.UpperBody = BodyUpper
 
 export default Builder

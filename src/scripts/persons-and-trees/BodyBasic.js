@@ -1,5 +1,9 @@
 import { sub } from '@/helper/helperDim'
 
+import BodyLower from './BodyLower'
+import BodyUpper from './BodyUpper'
+import Color from './Color'
+import Head from './Head'
 import Object from './Object'
 
 const BodyBasic = function (args) {
@@ -30,7 +34,7 @@ const BodyBasic = function (args) {
   this.animal = args.animal = this.IF(0.02)
 
   // Color
-  this.skinColor = args.skinColor = new this.Color(hues[0], this.GR(1, 4))
+  this.skinColor = args.skinColor = new Color(hues[0], this.GR(1, 4))
 
   this.firstColor = args.firstColor = args.skinColor.copy({
     nr: hues[1],
@@ -58,11 +62,11 @@ const BodyBasic = function (args) {
   // console.log( args, this.skinColor, this.firstColor, this.secondColor );
 
   // Assets
-  this.head = new this.basic.Head(args)
+  this.head = new Head(args)
 
-  this.upperBody = new this.basic.UpperBody(args)
+  this.upperBody = new BodyUpper(args)
 
-  this.lowerBody = new this.basic.LowerBody(args)
+  this.lowerBody = new BodyLower(args)
 }
 // END BasicBody
 

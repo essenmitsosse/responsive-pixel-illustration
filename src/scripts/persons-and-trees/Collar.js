@@ -1,3 +1,4 @@
+import Buttons from './Buttons'
 import Object from './Object'
 
 const Collar = function (args) {
@@ -21,7 +22,7 @@ const Collar = function (args) {
 
   // Assets
   if (this.open && this.IF(0.3)) {
-    this.buttons = new this.basic.Buttons(args, this.shirtColor)
+    this.buttons = new Buttons(args, this.shirtColor)
   }
 }
 // END Collar

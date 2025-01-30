@@ -7,10 +7,7 @@ const Color = function (nr, br) {
 Color.prototype.copy = function (args) {
   args = args || {}
 
-  const color = new this.Color(
-    args.nr !== undefined ? args.nr : this.nr,
-    this.br,
-  )
+  const color = new Color(args.nr !== undefined ? args.nr : this.nr, this.br)
 
   if (args.nextColor) {
     color.nextColor()

@@ -1,6 +1,9 @@
 import { mult, sub } from '@/helper/helperDim'
 
 import Object from './Object'
+import Shield from './Shield'
+import ShoulderPad from './ShoulderPad'
+import Sword from './Sword'
 
 const Arm = function (args) {
   // Form & Sizes
@@ -38,18 +41,16 @@ const Arm = function (args) {
   this.shirtColor = args.shirtColor
 
   // Assets
-  this.shoulderPad = this.IF(0.05) && new this.basic.ShoulderPad(args)
+  this.shoulderPad = this.IF(0.05) && new ShoulderPad(args)
 
   this.toolLeft =
     (args.demo || this.IF(0.1)) &&
-    (this.IF(0.5) ? new this.basic.Shield(args) : new this.basic.Sword(args))
+    (this.IF(0.5) ? new Shield(args) : new Sword(args))
 
   this.toolRight =
     !args.demo &&
     this.IF(0.1) &&
-    (this.IF(0.5)
-      ? new this.basic.Shield(args, true)
-      : new this.basic.Sword(args, true))
+    (this.IF(0.5) ? new Shield(args, true) : new Sword(args, true))
 
   this.headGear = args.headGear
 }

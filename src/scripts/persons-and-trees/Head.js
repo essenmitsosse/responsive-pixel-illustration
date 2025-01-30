@@ -1,5 +1,13 @@
 import { sub } from '@/helper/helperDim'
 
+import Beard from './Beard'
+import Eye from './Eye'
+import Hair from './Hair'
+import Hat from './Hat'
+import HeadBand from './HeadBand'
+import Helm from './Helm'
+import Horns from './Horn'
+import Mouth from './Mouth'
 import Object from './Object'
 
 const Head = function (args) {
@@ -53,23 +61,23 @@ const Head = function (args) {
   })
 
   // Assets
-  this.eye = new this.basic.Eye(args)
+  this.eye = new Eye(args)
 
-  this.mouth = new this.basic.Mouth(args)
+  this.mouth = new Mouth(args)
 
-  this.beard = this.IF() && new this.basic.Beard(args)
+  this.beard = this.IF() && new Beard(args)
 
   this.headGear = args.headGear =
     (args.demo || this.IF(0.3)) &&
     new (this.IF(0.01)
-      ? this.basic.Horns
+      ? Horns
       : this.IF(0.2)
-        ? this.basic.Helm
+        ? Helm
         : this.IF(0.1)
-          ? this.basic.HeadBand
-          : this.basic.Hat)(args)
+          ? HeadBand
+          : Hat)(args)
 
-  this.hair = this.IF(0.9) && new this.basic.Hair(args)
+  this.hair = this.IF(0.9) && new Hair(args)
 }
 // END Head
 

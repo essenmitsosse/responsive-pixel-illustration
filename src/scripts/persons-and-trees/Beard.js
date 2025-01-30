@@ -1,26 +1,26 @@
-import Object from './Object'
+const Beard = function (args, state) {
+  this.state = state
 
-const Beard = function (args) {
   // Form & Sizes
-  this.threeOClockShadow = this.IF(0.1)
+  this.threeOClockShadow = state.IF(0.1)
 
-  this.mainBeard = this.IF(0.5)
+  this.mainBeard = state.IF(0.5)
 
-  this.mustach = !this.mainBeard || this.IF(0.8)
+  this.mustach = !this.mainBeard || state.IF(0.8)
 
-  this.goate = this.mustach && this.IF(this.mainBeard ? 0.8 : 0.05)
+  this.goate = this.mustach && state.IF(this.mainBeard ? 0.8 : 0.05)
 
-  this.mustachGap = this.mustach && this.IF(0.5)
+  this.mustachGap = this.mustach && state.IF(0.5)
 
   this.beardColor = args.hairColor
 
-  this.chinBard = this.IF(0.05)
+  this.chinBard = state.IF(0.05)
 
-  this.beardLength = this.R(0.2, 1.5)
+  this.beardLength = state.R(0.2, 1.5)
 
-  this.detailSY = this.R(0, 0.25)
+  this.detailSY = state.R(0, 0.25)
 
-  this.detailChance = this.R(0, 0.5)
+  this.detailChance = state.R(0, 0.5)
 
   // Color
   if (this.threeOClockShadow) {
@@ -33,11 +33,9 @@ const Beard = function (args) {
 }
 // END Beard
 
-Beard.prototype = new Object()
-
 Beard.prototype.draw = function (args) {
   if (args.calc) {
-    args.beardDetailSY = this.pushLinkList({
+    args.beardDetailSY = this.state.pushLinkList({
       r: this.detailSY,
       useSize: args.headMinSY,
       min: 1,

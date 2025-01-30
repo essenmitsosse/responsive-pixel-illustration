@@ -1,12 +1,12 @@
 import { sub } from '@/helper/helperDim'
 
-import Object from './Object'
+const Cape = function (args, state) {
+  this.state = state
 
-const Cape = function (args) {
   // Form & Sizes
-  this.capeFrontSY = this.R(0.1, 0.8)
+  this.capeFrontSY = state.R(0.1, 0.8)
 
-  this.capeSY = this.R(0.3, 1)
+  this.capeSY = state.R(0.3, 1)
 
   // Color
   this.capeColor = args.clothColor.copy({ nextColor: true, brContrast: -2 })
@@ -15,16 +15,14 @@ const Cape = function (args) {
 }
 // END Cape
 
-Cape.prototype = new Object()
-
 Cape.prototype.draw = function (args) {
   if (args.calc) {
-    args.capeFrontSY = this.pushLinkList({
+    args.capeFrontSY = this.state.pushLinkList({
       r: this.capeFrontSY,
       useSize: args.upperArmSY,
     })
 
-    args.capeSY = this.pushLinkList({
+    args.capeSY = this.state.pushLinkList({
       r: this.capeSY,
       useSize: args.fullBodySY,
       max: [args.fullBodySY, -1],

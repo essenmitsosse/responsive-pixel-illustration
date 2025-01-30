@@ -1,27 +1,23 @@
-import Object from './Object'
-
-const Horns = function (args) {
+const Horns = function (args, state) {
   // Form & Sizes
-  this.hornsSX = this.R(0.05, 2)
+  this.hornsSX = state.R(0.05, 2)
 
-  this.hornsSY = this.R(0.05, 0.3)
+  this.hornsSY = state.R(0.05, 0.3)
 
-  this.hornsY = this.R(0.1, 0.25)
+  this.hornsY = state.R(0.1, 0.25)
 
-  this.hornsBendSY = this.R(0.1, 1)
+  this.hornsBendSY = state.R(0.1, 1)
 
   // Colors
-  this.hornColor = this.IF() ? args.skinColor : args.hairColor
+  this.hornColor = state.IF() ? args.skinColor : args.hairColor
 
   // Assets
 }
 // END Horns
 
-Horns.prototype = new Object()
-
 Horns.prototype.draw = function (args, z) {
   // if( args.calc ) {
-  // 	args.hatDepthY = this.pushLinkList( );
+  // 	args.hatDepthY = state.pushLinkList( );
   // }
 
   return {

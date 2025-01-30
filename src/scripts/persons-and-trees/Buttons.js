@@ -1,14 +1,12 @@
-import Object from './Object'
-
-const Buttons = function (args, color) {
+const Buttons = function (args, state, color) {
   // Form & Sizes
-  this.buttonSX = this.R(-0.2, 0.2)
+  this.buttonSX = state.R(-0.2, 0.2)
 
-  this.zipper = this.IF(0.1)
+  this.zipper = state.IF(0.1)
 
-  this.buttonSY = !this.zipper && this.R(-0.1, 0.1)
+  this.buttonSY = !this.zipper && state.R(-0.1, 0.1)
 
-  this.buttonGapSY = !this.zipper && this.R(-0.1, 0.1)
+  this.buttonGapSY = !this.zipper && state.R(-0.1, 0.1)
 
   // Colors
   this.buttonsColor = color.copy({ brContrast: -1 })
@@ -16,8 +14,6 @@ const Buttons = function (args, color) {
   // Assets
 }
 // END Buttons
-
-Buttons.prototype = new Object()
 
 Buttons.prototype.draw = function (args, z) {
   return (

@@ -1,33 +1,29 @@
-import Object from './Object'
-
-const Stripes = function (args) {
+const Stripes = function (args, state) {
   // Form & Sizes
-  this.gap = this.R(0.05, 0.2)
+  this.gap = state.R(0.05, 0.2)
 
-  this.strip = this.R(0.05, 0.2)
+  this.strip = state.R(0.05, 0.2)
 
-  this.horizontal = this.IF(0.5)
+  this.horizontal = state.IF(0.5)
 
-  this.randomDots = this.IF(0.05)
+  this.randomDots = state.IF(0.05)
 
-  this.doted = !this.randomDots && this.IF(0.1)
+  this.doted = !this.randomDots && state.IF(0.1)
 
   if (this.doted) {
-    this.dotGap = this.R(0.05, 0.2)
+    this.dotGap = state.R(0.05, 0.2)
 
-    this.dotStrip = this.R(0.05, 0.2)
+    this.dotStrip = state.R(0.05, 0.2)
   }
 
   // Colors
-  this.stripColor = (this.IF(0.5) ? args.secondColor : args.clothColor).copy({
+  this.stripColor = (state.IF(0.5) ? args.secondColor : args.clothColor).copy({
     brSet: args.clothColor.getBr() - 1,
   })
 
   // Assets
 }
 // END Stripes
-
-Stripes.prototype = new Object()
 
 Stripes.prototype.draw = function (args, z) {
   return (

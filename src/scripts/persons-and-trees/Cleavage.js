@@ -1,20 +1,20 @@
 import { mult, sub } from '@/helper/helperDim'
 
-import Object from './Object'
+const Cleavage = function (args, state) {
+  this.state = state
 
-const Cleavage = function (args) {
   // Form & Sizes
-  this.sleeveless = !args.sleeves && this.IF(0.5)
+  this.sleeveless = !args.sleeves && state.IF(0.5)
 
-  this.strapSX = this.sleeveless && this.R(-1, 0)
+  this.strapSX = this.sleeveless && state.R(-1, 0)
 
-  this.strapSY = this.sleeveless && this.R(0.05, 0.3)
+  this.strapSY = this.sleeveless && state.R(0.05, 0.3)
 
-  this.cleavage = !this.sleeveless || this.IF(0.5)
+  this.cleavage = !this.sleeveless || state.IF(0.5)
 
-  this.cleavageSX = this.cleavage ? this.cleavage && this.R(1, 2) : 1
+  this.cleavageSX = this.cleavage ? this.cleavage && state.R(1, 2) : 1
 
-  this.cleavageSY = this.cleavage && this.R(0.05, 0.3)
+  this.cleavageSY = this.cleavage && state.R(0.05, 0.3)
 
   // Colors
   this.skinColor = args.skinColor
@@ -23,17 +23,15 @@ const Cleavage = function (args) {
 }
 // END Cleavage
 
-Cleavage.prototype = new Object()
-
 Cleavage.prototype.draw = function (args, z) {
   if (args.calc) {
-    args.cleavageSX = this.pushLinkList({
+    args.cleavageSX = this.state.pushLinkList({
       r: this.cleavageSX,
       useSize: args.neckSX,
       max: [args.chestSX, -2],
     })
 
-    args.cleavageX = this.pushLinkList(
+    args.cleavageX = this.state.pushLinkList(
       args.sideView
         ? [
             mult(0.5, args.chestSX),
@@ -45,12 +43,12 @@ Cleavage.prototype.draw = function (args, z) {
 
     if (this.sleeveless) {
       if (args.sideView) {
-        args.cleavageRightX = this.pushLinkList({
+        args.cleavageRightX = this.state.pushLinkList({
           add: [args.chestSX, sub(args.cleavageX), sub(args.cleavageSX)],
         })
       }
 
-      args.strapSX = this.pushLinkList({
+      args.strapSX = this.state.pushLinkList({
         r: this.strapSX,
         useSize: args.cleavageX,
         max: -1,

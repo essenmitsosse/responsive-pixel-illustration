@@ -1,23 +1,23 @@
 import { sub } from '@/helper/helperDim'
 
-import Object from './Object'
+const Skirt = function (args, state) {
+  this.state = state
 
-const Skirt = function (args) {
   // Form & Sizes
-  this.skirtSY = this.R(0.3, 1.2)
+  this.skirtSY = state.R(0.3, 1.2)
 
-  this.stripes = this.IF()
+  this.stripes = state.IF()
 
   if (this.stripes) {
-    this.gap = this.R(-0.1, 0.2)
+    this.gap = state.R(-0.1, 0.2)
 
-    this.strip = this.R(-0.1, 0.2)
+    this.strip = state.R(-0.1, 0.2)
 
-    this.hor = this.IF(0.08)
+    this.hor = state.IF(0.08)
   }
 
   // Colors
-  this.skirtColor = args.skirtColor = this.IF()
+  this.skirtColor = args.skirtColor = state.IF()
     ? args.firstColor
     : args.secondColor.copy({ brContrast: 1, max: 4 })
 
@@ -29,18 +29,16 @@ const Skirt = function (args) {
 }
 // END Skirt
 
-Skirt.prototype = new Object()
-
 Skirt.prototype.draw = function (args) {
   if (args.calc) {
-    args.skirtSY = this.pushLinkList({
+    args.skirtSY = this.state.pushLinkList({
       r: this.skirtSY,
       useSize: args.lowerBodySY,
       min: 1,
       max: args.lowerBodySY,
     })
 
-    args.feetRestSY = this.pushLinkList({
+    args.feetRestSY = this.state.pushLinkList({
       add: [args.lowerBodySY, sub(args.skirtSY)],
     })
   }

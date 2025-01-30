@@ -1,24 +1,24 @@
-import Object from './Object'
+const Hair = function (args, state) {
+  this.state = state
 
-const Hair = function (args) {
   // Form & Sizes
-  this.curly = args.headGear && this.IF()
+  this.curly = args.headGear && state.IF()
 
-  this.longHair = this.IF(0.1)
+  this.longHair = state.IF(0.1)
 
-  this.hairSY = this.R(0.1, 1) * (this.longHair ? 3 : 1)
+  this.hairSY = state.R(0.1, 1) * (this.longHair ? 3 : 1)
 
-  this.hairSide = this.curly || this.IF(0.99)
+  this.hairSide = this.curly || state.IF(0.99)
 
   this.hairSideSY = 0.8
 
-  this.hairAccuracy = this.R(0.1, 0.3)
+  this.hairAccuracy = state.R(0.1, 0.3)
 
-  this.hairS = this.R(0.01, 0.1)
+  this.hairS = state.R(0.01, 0.1)
 
-  this.detailSY = this.R(0, 0.25)
+  this.detailSY = state.R(0, 0.25)
 
-  this.detailChance = this.R(0, 0.5)
+  this.detailChance = state.R(0, 0.5)
 
   // Colors
   this.hairColor = args.hairColor
@@ -29,26 +29,24 @@ const Hair = function (args) {
 }
 // END Hair
 
-Hair.prototype = new Object()
-
 Hair.prototype.draw = function (args) {
   const rightSide = args.sideView || !args.right
   const name = args.id + '_' + args.right + args.nr
 
   if (args.calc) {
-    args.hairS = this.pushLinkList({
+    args.hairS = this.state.pushLinkList({
       r: this.hairS,
       useSize: args.headMinSY,
       min: 1,
     })
 
-    args.hairAccuracy = this.pushLinkList({
+    args.hairAccuracy = this.state.pushLinkList({
       r: this.hairAccuracy * -1,
       useSize: args.headMinSY,
       max: { a: 0 },
     })
 
-    args.hairDetailSY = this.pushLinkList({
+    args.hairDetailSY = this.state.pushLinkList({
       r: this.detailSY,
       useSize: args.headMinSY,
       min: 1,

@@ -1,34 +1,30 @@
 import { sub } from '@/helper/helperDim'
 
-import Object from './Object'
+const Leg = function (args, state) {
+  this.state = state
 
-const Leg = function (args) {
-  // Form & Sizes
+  this.legSX = state.IF(0.1) ? state.R(0.05, 0.5) : 0.05
 
-  this.legSX = this.IF(0.1) ? this.R(0.05, 0.5) : 0.05
+  this.bootsSY = state.IF() && state.R(0.2, 1)
 
-  this.bootsSY = this.IF() && this.R(0.2, 1)
+  this.thights = state.IF() && state.R(1, 1.5) * this.legSX
 
-  this.thights = this.IF() && this.R(1, 1.5) * this.legSX
+  this.calves = state.IF() && state.R(1, 1.5) * this.legSX
 
-  this.calves = this.IF() && this.R(1, 1.5) * this.legSX
+  this.bootsSXBig = !this.calves && state.IF() && state.GR(1, 2)
 
-  this.bootsSXBig = !this.calves && this.IF() && this.GR(1, 2)
+  this.bareFoot = state.IF(args.animal ? 0.8 : 0.05)
 
-  this.bareFoot = this.IF(args.animal ? 0.8 : 0.05)
-
-  this.legsIn = this.IF(args.skirt ? 0.8 : 0.2)
+  this.legsIn = state.IF(args.skirt ? 0.8 : 0.2)
 
   // Colors
   this.shoeColor = this.bareFoot
     ? args.skinColor
-    : args.pantsColor.copy({ prevColor: this.IF(), brContrast: -2 })
+    : args.pantsColor.copy({ prevColor: state.IF(), brContrast: -2 })
 
   // Assets
 }
 // END Leg
-
-Leg.prototype = new Object()
 
 Leg.prototype.draw = function (args, z, rightSide, behind) {
   const legPos = args.leg && args.leg[rightSide ? 'right' : 'left']
@@ -37,29 +33,29 @@ Leg.prototype.draw = function (args, z, rightSide, behind) {
   const legRaise = !hipBend && !legBend && legPos === 'legRaise'
 
   if (args.calc) {
-    args.legSX = this.pushLinkList({
+    args.legSX = this.state.pushLinkList({
       r: this.legSX,
       useSize: args.personHalfSX,
       max: [args.lowerBodySX, this.legsIn ? -2 : -1],
       min: 1,
     })
 
-    args.upperLegSY = this.pushLinkList({
+    args.upperLegSY = this.state.pushLinkList({
       r: 0.5,
       useSize: args.lowerBodySY,
     })
 
-    args.lowerLegSY = this.pushLinkList({
+    args.lowerLegSY = this.state.pushLinkList({
       add: [args.lowerBodySY, sub(args.upperLegSY)],
     })
 
-    args.shoeSY = this.pushLinkList(
+    args.shoeSY = this.state.pushLinkList(
       this.bootsSY
         ? { r: this.bootsSY, useSize: args.lowerLegSY, min: 1 }
         : { r: 0.8, useSize: args.legSX, min: 1 },
     )
 
-    args.legMaxSX = this.pushLinkList({
+    args.legMaxSX = this.state.pushLinkList({
       r: args.sideView ? 0.8 : 1,
       useSize: args.lowerBodySX,
       a: -2,
@@ -67,21 +63,21 @@ Leg.prototype.draw = function (args, z, rightSide, behind) {
       min: args.legSX,
     })
 
-    args.thighsSX = this.pushLinkList({
+    args.thighsSX = this.state.pushLinkList({
       useSize: args.personHalfSX,
       r: this.thights || 1,
       max: args.legMaxSX,
       min: 1,
     })
 
-    args.calvesSX = this.pushLinkList({
+    args.calvesSX = this.state.pushLinkList({
       useSize: args.personHalfSX,
       r: this.calves || 1,
       max: args.legMaxSX,
       min: 1,
     })
 
-    args.legFullSX = this.pushLinkList({
+    args.legFullSX = this.state.pushLinkList({
       add: [args.thighsSX],
       min: args.calvesSX,
     })

@@ -1,31 +1,29 @@
 import { sub } from '@/helper/helperDim'
 
-import Object from './Object'
+const Suspenders = function (args, state) {
+  this.state = state
 
-const Suspenders = function (args) {
   // Form & Sizes
-  this.strapSX = this.R(-0.8, 0.5)
+  this.strapSX = state.R(-0.8, 0.5)
 
-  this.strapX = this.R(0.5, 1)
+  this.strapX = state.R(0.5, 1)
 
-  this.detail = this.IF(0.5)
+  this.detail = state.IF(0.5)
 
   // Colors
-  this.strapColor = (this.IF(0.5) ? args.firstColor : args.secondColor).copy({
+  this.strapColor = (state.IF(0.5) ? args.firstColor : args.secondColor).copy({
     brContrast: -1,
   })
 
   if (this.detail) {
     this.detailColor = args.clothColor.copy({
-      brContrast: this.IF(0.5) ? 1 : -1,
+      brContrast: state.IF(0.5) ? 1 : -1,
     })
   }
 
   // Assets
 }
 // END Suspenders
-
-Suspenders.prototype = new Object()
 
 Suspenders.prototype.draw = function (args, z) {
   const detail = this.detail && [
@@ -38,7 +36,7 @@ Suspenders.prototype.draw = function (args, z) {
   ]
 
   if (args.calc) {
-    args.trapSX = this.pushLinkList({
+    args.trapSX = this.state.pushLinkList({
       add: [args.upperBodySX, sub(args.neckSX)],
     })
   }

@@ -1,33 +1,33 @@
-import Object from './Object'
+const Sword = function (args, state, right) {
+  this.state = state
 
-const Sword = function (args, right) {
   // Form & Sizes
   this.rightSide = right
 
-  this.bladeSY = this.R(0, 1.5)
+  this.bladeSY = state.R(0, 1.5)
 
-  this.bladeSX = this.IF(0.1) ? this.R(0, 0.4) : this.R(0, 0.2)
+  this.bladeSX = state.IF(0.1) ? state.R(0, 0.4) : state.R(0, 0.2)
 
-  this.handleSX = this.R(0, 0.5)
+  this.handleSX = state.R(0, 0.5)
 
-  this.handleOtherSX = this.handleSX / 2 + this.R(-0.25, 0.25)
+  this.handleOtherSX = this.handleSX / 2 + state.R(-0.25, 0.25)
 
-  this.noKnife = this.IF(0.5)
+  this.noKnife = state.IF(0.5)
 
-  this.crossGuard = this.IF(1.5)
+  this.crossGuard = state.IF(1.5)
 
-  this.notRound = this.IF()
+  this.notRound = state.IF()
 
-  this.bend = !this.notRound && this.IF()
+  this.bend = !this.notRound && state.IF()
 
-  this.middleStrip = this.IF(0.5)
+  this.middleStrip = state.IF(0.5)
 
   // Color
-  this.hiltColor = (this.IF(0.5) ? args.firstColor : args.secondColor).copy({
+  this.hiltColor = (state.IF(0.5) ? args.firstColor : args.secondColor).copy({
     brContrast: -1,
   })
 
-  this.bladeColor = (this.IF(0.5) ? args.firstColor : args.secondColor).copy({
+  this.bladeColor = (state.IF(0.5) ? args.firstColor : args.secondColor).copy({
     brContrast: 1,
     max: 4,
   })
@@ -40,35 +40,33 @@ const Sword = function (args, right) {
 }
 // END Sword
 
-Sword.prototype = new Object()
-
 Sword.prototype.draw = function (args, z) {
   const name = this.rightSide ? 'right' : 'left'
   const nrName = name + args.nr
 
-  args['handleSY' + nrName] = this.pushLinkList({
+  args['handleSY' + nrName] = this.state.pushLinkList({
     add: [args.handSX, -2],
     min: 1,
   })
 
-  args['bladeSX' + nrName] = this.pushLinkList({
+  args['bladeSX' + nrName] = this.state.pushLinkList({
     r: this.bladeSY,
     useSize: args.personHalfSX,
     min: { r: 3, useSize: args.armSX },
   })
 
-  args['bladeSY' + nrName] = this.pushLinkList({
+  args['bladeSY' + nrName] = this.state.pushLinkList({
     r: this.bladeSX,
     useSize: args.personHalfSX,
     min: args['handleSY' + nrName],
   })
 
-  args['handleSX' + nrName] = this.pushLinkList({
+  args['handleSX' + nrName] = this.state.pushLinkList({
     r: this.handleSX,
     useSize: args.personHalfSX,
   })
 
-  args['handleOtherSX' + nrName] = this.pushLinkList({
+  args['handleOtherSX' + nrName] = this.state.pushLinkList({
     r: this.handleOtherSX,
     useSize: args.personHalfSX,
     min: [args.handSX, 1],

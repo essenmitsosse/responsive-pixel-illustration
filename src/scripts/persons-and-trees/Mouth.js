@@ -1,14 +1,14 @@
 import { mult } from '@/helper/helperDim'
 
-import Object from './Object'
+const Mouth = function (args, state) {
+  this.state = state
 
-const Mouth = function (args) {
   // Form & Sizes
-  this.mouthSX = this.R(0.4, 0.6)
+  this.mouthSX = state.R(0.4, 0.6)
 
-  this.mouthSY = this.R(0.2, 0.4)
+  this.mouthSY = state.R(0.2, 0.4)
 
-  this.mouthY = this.R(0.1, 0.6)
+  this.mouthY = state.R(0.1, 0.6)
 
   // Colors
   this.skinColor = args.skinColor
@@ -22,8 +22,6 @@ const Mouth = function (args) {
   // Assets
 }
 // END Mouth
-
-Mouth.prototype = new Object()
 
 Mouth.prototype.draw = function (args) {
   const thisMouth = args.mouth || {}
@@ -50,19 +48,19 @@ Mouth.prototype.draw = function (args) {
     ((mouthOpen && thisMouth.teeth === 'bottom') || thisMouth.teeth === 'both')
 
   if (args.calc) {
-    args.mouthSX = this.pushLinkList({
+    args.mouthSX = this.state.pushLinkList({
       r: this.mouthSX * (args.sideView ? 0.7 : 1),
       a: 0.5,
       useSize: args.headMinSX,
       max: args.headMinSX,
     })
 
-    args.mouthMaxSY = this.pushLinkList({
+    args.mouthMaxSY = this.state.pushLinkList({
       r: this.mouthSY,
       useSize: args.headMinSY,
     })
 
-    args.mouthSY = this.pushLinkList(
+    args.mouthSY = this.state.pushLinkList(
       mouthSlight || mouthSmile
         ? { a: 2, max: args.mouthMaxSY }
         : mouthOpen
@@ -72,16 +70,16 @@ Mouth.prototype.draw = function (args) {
           : { a: 1, max: args.mouthMaxSY },
     )
 
-    args.mouthY = this.pushLinkList({
+    args.mouthY = this.state.pushLinkList({
       r: this.mouthY,
       useSize: args.headMinSY,
     })
 
-    args.mouthTopMaxY = this.pushLinkList({
+    args.mouthTopMaxY = this.state.pushLinkList({
       add: [args.mouthMaxSY, args.mouthY],
     })
 
-    args.mouthTopY = this.pushLinkList({
+    args.mouthTopY = this.state.pushLinkList({
       add: [args.mouthSY, args.mouthY],
     })
   }

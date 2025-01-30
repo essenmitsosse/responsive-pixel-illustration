@@ -1,7 +1,5 @@
 import { sub } from '@/helper/helperDim'
 
-import Object from './Object'
-
 const HeadBand = function (args) {
   // Form & Sizes
 
@@ -11,8 +9,6 @@ const HeadBand = function (args) {
   // Assets
 }
 // END HeadBand
-
-HeadBand.prototype = new Object()
 
 HeadBand.prototype.draw = function (args, z) {
   return {

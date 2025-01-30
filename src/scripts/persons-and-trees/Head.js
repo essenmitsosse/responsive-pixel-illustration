@@ -8,29 +8,30 @@ import HeadBand from './HeadBand'
 import Helm from './Helm'
 import Horns from './Horn'
 import Mouth from './Mouth'
-import Object from './Object'
 
-const Head = function (args) {
-  const hairNext = this.IF(0.7)
+const Head = function (args, state) {
+  this.state = state
+
+  const hairNext = state.IF(0.7)
 
   // Form & Sizes
-  this.headSY = this.IF(0.01) ? this.R(0, 0.4) : this.R(0.1, 0.15)
+  this.headSY = state.IF(0.01) ? state.R(0, 0.4) : state.R(0.1, 0.15)
 
   if (args.demo && args.head) {
     this.headSY = args.head
   }
 
-  this.neckSY = this.R(0.05, 0.2)
+  this.neckSY = state.R(0.05, 0.2)
 
-  this.neckSX = this.R(0.4, 0.9)
+  this.neckSX = state.R(0.4, 0.9)
 
-  this.headSX = this.R(0.1, 0.7)
+  this.headSX = state.R(0.1, 0.7)
 
-  this.headSideSYFak = this.R(1.6, 2.4)
+  this.headSideSYFak = state.R(1.6, 2.4)
 
-  this.lowerHeadSX = (this.IF(0.5) && this.R(0.8, 1.2)) || 1
+  this.lowerHeadSX = (state.IF(0.5) && state.R(0.8, 1.2)) || 1
 
-  this.foreheadSY = this.R(0.1, 0.75)
+  this.foreheadSY = state.R(0.1, 0.75)
 
   // Colors
   this.skinColor = args.skinColor
@@ -40,9 +41,9 @@ const Head = function (args) {
   this.skinDetailColor = args.skinDetailColor
 
   this.hairColor = args.hairColor =
-    args.animal || this.IF(0.1)
+    args.animal || state.IF(0.1)
       ? args.skinColor.copy({
-          brContrast: (this.IF(0.5) ? 2 : 1) * (this.IF(0.5) ? -1 : 1),
+          brContrast: (state.IF(0.5) ? 2 : 1) * (state.IF(0.5) ? -1 : 1),
         })
       : args.skinColor.copy({
           nextColor: hairNext,
@@ -55,53 +56,51 @@ const Head = function (args) {
   })
 
   this.hatColor = args.hatColor = (
-    this.IF(0.5) ? args.firstColor : args.secondColor
+    state.IF(0.5) ? args.firstColor : args.secondColor
   ).copy({
-    brAdd: this.IF(0.5) ? 0 : this.IF(0.7) ? -2 : 1,
+    brAdd: state.IF(0.5) ? 0 : state.IF(0.7) ? -2 : 1,
   })
 
   // Assets
-  this.eye = new Eye(args)
+  this.eye = new Eye(args, state)
 
-  this.mouth = new Mouth(args)
+  this.mouth = new Mouth(args, state)
 
-  this.beard = this.IF() && new Beard(args)
+  this.beard = state.IF() && new Beard(args, state)
 
   this.headGear = args.headGear =
-    (args.demo || this.IF(0.3)) &&
-    new (this.IF(0.01)
+    (args.demo || state.IF(0.3)) &&
+    new (state.IF(0.01)
       ? Horns
-      : this.IF(0.2)
+      : state.IF(0.2)
         ? Helm
-        : this.IF(0.1)
+        : state.IF(0.1)
           ? HeadBand
-          : Hat)(args)
+          : Hat)(args, state)
 
-  this.hair = this.IF(0.9) && new Hair(args)
+  this.hair = state.IF(0.9) && new Hair(args, state)
 }
 // END Head
 
-Head.prototype = new Object()
-
 Head.prototype.getSizes = function (args) {
   if (args.calc) {
-    args.headBaseSY = this.pushLinkList({ r: 1, useSize: args.size })
+    args.headBaseSY = this.state.pushLinkList({ r: 1, useSize: args.size })
 
-    args.headMinSY = this.pushLinkList({
+    args.headMinSY = this.state.pushLinkList({
       r: this.headSY,
       useSize: args.headBaseSY,
       a: 1,
       min: 1,
     })
 
-    args.headMinSX = this.pushLinkList({
+    args.headMinSX = this.state.pushLinkList({
       r: this.headSX,
       min: 1,
       useSize: args.headMinSY,
       a: 1.4,
     })
 
-    args.neckSX = this.pushLinkList(
+    args.neckSX = this.state.pushLinkList(
       args.sideView
         ? {
             add: [
@@ -119,14 +118,14 @@ Head.prototype.getSizes = function (args) {
           },
     )
 
-    args.neckSY = this.pushLinkList({
+    args.neckSY = this.state.pushLinkList({
       r: this.headSY * this.neckSY,
       useSize: args.size,
       a: -1,
       min: { a: 0 },
     })
 
-    this.hoverChangerStandard.push({
+    this.state.hoverChangerStandard.push({
       min: 0.3,
       max: 1.7,
       map: 'head-size',
@@ -139,20 +138,20 @@ Head.prototype.getSizes = function (args) {
   this.eye.getSizes(args)
 
   if (args.calc) {
-    args.faceMaxSY = this.pushLinkList({
+    args.faceMaxSY = this.state.pushLinkList({
       add: [args.mouthMaxSY, args.eyeSY, args.eyeFullMaxY],
     })
 
-    args.foreheadSY = this.pushLinkList({
+    args.foreheadSY = this.state.pushLinkList({
       r: this.foreheadSY,
       useSize: args.headMinSY,
     })
 
-    args.upperHeadSY = this.pushLinkList({
+    args.upperHeadSY = this.state.pushLinkList({
       add: [args.foreheadSY, args.eyeSY, args.eyeY],
     })
 
-    args.headSX = this.pushLinkList({
+    args.headSX = this.state.pushLinkList({
       add: [args.eyeSX, args.eyeX],
       min: {
         r: args.sideView ? this.headSideSYFak : 1,
@@ -161,29 +160,29 @@ Head.prototype.getSizes = function (args) {
       },
     })
 
-    args.headMaxSY = this.pushLinkList({
+    args.headMaxSY = this.state.pushLinkList({
       add: [args.mouthTopMaxY, args.upperHeadSY],
     })
 
-    args.headSY = this.pushLinkList({
+    args.headSY = this.state.pushLinkList({
       add: [args.mouthTopY, args.upperHeadSY],
       min: args.headMinSY,
     })
 
-    args.hairSX = this.pushLinkList({
+    args.hairSX = this.state.pushLinkList({
       add: [args.headSX, !this.hair ? { a: 0 } : args.sideView ? 2 : 1],
       max: { r: 1.2, useSize: args.headSX },
     })
 
-    args.lowerHeadSY = this.pushLinkList({
+    args.lowerHeadSY = this.state.pushLinkList({
       add: [args.headSY, sub(args.upperHeadSY), 1],
     })
 
-    args.eyeOutX = this.pushLinkList({
+    args.eyeOutX = this.state.pushLinkList({
       add: [args.headSX, sub(args.eyeSX), sub(args.eyeX)],
     })
 
-    args.lowerHeadSX = this.pushLinkList({
+    args.lowerHeadSX = this.state.pushLinkList({
       r: this.lowerHeadSX,
       useSize: args.headSX,
       min: args.mouthSX,

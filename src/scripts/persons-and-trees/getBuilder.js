@@ -8,7 +8,7 @@ import Person from './Person'
 import Tree from './Tree'
 import TreeFamily from './TreeFamily'
 
-const Builder = function (init) {
+const getBuilder = (init) => {
   const initID = init.id ? init.id : Math.floor(Math.random() * 4294967296)
   const random = getRandom(initID)
   const linkList = []
@@ -20,26 +20,24 @@ const Builder = function (init) {
     return obj
   }
 
-  this.IF = random.getIf
+  const IF = random.getIf
+  const GR = random.getRandom
+  const R = random.getRandomFloat
 
-  this.GR = random.getRandom
-
-  this.R = random.getRandomFloat
-
-  this.colorInfo = {
+  const colorInfo = {
     colors: 3,
     steps: 6,
   }
 
-  Color.prototype.colors = buildColors(this.colorInfo, this.R)
+  Color.prototype.colors = buildColors(colorInfo, R)
 
-  this.backgroundColor = new Color(this.IF() ? 1 : 0, 5)
+  const backgroundColor = new Color(IF() ? 1 : 0, 5)
 
-  Object.prototype.IF = this.IF
+  Object.prototype.IF = IF
 
-  Object.prototype.GR = this.GR
+  Object.prototype.GR = GR
 
-  Object.prototype.R = this.R
+  Object.prototype.R = R
 
   Object.prototype.basic = { objectCount: 0 }
 
@@ -48,21 +46,23 @@ const Builder = function (init) {
   Object.prototype.hoverChangerStandard = hoverChangerStandard
 
   return {
+    IF,
+    GR,
+    R,
     Person,
     Tree,
     TreeFamily,
-    basic: this,
     linkList,
     pushLinkList,
-    backgroundColor: this.backgroundColor,
-    backgroundColorDark: this.backgroundColor.copy({
+    backgroundColor,
+    backgroundColorDark: backgroundColor.copy({
       nextColor: true,
       brSet: 0,
     }),
     Color,
-    colorInfo: this.colorInfo,
+    colorInfo,
     hoverChangerStandard,
   }
 }
 
-export default Builder
+export default getBuilder

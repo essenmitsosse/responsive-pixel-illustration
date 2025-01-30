@@ -1,35 +1,43 @@
 import getHoverChangerStandard from '@/helper/getHoverChangerStandard'
 import { getRandom } from '@/helper/getRandom'
 
-import { Object } from './object'
-import { Arm, Shield, ShoulderPad, Sword, Tool } from './person-arm'
-import {
-  Beard,
-  Eye,
-  Hair,
-  Hat,
-  Head,
-  HeadBand,
-  Helm,
-  Horns,
-  Mouth,
-} from './person-head'
-import { Belt, Leg, LowerBody, Skirt } from './person-lowerBody'
-import { BasicBody, Logo, Person } from './person-main'
-import {
-  Buttons,
-  Cape,
-  Cleavage,
-  Collar,
-  Nipples,
-  Strap,
-  Stripes,
-  Suspenders,
-  UpperBody,
-} from './person-upperBody'
-import { Forrest, Tree, TreeFamily } from './tree'
+import Arm from './Arm'
+import Beard from './Beard'
+import Belt from './Belt'
+import BodyBasic from './BodyBasic'
+import BodyLower from './BodyLower'
+import BodyUpper from './BodyUpper'
+import Buttons from './Buttons'
+import Cape from './Cape'
+import Cleavage from './Cleavage'
+import Collar from './Collar'
+import Color from './Color'
+import Eye from './Eye'
+import Forrest from './Forrest'
+import Hair from './Hair'
+import Hat from './Hat'
+import Head from './Head'
+import HeadBand from './HeadBand'
+import Helm from './Helm'
+import Horns from './Horn'
+import Leg from './Leg'
+import Logo from './Logo'
+import Mouth from './Mouth'
+import Nipples from './Nipples'
+import Object from './Object'
+import Person from './Person'
+import Shield from './Shield'
+import ShoulderPad from './ShoulderPad'
+import Skirt from './Skirt'
+import Strap from './Strap'
+import Stripes from './Stripes'
+import Suspenders from './Suspenders'
+import Sword from './Sword'
+import Tool from './Tool'
+import Tree from './Tree'
+import TreeFamily from './TreeFamily'
 
-export const Builder = function (init) {
+const Builder = function (init) {
   const initID = init.id ? init.id : Math.floor(Math.random() * 4294967296)
   const random = getRandom(initID)
   const linkList = []
@@ -159,117 +167,6 @@ function buildColors(info) {
   return colors
 }
 
-const Color = function (nr, br) {
-  this.nr = nr
-
-  this.br = br
-}
-
-Color.prototype.copy = function (args) {
-  args = args || {}
-
-  const color = new this.Color(
-    args.nr !== undefined ? args.nr : this.nr,
-    this.br,
-  )
-
-  if (args.nextColor) {
-    color.nextColor()
-  } else if (args.prevColor) {
-    color.prevColor()
-  }
-
-  if (args.brSet !== undefined) {
-    color.brightnessSet(args.brSet)
-  } else if (args.brAdd) {
-    color.brightnessAdd(args.brAdd)
-  } else if (args.brContrast) {
-    color.brightnessContrast(args.brContrast, args.min, args.max)
-  }
-
-  if (args.min && color.br < args.min) {
-    color.br = args.min
-  }
-
-  if (args.max && color.br > args.max) {
-    color.br = args.max
-  }
-
-  if (args.dontChange) {
-    color.dontChange = true
-  }
-
-  return color
-}
-
-Color.prototype.nextColor = function () {
-  this.nr += 1
-
-  if (this.nr > 2) {
-    this.nr = 0
-  }
-}
-
-Color.prototype.prevColor = function () {
-  this.nr -= 1
-
-  if (this.nr < 0) {
-    this.nr = 2
-  }
-}
-
-Color.prototype.brightnessAdd = function (add) {
-  this.br += add
-
-  if (this.br < 0) {
-    this.br = 0
-  } else if (this.br > 5) {
-    this.br = 5
-  }
-}
-
-Color.prototype.brightnessSet = function (set) {
-  this.br = set
-
-  if (this.br < 0) {
-    this.br = 0
-  } else if (this.br > 5) {
-    this.br = 5
-  }
-}
-
-Color.prototype.brightnessContrast = function (add, min, max) {
-  min = min || 0
-
-  max = max || 5
-
-  if (add < 0) {
-    this.br += this.br + add < min ? -add : add
-  } else {
-    this.br += this.br + add > max ? -add : add
-  }
-
-  if (this.br < min) {
-    this.br = min
-  } else if (this.br > max) {
-    this.br = max
-  }
-}
-
-Color.prototype.getNormal = function () {
-  if (!this.finalColor) {
-    return (this.finalColor = this.colors[this.nr][this.br] || [200, 0, 155])
-  }
-
-  return this.finalColor
-}
-
-Color.prototype.get = Color.prototype.getNormal
-
-Color.prototype.getBr = function () {
-  return this.br
-}
-
 Builder.prototype.Color = Color
 
 Builder.prototype.buildColors = buildColors
@@ -278,7 +175,7 @@ Builder.prototype.Object = Object
 
 Builder.prototype.Person = Person
 
-Builder.prototype.BasicBody = BasicBody
+Builder.prototype.BasicBody = BodyBasic
 
 Builder.prototype.Logo = Logo
 
@@ -320,7 +217,7 @@ Builder.prototype.Belt = Belt
 
 Builder.prototype.Leg = Leg
 
-Builder.prototype.LowerBody = LowerBody
+Builder.prototype.LowerBody = BodyLower
 
 Builder.prototype.Skirt = Skirt
 
@@ -340,4 +237,6 @@ Builder.prototype.Stripes = Stripes
 
 Builder.prototype.Suspenders = Suspenders
 
-Builder.prototype.UpperBody = UpperBody
+Builder.prototype.UpperBody = BodyUpper
+
+export default Builder

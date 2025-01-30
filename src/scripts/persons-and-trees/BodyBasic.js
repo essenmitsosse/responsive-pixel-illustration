@@ -1,59 +1,8 @@
 import { sub } from '@/helper/helperDim'
 
-import { Object } from './object'
+import Object from './Object'
 
-// PERSON --------------------------------------------------------------------------------
-export const Person = function (args) {
-  if (!args) {
-    args = args || {}
-  }
-
-  // Assests
-  this.basicBody = new this.basic.BasicBody(args)
-
-  this.id = this.basic.objectCount += 1
-}
-// END Person
-
-Person.prototype = new Object()
-
-Person.prototype.draw = function (args, z) {
-  args.nr = this.basic.objectCount += 1
-
-  const backView = (args.backView = args.view === 'backView')
-  const sideView = (args.sideView = !backView && args.view ? true : false)
-
-  args.id = this.id
-
-  if (!z) {
-    z = this.basic.objectCount * 10000
-  }
-
-  args.personHalfSX = this.pushLinkList({
-    r: 0.5,
-    min: 5,
-    useSize: args.size,
-  })
-
-  return sideView
-    ? [{ list: this.basicBody.draw(args, args.view === 'rightView') }]
-    : [
-        {
-          sX: args.personHalfSX,
-          rX: true,
-          list: this.basicBody.draw(args, !backView),
-        },
-        {
-          sX: args.personHalfSX,
-          x: [args.personHalfSX, -1],
-          list: this.basicBody.draw(args, backView),
-        },
-      ]
-}
-// END Person draw
-
-// BASICBODY --------------------------------------------------------------------------------
-export const BasicBody = function (args) {
+const BodyBasic = function (args) {
   // var nextFirstColor = this.IF(0.5),
   // 	nextSecondColor = this.IF(0.2),
 
@@ -117,9 +66,9 @@ export const BasicBody = function (args) {
 }
 // END BasicBody
 
-BasicBody.prototype = new Object()
+BodyBasic.prototype = new Object()
 
-BasicBody.prototype.draw = function (args, right) {
+BodyBasic.prototype.draw = function (args, right) {
   args.right = right
 
   args.calc = args.backView !== right || args.sideView
@@ -236,105 +185,5 @@ BasicBody.prototype.draw = function (args, right) {
     },
   ]
 }
-// END BasicBody draw
 
-// LOGO --------------------------------------------------------------------------------
-export const Logo = function (args, right, symetrical, logoColor) {
-  const color = !logoColor && this.IF(0.5)
-
-  this.name = symetrical ? (right ? 'right' : 'left') : 'chest'
-
-  // Form & Sizes
-  this.sX = this.R(0, 1)
-
-  this.sY = this.R(0, 1)
-
-  this.Y = this.R(0, 0.5)
-
-  this.oneSide = !symetrical && this.IF(0.1)
-
-  if (this.oneSide) {
-    this.side = this.IF(0.5)
-  }
-
-  this.roundUp = this.IF(0.3)
-
-  this.roundDown = this.IF(0.3)
-
-  this.dentUp = this.IF(0.3)
-
-  this.dentDown = this.IF(0.3)
-
-  this.stripUp = this.IF(0.1)
-
-  this.stripDown = this.IF(0.1)
-
-  this.stripSide = this.IF(0.1)
-
-  this.edgeUp = this.IF(0.2)
-
-  this.edgeDown = this.IF(0.2)
-
-  // Color
-  this.logoColor =
-    logoColor ||
-    args.clothColor.copy({
-      nextColor: color,
-      brSet:
-        args.clothColor.getBr() +
-        (this.IF(0.5) ? -1 : 1) * (!color || this.IF(0.2) ? 2 : 1),
-    })
-  // Assets
-}
-// END Logo
-
-Logo.prototype = new Object()
-
-Logo.prototype.draw = function (args) {
-  const { nr } = args
-  const nrName = nr + this.name
-  const { sideView } = args
-
-  return (
-    (!this.oneSide || args.right === this.side) && {
-      sX: { r: this.sX },
-      sY: {
-        r: this.sY,
-        save: args['logoSY' + nrName],
-        max: { r: 1, save: args['logoMaxSY' + nrName] },
-      },
-      y: {
-        r: this.Y,
-        max: [args['logoSY' + nrName], sub(args['logoSY' + nrName])],
-      },
-      cX: args.oneSide || sideView,
-      color: this.logoColor.get(),
-      id: args['logo' + nrName],
-      z: 50,
-      list: [
-        this.roundUp && { fX: true, name: 'Dot', clear: true },
-        this.roundDown && {
-          fX: true,
-          name: 'Dot',
-          fY: true,
-          clear: true,
-        },
-        this.dentUp && { name: 'Dot', clear: true },
-        this.dentDown && { name: 'Dot', fY: true, clear: true },
-        this.stripUp && { sY: 1, y: 1, clear: true },
-        this.stripDown && { sY: 1, y: 1, fY: true, clear: true },
-        this.stripSide && { sX: 1, x: 1, fX: true, clear: true },
-        this.edgeUp && { sX: { r: 0.4 }, sY: { r: 0.4 }, clear: true },
-        this.edgeDown && {
-          sX: { r: 0.4 },
-          sY: { r: 0.4 },
-          fY: true,
-          fX: true,
-          clear: true,
-        },
-        {},
-      ],
-    }
-  )
-}
-// END Logo Back draw
+export default BodyBasic

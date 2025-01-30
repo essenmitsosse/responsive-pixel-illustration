@@ -1,6 +1,6 @@
 import { Builder } from './builder'
 
-function builder(init, slide, createSlider) {
+const builder = (init, slide, createSlider) => {
   const builder = new Builder(init)
   const width = builder.pushLinkList({ main: true })
   const height = builder.pushLinkList({ main: true, height: true })
@@ -10,7 +10,7 @@ function builder(init, slide, createSlider) {
   const imgSY = builder.pushLinkList([height, { r: -2, useSize: borderS }])
   const showPerson = slide.showPerson || init.showPerson
 
-  const getPosition = (function () {
+  const getPosition = (() => {
     const rFl = builder.basic.R
     const rIf = builder.basic.IF
     const rInt = builder.basic.GR
@@ -96,7 +96,7 @@ function builder(init, slide, createSlider) {
 
     const teethPos = ['', 'top', 'bottom', 'both', 'full']
 
-    return function (args) {
+    return (args) => {
       args.eye = {
         lookVert: eyeLookVert[rInt(0, eyeLookVert.length)],
         lookHor: eyeLookHor[rInt(0, eyeLookHor.length)],
@@ -152,7 +152,7 @@ function builder(init, slide, createSlider) {
     }
   })()
 
-  const getPanels = function () {
+  const getPanels = () => {
     let l = init.panelCount || 6
 
     const half = l / 2

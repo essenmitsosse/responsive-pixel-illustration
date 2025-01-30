@@ -34,8 +34,6 @@ const Builder = function (init) {
 
   this.backgroundColor = new Color(this.IF() ? 1 : 0, 5)
 
-  this.backgroundShadowColor = this.backgroundColor.copy({ brAdd: -1 })
-
   this.objectCount = 0
 
   Object.prototype.IF = this.IF

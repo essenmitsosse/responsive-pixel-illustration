@@ -35,7 +35,7 @@ export const Builder = function (init) {
   const linkList = []
   const hoverChangerStandard = getHoverChangerStandard()
 
-  const pushLinkList = function (obj) {
+  const pushLinkList = (obj) => {
     linkList.push(obj)
 
     return obj
@@ -97,7 +97,7 @@ export const Builder = function (init) {
   }
 }
 
-const buildColors = function (info) {
+function buildColors(info) {
   const rInt = this.R
 
   let i = info.colors

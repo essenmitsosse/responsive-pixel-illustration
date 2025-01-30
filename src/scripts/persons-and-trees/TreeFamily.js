@@ -1,3 +1,4 @@
+import Color from './Color'
 import Object from './Object'
 
 const TreeFamily = function (args) {
@@ -47,7 +48,7 @@ const TreeFamily = function (args) {
     ? (args.skyColor && this.IF(0.2) ? args.skyColor : args.groundColor).copy({
         brSet: Math.floor(this.GR(1, 4)),
       })
-    : new this.Color(this.IF() ? 1 : 0, Math.floor(this.GR(1, 4)))
+    : new Color(this.IF() ? 1 : 0, Math.floor(this.GR(1, 4)))
 
   this.trunkColorDetail = this.trunkColor.copy({ brContrast: -1 })
 

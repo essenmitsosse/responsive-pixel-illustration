@@ -1,6 +1,16 @@
 import { mult, sub } from '@/helper/helperDim'
 
+import Arm from './Arm'
+import Buttons from './Buttons'
+import Cape from './Cape'
+import Cleavage from './Cleavage'
+import Collar from './Collar'
+import Logo from './Logo'
+import Nipples from './Nipples'
 import Object from './Object'
+import Strap from './Strap'
+import Stripes from './Stripes'
+import Suspenders from './Suspenders'
 
 const BodyUpper = function (args) {
   const shirtColor = args.firstColor.getBr()
@@ -38,44 +48,42 @@ const BodyUpper = function (args) {
   ).copy({ brSet: shirtColor === 4 ? 3 : shirtColor + 1, max: 4 })
 
   // Assets
-  this.arm = new this.basic.Arm(args)
+  this.arm = new Arm(args)
 
   if (this.IF(0.05)) {
-    this.cape = new this.basic.Cape(args)
+    this.cape = new Cape(args)
   }
 
   if (this.topless && this.IF(0.8)) {
-    this.nipples = new this.basic.Nipples(args)
+    this.nipples = new Nipples(args)
   }
 
   if (!args.animal) {
     if (this.IF(0.07)) {
-      this.suspenders = new this.basic.Suspenders(args)
+      this.suspenders = new Suspenders(args)
     }
 
     if (this.IF(0.02)) {
-      this.strap = new this.basic.Strap(args)
+      this.strap = new Strap(args)
     }
   }
 
   if (!this.topless) {
     if (!this.breast && !this.chestWide && this.IF(0.05)) {
-      this.stripes = new this.basic.Stripes(args)
+      this.stripes = new Stripes(args)
     }
 
     if (this.IF(0.4)) {
-      this.collar = this.IF()
-        ? new this.basic.Cleavage(args)
-        : new this.basic.Collar(args)
+      this.collar = this.IF() ? new Cleavage(args) : new Collar(args)
     }
 
     if (this.IF(0.3)) {
-      this.buttons = new this.basic.Buttons(args, this.clothColor)
+      this.buttons = new Buttons(args, this.clothColor)
     }
   }
 
   if (this.IF(0.1)) {
-    this.logo = new this.basic.Logo(args)
+    this.logo = new Logo(args)
   }
 }
 // END BodyUpper

@@ -1,3 +1,4 @@
+import Horns from './Horn'
 import Object from './Object'
 
 const Helm = function (args) {
@@ -30,7 +31,7 @@ const Helm = function (args) {
   this.helmDetailColor = this.helmColor.copy({ brContrast: -1 })
 
   // Assets
-  this.horns = this.IF(0.1) && new this.basic.Horns(args)
+  this.horns = this.IF(0.1) && new Horns(args)
 }
 // END Helm
 

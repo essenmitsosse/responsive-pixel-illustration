@@ -1,3 +1,4 @@
+import BodyBasic from './BodyBasic'
 import Object from './Object'
 
 const Person = function (args) {
@@ -6,7 +7,7 @@ const Person = function (args) {
   }
 
   // Assests
-  this.basicBody = new this.basic.BasicBody(args)
+  this.basicBody = new BodyBasic(args)
 
   this.id = this.basic.objectCount += 1
 }

@@ -3,7 +3,6 @@ import { getRandom } from '@/helper/getRandom'
 
 import buildColors from './buildColors'
 import Color from './Color'
-import Object from './Object'
 import Person from './Person'
 import Tree from './Tree'
 import TreeFamily from './TreeFamily'
@@ -33,17 +32,14 @@ const getBuilder = (init) => {
 
   const backgroundColor = new Color(IF() ? 1 : 0, 5)
 
-  Object.prototype.IF = IF
-
-  Object.prototype.GR = GR
-
-  Object.prototype.R = R
-
-  Object.prototype.basic = { objectCount: 0 }
-
-  Object.prototype.pushLinkList = pushLinkList
-
-  Object.prototype.hoverChangerStandard = hoverChangerStandard
+  const state = {
+    IF,
+    GR,
+    R,
+    basic: { objectCount: 0 },
+    pushLinkList,
+    hoverChangerStandard,
+  }
 
   return {
     IF,
@@ -59,6 +55,7 @@ const getBuilder = (init) => {
       nextColor: true,
       brSet: 0,
     }),
+    state,
     Color,
     colorInfo,
     hoverChangerStandard,

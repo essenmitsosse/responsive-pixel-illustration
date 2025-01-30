@@ -1,26 +1,27 @@
 import { mult, sub } from '@/helper/helperDim'
 
-import Object from './Object'
 import Shield from './Shield'
 import ShoulderPad from './ShoulderPad'
 import Sword from './Sword'
 
-const Arm = function (args) {
-  // Form & Sizes
-  this.armSX = this.IF(0.8) ? 0.04 : this.R(0, 0.1)
+const Arm = function (args, state) {
+  this.state = state
 
-  this.armSY = this.R(0.4, 0.6)
+  // Form & Sizes
+  this.armSX = state.IF(0.8) ? 0.04 : state.R(0, 0.1)
+
+  this.armSY = state.R(0.4, 0.6)
 
   if (args.demo && args.arm) {
     this.armSY = args.arm
   }
 
-  this.upperArmSY = this.R(0.2, 0.8)
+  this.upperArmSY = state.R(0.2, 0.8)
 
-  this.sleeves = args.sleeves = !args.topless && this.IF(0.95)
+  this.sleeves = args.sleeves = !args.topless && state.IF(0.95)
 
   if (this.sleeves) {
-    this.sleeveSY = this.R(0, 1)
+    this.sleeveSY = state.R(0, 1)
 
     this.upperSleeveSY =
       this.upperArmSY > this.sleeveSY ? this.sleeveSY : 'full'
@@ -31,7 +32,7 @@ const Arm = function (args) {
     this.fullUpper = this.upperSleeveSY === 'full'
   }
 
-  this.vest = args.sleeves && this.IF()
+  this.vest = args.sleeves && state.IF()
 
   this.shirt = this.sleeves && args.shirt
 
@@ -41,22 +42,22 @@ const Arm = function (args) {
   this.shirtColor = args.shirtColor
 
   // Assets
-  this.shoulderPad = this.IF(0.05) && new ShoulderPad(args)
+  this.shoulderPad = state.IF(0.05) && new ShoulderPad(args, state)
 
   this.toolLeft =
-    (args.demo || this.IF(0.1)) &&
-    (this.IF(0.5) ? new Shield(args) : new Sword(args))
+    (args.demo || state.IF(0.1)) &&
+    (state.IF(0.5) ? new Shield(args, state) : new Sword(args, state))
 
   this.toolRight =
     !args.demo &&
-    this.IF(0.1) &&
-    (this.IF(0.5) ? new Shield(args, true) : new Sword(args, true))
+    state.IF(0.1) &&
+    (state.IF(0.5)
+      ? new Shield(args, state, true)
+      : new Sword(args, state, true))
 
   this.headGear = args.headGear
 }
 // END Arm
-
-Arm.prototype = new Object()
 
 Arm.prototype.draw = function (args, rightSide, behind) {
   const name = rightSide ? 'right' : 'left'
@@ -83,66 +84,72 @@ Arm.prototype.draw = function (args, rightSide, behind) {
   }
 
   if (args.calc) {
-    args.armSX = this.pushLinkList({
+    args.armSX = this.state.pushLinkList({
       r: this.armSX,
       useSize: args.personHalfSX,
       min: 1,
     })
 
-    args.armBasicSY = this.pushLinkList({ r: 1, useSize: args.fullBodySY })
+    args.armBasicSY = this.state.pushLinkList({
+      r: 1,
+      useSize: args.fullBodySY,
+    })
 
-    args.armSY = this.pushLinkList({
+    args.armSY = this.state.pushLinkList({
       r: this.armSY,
       useSize: args.armBasicSY,
     })
 
-    args.shoulderSX = this.pushLinkList([args.armSX])
+    args.shoulderSX = this.state.pushLinkList([args.armSX])
 
-    args.shoulderSY = this.pushLinkList({
+    args.shoulderSY = this.state.pushLinkList({
       r: 1,
       useSize: args.armSX,
       min: 1,
       max: args.chestSY,
     })
 
-    args.shoulderFullSX = this.pushLinkList([
+    args.shoulderFullSX = this.state.pushLinkList([
       mult(args.sideView ? 2 : 1, args.shoulderSX),
       args.chestSX,
     ])
 
-    args.handSX = this.pushLinkList({
+    args.handSX = this.state.pushLinkList({
       add: [args.armSX, 1],
       min: 1,
       max: { r: 0.1, useSize: args.personHalfSX },
     })
 
-    args.handHalfNegSX = this.pushLinkList({
+    args.handHalfNegSX = this.state.pushLinkList({
       r: -0.5,
       useSize: args.handSX,
     })
 
-    args.upperArmSY = this.pushLinkList({
+    args.upperArmSY = this.state.pushLinkList({
       r: this.upperArmSY,
       useSize: args.armSY,
     })
 
-    args.lowerArmSY = this.pushLinkList([args.armSY, sub(args.upperArmSY)])
+    args.lowerArmSY = this.state.pushLinkList([
+      args.armSY,
+      sub(args.upperArmSY),
+    ])
 
     if (this.sleeves) {
       if (!this.fullUpper) {
-        args.upperSleeveSY = this.pushLinkList({
+        args.upperSleeveSY = this.state.pushLinkList({
           r: this.upperSleeveSY,
           useSize: args.armSY,
         })
       } else {
-        args.lowerSleeveSY = this.pushLinkList({
+        args.lowerSleeveSY = this.state.pushLinkList({
           r: this.lowerSleeveSY,
           useSize: args.armSY,
         })
       }
     }
 
-    this.hoverChangerStandard.push({
+    this.state.hoverChangerStandard.push({
       min: 0.3,
       max: 2.5,
       map: 'arm-length',
@@ -150,7 +157,7 @@ Arm.prototype.draw = function (args, rightSide, behind) {
     })
   }
 
-  args['armHalfSX' + nrName] = this.pushLinkList({
+  args['armHalfSX' + nrName] = this.state.pushLinkList({
     r: renderFromRight ? 0.49 : 0.51,
     useSize: args.armSX,
     max: {
@@ -160,44 +167,44 @@ Arm.prototype.draw = function (args, rightSide, behind) {
     },
   })
 
-  args['upperArmX' + nrName] = this.pushLinkList({
+  args['upperArmX' + nrName] = this.state.pushLinkList({
     r: Math.sin(shoulderAngle),
     useSize: args.upperArmSY,
   })
 
-  args['upperArmY' + nrName] = this.pushLinkList({
+  args['upperArmY' + nrName] = this.state.pushLinkList({
     r: Math.cos(shoulderAngle),
     useSize: args.upperArmSY,
   })
 
-  args['lowerArmX' + nrName] = this.pushLinkList({
+  args['lowerArmX' + nrName] = this.state.pushLinkList({
     r: Math.sin(armAngle),
     useSize: args.lowerArmSY,
   })
 
-  args['lowerArmY' + nrName] = this.pushLinkList({
+  args['lowerArmY' + nrName] = this.state.pushLinkList({
     r: Math.cos(armAngle),
     useSize: args.lowerArmSY,
   })
 
   if (this.sleeves) {
     if (!this.fullUpper) {
-      args['upperSleeveX' + nrName] = this.pushLinkList({
+      args['upperSleeveX' + nrName] = this.state.pushLinkList({
         r: Math.sin(shoulderAngle),
         useSize: args.upperSleeveSY,
       })
 
-      args['upperSleeveY' + nrName] = this.pushLinkList({
+      args['upperSleeveY' + nrName] = this.state.pushLinkList({
         r: Math.cos(shoulderAngle),
         useSize: args.upperSleeveSY,
       })
     } else {
-      args['lowerSleeveX' + nrName] = this.pushLinkList({
+      args['lowerSleeveX' + nrName] = this.state.pushLinkList({
         r: Math.sin(armAngle),
         useSize: args.lowerSleeveSY,
       })
 
-      args['lowerSleeveY' + nrName] = this.pushLinkList({
+      args['lowerSleeveY' + nrName] = this.state.pushLinkList({
         r: Math.cos(armAngle),
         useSize: args.lowerSleeveSY,
       })

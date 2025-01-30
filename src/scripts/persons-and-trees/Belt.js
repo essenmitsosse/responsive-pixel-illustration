@@ -1,21 +1,19 @@
-import Object from './Object'
-
-const Belt = function (args) {
+const Belt = function (args, state) {
   // Form & Sizes
-  this.beltSY = this.R(0.1, 0.7)
+  this.beltSY = state.R(0.1, 0.7)
 
-  this.buckle = this.IF(0.5)
+  this.buckle = state.IF(0.5)
 
-  this.buckleSX = this.R(-0.3, 1)
+  this.buckleSX = state.R(-0.3, 1)
 
-  this.strips = this.IF(0.3)
+  this.strips = state.IF(0.3)
 
   // Colors
   this.beltColor = args.beltColor || args.pantsColor.copy({ brContrast: -1 })
 
   if (this.buckle) {
     this.buckleColor = this.beltColor.copy({
-      brContrast: this.IF(0.5) ? -1 : 2,
+      brContrast: state.IF(0.5) ? -1 : 2,
     })
   }
 
@@ -26,8 +24,6 @@ const Belt = function (args) {
   // Assets
 }
 // END Belt
-
-Belt.prototype = new Object()
 
 Belt.prototype.draw = function (args, z) {
   return {

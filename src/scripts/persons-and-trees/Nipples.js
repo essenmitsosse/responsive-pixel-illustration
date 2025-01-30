@@ -1,10 +1,10 @@
-import Object from './Object'
+const Nipples = function (args, state) {
+  this.state = state
 
-const Nipples = function (args) {
   // Form & Sizes
-  this.nippleSize = this.R(0.01, 0.3)
+  this.nippleSize = state.R(0.01, 0.3)
 
-  this.nipplePos = this.R(0.15, 0.4)
+  this.nipplePos = state.R(0.15, 0.4)
 
   // Colors
   this.nippleColor = args.skinShadowColor
@@ -13,11 +13,9 @@ const Nipples = function (args) {
 }
 // END Nipples
 
-Nipples.prototype = new Object()
-
 Nipples.prototype.draw = function (args, z) {
   if (args.calc) {
-    args.nippleS = this.pushLinkList({
+    args.nippleS = this.state.pushLinkList({
       r: this.nippleSize,
       useSize: args.chestSX,
     })

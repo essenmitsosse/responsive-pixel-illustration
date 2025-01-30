@@ -7,32 +7,33 @@ import Cleavage from './Cleavage'
 import Collar from './Collar'
 import Logo from './Logo'
 import Nipples from './Nipples'
-import Object from './Object'
 import Strap from './Strap'
 import Stripes from './Stripes'
 import Suspenders from './Suspenders'
 
-const BodyUpper = function (args) {
+const BodyUpper = function (args, state) {
+  this.state = state
+
   const shirtColor = args.firstColor.getBr()
 
   // Form & Sizes
-  this.thickShoulder = (this.IF() && this.R(1.5, 4)) || 1.5
+  this.thickShoulder = (state.IF() && state.R(1.5, 4)) || 1.5
 
-  this.chestWide = this.IF(0.05)
+  this.chestWide = state.IF(0.05)
 
-  this.chestSX = (this.chestWide && this.R(1, 1.3)) || 1
+  this.chestSX = (this.chestWide && state.R(1, 1.3)) || 1
 
-  this.chestSY = (this.chestWide && this.R(0.3, 0.8)) || 1
+  this.chestSY = (this.chestWide && state.R(0.3, 0.8)) || 1
 
-  this.chestStartSY = (this.chestWide && this.R(0.1, 0.5)) || 0
+  this.chestStartSY = (this.chestWide && state.R(0.1, 0.5)) || 0
 
-  this.topless = args.topless = args.animal || this.IF(0.02)
+  this.topless = args.topless = args.animal || state.IF(0.02)
 
-  this.waist = !this.chestWide && this.IF(0.05)
+  this.waist = !this.chestWide && state.IF(0.05)
 
-  this.breast = this.IF(0.05)
+  this.breast = state.IF(0.05)
 
-  this.hanky = !this.topless && this.IF(0.02)
+  this.hanky = !this.topless && state.IF(0.02)
 
   // Colors
   this.clothColor = args.clothColor = args.topless
@@ -44,80 +45,80 @@ const BodyUpper = function (args) {
   this.skinColor = args.skinColor
 
   this.shirtColor = args.shirtColor = (
-    this.IF(0.5) ? args.secondColor : args.clothColor
+    state.IF(0.5) ? args.secondColor : args.clothColor
   ).copy({ brSet: shirtColor === 4 ? 3 : shirtColor + 1, max: 4 })
 
   // Assets
-  this.arm = new Arm(args)
+  this.arm = new Arm(args, state)
 
-  if (this.IF(0.05)) {
-    this.cape = new Cape(args)
+  if (state.IF(0.05)) {
+    this.cape = new Cape(args, state)
   }
 
-  if (this.topless && this.IF(0.8)) {
-    this.nipples = new Nipples(args)
+  if (this.topless && state.IF(0.8)) {
+    this.nipples = new Nipples(args, state)
   }
 
   if (!args.animal) {
-    if (this.IF(0.07)) {
-      this.suspenders = new Suspenders(args)
+    if (state.IF(0.07)) {
+      this.suspenders = new Suspenders(args, state)
     }
 
-    if (this.IF(0.02)) {
-      this.strap = new Strap(args)
+    if (state.IF(0.02)) {
+      this.strap = new Strap(args, state)
     }
   }
 
   if (!this.topless) {
-    if (!this.breast && !this.chestWide && this.IF(0.05)) {
-      this.stripes = new Stripes(args)
+    if (!this.breast && !this.chestWide && state.IF(0.05)) {
+      this.stripes = new Stripes(args, state)
     }
 
-    if (this.IF(0.4)) {
-      this.collar = this.IF() ? new Cleavage(args) : new Collar(args)
+    if (state.IF(0.4)) {
+      this.collar = state.IF()
+        ? new Cleavage(args, state)
+        : new Collar(args, state)
     }
 
-    if (this.IF(0.3)) {
-      this.buttons = new Buttons(args, this.clothColor)
+    if (state.IF(0.3)) {
+      this.buttons = new Buttons(args, state, this.clothColor)
     }
   }
 
-  if (this.IF(0.1)) {
-    this.logo = new Logo(args)
+  if (state.IF(0.1)) {
+    this.logo = new Logo(args, state, state)
   }
 }
 // END BodyUpper
 
-BodyUpper.prototype = new Object()
-
 BodyUpper.prototype.draw = function (args) {
   if (args.calc) {
-    args.upperBodySX = this.pushLinkList(args.personRealSX)
+    args.upperBodySX = this.state.pushLinkList(args.personRealSX)
 
-    args.chestSX = this.pushLinkList({
+    args.chestSX = this.state.pushLinkList({
       r: this.chestSX,
       useSize: args.upperBodySX,
       min: 1,
       max: [args.upperBodySX, 1],
     })
 
-    args.chestSY = this.pushLinkList({
+    args.chestSY = this.state.pushLinkList({
       r: this.chestSY,
       useSize: args.upperBodySY,
       min: 1,
     })
 
     if (this.chestWide) {
-      args.stomachSY = this.pushLinkList({
+      args.stomachSY = this.state.pushLinkList({
         add: [args.upperBodySY, sub(args.chestSY)],
       })
     }
 
-    args.trapSX = this.pushLinkList({
+    args.trapSX = this.state.pushLinkList({
       add: [args.chestSX, mult(args.sideView ? -2 : -1, args.neckSX)],
     })
 
-    args.collarSX = this.pushLinkList(this.shirt ? 1 : { a: 0 })
+    args.collarSX = this.state.pushLinkList(this.shirt ? 1 : { a: 0 })
   }
 
   return {

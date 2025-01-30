@@ -1,36 +1,34 @@
-import Object from './Object'
-
-const Hat = function (args) {
+const Hat = function (args, state) {
   // Form & Sizes
-  this.hatSY = this.R(0, 1)
+  this.hatSY = state.R(0, 1)
 
-  this.smallHat = this.IF(0.05) && this.R(0.3, 1)
+  this.smallHat = state.IF(0.05) && state.R(0.3, 1)
 
-  this.getSmaller = this.IF()
+  this.getSmaller = state.IF()
 
-  this.hatTopSX = this.getSmaller && this.R(-0.6, 1)
+  this.hatTopSX = this.getSmaller && state.R(-0.6, 1)
 
-  this.roundHat = !this.getSmaller && this.IF(0.5)
+  this.roundHat = !this.getSmaller && state.IF(0.5)
 
-  this.hatRim = this.IF(0.6)
+  this.hatRim = state.IF(0.6)
 
-  this.baseCap = this.hatRim && this.IF(0.1)
+  this.baseCap = this.hatRim && state.IF(0.1)
 
-  this.thickRim = this.hatRim && this.IF(0.3)
+  this.thickRim = this.hatRim && state.IF(0.3)
 
-  this.hatBand = this.IF(
+  this.hatBand = state.IF(
     0.3 + (this.hatRim ? 0.3 : 0) + (this.baseCap ? -0.4 : 0),
   )
 
-  this.dent = this.IF(
+  this.dent = state.IF(
     0.2 + (this.hatRim ? 0.3 : 0) + (this.baseCap ? -0.49 : 0),
   )
 
-  this.dentSX = this.dent && this.R(0, 0.5)
+  this.dentSX = this.dent && state.R(0, 0.5)
 
-  this.hatDepthY = this.R(0.1, 1) * (this.smallHat || 1)
+  this.hatDepthY = state.R(0.1, 1) * (this.smallHat || 1)
 
-  this.hatRimSY = this.hatRim && this.R(1, 2)
+  this.hatRimSY = this.hatRim && state.R(1, 2)
 
   // Colors
   this.hatColor = args.hatColor
@@ -38,11 +36,11 @@ const Hat = function (args) {
   this.hatBandColor =
     this.hatBand &&
     !this.baseCap &&
-    (this.IF(0.5) ? args.firstColor : args.secondColor).copy({
+    (state.IF(0.5) ? args.firstColor : args.secondColor).copy({
       brContrast: -1,
     })
 
-  this.hatRimColor = this.IF(this.baseCap ? 0.8 : 0.1)
+  this.hatRimColor = state.IF(this.baseCap ? 0.8 : 0.1)
     ? this.hatColor.copy({ nextColor: true, brContrast: -2 })
     : this.hatColor
 
@@ -50,11 +48,9 @@ const Hat = function (args) {
 }
 // END Hat
 
-Hat.prototype = new Object()
-
 Hat.prototype.draw = function (args) {
   // if( args.calc ) {
-  // 	args.hatDepthY = this.pushLinkList( );
+  // 	args.hatDepthY = state.pushLinkList( );
   // }
 
   return {

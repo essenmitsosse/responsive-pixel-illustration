@@ -2,19 +2,20 @@ import { mult } from '@/helper/helperDim'
 
 import Belt from './Belt'
 import Leg from './Leg'
-import Object from './Object'
 import Skirt from './Skirt'
 
-const BodyLower = function (args) {
+const BodyLower = function (args, state) {
+  this.state = state
+
   // Form & Sizes
-  this.sideSYFak = this.R(0.6, 1.6)
+  this.sideSYFak = state.R(0.6, 1.6)
 
-  this.crotchSY = this.R(1, 3)
+  this.crotchSY = state.R(1, 3)
 
-  this.wideHips = this.IF(0.05)
+  this.wideHips = state.IF(0.05)
 
   this.pantless = args.pantless =
-    args.animal || this.IF(args.skirt ? 0.4 : 0.01)
+    args.animal || state.IF(args.skirt ? 0.4 : 0.01)
 
   // Colors
   this.pantsColor = args.pantsColor = this.pantless
@@ -22,23 +23,21 @@ const BodyLower = function (args) {
     : args.secondColor
 
   // Assets
-  this.leg = new Leg(args)
+  this.leg = new Leg(args, state)
 
   this.skirt = args.skirt =
-    (args.demo || this.wideHips || this.IF(args.animal ? 0.05 : 0.15)) &&
-    new Skirt(args)
+    (args.demo || this.wideHips || state.IF(args.animal ? 0.05 : 0.15)) &&
+    new Skirt(args, state)
 
-  if (!args.animal && this.IF(0.3)) {
-    this.belt = new Belt(args)
+  if (!args.animal && state.IF(0.3)) {
+    this.belt = new Belt(args, state)
   }
 }
 // END BodyLower
 
-BodyLower.prototype = new Object()
-
 BodyLower.prototype.draw = function (args, z) {
   if (args.calc) {
-    args.lowerBodySX = this.pushLinkList(args.personRealSX)
+    args.lowerBodySX = this.state.pushLinkList(args.personRealSX)
   }
 
   this.skirt = (!args.demo || args.skirt) && this.skirt
@@ -52,7 +51,7 @@ BodyLower.prototype.draw = function (args, z) {
   }
 
   if (args.calc) {
-    args.crotchSY = this.pushLinkList({
+    args.crotchSY = this.state.pushLinkList({
       r: this.crotchSY,
       useSize: args.legSX,
       max: mult(0.4, args.lowerBodySY),

@@ -173,21 +173,27 @@ const builder = (init, slide, createSlider) => {
 
     const Tree1Family =
       !showPerson &&
-      new TreeFamily({
-        color: builder.backgroundColor,
-        secondColor: builder.backgroundColor.copy({
-          next: true,
-        }),
-      })
+      new TreeFamily(
+        {
+          color: builder.backgroundColor,
+          secondColor: builder.backgroundColor.copy({
+            next: true,
+          }),
+        },
+        builder.state,
+      )
 
     const Tree2Family =
       !showPerson &&
-      new TreeFamily({
-        color: builder.backgroundColor,
-        secondColor: builder.backgroundColor.copy({
-          prev: true,
-        }),
-      })
+      new TreeFamily(
+        {
+          color: builder.backgroundColor,
+          secondColor: builder.backgroundColor.copy({
+            prev: true,
+          }),
+        },
+        builder.state,
+      )
 
     while (l--) {
       drawArgs = {}
@@ -216,7 +222,11 @@ const builder = (init, slide, createSlider) => {
             sX: square,
             cX: true,
             // list: ( new Person( args ) ).draw( drawArgs )
-            list: new SingleObject(args).draw(drawArgs, 0, square),
+            list: new SingleObject(args, builder.state).draw(
+              drawArgs,
+              0,
+              square,
+            ),
           },
         ],
       })

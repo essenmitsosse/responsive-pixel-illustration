@@ -1,17 +1,16 @@
 import Buttons from './Buttons'
-import Object from './Object'
 
-const Collar = function (args) {
+const Collar = function (args, state) {
   // Form & Sizes
-  this.collarSY = this.R(0.1, 0.5)
+  this.collarSY = state.R(0.1, 0.5)
 
-  this.open = this.IF(0.2)
+  this.open = state.IF(0.2)
 
-  this.tie = this.IF()
+  this.tie = state.IF()
 
-  this.fullTie = this.open || this.IF()
+  this.fullTie = this.open || state.IF()
 
-  this.scarf = !this.tie && this.IF(0.05)
+  this.scarf = !this.tie && state.IF(0.05)
 
   // Colors
   if (this.tie) {
@@ -21,13 +20,11 @@ const Collar = function (args) {
   this.shirtColor = args.shirtColor
 
   // Assets
-  if (this.open && this.IF(0.3)) {
-    this.buttons = new Buttons(args, this.shirtColor)
+  if (this.open && state.IF(0.3)) {
+    this.buttons = new Buttons(args, state, this.shirtColor)
   }
 }
 // END Collar
-
-Collar.prototype = new Object()
 
 Collar.prototype.draw = function (args, z) {
   return {

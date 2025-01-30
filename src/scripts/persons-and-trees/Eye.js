@@ -1,34 +1,34 @@
 import { sub } from '@/helper/helperDim'
 
-import Object from './Object'
+const Eye = function (args, state) {
+  this.state = state
 
-const Eye = function (args) {
   // Form & Sizes
-  this.eyeBrow = this.IF(0.7)
+  this.eyeBrow = state.IF(0.7)
 
-  this.monoBrow = this.eyeBrow && this.IF(0.05)
+  this.monoBrow = this.eyeBrow && state.IF(0.05)
 
-  this.eyeLidsBottom = this.IF(0.7)
+  this.eyeLidsBottom = state.IF(0.7)
 
-  this.eyeLidsTop = this.IF(this.eyeBrow ? 0.3 : 0.7)
+  this.eyeLidsTop = state.IF(this.eyeBrow ? 0.3 : 0.7)
 
   this.eyeLids = this.eyeLidsBottom || this.eyeLidsTop
 
-  this.eyeRoundTop = this.IF(0.5)
+  this.eyeRoundTop = state.IF(0.5)
 
-  this.eyeRoundBottom = this.IF(0.5)
+  this.eyeRoundBottom = state.IF(0.5)
 
-  this.eyeSX = this.R(0.2, 0.4)
+  this.eyeSX = state.R(0.2, 0.4)
 
-  this.eyeSY = this.R(0.2, 3)
+  this.eyeSY = state.R(0.2, 3)
 
-  this.eyeX = this.R(0.1, 0.7) - this.eyeSX
+  this.eyeX = state.R(0.1, 0.7) - this.eyeSX
 
-  this.eyeY = this.R(-0.2, 0.3)
+  this.eyeY = state.R(-0.2, 0.3)
 
-  this.highPupil = this.IF(0.1)
+  this.highPupil = state.IF(0.1)
 
-  this.glasses = this.IF(0.02)
+  this.glasses = state.IF(0.02)
 
   // Colors
   this.skinColor = args.skinColor
@@ -46,7 +46,7 @@ const Eye = function (args) {
     : args.skinDetailColor
 
   this.glassesColor = args.skinColor.copy({
-    nextColor: this.IF(0.5),
+    nextColor: state.IF(0.5),
     brAdd: -2,
   })
 
@@ -54,46 +54,48 @@ const Eye = function (args) {
 }
 // END Eye
 
-Eye.prototype = new Object()
-
 Eye.prototype.getSizes = function (args) {
   if (args.calc) {
-    args.eyeFullSX = this.pushLinkList({
+    args.eyeFullSX = this.state.pushLinkList({
       r: this.eyeSX,
       useSize: args.headMinSX,
       max: args.headMinSX,
     })
 
-    args.eyeSX = this.pushLinkList({
+    args.eyeSX = this.state.pushLinkList({
       r: args.sideView ? 0.8 : 1,
       useSize: args.eyeFullSX,
       min: { r: 0.3, useSize: args.headMinSX, max: 1 },
     })
 
-    args.eyeSY = this.pushLinkList({
+    args.eyeSY = this.state.pushLinkList({
       r: this.eyeSX * this.eyeSY,
       useSize: args.headMinSX,
       min: { r: 0.2, useSize: args.headMinSY, max: 1 },
       max: { r: 2, useSize: args.eyeSX, a: -1 },
     })
 
-    args.eyeX = this.pushLinkList({
+    args.eyeX = this.state.pushLinkList({
       r: this.eyeX,
       useSize: args.headMinSX,
       min: 1,
     })
 
-    args.eyeY = this.pushLinkList({
+    args.eyeY = this.state.pushLinkList({
       r: this.eyeY,
       useSize: args.headMinSY,
       min: { a: 0 },
     })
 
-    args.eyeFullY = this.pushLinkList([args.eyeY, args.mouthTopY, 0.1])
+    args.eyeFullY = this.state.pushLinkList([args.eyeY, args.mouthTopY, 0.1])
 
-    args.eyeFullMaxY = this.pushLinkList([args.eyeY, args.mouthTopMaxY, 0.1])
+    args.eyeFullMaxY = this.state.pushLinkList([
+      args.eyeY,
+      args.mouthTopMaxY,
+      0.1,
+    ])
 
-    args.eyeBrowSY = this.pushLinkList({ r: 0.3, useSize: args.eyeSY })
+    args.eyeBrowSY = this.state.pushLinkList({ r: 0.3, useSize: args.eyeSY })
   }
 }
 

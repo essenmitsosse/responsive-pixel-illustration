@@ -1,26 +1,26 @@
 import { mult, sub } from '@/helper/helperDim'
 
-import Object from './Object'
+const Strap = function (args, state) {
+  this.state = state
 
-const Strap = function (args) {
   // Form & Sizes
-  this.thickness = this.R(0.01, 0.05)
+  this.thickness = state.R(0.01, 0.05)
 
   // Color
   this.strapColor =
     args.beltColor ||
-    (args.beltColor = (this.IF(0.5) ? args.firstColor : args.secondColor).copy({
-      brContrast: this.IF() ? 2 : -2,
-    }))
+    (args.beltColor = (state.IF(0.5) ? args.firstColor : args.secondColor).copy(
+      {
+        brContrast: state.IF() ? 2 : -2,
+      },
+    ))
 
   // Assets
 }
 
-Strap.prototype = new Object()
-
 Strap.prototype.draw = function (args, z) {
   if (args.calc) {
-    args.strapTickness = this.pushLinkList({
+    args.strapTickness = this.state.pushLinkList({
       r: this.thickness,
       useSize: args.personSY,
       min: 1,

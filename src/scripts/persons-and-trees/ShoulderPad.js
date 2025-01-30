@@ -1,53 +1,51 @@
 import { sub } from '@/helper/helperDim'
 
-import Object from './Object'
-
-const ShoulderPad = function (args) {
+const ShoulderPad = function (args, state) {
   // Form & Sizes
-  this.X = this.R(-1, 0)
+  this.X = state.R(-1, 0)
 
-  this.Y = this.R(-1, 0.5)
+  this.Y = state.R(-1, 0.5)
 
-  this.SX = this.R(0.1, 0.4)
+  this.SX = state.R(0.1, 0.4)
 
-  this.SY = this.R(1, 3)
+  this.SY = state.R(1, 3)
 
-  this.roundTop = this.IF(0.5)
+  this.roundTop = state.IF(0.5)
 
-  this.roundBottom = this.IF()
+  this.roundBottom = state.IF()
 
-  this.roundInner = this.IF(0.3)
+  this.roundInner = state.IF(0.3)
 
-  this.border = this.IF(0.5)
+  this.border = state.IF(0.5)
 
-  this.deko = this.IF(0.2)
+  this.deko = state.IF(0.2)
 
-  this.topDetail = this.IF(0.2)
+  this.topDetail = state.IF(0.2)
 
   if (this.topDetail) {
-    this.topDetailStrip = this.IF(0.2)
+    this.topDetailStrip = state.IF(0.2)
 
-    this.topDetailX = !this.topDetailStrip && this.R(0, 1)
+    this.topDetailX = !this.topDetailStrip && state.R(0, 1)
 
-    this.topDetailSY = this.R(0, 1)
+    this.topDetailSY = state.R(0, 1)
   }
 
   // Colors
-  this.shoulderPadColor = this.IF()
+  this.shoulderPadColor = state.IF()
     ? args.clothColor
-    : this.IF()
+    : state.IF()
       ? args.secondColor.copy({ brContrast: 1, max: 4 })
       : args.clothColor.copy({ brContrast: -1, max: 4 })
 
-  this.shoulderPadDetailColor = this.IF()
+  this.shoulderPadDetailColor = state.IF()
     ? args.clothColor
-    : this.IF()
+    : state.IF()
       ? args.secondColor.copy({ brContrast: 2, max: 4 })
       : this.shoulderPadColor.copy({ brContrast: -1, max: 4 })
 
   if (this.deko || this.topDetail) {
     this.dekoColor = (
-      this.IF(0.5) ? this.shoulderPadColor : args.secondColor
+      state.IF(0.5) ? this.shoulderPadColor : args.secondColor
     ).copy({ brContrast: 2, max: 4 })
 
     this.dekoShadowColor = this.dekoColor.copy({ brContrast: -1, max: 4 })
@@ -56,8 +54,6 @@ const ShoulderPad = function (args) {
   // Assets
 }
 // END ShoulderPad
-
-ShoulderPad.prototype = new Object()
 
 ShoulderPad.prototype.draw = function (args, z) {
   return {

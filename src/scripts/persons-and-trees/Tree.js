@@ -1,6 +1,8 @@
 import { mult, sub } from '@/helper/helperDim'
 
-const Tree = function (args) {
+const Tree = function (args, state) {
+  this.state = state
+
   if (!args) {
     args = args || {}
   }
@@ -13,31 +15,31 @@ const Tree = function (args) {
 
   this.nr = 0
 
-  this.id = this.basic.objectCount += 1
+  this.id = state.objectCount += 1
 
   // Sizes & Forms
-  this.crookedY = (this.crooked && this.R(0.2, 0.9)) || undefined
+  this.crookedY = (this.crooked && state.R(0.2, 0.9)) || undefined
 
-  this.crookedSX = this.crooked && this.R(1, 4)
+  this.crookedSX = this.crooked && state.R(1, 4)
 
-  this.reflectCrookedTrunk = this.IF(0.5)
+  this.reflectCrookedTrunk = state.IF(0.5)
 
-  this.foliageSX = this.R(0.2, 0.6)
+  this.foliageSX = state.R(0.2, 0.6)
 
-  this.foliageSY = this.R(0, 0.2) * (1 - this.minFoliagePos) + 0.2
+  this.foliageSY = state.R(0, 0.2) * (1 - this.minFoliagePos) + 0.2
 
-  this.trunkSX = this.R(0.02, 0.1)
+  this.trunkSX = state.R(0.02, 0.1)
 
-  this.leaveChange = this.R(0, 1)
+  this.leaveChange = state.R(0, 1)
 
   this.random = [
-    this.R(0, 1),
-    this.R(0, 1),
-    this.R(0, 1),
-    this.R(0, 1),
-    this.R(0, 1),
-    this.R(0, 1),
-    this.R(0, 1),
+    state.R(0, 1),
+    state.R(0, 1),
+    state.R(0, 1),
+    state.R(0, 1),
+    state.R(0, 1),
+    state.R(0, 1),
+    state.R(0, 1),
   ]
 
   // this.branches = this.addBranches( args, true, true, this.branchCount, 1 );
@@ -45,8 +47,6 @@ const Tree = function (args) {
   // Copy
 }
 // END Tree
-
-Tree.prototype = new Object()
 
 Tree.prototype.draw = function (args, z, size) {
   const code = (this.code = this.id + '_' + (this.nr += 1))
@@ -57,25 +57,25 @@ Tree.prototype.draw = function (args, z, size) {
 
   args.treeSqu = size
 
-  args.foliageSX = this.pushLinkList({
+  args.foliageSX = this.state.pushLinkList({
     r: this.foliageSX,
     useSize: args.treeSqu,
     min: 1,
   })
 
-  args.foliageSY = this.pushLinkList({
+  args.foliageSY = this.state.pushLinkList({
     r: this.foliageSY,
     useSize: args.foliageSX,
     min: 1,
   })
 
-  args.trunkSX = this.pushLinkList({
+  args.trunkSX = this.state.pushLinkList({
     r: this.trunkSX,
     useSize: args.treeSqu,
     min: 1,
   })
 
-  args.topTrunk = this.pushLinkList({
+  args.topTrunk = this.state.pushLinkList({
     r: this.crookedY,
     useSize: args.treeSqu,
   })

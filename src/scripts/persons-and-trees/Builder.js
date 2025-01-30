@@ -35,15 +35,13 @@ const Builder = function (init) {
 
   this.backgroundColor = new Color(this.IF() ? 1 : 0, 5)
 
-  this.objectCount = 0
-
   Object.prototype.IF = this.IF
 
   Object.prototype.GR = this.GR
 
   Object.prototype.R = this.R
 
-  Object.prototype.basic = this
+  Object.prototype.basic = { objectCount: 0 }
 
   Object.prototype.pushLinkList = pushLinkList
 

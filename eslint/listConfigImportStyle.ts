@@ -1,5 +1,4 @@
 import typescript from '@typescript-eslint/eslint-plugin'
-// @ts-expect-error - currently no types for this package
 import importPlugin from 'eslint-plugin-import'
 
 import type { Linter } from 'eslint'

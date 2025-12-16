@@ -1,4 +1,3 @@
-// @ts-expect-error - currently no types for this package
 import importPlugin from 'eslint-plugin-import'
 import unusedImportPlugin from 'eslint-plugin-unused-imports'
 

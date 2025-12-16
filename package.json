@@ -29,7 +29,7 @@
     "@eslint/js": "^9.16.0",
     "@playwright/test": "^1.49.0",
     "@stylistic/eslint-plugin-ts": "^3.0.0",
-    "@types/node": "^22.9.4",
+    "@types/node": "^25.0.2",
     "@typescript-eslint/eslint-plugin": "^8.18.0",
     "@typescript-eslint/parser": "^8.18.0",
     "dependency-cruiser": "^17.3.4",

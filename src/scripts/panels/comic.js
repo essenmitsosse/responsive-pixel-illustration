@@ -24,9 +24,6 @@ export const Comic = function (init) {
 
   const bigPanel = panels % 2 !== 0 && (this.IF(0.5) ? 0 : panels - 1)
   const panelsCalc = bigPanel !== false ? panels + 1 : panels
-
-  let i = 0
-
   const border = this.R(0.01, 0.04)
   const gutter = this.R(0.02, 0.05)
   const horRatio = this.R(1.1, 2)
@@ -187,7 +184,7 @@ export const Comic = function (init) {
 
   const panel = new this.basic.Panel(args)
 
-  for (i = 0; i < panelsCalc; i += 1) {
+  for (let i = 0; i < panelsCalc; i += 1) {
     list.push(
       panel.draw({
         i,

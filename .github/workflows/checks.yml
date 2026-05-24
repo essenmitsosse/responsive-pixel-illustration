@@ -24,15 +24,8 @@ jobs:
         run: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install --prefer-offline --ignore-scripts
       - name: Run Prettier
         run: npm run prettierCheck
-      - name: Check file are up-to-date
-        shell: bash
-        run: |
-          if [ -n "$(git status --porcelain)" ]; then
-            echo "ERROR: Git tree is dirty. That means some files are not up-to-date. Update the files manually and commit them."
-            echo
-            git status --porcelain
-            exit 1
-          fi
+      - name: Check files are up-to-date
+        uses: ./.github/actions/checkFileChanges
 
   lint:
     name: 👔 ESLint

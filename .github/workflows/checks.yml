@@ -135,7 +135,7 @@ jobs:
           commit_message: |
             🤖📸 UPDATE SCREENSHOTS
 
-            PLEASE MERGE THIS COMMIT MANUALLY INTO THE ON THAT CAUSED IT
+            PLEASE MERGE THIS COMMIT MANUALLY INTO THE ONE THAT CAUSED IT
           file_pattern: 'tests/*'
       - name: Find screenshot Comment
         uses: peter-evans/find-comment@v3

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --port 8000",
     "build": "vite build",
-    "ts": "tsc",
+    "ts": "tsgo",
     "lint": "eslint . --max-warnings 0 --cache",
     "play": "playwright test",
     "preview": "vite preview",
@@ -33,6 +33,7 @@
     "@types/node": "^25.0.2",
     "@typescript-eslint/eslint-plugin": "^8.18.0",
     "@typescript-eslint/parser": "^8.18.0",
+    "@typescript/native-preview": "^7.0.0-dev.20260524.1",
     "dependency-cruiser": "^17.3.4",
     "eslint": "^10.4.0",
     "eslint-plugin-import-x": "^4.16.2",

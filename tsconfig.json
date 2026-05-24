@@ -23,9 +23,8 @@
     "noUncheckedIndexedAccess": true,
 
     /* Importing */
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": [

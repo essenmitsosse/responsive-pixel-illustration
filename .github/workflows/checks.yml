@@ -16,6 +16,12 @@ jobs:
         uses: actions/checkout@v6
       - name: Setup
         uses: ./.github/actions/setup
+      - name: Restore Prettier cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules/.cache/prettier/.prettier-cache
+          key: prettier-${{ github.run_id }}
+          restore-keys: prettier-
       - name: Run Prettier
         run: npm run prettierCheck
       - name: Check files are up-to-date

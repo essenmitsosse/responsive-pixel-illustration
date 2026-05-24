@@ -10,8 +10,8 @@
     "lint": "eslint . --max-warnings 0 --cache",
     "play": "playwright test",
     "preview": "vite preview",
-    "prettier": "prettier --write .",
-    "prettierCheck": "prettier --check .",
+    "prettier": "prettier --write . --cache",
+    "prettierCheck": "prettier --check . --cache",
     "dep": "dependency-cruiser src/main.ts --output-type dot | dot -T svg > dependency-graph.svg",
     "knip": "knip"
   },

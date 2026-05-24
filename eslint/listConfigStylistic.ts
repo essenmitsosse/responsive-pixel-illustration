@@ -1,4 +1,4 @@
-import stylistic from '@stylistic/eslint-plugin-ts'
+import stylistic from '@stylistic/eslint-plugin'
 
 import type { Linter } from 'eslint'
 

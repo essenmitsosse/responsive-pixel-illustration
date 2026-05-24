@@ -14,14 +14,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-      - name: Set up Node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: '.nvmrc'
-          cache: 'npm'
-          # Install NPM dependencies, but not via `ci`, so the `package-lock.json` would be updated if it is not up-to-date
-      - name: Install NPM dependencies
-        run: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install --prefer-offline --ignore-scripts
+      - name: Setup
+        uses: ./.github/actions/setup
       - name: Run Prettier
         run: npm run prettierCheck
       - name: Check files are up-to-date
@@ -34,13 +28,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-      - name: Set up Node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: '.nvmrc'
-          cache: 'npm'
-      - name: Install NPM dependencies
-        run: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm ci --prefer-offline --ignore-scripts
+      - name: Setup
+        uses: ./.github/actions/setup
       - name: Run ESLint
         run: npm run lint
 
@@ -51,13 +40,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-      - name: Set up Node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: '.nvmrc'
-          cache: 'npm'
-      - name: Install NPM dependencies
-        run: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm ci --prefer-offline --ignore-scripts
+      - name: Setup
+        uses: ./.github/actions/setup
       - name: Run Knip
         run: npm run knip
       - name: Run Knip in strict production mode
@@ -70,13 +54,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-      - name: Set up Node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: '.nvmrc'
-          cache: 'npm'
-      - name: Install NPM dependencies
-        run: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm ci --prefer-offline --ignore-scripts
+      - name: Setup
+        uses: ./.github/actions/setup
       - name: Check TypeScript
         run: npm run ts
 
@@ -86,13 +65,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - name: Set up Node
+        uses: actions/setup-node@v6
         with:
           node-version-file: '.nvmrc'
-          cache: 'npm'
+          package-manager-cache: false
       - name: Get installed Playwright version
         id: playwright-version
         run: echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package-lock.json').packages['node_modules/@playwright/test'].version)")" >> $GITHUB_ENV
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('package-lock.json') }}
+      - name: Install NPM dependencies
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: npm ci
+        shell: bash
       - name: Cache playwright binaries
         id: playwright-cache
         uses: actions/cache@v5
@@ -100,8 +90,6 @@ jobs:
           path: |
             ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
-      - name: Install dependencies
-        run: npm ci
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
         if: steps.playwright-cache.outputs.cache-hit != 'true'

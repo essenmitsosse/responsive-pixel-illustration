@@ -49,7 +49,7 @@
     "vite": "^8.0.14"
   },
   "dependencies": {
-    "@vercel/analytics": "^1.4.1"
+    "@vercel/analytics": "^2.0.1"
   },
   "engines": {
     "node": "24"

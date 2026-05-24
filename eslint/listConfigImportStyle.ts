@@ -1,5 +1,5 @@
 import typescript from '@typescript-eslint/eslint-plugin'
-import importPlugin from 'eslint-plugin-import'
+import importPlugin from 'eslint-plugin-import-x'
 
 import type { Linter } from 'eslint'
 

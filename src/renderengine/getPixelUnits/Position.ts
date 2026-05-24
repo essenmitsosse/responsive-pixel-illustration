@@ -170,7 +170,7 @@ class Axis {
   }
 }
 
-export class AxisX extends Axis {
+class AxisX extends Axis {
   constructor(args: ArgsAxis, state: State) {
     super(Width, DistanceX, args, state)
   }
@@ -180,7 +180,7 @@ export class AxisX extends Axis {
   }
 }
 
-export class AxisY extends Axis {
+class AxisY extends Axis {
   constructor(args: ArgsAxis, state: State) {
     super(Height, DistanceY, args, state)
   }

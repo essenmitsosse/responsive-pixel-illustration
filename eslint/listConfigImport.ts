@@ -1,4 +1,4 @@
-import importPlugin from 'eslint-plugin-import'
+import importPlugin from 'eslint-plugin-import-x'
 import unusedImportPlugin from 'eslint-plugin-unused-imports'
 
 import type { Linter } from 'eslint'

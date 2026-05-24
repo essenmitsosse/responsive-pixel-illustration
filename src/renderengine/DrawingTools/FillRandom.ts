@@ -118,9 +118,6 @@ class FillRandom extends Fill {
     const random = this.random().one
 
     let odd = true
-    let randSize = 0
-    let randWidth = 0
-    let randHeight = 0
 
     if (count === Infinity || array === false) {
       return
@@ -133,16 +130,17 @@ class FillRandom extends Fill {
         (typeof sizeRandom === 'number' && sizeRandom > 0))
     ) {
       while (count-- > 0) {
-        let w =
-          width +
-          (randWidth =
-            (widthRandom ? Math.floor(widthRandom * random()) : 0) +
-            (randSize = sizeRandom ? Math.floor(sizeRandom * random()) : 0))
+        const randSize = sizeRandom ? Math.floor(sizeRandom * random()) : 0
 
-        const realHeight =
-          height +
-          (randHeight =
-            (heightRandom ? Math.floor(heightRandom * random()) : 0) + randSize)
+        const randWidth =
+          (widthRandom ? Math.floor(widthRandom * random()) : 0) + randSize
+
+        let w = width + randWidth
+
+        const randHeight =
+          (heightRandom ? Math.floor(heightRandom * random()) : 0) + randSize
+
+        const realHeight = height + randHeight
 
         odd = !odd
 

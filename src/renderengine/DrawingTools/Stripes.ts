@@ -191,8 +191,8 @@ class Stripes extends Obj {
     }
 
     let stripWidth = this.stripWidth.getReal()
-    let gapWidth = this.gapWidth.getReal()
 
+    const gapWidth = this.gapWidth.getReal()
     const size = this.horizontal ? dimensions.height : dimensions.width
 
     let singleSX = gapWidth + stripWidth
@@ -203,8 +203,6 @@ class Stripes extends Obj {
       singleSX = Math.floor(size / Math.floor(size / singleSX))
 
       stripWidth = Math.round(singleSX / ratio)
-
-      gapWidth = singleSX - stripWidth
     }
 
     const lengthChange = this.lengthChange ? this.lengthChange.getReal() : 0

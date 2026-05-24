@@ -1173,8 +1173,6 @@ getStory.prototype.getStoryFrameWork = function (totalPanelCount) {
   // get the relative Length for each Arc
   count = 0
 
-  count = 0
-
   while (count < arcLength) {
     mainSteps[count].relLength = mainSteps[count].lengthAbs / totalArcLength
 

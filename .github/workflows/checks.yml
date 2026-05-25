@@ -35,7 +35,7 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
       - name: Restore Prettier cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: node_modules/.cache/prettier/.prettier-cache
           key: prettier-${{ github.run_id }}
@@ -55,7 +55,7 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
       - name: Restore ESLint cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .eslintcache
           key: eslint-${{ github.run_id }}
@@ -73,7 +73,7 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
       - name: Restore Knip cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: node_modules/.cache/knip
           key: knip-${{ github.run_id }}
@@ -111,7 +111,7 @@ jobs:
         run: echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package-lock.json').packages['node_modules/@playwright/test'].version)")" >> $GITHUB_ENV
       - name: Cache node_modules
         id: cache-node-modules
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: node_modules
           key: node-modules-${{ hashFiles('package-lock.json') }}

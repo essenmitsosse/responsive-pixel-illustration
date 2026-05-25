@@ -71,8 +71,6 @@ const playwrightConfig = defineConfig({
         reuseExistingServer: true,
         url: 'http://localhost:8000/',
       },
-  /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
 })
 
 export default playwrightConfig

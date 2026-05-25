@@ -1,0 +1,32 @@
+name: Setup Node and dependencies
+description: Checkout, set up Node, cache and install node_modules
+
+inputs:
+  skip-install:
+    description: Skip the install step (e.g. when the job needs a different install command)
+    required: false
+    default: 'false'
+
+outputs:
+  cache-hit:
+    description: Whether node_modules were restored from cache
+    value: ${{ steps.cache-node-modules.outputs.cache-hit }}
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Node
+      uses: actions/setup-node@v6
+      with:
+        node-version-file: '.nvmrc'
+        package-manager-cache: false
+    - name: Cache node_modules
+      id: cache-node-modules
+      uses: actions/cache@v5
+      with:
+        path: node_modules
+        key: node-modules-${{ hashFiles('package-lock.json') }}
+    - name: Install NPM dependencies
+      if: inputs.skip-install != 'true' && steps.cache-node-modules.outputs.cache-hit != 'true'
+      run: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm ci --ignore-scripts
+      shell: bash

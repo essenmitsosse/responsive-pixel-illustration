@@ -1,0 +1,15 @@
+name: Check files are up-to-date
+description: Looks for any tracked files that have been changed and fails if any are found
+
+runs:
+  using: composite
+  steps:
+    - name: Check files are up-to-date
+      shell: bash
+      run: |
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "ERROR: Git tree is dirty. That means some files are not up-to-date. Update the files manually and commit them."
+          echo
+          git status --porcelain
+          exit 1
+        fi

@@ -40,3 +40,6 @@ cypress/screenshotsComponentLocal
 
 # dependency cruiser output
 dependency-graph.svg
+
+# cache
+.eslintcache

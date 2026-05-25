@@ -25,7 +25,10 @@
     /* Importing */
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+
+    /* Incremental compilation (caching) */
+    "incremental": true
   },
   "include": [
     "src",
